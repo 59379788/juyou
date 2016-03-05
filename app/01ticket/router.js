@@ -2,6 +2,7 @@
  * 子模块路由
  * dlq
  */
+
 var router = function($urlRouterProvider, $stateProvider){
 
  	$stateProvider
@@ -9,7 +10,8 @@ var router = function($urlRouterProvider, $stateProvider){
       .state('app.ticketlist', {
         url: '/ticketlist',
         title: 'ticketlist',
-        templateUrl: 'app/01ticket/views/list.html'
+        //templateUrl: 'app/01ticket/views/list.html'
+        template: require('./views/list.html')
       })
 
       //消票
@@ -17,7 +19,8 @@ var router = function($urlRouterProvider, $stateProvider){
         url: '/ticketinput',
         title: 'ticketinput',
         controller: 'check',
-        templateUrl: 'app/01ticket/views/input.html',
+        //templateUrl: 'app/01ticket/views/input.html',
+        template: require('./views/input.html'),
         resolve:{
 	        checkcode:  function(service){
 	            return service.checkcode();

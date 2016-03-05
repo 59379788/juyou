@@ -13,6 +13,7 @@ require('./style/app.css');
 
 //=================[ 子模块加载 ]===========================//
 
+require('./00dashboard/app');
 require('./01ticket/app');
 
 //=================[ 子模块加载 ]===========================//
@@ -27,6 +28,7 @@ angular.module('constant', [])
 //=================[ 主模块 ]==============================//
 
 var App = angular.module('juyouApp', [
+    'dashboard',
     'ticket',
     'ui.router'
 ]);
@@ -39,14 +41,9 @@ App.config(['$urlRouterProvider', '$stateProvider',
 
  	$stateProvider
  	  .state('app', {
-        url: '/app',
-        abstract: true,
-        templateUrl: 'app/99common/app.html'
-    })
-    .state('app.dashboard', {
-      url: '/dashboard',
-      title: 'Dashboard',
-      templateUrl: 'app/00dashboard/views/main.html'
+      url: '/app',
+      abstract: true,
+      template : require('./99common/app.html')
     })
 
 }]);

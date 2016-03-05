@@ -67,6 +67,7 @@
 	//=================[ 子模块加载 ]===========================//
 
 	__webpack_require__(11);
+	__webpack_require__(14);
 
 	//=================[ 子模块加载 ]===========================//
 
@@ -80,6 +81,7 @@
 	//=================[ 主模块 ]==============================//
 
 	var App = angular.module('juyouApp', [
+	    'dashboard',
 	    'ticket',
 	    'ui.router'
 	]);
@@ -94,13 +96,15 @@
 	 	  .state('app', {
 	        url: '/app',
 	        abstract: true,
-	        templateUrl: 'app/99common/app.html'
+	        //templateUrl: 'app/99common/app.html'
+	        template : __webpack_require__(20)
+
 	    })
-	    .state('app.dashboard', {
-	      url: '/dashboard',
-	      title: 'Dashboard',
-	      templateUrl: 'app/00dashboard/views/main.html'
-	    })
+	    // .state('app.dashboard', {
+	    //   url: '/dashboard',
+	    //   title: 'Dashboard',
+	    //   templateUrl: 'app/00dashboard/views/main.html'
+	    // })
 
 	}]);
 
@@ -36234,27 +36238,79 @@
 	 * dlq
 	 */
 
-	var App = angular.module('ticket', [
+	var App = angular.module('dashboard', [
 	    'ui.router',
 	    'ngResource',
 	    'constant'
 	]);
 
 	App.config(__webpack_require__(12));
-	App.factory('service', __webpack_require__(13));
-	App.controller('check',__webpack_require__(14));
+	//App.factory('service', require('./service'));
+
 
 
 	module.exports = App;
 
 /***/ },
 /* 12 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * 子模块路由
 	 * dlq
 	 */
+
+	var router = function($urlRouterProvider, $stateProvider){
+
+	 	$stateProvider
+
+	    .state('app.dashboard', {
+	      url: '/dashboard',
+	      title: 'Dashboard',
+	      template: __webpack_require__(13)
+	    })
+
+	};
+
+	module.exports = router;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	module.exports = "dashboard-main.html1111"
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * 子模块入口
+	 * dlq
+	 */
+
+	var App = angular.module('ticket', [
+	    'ui.router',
+	    'ngResource',
+	    'constant'
+	]);
+
+	App.config(__webpack_require__(15));
+	App.factory('service', __webpack_require__(18));
+	App.controller('check',__webpack_require__(19));
+
+
+	module.exports = App;
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * 子模块路由
+	 * dlq
+	 */
+
 	var router = function($urlRouterProvider, $stateProvider){
 
 	 	$stateProvider
@@ -36262,7 +36318,8 @@
 	      .state('app.ticketlist', {
 	        url: '/ticketlist',
 	        title: 'ticketlist',
-	        templateUrl: 'app/01ticket/views/list.html'
+	        //templateUrl: 'app/01ticket/views/list.html'
+	        template: __webpack_require__(16)
 	      })
 
 	      //消票
@@ -36270,7 +36327,8 @@
 	        url: '/ticketinput',
 	        title: 'ticketinput',
 	        controller: 'check',
-	        templateUrl: 'app/01ticket/views/input.html',
+	        //templateUrl: 'app/01ticket/views/input.html',
+	        template: __webpack_require__(17),
 	        resolve:{
 		        checkcode:  function(service){
 		            return service.checkcode();
@@ -36289,7 +36347,19 @@
 	module.exports = router;
 
 /***/ },
-/* 13 */
+/* 16 */
+/***/ function(module, exports) {
+
+	module.exports = "list111112222221111111.html111111111"
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	module.exports = "\n\n<div class=\" col-md-4 \">\n<div class=\"panel panel-default\">\n\t<div class=\"panel-heading text-center \"><h4>测试数据</h4></div>\n\n\t<div class=\"panel-body\">\n\t\t\n\t\t90010091000 不存在 <br>\n\t\t90010091001  设备停用<br>\n\t\t90010091002  设备启用 未启用权限<br>\n\t\t90010091003  设备启用  开启权限  权限中无票种<br>\n\t\t90010091004   设备启用  开启权限  权限包含票种<br>\n\n\t\t<hr>\n\n\t\t210302198308022412<br>\n\n\n\t</div>\n</div>\n</div>\n\n\n<div class=\" col-md-8 \">\n<div class=\"panel panel-default\">\n\t<div class=\"panel-heading text-center \"><h4>智慧景区验票系统</h4></div>\n\n\t<div class=\"panel-body\">\n\t\t<form class=\"form-horizontal\">\n\t\t<div class=\"form-group mt10\">\n\t\t    \n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"text\" class=\"form-control\" ng-model=\"device\" placeholder=\"输入设备码\">\n\t\t    </div>\n\n\t\t  </div>\n\n\t\t  <div class=\"form-group\">\n\t\t    \n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"text\" class=\"form-control\" ng-model=\"code\" placeholder=\"输入票码\">\n\t\t    </div>\n\n\t\t    <div class=\"col-sm-3\">\n\t\t    \t<button type=\"button\" \n\t\t    \tclass=\"btn btn-default btn-block\"\n\t\t    \tng-click=\"check()\">确定</button>\n\t\t    </div>\n\t\t  </div>\n\t\t  \n\t\t</form>\n\t</div>\n\n\t<table class=\"table\">\n\t    <thead>\n\t      <tr>\n\t        <th class=\"text-center col-md-6\">票种名</th>\n\t        <th class=\"text-center col-md-2\">数量</th>\n\t        <th class=\"text-center col-md-2\">消票数量</th>\n\t        <th class=\"text-center col-md-2\">操作</th>\n\t      </tr>\n\t    </thead>\n\t    <tbody>\n\t      <tr ng-repeat=\"obj in objs\">\n\t        <td class=\"text-center\">{{obj.type_name}}</td>\n\t        <td class=\"text-center\">{{obj.count}}</td>\n\t        <td><input type=\"text\" class=\"form-control input-sm\"></td>\n\t        <td class=\"text-center\">\n\t\t\t\t<button type=\"submit\" class=\"btn btn-default input-sm\">消票</button>\n\t        </td>\n\t      </tr>\n\t    </tbody>\n\t</table>\n</div>\n</div>\n"
+
+/***/ },
+/* 18 */
 /***/ function(module, exports) {
 
 	/**
@@ -36325,7 +36395,7 @@
 	module.exports = service;
 
 /***/ },
-/* 14 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, checkcode, checkcard, checkid){
@@ -36385,6 +36455,12 @@
 
 		};
 	};
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	module.exports = "<!-- top navbar-->\n<header>\n\t<nav class=\"navbar navbar-default\">\n\t  <div class=\"container-fluid\">\n\t    <!-- Brand and toggle get grouped for better mobile display -->\n\t    <div class=\"navbar-header\">\n\t      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n\t        <span class=\"sr-only\">Toggle navigation</span>\n\t        <span class=\"icon-bar\"></span>\n\t        <span class=\"icon-bar\"></span>\n\t        <span class=\"icon-bar\"></span>\n\t      </button>\n\t      <a class=\"navbar-brand\" href=\"#/\">\n\t        <img alt=\"慧鼎\" src=\"../app/img/logo.png\">\n\t      </a>\n\t    </div>\n\n\t    <!-- Collect the nav links, forms, and other content for toggling -->\n\t    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n\t      <ul class=\"nav navbar-nav\">\n\n\t        <li class=\"dropdown\" >\n\t          <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"> 消票 <span class=\"caret\"></span></a>\n\t          <ul class=\"dropdown-menu\">\n\t            <li><a ui-sref=\"app.ticketinput\">验票</a></li>\n\t            <li><a ui-sref=\"app.ticketlist\">列表</a></li>\n\t            <!-- <li><a ui-sref=\"app.ticketlist\">使用情况</a></li> -->\n\t          </ul>\n\t        </li>\n\n\t        \n\t      </ul>\n\n\t      <a href=\"manager/logout\" class=\"btn btn-danger navbar-btn navbar-right\">\n\t        Sign out\n\t      </a>\n\n\t    </div><!-- /.navbar-collapse -->\n\n\t  </div><!-- /.container-fluid -->\n\t</nav>\n</header>\n<section>\n    <div ui-view=\"\" class=\"content-wrapper\"></div>\n</section>\n<!-- Page footer-->\n<footer >\n\t<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n\t  <div class=\"container-fluid text-center mt15\">\n\t    <span class=\"glyphicon glyphicon-heart\"></span> from 慧鼎商务\n\t  </div>\n\t</nav>\n</footer>"
 
 /***/ }
 /******/ ]);
