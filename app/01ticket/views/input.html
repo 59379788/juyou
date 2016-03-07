@@ -11,7 +11,7 @@
 		90010091002  设备启用 未启用权限<br>
 		90010091003  设备启用  开启权限  权限中无票种<br>
 		90010091004   设备启用  开启权限  权限包含票种<br>
-
+		90010091005   铁岭莲花湿地
 		<hr>
 
 		210302198308022412<br>
@@ -52,7 +52,7 @@
 		</form>
 	</div>
 
-	<table class="table">
+	<!-- <table class="table">
 	    <thead>
 	      <tr>
 	        <th class="text-center col-md-6">票种名</th>
@@ -65,12 +65,19 @@
 	      <tr ng-repeat="obj in objs">
 	        <td class="text-center">{{obj.type_name}}</td>
 	        <td class="text-center">{{obj.count}}</td>
-	        <td><input type="text" class="form-control input-sm"></td>
+	        <td>
+	        	<input type="text" 
+	        	class="form-control input-sm"
+	        	ng-model="obj.usecount"
+	        	></td>
 	        <td class="text-center">
-				<button type="submit" class="btn btn-default input-sm">消票</button>
+				<button type="submit" 
+				class="btn btn-default input-sm"
+				ng-click="use($index,obj.type,obj.usecount)"
+				>消票</button>
 	        </td>
 	      </tr>
 	    </tbody>
-	</table>
+	</table> -->
 </div>
 </div>

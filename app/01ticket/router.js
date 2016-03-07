@@ -10,7 +10,6 @@ var router = function($urlRouterProvider, $stateProvider){
       .state('app.ticketlist', {
         url: '/ticketlist',
         title: 'ticketlist',
-        //templateUrl: 'app/01ticket/views/list.html'
         template: require('./views/list.html')
       })
 
@@ -19,7 +18,6 @@ var router = function($urlRouterProvider, $stateProvider){
         url: '/ticketinput',
         title: 'ticketinput',
         controller: 'check',
-        //templateUrl: 'app/01ticket/views/input.html',
         template: require('./views/input.html'),
         resolve:{
 	        checkcode:  function(service){
@@ -30,6 +28,15 @@ var router = function($urlRouterProvider, $stateProvider){
 	        },
 	        checkid:  function(service){
 	            return service.checkid();
+	        },
+	        useticketbyid:  function(service){
+	            return service.useticketbyid();
+	        },
+	        useticketbycode:  function(service){
+	            return service.useticketbycode();
+	        },
+	        useticketbycard:  function(service){
+	            return service.useticketbycard();
 	        }
      	}
       })

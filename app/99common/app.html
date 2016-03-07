@@ -17,16 +17,16 @@
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
 	      <ul class="nav navbar-nav">
 
-	        <li class="dropdown" >
-	          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 消票 <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a ui-sref="app.ticketinput">验票</a></li>
+		    <li class="dropdown" uib-dropdown >
+		      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> 消票 <span class="caret"></span></a>
+		      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+		        <li><a ui-sref="app.ticketinput">验票</a></li>
 	            <li><a ui-sref="app.ticketlist">列表</a></li>
-	            <!-- <li><a ui-sref="app.ticketlist">使用情况</a></li> -->
-	          </ul>
-	        </li>
+		      </ul>
+		    </li>
 
 	        
 	      </ul>

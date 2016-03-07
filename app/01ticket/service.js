@@ -11,6 +11,12 @@ var service = function($resource, BASEURL){
     var checkcard = url + "/queryService/byCard";
 
     var checkcode = url + "/queryService/byCode";
+
+   	var useticketbyid = url + "/destoryService/updateByID";
+
+   	var useticketbycode = url + "/destoryService/updateByCode";
+
+   	var useticketbycard = url + "/destoryService/updateByCard";
     
     return {
 
@@ -22,6 +28,15 @@ var service = function($resource, BASEURL){
         },
         checkcode : function(){
             return $resource(checkcode, {}, {});
+        },
+        useticketbyid : function(){
+        	return $resource(useticketbyid, {}, {});
+        },
+        useticketbycode : function(){
+        	return $resource(useticketbycode, {}, {});
+        },
+        useticketbycard : function(){
+        	return $resource(useticketbycard, {}, {});
         }
       
     };

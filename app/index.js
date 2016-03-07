@@ -5,8 +5,9 @@
 
 
 var angular = require('angular');
-require('angular-ui-router');
 require('angular-resource');
+require('angular-ui-router');
+require('angular-ui-bootstrap');
 require('./style/app.css');
 
 
@@ -30,6 +31,7 @@ angular.module('constant', [])
 var App = angular.module('juyouApp', [
     'dashboard',
     'ticket',
+    'ui.bootstrap',
     'ui.router'
 ]);
 

@@ -1,10 +1,16 @@
-module.exports = function($scope, checkcode, checkcard, checkid){
+module.exports = function($scope, $uibModal,
+	checkcode, checkcard, checkid, useticketbyid, useticketbycode, useticketbycard){
 
 	//票码
-	$scope.code = "";
-	//设备号
-	$scope.device = "";
+	$scope.code = "210302198308022412";
 
+	//设备号
+	$scope.device = "90010091004";
+
+	//将要
+  	var para = {};
+
+  	//查票方法
 	$scope.check = function(){
 
 		var len = $scope.code.length;
@@ -14,39 +20,20 @@ module.exports = function($scope, checkcode, checkcard, checkid){
 		//票码
 		if(len === 8)
 		{
-			console.log({"code" : $scope.code, "device" : $scope.device});
-			checkcode.get({"code" : $scope.code, "device" : $scope.device}, function(res){
-
-				console.log(res);
-			});
+			para = {"code" : $scope.code, "device" : $scope.device, "fun" : useticketbycode};
+			checkcode.get(para, oper);
 		}
 		//身份证
 		else if(len === 18)
 		{
-			console.log({"ID" : $scope.code, "device" : $scope.device});
-			checkid.get({"ID" : $scope.code, "device" : $scope.device}, function(res){
-
-				console.log(res);
-
-				if(res.errcode === 0)
-				{
-					$scope.objs = res.data;
-				}
-				else
-				{
-					alert(res.errmsg);
-				}
-			});
+			para = {"ID" : $scope.code, "device" : $scope.device, "fun" : useticketbyid};
+			checkid.get(para, oper);
 		}
 		//卡号
 		else if(len === 12)
 		{
-			console.log({"card" : $scope.code, "device" : $scope.device});
-			checkcard.get({"card" : $scope.code, "device" : $scope.device}, function(res){
-
-				console.log(res);
-
-			});
+			para = {"card" : $scope.code, "device" : $scope.device, "fun" : useticketbycard};
+			checkcard.get(para, oper);
 		}
 		else
 		{
@@ -54,4 +41,36 @@ module.exports = function($scope, checkcode, checkcard, checkid){
 		}
 
 	};
+
+	//打开模态框
+	function openticketinfo(info){
+
+		var modalInstance = $uibModal.open({
+	      template: require('../views/ticketinfo.html'),
+	      controller: 'ticketinfo',
+	      resolve: {
+	        info: function () {
+	          return info;
+	        },
+	        para : function(){
+	          return para;
+	        }
+	      }
+	    });
+	}
+
+	//查票后的通用方法
+	function oper(res) {
+		console.log(res);
+
+		if(res.errcode === 0)
+		{
+			openticketinfo(res.data.ticketList);
+		}
+		else
+		{
+			alert(res.errmsg);
+		}
+	}
+
 };
