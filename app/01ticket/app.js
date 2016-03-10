@@ -3,14 +3,12 @@
  * dlq
  */
 
-var App = angular.module('ticket', [
-    'ui.router',
-    'ngResource',
-    'constant'
-]);
+var App = angular.module('ticket', []);
 
 App.config(require('./router'));
-App.factory('service', require('./service'));
+App.factory('ticketservice', require('./service'));
+
+
 App.controller('check',require('./controllers/check'));
 App.controller('ticketinfo',require('./controllers/ticketinfo'));
 

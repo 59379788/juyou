@@ -1,5 +1,5 @@
 module.exports = function($scope, $uibModal,
-	checkcode, checkcard, checkid, useticketbyid, useticketbycode, useticketbycard){
+	checkcode, checkcard, checkid, checkgroupcode, useticketbyid, useticketbycode, useticketbycard, useticketbygroupcode){
 
 	//票码
 	$scope.code = "210302198308022412";
@@ -35,6 +35,11 @@ module.exports = function($scope, $uibModal,
 			para = {"card" : $scope.code, "device" : $scope.device, "fun" : useticketbycard};
 			checkcard.get(para, oper);
 		}
+		else if(len === 7)
+		{
+			para = {"code" : $scope.code, "device" : $scope.device, "fun" : useticketbygroupcode};
+			checkgroupcode.get(para, oper);
+		}
 		else
 		{
 			alert("位数错误");
@@ -62,9 +67,25 @@ module.exports = function($scope, $uibModal,
 	//查票后的通用方法
 	function oper(res) {
 		console.log(res);
+		console.log(angular.toJson(res));
+		console.log(angular.toJson(res,true));
 
 		if(res.errcode === 0)
 		{
+			//用票码和团票码
+			if(para.hasOwnProperty('code'))
+			{
+				res.data.ticketList = new Array();
+				var obj = new Object();
+				obj.count = res.data.ticketInfo.count;
+				obj.type = res.data.ticketInfo.type;
+				obj.type_name = res.data.ticketInfo.type_name;
+
+				console.log(obj);
+
+				res.data.ticketList.push(obj);
+			}
+
 			openticketinfo(res.data.ticketList);
 		}
 		else

@@ -28,6 +28,28 @@
 		      </ul>
 		    </li>
 
+		    <li class="dropdown" uib-dropdown >
+		      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> 设备 <span class="caret"></span></a>
+		      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+	            <li><a ui-sref="app.devicelist">设备监控</a></li>
+	            <li><a ui-sref="app.devicelist">票种设置</a></li>
+	            <li><a ui-sref="app.devicelist">刷读监控</a></li>
+		      </ul>
+		    </li>
+
+		    <li class="dropdown" uib-dropdown >
+		      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> 文档 <span class="caret"></span></a>
+		      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+	            <li><a 
+	            ui-sref="app.doc({type : 'ticket_destory'})"
+	            >消票</a></li>
+	            <li><a ui-sref="app.doc({type : 444})">设备</a></li>
+	            <li><a ui-sref="app.doc({type : 555})">文档</a></li>
+	            <!-- <li><a ui-sref="app.device">设备</a></li>
+	            <li><a ui-sref="app.doc">文档</a></li> -->
+		      </ul>
+		    </li>
+
 	        
 	      </ul>
 

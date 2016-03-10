@@ -4,7 +4,7 @@
  */
 var service = function($resource, BASEURL){
 
-	var url = BASEURL + "/tktapi/uc/te";
+	var url = BASEURL + "/tktapi/sc";
 
     var checkid = url + "/queryService/byID";
 
@@ -12,11 +12,17 @@ var service = function($resource, BASEURL){
 
     var checkcode = url + "/queryService/byCode";
 
+    var checkgroupcode = url + "/queryService/byGroupCode";
+
    	var useticketbyid = url + "/destoryService/updateByID";
 
    	var useticketbycode = url + "/destoryService/updateByCode";
 
    	var useticketbycard = url + "/destoryService/updateByCard";
+
+   	var useticketbygroupcode = url + "/destoryService/updateByGroupCode";
+
+   	
     
     return {
 
@@ -29,6 +35,9 @@ var service = function($resource, BASEURL){
         checkcode : function(){
             return $resource(checkcode, {}, {});
         },
+        checkgroupcode : function(){
+            return $resource(checkgroupcode, {}, {});
+        },
         useticketbyid : function(){
         	return $resource(useticketbyid, {}, {});
         },
@@ -37,6 +46,9 @@ var service = function($resource, BASEURL){
         },
         useticketbycard : function(){
         	return $resource(useticketbycard, {}, {});
+        },
+        useticketbygroupcode : function(){
+        	return $resource(useticketbygroupcode, {}, {});
         }
       
     };

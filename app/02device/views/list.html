@@ -1,0 +1,37 @@
+<div class="col-md-12">
+<div class="panel panel-default">
+<table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th class="text-center col-md-1">设备类型</th>
+        <th class="text-center col-md-1">状态</th>
+        <th class="text-center col-md-1">备注</th>
+        <th class="text-center col-md-2">设备号</th>
+        <th class="text-center col-md-1">今日累计</th>
+        <th class="text-center col-md-4">配置票种</th>
+        <th class="text-center col-md-2">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.type}}</td>
+        <td class="text-center">{{obj.state}}</td>
+        <td class="text-center">{{obj.remarks}}</td>
+        <td class="text-center">{{obj.code}}</td>
+        <td class="text-center">{{obj.total}}</td>
+        <td></td>
+        <td class="text-center">
+            <button type="submit" 
+            class="btn btn-default input-sm"
+            ng-click="configurationticket(obj.type,obj.usecount)"
+            >配置票种</button>
+            <button type="submit" 
+            class="btn btn-default input-sm"
+            ng-click="use(obj.type,obj.usecount)"
+            >停用</button>
+        </td>
+      </tr>
+    </tbody>
+</table>
+</div>
+</div>

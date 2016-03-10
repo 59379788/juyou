@@ -13,32 +13,37 @@ var router = function($urlRouterProvider, $stateProvider){
         template: require('./views/list.html')
       })
 
-      //消票
       .state('app.ticketinput', {
         url: '/ticketinput',
         title: 'ticketinput',
-        controller: 'check',
+        controller : 'check',
         template: require('./views/input.html'),
-        resolve:{
-	        checkcode:  function(service){
-	            return service.checkcode();
+        resolve : {
+        	checkcode:  function(ticketservice){
+	     		return ticketservice.checkcode();
+	     	},
+			checkcard:  function(ticketservice){
+	            return ticketservice.checkcard();
 	        },
-	        checkcard:  function(service){
-	            return service.checkcard();
+	        checkid:  function(ticketservice){
+	            return ticketservice.checkid();
 	        },
-	        checkid:  function(service){
-	            return service.checkid();
+	        checkgroupcode:  function(ticketservice){
+	            return ticketservice.checkgroupcode();
 	        },
-	        useticketbyid:  function(service){
-	            return service.useticketbyid();
+	        useticketbyid:  function(ticketservice){
+	            return ticketservice.useticketbyid();
 	        },
-	        useticketbycode:  function(service){
-	            return service.useticketbycode();
+	        useticketbycode:  function(ticketservice){
+	            return ticketservice.useticketbycode();
 	        },
-	        useticketbycard:  function(service){
-	            return service.useticketbycard();
+	        useticketbycard:  function(ticketservice){
+	            return ticketservice.useticketbycard();
+	        },
+	        useticketbygroupcode : function(ticketservice){
+	        	return ticketservice.useticketbygroupcode();
 	        }
-     	}
+        }
       })
 
 };

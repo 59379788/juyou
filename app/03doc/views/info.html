@@ -1,0 +1,18 @@
+<div class="panel panel-default">
+  <div class="panel-heading">{{name}}</div>
+  <div class="panel-body">
+
+  	<div ng-repeat='obj in objs'>
+  		
+  		<div ng-repeat='o in obj'>
+  		
+  			<p ng-show="o.display_type===1">{{o.text}}</p>
+
+  			<pre ng-show="o.display_type===2">{{o.text}}</pre>
+
+  		</div>
+
+  	</div>
+
+  </div>
+</div>
