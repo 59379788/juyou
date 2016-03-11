@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-info">
   <div class="panel-heading">{{name}}</div>
   <div class="panel-body">
 
@@ -6,9 +6,29 @@
   		
   		<div ng-repeat='o in obj'>
   		
-  			<p ng-show="o.display_type===1">{{o.text}}</p>
+  			<p ng-show="o.display_type==1">{{o.text}}</p>
 
-  			<pre ng-show="o.display_type===2">{{o.text}}</pre>
+  			<pre ng-show="o.display_type==2">{{o.text}}</pre>
+
+  			<div ng-show="o.display_type==0">
+  				
+  				<table class="table table-bordered">
+			      <thead>
+			        <tr>
+			          <th class="col-md-4">参数</th>
+			          <th class="col-md-8">描述</th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			        <tr ng-repeat="para in o.display_arr">    
+			          <td>{{para.k}}</td>
+			          <td>{{para.v}}</td>
+			        </tr>
+			      </tbody>
+			    </table>
+
+
+  			</div>
 
   		</div>
 

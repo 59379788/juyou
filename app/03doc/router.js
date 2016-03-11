@@ -7,6 +7,15 @@ var router = function($urlRouterProvider, $stateProvider){
 
  	$stateProvider
 
+ 	  .state('app.doccreate', {
+        url: '/doccreate',
+        controller : 'doccreate',
+        template: require('./views/module.html'),
+        resolve:{
+        	
+        }
+      })
+
  	  .state('app.doc', {
         url: '/doc/:type',
         controller : 'doc',

@@ -34,7 +34,7 @@ module.exports = function($scope, $stateParams, api){
 
 			var obj = res.data[i];
 
-			if(i === 0) $scope.name = obj.api_name;
+			if(i === 0) $scope.name = obj.text;
 
 			if(obj.text_type !== text_type)
 			{
@@ -44,6 +44,23 @@ module.exports = function($scope, $stateParams, api){
 
 				data.push(tmparray);
 
+			}
+
+			if(obj.display_type === 0)
+			{
+				var jsonobj = angular.fromJson(obj.text);
+
+				console.log(jsonobj);
+				var tt = new Array();
+				for(key in jsonobj)
+				{
+					var oo = new Object();
+					oo.k = key;
+					oo.v = jsonobj[key];
+					tt.push(oo);
+				}
+
+				obj.display_arr = tt;
 			}
 			
 			data[data.length - 1].push(obj);
