@@ -9,6 +9,14 @@ var service = function($resource, BASEURL38985){
     var group = BASEURL38985 + '/api/us/sc/apidoc/apinamelist';//?group_id=1
 
     var api = BASEURL38985 + '/api/us/sc/apidoc/apiinfolist';//?api_id=1
+
+    var insert = BASEURL38985 + '/api/us/sc/apidoc/insert';
+
+    var update = BASEURL38985 + '/api/us/sc/apidoc/update';
+
+    var getinfo = BASEURL38985 + '/api/us/sc/apidoc/get';
+
+
     
     return {
 
@@ -17,6 +25,15 @@ var service = function($resource, BASEURL38985){
         },
         api : function(){
             return $resource(api, {}, {});
+        },
+        insert : function(){
+            return $resource(insert, {}, {});
+        },
+        update : function(){
+            return $resource(update, {}, {});
+        },
+        getinfo : function(){
+            return $resource(getinfo, {}, {});
         }
       
     };

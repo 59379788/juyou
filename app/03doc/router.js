@@ -7,12 +7,28 @@ var router = function($urlRouterProvider, $stateProvider){
 
  	$stateProvider
 
+ 	  .state('app.docname', {
+        url: '/docname',
+        controller : 'name',
+        template: require('./views/name.html'),
+        resolve:{
+        	insert : function(docservice){
+        		return docservice.insert();
+        	}
+        }
+      })
+
  	  .state('app.doccreate', {
-        url: '/doccreate',
+        url: '/doccreate/:api_id',
         controller : 'doccreate',
         template: require('./views/module.html'),
         resolve:{
-        	
+        	api : function(docservice){
+        		return docservice.api();
+        	},
+        	insert : function(docservice){
+        		return docservice.insert();
+        	}
         }
       })
 

@@ -1,33 +1,73 @@
 <div class="col-md-8 col-md-offset-2">
 
-
-  <div class="panel panel-default">
-    <div class="panel-body form-horizontal">
-      <div class=" col-xs-10">
-        <input type="text" class="form-control "  placeholder="接口名称">
-      </div>
-      <div class=" col-xs-2">
-        <button type="button" class="btn btn-success btn-block" 
-        > 提交 <span class="glyphicon glyphicon-ok" ></span> </button>
-      </div>
-     </div>
-  </div>
-
-
 <div class="panel panel-default">
 
   <div class="panel-body">
 
-  	<div ng-repeat='obj in objs'>
-  		
+  	<div ng-repeat='obj in objs' class="row">
+
+      <div ng-switch on='$index' class="col-md-12">
+        <div ng-switch-when='0' ng-show="obj.length > 0">
+          <Strong>接口名称</Strong><hr>
+        </div>
+        <div ng-switch-when='1' ng-show="obj.length > 0">
+          <Strong>接口介绍</Strong><hr>
+        </div>
+        <div ng-switch-when='2' ng-show="obj.length > 0">
+          <Strong>接口调用请求说明</Strong><hr>
+        </div>
+        <div ng-switch-when='3' ng-show="obj.length > 0">
+          <Strong>参数说明</Strong><hr>
+        </div>
+        <div ng-switch-when='4' ng-show="obj.length > 0">
+          <Strong>返回说明</Strong><hr>
+        </div>
+        <div ng-switch-when='5' ng-show="obj.length > 0">
+          <Strong>注意事项</Strong><hr>
+        </div>
+      </div>
+
   		<div ng-repeat='o in obj'>
 
-
         <div ng-show="o.display_type==1">
-          <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <p>
-            {{o.text}}
-          </p>
+          <!-- 正常状态 -->
+          <div ng-show="o.state==0">
+            <div class="col-xs-11">
+              <p>{{o.text}}</p>
+            </div>
+            <div class="col-xs-1">
+              <button type="button" 
+                class="btn btn-xs btn-info"
+                ng-click="edit($parent.$index, $index)"
+              >
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+              </button>
+              <button type="button" 
+                class="btn btn-xs btn-danger"
+                ng-click="delete($parent.$index, $index)"
+                ng-show="$parent.$index !== 0"
+              >
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 编辑状态 -->
+          <div ng-show="o.state==1">
+            <div class="col-xs-11">
+              <textarea class="form-control" rows="3" 
+              ng-model="objs[$parent.$index][$index].text">{{o.text}}</textarea>
+            </div>
+            <div class="col-xs-1">
+              <button type="button" 
+                class="btn btn-xs btn-info"
+                ng-click="ok($parent.$index, $index)"
+              >      
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+
         </div>
 
 
@@ -54,7 +94,7 @@
             </div>
           </div>
 
-          
+          <!-- 编辑状态 -->
           <div ng-show="o.state==1">
             <div class="col-xs-11">
               <textarea class="form-control" rows="3" 
@@ -69,6 +109,11 @@
               </button>
             </div>
           </div>
+
+
+
+
+
           
         </div>
 
@@ -89,19 +134,19 @@
       <div class=" col-md-10">
           <div class="">
             <label class="radio-inline">
-              <input type="radio" name="text_type" value="0" ng-model="addm.text_type"> 接口介绍
+              <input type="radio" name="text_type" value="1" ng-model="addm.text_type"> 接口介绍
             </label>
             <label class="radio-inline">
-              <input type="radio" name="text_type" value="1" ng-model="addm.text_type"> 接口调用请求说明
+              <input type="radio" name="text_type" value="2" ng-model="addm.text_type"> 接口调用请求说明
             </label>
             <label class="radio-inline">
-              <input type="radio" name="text_type" value="2" ng-model="addm.text_type"> 参数说明
+              <input type="radio" name="text_type" value="3" ng-model="addm.text_type"> 参数说明
             </label>
             <label class="radio-inline">
-              <input type="radio" name="text_type" value="3" ng-model="addm.text_type"> 返回说明
+              <input type="radio" name="text_type" value="4" ng-model="addm.text_type"> 返回说明
             </label>
             <label class="radio-inline">
-              <input type="radio" name="text_type" value="4" ng-model="addm.text_type"> 注意事项
+              <input type="radio" name="text_type" value="5" ng-model="addm.text_type"> 注意事项
             </label>
           </div>
           <hr>

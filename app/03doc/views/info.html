@@ -3,10 +3,28 @@
   <div class="panel-body">
 
   	<div ng-repeat='obj in objs'>
+
+	  	<div ng-switch on='$index'>
+	        <div ng-switch-when='1' ng-show="obj.length > 0">
+	          <Strong>接口介绍</Strong><hr>
+	        </div>
+	        <div ng-switch-when='2' ng-show="obj.length > 0">
+	          <br><Strong>接口调用请求说明</Strong><hr>
+	        </div>
+	        <div ng-switch-when='3' ng-show="obj.length > 0">
+	          <br><Strong>参数说明</Strong><hr>
+	        </div>
+	        <div ng-switch-when='4' ng-show="obj.length > 0">
+	          <br><Strong>返回说明</Strong><hr>
+	        </div>
+	        <div ng-switch-when='5' ng-show="obj.length > 0">
+	          <br><Strong>注意事项</Strong><hr>
+	        </div>
+	      </div>
   		
-  		<div ng-repeat='o in obj'>
+  		<div ng-repeat='o in obj' >
   		
-  			<p ng-show="o.display_type==1">{{o.text}}</p>
+  			<p ng-show="o.display_type==1 && o.text_type != 0" >{{o.text}}</p>
 
   			<pre ng-show="o.display_type==2">{{o.text}}</pre>
 
