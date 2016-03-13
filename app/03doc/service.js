@@ -16,6 +16,8 @@ var service = function($resource, BASEURL38985){
 
     var getinfo = BASEURL38985 + '/api/us/sc/apidoc/get';
 
+    var del = BASEURL38985 + '/api/us/sc/apidoc/deleteByLogic';
+
 
     
     return {
@@ -34,6 +36,9 @@ var service = function($resource, BASEURL38985){
         },
         getinfo : function(){
             return $resource(getinfo, {}, {});
+        },
+        del : function(){
+            return $resource(del, {}, {});
         }
       
     };

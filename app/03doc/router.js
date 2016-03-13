@@ -14,6 +14,9 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
         	insert : function(docservice){
         		return docservice.insert();
+        	},
+        	group : function(docservice){
+        		return docservice.group();
         	}
         }
       })
@@ -28,6 +31,12 @@ var router = function($urlRouterProvider, $stateProvider){
         	},
         	insert : function(docservice){
         		return docservice.insert();
+        	},
+        	update : function(docservice){
+        		return docservice.update();
+        	},
+        	del : function(docservice){
+        		return docservice.del();
         	}
         }
       })

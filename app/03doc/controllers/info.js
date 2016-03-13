@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, api){
+module.exports = function($scope, $stateParams, api, $state){
 
 	//$scope.name = $stateParams.name;
 
@@ -19,13 +19,15 @@ module.exports = function($scope, $stateParams, api){
 
 	// $scope.content += c111;
 
+	var api_id = $stateParams.api_id;
+
 	$scope.name = '';
 
 	var data = new Array();
 
 	var text_type = 999;
 
-	api.get({'api_id' : $stateParams.api_id}, function(res){
+	api.get({'api_id' : api_id}, function(res){
 
 		console.log(res);
 
@@ -69,6 +71,13 @@ module.exports = function($scope, $stateParams, api){
 		$scope.objs = data;
 
 	});
+
+
+	$scope.edit = function(){
+
+		$state.go('app.doccreate', {'api_id' : api_id});
+
+	};
 
 
 

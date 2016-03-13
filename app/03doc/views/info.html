@@ -1,5 +1,13 @@
 <div class="panel panel-info">
-  <div class="panel-heading">{{name}}</div>
+  <div class="panel-heading">
+  	{{name}}
+	<button type="button" 
+		class="btn btn-xs btn-info pull-right"
+		ng-click="edit()"
+	>
+		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+	</button>
+  </div>
   <div class="panel-body">
 
   	<div ng-repeat='obj in objs'>
@@ -44,7 +52,6 @@
 			        </tr>
 			      </tbody>
 			    </table>
-
 
   			</div>
 

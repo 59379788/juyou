@@ -11,19 +11,19 @@
           <Strong>接口名称</Strong><hr>
         </div>
         <div ng-switch-when='1' ng-show="obj.length > 0">
-          <Strong>接口介绍</Strong><hr>
+          <br><Strong>接口介绍</Strong><hr>
         </div>
         <div ng-switch-when='2' ng-show="obj.length > 0">
-          <Strong>接口调用请求说明</Strong><hr>
+          <br><Strong>接口调用请求说明</Strong><hr>
         </div>
         <div ng-switch-when='3' ng-show="obj.length > 0">
-          <Strong>参数说明</Strong><hr>
+          <br><Strong>参数说明</Strong><hr>
         </div>
         <div ng-switch-when='4' ng-show="obj.length > 0">
-          <Strong>返回说明</Strong><hr>
+          <br><Strong>返回说明</Strong><hr>
         </div>
         <div ng-switch-when='5' ng-show="obj.length > 0">
-          <Strong>注意事项</Strong><hr>
+          <br><Strong>注意事项</Strong><hr>
         </div>
       </div>
 
@@ -58,13 +58,14 @@
               <textarea class="form-control" rows="3" 
               ng-model="objs[$parent.$index][$index].text">{{o.text}}</textarea>
             </div>
-            <div class="col-xs-1">
+            <div class="col-xs-1 text-center">
               <button type="button" 
                 class="btn btn-xs btn-info"
                 ng-click="ok($parent.$index, $index)"
               >      
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
               </button>
+              <input class="form-control"></input>
             </div>
           </div>
 
@@ -110,12 +111,101 @@
             </div>
           </div>
 
-
-
-
-
           
         </div>
+
+
+
+        <div ng-show="o.display_type==0">
+
+          <!-- 正常状态 -->
+          <div ng-show="o.state==0">
+            <div class="col-xs-11">
+              <table class="table table-bordered ">
+                <thead>
+                  <tr>
+                    <th class="col-md-4">参数</th>
+                    <th class="col-md-8">描述</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="para in o.display_arr">    
+                    <td>{{para.k}}</td>
+                    <td>{{para.v}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-xs-1">
+              <button type="button" 
+                class="btn btn-xs btn-info"
+                ng-click="edit($parent.$index, $index)"
+              >      
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+              </button>
+              <button type="button" 
+                class="btn btn-xs btn-danger"
+                ng-click="delete($parent.$index, $index)"
+              >      
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+
+
+
+
+          <!-- 编辑状态 -->
+          <div ng-show="o.state==1">
+            <div class="col-xs-11">
+              <table class="table table-bordered ">
+                <thead>
+                  <tr>
+                    <th class="col-md-3">参数</th>
+                    <th class="col-md-7">描述</th>
+                    <th class="text-center col-md-2">
+                    <button type="button" 
+                    class="btn btn-success"
+                    ng-click="addtr1($parent.$index, $index)"
+                    >新增</button>
+                  </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="para in o.display_arr"> 
+                    <td><input type="text" class="form-control"
+                    ng-model="para.k" value="para.k" 
+                    ></td>
+                    <td><input type="text" class="form-control"
+                    ng-model="para.v" value="para.v"
+                    ></td>
+                    <td class="text-center">
+                      <button type="button" 
+                      class="btn btn-danger"
+                      ng-click="deltr($index)"
+                      >删除</button>
+                    </td>   
+                    <!-- <td>{{para.k}}</td>
+                    <td>{{para.v}}</td> -->
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-xs-1">
+              <button type="button" 
+                class="btn btn-xs btn-info"
+                ng-click="ok($parent.$index, $index)"
+              >      
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+
+
+
+        </div>
+
+
 
   		</div>
 
@@ -159,13 +249,50 @@
               <input type="radio" name="display_type" value="2" ng-model="addm.display_type"> 代码
             </label>
             <label class="radio-inline">
-              <input type="radio" name="display_type" value="3" ng-model="addm.display_type"> 表格
+              <input type="radio" name="display_type" value="0" ng-model="addm.display_type"> 表格
             </label>
           </div>
           <hr>
-          <div>
+          <div ng-show="addm.display_type != 0">
             <textarea class="form-control" rows="3" ng-model="addm.text"></textarea>
           </div>
+          <div ng-show="addm.display_type == 0">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th class="text-center col-md-3">参数</th>
+                  <!-- <th class="text-center col-md-2">是否必须</th> -->
+                  <th class="text-center col-md-7">说明</th>
+                  <th class="text-center col-md-2">
+                    <button type="button" 
+                    class="btn btn-success"
+                    ng-click="addtr()"
+                    >新增</button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="table in addm.tablearr">
+                  <td><input type="text" class="form-control"
+                  ng-model="table.k"
+                  ></td>
+                  <td><input type="text" class="form-control"
+                  ng-model="table.v"
+                  ></td>
+                  <!-- <td><input type="text" class="form-control"
+                  ng-model="table.describe"
+                  ></td> -->
+                  <td class="text-center">
+                    <button type="button" 
+                    class="btn btn-danger"
+                    ng-click="deltr($index)"
+                    >删除</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
       </div>
       <div class=" col-md-2">
         <button type="button" class="btn btn-default btn-block btn-primary" 
@@ -177,4 +304,10 @@
       </div>
      </div>
   </div>
+
+  <br>
+<br>
+<br>
+
 </div>
+

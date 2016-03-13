@@ -105,7 +105,7 @@
 	 	  .state('app', {
 	      url: '/app',
 	      abstract: true,
-	      template : __webpack_require__(38)
+	      template : __webpack_require__(42)
 	    })
 
 	}]);
@@ -43656,7 +43656,7 @@
 /* 15 */
 /***/ function(module, exports) {
 
-	module.exports = "dashboard-main.html1111"
+	module.exports = "测试页面"
 
 /***/ },
 /* 16 */
@@ -43916,7 +43916,7 @@
 /* 22 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">门票信息</h4>\n</div>\n<div class=\"modal-body\">\n\n\n    <table class=\"table\">\n        <thead>\n          <tr>\n            <th class=\"text-center col-md-6\">票种名</th>\n            <th class=\"text-center col-md-2\">数量</th>\n            <th class=\"text-center col-md-2\">消票数量</th>\n            <th class=\"text-center col-md-2\">操作</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr ng-repeat=\"obj in objs\">\n            <td class=\"text-center\">{{obj.type_name}}</td>\n            <td class=\"text-center\">{{obj.count}}</td>\n            <!-- <td class=\"text-center\">\n                <button type=\"submit\" \n                class=\"btn btn-default input-sm\"\n                ng-click=\"gogo($index,obj.type,obj.usecount)\"\n                >选择</button>\n            </td> -->\n            <td>\n                <input type=\"text\" \n                class=\"form-control input-sm\"\n                ng-model=\"obj.usecount\"\n                ></td>\n            <td class=\"text-center\">\n                <button type=\"submit\" \n                class=\"btn btn-default input-sm\"\n                ng-click=\"use(obj.type,obj.usecount)\"\n                >消票</button>\n            </td>\n          </tr>\n        </tbody>\n    </table>\n    <!-- <ul>\n        <li ng-repeat=\"item in items\">\n            <a href=\"#\" ng-click=\"$event.preventDefault(); selected.item = item\">{{ item }}</a>\n        </li>\n    </ul>\n    Selected: <b>{{ selected.item }}</b> -->\n</div>\n<div class=\"modal-footer\">\n    <!-- <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button> -->\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n"
+	module.exports = "\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">门票信息</h4>\n</div>\n<div class=\"modal-body\">\n\n\n    <table class=\"table\">\n        <thead>\n          <tr>\n            <th class=\"text-center col-md-6\">票种名</th>\n            <th class=\"text-center col-md-2\">数量</th>\n            <th class=\"text-center col-md-2\">消票数量</th>\n            <th class=\"text-center col-md-2\">操作</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr ng-repeat=\"obj in objs\">\n            <td class=\"text-center\">{{obj.type_name}}</td>\n            <td class=\"text-center\">{{obj.count}}</td>\n            <!-- <td class=\"text-center\">\n                <button type=\"submit\" \n                class=\"btn btn-default input-sm\"\n                ng-click=\"gogo($index,obj.type,obj.usecount)\"\n                >选择</button>\n            </td> -->\n            <td>\n                <input type=\"text\" \n                class=\"form-control input-sm\"\n                ng-model=\"obj.usecount\"\n                ></td>\n            <td class=\"text-center\">\n                <button type=\"submit\" \n                class=\"btn btn-default input-sm\"\n                ng-click=\"use(obj.type,obj.usecount,obj.type_attr)\"\n                >消票</button>\n            </td>\n          </tr>\n        </tbody>\n    </table>\n    <!-- <ul>\n        <li ng-repeat=\"item in items\">\n            <a href=\"#\" ng-click=\"$event.preventDefault(); selected.item = item\">{{ item }}</a>\n        </li>\n    </ul>\n    Selected: <b>{{ selected.item }}</b> -->\n</div>\n<div class=\"modal-footer\">\n    <!-- <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button> -->\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n"
 
 /***/ },
 /* 23 */
@@ -43934,9 +43934,9 @@
 			$uibModalInstance.dismiss('cancel');
 		};
 
-		$scope.use = function(type, num){
+		$scope.use = function(type, num, type_attr){
 
-			angular.extend(para, {"num" : num, "type" : type});
+			angular.extend(para, {"num" : num, "type" : type, "type_attr" : type_attr});
 
 			console.log(para);
 
@@ -44102,11 +44102,13 @@
 
 	var App = angular.module('doc', []);
 
-	 App.config(__webpack_require__(32));
-	 App.factory('docservice', __webpack_require__(35));
+	App.config(__webpack_require__(32));
+	App.factory('docservice', __webpack_require__(37));
 
-	App.controller('doc',__webpack_require__(36));
-	App.controller('info',__webpack_require__(37));
+	App.controller('name',__webpack_require__(38));
+	App.controller('doccreate',__webpack_require__(39));
+	App.controller('doc',__webpack_require__(40));
+	App.controller('info',__webpack_require__(41));
 
 
 	module.exports = App;
@@ -44124,10 +44126,41 @@
 
 	 	$stateProvider
 
+	 	  .state('app.docname', {
+	        url: '/docname',
+	        controller : 'name',
+	        template: __webpack_require__(33),
+	        resolve:{
+	        	insert : function(docservice){
+	        		return docservice.insert();
+	        	},
+	        	group : function(docservice){
+	        		return docservice.group();
+	        	}
+	        }
+	      })
+
+	 	  .state('app.doccreate', {
+	        url: '/doccreate/:api_id',
+	        controller : 'doccreate',
+	        template: __webpack_require__(34),
+	        resolve:{
+	        	api : function(docservice){
+	        		return docservice.api();
+	        	},
+	        	insert : function(docservice){
+	        		return docservice.insert();
+	        	},
+	        	update : function(docservice){
+	        		return docservice.update();
+	        	}
+	        }
+	      })
+
 	 	  .state('app.doc', {
 	        url: '/doc/:type',
 	        controller : 'doc',
-	        template: __webpack_require__(33),
+	        template: __webpack_require__(35),
 	        resolve:{
 	        	group : function(docservice){
 	        		return docservice.group();
@@ -44138,7 +44171,7 @@
 		  .state('app.doc.info', {
 	        url: '/:api_id',
 	        controller : 'info',
-	        template: __webpack_require__(34),
+	        template: __webpack_require__(36),
 	        resolve:{
 	        	api : function(docservice){
 	        		return docservice.api();
@@ -44154,16 +44187,28 @@
 /* 33 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-md-3\">\n\t<div class=\"list-group\">\n\t  <a \n\t  ng-repeat=\"obj in objs\"\n\t  class=\"list-group-item\"\n\t  ui-sref=\".info({api_id : obj.api_id})\"\n\t  >{{obj.api_name}}</a>\n\t</div>\n</div>\n\n\n\n<div class=\"col-md-9\">\n\n\t<div data-ui-view=\"\"></div>\n\n</div>"
+	module.exports = "\n\n<br>\n<br>\n<br>\n<br>\n\n\n<div class=\"col-md-8 col-md-offset-2\">\n\n\t<div class=\"form-horizontal\">\n\t\t<div class=\" col-xs-12\">\n\t\t\t<!-- ng-options=\"group.id as group.title for group in grouparr\" -->\n\t\t\t<select class=\"form-control\" ng-model=\"group_id\" >\n\t\t\t\t<option value=\"ticket_destory\"> 消票 </option>\n\t\t\t</select>\n\n\t\t</div>\n\t</div>\n\n\t<br><br><br>\n\n\t<div class=\"form-horizontal\">\n\t\t<div class=\" col-xs-10\">\n\t\t\t<input type=\"text\" class=\"form-control \" ng-model=\"name\" placeholder=\"请输入接口名称\">\n\t\t</div>\n\t\t<div class=\" col-xs-2\">\n\t\t\t<button type=\"button\" class=\"btn btn-primary btn-block\" \n\t\t\tng-click=\"gogo()\"\n\t\t\t> 下一步 <span class=\"glyphicon glyphicon-arrow-right\" ></span> </button>\n\t\t</div>\n\t</div>\n\n</div>"
 
 /***/ },
 /* 34 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"panel panel-default\">\n  <div class=\"panel-heading\">{{name}}</div>\n  <div class=\"panel-body\">\n\n  \t<div ng-repeat='obj in objs'>\n  \t\t\n  \t\t<div ng-repeat='o in obj'>\n  \t\t\n  \t\t\t<p ng-show=\"o.display_type===1\">{{o.text}}</p>\n\n  \t\t\t<pre ng-show=\"o.display_type===2\">{{o.text}}</pre>\n\n  \t\t</div>\n\n  \t</div>\n\n  </div>\n</div>"
+	module.exports = "<div class=\"col-md-8 col-md-offset-2\">\n\n<div class=\"panel panel-default\">\n\n  <div class=\"panel-body\">\n\n  \t<div ng-repeat='obj in objs' class=\"row\">\n\n      <div ng-switch on='$index' class=\"col-md-12\">\n        <div ng-switch-when='0' ng-show=\"obj.length > 0\">\n          <Strong>接口名称</Strong><hr>\n        </div>\n        <div ng-switch-when='1' ng-show=\"obj.length > 0\">\n          <br><Strong>接口介绍</Strong><hr>\n        </div>\n        <div ng-switch-when='2' ng-show=\"obj.length > 0\">\n          <br><Strong>接口调用请求说明</Strong><hr>\n        </div>\n        <div ng-switch-when='3' ng-show=\"obj.length > 0\">\n          <br><Strong>参数说明</Strong><hr>\n        </div>\n        <div ng-switch-when='4' ng-show=\"obj.length > 0\">\n          <br><Strong>返回说明</Strong><hr>\n        </div>\n        <div ng-switch-when='5' ng-show=\"obj.length > 0\">\n          <br><Strong>注意事项</Strong><hr>\n        </div>\n      </div>\n\n  \t\t<div ng-repeat='o in obj'>\n\n        <div ng-show=\"o.display_type==1\">\n          <!-- 正常状态 -->\n          <div ng-show=\"o.state==0\">\n            <div class=\"col-xs-11\">\n              <p>{{o.text}}</p>\n            </div>\n            <div class=\"col-xs-1\">\n              <button type=\"button\" \n                class=\"btn btn-xs btn-info\"\n                ng-click=\"edit($parent.$index, $index)\"\n              >\n                <span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\n              </button>\n              <button type=\"button\" \n                class=\"btn btn-xs btn-danger\"\n                ng-click=\"delete($parent.$index, $index)\"\n                ng-show=\"$parent.$index !== 0\"\n              >\n                <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\n              </button>\n            </div>\n          </div>\n\n          <!-- 编辑状态 -->\n          <div ng-show=\"o.state==1\">\n            <div class=\"col-xs-11\">\n              <textarea class=\"form-control\" rows=\"3\" \n              ng-model=\"objs[$parent.$index][$index].text\">{{o.text}}</textarea>\n            </div>\n            <div class=\"col-xs-1 text-center\">\n              <button type=\"button\" \n                class=\"btn btn-xs btn-info\"\n                ng-click=\"ok($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n              </button>\n              <input class=\"form-control\"></input>\n            </div>\n          </div>\n\n        </div>\n\n\n        <div ng-show=\"o.display_type==2\">\n\n          <!-- 正常状态 -->\n          <div ng-show=\"o.state==0\">\n            <div class=\"col-xs-11\">\n              <pre>{{o.text}}</pre>\n            </div>\n            <div class=\"col-xs-1\">\n              <button type=\"button\" \n                class=\"btn btn-xs btn-info\"\n                ng-click=\"edit($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\n              </button>\n              <button type=\"button\" \n                class=\"btn btn-xs btn-danger\"\n                ng-click=\"delete($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\n              </button>\n            </div>\n          </div>\n\n          <!-- 编辑状态 -->\n          <div ng-show=\"o.state==1\">\n            <div class=\"col-xs-11\">\n              <textarea class=\"form-control\" rows=\"3\" \n              ng-model=\"objs[$parent.$index][$index].text\">{{o.text}}</textarea>\n            </div>\n            <div class=\"col-xs-1\">\n              <button type=\"button\" \n                class=\"btn btn-xs btn-info\"\n                ng-click=\"ok($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n              </button>\n            </div>\n          </div>\n\n          \n        </div>\n\n\n\n        <div ng-show=\"o.display_type==0\">\n\n          <!-- 正常状态 -->\n          <div ng-show=\"o.state==0\">\n            <div class=\"col-xs-11\">\n              <table class=\"table table-bordered \">\n                <thead>\n                  <tr>\n                    <th class=\"col-md-4\">参数</th>\n                    <th class=\"col-md-8\">描述</th>\n                  </tr>\n                </thead>\n                <tbody>\n                  <tr ng-repeat=\"para in o.display_arr\">    \n                    <td>{{para.k}}</td>\n                    <td>{{para.v}}</td>\n                  </tr>\n                </tbody>\n              </table>\n            </div>\n            <div class=\"col-xs-1\">\n              <button type=\"button\" \n                class=\"btn btn-xs btn-info\"\n                ng-click=\"edit($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\n              </button>\n              <button type=\"button\" \n                class=\"btn btn-xs btn-danger\"\n                ng-click=\"delete($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\n              </button>\n            </div>\n          </div>\n\n\n\n\n          <!-- 编辑状态 -->\n          <div ng-show=\"o.state==1\">\n            <div class=\"col-xs-11\">\n              <table class=\"table table-bordered \">\n                <thead>\n                  <tr>\n                    <th class=\"col-md-3\">参数</th>\n                    <th class=\"col-md-7\">描述</th>\n                    <th class=\"text-center col-md-2\">\n                    <button type=\"button\" \n                    class=\"btn btn-success\"\n                    ng-click=\"addtr1($parent.$index, $index)\"\n                    >新增</button>\n                  </th>\n                  </tr>\n                </thead>\n                <tbody>\n                  <tr ng-repeat=\"para in o.display_arr\"> \n                    <td><input type=\"text\" class=\"form-control\"\n                    ng-model=\"para.k\" value=\"para.k\" \n                    ></td>\n                    <td><input type=\"text\" class=\"form-control\"\n                    ng-model=\"para.v\" value=\"para.v\"\n                    ></td>\n                    <td class=\"text-center\">\n                      <button type=\"button\" \n                      class=\"btn btn-danger\"\n                      ng-click=\"deltr($index)\"\n                      >删除</button>\n                    </td>   \n                    <!-- <td>{{para.k}}</td>\n                    <td>{{para.v}}</td> -->\n                  </tr>\n                </tbody>\n              </table>\n            </div>\n            <div class=\"col-xs-1\">\n              <button type=\"button\" \n                class=\"btn btn-xs btn-info\"\n                ng-click=\"ok($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n              </button>\n            </div>\n          </div>\n\n\n\n        </div>\n\n\n\n  \t\t</div>\n\n  \t</div>\n\n  </div>\n\n\n</div>\n\n\n\n\n  <div class=\"panel panel-default\">\n    <div class=\"panel-body form-horizontal\">\n      <div class=\" col-md-10\">\n          <div class=\"\">\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"text_type\" value=\"1\" ng-model=\"addm.text_type\"> 接口介绍\n            </label>\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"text_type\" value=\"2\" ng-model=\"addm.text_type\"> 接口调用请求说明\n            </label>\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"text_type\" value=\"3\" ng-model=\"addm.text_type\"> 参数说明\n            </label>\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"text_type\" value=\"4\" ng-model=\"addm.text_type\"> 返回说明\n            </label>\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"text_type\" value=\"5\" ng-model=\"addm.text_type\"> 注意事项\n            </label>\n          </div>\n          <hr>\n          <div class=\"\">\n            \n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"display_type\" value=\"1\" ng-model=\"addm.display_type\"> 文本\n            </label>\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"display_type\" value=\"2\" ng-model=\"addm.display_type\"> 代码\n            </label>\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"display_type\" value=\"0\" ng-model=\"addm.display_type\"> 表格\n            </label>\n          </div>\n          <hr>\n          <div ng-show=\"addm.display_type != 0\">\n            <textarea class=\"form-control\" rows=\"3\" ng-model=\"addm.text\"></textarea>\n          </div>\n          <div ng-show=\"addm.display_type == 0\">\n            <table class=\"table table-bordered\">\n              <thead>\n                <tr>\n                  <th class=\"text-center col-md-3\">参数</th>\n                  <!-- <th class=\"text-center col-md-2\">是否必须</th> -->\n                  <th class=\"text-center col-md-7\">说明</th>\n                  <th class=\"text-center col-md-2\">\n                    <button type=\"button\" \n                    class=\"btn btn-success\"\n                    ng-click=\"addtr()\"\n                    >新增</button>\n                  </th>\n                </tr>\n              </thead>\n              <tbody>\n                <tr ng-repeat=\"table in addm.tablearr\">\n                  <td><input type=\"text\" class=\"form-control\"\n                  ng-model=\"table.k\"\n                  ></td>\n                  <td><input type=\"text\" class=\"form-control\"\n                  ng-model=\"table.v\"\n                  ></td>\n                  <!-- <td><input type=\"text\" class=\"form-control\"\n                  ng-model=\"table.describe\"\n                  ></td> -->\n                  <td class=\"text-center\">\n                    <button type=\"button\" \n                    class=\"btn btn-danger\"\n                    ng-click=\"deltr($index)\"\n                    >删除</button>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </div>\n\n      </div>\n      <div class=\" col-md-2\">\n        <button type=\"button\" class=\"btn btn-default btn-block btn-primary\" \n        ng-click=\"add()\"\n        >\n         添加 <span class=\"glyphicon glyphicon-plus-sign\" ></span> \n        </button>\n     \n      </div>\n     </div>\n  </div>\n\n  <br>\n<br>\n<br>\n\n</div>\n\n"
 
 /***/ },
 /* 35 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-md-3\">\n\t<div class=\"list-group\">\n\t  <a \n\t  ng-repeat=\"obj in objs\"\n\t  class=\"list-group-item\"\n\t  ui-sref=\".info({api_id : obj.api_id})\"\n\t  >{{obj.text}}</a>\n\t</div>\n\t<br><br><br>\n</div>\n\n\n\n<div class=\"col-md-9\">\n\n\t<div data-ui-view=\"\"></div>\n\n</div>\n"
+
+/***/ },
+/* 36 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"panel panel-info\">\n  <div class=\"panel-heading\">\n  \t{{name}}\n\t<!-- <button type=\"button\" \n\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\tng-click=\"edit()\"\n\t>\n\t\t<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\n\t</button> -->\n  </div>\n  <div class=\"panel-body\">\n\n  \t<div ng-repeat='obj in objs'>\n\n\t  \t<div ng-switch on='$index'>\n\t        <div ng-switch-when='1' ng-show=\"obj.length > 0\">\n\t          <Strong>接口介绍</Strong><hr>\n\t        </div>\n\t        <div ng-switch-when='2' ng-show=\"obj.length > 0\">\n\t          <br><Strong>接口调用请求说明</Strong><hr>\n\t        </div>\n\t        <div ng-switch-when='3' ng-show=\"obj.length > 0\">\n\t          <br><Strong>参数说明</Strong><hr>\n\t        </div>\n\t        <div ng-switch-when='4' ng-show=\"obj.length > 0\">\n\t          <br><Strong>返回说明</Strong><hr>\n\t        </div>\n\t        <div ng-switch-when='5' ng-show=\"obj.length > 0\">\n\t          <br><Strong>注意事项</Strong><hr>\n\t        </div>\n\t      </div>\n  \t\t\n  \t\t<div ng-repeat='o in obj' >\n  \t\t\n  \t\t\t<p ng-show=\"o.display_type==1 && o.text_type != 0\" >{{o.text}}</p>\n\n  \t\t\t<pre ng-show=\"o.display_type==2\">{{o.text}}</pre>\n\n  \t\t\t<div ng-show=\"o.display_type==0\">\n  \t\t\t\t\n  \t\t\t\t<table class=\"table table-bordered\">\n\t\t\t      <thead>\n\t\t\t        <tr>\n\t\t\t          <th class=\"col-md-4\">参数</th>\n\t\t\t          <th class=\"col-md-8\">描述</th>\n\t\t\t        </tr>\n\t\t\t      </thead>\n\t\t\t      <tbody>\n\t\t\t        <tr ng-repeat=\"para in o.display_arr\">    \n\t\t\t          <td>{{para.k}}</td>\n\t\t\t          <td>{{para.v}}</td>\n\t\t\t        </tr>\n\t\t\t      </tbody>\n\t\t\t    </table>\n\n  \t\t\t</div>\n\n  \t\t</div>\n\n  \t</div>\n\n  </div>\n</div>"
+
+/***/ },
+/* 37 */
 /***/ function(module, exports) {
 
 	/**
@@ -44177,6 +44222,14 @@
 	    var group = BASEURL38985 + '/api/us/sc/apidoc/apinamelist';//?group_id=1
 
 	    var api = BASEURL38985 + '/api/us/sc/apidoc/apiinfolist';//?api_id=1
+
+	    var insert = BASEURL38985 + '/api/us/sc/apidoc/insert';
+
+	    var update = BASEURL38985 + '/api/us/sc/apidoc/update';
+
+	    var getinfo = BASEURL38985 + '/api/us/sc/apidoc/get';
+
+
 	    
 	    return {
 
@@ -44185,6 +44238,15 @@
 	        },
 	        api : function(){
 	            return $resource(api, {}, {});
+	        },
+	        insert : function(){
+	            return $resource(insert, {}, {});
+	        },
+	        update : function(){
+	            return $resource(update, {}, {});
+	        },
+	        getinfo : function(){
+	            return $resource(getinfo, {}, {});
 	        }
 	      
 	    };
@@ -44194,14 +44256,252 @@
 	module.exports = service;
 
 /***/ },
-/* 36 */
+/* 38 */
+/***/ function(module, exports) {
+
+	module.exports = function($scope, insert, $state, group){
+
+		$scope.name = '';
+
+		$scope.group_id = 'ticket_destory';
+
+		// group.get({'group_id' : $stateParams.type}, function(res){
+
+		// 	console.log(res);
+
+		// 	if(res.errcode === 0)
+		// 	{
+		// 		$scope.objs = res.data;
+		// 	}
+		// 	else
+		// 	{
+		// 		alert(res.errmsg);
+		// 	}
+
+		// });
+
+		$scope.gogo = function(){
+
+			var api_id = (new Date()).valueOf();
+
+			var para = {
+				'group_id' : $scope.group_id,
+				'api_id' : api_id,
+				'text' : $scope.name,
+				'text_type' : 0,
+				'display_type' : 1,
+				'asort' : 0
+			};
+
+			insert.save(para, function(res){
+
+				console.log(res);
+
+				if(res.errcode === 0)
+				{
+					$state.go('app.doccreate', {'api_id' : api_id});
+				}
+
+			});
+
+		};
+
+
+	};
+
+/***/ },
+/* 39 */
+/***/ function(module, exports) {
+
+	module.exports = function($scope, $stateParams, api, insert, update){
+
+		var data = new Array();
+
+		for(var i = 0; i < 6; i++)
+		{
+			data.push(new Array());
+		}
+
+		$scope.objs = data;
+
+		var api_id = $stateParams.api_id;
+
+		api.get({'api_id' : api_id}, function(res){
+
+			console.log(res);
+
+			if(res.errcode === 0)
+			{
+				for(var i = 0; i < res.data.length; i++)
+				{
+					var obj = res.data[i];
+					obj.state = 0;
+					
+					if(obj.display_type === 0)
+					{
+						var jsonobj = angular.fromJson(obj.text);
+						var tt = new Array();
+						for(key in jsonobj)
+						{
+							var oo = new Object();
+							oo.k = key;
+							oo.v = jsonobj[key];
+							tt.push(oo);
+						}
+
+						obj.display_arr = tt;
+					}
+
+					data[obj.text_type].push(obj);
+
+				}
+			}
+
+		});
+
+
+		$scope.addm = {};
+		$scope.addm.text_type = '1';
+		$scope.addm.display_type = '1';
+		$scope.addm.text = '';
+		$scope.addm.tablearr = new Array();
+
+		$scope.add = function(){
+
+			var tmp = {};
+			tmp.text_type = $scope.addm.text_type;
+			tmp.display_type = $scope.addm.display_type;
+			tmp.state = 0;
+
+			if($scope.addm.display_type == 0)
+			{
+				var obj = {};
+				var arr = $scope.addm.tablearr;
+				for(var i = 0; i < arr.length; i++)
+				{
+					var o = arr[i];
+					obj[o.k] = o.v;
+				}
+				var t = angular.toJson(obj);
+				tmp.display_arr = arr;
+				tmp.text = t;
+			}
+			else
+			{
+				tmp.text = $scope.addm.text;
+			}
+
+			var i = parseInt($scope.addm.text_type);
+
+			data[i].push(angular.copy(tmp));
+
+			_insert(tmp, data[i].length);
+
+		};
+
+		$scope.edit = function(x, y){
+
+			data[x][y].state = 1;
+
+		};
+
+		$scope.ok = function(x, y){
+
+			data[x][y].state = 0;
+
+			console.log(data[x][y]);
+
+			if(data[x][y].display_type == 0)
+			{
+				var obj = {};
+				var arr = data[x][y].display_arr;
+				for(var i = 0; i < arr.length; i++)
+				{
+					var o = arr[i];
+					obj[o.k] = o.v;
+				}
+				var t = angular.toJson(obj);
+				data[x][y].text = t;
+			}
+
+			_update(data[x][y]);
+		};
+
+		$scope.delete = function(x, y){
+
+			data[x].splice(y,1);
+
+		};
+
+		$scope.addtr1 = function(x, y){
+
+			var obj = {
+				k : '',
+				v : ''
+			};
+
+			data[x][y].display_arr.push(obj);
+		};
+
+		$scope.addtr = function(){
+
+			var obj = {
+				'k' : '',
+				'v' : ''
+			};
+
+			$scope.addm.tablearr.push(obj);
+
+		};
+
+		$scope.deltr = function(i){
+
+			$scope.addm.tablearr.splice(i, 1);
+
+		};
+
+		function _insert(para, num)
+		{
+			angular.extend(para, {'group_id' : 'ticket_destory','api_id' : api_id, 'asort' : num});
+
+			insert.save(para, function(res){
+
+				if(res.errcode !== 0)
+				{
+					alert('添加失败');
+				}
+
+			});
+		}
+
+		function _update(para)
+		{
+
+			console.log(para);
+			
+			angular.extend(para, {'group_id' : 'ticket_destory','api_id' : api_id});
+
+			update.save(para, function(res){
+
+				if(res.errcode !== 0)
+				{
+					alert('修改失败');
+				}
+
+			});
+		}
+
+	};
+
+/***/ },
+/* 40 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, group){
 
 		group.get({'group_id' : $stateParams.type}, function(res){
 
-			//console.log(res);
+		console.log(res);
 
 			if(res.errcode === 0)
 			{
@@ -44218,10 +44518,10 @@
 
 
 /***/ },
-/* 37 */
+/* 41 */
 /***/ function(module, exports) {
 
-	module.exports = function($scope, $stateParams, api){
+	module.exports = function($scope, $stateParams, api, $state){
 
 		//$scope.name = $stateParams.name;
 
@@ -44242,13 +44542,15 @@
 
 		// $scope.content += c111;
 
+		var api_id = $stateParams.api_id;
+
 		$scope.name = '';
 
 		var data = new Array();
 
 		var text_type = 999;
 
-		api.get({'api_id' : $stateParams.api_id}, function(res){
+		api.get({'api_id' : api_id}, function(res){
 
 			console.log(res);
 
@@ -44257,7 +44559,7 @@
 
 				var obj = res.data[i];
 
-				if(i === 0) $scope.name = obj.api_name;
+				if(i === 0) $scope.name = obj.text;
 
 				if(obj.text_type !== text_type)
 				{
@@ -44268,6 +44570,23 @@
 					data.push(tmparray);
 
 				}
+
+				if(obj.display_type === 0)
+				{
+					var jsonobj = angular.fromJson(obj.text);
+
+					console.log(jsonobj);
+					var tt = new Array();
+					for(key in jsonobj)
+					{
+						var oo = new Object();
+						oo.k = key;
+						oo.v = jsonobj[key];
+						tt.push(oo);
+					}
+
+					obj.display_arr = tt;
+				}
 				
 				data[data.length - 1].push(obj);
 			}
@@ -44277,15 +44596,22 @@
 		});
 
 
+		$scope.edit = function(){
+
+			$state.go('app.doccreate', {'api_id' : api_id});
+
+		};
+
+
 
 	};
 
 
 /***/ },
-/* 38 */
+/* 42 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- top navbar-->\n<header>\n\t<nav class=\"navbar navbar-default\">\n\t  <div class=\"container-fluid\">\n\t    <!-- Brand and toggle get grouped for better mobile display -->\n\t    <div class=\"navbar-header\">\n\t      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n\t        <span class=\"sr-only\">Toggle navigation</span>\n\t        <span class=\"icon-bar\"></span>\n\t        <span class=\"icon-bar\"></span>\n\t        <span class=\"icon-bar\"></span>\n\t      </button>\n\t      <a class=\"navbar-brand\" href=\"#/\">\n\t        <img alt=\"慧鼎\" src=\"../app/img/logo.png\">\n\t      </a>\n\t    </div>\n\n\t    <!-- Collect the nav links, forms, and other content for toggling -->\n\t    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n\n\t      <ul class=\"nav navbar-nav\">\n\n\t\t    <li class=\"dropdown\" uib-dropdown >\n\t\t      <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\" uib-dropdown-toggle> 消票 <span class=\"caret\"></span></a>\n\t\t      <ul uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n\t\t        <li><a ui-sref=\"app.ticketinput\">验票</a></li>\n\t            <li><a ui-sref=\"app.ticketlist\">列表</a></li>\n\t\t      </ul>\n\t\t    </li>\n\n\t\t    <li class=\"dropdown\" uib-dropdown >\n\t\t      <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\" uib-dropdown-toggle> 设备 <span class=\"caret\"></span></a>\n\t\t      <ul uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n\t            <li><a ui-sref=\"app.devicelist\">设备监控</a></li>\n\t            <li><a ui-sref=\"app.devicelist\">票种设置</a></li>\n\t            <li><a ui-sref=\"app.devicelist\">刷读监控</a></li>\n\t\t      </ul>\n\t\t    </li>\n\n\t\t    <li class=\"dropdown\" uib-dropdown >\n\t\t      <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\" uib-dropdown-toggle> 文档 <span class=\"caret\"></span></a>\n\t\t      <ul uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n\t            <li><a \n\t            ui-sref=\"app.doc({type : 'ticket_destory'})\"\n\t            >消票</a></li>\n\t            <li><a ui-sref=\"app.doc({type : 444})\">设备</a></li>\n\t            <li><a ui-sref=\"app.doc({type : 555})\">文档</a></li>\n\t            <!-- <li><a ui-sref=\"app.device\">设备</a></li>\n\t            <li><a ui-sref=\"app.doc\">文档</a></li> -->\n\t\t      </ul>\n\t\t    </li>\n\n\t        \n\t      </ul>\n\n\t      <a href=\"manager/logout\" class=\"btn btn-danger navbar-btn navbar-right\">\n\t        Sign out\n\t      </a>\n\n\t    </div><!-- /.navbar-collapse -->\n\n\t  </div><!-- /.container-fluid -->\n\t</nav>\n</header>\n<section>\n    <div ui-view=\"\" class=\"content-wrapper\"></div>\n</section>\n<!-- Page footer-->\n<footer >\n\t<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n\t  <div class=\"container-fluid text-center mt15\">\n\t    <span class=\"glyphicon glyphicon-heart\"></span> from 慧鼎商务\n\t  </div>\n\t</nav>\n</footer>"
+	module.exports = "\n<header>\n\t<nav class=\"navbar navbar-default\">\n\t  <div class=\"container-fluid\">\n\t    <!-- Brand and toggle get grouped for better mobile display -->\n\t    <div class=\"navbar-header\">\n\t      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\n\t        <span class=\"sr-only\">Toggle navigation</span>\n\t        <span class=\"icon-bar\"></span>\n\t        <span class=\"icon-bar\"></span>\n\t        <span class=\"icon-bar\"></span>\n\t      </button>\n\t      <a class=\"navbar-brand\" href=\"#/\">\n\t        <img alt=\"慧鼎\" src=\"../app/img/logo.png\">\n\t      </a>\n\t    </div>\n\n\t    <!-- Collect the nav links, forms, and other content for toggling -->\n\t    <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n\n\t      <ul class=\"nav navbar-nav\">\n\n\t\t    <!-- <li class=\"dropdown\" uib-dropdown >\n\t\t      <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\" uib-dropdown-toggle> 消票 <span class=\"caret\"></span></a>\n\t\t      <ul uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n\t\t        <li><a ui-sref=\"app.ticketinput\">验票</a></li>\n\t            <li><a ui-sref=\"app.ticketlist\">列表</a></li>\n\t\t      </ul>\n\t\t    </li>\n\n\t\t    <li class=\"dropdown\" uib-dropdown >\n\t\t      <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\" uib-dropdown-toggle> 设备 <span class=\"caret\"></span></a>\n\t\t      <ul uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n\t            <li><a ui-sref=\"app.devicelist\">设备监控</a></li>\n\t            <li><a ui-sref=\"app.devicelist\">票种设置</a></li>\n\t            <li><a ui-sref=\"app.devicelist\">刷读监控</a></li>\n\t\t      </ul>\n\t\t    </li> -->\n\n\t\t    <li class=\"dropdown\" uib-dropdown >\n\t\t      <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\" uib-dropdown-toggle> 文档 <span class=\"caret\"></span></a>\n\t\t      <ul uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n\t\t      \t<!-- <li><a ui-sref=\"app.docname\">创建接口文档</a></li>\n\t\t      \t<li role=\"separator\" class=\"divider\"></li> -->\n\t            <li>\n\t            <a \n\t            ui-sref=\"app.doc({type : 'ticket_destory'})\"\n\t            >消票</a></li>\n\t            <!-- <li><a ui-sref=\"app.doc({type : 444})\">设备</a></li>\n\t            <li><a ui-sref=\"app.doc({type : 555})\">文档</a></li> -->\n\t\t      </ul>\n\t\t    </li>\n\n\t        \n\t      </ul>\n\n\t      <a href=\"manager/logout\" class=\"btn btn-danger navbar-btn navbar-right\">\n\t        Sign out\n\t      </a>\n\n\t    </div><!-- /.navbar-collapse -->\n\n\t  </div><!-- /.container-fluid -->\n\t</nav>\n</header>\n<section>\n    <div ui-view=\"\" class=\"content-wrapper\"></div>\n</section>\n\n<!-- Page footer-->\n<!-- <footer >\n\n\t<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n\t  <div class=\"container-fluid text-center mt15\">\n\t    <span class=\"glyphicon glyphicon-heart\"></span> from 慧鼎商务\n\t  </div>\n\t</nav>\n</footer>"
 
 /***/ }
 /******/ ]);

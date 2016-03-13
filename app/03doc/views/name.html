@@ -10,18 +10,16 @@
 
 	<div class="form-horizontal">
 		<div class=" col-xs-12">
-			<select class="form-control">
-			  <option>1</option>
-			  <option>2</option>
-			  <option>3</option>
-			  <option>4</option>
-			  <option>5</option>
+			<!-- ng-options="group.id as group.title for group in grouparr" -->
+			<select class="form-control" ng-model="group_id" >
+				<option value="ticket_destory"> 消票 </option>
 			</select>
+
 		</div>
 	</div>
 
 	<br><br><br>
-	
+
 	<div class="form-horizontal">
 		<div class=" col-xs-10">
 			<input type="text" class="form-control " ng-model="name" placeholder="请输入接口名称">
