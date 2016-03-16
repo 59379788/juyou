@@ -65,7 +65,10 @@
               >      
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
               </button>
-              <input class="form-control"></input>
+              <input class="form-control" 
+                ng-model="o.asort"
+                value="o.asort" 
+              >
             </div>
           </div>
 
@@ -108,6 +111,10 @@
               >      
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
               </button>
+              <input class="form-control" 
+                ng-model="o.asort"
+                value="o.asort" 
+              >
             </div>
           </div>
 
@@ -182,7 +189,7 @@
                     <td class="text-center">
                       <button type="button" 
                       class="btn btn-danger"
-                      ng-click="deltr($index)"
+                      ng-click="deltr1($parent.$parent.$index, $parent.$index, $index)"
                       >删除</button>
                     </td>   
                     <!-- <td>{{para.k}}</td>
@@ -198,6 +205,10 @@
               >      
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
               </button>
+              <input class="form-control" 
+                ng-model="o.asort"
+                value="o.asort" 
+              >
             </div>
           </div>
 

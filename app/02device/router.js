@@ -3,7 +3,7 @@
  * dlq
  */
 
-var router = function($urlRouterProvider, $stateProvider){
+module.exports = function($urlRouterProvider, $stateProvider){
 
  	$stateProvider
 
@@ -11,9 +11,13 @@ var router = function($urlRouterProvider, $stateProvider){
         url: '/devicelist',
         title: 'devicelist',
         controller: 'list',
-        template: require('./views/list.html')
+        template: require('./views/list.html'),
+        resolve:{
+        	typelist : function(deviceservice){
+        		return deviceservice.typelist();
+        	}
+        }
+        
       })
 
 };
-
-module.exports = router;

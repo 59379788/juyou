@@ -22,6 +22,8 @@ var service = function($resource, BASEURL){
 
    	var useticketbygroupcode = url + "/destoryService/updateByGroupCode";
 
+   	var login = url + "/queryService/login";
+
    	
     
     return {
@@ -49,6 +51,9 @@ var service = function($resource, BASEURL){
         },
         useticketbygroupcode : function(){
         	return $resource(useticketbygroupcode, {}, {});
+        },
+        login : function(){
+        	return $resource(login, {}, {});
         }
       
     };

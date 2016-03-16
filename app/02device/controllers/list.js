@@ -1,4 +1,6 @@
-module.exports = function($scope, $uibModal){
+module.exports = function($scope, $uibModal, typelist){
+
+	var view = '0010';
 
 	var data = [
 		{
@@ -29,7 +31,10 @@ module.exports = function($scope, $uibModal){
 	      controller: 'tickettypelist',
 	      resolve: {
 	      	view : function(){
-	      		return '0010';
+	      		return view;
+	      	},
+	      	typelist : function(){
+	      		return typelist;
 	      	}
 	      }
 	    });

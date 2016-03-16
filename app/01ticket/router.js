@@ -7,6 +7,18 @@ var router = function($urlRouterProvider, $stateProvider){
 
  	$stateProvider
 
+ 	  .state('app.ticketlogin', {
+        url: '/ticketlogin',
+        title: 'ticketlogin',
+        controller : 'login',
+        template: require('./views/login.html'),
+        resolve : {
+        	login:  function(ticketservice){
+	     		return ticketservice.login();
+	     	}
+        }
+      })
+
       .state('app.ticketlist', {
         url: '/ticketlist',
         title: 'ticketlist',

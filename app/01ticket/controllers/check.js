@@ -80,13 +80,14 @@ module.exports = function($scope, $uibModal,
 				obj.count = res.data.ticketInfo.count;
 				obj.type = res.data.ticketInfo.type;
 				obj.type_name = res.data.ticketInfo.type_name;
+				obj.type_attr_name = res.data.ticketInfo.type_attr_name;
 
 				console.log(obj);
 
 				res.data.ticketList.push(obj);
 			}
 
-			openticketinfo(res.data.ticketList);
+			openticketinfo(res.data);
 		}
 		else
 		{

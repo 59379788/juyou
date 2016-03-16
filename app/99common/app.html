@@ -11,24 +11,26 @@
 	        <span class="icon-bar"></span>
 	      </button>
 	      <a class="navbar-brand" href="#/">
-	        <img alt="慧鼎" src="../app/img/logo.png">
+	      	Juyou
+	        <!-- <img alt="慧鼎" src="../app/img/logo.png"> -->
 	      </a>
 	    </div>
 
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-	      <ul class="nav navbar-nav">
+	      <ul class="nav navbar-nav"  >
 
-		    <li class="dropdown" uib-dropdown >
+		    <li has-permission='ticket' class="dropdown" uib-dropdown  >
 		      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> 消票 <span class="caret"></span></a>
 		      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+		      	<li><a ui-sref="app.ticketlogin">登录</a></li>
 		        <li><a ui-sref="app.ticketinput">验票</a></li>
 	            <li><a ui-sref="app.ticketlist">列表</a></li>
 		      </ul>
 		    </li>
 
-		    <li class="dropdown" uib-dropdown >
+		    <li has-permission='device' class="dropdown" uib-dropdown >
 		      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> 设备 <span class="caret"></span></a>
 		      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
 	            <li><a ui-sref="app.devicelist">设备监控</a></li>
@@ -37,26 +39,34 @@
 		      </ul>
 		    </li>
 
-		    <li class="dropdown" uib-dropdown >
+		    <li has-permission='doc' class="dropdown" uib-dropdown >
 		      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> 文档 <span class="caret"></span></a>
 		      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-		      	<li><a ui-sref="app.docname">创建接口文档</a></li>
-		      	<li role="separator" class="divider"></li>
+		      	<li
+		      	has-permission='doc.create'
+		      	><a ui-sref="app.docname">创建接口文档</a></li>
+		      	<li
+		      	has-permission='doc.create'
+		      	role="separator" class="divider"></li>
 	            <li>
 	            <a 
 	            ui-sref="app.doc({type : 'ticket_destory'})"
 	            >消票</a></li>
-	            <li><a ui-sref="app.doc({type : 444})">设备</a></li>
-	            <li><a ui-sref="app.doc({type : 555})">文档</a></li>
+	            <li
+	            has-permission='doc.device'
+	            ><a ui-sref="app.doc({type : 444})">设备</a></li>
+	            <li
+	            has-permission='doc.doc'
+	            ><a ui-sref="app.doc({type : 555})">文档</a></li>
 		      </ul>
 		    </li>
 
 	        
 	      </ul>
 
-	      <a href="manager/logout" class="btn btn-danger navbar-btn navbar-right">
+	      <!-- <a href="manager/logout" class="btn btn-danger navbar-btn navbar-right">
 	        Sign out
-	      </a>
+	      </a> -->
 
 	    </div><!-- /.navbar-collapse -->
 

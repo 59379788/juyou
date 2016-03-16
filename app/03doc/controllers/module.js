@@ -131,6 +131,14 @@ module.exports = function($scope, $stateParams, api, insert, update, del){
 		data[x][y].display_arr.push(obj);
 	};
 
+	$scope.deltr1 = function(x, y, z){
+
+		data[x][y].display_arr.splice(z,1);
+
+		//data[x].display_arr.push(obj);
+	};
+	
+
 	$scope.addtr = function(){
 
 		var obj = {

@@ -2,10 +2,18 @@
  * 子模块service
  * dlq
  */
-var service = function($resource, BASEURL){
+module.exports = function($resource, BASEURL38985){
 
-	
+
+    var typelist = BASEURL38985 + '/api/as/tc/type/adminList';
+
+
+    return {
+
+        typelist : function(){
+            return $resource(typelist, {}, {});
+        }
+      
+    };
 
 };
-
-module.exports = service;

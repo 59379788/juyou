@@ -4,46 +4,14 @@
 </div>
 <div class="modal-body">
 
-
-    <table class="table">
-        <thead>
-          <tr>
-            <th class="text-center col-md-6">票种名</th>
-            <th class="text-center col-md-2">数量</th>
-            <th class="text-center col-md-2">消票数量</th>
-            <th class="text-center col-md-2">操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="obj in objs">
-            <td class="text-center">{{obj.type_name}}</td>
-            <td class="text-center">{{obj.count}}</td>
-            <!-- <td class="text-center">
-                <button type="submit" 
-                class="btn btn-default input-sm"
-                ng-click="gogo($index,obj.type,obj.usecount)"
-                >选择</button>
-            </td> -->
-            <td>
-                <input type="text" 
-                class="form-control input-sm"
-                ng-model="obj.usecount"
-                ></td>
-            <td class="text-center">
-                <button type="submit" 
-                class="btn btn-default input-sm"
-                ng-click="use(obj.type,obj.usecount)"
-                >消票</button>
-            </td>
-          </tr>
-        </tbody>
-    </table>
-    <!-- <ul>
-        <li ng-repeat="item in items">
-            <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
-        </li>
-    </ul>
-    Selected: <b>{{ selected.item }}</b> -->
+    <div class="">
+        <div class="checkbox" ng-repeat="obj in objs">
+          <label>
+            <input type="checkbox" value="{{obj.code}}">
+            {{obj.name}}
+          </label>
+        </div>
+    </div>
 </div>
 <div class="modal-footer">
     <!-- <button class="btn btn-primary" type="button" ng-click="ok()">OK</button> -->

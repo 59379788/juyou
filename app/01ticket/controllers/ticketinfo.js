@@ -1,6 +1,11 @@
 module.exports = function($scope, $uibModalInstance, info, para){
 
-	$scope.objs = info;
+	// console.log('-------');
+	// console.log(info);
+	// console.log('-------');
+
+	$scope.objs = info.ticketList;
+
 
 	var fun = para.fun;
 
@@ -12,7 +17,7 @@ module.exports = function($scope, $uibModalInstance, info, para){
 
 	$scope.use = function(type, num, type_attr){
 
-		angular.extend(para, {"num" : num, "type" : type, "type_attr" : type_attr});
+		angular.extend(para, {"num" : num, "type" : type, "type_attr" : type_attr, "reqkey" : info.reqkey});
 
 		console.log(para);
 
