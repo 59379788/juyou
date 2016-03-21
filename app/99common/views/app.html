@@ -11,8 +11,7 @@
 	        <span class="icon-bar"></span>
 	      </button>
 	      <a class="navbar-brand" href="#/">
-	      	Juyou
-	        <!-- <img alt="慧鼎" src="../app/img/logo.png"> -->
+	      	{{obj.name}}
 	      </a>
 	    </div>
 
@@ -20,8 +19,18 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 	      <ul class="nav navbar-nav"  >
+	      	<li class="dropdown"
+	      		ng-repeat="menu in obj.list"
+	      	 	uib-dropdown  >
+		      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> {{menu.name}} <span class="caret"></span></a>
+		      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+		      	<li ng-repeat="smenu in menu.list">
+		      		<a ui-sref="{{smenu.href}}">{{smenu.name}}</a>
+		      	</li>
+		      </ul>
+		    </li>
 
-		    <li has-permission='ticket' class="dropdown" uib-dropdown  >
+		    <!-- <li has-permission='ticket' class="dropdown" uib-dropdown  >
 		      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> 消票 <span class="caret"></span></a>
 		      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
 		      	<li><a ui-sref="app.ticketlogin">登录</a></li>
@@ -69,7 +78,7 @@
 	            
 		      </ul>
 		    </li>
-
+ -->
 	        
 	      </ul>
 

@@ -15,7 +15,7 @@ require('./style/app.css');
 
 //=================[ 权限模块加载 ]===========================//
 
-(require('./04permission/boot'))();
+//(require('./04permission/boot'))();
 
 //=================[ 权限模块加载 ]===========================//
 
@@ -27,7 +27,7 @@ require('./00dashboard/app');
 require('./01ticket/app');
 require('./02device/app');
 require('./03doc/app');
-require('./04permission/app');
+//require('./04permission/app');  //废弃掉，由服务端提供
 
 
 
@@ -53,7 +53,7 @@ var App = angular.module('juyouApp', [
     'doc',
     'test',
     'common',
-    'permission',
+    //'permission',
     'ui.bootstrap',
     'ui.router',
     'ngResource',
