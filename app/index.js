@@ -29,6 +29,11 @@ require('./02device/app');
 require('./03doc/app');
 require('./04permission/app');
 
+
+
+require('./98test/app');
+require('./99common/app');
+
 //=================[ 子模块加载 ]===========================//
 
 
@@ -46,6 +51,8 @@ var App = angular.module('juyouApp', [
     'ticket',
     'device',
     'doc',
+    'test',
+    'common',
     'permission',
     'ui.bootstrap',
     'ui.router',
@@ -59,12 +66,7 @@ App.config(['$urlRouterProvider', '$stateProvider',
  	// 默认地址
  	$urlRouterProvider.otherwise('/app/dashboard');
 
- 	$stateProvider
- 	  .state('app', {
-      url: '/app',
-      abstract: true,
-      template : require('./99common/app.html')
-    })
+ 	
 
 }]);
 

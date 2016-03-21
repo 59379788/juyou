@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModalInstance, view, typelist){
+module.exports = function($scope, $uibModalInstance, view, typelist, device_code){
 
 
 	//alert(view);
@@ -8,7 +8,7 @@ module.exports = function($scope, $uibModalInstance, view, typelist){
 	};
 
 
-	typelist.get({'view' : view}, function(res){
+	typelist.get({'view' : view, 'device_code' : device_code}, function(res){
 
 		console.log(res);
 
@@ -22,5 +22,18 @@ module.exports = function($scope, $uibModalInstance, view, typelist){
 		}
 
 	});
+
+
+	$scope.selection = function($event, obj){
+
+		alert(obj.iselected);
+
+		var checkbox = $event.target;
+        var action = (checkbox.checked?'add':'remove');
+
+        alert(action);
+       // updateSelected(action,id,checkbox.name);
+
+	};
 
 };

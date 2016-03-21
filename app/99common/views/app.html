@@ -34,7 +34,7 @@
 		      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> 设备 <span class="caret"></span></a>
 		      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
 	            <li><a ui-sref="app.devicelist">设备监控</a></li>
-	            <li><a ui-sref="app.devicelist">票种设置</a></li>
+	            <li><a ui-sref="app.devicetktlist">票种设置</a></li>
 	            <li><a ui-sref="app.devicelist">刷读监控</a></li>
 		      </ul>
 		    </li>
@@ -58,6 +58,15 @@
 	            <li
 	            has-permission='doc.doc'
 	            ><a ui-sref="app.doc({type : 555})">文档</a></li>
+		      </ul>
+		    </li>
+
+
+		    <li has-permission='device' class="dropdown" uib-dropdown >
+		      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> 测试 <span class="caret"></span></a>
+		      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+	            <li><a ui-sref="app.table">表格</a></li>
+	            
 		      </ul>
 		    </li>
 

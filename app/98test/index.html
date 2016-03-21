@@ -1,0 +1,32 @@
+<table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th class="text-center col-sm-{{t.length}}" 
+        ng-repeat="t in obj.title">{{t.name}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="xx in obj.content">
+        <td class="text-center"
+        ng-repeat="t in obj.title"
+        >{{xx[t.key]}}</td>
+      </tr>
+    </tbody>
+</table>
+
+
+<div class="text-right">
+    <pagination items-per-page="itemsPerPage" 
+                total-items="bigTotalItems" 
+                ng-model="bigCurrentPage" 
+                max-size="maxSize" 
+                class="pagination-sm" 
+                boundary-links="true" 
+                rotate="false" 
+                num-pages="numPages" 
+                previous-text="上一页"
+                next-text="下一页"
+                first-text="首页"
+                last-text="末页"
+                ng-change="load()"></pagination>
+</div>
