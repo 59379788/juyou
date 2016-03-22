@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModalInstance, view, typelist, device_code){
+module.exports = function($scope, $uibModalInstance, view, typelist, device_code, add, del){
 
 
 	//alert(view);
@@ -6,7 +6,6 @@ module.exports = function($scope, $uibModalInstance, view, typelist, device_code
 	$scope.cancel = function () {
 		$uibModalInstance.dismiss('cancel');
 	};
-
 
 	typelist.get({'view' : view, 'device_code' : device_code}, function(res){
 
@@ -23,17 +22,37 @@ module.exports = function($scope, $uibModalInstance, view, typelist, device_code
 
 	});
 
-
 	$scope.selection = function($event, obj){
 
-		alert(obj.iselected);
+		console.log(obj);
+
+		var para = {
+			'device_code' : device_code,
+			'ticket_type' : '',
+			'ticket_type_attr' : ''
+
+		};
 
 		var checkbox = $event.target;
-        var action = (checkbox.checked?'add':'remove');
+        
+        if(checkbox.checked)
+        {
+        	//alert('111111111');
 
-        alert(action);
-       // updateSelected(action,id,checkbox.name);
+        	// add.save({}, function(res){
 
+
+
+        	// });
+
+        }
+        else
+        {
+        	//alert('22222222');
+        }
+
+
+       
 	};
 
 };

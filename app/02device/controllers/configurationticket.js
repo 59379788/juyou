@@ -1,23 +1,36 @@
 module.exports = function($scope){
 
+	$scope.section = {};
 
-  $scope.today = function() {
-    $scope.dt = new Date();
-  };
-  $scope.today();
+	//有效区间
+	$scope.section.start = {};
+	$scope.section.start.date = {};
 
-  $scope.open1 = function() {
-    $scope.popup1.opened = true;
-  };
+	$scope.section.end = {};
+	$scope.section.end.date = {};
 
-  $scope.popup1 = {
-    opened: false
-  };
+	$scope.today = function() {
+		$scope.section.start.date = $scope.section.end.date = new Date();
+	};
+	$scope.today();
 
-  $scope.popup2 = {
-    opened: false
-  };
+	$scope.open = function(obj) {
+		obj.opened = true;
+	};
 
+	//有效时间
+	$scope.timearr = new Array();
+	for(var i = 0; i < 24; i++)
+	{
+		var o = {};
+		o.code = i + 1;
+		o.name = i + 1 + ':00';
+		$scope.timearr.push(o);
+	}
+
+	$scope.time = {};
+	$scope.time.start = 8;
+	$scope.time.end = 17;
 
 
 

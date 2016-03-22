@@ -9,7 +9,7 @@
           <label>
             <input type="checkbox" value="{{obj.CODE}}"
             ng-checked="obj.iselected == 1"
-            ng-click="selection(obj)">
+            ng-click="selection($event,obj)">
             {{obj.name}}
           </label>
         </div>

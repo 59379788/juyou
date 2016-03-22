@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModal, typelist, devicelist){
+module.exports = function($scope, $uibModal, typelist, devicelist, add, del){
 
 	var view = '0099';
 
@@ -53,6 +53,12 @@ module.exports = function($scope, $uibModal, typelist, devicelist){
 	      	},
 	      	typelist : function(){
 	      		return typelist;
+	      	},
+	      	add : function(){
+	      		return add;
+	      	},
+	      	del : function(){
+	      		return del;
 	      	}
 	      }
 	    });

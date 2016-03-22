@@ -19,6 +19,12 @@ module.exports = function($urlRouterProvider, $stateProvider){
         	},
         	typelist : function(deviceservice){
         		return deviceservice.typelist();
+        	},
+        	add : function(deviceservice){
+        		return deviceservice.add();
+        	},
+        	del : function(deviceservice){
+        		return deviceservice.del();
         	}
         }
         
