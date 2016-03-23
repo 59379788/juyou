@@ -45,4 +45,24 @@ module.exports = function($urlRouterProvider, $stateProvider){
         
       })
 
+
+
+      //编辑设备
+      .state('app.devicetktedit', {
+        url: '/devicetktedit/:id',
+        title: 'devicetktedit',
+        controller: 'devicetktedit',
+        template: require('./views/module.html'),
+        resolve:{
+        	info : function(deviceservice){
+        		return deviceservice.info();
+        	}
+        	,
+        	slist : function(deviceservice){
+        		return deviceservice.slist;
+        	}
+        }
+        
+      })
+
 };

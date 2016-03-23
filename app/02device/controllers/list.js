@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModal, typelist, devicelist, add, del){
+module.exports = function($scope, $uibModal, typelist, devicelist, add, del, $state){
 
 	var view = '0099';
 
@@ -20,19 +20,23 @@ module.exports = function($scope, $uibModal, typelist, devicelist, add, del){
 	// ];
 
 
-	devicelist.get({'view' : view}, function(res){
+	function load(){
 
-		console.log(res);
-		if(res.errcode === 0)
-		{
-			$scope.objs = res.data;
-		}
-		else
-		{
-			alert(res.errmsg);
-		}
+		devicelist.get({'view' : view}, function(res){
 
-	});
+			console.log(res);
+			if(res.errcode === 0)
+			{
+				$scope.objs = res.data;
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+
+		});
+	}
+	load();
 
 
 
@@ -63,17 +67,20 @@ module.exports = function($scope, $uibModal, typelist, devicelist, add, del){
 	      }
 	    });
 
-	    modalInstance.result.then(function (selectedItem) {
-	      //$scope.selected = selectedItem;
-
-	      console.log(selectedItem);
+	    modalInstance.result.then(function () {
+	      
+	      load();
 
 	    }, function () {
 	      //$log.info('Modal dismissed at: ' + new Date());
 	    });
 	}
 
+	$scope.edit = function(id){
 
+		$state.go('app.devicetktedit', {'id' : id});
+
+	};
 
 
 };

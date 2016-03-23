@@ -7,7 +7,7 @@
     <div class="">
         <div class="checkbox" ng-repeat="obj in objs">
           <label>
-            <input type="checkbox" value="{{obj.CODE}}"
+            <input type="checkbox" value="{{obj.code}}"
             ng-checked="obj.iselected == 1"
             ng-click="selection($event,obj)">
             {{obj.name}}
