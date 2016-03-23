@@ -21,6 +21,12 @@ module.exports = function($scope, insert, $state, group){
 
 	$scope.gogo = function(){
 
+		if($scope.name.length === 0)
+		{
+			alert('请输入标题');
+			return ;
+		}
+
 		var api_id = (new Date()).valueOf();
 
 		var para = {

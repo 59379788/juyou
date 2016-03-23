@@ -32,8 +32,28 @@
 		<label class="col-xs-2 control-label">备注</label>
 		<div class="col-xs-6">
 			<input type="text" class="form-control" placeholder="请输入密码"
-			ng-model="obj.remark"
+			ng-model="obj.remarks"
 			>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">票机类型</label>
+		<div class="col-xs-6">
+			<select class="form-control" ng-model="obj.type" 
+              ng-options="type.code as type.name for type in typearr"
+            >
+            </select>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">设备状态</label>
+		<div class="col-xs-6">
+			<select class="form-control" ng-model="obj.type" 
+              ng-options="type.code as type.name for type in typearr"
+            >
+            </select>
 		</div>
 	</div>
 

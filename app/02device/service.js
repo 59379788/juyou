@@ -51,7 +51,25 @@ module.exports = function($resource, BASEURL38985, $q, $http){
                 deferred.reject(data);   // 声明执行失败，即服务器返回错误  
             });  
             return deferred.promise;   // 返回承诺，这里并不是最终数据，而是访问最终数据的API 
-        }
+        },
+        devicetype : [
+            {
+                'name' : '检票机',
+                'code' : 1
+            },
+            {
+                'name' : '闸机',
+                'code' : 2
+            },
+            {
+                'name' : '手持查消票机',
+                'code' : 3
+            },
+            {
+                'name' : '办卡机',
+                'code' : 4
+            }
+        ]
       
     };
 

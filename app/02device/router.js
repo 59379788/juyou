@@ -56,10 +56,13 @@ module.exports = function($urlRouterProvider, $stateProvider){
         resolve:{
         	info : function(deviceservice){
         		return deviceservice.info();
-        	}
-        	,
+        	},
         	slist : function(deviceservice){
         		return deviceservice.slist;
+        	},
+        	devicetype : function(deviceservice){
+        		console.log(deviceservice);
+        		return deviceservice.devicetype;
         	}
         }
         
