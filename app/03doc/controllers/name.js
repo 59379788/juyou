@@ -40,7 +40,7 @@ module.exports = function($scope, insert, $state, group){
 
 		insert.save(para, function(res){
 
-			console.log(res);
+			//console.log(res);
 
 			if(res.errcode === 0)
 			{

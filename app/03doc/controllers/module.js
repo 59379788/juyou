@@ -13,7 +13,7 @@ module.exports = function($scope, $stateParams, api, insert, update, del){
 
 	api.get({'api_id' : api_id}, function(res){
 
-		console.log(res);
+		//console.log(res);
 
 		if(res.errcode === 0)
 		{
@@ -94,7 +94,7 @@ module.exports = function($scope, $stateParams, api, insert, update, del){
 
 		data[x][y].state = 0;
 
-		console.log(data[x][y]);
+		//console.log(data[x][y]);
 
 		if(data[x][y].display_type == 0)
 		{

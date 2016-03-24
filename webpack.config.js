@@ -26,7 +26,11 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     inline: true,
-    progress: true,
+    progress: true
+    // ,
+    // proxy: {
+    //   "*": "http://localhost:9000"
+    // }
   }
 
 };

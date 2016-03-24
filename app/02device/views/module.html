@@ -50,12 +50,104 @@
 	<div class="form-group">
 		<label class="col-xs-2 control-label">设备状态</label>
 		<div class="col-xs-6">
-			<select class="form-control" ng-model="obj.type" 
-              ng-options="type.code as type.name for type in typearr"
-            >
-            </select>
+			<label class="radio-inline">
+			  <input type="radio" name="state" value="0"
+			  ng-model="obj.state"
+			  > 不可用
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="state" value="1"
+			  ng-model="obj.state"
+			  > 可用
+			</label>
 		</div>
 	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">删除标志</label>
+		<div class="col-xs-6">
+			<label class="radio-inline">
+			  <input type="radio" name="del_flg" value="0"
+			  ng-model="obj.del_flg"
+			  > 未删除
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="del_flg" value="1"
+			  ng-model="obj.del_flg"
+			  > 已删除
+			</label>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">散票-权限状态</label>
+		<div class="col-xs-6">
+			<label class="radio-inline">
+			  <input type="radio" name="auth_state" value="0"
+			  ng-model="obj.auth_state"
+			  > 不启用
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="auth_state" value="1"
+			  ng-model="obj.auth_state"
+			  > 启用
+			</label>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">散票-是否多销验票</label>
+		<div class="col-xs-6">
+			<label class="radio-inline">
+			  <input type="radio" name="many_state" value="0"
+			  ng-model="obj.many_state"
+			  > 单独
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="many_state" value="1"
+			  ng-model="obj.many_state"
+			  > 多张
+			</label>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">团票-权限状态</label>
+		<div class="col-xs-6">
+			<label class="radio-inline">
+			  <input type="radio" name="group_auth_state" value="0"
+			  ng-model="obj.group_auth_state"
+			  > 不启用
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="group_auth_state" value="1"
+			  ng-model="obj.group_auth_state"
+			  > 启用
+			</label>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">创建时间</label>
+		<div class="col-xs-6">
+			<p class="form-control-static">{{obj.create_time}}</p>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">修改时间</label>
+		<div class="col-xs-6">
+			<p class="form-control-static">{{obj.update_time}}</p>
+		</div>
+	</div>
+
+	<button 
+    type="button" 
+    class="btn btn-primary btn-lg btn-block" 
+    ng-click="gogo()"
+    >
+    提交吧！黄同学
+    </button>
 
 
 </div>

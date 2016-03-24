@@ -18,6 +18,8 @@ module.exports = function($resource, BASEURL38985, $q, $http){
 
     var info = BASEURL38985 + '/api/us/tc/device/info';
 
+    var update = BASEURL38985 + '/api/us/tc/device/update';
+
     //景区简表
     var slist = BASEURL38985 + "/api/us/tc/view/adminViewForTicketList";
 
@@ -40,6 +42,9 @@ module.exports = function($resource, BASEURL38985, $q, $http){
         },
         info : function(){
             return $resource(info, {}, {});
+        },
+        update : function(){
+            return $resource(update, {}, {});
         },
         slist : function(obj){
             var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  

@@ -1,4 +1,4 @@
-module.exports = function($scope, info, $stateParams, slist, devicetype){
+module.exports = function($scope, info, $stateParams, slist, devicetype, update){
 
 	//机器id
 	var id = $stateParams.id;
@@ -27,6 +27,7 @@ module.exports = function($scope, info, $stateParams, slist, devicetype){
 		if(res.errcode === 0)
 		{
 			$scope.obj = res.data;
+			$scope.obj.id = id;
 		}
 		else
 		{
@@ -35,5 +36,25 @@ module.exports = function($scope, info, $stateParams, slist, devicetype){
 
 	});
 
+
+	//gogo
+	$scope.gogo = function(){
+
+		update.save($scope.obj, function(res){
+
+			console.log(res);
+
+			if(res.errcode !== 0)
+			{
+				alert(res.errmsg);
+			}
+			else
+			{
+				alert('修改成功');
+			}
+
+		});
+
+	};
 
 };

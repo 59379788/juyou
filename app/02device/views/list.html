@@ -21,14 +21,6 @@
         <td class="text-center">{{obj.total}}</td>
         <td class="text-center">{{obj.type_name}}</td>
         <td class="text-center">
-            <!-- <li has-permission='ticket' class="dropdown" uib-dropdown  >
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> 消票 <span class="caret"></span></a>
-              <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                <li><a ui-sref="app.ticketlogin">登录</a></li>
-                <li><a ui-sref="app.ticketinput">验票</a></li>
-                <li><a ui-sref="app.ticketlist">列表</a></li>
-              </ul>
-            </li> -->
             <button type="submit" 
             class="btn btn-default input-sm"
             ng-click="edit(obj.id)"
@@ -37,22 +29,6 @@
             class="btn btn-default input-sm"
             ng-click="configurationticket(obj.code)"
             >配置票种</button>
-            <button type="submit" 
-            class="btn btn-default input-sm"
-            ng-click="use(obj.type,obj.usecount)"
-            >停用</button>
-            <button type="submit" 
-            class="btn btn-default input-sm"
-            ng-click="use(obj.type,obj.usecount)"
-            >启用散票权限</button>
-            <button type="submit" 
-            class="btn btn-default input-sm"
-            ng-click="use(obj.type,obj.usecount)"
-            >启用一次验多张票</button>
-            <button type="submit" 
-            class="btn btn-default input-sm"
-            ng-click="use(obj.type,obj.usecount)"
-            >启用团票权限</button>
         </td>
       </tr>
     </tbody>

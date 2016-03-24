@@ -29,7 +29,7 @@ module.exports = function($scope, $stateParams, api, $state){
 
 	api.get({'api_id' : api_id}, function(res){
 
-		console.log(res);
+		//console.log(res);
 
 		for(var i = 0; i < res.data.length; i++)
 		{
@@ -52,7 +52,7 @@ module.exports = function($scope, $stateParams, api, $state){
 			{
 				var jsonobj = angular.fromJson(obj.text);
 
-				console.log(jsonobj);
+				//console.log(jsonobj);
 				var tt = new Array();
 				for(key in jsonobj)
 				{
