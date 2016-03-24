@@ -29,7 +29,7 @@ require('./02device/app');
 require('./03doc/app');
 require('./04permission/app');  //废弃掉，由服务端提供
 
-
+//测试分支123
 
 require('./97intercept/app');   //拦截器
 require('./98test/app');
