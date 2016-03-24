@@ -8,7 +8,7 @@ module.exports = function($scope, permission, angularPermission){
 		{
 			$scope.obj = res.data;
 
-			var permission = ['1edxx'];
+			var permission = ['xxxx'];
 
 			console.log(angularPermission);
 
