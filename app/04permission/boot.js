@@ -32,7 +32,8 @@ module.exports = function($){
       }
       else
       {
-        alert(res.errmsg);
+        //alert(res.errmsg);
+        window.location = "/manager/login";
       }
 
       angular.module('juyouApp').run(['$rootScope','$location','angularPermission', function($rootScope,$location,angularPermission){

@@ -1,21 +1,26 @@
-// module.exports = function($scope, typelist, view, device_code){
+module.exports = function($scope, tktlist, $state){
 
-// 	console.log('adsdsaasdsdadasdsa');
-// 	console.log({'view' : view, 'device_code' : device_code});
+	
+	tktlist.get({'view' : '0099'}, function(res){
 
-// 	typelist.get({'view' : view, 'device_code' : device_code}, function(res){
+		console.log(res);
 
-// 		console.log(res);
+		if(res.errcode === 0)
+		{
+			$scope.objs = res.data;
+		}
+		else
+		{
+			alert(res.errmsg);
+		}
 
-// 		if(res.errcode === 0)
-// 		{
-// 			$scope.objs = res.data;
-// 		}
-// 		else
-// 		{
-// 			alert(res.errmsg);
-// 		}
+	});
 
-// 	});
 
-// };
+	$scope.edit = function(id){
+
+		$state.go('app.configurationticket', {'tktcode' : id});
+
+	};
+
+};

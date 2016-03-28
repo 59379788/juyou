@@ -23,6 +23,9 @@ module.exports = function($resource, BASEURL38985, $q, $http){
     //景区简表
     var slist = BASEURL38985 + "/api/us/tc/view/adminViewForTicketList";
 
+    //列表
+    var tktlist = BASEURL38985 + '/api/us/tc/type/settypelist';
+
     return {
 
         typelist : function(){
@@ -74,7 +77,10 @@ module.exports = function($resource, BASEURL38985, $q, $http){
                 'name' : '办卡机',
                 'code' : 4
             }
-        ]
+        ],
+        tktlist : function(){
+            return $resource(tktlist, {}, {});
+        }
       
     };
 

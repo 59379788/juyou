@@ -35,12 +35,26 @@ module.exports = function($urlRouterProvider, $stateProvider){
       .state('app.devicetktlist', {
         url: '/devicetktlist',
         title: 'devicetktlist',
+        controller: 'devicetktlist',
+        template: require('./views/tktlist.html'),
+        resolve:{
+        	tktlist : function(deviceservice){
+        		return deviceservice.tktlist();
+        	}
+        }
+        
+      })
+
+      //配置票种
+      .state('app.configurationticket', {
+        url: '/configurationticket/:tktcode',
+        title: 'configurationticket',
         controller: 'configurationticket',
         template: require('./views/configurationticket.html'),
         resolve:{
-        	typelist : function(deviceservice){
-        		return deviceservice.typelist();
-        	}
+            tktlist : function(deviceservice){
+                return deviceservice.tktlist();
+            }
         }
         
       })

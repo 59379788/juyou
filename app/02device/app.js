@@ -14,4 +14,6 @@ App.controller('configurationticket',require('./controllers/configurationticket'
 App.controller('devicetktedit',require('./controllers/devicetktedit'));
 
 
+
+
 module.exports = App;
