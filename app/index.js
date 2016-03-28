@@ -3,11 +3,6 @@
  * dlq
  */
 
-<<<<<<< HEAD
-=======
-///dlq
-
->>>>>>> juyou/master
 
 var angular = require('angular');
 require('angular-resource');
