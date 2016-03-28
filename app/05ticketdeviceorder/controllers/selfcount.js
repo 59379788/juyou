@@ -4,7 +4,11 @@ module.exports = function($scope, $stateParams, destorytotalbytypelist){
 
 	$scope.submit = function(){
 		destorytotalbytypelist.get({'device' : $scope.device, 'view' : $stateParams.view}, function(res){
-			$scope.objs = res.data;
+			if(res.errcode === 0){
+				$scope.objs = res.data;
+			}else{
+				alert(res.errmsg);
+			}
 		});
 	};
 	

@@ -5,13 +5,17 @@ module.exports = function($scope, $stateParams, receliptlist, receliptinfo, rece
 
 	$scope.query = function(){
 		var len = $scope.type.length;
-		if(!(len == 8 || len == 18)){
+		if(!(len === 8 || len === 18)){
 			alert("位数错误");
 			return;
 		}
 
 		receliptlist.get({'device' : $scope.device, 'code' : $scope.type}, function(res){
-			$scope.objs = res.data;
+			if(res.errcode === 0){
+				$scope.objs = res.data;
+			}else{
+				alert(res.errmsg);
+			}
 		});
 	};
 
@@ -25,8 +29,12 @@ module.exports = function($scope, $stateParams, receliptlist, receliptinfo, rece
 				  "更新时间："+res.data.update_time+"\r\n";
 			if(confirm(msg)){
 				receliptprint.get({'id' : id}, function(res){
-					if(res.data.count === 1){
-						alert("打印成功");
+					if(res.errcode === 0){
+						if(res.data.count === 1){
+							alert("打印成功");
+						}
+					}else{
+						alert(res.errmsg);
 					}
 				});
 			}

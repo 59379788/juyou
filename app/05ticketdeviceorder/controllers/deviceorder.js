@@ -1,4 +1,4 @@
-module.exports = function($scope, $state){
+module.exports = function($scope){
 
 	$scope.return = function(){
 		history.go(-1);

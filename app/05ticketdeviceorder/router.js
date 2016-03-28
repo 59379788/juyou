@@ -22,7 +22,7 @@ var router = function($urlRouterProvider, $stateProvider){
       })
 
 	.state('app.deviceorder.selfcount', {
-        url: '/selfcount?view',
+        url: '/selfcount/:view',
         title: 'selfcount',
         controller : 'selfcount',
         template: require('./views/selfcount.html'),
@@ -34,7 +34,7 @@ var router = function($urlRouterProvider, $stateProvider){
       })
 
 	.state('app.deviceorder.teamcount', {
-        url: '/teamcount?view_code',
+        url: '/teamcount/:view_code',
         title: 'teamcount',
         controller : 'teamcount',
         template: require('./views/teamcount.html'),
@@ -46,7 +46,7 @@ var router = function($urlRouterProvider, $stateProvider){
       })
 
 	.state('app.deviceorder.teamreserve', {
-        url: '/teamreserve?view_code',
+        url: '/teamreserve/:view_code',
         title: 'teamreserve',
         controller : 'teamreserve',
         template: require('./views/teamreserve.html'),
