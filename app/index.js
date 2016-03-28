@@ -3,6 +3,11 @@
  * dlq
  */
 
+<<<<<<< HEAD
+=======
+///dlq
+
+>>>>>>> juyou/master
 
 var angular = require('angular');
 require('angular-resource');
@@ -26,6 +31,7 @@ require('./01ticket/app');
 require('./02device/app');
 require('./03doc/app');
 require('./04permission/app');  //废弃掉，由服务端提供
+require('./05ticketdeviceorder/app');
 
 
 
@@ -51,6 +57,7 @@ var App = angular.module('juyouApp', [
     'ticket',
     'device',
     'doc',
+    'ticketdeviceorder',
     'test',
     'common',
     'permission',

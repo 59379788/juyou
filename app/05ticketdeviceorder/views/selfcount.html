@@ -1,0 +1,24 @@
+<div class="panel-body">
+	  <div class="form-group">
+	    <div class="col-sm-9">
+	      <input type="text" class="form-control" ng-model="device" placeholder="输入设备码">
+	    </div>
+	    <div class="col-sm-3">
+	    	<button type="button" 
+	    	class="btn btn-default btn-block"
+	    	ng-click="submit()">确定</button>
+	    </div>
+	  </div>
+</div>
+<div class="panel-body">
+	  <div class="form-group">
+		<div ng-repeat="obj in objs" style="font-size:24px;">
+			<div class="">
+				<div class="col-sm-9">{{obj.type_name}}</div>
+				<div class="col-sm-3">{{obj.count}}张</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

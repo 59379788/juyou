@@ -1,0 +1,28 @@
+<div class="panel-body">
+
+	<div class="form-group">
+		<div class="col-xs-10">
+	      <input type="text" class="form-control" ng-model="device" placeholder="输入设备码">
+	    </div>
+		<div class="col-xs-10 mt10">
+			<input type="text" class="form-control" ng-model="type" placeholder="请输入票码或身份证">
+		</div>
+		<div class="col-xs-2 mt10">
+			<button type="button" class="btn btn-primary btn-block" ng-click="query()">查询</button>
+		</div>
+	</div>
+</div>
+
+<div class="panel-body">
+	<div  ng-repeat="obj in objs" style="font-size:18px;">
+		<div class="col-xs-10" >
+			<p>
+				{{obj.tkt_name}}<br>
+				{{obj.num}}张&nbsp;&nbsp;&nbsp;&nbsp;{{obj.update_time}}
+			</p>
+		</div>
+		<div class="col-xs-2">
+			<button type="button" class="btn btn-info" ng-click="detail(obj.id)">详情</button>
+		</div>
+	</div>
+</div>
