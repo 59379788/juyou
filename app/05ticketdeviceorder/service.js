@@ -2,23 +2,23 @@
  * 子模块service
  * djp
  */
-var service = function($resource){
+var service = function($resource, BASEURL38985){
 
-	var url = "http://115.28.145.50:38985/api/us/tc";
+	var url = BASEURL38985 + "/api/us/tc/devicequerycount";
 
-   	var destorytotalbytypelist = url + "/devicequerycount/destorytotalbytypelist";
+   	var destorytotalbytypelist = url + "/destorytotalbytypelist";
 
-   	var grouptotalbytpyelist = url + "/devicequerycount/grouptotalbytpyelist";
+   	var grouptotalbytpyelist = url + "/grouptotalbytpyelist";
 
-   	var grouptotaltodaylist = url + "/devicequerycount/grouptotaltodaylist";
+   	var grouptotaltodaylist = url + "/grouptotaltodaylist";
 
-   	var grouptotaltomlist = url + "/devicequerycount/grouptotaltomlist";
+   	var grouptotaltomlist = url + "/grouptotaltomlist";
 
-   	var receliptlist = url + "/devicequerycount/receliptlist";
+   	var receliptlist = url + "/receliptlist";
 
-   	var receliptinfo = url + "/devicequerycount/receliptinfo";
+   	var receliptinfo = url + "/receliptinfo";
 
-   	var receliptprint = url + "/devicequerycount/receliptprint";
+   	var receliptprint = url + "/receliptprint";
 
    	
     
