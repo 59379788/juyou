@@ -25,7 +25,7 @@ require('./00dashboard/app');
 require('./01ticket/app');
 require('./02device/app');
 require('./03doc/app');
-require('./04permission/app');  //废弃掉，由服务端提供
+require('./04permission/app');
 require('./05ticketdeviceorder/app');
 
 
@@ -65,7 +65,6 @@ var App = angular.module('juyouApp', [
 
 App.config(['$urlRouterProvider', '$stateProvider', 
  	function ($urlRouterProvider, $stateProvider) {
-
  	// 默认地址
  	$urlRouterProvider.otherwise('/app/dashboard');
 
