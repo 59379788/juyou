@@ -5,7 +5,7 @@ module.exports = function($location){
             //console.log(response)
             if(response.data.errcode === 1001)
             {
-                window.location = "/manager/login";
+               window.location = "/manager/login";
             }
             return response;
         }

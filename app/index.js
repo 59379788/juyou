@@ -3,8 +3,6 @@
  * dlq
  */
 
-///dlq
-
 
 var angular = require('angular');
 require('angular-resource');
@@ -15,7 +13,7 @@ require('./style/app.css');
 
 //=================[ 权限模块加载 ]===========================//
 
-//(require('./04permission/boot'))();
+(require('./04permission/boot'))(jQuery);
 
 //=================[ 权限模块加载 ]===========================//
 
@@ -77,6 +75,7 @@ App.config(['$urlRouterProvider', '$stateProvider',
 .config(function($httpProvider) {
   $httpProvider.interceptors.push('httpInjector');
 })
+
 ;
 
 //==================[ 主模块 ]=============================//

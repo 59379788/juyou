@@ -31,7 +31,9 @@ module.exports =  angular.module('permission', [])
         $rootScope.$broadcast('permissionsChanged')
       },
       hasPermission: function (permission) {
-        //console.log(userPermissionList);
+        console.log('hasPermission');
+        console.log(userPermissionList);
+        console.log('hasPermission');
         if(userPermissionList.indexOf(permission.trim()) > -1){
           return true;
         }else{
