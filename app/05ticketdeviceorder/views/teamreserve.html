@@ -1,0 +1,15 @@
+<div class="panel-body">
+	<div class="list-group" style="cursor:pointer;">
+		<a class="list-group-item col-md-6 text-center" ng-click="today()">今日预订</a>
+		<a class="list-group-item col-md-6 text-center" ng-click="toma()">明日预订</a>
+	</div>
+</div>
+<div class="panel-body">
+	<div class="form-group" ng-repeat="obj in objs" style="font-size:18px;">
+		<p>
+			{{obj.type_name}}&nbsp;&nbsp;&nbsp;&nbsp;预订：{{obj.book_count}}人<br>
+			{{obj.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{obj.vehicle_number}}&nbsp;&nbsp;&nbsp;&nbsp;最后修改：{{obj.update_time}}<br>
+			备注：{{obj.remark}}
+		</p>
+	</div>
+</div>
