@@ -1,8 +1,10 @@
-module.exports = function($scope, permission){
+module.exports = function($scope, permission, $rootScope){
+
+	$scope.obj = $rootScope.menudata;
 
 	//permission.get({'userId' : 'dfa41befeb044ea4b1e501ec0f64077a'}, function(res){
-	permission.get({}, function(res){
-		console.log(res);
+	// permission.get({}, function(res){
+	// 	console.log(res);
 
 
 
@@ -10,23 +12,23 @@ module.exports = function($scope, permission){
 
 
 
-		if(res.errcode === 0)
-		{
-			//alert('asdasdadsads');
-			$scope.obj = res.data;
+	// 	if(res.errcode === 0)
+	// 	{
+	// 		//alert('asdasdadsads');
+	// 		$scope.obj = res.data;
 
-			// var permission = ['xxxx'];
+	// 		// var permission = ['xxxx'];
 
-			// console.log(angularPermission);
+	// 		// console.log(angularPermission);
 
-			// $rootScope.userPermissionList = permission;
+	// 		// $rootScope.userPermissionList = permission;
 
-   //          angularPermission.setPermissions($rootScope.userPermissionList);
+ //   //          angularPermission.setPermissions($rootScope.userPermissionList);
 
-          	//angularPermission.setPermissions(permission);
+ //          	//angularPermission.setPermissions(permission);
 
-		}
+	// 	}
 
-	});
+	// });
 
 };
