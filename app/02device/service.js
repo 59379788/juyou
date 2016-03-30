@@ -26,6 +26,22 @@ module.exports = function($resource, BASEURL38985, $q, $http){
     //列表
     var tktlist = BASEURL38985 + '/api/us/tc/type/settypelist';
 
+    //票种设置-权限详情显示
+    var typeauthinfo = BASEURL38985 + '/api/us/tc/typeauth/info';
+
+    //票种设置-权限详情修改
+    var typeauthupdate = BASEURL38985 + '/api/us/tc/typeauth/update';
+
+    //票种设置-权限详情编辑节日列表
+    var viewfestivallist = BASEURL38985 + '/api/us/tc/viewfestival/list';
+
+    //票种设置-权限详情编辑节日新增
+    var viewfestivalcreate = BASEURL38985 + '/api/us/tc/viewfestival/create';
+
+    //票种设置-权限详情编辑节日删除
+    var viewfestivaldel = BASEURL38985 + '/api/us/tc/viewfestival/delete';
+    
+
     return {
 
         typelist : function(){
@@ -80,6 +96,21 @@ module.exports = function($resource, BASEURL38985, $q, $http){
         ],
         tktlist : function(){
             return $resource(tktlist, {}, {});
+        },
+        typeauthinfo : function(){
+            return $resource(typeauthinfo, {}, {});
+        },
+        typeauthupdate : function(){
+            return $resource(typeauthupdate, {}, {});
+        },
+        viewfestivallist : function(){
+            return $resource(viewfestivallist, {}, {});
+        },
+        viewfestivalcreate : function(){
+            return $resource(viewfestivalcreate, {}, {});
+        },
+        viewfestivaldel : function(){
+            return $resource(viewfestivaldel, {}, {});
         }
       
     };

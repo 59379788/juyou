@@ -11,6 +11,7 @@ require('angular-ui-bootstrap');
 require('./style/app.css');
 
 
+
 //=================[ 权限模块加载 ]===========================//
 
 (require('./04permission/boot'))(jQuery);

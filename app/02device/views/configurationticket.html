@@ -12,14 +12,14 @@
 	    <div class="col-sm-10">
 
 		    <p class="input-group col-sm-3 pull-left">
-	          <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" />
+	          <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
 	          <span class="input-group-btn">
 	            <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
 	          </span>
 	        </p>
 	        <p class="form-control-static pull-left"> &nbsp;&nbsp;-&nbsp;&nbsp; </p>
 	        <p class="input-group col-sm-3 pull-left">
-	          <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" />
+	          <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
 	          <span class="input-group-btn">
 	            <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
 	          </span>
@@ -27,20 +27,48 @@
 
 	    </div>
 	  </div>
-	  
+
 	  <div class="form-group">
 	    <label class="col-sm-2 control-label">有效时间：</label>
 	    <div class="col-sm-10">
+	    	<label class="radio-inline">
+			  <input type="radio" name="time_state" value="0"
+			  ng-model="obj.time_state"
+			  > 全程可用
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="time_state" value="1"
+			  ng-model="obj.time_state"
+			  > 部分时段
+			</label>
+	    </div>
+	  </div>
+	  
+	  <div class="form-group" ng-show="obj.time_state == 1">
+	    <label class="col-sm-2 control-label">&nbsp;</label>
+	    <div class="col-sm-10">
 	      
-	    	<p class="input-group col-sm-3 pull-left">
-		        <select class="form-control" ng-model="time.start" 
-	              ng-options="t.code as t.name for t in timearr"
+	    	<p class="input-group col-sm-1 pull-left">
+		        <select class="form-control" ng-model="obj.start_hous" 
+	              ng-options="t.code as t.name for t in hourarr"
+	            ></select>
+	        </p>
+	        <p class="form-control-static pull-left"> &nbsp;&nbsp;:&nbsp;&nbsp; </p>
+	        <p class="input-group col-sm-1 pull-left">
+		        <select class="form-control" ng-model="obj.start_minute" 
+	              ng-options="t.code as t.name for t in minarr"
 	            ></select>
 	        </p>
 	        <p class="form-control-static pull-left"> &nbsp;&nbsp;-&nbsp;&nbsp; </p>
-	        <p class="input-group col-sm-3 pull-left">
-	          	<select class="form-control" ng-model="time.end" 
-	              ng-options="t.code as t.name for t in timearr"
+	        <p class="input-group col-sm-1 pull-left">
+		        <select class="form-control" ng-model="obj.end_hous" 
+	              ng-options="t.code as t.name for t in hourarr"
+	            ></select>
+	        </p>
+	        <p class="form-control-static pull-left"> &nbsp;&nbsp;:&nbsp;&nbsp; </p>
+	        <p class="input-group col-sm-1 pull-left">
+		        <select class="form-control" ng-model="obj.end_minute" 
+	              ng-options="t.code as t.name for t in minarr"
 	            ></select>
 	        </p>
 
@@ -50,38 +78,119 @@
 	  <div class="form-group">
 	    <label class="col-sm-2 control-label">有效日期：</label>
 	    <div class="col-sm-10">
-			<label class="checkbox-inline">
-				<input type="checkbox" id="inlineCheckbox1" value="option1"> 星期一
+			<label class="radio-inline">
+			  <input type="radio" name="rule_state" value="0"
+			  ng-model="obj.rule_state"
+			  > 规则无效
 			</label>
-			<label class="checkbox-inline">
-				<input type="checkbox" id="inlineCheckbox2" value="option2"> 星期二
-			</label>
-			<label class="checkbox-inline">
-				<input type="checkbox" id="inlineCheckbox3" value="option3"> 星期三
-			</label>
-			<label class="checkbox-inline">
-				<input type="checkbox" id="inlineCheckbox1" value="option1"> 星期四
-			</label>
-			<label class="checkbox-inline">
-				<input type="checkbox" id="inlineCheckbox2" value="option2"> 星期五
-			</label>
-			<label class="checkbox-inline">
-				<input type="checkbox" id="inlineCheckbox3" value="option3"> 星期六
-			</label>
-			<label class="checkbox-inline">
-				<input type="checkbox" id="inlineCheckbox2" value="option2"> 星期日
-			</label>
-			<label class="checkbox-inline">
-				<input type="checkbox" id="inlineCheckbox3" value="option3"> 节日
+			<label class="radio-inline">
+			  <input type="radio" name="rule_state" value="1"
+			  ng-model="obj.rule_state"
+			  > 规则生效
 			</label>
 	    </div>
 	  </div>
 
+	  <div ng-show="obj.rule_state == 1">
 	  <div class="form-group">
-	    <div class="col-sm-offset-2 col-sm-10">
-	      <button type="submit" class="btn btn-default">Sign in</button>
+	    <label class="col-sm-2 control-label">&nbsp;</label>
+	    <div class="col-sm-10">
+			
+			<label class="checkbox-inline">
+				<input type="checkbox" ng-model="use_rule1"
+				ng-true-value="1" ng-false-value=""
+				> 星期一
+			</label>
+			<label class="checkbox-inline">
+				<input type="checkbox" ng-model="use_rule2"
+				ng-true-value="2" ng-false-value=""
+				> 星期二
+			</label>
+			<label class="checkbox-inline">
+				<input type="checkbox" ng-model="use_rule3"
+				ng-true-value="3" ng-false-value=""
+				> 星期三
+			</label>
+			<label class="checkbox-inline">
+				<input type="checkbox" ng-model="use_rule4"
+				ng-true-value="4" ng-false-value=""
+				> 星期四
+			</label>
+			<label class="checkbox-inline">
+				<input type="checkbox" ng-model="use_rule5"
+				ng-true-value="5" ng-false-value=""
+				> 星期五
+			</label>
+			<label class="checkbox-inline">
+				<input type="checkbox" ng-model="use_rule6"
+				ng-true-value="6" ng-false-value=""
+				> 星期六
+			</label>
+			<label class="checkbox-inline">
+				<input type="checkbox" ng-model="use_rule7"
+				ng-true-value="7" ng-false-value=""
+				> 星期日
+			</label>
+			<!-- <label class="checkbox-inline">
+				<input type="checkbox" ng-model="use_rule8"
+				ng-true-value="8" ng-false-value=""
+				> 节日
+			</label>
+			<label class="checkbox-inline">
+				<button 
+			    type="button" 
+			    class="btn btn-danger btn-xs" 
+			    ng-show="use_rule8 == 8"
+			    ng-click="editfestival()"
+			    >
+			    编辑
+			    </button>
+			</label> -->
+
 	    </div>
 	  </div>
+
+	  <div class="form-group">
+	    <label class="col-sm-2 control-label">节日：</label>
+	    <div class="col-sm-10">
+	    	<label class="radio-inline">
+			  <input type="radio" name="festival_state" value="0"
+			  ng-model="obj.festival_state"
+			  > 不可用
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="festival_state" value="1"
+			  ng-model="obj.festival_state"
+			  > 可用
+			</label>
+	    </div>
+	  </div>
+
+	  <div class="form-group" >
+	    <label class="col-sm-2 control-label">&nbsp;</label>
+	    <div class="col-sm-10">
+
+	    	<!-- <div class="panel panel-default pull-left"
+			ng-repeat="f in festivalarr"
+			>
+			  <div class="panel-body">
+			    {{f.day}}
+			  </div>
+			</div> -->
+
+	    	<span class="text-danger">景区节日包含：<span ng-repeat="f in festivalarr"> {{f.day}} ,</span></span>
+
+	    </div>
+	  </div>
+	  </div>
+
+	  <button 
+	    type="button" 
+	    class="btn btn-primary btn-lg btn-block" 
+	    ng-click="gogo()"
+	    >
+	    提交
+	    </button>
 	</form>
 
 </div>

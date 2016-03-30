@@ -1,0 +1,48 @@
+
+<div class="modal-header">
+    <h4 class="modal-title">节日信息</h4>
+</div>
+<div class="modal-body">
+	<div class="container-fluid">
+	<form class="form-horizontal">
+		<div class="form-group">
+			<div class="row">
+		    <label class="col-sm-3 control-label">选择日期：</label>
+		    <div class="col-sm-8">
+
+			    <p class="input-group col-sm-12 pull-left">
+		          <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="dt" is-open="opened" ng-required="true" close-text="Close" readonly/>
+		          <span class="input-group-btn">
+		            <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+		          </span>
+		          <span class="input-group-btn">
+		            <button type="button" class="btn btn-default" ng-click="add()"><i class="glyphicon glyphicon-plus"></i></button>
+		          </span>
+
+		        </p>
+
+		    </div>
+		    </div>
+		    
+		    <div class="row mt10 col-sm-11 col-sm-offset-1 text-center">
+
+				<div class="panel panel-default pull-left"
+				ng-repeat="obj in objs"
+				>
+				  <div class="panel-body">
+				    {{obj.day}}&nbsp;&nbsp;
+				    <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				  </div>
+				</div>
+
+	        </div>
+
+		</div>
+	  
+	</form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+</div>

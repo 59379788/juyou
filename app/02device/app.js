@@ -12,7 +12,7 @@ App.controller('tickettypelist',require('./controllers/tickettypelist'));
 App.controller('devicetktlist',require('./controllers/devicetktlist'));
 App.controller('configurationticket',require('./controllers/configurationticket'));
 App.controller('devicetktedit',require('./controllers/devicetktedit'));
-
+App.controller('festivallist',require('./controllers/festivallist'));
 
 
 

@@ -52,11 +52,22 @@ module.exports = function($urlRouterProvider, $stateProvider){
         controller: 'configurationticket',
         template: require('./views/configurationticket.html'),
         resolve:{
-            tktlist : function(deviceservice){
-                return deviceservice.tktlist();
+            typeauthinfo : function(deviceservice){
+                return deviceservice.typeauthinfo();
+            },
+            typeauthupdate : function(deviceservice){
+                return deviceservice.typeauthupdate();
+            },
+            viewfestivallist : function(deviceservice){
+                return deviceservice.viewfestivallist();
+            },
+            viewfestivalcreate : function(deviceservice){
+                return deviceservice.viewfestivalcreate();
+            },
+            viewfestivaldel : function(deviceservice){
+                return deviceservice.viewfestivaldel();
             }
         }
-        
       })
 
 
