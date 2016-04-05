@@ -1,0 +1,142 @@
+<div class="col-xs-10 col-xs-offset-1" >
+
+
+
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			基本信息
+			<button type="button" 
+				class="btn btn-xs btn-info pull-right"
+				ng-click="edit()"
+				has-permission='docedit' 
+			>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+		</div>
+		<div class="panel-body">
+
+			<div class="col-xs-8">
+				<div class="form-group">
+					<label class="col-xs-2 control-label">名称</label>
+					<div class="col-xs-10">
+						<input type="text" class="form-control" placeholder="请输入名称"
+						ng-model="obj.name"
+						>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-2 control-label">编号</label>
+					<div class="col-xs-10">
+						<input type="text" class="form-control" placeholder="请输入编号"
+						ng-model="obj.code"
+						>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-2 control-label">经度</label>
+					<div class="col-xs-4">
+						<input type="text" class="form-control"
+						ng-model="obj.longitude"
+						>
+					</div>
+					<label class="col-xs-2 control-label">纬度</label>
+					<div class="col-xs-4">
+						<input type="text" class="form-control"
+						ng-model="obj.latitude"
+						>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-2 control-label">地址</label>
+					<div class="col-xs-10">
+						<input type="text" class="form-control" 
+						ng-model="obj.address"
+						>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-2 control-label">简介</label>
+					<div class="col-xs-10">
+						<textarea class="form-control" rows="3"
+						ng-model="obj.content"
+						></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-2 control-label">营业时间</label>
+					<div class="col-xs-10">
+						<input type="text" class="form-control" 
+						ng-model="obj.open_time"
+						>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-2 control-label">省</label>
+					<div class="col-xs-10">
+						<input type="text" class="form-control" 
+						ng-model="obj.province"
+						>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-2 control-label">市</label>
+					<div class="col-xs-10">
+						<input type="text" class="form-control" 
+						ng-model="obj.city"
+						>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-2 control-label">区</label>
+					<div class="col-xs-10">
+						<input type="text" class="form-control" 
+						ng-model="obj.area"
+						>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-4">
+
+				<label class="control-label">logo</label>
+				<img ng-src="{{obj.logo}}" width="150" height="150" ng-model="obj.logo">
+				<input type="file" nv-file-select uploader="uploader1" /><br/>
+				<ul class="list-group">
+				    <li class="list-group-item" ng-repeat="item in uploader1.queue">
+				        文件名: <span ng-bind="item.file.name"></span>
+				        <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+				        <div class="progress mt10">
+				            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader1.progress + '%' }"></div>
+				        </div>
+				    </li>
+				</ul>
+
+				<label class="control-label">景区顶图</label>
+				<img ng-src="{{obj.top_img}}" width="100%" height="200" ng-model="obj.top_img">
+				<input type="file" nv-file-select uploader="uploader2" /><br/>
+				<ul class="list-group">
+				    <li class="list-group-item" ng-repeat="item in uploader2.queue">
+				        文件名: <span ng-bind="item.file.name"></span>
+				        <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+				        <div class="progress mt10">
+				            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader2.progress + '%' }"></div>
+				        </div>
+				    </li>
+				</ul>
+
+			</div>
+
+		</div>
+		</div>
+	</div>
+
+
+</div>

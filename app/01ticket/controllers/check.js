@@ -30,7 +30,7 @@ module.exports = function($scope, $uibModal,
 			checkid.get(para, oper);
 		}
 		//卡号
-		else if(len === 12)
+		else if(len === 16)
 		{
 			para = {"card" : $scope.code, "device" : $scope.device, "fun" : useticketbycard};
 			checkcard.get(para, oper);

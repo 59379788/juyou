@@ -28,6 +28,10 @@ require('./02device/app');
 require('./03doc/app');
 require('./04permission/app');
 require('./05ticketdeviceorder/app');
+require('./06deposit/app');
+require('./07product/app');
+require('./08view/app');
+require('./09place/app');
 
 
 
@@ -54,6 +58,10 @@ var App = angular.module('juyouApp', [
     'device',
     'doc',
     'ticketdeviceorder',
+    'deposit',
+    'product',
+    'view',
+    'place',
     'test',
     'common',
     'permission',
