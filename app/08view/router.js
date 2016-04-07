@@ -21,18 +21,38 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
-
       .state('app.createview', {
-        url: '/createview',
-        controller : 'createview',
+        url: '/view',
+        controller : 'viewcreate',
         template: require('./views/viewmodel.html'),
         resolve:{
-            // view : function(productservice){
-            //     return productservice.slist;
-            // },
-            // list : function(productservice){
-            //     return productservice.list();
-            // }
+            placecreate : function(placeservice){
+                return placeservice.create();
+            },
+            viewcreate : function(viewservice){
+                return viewservice.create();
+            }
+        }
+      })
+
+
+      .state('app.editview', {
+        url: '/view/:placeid',
+        controller : 'viewedit',
+        template: require('./views/viewmodel.html'),
+        resolve:{
+            placeinfo : function(placeservice){
+                return placeservice.info();
+            },
+            placeupdate : function(placeservice){
+                return placeservice.update();
+            },
+            viewinfo : function(viewservice){
+                return viewservice.info();
+            },
+            viewupdate : function(viewservice){
+                return viewservice.update();
+            }
         }
       })
 

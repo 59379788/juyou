@@ -9,8 +9,8 @@ App.config(require('./router'));
 App.factory('viewservice', require('./service'));
 
 App.controller('viewlist',require('./controllers/viewlist'));
-App.controller('createview',require('./controllers/createview'));
-// App.controller('doc',require('./controllers/doc'));
+App.controller('viewedit',require('./controllers/viewedit'));
+App.controller('viewcreate',require('./controllers/viewcreate'));
 // App.controller('info',require('./controllers/info'));
 
 
