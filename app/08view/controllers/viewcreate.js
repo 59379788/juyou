@@ -1,14 +1,15 @@
 module.exports = function($scope, $state, placecreate, viewcreate, FileUploader){
 
-	$scope.placeid = '';
-
 	$scope.placeobj = {};
+	$scope.placeobj.id = '';
 	$scope.placeobj.type = 'J';	//景区
+
 
 	$scope.placeobjstate = 1;	//编辑状态
 
 	$scope.viewobj = {};
 	$scope.viewobjstate = 1;	//编辑状态
+	$scope.viewobj.star = 5;
 
 
 	var uploader1 = $scope.uploader1 = new FileUploader({
@@ -62,26 +63,51 @@ module.exports = function($scope, $state, placecreate, viewcreate, FileUploader)
 
 			if(res.errcode === 0)
 			{
-				$scope.placeid = res.data.uuid;
+				$scope.placeobj.id = res.data.uuid;
 				$scope.placeobjstate = 0;
+				$scope.viewobj.place_id = res.data.uuid;
+				console.log($scope.viewobj);
 
-				$state.go('app.editview', {'placeid' : $scope.placeid});
+				viewcreate.save($scope.viewobj, function(res1){
+
+					console.log(res1);
+					if(res.errcode === 0)
+					{
+						$state.go('app.editview', {'placeid' : res.data.uuid});
+					}
+					else
+					{
+						alert(res1.errmsg);
+					}
+
+				});
 			}
-
+			else
+			{
+				alert(res.errmsg);
+			}
 		});
-
 	};
 
 
 	$scope.viewgo = function(){
 
-		$scope.viewobj.place_id = $scope.placeid;
+		$scope.viewobj.place_id = $scope.placeobj.id;
 
 		console.log($scope.viewobj);
 
 		viewcreate.save($scope.viewobj, function(res){
 
 			console.log(res);
+
+			if(res.errcode === 0)
+			{
+				$state.go('app.editview', {'placeid' : res.data.uuid});
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
 
 		});
 

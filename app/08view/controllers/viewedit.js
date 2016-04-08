@@ -1,15 +1,13 @@
 module.exports = function($scope, $stateParams, FileUploader, placeinfo, placeupdate, viewinfo, viewupdate){
 
-	//场所编码
-	$scope.placeid = $stateParams.placeid;
-
 	$scope.placeobj = {};
+	$scope.placeobj.id = $stateParams.placeid;
 	$scope.placeobj.type = 'J';	//景区
 
 	$scope.placeobjstate = 0;	//展示状态
 
 	$scope.viewobj = {};
-
+	$scope.viewobj.place_id = $stateParams.placeid;
 	$scope.viewobjstate = 0;	//展示状态
 
 
@@ -42,13 +40,24 @@ module.exports = function($scope, $stateParams, FileUploader, placeinfo, placeup
     };
 
 	
-	placeinfo.get({'id' : $scope.placeid}, function(res){
+	placeinfo.get({'id' : $scope.placeobj.id}, function(res){
 
 		console.log(res);
 
 		if(res.errcode === 0)
 		{
 			$scope.placeobj = res.data;
+		}
+
+	});
+
+	viewinfo.get({'place_id' : $scope.placeobj.id}, function(res){
+
+		console.log(res);
+
+		if(res.errcode === 0)
+		{
+			$scope.viewobj = res.data;
 		}
 
 	});
@@ -75,8 +84,37 @@ module.exports = function($scope, $stateParams, FileUploader, placeinfo, placeup
 
 			if(res.errcode === 0)
 			{
-				$scope.placeid = res.data.uuid;
+				//$scope.placeobj.id = res.data.uuid;
 				$scope.placeobjstate = 0;
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+
+		});
+
+	};
+
+
+
+	$scope.viewedit = function(){
+
+		$scope.viewobjstate = 1;
+
+	};
+
+	$scope.viewgo = function(){
+
+		console.log($scope.viewobj);
+
+		viewupdate.save($scope.viewobj, function(res){
+
+			console.log(res);
+
+			if(res.errcode === 0)
+			{
+				$scope.viewobjstate = 0;
 			}
 
 		});

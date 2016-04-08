@@ -12,12 +12,12 @@ var router = function($urlRouterProvider, $stateProvider){
         controller : 'viewlist',
         template: require('./views/viewlist.html'),
         resolve:{
-            // view : function(productservice){
-            //     return productservice.slist;
-            // },
-            // list : function(productservice){
-            //     return productservice.list();
-            // }
+            viewupdate : function(viewservice){
+                return viewservice.update();
+            },
+            list : function(viewservice){
+                return viewservice.list();
+            }
         }
       })
 
