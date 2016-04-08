@@ -8,12 +8,12 @@ var router = function($urlRouterProvider, $stateProvider){
  	$stateProvider
 
  	  .state('app.tkttype', {
-        url: '/tkttype',
+        url: '/tkttype/:placeid',
         controller : 'tkttype',
         template: require('./views/tkttype.html'),
         resolve:{
-            view : function(productservice){
-                return productservice.slist;
+            view : function(viewservice){
+                return viewservice.slist;
             },
             list : function(productservice){
                 return productservice.list();

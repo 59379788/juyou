@@ -1,6 +1,9 @@
-module.exports = function($scope, $state, view, list){
+module.exports = function($scope, $state, $stateParams, view, list){
 
 	$scope.searchform = {};
+
+    //景区id
+    var placeid = $stateParams.placeid;
 
 	view().then(function(res) {
         //console.log(res);
@@ -16,7 +19,7 @@ module.exports = function($scope, $state, view, list){
 
     $scope.load = function () {
 
-        //console.log($scope.searchform);
+        console.log($scope.searchform);
         
         list.save($scope.searchform, function(res){
 

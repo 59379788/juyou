@@ -9,7 +9,7 @@ var service = function($resource, BASEURL38985, $q, $http){
     //var group = BASEURL38985 + '/api/us/sc/apidoc/apinamelist';//?group_id=1
 
     //景区简表
-    var slist = BASEURL38985 + "/api/as/tc/view/adminViewForTicketList";
+    //var slist = BASEURL38985 + "/api/as/tc/view/adminViewForTicketList";
 
     //查询景区列表
     var list = BASEURL38985 + "/api/as/tc/type/adminList";

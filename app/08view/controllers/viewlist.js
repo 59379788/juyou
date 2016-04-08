@@ -10,21 +10,11 @@ module.exports = function($scope, $state, list, viewupdate){
 
 	/* 分页
      * ========================================= */
-    // $scope.maxSize = 5;             //最多显示多少个按钮
-    // $scope.bigCurrentPage = 2;      //当前页码
-    // $scope.itemsPerPage = 2;         //每页显示几条
-
-
-	//$scope.totalItems = 64;
-	//$scope.currentPage = 4;
-	$scope.maxSize = 5;
-	$scope.bigTotalItems = 175;
-	$scope.bigCurrentPage = 1;
+    $scope.maxSize = 2;            //最多显示多少个按钮
+    $scope.bigCurrentPage = 1;      //当前页码
+    $scope.itemsPerPage = 5;         //每页显示几条
     
     $scope.load = function () {
-
-
-    	alert('aaaaa');
         
         var para = {
             pageNo:$scope.bigCurrentPage, 
@@ -44,7 +34,6 @@ module.exports = function($scope, $state, list, viewupdate){
          	}
 
          	$scope.objs = res.data.results;
-         	//alert(res.data.totalRecord);
             $scope.bigTotalItems = res.data.totalRecord;
 
         });
@@ -77,6 +66,13 @@ module.exports = function($scope, $state, list, viewupdate){
 			}
 
 		});
+
+    };
+
+    $scope.type = function(id){
+
+
+    	$state.go('app.tkttype', {'placeid' : id});
 
     };
 
