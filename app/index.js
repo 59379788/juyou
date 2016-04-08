@@ -9,6 +9,7 @@ require('angular-resource');
 require('angular-ui-router');
 require('angular-ui-bootstrap');
 require('angular-file-upload');
+require('angular-ui-tree');
 require('./style/app.css');
 
 
@@ -71,6 +72,7 @@ var App = angular.module('juyouApp', [
     'ui.router',
     'ngResource',
     'angularFileUpload',
+    'ui.tree',
     'constant'
 ]);
 
