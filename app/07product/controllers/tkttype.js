@@ -40,7 +40,7 @@ module.exports = function($scope, $state, $stateParams, view, list){
             for(var i = 0, j = res.data.length; i < j; i++)
             {
                 var tt = res.data[i];
-                var v = tt.view;
+                var v = tt.place_code;
 
                 if(!tkt.hasOwnProperty(v))
                 {
@@ -58,9 +58,9 @@ module.exports = function($scope, $state, $stateParams, view, list){
             }
 
 
-            console.log("------------");
-            console.log(restkt);
-            console.log("------------");
+            // console.log("------------");
+            // console.log(restkt);
+            // console.log("------------");
 
             $scope.objs = restkt;
 

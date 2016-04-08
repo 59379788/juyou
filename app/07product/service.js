@@ -12,7 +12,7 @@ var service = function($resource, BASEURL38985, $q, $http){
     //var slist = BASEURL38985 + "/api/as/tc/view/adminViewForTicketList";
 
     //查询景区列表
-    var list = BASEURL38985 + "/api/as/tc/type/adminList";
+    var list = BASEURL38985 + "/api/as/tc/type2/typelist";
 
     //创建票种
     var tktcreate = BASEURL38985 + '';
