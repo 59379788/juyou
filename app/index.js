@@ -10,6 +10,8 @@ require('angular-ui-router');
 require('angular-ui-bootstrap');
 require('angular-file-upload');
 require('angular-ui-tree');
+
+require('../node_modules/angular-ui-tree/dist/angular-ui-tree.css');
 require('./style/app.css');
 
 
@@ -34,6 +36,7 @@ require('./06deposit/app');
 require('./07product/app');
 require('./08view/app');
 require('./09place/app');
+require('./10account/app');
 
 
 
@@ -48,7 +51,9 @@ require('./99common/app');
 angular.module('constant', [])
   .constant('BASEURL', 'http://115.28.145.50:38986')
   //.constant('BASEURL38985', 'http://sit.juyouhx.com');
-  .constant('BASEURL38985', '');
+  .constant('BASEURL38985', '')
+  //权限
+  .constant('SYS', '');
 //=================[ 常量 ]================================//
 
 
@@ -64,6 +69,7 @@ var App = angular.module('juyouApp', [
     'product',
     'view',
     'place',
+    'account',
     'test',
     'common',
     'permission',
