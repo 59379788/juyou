@@ -12,7 +12,7 @@ var service = function($resource, BASEURL38985, SYS){
     return {
 
         mechanism : function(){
-            return $resource(mechanism, {}, {});
+            return $resource(mechanism, {}, {isArray:true} );
         }
        
     };
