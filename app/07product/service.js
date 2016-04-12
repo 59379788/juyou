@@ -23,7 +23,16 @@ var service = function($resource, BASEURL38985, $q, $http){
     var tktlist = BASEURL38985 + '/api/as/tc/type2/typelist';
 
     //创建属性
-    var attrcreate = BASEURL38985 + '';
+    var attrcreate = BASEURL38985 + '/api/as/tc/attr/create';
+
+    //更新属性
+    var attrupdate = BASEURL38985 + '/api/as/tc/attr/update';
+
+    //属性信息
+    var attrinfo = BASEURL38985 + '/api/as/tc/attr/info';
+
+    //查询属性列表
+    var attrlist = BASEURL38985 + '/api/as/tc/attr/list';
 
 
 
@@ -42,6 +51,15 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         attrcreate : function(){
             return $resource(attrcreate, {}, {});
+        },
+        attrupdate : function(){
+            return $resource(attrupdate, {}, {});
+        },
+        attrinfo : function(){
+            return $resource(attrinfo, {}, {});
+        },
+        attrlist : function(){
+            return $resource(attrlist, {}, {});
         },
         viewlist : function(obj){
     		var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  

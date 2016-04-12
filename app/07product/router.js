@@ -58,13 +58,37 @@ var router = function($urlRouterProvider, $stateProvider){
       .state('app.tkttypeattr', {
         url: '/tkttypeattr',
         controller : 'tkttypeattr',
-        template: require('./views/tkttypeattr.html')
+        template: require('./views/tkttypeattr.html'),
+        resolve:{
+            attrlist : function(productservice){
+                return productservice.attrlist();
+            }
+        }
       })
 
       .state('app.tkttypeattrcreate', {
         url: '/tkttypeattrcreate',
         controller : 'tkttypeattrcreate',
-        template: require('./views/tkttypeattrmodel.html')
+        template: require('./views/tkttypeattrmodel.html'),
+        resolve:{
+            attrcreate : function(productservice){
+                return productservice.attrcreate();
+            }
+        }
+      })
+
+      .state('app.tkttypeattredit', {
+        url: '/tkttypeattredit/:type_attr',
+        controller : 'tkttypeattredit',
+        template: require('./views/tkttypeattrmodel.html'),
+        resolve:{
+            attrinfo : function(productservice){
+                return productservice.attrinfo();
+            },
+            attrupdate : function(productservice){
+                return productservice.attrupdate();
+            }
+        }
       })
 
       .state('app.tktgoods', {

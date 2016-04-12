@@ -12,12 +12,10 @@
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
-        <td class="">{{obj.name}}</td>
-        <td class="text-center">{{obj.code}}</td>
-        <td class="text-center">{{obj.star}}</td>
-      </td>
+        <td class="text-center">{{obj.type_attr}}</td>
+        <td class="text-center">{{obj.type_attr_name}}</td>
         <td class="text-center">
-          <a ng-click="edit(obj.id)" class="btn btn-success btn-xs">编辑</a>
+          <a ng-click="edit(obj.type_attr)" class="btn btn-success btn-xs">编辑</a>
         </td>
       </tr>
     </tbody>
