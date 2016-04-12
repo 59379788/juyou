@@ -12,28 +12,47 @@ var router = function($urlRouterProvider, $stateProvider){
         controller : 'tkttype',
         template: require('./views/tkttype.html'),
         resolve:{
-            view : function(viewservice){
-                return viewservice.slist;
+            viewlist : function(productservice){
+                return productservice.viewlist;
             },
-            list : function(productservice){
-                return productservice.list();
+            tktlist : function(productservice){
+                return productservice.tktlist();
+            },
+            tktupdate : function(productservice){
+                return productservice.tktupdate();
             }
         }
       })
 
       .state('app.tkttypecreate', {
         url: '/tkttypecreate',
-        //controller : 'tkttypecreate',
-        template: require('./views/tkttypemodel.html')
-        // ,
-        // resolve:{
-        //  insert : function(docservice){
-        //      return docservice.insert();
-        //  },
-        //  group : function(docservice){
-        //      return docservice.group();
-        //  }
-        // }
+        controller : 'tkttypecreate',
+        template: require('./views/tkttypemodel.html'),
+        resolve:{
+            viewlist : function(productservice){
+                return productservice.viewlist;
+            },
+            tktcreate : function(productservice){
+                return productservice.tktcreate();
+            }
+        }
+      })
+
+      .state('app.edittkttype', {
+        url: '/tkttypeedit/:id',
+        controller : 'tkttypeedit',
+        template: require('./views/tkttypemodel.html'),
+        resolve:{
+            tktinfo : function(productservice){
+                return productservice.tktinfo();
+            },
+            tktupdate : function(productservice){
+                return productservice.tktupdate();
+            },
+            viewlist : function(productservice){
+                return productservice.viewlist;
+            }
+        }
       })
 
       .state('app.tkttypeattr', {

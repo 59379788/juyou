@@ -9,6 +9,8 @@ App.config(require('./router'));
 App.factory('productservice', require('./service'));
 
 App.controller('tkttype',require('./controllers/tkttype'));
+App.controller('tkttypecreate',require('./controllers/tkttypecreate'));
+App.controller('tkttypeedit',require('./controllers/tkttypeedit'));
 // App.controller('doccreate',require('./controllers/module'));
 // App.controller('doc',require('./controllers/doc'));
 // App.controller('info',require('./controllers/info'));

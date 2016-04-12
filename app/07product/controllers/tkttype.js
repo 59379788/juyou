@@ -1,11 +1,11 @@
-module.exports = function($scope, $state, $stateParams, view, list){
+module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktupdate){
 
 	$scope.searchform = {};
 
     //景区id
     var placeid = $stateParams.placeid;
 
-	view().then(function(res) {
+	viewlist().then(function(res) {
         //console.log(res);
         if(res.errcode === 0)
         {
@@ -18,10 +18,7 @@ module.exports = function($scope, $state, $stateParams, view, list){
     });
 
     $scope.load = function () {
-
-        console.log($scope.searchform);
-        
-        list.save($scope.searchform, function(res){
+        tktlist.save($scope.searchform, function(res){
 
             /* 门票存储结构
              * ========================================= */
@@ -40,7 +37,7 @@ module.exports = function($scope, $state, $stateParams, view, list){
             for(var i = 0, j = res.data.length; i < j; i++)
             {
                 var tt = res.data[i];
-                var v = tt.view;
+                var v = tt.place_code;
 
                 if(!tkt.hasOwnProperty(v))
                 {
@@ -77,6 +74,52 @@ module.exports = function($scope, $state, $stateParams, view, list){
 
 
 	};
+
+	$scope.edit = function(id){
+
+    	$state.go('app.edittkttype', {'id' : id});
+
+    };
+
+	$scope.start = function(id) {
+		tktupdate.get({'id' : id, 'state' : '0'}, function(res){
+			if(res.errcode === 0){
+				$scope.load();
+			}else{
+				alert(res.errmsg);
+			}
+		});
+	}
+
+	$scope.stop = function(id) {
+		tktupdate.get({'id' : id, 'state' : '1'}, function(res){
+			if(res.errcode === 0){
+				$scope.load();
+			}else{
+				alert(res.errmsg);
+			}
+		});
+	}
+
+	$scope.usedstart = function(id) {
+		tktupdate.get({'id' : id, 'used_state' : '0'}, function(res){
+			if(res.errcode === 0){
+				$scope.load();
+			}else{
+				alert(res.errmsg);
+			}
+		});
+	}
+
+	$scope.usedstop = function(id) {
+		tktupdate.get({'id' : id, 'used_state' : '1'}, function(res){
+			if(res.errcode === 0){
+				$scope.load();
+			}else{
+				alert(res.errmsg);
+			}
+		});
+	}
 	
 
 };
