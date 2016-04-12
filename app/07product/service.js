@@ -34,6 +34,12 @@ var service = function($resource, BASEURL38985, $q, $http){
     //查询属性列表
     var attrlist = BASEURL38985 + '/api/as/tc/attr/list';
 
+    //查询商品列表
+    var goodslist = BASEURL38985 + '/api/as/tc/goods/alllist';
+
+    //更新商品
+    var goodsupdate = BASEURL38985 + '/api/as/tc/goods/update';
+
 
 
 
@@ -60,6 +66,12 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         attrlist : function(){
             return $resource(attrlist, {}, {});
+        },
+        goodslist : function(){
+            return $resource(goodslist, {}, {});
+        },
+        goodsupdate : function(){
+            return $resource(goodsupdate, {}, {});
         },
         viewlist : function(obj){
     		var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  

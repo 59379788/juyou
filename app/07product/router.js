@@ -93,17 +93,25 @@ var router = function($urlRouterProvider, $stateProvider){
 
       .state('app.tktgoods', {
         url: '/tktgoods',
-        //controller : 'platformdeposit',
-        template: require('./views/tktgoods.html')
-        // ,
-        // resolve:{
-        //  insert : function(docservice){
-        //      return docservice.insert();
-        //  },
-        //  group : function(docservice){
-        //      return docservice.group();
-        //  }
-        // }
+        controller : 'tktgoods',
+        template: require('./views/tktgoods.html'),
+        resolve:{
+            goodslist : function(productservice){
+                return productservice.goodslist();
+            },
+            goodsupdate : function(productservice){
+                return productservice.goodsupdate();
+            }
+        }
+      })
+
+      .state('app.creategoods', {
+        url: '/tktgoodscreate',
+        controller : 'tktgoodscreate',
+        template: require('./views/tktgoodsmodel.html'),
+        resolve:{
+            
+        }
       })
 
 
