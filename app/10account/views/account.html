@@ -32,10 +32,73 @@
 
   </div>
 
-  <div class="col-sm-8">
+  <div class="col-sm-8" ng-show="code != ''">
     
     <!-- <pre class="code">{{ data | json }}</pre> -->
 
-    <pre class="code">{{ show | json }}</pre>
+    <!-- <pre class="code">{{ show | json }}</pre> -->
+
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="form-group form-inline">
+				<div class="col-sm-11">
+					<input type="text" class="form-control" 
+					ng-model="searchform.name"
+					placeholder="登录名"
+					>
+					<input type="text" class="form-control" 
+					ng-model="searchform.code"
+					placeholder="姓名"
+					 >
+					<button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+				</div>
+				<div class="col-sm-1 text-right">
+					<button type="button" class="btn btn-info" ng-click="create()">创建</button>
+				</div>
+			</div>
+		</div>
+	</div><!-- searchArea -->
+
+      <table class="table table-bordered">
+	    <thead>
+	      <tr>
+	        <th class="col-md-3 text-center">登录名</th>
+	        <th class="col-md-3 text-center">姓名</th>
+	        <th class="col-md-3 text-center">电话</th>
+	        <th class="col-md-3 text-center">操作</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr ng-repeat="obj in objs">
+	        <td class="text-center">{{obj.loginName}}</td>
+	        <td class="text-center">{{obj.name}}</td>
+	        <td class="text-center">{{obj.mobile}}</td>
+	        <td class="text-center">
+	          <a ng-click="edit(obj.id)" class="btn btn-success btn-xs">编辑</a>
+	        </td>
+	      </tr>
+	    </tbody>
+	  </table>
+
+	<div class="text-right">
+
+	    <uib-pagination 
+	      total-items="bigTotalItems" 
+	      ng-model="bigCurrentPage" 
+	      max-size="maxSize" 
+	      class="pagination-sm" 
+	      boundary-links="true" 
+	      ng-change="load()"
+	      items-per-page="itemsPerPage"
+	      previous-text="上一页"
+	      next-text="下一页"
+	      first-text="首页"
+	      last-text="末页"
+	      rotate="false">
+	    </uib-pagination>
+
+  </div>
+
+
   </div>
 </div>

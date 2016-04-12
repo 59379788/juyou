@@ -14,11 +14,17 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
             mechanism : function(accountservice){
                 return accountservice.mechanism();
+            },
+            create : function(accountservice){
+                return accountservice.create();
+            },
+            list : function(accountservice){
+                return accountservice.list();
+            },
+            role : function(accountservice){
+                return accountservice.role();
             }
-            // ,
-            // list : function(viewservice){
-            //     return viewservice.list();
-            // }
+            
         }
       })
 

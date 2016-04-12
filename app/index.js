@@ -53,7 +53,11 @@ angular.module('constant', [])
   //.constant('BASEURL38985', 'http://sit.juyouhx.com');
   .constant('BASEURL38985', '')
   //权限
-  .constant('SYS', '');
+  .constant('SYS', '')
+  //分页默认每页显示几条
+  .constant('ITEMS_PERPAGE', 10)
+
+  ;
 //=================[ 常量 ]================================//
 
 
