@@ -1,1 +1,24 @@
-tkttypeattr
+
+<div class="col-sm-12 text-right mb10">
+    <button type="button" class="btn btn-info new" ng-click="create()">创建属性</button>
+</div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-5 text-center">票种属性</th>
+        <th class="col-md-5 text-center">属性名称</th>
+        <th class="col-md-2 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="">{{obj.name}}</td>
+        <td class="text-center">{{obj.code}}</td>
+        <td class="text-center">{{obj.star}}</td>
+      </td>
+        <td class="text-center">
+          <a ng-click="edit(obj.id)" class="btn btn-success btn-xs">编辑</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
