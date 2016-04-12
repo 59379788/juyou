@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModalInstance, create, code, officeid, role){
+module.exports = function($scope, $uibModalInstance, create, code, officeid, officename, role){
 
     $scope.code = code;
     $scope.obj = {};
@@ -31,9 +31,17 @@ module.exports = function($scope, $uibModalInstance, create, code, officeid, rol
             $scope.obj.roleIdList.push(key)
         });
 
+        if($scope.obj.roleIdList.length === 0)
+        {
+            alert('请选择角色');
+            return;
+        }
+
         create.save($scope.obj, {}, function(res){
 
             console.log(res);
+
+            $uibModalInstance.close(officeid, officename);
 
         });
 

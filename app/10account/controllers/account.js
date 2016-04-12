@@ -65,8 +65,7 @@ module.exports = function($scope, $state, mechanism, $uibModal, create, list, ro
             }
         }    
         return r;    
-    }    
-
+    }
 
     $scope.getit = function(obj){
       $scope.code = obj.$modelValue.code;
@@ -75,12 +74,21 @@ module.exports = function($scope, $state, mechanism, $uibModal, create, list, ro
       $scope.load($scope.officeid, $scope.officename);
     };
 
-
-    //打开模态框
     $scope.create = function(){
 
-        //alert(device_code);
+        openmodal();
+        
+    }
 
+    $scope.edit = function(){
+
+        openmodal();
+        
+    }
+
+    //打开模态框
+    function openmodal()
+    {
         var modalInstance = $uibModal.open({
           template: require('../views/createaccount.html'),
           controller: 'createaccount',
@@ -91,21 +99,21 @@ module.exports = function($scope, $state, mechanism, $uibModal, create, list, ro
             officeid : function(){
                 return $scope.officeid;
             },
+            officename : function(){
+                return $scope.officename;
+            },
             role : function(){
                 return role;
             },
-            // add : function(){
-            //     return add;
-            // },
             create : function(){
                 return create;
             }
           }
         });
 
-        modalInstance.result.then(function () {
+        modalInstance.result.then(function (officeid, officename) {
           
-          load();
+          $scope.load(officeid, officename);
 
         }, function () {
           //$log.info('Modal dismissed at: ' + new Date());
