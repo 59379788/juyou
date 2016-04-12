@@ -55,9 +55,9 @@ module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktup
             }
 
 
-            console.log("------------");
-            console.log(restkt);
-            console.log("------------");
+            // console.log("------------");
+            // console.log(restkt);
+            // console.log("------------");
 
             $scope.objs = restkt;
 

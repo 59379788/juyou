@@ -57,17 +57,14 @@ var router = function($urlRouterProvider, $stateProvider){
 
       .state('app.tkttypeattr', {
         url: '/tkttypeattr',
-        //controller : 'platformdeposit',
+        controller : 'tkttypeattr',
         template: require('./views/tkttypeattr.html')
-        // ,
-        // resolve:{
-        //  insert : function(docservice){
-        //      return docservice.insert();
-        //  },
-        //  group : function(docservice){
-        //      return docservice.group();
-        //  }
-        // }
+      })
+
+      .state('app.tkttypeattrcreate', {
+        url: '/tkttypeattrcreate',
+        controller : 'tkttypeattrcreate',
+        template: require('./views/tkttypeattrmodel.html')
       })
 
       .state('app.tktgoods', {

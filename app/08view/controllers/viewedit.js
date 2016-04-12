@@ -78,6 +78,8 @@ module.exports = function($scope, $stateParams, FileUploader, placeinfo, placeup
 
 		console.log($scope.placeobj);
 
+		console.log(angular.toJson($scope.placeobj,true));
+
 		placeupdate.save($scope.placeobj, function(res){
 
 			console.log(res);

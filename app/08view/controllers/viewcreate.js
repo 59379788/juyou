@@ -57,6 +57,8 @@ module.exports = function($scope, $state, placecreate, viewcreate, FileUploader)
 
 		console.log($scope.placeobj);
 
+		console.log(angular.toJson($scope.placeobj,true));
+
 		placecreate.save($scope.placeobj, function(res){
 
 			console.log(res);
