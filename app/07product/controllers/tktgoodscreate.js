@@ -38,7 +38,7 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
             alert(res.errmsg);
         }
     });
-
+	var id;
 	$scope.goodsgo = function(){
 
 		goodscreate.save($scope.goodsobj, function(res){
@@ -52,7 +52,7 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
 				sel_id.get({'code' : $scope.goodsobj.code}, function(res){
 					if(res.errcode === 0)
 					{
-						$state.go('app.editgoods', {'id' : res.data.id});
+						id = res.data.id;
 					}
 					else
 					{
@@ -77,8 +77,11 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
 			}
 		});
 	};
+	$scope.goodsedit = function(){
+		$state.go('app.editgoods', {'id' : id});
+	}
 
-	/*$scope.add = function(){
+	$scope.add = function(){
 
 		goodsdetailcreate.save($scope.goodsobj, function(res){
 
@@ -115,6 +118,6 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
 				alert(res.errmsg);
 			}
 		});
-	}*/
+	}
 	
 };
