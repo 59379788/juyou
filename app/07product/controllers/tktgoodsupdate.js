@@ -1,6 +1,5 @@
-module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, typelist, goodsdetailcreate, goodsdetaillist, goodsdetaildelete, sel_id){
+module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist, typelist, attrlistsel, goodsdetailcreate, goodsdetaillist, goodsdetaildelete){
 
-	$scope.goodsobj = {};
 	$scope.goodsobjstate = 1;	//编辑状态
 
 	//景区下拉
@@ -8,17 +7,6 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
         if(res.errcode === 0)
         {
         	$scope.viewarr = res.data;
-        	$scope.goodsobj.place_code=$scope.viewarr[0].code;
-        	var view = $scope.goodsobj.place_code;
-        	//票种类型下拉
-			typelist.get({'view' : view.substring(1)}, function(res){
-				if(res.errcode === 0){
-					$scope.typearr = res.data;
-					$scope.goodsobj.ticket_type=$scope.typearr[0].code;
-				}else{
-					alert(res.errmsg);
-				}
-			});
         }
         else
         {
@@ -39,27 +27,37 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
         }
     });
 
-	$scope.goodsgo = function(){
+    
 
-		goodscreate.save($scope.goodsobj, function(res){
+	goodsinfo.get({'id' : $stateParams.id}, function(res){
+		console.log(res);
+
+		if(res.errcode === 0)
+		{
+			$scope.goodsobj = res.data;
+			var place_code = res.data.place_code;
+			$scope.load(res.data.code);
+			//票种类型下拉
+			typelist.get({'view' : place_code.substring(1)}, function(res){
+				if(res.errcode === 0){
+					$scope.typearr = res.data;
+					$scope.goodsobj.ticket_type=$scope.typearr[0].code;
+				}else{
+					alert(res.errmsg);
+				}
+			});
+		}
+	});
+
+	$scope.goodsgo = function(){
+		goodsupdate.save($scope.goodsobj, function(res){
 
 			var view = $scope.goodsobj.place_code;
 
 			if(res.errcode === 0)
 			{
 				$scope.goodsobjstate = 0;
-				//通过商品code取id
-				sel_id.get({'code' : $scope.goodsobj.code}, function(res){
-					if(res.errcode === 0)
-					{
-						$state.go('app.editgoods', {'id' : res.data.id});
-					}
-					else
-					{
-						alert(res.errmsg);
-					}
-				});
-				
+				$scope.load($scope.goodsobj.code);
 				//票种类型下拉
 			    typelist.get({'view' : view.substring(1)}, function(res){
 					if(res.errcode === 0){
@@ -69,7 +67,6 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
 						alert(res.errmsg);
 					}
 				});
-				
 			}
 			else
 			{
@@ -78,7 +75,11 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
 		});
 	};
 
-	/*$scope.add = function(){
+	$scope.goodsedit = function(){
+		$scope.goodsobjstate = 1;
+	};
+
+	$scope.add = function(){
 
 		goodsdetailcreate.save($scope.goodsobj, function(res){
 
@@ -86,7 +87,10 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
 	     	{
 	     		$scope.load($scope.goodsobj.code);
 	     	}
-
+     		else
+			{
+				alert(res.errmsg);
+			}
 	    });
 
 	};
@@ -115,6 +119,9 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
 				alert(res.errmsg);
 			}
 		});
-	}*/
+	}
+
+
+
 	
 };

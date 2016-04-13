@@ -63,11 +63,11 @@ module.exports = function($scope, $state, goodslist, goodsupdate, ITEMS_PERPAGE)
 	}
 
 
-    /*$scope.edit = function(id){
+    $scope.edit = function(id){
 
-    	$state.go('app.editview', {'placeid' : id});
+    	$state.go('app.editgoods', {'id' : id});
 
-    };*/
+    };
 
 
 };
