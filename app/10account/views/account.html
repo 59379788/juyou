@@ -32,7 +32,7 @@
 
   </div>
 
-  <div class="col-sm-8" ng-show="code != ''">
+  <div class="col-sm-8" >
     
     <!-- <pre class="code">{{ data | json }}</pre> -->
 
@@ -42,19 +42,19 @@
 		<div class="panel-body">
 			<div class="form-group form-inline">
 				<div class="col-sm-11">
-					<input type="text" class="form-control" 
+					<!-- <input type="text" class="form-control" 
 					ng-model="searchform.name"
 					placeholder="登录名"
 					>
 					<input type="text" class="form-control" 
 					ng-model="searchform.code"
 					placeholder="姓名"
-					 >
-					<button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+					 > -->
+					<button type="button" class="btn btn-default" ng-click="create()">创建新用户</button>
 				</div>
-				<div class="col-sm-1 text-right">
+				<!-- <div class="col-sm-1 text-right">
 					<button type="button" class="btn btn-info" ng-click="create()">创建</button>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div><!-- searchArea -->

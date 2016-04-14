@@ -14,7 +14,11 @@ var service = function($resource, BASEURL38985, SYS){
 
     var create = SYS + '/a/sys/user/ajaxsave';
 
-    var role = SYS + '/a/sys/user/ajaxform'
+    //var role = SYS + '/a/sys/user/ajaxform'
+
+    var changepassword = SYS + '/a/sys/user/ajaxmodifyPwd';
+
+    var info = SYS + '/a/sys/user/ajaxform';
     
     return {
 
@@ -28,7 +32,13 @@ var service = function($resource, BASEURL38985, SYS){
             return $resource(create, {}, {} );
         },
         role : function(){
-            return $resource(role, {}, {} );
+            return $resource(info, {}, {} );
+        },
+        changepassword : function(){
+            return $resource(changepassword, {}, {} );
+        },
+        info : function(){
+            return $resource(info, {}, {} );
         }
        
     };
