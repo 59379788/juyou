@@ -136,7 +136,17 @@ var service = function($resource, BASEURL38985, $q, $http){
 	    },
 	    typelist : function(){
     		return $resource(typelist, {}, {});
-    	}
+    	},
+    	goodsstate : [
+            {
+                'statename' : '无效',
+                'statecode' : '0'
+            },
+            {
+                'statename' : '有效',
+                'statecode' : '1'
+            }
+        ]
 
        
     };
