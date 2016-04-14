@@ -39,6 +39,8 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
 	var id;		//创建完生成的id
 	$scope.goodsgo = function(){
 
+		$scope.goodsobj.ticketattr=$scope.tktarr[0].ticket_attr_id;
+
 		goodscreate.save($scope.goodsobj, function(res){
 
 			if($scope.goodsobj.code === undefined || $scope.goodsobj.code == '')
