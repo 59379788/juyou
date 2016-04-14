@@ -1,5 +1,6 @@
 module.exports = function($scope, $uibModalInstance, create, code, officeid, officename, role){
 
+    //上级旅行社编号
     $scope.code = code;
     $scope.obj = {};
     var idobj = {};
@@ -10,7 +11,7 @@ module.exports = function($scope, $uibModalInstance, create, code, officeid, off
 
     role.get({}, function(res){
 
-        console.log(res.allRoles);
+        console.log(res);
 
         $scope.objs = res.allRoles;
 

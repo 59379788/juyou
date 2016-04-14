@@ -23,24 +23,24 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             role : function(accountservice){
                 return accountservice.role();
+            },
+            info : function(accountservice){
+                return accountservice.info();
             }
             
         }
       })
 
-      // .state('app.createview', {
-      //   url: '/view',
-      //   controller : 'viewcreate',
-      //   template: require('./views/viewmodel.html'),
-      //   resolve:{
-      //       placecreate : function(placeservice){
-      //           return placeservice.create();
-      //       },
-      //       viewcreate : function(viewservice){
-      //           return viewservice.create();
-      //       }
-      //   }
-      // })
+      .state('app.changepassword', {
+        url: '/changepassword',
+        controller : 'changepassword',
+        template: require('./views/changepassword.html'),
+        resolve:{
+            changepassword : function(accountservice){
+                return accountservice.changepassword();
+            }
+        }
+      })
 
 
       // .state('app.editview', {

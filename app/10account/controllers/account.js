@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, mechanism, $uibModal, create, list, role, ITEMS_PERPAGE){
+module.exports = function($scope, $state, mechanism, $uibModal, create, list, role, ITEMS_PERPAGE, info){
 
     $scope.objs = {};
 
@@ -76,18 +76,18 @@ module.exports = function($scope, $state, mechanism, $uibModal, create, list, ro
 
     $scope.create = function(){
 
-        openmodal();
+        createmodal();
         
     }
 
-    $scope.edit = function(){
+    $scope.edit = function(obj){
 
-        openmodal();
+        editmodal(obj);
         
     }
 
     //打开模态框
-    function openmodal()
+    function createmodal()
     {
         var modalInstance = $uibModal.open({
           template: require('../views/createaccount.html'),
@@ -96,9 +96,11 @@ module.exports = function($scope, $state, mechanism, $uibModal, create, list, ro
             code : function(){
                 return $scope.code;
             },
+            //部门id
             officeid : function(){
                 return $scope.officeid;
             },
+            //部门名称
             officename : function(){
                 return $scope.officename;
             },
@@ -118,6 +120,46 @@ module.exports = function($scope, $state, mechanism, $uibModal, create, list, ro
         }, function () {
           //$log.info('Modal dismissed at: ' + new Date());
         });
+    }
+
+
+    function editmodal(id){
+
+        var modalInstance = $uibModal.open({
+          template: require('../views/editaccount.html'),
+          controller: 'editaccount',
+          resolve: {
+            id : function(){
+                return id;
+            },
+            //部门id
+            officeid : function(){
+                return $scope.officeid;
+            },
+            //部门名称
+            officename : function(){
+                return $scope.officename;
+            },
+            role : function(){
+                return role;
+            },
+            info : function(){
+                return info;
+            },
+            create : function(){
+                return create;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (officeid, officename) {
+          
+          $scope.load(officeid, officename);
+
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
     }
 
 

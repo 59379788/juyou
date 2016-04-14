@@ -37,9 +37,10 @@ require('./07product/app');
 require('./08view/app');
 require('./09place/app');
 require('./10account/app');
+require('./11member/app');
 
 
-
+require('./96util/app');
 require('./97intercept/app');   //拦截器
 require('./98test/app');
 require('./99common/app');
@@ -74,6 +75,8 @@ var App = angular.module('juyouApp', [
     'view',
     'place',
     'account',
+    'member',
+    'util',
     'test',
     'common',
     'permission',

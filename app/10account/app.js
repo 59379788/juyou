@@ -10,8 +10,8 @@ App.factory('accountservice', require('./service'));
 
 App.controller('account',require('./controllers/account'));
 App.controller('createaccount',require('./controllers/createaccount'));
-// App.controller('viewcreate',require('./controllers/viewcreate'));
-// App.controller('info',require('./controllers/info'));
+App.controller('changepassword',require('./controllers/changepassword'));
+App.controller('editaccount',require('./controllers/editaccount'));
 
 
 module.exports = App;

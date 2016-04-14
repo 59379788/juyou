@@ -11,22 +11,7 @@
             <div class="form-group">
                 <label class="col-xs-2 control-label">登录名</label>
                 <div class="col-xs-6 form-horizontal">
-                    <span class="col-sm-4 control-label" 
-                    style="padding-left: 0px; padding-right: 0px;" 
-                    >{{code}} + </span>
-                    <div class="col-sm-8" style="padding-left: 0px;" >
-                      <input type="text" 
-                        class="form-control" placeholder="必填"
-                        ng-model="obj.loginName" 
-                        >
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-xs-2 control-label">密码</label>
-                <div class="col-xs-6">
-                    <p class="form-control-static text-danger">默认'000000'请尽快修改</p>
+                    <p class="form-control-static">{{obj.loginName}}</p>
                 </div>
             </div>
 
@@ -61,12 +46,13 @@
             <div class="form-group">
                 <label class="col-xs-2 control-label">角色</label>
                 <div class="col-xs-6 ">
-                    <div class="checkbox" ng-repeat="obj in objs">
+                    <div class="checkbox" ng-repeat="roleobj in objs">
                       <label>
-                        <input type="checkbox" name="role" value="{{obj.id}}"
-                        ng-click="selection($event,obj)"
+                        <input type="checkbox" name="role" value="{{roleobj.id}}"
+                        ng-click="selection($event,roleobj)"
+                        ng-checked="roleobj.iselected == 1"
                         >
-                        {{obj.name}}
+                        {{roleobj.name}}
                       </label>
                     </div>
                 </div>
