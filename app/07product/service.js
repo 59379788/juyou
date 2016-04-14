@@ -64,6 +64,31 @@ var service = function($resource, BASEURL38985, $q, $http){
 
 
 
+    //查询销售品（全部）
+    var salelist = BASEURL38985 + '/api/as/tc/sale/alllist';
+
+    //更新销售品
+    var saleupdate = BASEURL38985 + '/api/as/tc/sale/update';
+
+    //创建商品
+    var salecreate = BASEURL38985 + '/api/as/tc/sale/create';
+
+    //查询商品（单条）
+    var saleinfo = BASEURL38985 + '/api/as/tc/sale/info';
+
+    //创建商品详情
+    var saledetailcreate = BASEURL38985 + '/api/as/tc/saledetail/create';
+
+    //查询商品详情（对应商品）
+    var saledetaillist = BASEURL38985 + '/api/as/tc/saledetail/list';
+
+    //删除商品详情
+    var saledetaildelete = BASEURL38985 + '/api/as/tc/saledetail/delete';
+
+    //根据商品code取id
+    var sale_id = BASEURL38985 + '/api/as/tc/sale/sel_id';
+
+
     
     return {
 
@@ -72,6 +97,9 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         tktinfo : function(){
             return $resource(tktinfo, {}, {});
+        },
+        tktlist : function(){
+            return $resource(tktlist, {}, {});
         },
         tktupdate : function(){
             return $resource(tktupdate, {}, {});
@@ -111,6 +139,30 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         sel_id : function(){
             return $resource(sel_id, {}, {});
+        },
+        salelist : function(){
+            return $resource(salelist, {}, {});
+        },
+        saleupdate : function(){
+            return $resource(saleupdate, {}, {});
+        },
+        salecreate : function(){
+            return $resource(salecreate, {}, {});
+        },
+        saleinfo : function(){
+            return $resource(saleinfo, {}, {});
+        },
+        saledetailcreate : function(){
+            return $resource(saledetailcreate, {}, {});
+        },
+        saledetaillist : function(){
+            return $resource(saledetaillist, {}, {});
+        },
+        saledetaildelete : function(){
+            return $resource(saledetaildelete, {}, {});
+        },
+        sale_id : function(){
+            return $resource(sale_id, {}, {});
         },
         viewlist : function(obj){
     		var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  

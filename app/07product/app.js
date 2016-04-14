@@ -17,9 +17,9 @@ App.controller('tkttypeattredit',require('./controllers/tkttypeattredit'));
 App.controller('tktgoods',require('./controllers/tktgoods'));
 App.controller('tktgoodscreate',require('./controllers/tktgoodscreate'));
 App.controller('tktgoodsupdate',require('./controllers/tktgoodsupdate'));
-// App.controller('doccreate',require('./controllers/module'));
-// App.controller('doc',require('./controllers/doc'));
-// App.controller('info',require('./controllers/info'));
+App.controller('tktsale',require('./controllers/tktsale'));
+App.controller('tktsalecreate',require('./controllers/tktsalecreate'));
+
 
 
 module.exports = App;

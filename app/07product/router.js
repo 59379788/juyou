@@ -184,6 +184,31 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+	.state('app.tktsale', {
+        url: '/salelist',
+        controller : 'tktsale',
+        template: require('./views/tktsale.html'),
+        resolve:{
+            salelist : function(productservice){
+                return productservice.salelist();
+            },
+            saleupdate : function(productservice){
+                return productservice.saleupdate();
+            }
+        }
+      })
+
+	.state('app.createsale', {
+        url: '/sale',
+        controller : 'tktsalecreate',
+        template: require('./views/tktsalemodel.html'),
+        resolve:{
+            viewlist : function(productservice){
+                return productservice.viewlist;
+            }
+        }
+      })
+
 
 };
 
