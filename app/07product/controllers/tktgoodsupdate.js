@@ -70,7 +70,7 @@ module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist
 				$scope.goodsobjdetailstate = 1;
 				$scope.load($scope.goodsobj.code);
 				//详细信息 票种类型下拉
-			    typelist.get({'view' : view.substring(1)}, function(res){
+			    typelist.get({'view' : view}, function(res){
 					if(res.errcode === 0){
 						$scope.typearr = res.data;
 						$scope.goodsobj.ticket_type=$scope.typearr[0].code;

@@ -205,6 +205,12 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
             viewlist : function(productservice){
                 return productservice.viewlist;
+            },
+            saledetailcreate : function(productservice){
+                return productservice.saledetailcreate();
+            },
+            sale_id : function(productservice){
+                return productservice.sale_id();
             }
         }
       })

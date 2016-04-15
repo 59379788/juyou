@@ -1,4 +1,4 @@
-module.exports = function($scope, viewlist){
+module.exports = function($scope, viewlist, saledetailcreate, sale_id){
 
 	$scope.saleobj = {};
 	$scope.saleobjstate = 1;			//编辑状态
@@ -41,39 +41,40 @@ module.exports = function($scope, viewlist){
         {
             alert(res.errmsg);
         }
-    });
+    });*/
 
     //基本信息 保存
 	var id;		//创建完生成的id
 	$scope.goodsgo = function(){
 
-		$scope.goodsobj.ticketattr=$scope.tktarr[0].ticket_attr_id;
+		//$scope.goodsobj.ticketattr=$scope.tktarr[0].ticket_attr_id;
 
-		goodscreate.save($scope.goodsobj, function(res){
+		goodscreate.save($scope.saleobj, function(res){
 
-			if($scope.goodsobj.code === undefined || $scope.goodsobj.code == '')
+			if($scope.saleobj.code === undefined || $scope.saleobj.code == '')
 			{
-				alert('商品编号不能为空');
+				alert('销售品编号不能为空');
 				return;
 			}
 
-			if($scope.goodsobj.name === undefined || $scope.goodsobj.name == '')
+			if($scope.saleobj.name === undefined || $scope.saleobj.name == '')
 			{
-				alert('商品名称不能为空');
+				alert('销售品名称不能为空');
 				return;
 			}
 
-			var view = $scope.goodsobj.place_code;
+			//var view = $scope.goodsobj.place_code;
 
 			if(res.errcode === 0)
 			{
-				$scope.goodsobjstate = 0;
-				$scope.goodsobjdetailstate = 1;
+				$scope.saleobjstate = 0;
+				//$scope.goodsobjdetailstate = 1;
 				//通过商品code取id
-				sel_id.get({'code' : $scope.goodsobj.code}, function(res){
+				sale_id.get({'code' : $scope.saleobj.code}, function(res){
 					if(res.errcode === 0)
 					{
 						id = res.data.id;
+						alert(id);
 					}
 					else
 					{
@@ -82,14 +83,14 @@ module.exports = function($scope, viewlist){
 				});
 				
 				//详细信息 通过景区编号获取票种类型下拉
-			    typelist.get({'view' : view.substring(1)}, function(res){
+			    /*typelist.get({'view' : view.substring(1)}, function(res){
 					if(res.errcode === 0){
 						$scope.typearr = res.data;
 						$scope.goodsobj.ticket_type=$scope.typearr[0].code;
 					}else{
 						alert(res.errmsg);
 					}
-				});
+				});*/
 				
 			}
 			else
@@ -99,7 +100,7 @@ module.exports = function($scope, viewlist){
 		});
 	};
 
-	//基本信息 编辑
+	/*//基本信息 编辑
 	$scope.goodsedit = function(){
 		$state.go('app.editgoods', {'id' : id});
 	}

@@ -74,7 +74,7 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
 				});
 				
 				//详细信息 通过景区编号获取票种类型下拉
-			    typelist.get({'view' : view.substring(1)}, function(res){
+			    typelist.get({'view' : view}, function(res){
 					if(res.errcode === 0){
 						$scope.typearr = res.data;
 						$scope.goodsobj.ticket_type=$scope.typearr[0].code;

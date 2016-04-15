@@ -197,51 +197,157 @@
 				</div>
 
 
-				<!-- 展示状态 
-				<div ng-show="goodsobjstate === 0">
+				<!-- 展示状态 -->
+				<div ng-show="saleobjstate === 0">
 					<div class="col-xs-10" >
 						<div class="form-group">
-							<label class="col-xs-2 control-label">商品编号</label>
+							<label class="col-xs-2 control-label">销售品编号</label>
 							<div class="col-xs-10">
-								<p class="form-control-static">{{goodsobj.code}}</p>
+								<p class="form-control-static">{{saleobj.code}}</p>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-xs-2 control-label">商品名称</label>
+							<label class="col-xs-2 control-label">销售品名称</label>
 							<div class="col-xs-10">
-								<p class="form-control-static">{{goodsobj.name}}</p>
+								<p class="form-control-static">{{saleobj.name}}</p>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-xs-2 control-label">所属景区</label>
 							<div class="col-xs-10">
-								<p class="form-control-static">{{goodsobj.place_code}}</p>
+								<p class="form-control-static">{{saleobj.place_code}}</p>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-xs-2 control-label">成本价格</label>
+							<label class="col-xs-2 control-label">市场价格</label>
 							<div class="col-xs-10">
-								<p class="form-control-static">{{goodsobj.cost_price}}</p>
+								<p class="form-control-static">{{saleobj.market_price}}</p>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-xs-2 control-label">商品分类</label>
+							<label class="col-xs-2 control-label">居游价格</label>
 							<div class="col-xs-10">
-								<p class="form-control-static">{{goodsobj.goods_category}}</p>
+								<p class="form-control-static">{{saleobj.guide_price}}</p>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label class="col-xs-2 control-label">商品状态</label>
+							<label class="col-xs-2 control-label">销售品分类</label>
 							<div class="col-xs-10">
-								<p class="form-control-static">{{goodsobj.state}}</p>
+								<p class="form-control-static">{{saleobj.sale_category}}</p>
 							</div>
 						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label">短信模板编号</label>
+							<div class="col-xs-10">
+								<p class="form-control-static">{{saleobj.sms_template_id}}</p>
+							</div>
+						</div>
+
+						<div class="form-group">
+						    <label class="col-xs-2 control-label">短信发送类型</label>
+						    <div class="col-xs-10">
+						    	<label class="radio-inline">
+								  <input type="radio" name="sms_type" value="0"
+								  ng-model="saleobj.sms_type"
+								  > 发送短信
+								</label>
+								<label class="radio-inline">
+								  <input type="radio" name="sms_type" value="1"
+								  ng-model="saleobj.sms_type"
+								  > 不发短信
+								</label>
+						    </div>
+					  	</div>
+
+					  	<div class="form-group">
+						    <label class="col-xs-2 control-label">系统确认</label>
+						    <div class="col-xs-10">
+						    	<label class="radio-inline">
+								  <input type="radio" name="sys_affirm_type" value="0"
+								  ng-model="saleobj.sys_affirm_type"
+								  > 需要确认
+								</label>
+								<label class="radio-inline">
+								  <input type="radio" name="sys_affirm_type" value="1"
+								  ng-model="saleobj.sys_affirm_type"
+								  > 无需确认
+								</label>
+						    </div>
+					  	</div>
+
+					  	<div class="form-group">
+						    <label class="col-xs-2 control-label">支付类型</label>
+						    <div class="col-xs-10">
+						    	<label class="radio-inline">
+								  <input type="radio" name="pay_type" value="0"
+								  ng-model="saleobj.pay_type"
+								  > 需要支付
+								</label>
+								<label class="radio-inline">
+								  <input type="radio" name="pay_type" value="1"
+								  ng-model="saleobj.pay_type"
+								  > 无需支付
+								</label>
+						    </div>
+					  	</div>
+
+					  	<div class="form-group">
+						    <label class="col-xs-2 control-label">库存类型</label>
+						    <div class="col-xs-10">
+						    	<label class="radio-inline">
+								  <input type="radio" name="stock_type" value="0"
+								  ng-model="saleobj.stock_type"
+								  > 不启用
+								</label>
+								<label class="radio-inline">
+								  <input type="radio" name="stock_type" value="1"
+								  ng-model="saleobj.stock_type"
+								  > 启用
+								</label>
+						    </div>
+					  	</div>
+
+					  	<div class="form-group">
+						    <label class="col-xs-2 control-label">销售目标</label>
+						    <div class="col-xs-10">
+						    	<label class="radio-inline">
+								  <input type="radio" name="sale_target_type" value="0"
+								  ng-model="saleobj.sale_target_type"
+								  > 公开销售
+								</label>
+								<label class="radio-inline">
+								  <input type="radio" name="sale_target_type" value="1"
+								  ng-model="saleobj.sale_target_type"
+								  > 独立授权销售
+								</label>
+						    </div>
+					  	</div>
+
+				  		<div class="form-group">
+						    <label class="col-xs-2 control-label">销售品状态</label>
+						    <div class="col-xs-10">
+						    	<label class="radio-inline">
+								  <input type="radio" name="state" value="0"
+								  ng-model="saleobj.state"
+								  > 下架
+								</label>
+								<label class="radio-inline">
+								  <input type="radio" name="state" value="1"
+								  ng-model="saleobj.state"
+								  > 上架
+								</label>
+						    </div>
+					  	</div>
+
+
+
 					</div>
-				</div>-->
+				</div>
 			</div>
 		</div>
 	</div>
