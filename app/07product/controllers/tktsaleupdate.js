@@ -1,19 +1,9 @@
-module.exports = function($scope, $state, viewlist, salecreate, sale_id, goodlist, saledetailcreate, saledetaillist, saledetaildelete, salehalfinsert, salehalfinfo){
+module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, goodlist, saledetailcreate, saledetaillist, saledetaildelete, salehalfupdate, salehalfinfo){
 
-	$scope.saleobj = {};
-	$scope.salehalfobj = {};
 	$scope.saleobjstate = 1;			//编辑状态
 	$scope.saleobjdetailstate = 0;		//隐藏状态
 	$scope.salehalfobjstate = 1;		
 
-	//初始化值
-	$scope.saleobj.sms_type = '0';
-	$scope.saleobj.sys_affirm_type = '0';
-	$scope.saleobj.pay_type = '0';
-	$scope.saleobj.stock_type = '0';
-	$scope.saleobj.sale_target_type = '0';
-	$scope.saleobj.state = '0';
-	
 
 	//基本信息 景区下拉
 	viewlist().then(function(res) {
@@ -27,12 +17,48 @@ module.exports = function($scope, $state, viewlist, salecreate, sale_id, goodlis
             alert(res.errmsg);
         }
     });
+    
+	//基本信息 上一页编辑获取信息
+	var code;	//销售品编号
+	$scope.loadmain = function(){
+		saleinfo.get({'id' : $stateParams.id}, function(res){
+			console.log(res);
 
-    //基本信息 保存
-	var id;		//创建完生成的id
+			if(res.errcode === 0)
+			{
+				$scope.saleobj = res.data;
+				code = res.data.code;
+				$scope.loadhalf(code);
+				
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+		});
+	}
+	$scope.loadmain();
+
+	$scope.loadhalf = function(){
+		//根据销售品编号获取半价信息
+		salehalfinfo.get({'code' : code}, function(res){
+			console.log(res);
+
+			if(res.errcode === 0)
+			{
+				$scope.salehalfobj = res.data;
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+		});
+	}
+
+	//基本信息 保存
 	$scope.salego = function(){
 
-		salecreate.save($scope.saleobj, function(res){
+		saleupdate.save($scope.saleobj, function(res){
 
 			if($scope.saleobj.code === undefined || $scope.saleobj.code == '')
 			{
@@ -50,18 +76,7 @@ module.exports = function($scope, $state, viewlist, salecreate, sale_id, goodlis
 			{
 				$scope.saleobjstate = 0;
 				$scope.saleobjdetailstate = 1;
-				//通过商品code取id
-				sale_id.get({'code' : $scope.saleobj.code}, function(res){
-					if(res.errcode === 0)
-					{
-						id = res.data.id;
-					}
-					else
-					{
-						alert(res.errmsg);
-					}
-				});
-				
+				$scope.load($scope.saleobj.code);
 				//详细信息 通过景区编号获取商品下拉
 			    goodlist.get({'view' : $scope.saleobj.place_code}, function(res){
 					if(res.errcode === 0){
@@ -71,7 +86,6 @@ module.exports = function($scope, $state, viewlist, salecreate, sale_id, goodlis
 						alert(res.errmsg);
 					}
 				});
-				
 			}
 			else
 			{
@@ -80,10 +94,12 @@ module.exports = function($scope, $state, viewlist, salecreate, sale_id, goodlis
 		});
 	};
 
-	//基本信息 编辑
+	//编辑基本信息改变状态
 	$scope.saleedit = function(){
-		$state.go('app.editsale', {'id' : id});
-	}
+		$scope.saleobjstate = 1;
+		$scope.loadmain();
+		$scope.saleobjdetailstate = 0;
+	};
 
 	//详细信息	添加
 	$scope.add = function(){
@@ -127,9 +143,10 @@ module.exports = function($scope, $state, viewlist, salecreate, sale_id, goodlis
 		});
 	}
 
-	//半价信息	保存
+	//半价信息 保存
 	$scope.salehalfgo = function(){
-		salehalfinsert.save($scope.salehalfobj, function(res){
+
+		salehalfupdate.save($scope.salehalfobj, function(res){
 
 			if(res.errcode === 0)
 			{
@@ -140,11 +157,12 @@ module.exports = function($scope, $state, viewlist, salecreate, sale_id, goodlis
 				alert(res.errmsg);
 			}
 		});
-	}
+	};
 
-	//半价信息 编辑
-	$scope.salehalfedit = function(){
-		$state.go('app.editsale', {'id' : id});
-	}
+	//编辑半价信息改变状态
+	$scope.saleedit = function(){
+		$scope.salehalfobjstate = 1;
+		$scope.loadhalf(code);
+	};
 	
 };

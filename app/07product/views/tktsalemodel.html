@@ -251,96 +251,42 @@
 						<div class="form-group">
 						    <label class="col-xs-2 control-label">短信发送类型</label>
 						    <div class="col-xs-10">
-						    	<label class="radio-inline">
-								  <input type="radio" name="sms_type" value="0"
-								  ng-model="saleobj.sms_type"
-								  > 发送短信
-								</label>
-								<label class="radio-inline">
-								  <input type="radio" name="sms_type" value="1"
-								  ng-model="saleobj.sms_type"
-								  > 不发短信
-								</label>
+								<p class="form-control-static">{{saleobj.sms_type}}</p>
 						    </div>
 					  	</div>
 
 					  	<div class="form-group">
 						    <label class="col-xs-2 control-label">系统确认</label>
 						    <div class="col-xs-10">
-						    	<label class="radio-inline">
-								  <input type="radio" name="sys_affirm_type" value="0"
-								  ng-model="saleobj.sys_affirm_type"
-								  > 需要确认
-								</label>
-								<label class="radio-inline">
-								  <input type="radio" name="sys_affirm_type" value="1"
-								  ng-model="saleobj.sys_affirm_type"
-								  > 无需确认
-								</label>
+								<p class="form-control-static">{{saleobj.sys_affirm_type}}</p>
 						    </div>
 					  	</div>
 
 					  	<div class="form-group">
 						    <label class="col-xs-2 control-label">支付类型</label>
 						    <div class="col-xs-10">
-						    	<label class="radio-inline">
-								  <input type="radio" name="pay_type" value="0"
-								  ng-model="saleobj.pay_type"
-								  > 需要支付
-								</label>
-								<label class="radio-inline">
-								  <input type="radio" name="pay_type" value="1"
-								  ng-model="saleobj.pay_type"
-								  > 无需支付
-								</label>
+								<p class="form-control-static">{{saleobj.pay_type}}</p>
 						    </div>
 					  	</div>
 
 					  	<div class="form-group">
 						    <label class="col-xs-2 control-label">库存类型</label>
 						    <div class="col-xs-10">
-						    	<label class="radio-inline">
-								  <input type="radio" name="stock_type" value="0"
-								  ng-model="saleobj.stock_type"
-								  > 不启用
-								</label>
-								<label class="radio-inline">
-								  <input type="radio" name="stock_type" value="1"
-								  ng-model="saleobj.stock_type"
-								  > 启用
-								</label>
+						    	<p class="form-control-static">{{saleobj.stock_type}}</p>
 						    </div>
 					  	</div>
 
 					  	<div class="form-group">
 						    <label class="col-xs-2 control-label">销售目标</label>
 						    <div class="col-xs-10">
-						    	<label class="radio-inline">
-								  <input type="radio" name="sale_target_type" value="0"
-								  ng-model="saleobj.sale_target_type"
-								  > 公开销售
-								</label>
-								<label class="radio-inline">
-								  <input type="radio" name="sale_target_type" value="1"
-								  ng-model="saleobj.sale_target_type"
-								  > 独立授权销售
-								</label>
+								<p class="form-control-static">{{saleobj.sale_target_type}}</p>
 						    </div>
 					  	</div>
 
 				  		<div class="form-group">
 						    <label class="col-xs-2 control-label">销售品状态</label>
 						    <div class="col-xs-10">
-						    	<label class="radio-inline">
-								  <input type="radio" name="state" value="0"
-								  ng-model="saleobj.state"
-								  > 下架
-								</label>
-								<label class="radio-inline">
-								  <input type="radio" name="state" value="1"
-								  ng-model="saleobj.state"
-								  > 上架
-								</label>
+								<p class="form-control-static">{{saleobj.state}}</p>
 						    </div>
 					  	</div>
 
@@ -352,8 +298,8 @@
 		</div>
 	</div>
 </div>
-<!--
-<div ng-show="goodsobjdetailstate === 1">
+
+<div ng-show="saleobjdetailstate === 1">
 	<div class="col-xs-10 col-xs-offset-1" >
 		<div class="panel panel-default form-horizontal">
 			<div class="panel-heading">
@@ -364,17 +310,11 @@
 					<div class="col-xs-10" >
 
 						<div class="form-group">
-							<label class="col-xs-2 control-label">添加票种</label>
+							<label class="col-xs-2 control-label">添加商品</label>
 							<div class="col-xs-5">
 
-								<select class="form-control" ng-model="goodsobj.ticket_type" 
-					              ng-options="type.code as type.name for type in typearr"
-					            >
-					            </select>
-							</div>
-							<div class="col-xs-3">
-								<select class="form-control" ng-model="goodsobj.ticketattr" 
-					              ng-options="tktattr.ticket_attr_id as tktattr.type_attr_name for tktattr in tktarr"
+								<select class="form-control" ng-model="saleobj.goods_code" 
+					              ng-options="good.code as good.name for good in goodarr"
 					            >
 					            </select>
 							</div>
@@ -386,26 +326,107 @@
 						<table class="table table-bordered">
 						    <thead>
 						      <tr>
-						        <th class="col-md-6 text-center">票种类型</th>
-						        <th class="col-md-4 text-center">票种属性</th>
+						        <th class="col-md-6 text-center">商品名称</th>
 						        <th class="col-md-2 text-center">操作</th>
 						      </tr>
 						    </thead>
 						    <tbody>
 						      <tr ng-repeat="obj in objs">
-						        <td class="text-center">{{obj.ticket_type}}</td>
-						        <td class="text-center">{{obj.ticketattr}}</td>
+						        <td class="text-center">{{obj.goods_code}}</td>
 						        <td class="text-center">
 						          <a ng-click="del(obj.id)" class="btn btn-warning btn-xs">删除</a>
 						        </td>
 						      </tr>
 						    </tbody>
-						  </table>
+					  	</table>
 
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="col-xs-10 col-xs-offset-1" >
+		<div class="panel panel-default form-horizontal">
+			<div class="panel-heading">
+				半价信息
+				<button type="button" 
+					class="btn btn-xs btn-info pull-right"
+					ng-click="salehalfgo()"
+					ng-show="salehalfobjstate === 1"
+				>
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+				</button>
+
+				<button type="button" 
+					class="btn btn-xs btn-success pull-right"
+					ng-click="salehalfedit()"
+					ng-show="salehalfobjstate === 0"
+				>
+					<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+				</button>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<!-- 编辑状态 -->
+					<div ng-show="salehalfobjstate === 1">
+						<div class="col-xs-10" >
+							<div class="form-group">
+								<label class="col-xs-2 control-label">反补</label>
+								<div class="col-xs-10">
+									<input type="text" class="form-control" placeholder="请输入反补金额"
+									ng-model="salehalfobj.subsidy"
+									>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-xs-2 control-label">立减</label>
+								<div class="col-xs-10">
+									<input type="text" class="form-control" placeholder="请输入立减金额"
+									ng-model="salehalfobj.rebate"
+									>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-xs-2 control-label">最大购票数</label>
+								<div class="col-xs-10">
+									<input type="text" class="form-control" placeholder="请输入最大购票数"
+									ng-model="salehalfobj.max_sell"
+									>
+								</div>
+							</div>
+
+						</div>			
+					</div>
+
+
+					<!-- 展示状态 -->
+					<div ng-show="salehalfobjstate === 0">
+						<div class="col-xs-10" >
+							<div class="form-group">
+								<label class="col-xs-2 control-label">反补</label>
+								<div class="col-xs-10">
+									<p class="form-control-static">{{saleobj.subsidy}}</p>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-xs-2 control-label">立减</label>
+								<div class="col-xs-10">
+									<p class="form-control-static">{{saleobj.rebate}}</p>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-xs-2 control-label">最大购票数</label>
+								<div class="col-xs-10">
+									<p class="form-control-static">{{saleobj.max_sell}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
--->

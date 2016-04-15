@@ -33,18 +33,21 @@ module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist
 
     
 	//基本信息 上一页编辑获取信息
-	goodsinfo.get({'id' : $stateParams.id}, function(res){
-		console.log(res);
+	$scope.loadmain = function(){
+		goodsinfo.get({'id' : $stateParams.id}, function(res){
+			console.log(res);
 
-		if(res.errcode === 0)
-		{
-			$scope.goodsobj = res.data;
-		}
-		else
-		{
-			alert(res.errmsg);
-		}
-	});
+			if(res.errcode === 0)
+			{
+				$scope.goodsobj = res.data;
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+		});
+	}
+	$scope.loadmain();
 
 	//基本信息 保存
 	$scope.goodsgo = function(){
@@ -90,6 +93,7 @@ module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist
 	$scope.goodsedit = function(){
 		$scope.goodsobjstate = 1;
 		$scope.goodsobjdetailstate = 0;
+		$scope.loadmain();
 	};
 
 	//详细信息 添加

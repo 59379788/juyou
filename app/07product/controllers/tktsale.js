@@ -65,7 +65,7 @@ module.exports = function($scope, $state, salelist, saleupdate, ITEMS_PERPAGE){
 
     $scope.edit = function(id){
 
-    	$state.go('app.editgoods', {'id' : id});
+    	$state.go('app.editsale', {'id' : id});
 
     };
 

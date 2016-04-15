@@ -63,30 +63,43 @@ var service = function($resource, BASEURL38985, $q, $http){
 
 
 
-
     //查询销售品（全部）
     var salelist = BASEURL38985 + '/api/as/tc/sale/alllist';
 
     //更新销售品
     var saleupdate = BASEURL38985 + '/api/as/tc/sale/update';
 
-    //创建商品
+    //创建销售品
     var salecreate = BASEURL38985 + '/api/as/tc/sale/create';
 
-    //查询商品（单条）
+    //查询销售品（单条）
     var saleinfo = BASEURL38985 + '/api/as/tc/sale/info';
 
-    //创建商品详情
+    //创建销售品详情
     var saledetailcreate = BASEURL38985 + '/api/as/tc/saledetail/create';
 
-    //查询商品详情（对应商品）
+    //查询销售品详情（对应销售品）
     var saledetaillist = BASEURL38985 + '/api/as/tc/saledetail/list';
 
-    //删除商品详情
+    //删除销售品详情
     var saledetaildelete = BASEURL38985 + '/api/as/tc/saledetail/delete';
 
-    //根据商品code取id
+    //根据销售品code取id
     var sale_id = BASEURL38985 + '/api/as/tc/sale/sel_id';
+
+    //查询商品下拉列表（对应景区）
+    var goodlist = BASEURL38985 + '/api/as/tc/sale/goodlist';
+
+
+
+    //添加销售品半价信息（对应销售品）
+    var salehalfinsert = BASEURL38985 + '/api/as/tc/salehalf/create';
+
+    //修改销售品半价信息（对应销售品）
+    var salehalfupdate = BASEURL38985 + '/api/as/tc/salehalf/update';
+
+    //查询销售品半价信息（对应销售品）
+    var salehalfinfo = BASEURL38985 + '/api/as/tc/salehalf/info';
 
 
     
@@ -163,6 +176,18 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         sale_id : function(){
             return $resource(sale_id, {}, {});
+        },
+        goodlist : function(){
+            return $resource(goodlist, {}, {});
+        },
+        salehalfinsert : function(){
+            return $resource(salehalfinsert, {}, {});
+        },
+        salehalfupdate : function(){
+            return $resource(salehalfupdate, {}, {});
+        },
+        salehalfinfo : function(){
+            return $resource(salehalfinfo, {}, {});
         },
         viewlist : function(obj){
     		var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  

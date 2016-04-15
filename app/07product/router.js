@@ -206,11 +206,64 @@ var router = function($urlRouterProvider, $stateProvider){
             viewlist : function(productservice){
                 return productservice.viewlist;
             },
-            saledetailcreate : function(productservice){
-                return productservice.saledetailcreate();
+            salecreate : function(productservice){
+                return productservice.salecreate();
             },
             sale_id : function(productservice){
                 return productservice.sale_id();
+            },
+            goodlist : function(productservice){
+                return productservice.goodlist();
+            },
+            saledetailcreate : function(productservice){
+                return productservice.saledetailcreate();
+            },
+            saledetaillist : function(productservice){
+                return productservice.saledetaillist();
+            },
+            saledetaildelete : function(productservice){
+                return productservice.saledetaildelete();
+            },
+            salehalfinsert : function(productservice){
+                return productservice.salehalfinsert();
+            },
+            salehalfinfo : function(productservice){
+                return productservice.salehalfinfo();
+            }
+        }
+      })
+
+	.state('app.editsale', {
+        url: '/sale/:id',
+        controller : 'tktsaleupdate',
+        template: require('./views/tktsalemodel.html'),
+        resolve:{
+        	viewlist : function(productservice){
+                return productservice.viewlist;
+            },
+        	saleinfo : function(productservice){
+                return productservice.saleinfo();
+            },
+            saleupdate : function(productservice){
+                return productservice.saleupdate();
+            },
+            goodlist : function(productservice){
+                return productservice.goodlist();
+            },
+            saledetailcreate : function(productservice){
+                return productservice.saledetailcreate();
+            },
+            saledetaillist : function(productservice){
+                return productservice.saledetaillist();
+            },
+            saledetaildelete : function(productservice){
+                return productservice.saledetaildelete();
+            },
+            salehalfupdate : function(productservice){
+                return productservice.salehalfupdate();
+            },
+            salehalfinfo : function(productservice){
+                return productservice.salehalfinfo();
             }
         }
       })
