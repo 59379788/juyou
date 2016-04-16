@@ -1,0 +1,79 @@
+<!-- Nested node template -->
+<script type="text/ng-template" id="nodes_renderer.html">
+  <div ui-tree-handle class="tree-node tree-node-content"
+  	ng-click="getit(this)"
+  >
+    <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" 
+    data-nodrag ng-click="toggle(this)">
+    <span class="glyphicon"
+        ng-class="{
+          'glyphicon-chevron-right': collapsed,
+          'glyphicon-chevron-down': !collapsed
+        }"></span></a>
+    {{node.name}}
+    <!-- <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
+        class="glyphicon glyphicon-remove"></span></a>
+    <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span
+        class="glyphicon glyphicon-plus"></span></a> -->
+  </div>
+  <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+    <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+    </li>
+  </ol>
+</script>
+
+<div class="row">
+  <div class="col-sm-4">
+    <div ui-tree id="tree-root" data-nodrop-enabled="true" data-drag-enabled="false">
+      <ol ui-tree-nodes ng-model="data">
+        <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+      </ol>
+    </div>
+
+  </div>
+
+  <div class="row col-sm-8" ng-show="show == true">
+    
+    <!-- <pre class="code">{{ data | json }}</pre>
+
+    <pre class="code">{{ show | json }}</pre> -->
+
+    <div class="panel panel-success " >
+		<div class="panel-heading ">{{obj.name}} (需要提前 <span class="bhour"></span> 小时购票)</div>
+		<div class="panel-body addTicketForm">
+			<div class="input-group">
+				<span class="input-group-addon" >身份证号</span>
+			  	<input type="text" class="form-control" ng-model="order.cardno" >
+			</div>
+			<div class="input-group mt20">
+				<span class="input-group-addon" >游客姓名</span>
+			  	<input type="text" class="form-control" ng-model="order.name" >
+			</div>
+			<div class="input-group mt20">
+				<span class="input-group-addon" >联系电话</span>
+			  	<input type="text" class="form-control" ng-model="order.mobile" >
+			</div>
+			<div class="input-group num mt20">
+				<span class="input-group-addon">购票数量</span>
+			  	<button type="button" class="btn btn-default jian ">-</button>
+	    		<input  type="text"   class="kuang" ng-model="order.num" >
+	    		<button type="button" class="btn btn-default jia">+</button>
+			</div>
+			<div class="input-group mt20">
+				<span class="input-group-addon">备注信息</span>
+			  	<input type="text" class="form-control" ng-model="order.note" >
+			</div>
+			<button type="button" class="btn btn-info btn-block mt20" 
+				ng-click="gogo()"
+			>确认购票</button>
+		</div>
+	</div>
+
+	
+	<div class="panel panel-success">
+		  <div class="panel-heading">预定需知</div>
+		  <div class="panel-body tinfo"></div>
+	</div>
+
+  </div>
+</div>

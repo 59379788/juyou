@@ -29,11 +29,21 @@ module.exports = function($){
             }
           }
         }
+
+      //  console.log(menudata);
+      }
+      else if(res.errcode === 1001)
+      {
+        window.location = "/manager/login";
+      }
+      else if(res.errcode === 1002)
+      {
+        alert('无菜单权限');
       }
       else
       {
-        //alert(res.errmsg);
-        window.location = "/manager/login";
+        alert(res.errmsg);
+        //window.location = "/manager/login";
       }
 
       angular.module('juyouApp').run(['$rootScope','$location','angularPermission', function($rootScope,$location,angularPermission){

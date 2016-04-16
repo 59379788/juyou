@@ -11,7 +11,7 @@
 	        <span class="icon-bar"></span>
 	      </button>
 	      <a class="navbar-brand" href="#/">
-	      	{{obj.name}}
+	      	{{menuobj.name}}
 	      </a>
 	    </div>
 
@@ -20,7 +20,7 @@
 
 	      <ul class="nav navbar-nav"  >
 	      	<li class="dropdown"
-	      		ng-repeat="menu in obj.list"
+	      		ng-repeat="menu in menuobj.list"
 	      	 	uib-dropdown  >
 		      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> {{menu.name}} <span class="caret"></span></a>
 		      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
