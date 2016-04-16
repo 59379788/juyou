@@ -14,12 +14,25 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
             list : function(orderservice){
                 return orderservice.list();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
             }
-            // info : function(sellingservice){
-            //     return sellingservice.info();
+        }
+        
+      })
+
+
+      .state('app.orderbycode', {
+        url: '/orderbycode',
+        controller : 'orderbycode',
+        template: require('./views/orderbycode.html'),
+        resolve:{
+            // list : function(orderservice){
+            //     return orderservice.list();
             // },
-            // createorder : function(orderservice){
-            //     return orderservice.createorder();
+            // getDate : function(utilservice){
+            //     return utilservice.getDate;
             // }
         }
         

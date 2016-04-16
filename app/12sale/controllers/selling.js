@@ -8,10 +8,10 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
     $scope.obj = {};
 
     $scope.order = {};
-    // $scope.order.name = 'dlq';
-    // $scope.order.cardno = '210302198308022412';
-    // $scope.order.mobile = '13840188285';
-    // $scope.order.num = 3;
+    $scope.order.name = 'dlq';
+    $scope.order.cardno = '210302198308022412';
+    $scope.order.mobile = '13840188285';
+    $scope.order.num = 3;
 
     $scope.order.payment_type = '8';
 
@@ -32,6 +32,7 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
             o.id = tmp.id;
             o.code = tmp.sale_code;
             o.name = tmp.sale_name;
+            o.guide_price = tmp.guide_price;
 
             if(!r.hasOwnProperty(tmp.place_code))
             {
@@ -55,7 +56,9 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
 
         $scope.show = true;
 
-        $scope.order.sale_code = obj.$modelValue.id;
+        //销售品编号，用于下单
+        $scope.order.sale_code = obj.$modelValue.code;
+        //销售品名称，用于显示
         $scope.obj.name = obj.$modelValue.name;
 
         if(obj.$modelValue.hasOwnProperty('id'))
