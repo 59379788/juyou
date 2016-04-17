@@ -1,8 +1,8 @@
 module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, goodlist, saledetailcreate, saledetaillist, saledetaildelete, salehalfupdate, salehalfinfo){
 
-	$scope.saleobjstate = 1;			//编辑状态
-	$scope.saleobjdetailstate = 0;		//隐藏状态
-	$scope.salehalfobjstate = 1;		
+	$scope.saleobjstate = 0;			//编辑状态
+	$scope.saleobjdetailstate = 1;		//隐藏状态
+	$scope.salehalfobjstate = 0;		
 
 
 	//基本信息 景区下拉
@@ -17,6 +17,7 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
             alert(res.errmsg);
         }
     });
+
     
 	//基本信息 上一页编辑获取信息
 	var code;	//销售品编号
@@ -29,6 +30,17 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 				$scope.saleobj = res.data;
 				code = res.data.code;
 				$scope.loadhalf(code);
+				$scope.load(code);
+
+				//详细信息 通过景区编号获取商品下拉
+			    goodlist.get({'view' : $scope.saleobj.place_code}, function(res){
+					if(res.errcode === 0){
+						$scope.goodarr = res.data;
+						$scope.saleobj.goods_code=$scope.goodarr[0].code;
+					}else{
+						alert(res.errmsg);
+					}
+				});
 				
 			}
 			else
@@ -38,6 +50,9 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 		});
 	}
 	$scope.loadmain();
+
+
+
 
 	$scope.loadhalf = function(){
 		//根据销售品编号获取半价信息
@@ -76,16 +91,7 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 			{
 				$scope.saleobjstate = 0;
 				$scope.saleobjdetailstate = 1;
-				$scope.load($scope.saleobj.code);
-				//详细信息 通过景区编号获取商品下拉
-			    goodlist.get({'view' : $scope.saleobj.place_code}, function(res){
-					if(res.errcode === 0){
-						$scope.goodarr = res.data;
-						$scope.saleobj.goods_code=$scope.goodarr[0].code;
-					}else{
-						alert(res.errmsg);
-					}
-				});
+				$scope.loadmain();
 			}
 			else
 			{
@@ -146,6 +152,7 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 	//半价信息 保存
 	$scope.salehalfgo = function(){
 
+		$scope.salehalfobj.code = $scope.saleobj.code;
 		salehalfupdate.save($scope.salehalfobj, function(res){
 
 			if(res.errcode === 0)
@@ -160,7 +167,7 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 	};
 
 	//编辑半价信息改变状态
-	$scope.saleedit = function(){
+	$scope.salehalfedit = function(){
 		$scope.salehalfobjstate = 1;
 		$scope.loadhalf(code);
 	};

@@ -55,6 +55,7 @@ module.exports = function($scope, $state, viewlist, salecreate, sale_id, goodlis
 					if(res.errcode === 0)
 					{
 						id = res.data.id;
+						$state.go('app.editsale', {'id' : id});
 					}
 					else
 					{
@@ -129,6 +130,7 @@ module.exports = function($scope, $state, viewlist, salecreate, sale_id, goodlis
 
 	//半价信息	保存
 	$scope.salehalfgo = function(){
+		$scope.salehalfobj.code = $scope.saleobj.code;
 		salehalfinsert.save($scope.salehalfobj, function(res){
 
 			if(res.errcode === 0)
