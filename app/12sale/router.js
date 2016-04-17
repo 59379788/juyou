@@ -20,6 +20,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             createorder : function(orderservice){
                 return orderservice.createorder();
+            },
+            IdentityCodeValid : function(utilservice){
+                return utilservice.IdentityCodeValid;
             }
         }
         

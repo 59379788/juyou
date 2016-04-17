@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $stateParams, namelist, info, createorder){
+module.exports = function($scope, $state, $stateParams, namelist, info, createorder, IdentityCodeValid){
 
     //类别
     var sale_category = $stateParams.type;
@@ -7,13 +7,18 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
 
     $scope.obj = {};
 
-    $scope.order = {};
+    $scope.order = {
+        'name' : '',
+        'cardno' : '',
+        'mobile' : '',
+        'num' : 0
+    };
     $scope.order.name = 'dlq';
     $scope.order.cardno = '210302198308022412';
     $scope.order.mobile = '13840188285';
     $scope.order.num = 3;
 
-    $scope.order.payment_type = '8';
+    //$scope.order.payment_type = '8';
 
     //销售品树
     namelist.get({'sale_category' : sale_category}, function(res){
@@ -33,6 +38,7 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
             o.code = tmp.sale_code;
             o.name = tmp.sale_name;
             o.guide_price = tmp.guide_price;
+            o.market_price = tmp.market_price;
 
             if(!r.hasOwnProperty(tmp.place_code))
             {
@@ -85,10 +91,14 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
 
     $scope.gogo = function(){
 
-        console.log($scope.order);
+        //-------------- 参数验证 -----------------------//
+        if(!check()) return ;
+        //-------------- 参数验证 -----------------------//
+
+        //console.log($scope.order);
         createorder.save($scope.order, function(res){
 
-            console.log(res);
+            //console.log(res);
 
             if(res.errcode === 0)
             {
@@ -102,5 +112,69 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
         });
 
     };
+
+
+    $scope.jian = function(){
+        if(isNaN($scope.order.num)){
+            $scope.order.num = 0;
+            return;
+        }
+        $scope.order.num -= 1;
+        if($scope.order.num - 1 < 0)
+        {
+            $scope.order.num = 0;
+        }
+    };
+
+    $scope.jia = function(){
+        if(isNaN($scope.order.num)){
+            $scope.order.num = 0;
+            return;
+        }
+        $scope.order.num += 1;
+    };
+
+
+    function check(){
+
+        if($scope.order.cardno == '')
+        {
+            alert("请填写身份证");
+            return false;
+        }
+
+        if(!IdentityCodeValid($scope.order.cardno))
+        {
+            if (!confirm("改身份证有误，要强制录入该身份证吗?")) {
+                return false;
+            }
+        }
+
+        if($scope.order.name == "")
+        {
+            alert("请填写姓名");
+            return false;
+        }
+        
+        if($scope.order.mobile == "")
+        {
+            alert("请填写购电话");
+            return false;
+        }
+
+        if(isNaN($scope.order.num)){
+            alert('购买数量请输入正确数字');
+            $scope.order.num = 0;
+            return false;
+        }
+        
+        if($scope.order.num == "0")
+        {
+            alert("请填写购票数量");
+            return false;
+        }
+
+        return true;
+    }
 
 };

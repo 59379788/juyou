@@ -9,8 +9,17 @@
         ng-class="{
           'glyphicon-chevron-right': collapsed,
           'glyphicon-chevron-down': !collapsed
-        }"></span></a>
-    {{node.name}} {{node.guide_price}}
+        }"></span></a>&nbsp;
+    {{node.name}} 
+    <p class="text-right" style="margin-bottom: 0px;">
+    <small ng-show="node.guide_price != undefined">
+    	分销价{{node.guide_price * 0.01 | currency : '¥'}} 
+    </small>
+    <small ng-show="node.market_price != undefined">
+    	市场价{{node.market_price * 0.01 | currency : '¥'}}
+    </small>
+    </p>
+
     <!-- <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
         class="glyphicon glyphicon-remove"></span></a>
     <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span
@@ -55,9 +64,13 @@
 			</div>
 			<div class="input-group num mt20">
 				<span class="input-group-addon">购票数量</span>
-			  	<button type="button" class="btn btn-default jian ">-</button>
+			  	<button type="button" class="btn btn-default jian "
+			  	ng-click="jian()"
+			  	>-</button>
 	    		<input  type="text"   class="kuang" ng-model="order.num" >
-	    		<button type="button" class="btn btn-default jia">+</button>
+	    		<button type="button" class="btn btn-default jia"
+	    		ng-click="jia()"
+	    		>+</button>
 			</div>
 			<div class="input-group mt20">
 				<span class="input-group-addon">备注信息</span>
