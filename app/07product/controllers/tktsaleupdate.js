@@ -20,7 +20,6 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 
     
 	//基本信息 上一页编辑获取信息
-	var code;	//销售品编号
 	$scope.loadmain = function(){
 		saleinfo.get({'id' : $stateParams.id}, function(res){
 			console.log(res);
@@ -28,9 +27,8 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 			if(res.errcode === 0)
 			{
 				$scope.saleobj = res.data;
-				code = res.data.code;
-				$scope.loadhalf(code);
-				$scope.load(code);
+				$scope.loadhalf(res.data.code);
+				$scope.load(res.data.code);
 
 				//详细信息 通过景区编号获取商品下拉
 			    goodlist.get({'view' : $scope.saleobj.place_code}, function(res){
@@ -54,7 +52,7 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 
 
 
-	$scope.loadhalf = function(){
+	$scope.loadhalf = function(code){
 		//根据销售品编号获取半价信息
 		salehalfinfo.get({'code' : code}, function(res){
 			console.log(res);
@@ -65,7 +63,7 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 			}
 			else
 			{
-				alert(res.errmsg);
+				//alert(res.errmsg);
 			}
 		});
 	}

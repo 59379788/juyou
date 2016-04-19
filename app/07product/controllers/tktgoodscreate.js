@@ -16,19 +16,6 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
         }
     });
 
- //    //详细信息 票种属性下拉
-	// attrlistsel().then(function(res) {
- //        if(res.errcode === 0)
- //        {
- //        	$scope.tktarr = res.data;
- //        	$scope.goodsobj.ticketattr=$scope.tktarr[0].ticket_attr_id;
- //        }
- //        else
- //        {
- //            alert(res.errmsg);
- //        }
- //    });
-
     //基本信息 保存
 	$scope.goodsgo = function(){
 		console.log($scope.goodsobj);

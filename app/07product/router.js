@@ -217,24 +217,6 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             sale_id : function(productservice){
                 return productservice.sale_id();
-            },
-            goodlist : function(productservice){
-                return productservice.goodlist();
-            },
-            saledetailcreate : function(productservice){
-                return productservice.saledetailcreate();
-            },
-            saledetaillist : function(productservice){
-                return productservice.saledetaillist();
-            },
-            saledetaildelete : function(productservice){
-                return productservice.saledetaildelete();
-            },
-            salehalfinsert : function(productservice){
-                return productservice.salehalfinsert();
-            },
-            salehalfinfo : function(productservice){
-                return productservice.salehalfinfo();
             }
         }
       })

@@ -1,11 +1,5 @@
 module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist, typelist, attrlistsel, goodsdetailcreate, goodsdetaillist, goodsdetaildelete, goodsstate){
 
-	//$scope.goodsobjstate = 1;			//编辑状态
-	//$scope.goodsobjdetailstate = 0;		//显示状态
-
-	//基本信息 商品状态下拉
-	//$scope.statearr = goodsstate;
-
 	$scope.goodsobj = {};
 	$scope.tkttypeobj = {};
 
