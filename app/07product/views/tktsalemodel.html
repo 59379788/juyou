@@ -24,6 +24,15 @@
 					</div>
 
 					<div class="form-group">
+						<label class="col-xs-2 control-label">销售品简介</label>
+						<div class="col-xs-10">
+							<textarea class="form-control" rows="3"
+							ng-model="saleobj.detail"
+							></textarea>
+						</div>
+					</div>
+
+					<div class="form-group">
 						<label class="col-xs-2 control-label">所属景区</label>
 						<div class="col-xs-10">
 							<select class="form-control" ng-model="saleobj.place_code" 
@@ -52,6 +61,18 @@
 								<span class="input-group-addon">¥</span>
 								<input type="number" class="form-control" placeholder="请输入居游价格" min='0'
 								ng-model="saleobj.guide_price"
+								>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-2 control-label">分销商成本价格</label>
+						<div class="col-xs-10">
+							<div class="input-group">
+								<span class="input-group-addon">¥</span>
+								<input type="number" class="form-control" placeholder="请输入分销商成本价格" min='0'
+								ng-model="saleobj.cost_price"
 								>
 							</div>
 						</div>
@@ -152,22 +173,6 @@
 							  <input type="radio" name="sale_target_type" value="1"
 							  ng-model="saleobj.sale_target_type"
 							  > 独立授权销售
-							</label>
-					    </div>
-				  	</div>
-
-			  		<div class="form-group">
-					    <label class="col-xs-2 control-label">销售品状态</label>
-					    <div class="col-xs-10">
-					    	<label class="radio-inline">
-							  <input type="radio" name="state" value="0"
-							  ng-model="saleobj.state"
-							  > 下架
-							</label>
-							<label class="radio-inline">
-							  <input type="radio" name="state" value="1"
-							  ng-model="saleobj.state"
-							  > 上架
 							</label>
 					    </div>
 				  	</div>

@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, salelist, saleupdate, ITEMS_PERPAGE){
+module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, saledown, saleupdate){
 
 	$scope.searchform = {};
 
@@ -43,7 +43,8 @@ module.exports = function($scope, $state, salelist, saleupdate, ITEMS_PERPAGE){
     $scope.load();
 
     $scope.start = function(id) {
-		saleupdate.get({'id' : id, 'state' : '0'}, function(res){
+		saleup.get({'id' : id}, function(res){
+            console.log(res);
 			if(res.errcode === 0){
 				$scope.load();
 			}else{
@@ -53,7 +54,8 @@ module.exports = function($scope, $state, salelist, saleupdate, ITEMS_PERPAGE){
 	}
 
 	$scope.stop = function(id) {
-		saleupdate.get({'id' : id, 'state' : '1'}, function(res){
+		saledown.get({'id' : id}, function(res){
+            console.log(res);
 			if(res.errcode === 0){
 				$scope.load();
 			}else{
@@ -66,6 +68,26 @@ module.exports = function($scope, $state, salelist, saleupdate, ITEMS_PERPAGE){
     $scope.edit = function(id){
 
     	$state.go('app.editsale', {'id' : id});
+
+    };
+
+    $scope.asort = function(id, asort){
+
+        console.log({'id' : id, 'asort' : asort});
+        saleupdate.save({'id' : id, 'asort' : asort}, function(res){
+
+            console.log(res);
+
+            if(res.errcode === 0)
+            {
+                $scope.load();
+            }
+            else
+            {
+                alert(res.errmsg);
+            }
+
+        });
 
     };
 

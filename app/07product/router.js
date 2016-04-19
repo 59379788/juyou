@@ -170,7 +170,14 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             saleupdate : function(productservice){
                 return productservice.saleupdate();
+            },
+            saleup : function(productservice){
+                return productservice.saleup();
+            },
+            saledown : function(productservice){
+                return productservice.saledown();
             }
+            
         }
       })
 

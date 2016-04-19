@@ -90,10 +90,14 @@ var service = function($resource, BASEURL38985, $q, $http){
     //查询商品下拉列表（对应景区）
     var goodlist = BASEURL38985 + '/api/as/tc/sale/goodlist';
 
-
+    //销售品类型
     var dictbytypelist = BASEURL38985 + '/api/as/sc/dict/dictbytypelist'
 
-
+    //销售品上架
+    var saleup = BASEURL38985 + '/api/ac/tc/salehService/up';
+    
+    //销售品下架
+    var saledown = BASEURL38985 + '/api/ac/tc/salehService/down';
 
     //添加销售品半价信息（对应销售品）
     var salehalfinsert = BASEURL38985 + '/api/as/tc/salehalf/create';
@@ -202,6 +206,12 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         salehalfinfo : function(){
             return $resource(salehalfinfo, {}, {});
+        },
+        saleup : function(){
+            return $resource(saleup, {}, {});
+        },
+        saledown : function(){
+            return $resource(saledown, {}, {});
         },
         viewlist : function(obj){
     		var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  

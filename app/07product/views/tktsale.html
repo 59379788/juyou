@@ -22,24 +22,35 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-4 text-center">销售品名称</th>
-        <th class="col-md-1 text-center">景区编号</th>
+        <th class="col-md-3 text-center">销售品名称</th>
+        <th class="col-md-2 text-center">编号</th>
         <th class="col-md-1 text-center">市场价</th>
         <th class="col-md-1 text-center">居游价</th>
-        <th class="col-md-1 text-center">销售品状态</th>
+        <th class="col-md-1 text-center">状态</th>
+        <th class="col-md-2 text-center">排序</th>
         <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
         <td class="">{{obj.name}}</td>
-        <td class="text-center">{{obj.place_code}}</td>
-        <td class="text-center">{{obj.market_price}}</td>
-        <td class="text-center">{{obj.guide_price}}</td>
+        <td class="text-center">{{obj.code}}</td>
+        <td class="text-center">{{obj.market_price * 0.01  | currency : '￥'}}</td>
+        <td class="text-center">{{obj.guide_price * 0.01  | currency : '￥'}}</td>
         <td class="text-center">{{obj.state}}</td>
+        <td class="form-horizontal ">
+          <div class="col-sm-6">
+            <input class="form-control input-sm" 
+            style="height:22px;" 
+            type="text" 
+            value="{{obj.asort}}" 
+            ng-model="obj.asort">
+          </div>
+          <a ng-click="asort(obj.id, obj.asort)" class="btn btn-info btn-xs">gogo</a>
+        </td>
         <td class="text-center">
-          <a ng-show="obj.state=='1'" ng-click="start(obj.id)" class="btn btn-danger btn-xs">下架</a>
-          <a ng-show="obj.state=='0'" ng-click="stop(obj.id)" class="btn btn-primary btn-xs">上架</a>
+          <a ng-show="obj.state=='1'" ng-click="stop(obj.id)" class="btn btn-danger btn-xs">下架</a>
+          <a ng-show="obj.state=='0'" ng-click="start(obj.id)" class="btn btn-primary btn-xs">上架</a>
           <a ng-click="edit(obj.id)" class="btn btn-success btn-xs">编辑</a>
         </td>
       </tr>
