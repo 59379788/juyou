@@ -33,7 +33,7 @@
       <tr ng-repeat="obj in objs">
         <td class="">{{obj.name}}</td>
         <td class="text-center">{{obj.place_code}}</td>
-        <td class="text-center">{{obj.cost_price}}</td>
+        <td class="text-center">{{obj.cost_price * 0.01  | currency : '￥'}}</td>
         <td class="text-center">{{obj.state}}</td>
         <td class="text-center">
           <a ng-show="obj.state=='1'" ng-click="start(obj.id)" class="btn btn-danger btn-xs">无效</a>
