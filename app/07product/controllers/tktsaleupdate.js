@@ -1,5 +1,4 @@
 module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, goodlist, saledetailcreate, saledetaillist, saledetaildelete, salehalfupdate, salehalfinfo, dictbytypelist){
-
 	
 	//销售品对象
 	$scope.saleobj = {};
@@ -11,8 +10,6 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
         if(res.errcode === 0)
         {
         	$scope.viewarr = res.data;
-        	//$scope.saleobj.place_code=$scope.viewarr[0].code;
-
         }
         else
         {
@@ -25,7 +22,6 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
         if(res.errcode === 0)
         {
         	$scope.typearr = res.data;
-
         }
         else
         {
@@ -75,11 +71,9 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 			return;
 		}
 		
-
 		$scope.goodsobj.code = $scope.saleobj.code;
 		saledetailcreate.save($scope.goodsobj, function(res){
 
-	     	console.log(res);
 	     	if(res.errcode === 0)
 	     	{
 	     		getsaledetail($scope.saleobj.code);
@@ -177,38 +171,6 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 		getgoodslist(code);
 	}
 
-    
-	// //基本信息 上一页编辑获取信息
-	// $scope.loadmain = function(){
-	// 	saleinfo.get({'id' : $stateParams.id}, function(res){
-	// 		console.log(res);
-
-	// 		if(res.errcode === 0)
-	// 		{
-	// 			$scope.saleobj = res.data;
-	// 			$scope.loadhalf(res.data.code);
-	// 			$scope.load(res.data.code);
-
-	// 			//详细信息 通过景区编号获取商品下拉
-	// 		    goodlist.get({'view' : $scope.saleobj.place_code}, function(res){
-	// 				if(res.errcode === 0){
-	// 					$scope.goodarr = res.data;
-	// 					$scope.saleobj.goods_code=$scope.goodarr[0].code;
-	// 				}else{
-	// 					alert(res.errmsg);
-	// 				}
-	// 			});
-				
-	// 		}
-	// 		else
-	// 		{
-	// 			alert(res.errmsg);
-	// 		}
-	// 	});
-	// }
-	// $scope.loadmain();
-
-
 
 
 	// $scope.loadhalf = function(code){
@@ -229,19 +191,6 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 
 
 
-	// //编辑基本信息改变状态
-	// $scope.saleedit = function(){
-	// 	$scope.saleobjstate = 1;
-	// 	$scope.loadmain();
-	// 	$scope.saleobjdetailstate = 0;
-	// };
-
-
-
-	// //详细信息	查询
-	// $scope.load = function (code) {
-
-	// }
 
 
 

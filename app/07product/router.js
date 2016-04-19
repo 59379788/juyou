@@ -101,7 +101,7 @@ var router = function($urlRouterProvider, $stateProvider){
       })
 
       .state('app.tktgoods', {
-        url: '/goodlist',
+        url: '/goodslist',
         controller : 'tktgoods',
         template: require('./views/tktgoods.html'),
         resolve:{
@@ -115,51 +115,21 @@ var router = function($urlRouterProvider, $stateProvider){
       })
 
       .state('app.creategoods', {
-        url: '/good',
+        url: '/goods',
         controller : 'tktgoodscreate',
         template: require('./views/tktgoodsmodel.html'),
         resolve:{
             goodscreate : function(productservice){
                 return productservice.goodscreate();
             },
-            goodsdetailcreate : function(productservice){
-                return productservice.goodsdetailcreate();
-            },
-            goodsdetaillist : function(productservice){
-                return productservice.goodsdetaillist();
-            },
-            goodsdetaildelete : function(productservice){
-                return productservice.goodsdetaildelete();
-            },
             viewlist : function(productservice){
                 return productservice.viewlist;
-            },
-            attrlistsel : function(productservice){
-                return productservice.attrlistsel;
-            },
-            typelist : function(productservice){
-                return productservice.typelist();
-            },
-            goodsdetailcreate : function(productservice){
-                return productservice.goodsdetailcreate();
-            },
-            goodsdetaillist : function(productservice){
-                return productservice.goodsdetaillist();
-            },
-            goodsdetaildelete : function(productservice){
-                return productservice.goodsdetaildelete();
-            },
-            sel_id : function(productservice){
-                return productservice.sel_id();
-            },
-            goodsstate : function(productservice){
-                return productservice.goodsstate;
             }
         }
       })
 
       .state('app.editgoods', {
-        url: '/good/:id',
+        url: '/goods/:id',
         controller : 'tktgoodsupdate',
         template: require('./views/tktgoodsmodel.html'),
         resolve:{
@@ -186,9 +156,6 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             goodsdetaildelete : function(productservice){
                 return productservice.goodsdetaildelete();
-            },
-            goodsstate : function(productservice){
-                return productservice.goodsstate;
             }
         }
       })
@@ -217,9 +184,6 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             salecreate : function(productservice){
                 return productservice.salecreate();
-            },
-            sale_id : function(productservice){
-                return productservice.sale_id();
             },
             dictbytypelist : function(productservice){
                 return productservice.dictbytypelist;

@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, typelist, goodsdetailcreate, goodsdetaillist, goodsdetaildelete, sel_id, goodsstate){
+module.exports = function($scope, $state, goodscreate, viewlist){
 
 	$scope.goodsobj = {};
 	$scope.goodsobj.state = 0;

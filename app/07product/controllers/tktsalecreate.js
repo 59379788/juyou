@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, viewlist, salecreate, sale_id, dictbytypelist){
+module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist){
 
 	$scope.saleobj = {};
 
