@@ -18,6 +18,7 @@ module.exports = function($scope, $state, goodscreate, viewlist, attrlistsel, ty
 
     //基本信息 保存
 	$scope.goodsgo = function(){
+		$scope.goodsobj.cost_price *= 100;
 		console.log($scope.goodsobj);
 		goodscreate.save($scope.goodsobj, function(res){
 

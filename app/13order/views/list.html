@@ -4,9 +4,10 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                 <div class="row">
-                  <label>订单标题</label>&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="searchform.title" >
+                  <input type="text" class="form-control" ng-model="searchform.code" placeholder="订单编号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  
 
                   <label>下单时间</label>&nbsp;&nbsp;
                   <div class="input-group">
@@ -25,17 +26,22 @@
                   </div>
                 </div>
                 <div class="row mt10">
-                  <label>身份证号</label>&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="searchform.cardno" >
+                  <input type="text" class="form-control" ng-model="searchform.title" placeholder="订单标题" 
+                  >
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <label>姓名</label>&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="searchform.name" >
+                  <input type="text" class="form-control" ng-model="searchform.cardno"  placeholder="身份证号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <label>电话</label>&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="searchform.mobile" >
+                  <input type="text" class="form-control" ng-model="searchform.name"
+                   placeholder="姓名"
+                   >
                   &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.mobile" placeholder="电话">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  
 
                   <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
                 </div>
@@ -50,17 +56,19 @@
     <thead>
       <tr>
         <th class="col-md-3 text-center">订单名称</th>
+        <th class="col-md-1 text-center">订单编号</th>
         <th class="col-md-2 text-center">身份证</th>
         <th class="col-md-1 text-center">姓名</th>
         <th class="col-md-1 text-center">电话</th>
         <th class="col-md-1 text-center">数量</th>
         <th class="col-md-2 text-center">购买时间</th>
-        <th class="col-md-2 text-center">备注</th>
+        <th class="col-md-1 text-center">备注</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
         <td class="">{{obj.title}}</td>
+        <td class="text-center">{{obj.code}}</td>
         <td class="text-center">{{obj.cardno}}</td>
         <td class="text-center">{{obj.name}}</td>
         <td class="text-center">{{obj.mobile}}</td>

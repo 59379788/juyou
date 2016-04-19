@@ -30,7 +30,9 @@ module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist
         }
     });
 
-    goodsinfo.get({'id' : $stateParams.id}, function(res){
+
+
+	goodsinfo.get({'id' : $stateParams.id}, function(res){
 		console.log(res);
 
 		if(res.errcode === 0)
@@ -57,6 +59,7 @@ module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist
 			alert(res.errmsg);
 		}
 	});
+
 
 	//详细信息 查询
 	function goodsdetail(code) {
@@ -131,69 +134,29 @@ module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist
 		});
 	}
 
-    
+	//基本信息 保存
+	$scope.goodsgo = function(){
 
-    
-	// //基本信息 上一页编辑获取信息
-	// $scope.loadmain = function(){
-		
-	// }
-	// $scope.loadmain();
+		if($scope.goodsobj.name === undefined || $scope.goodsobj.name == '')
+		{
+			alert('商品名称不能为空');
+			return;
+		}
 
-	// //基本信息 保存
-	// $scope.goodsgo = function(){
-	// 	goodsupdate.save($scope.goodsobj, function(res){
+		goodsupdate.save($scope.goodsobj, function(res){
 
-	// 		if($scope.goodsobj.code === undefined || $scope.goodsobj.code == '')
-	// 		{
-	// 			alert('商品编号不能为空');
-	// 			return;
-	// 		}
+			var view = $scope.goodsobj.place_code;
 
-	// 		if($scope.goodsobj.name === undefined || $scope.goodsobj.name == '')
-	// 		{
-	// 			alert('商品名称不能为空');
-	// 			return;
-	// 		}
+			if(res.errcode === 0)
+			{
+				//getinfo();
+				alert('保存成功');
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+		});
+	};    
 
-	// 		var view = $scope.goodsobj.place_code;
-
-	// 		if(res.errcode === 0)
-	// 		{
-	// 			$scope.goodsobjstate = 0;
-	// 			$scope.goodsobjdetailstate = 1;
-	// 			$scope.load($scope.goodsobj.code);
-	// 			//详细信息 票种类型下拉
-	// 		    typelist.get({'view' : view}, function(res){
-	// 				if(res.errcode === 0){
-	// 					$scope.typearr = res.data;
-	// 					$scope.goodsobj.ticket_type=$scope.typearr[0].code;
-	// 				}else{
-	// 					alert(res.errmsg);
-	// 				}
-	// 			});
-	// 		}
-	// 		else
-	// 		{
-	// 			alert(res.errmsg);
-	// 		}
-	// 	});
-	// };
-
-	// //编辑改变状态
-	// $scope.goodsedit = function(){
-	// 	$scope.goodsobjstate = 1;
-	// 	$scope.goodsobjdetailstate = 0;
-	// 	$scope.loadmain();
-	// };
-
-
-
-
-
-
-
-
-
-	
 };

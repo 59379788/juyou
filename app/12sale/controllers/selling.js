@@ -95,10 +95,10 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
         if(!check()) return ;
         //-------------- 参数验证 -----------------------//
 
-        //console.log($scope.order);
+        console.log($scope.order);
         createorder.save($scope.order, function(res){
 
-            //console.log(res);
+            console.log(res);
 
             if(res.errcode === 0)
             {

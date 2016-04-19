@@ -57,6 +57,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             viewlist : function(productservice){
                 return productservice.viewlist;
+            },
+            placeinfo : function(placeservice){
+                return placeservice.info();
             }
         }
       })
@@ -217,6 +220,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             sale_id : function(productservice){
                 return productservice.sale_id();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
             }
         }
       })
@@ -252,6 +258,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             salehalfinfo : function(productservice){
                 return productservice.salehalfinfo();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
             }
         }
       })
