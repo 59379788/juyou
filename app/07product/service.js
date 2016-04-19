@@ -5,7 +5,7 @@
 var service = function($resource, BASEURL38985, $q, $http){
 
     //查询景区下拉列表
-    var viewlist = BASEURL38985 + "/api/as/tc/type2/viewlist";
+    var viewlist = BASEURL38985 + "/api/as/tc/placeview/jlist";
 
     //查询景区列表
     var list = BASEURL38985 + "/api/as/tc/type2/typelist";

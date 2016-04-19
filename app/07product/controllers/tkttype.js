@@ -4,6 +4,12 @@ module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktup
 
     //景区id
     var placeid = $stateParams.placeid;
+
+    if(placeid === ""){
+
+    }else{
+    	$scope.searchform.place_code = placeid;
+    }
     
 	viewlist().then(function(res) {
         //console.log(res);
