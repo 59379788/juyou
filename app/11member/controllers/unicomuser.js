@@ -4,10 +4,10 @@ module.exports = function($scope, userinfo, getDate){
 
 	$scope.searchform = {};
 	$scope.searchform.mobile = '';
-	$scope.section = {};
 	$scope.usedate = '0';
 
 	//有效区间
+	$scope.section = {};
 	$scope.section.start = {};
 	$scope.section.start.date = {};
 

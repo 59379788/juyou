@@ -9,16 +9,16 @@
 		</div>
 	</div>
 
-	<div class="form-group">
+<!-- 	<div class="form-group">
 		<label class="col-xs-2 control-label">票种编号</label>
 		<div class="col-xs-6">
 			<input type="text" class="form-control" placeholder="请输入票种编号"
 			ng-model="objt.code"
 			>
 		</div>
-	</div>
+	</div> -->
 
-	<div class="form-group">
+	<div class="form-group" ng-show="placeid === ''">
 		<label class="col-xs-2 control-label">所属景区</label>
 		<div class="col-xs-6">
 			<select class="form-control" ng-model="objt.place_code" 
@@ -27,6 +27,34 @@
             </select>
 		</div>
 	</div>
+
+	<div class="form-group" ng-show="placeid !== ''">
+		<label class="col-xs-2 control-label">所属景区</label>
+		<div class="col-xs-6">
+			<p class="form-control-static">{{objt.placename}} [{{objt.placecode}}]</p>
+		</div>
+	</div>
+
+	<div class="form-group">
+	    <label class="col-sm-2 control-label">有效时间</label>
+	    <div class="col-sm-10">
+
+		    <p class="input-group col-sm-3 pull-left">
+	          <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+	          <span class="input-group-btn">
+	            <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+	          </span>
+	        </p>
+	        <p class="form-control-static pull-left"> &nbsp;&nbsp;-&nbsp;&nbsp; </p>
+	        <p class="input-group col-sm-3 pull-left">
+	          <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+	          <span class="input-group-btn">
+	            <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+	          </span>
+	        </p>
+
+	    </div>
+	  </div>
 
 	<div class="form-group">
 		<label class="col-xs-2 control-label">允许消票</label>
@@ -50,12 +78,12 @@
 			<label class="radio-inline">
 			  <input type="radio" name="state" value="0"
 			  ng-model="objt.state"
-			  > 下架
+			  > 不可用
 			</label>
 			<label class="radio-inline">
 			  <input type="radio" name="state" value="1"
 			  ng-model="objt.state"
-			  > 上架
+			  > 可用
 			</label>
 		</div>
 	</div>

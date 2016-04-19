@@ -25,15 +25,21 @@ var router = function($urlRouterProvider, $stateProvider){
       })
 
       .state('app.tkttypecreate', {
-        url: '/tkttypecreate',
+        url: '/tkttypecreate/:placeid',
         controller : 'tkttypecreate',
         template: require('./views/tkttypemodel.html'),
         resolve:{
-            viewlist : function(productservice){
-                return productservice.viewlist;
+            viewlist : function(viewservice){
+                return viewservice.slist;
             },
             tktcreate : function(productservice){
                 return productservice.tktcreate();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            },
+            placeinfo : function(placeservice){
+                return placeservice.info();
             }
         }
       })

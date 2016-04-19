@@ -76,4 +76,9 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE){
 
     };
 
+
+    $scope.createtkttype = function(id){
+        $state.go('app.tkttypecreate', {'placeid' : id});
+    }
+
 };
