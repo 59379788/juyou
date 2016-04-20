@@ -1,7 +1,7 @@
 module.exports = function($scope, tktlist, $state){
 
 	
-	tktlist.get({'view' : '0099'}, function(res){
+	tktlist.get({'view' : 'J0061'}, function(res){
 
 		console.log(res);
 

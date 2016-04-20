@@ -1,6 +1,6 @@
 module.exports = function($scope, $uibModal, typelist, devicelist, add, del, $state){
 
-	var view = '0099';
+	var view = 'J0062';
 
 	// var data = [
 	// 	{

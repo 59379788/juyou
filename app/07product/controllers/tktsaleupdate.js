@@ -35,7 +35,10 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 		if(res.errcode === 0)
 		{
 			$scope.saleobj = res.data;
-
+			$scope.saleobj.market_price *= 0.01;
+			$scope.saleobj.guide_price *= 0.01;
+			$scope.saleobj.cost_price *= 0.01;
+			
 			//初始化商品列表
 			getsaledetail($scope.saleobj.code);
 
@@ -157,6 +160,8 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 
 			if(res.errcode === 0)
 			{
+				$scope.saleobj.market_price *= 0.01;
+				$scope.saleobj.guide_price *= 0.01;
 				alert('修改成功');
 			}
 			else

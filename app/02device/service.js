@@ -4,42 +4,43 @@
  */
 module.exports = function($resource, BASEURL38985, $q, $http){
 
-    var typelist = BASEURL38985 + '/api/us/tc/device/watchdevicetickettypelist';
+    var typelist = BASEURL38985 + '/api/as/tc/device/watchdevicetickettypelist';
 
     //var devicelist = BASEURL38985 + '/api/us/tc/device/list';
 
-    var devicelist = BASEURL38985 + '/api/us/tc/device/watchdevicelist';
+    var devicelist = BASEURL38985 + '/api/as/tc/device/watchdevicelist';
 
-    var setdevicetkttype = BASEURL38985 + '/api/as/tc/type/adminList';
+    //var setdevicetkttype = BASEURL38985 + '/api/as/tc/type/adminList';
 
-    var add = BASEURL38985 + '/api/us/tc/deviceauth/create';
+    //添加票种权限
+    var add = BASEURL38985 + '/api/as/tc/deviceauth/create';
+    //删除票种权限
+    var del = BASEURL38985 + '/api/as/tc/deviceauth/delete';
 
-    var del = BASEURL38985 + '/api/us/tc/deviceauth/delete';
+    var info = BASEURL38985 + '/api/as/tc/device/info';
 
-    var info = BASEURL38985 + '/api/us/tc/device/info';
-
-    var update = BASEURL38985 + '/api/us/tc/device/update';
+    var update = BASEURL38985 + '/api/as/tc/device/update';
 
     //景区简表
-    var slist = BASEURL38985 + "/api/us/tc/view/adminViewForTicketList";
+    //var slist = BASEURL38985 + "/api/as/sa/placeview/jlist";
 
     //列表
-    var tktlist = BASEURL38985 + '/api/us/tc/type/settypelist';
+    var tktlist = BASEURL38985 + '/api/as/tc/type2/settypelist';
 
     //票种设置-权限详情显示
-    var typeauthinfo = BASEURL38985 + '/api/us/tc/typeauth/info';
+    var typeauthinfo = BASEURL38985 + '/api/as/tc/typeauth/info';
 
     //票种设置-权限详情修改
-    var typeauthupdate = BASEURL38985 + '/api/us/tc/typeauth/update';
+    var typeauthupdate = BASEURL38985 + '/api/as/tc/typeauth/update';
 
     //票种设置-权限详情编辑节日列表
-    var viewfestivallist = BASEURL38985 + '/api/us/tc/viewfestival/list';
+    var viewfestivallist = BASEURL38985 + '/api/as/tc/viewfestival/list';
 
     //票种设置-权限详情编辑节日新增
-    var viewfestivalcreate = BASEURL38985 + '/api/us/tc/viewfestival/create';
+    var viewfestivalcreate = BASEURL38985 + '/api/as/tc/viewfestival/create';
 
     //票种设置-权限详情编辑节日删除
-    var viewfestivaldel = BASEURL38985 + '/api/us/tc/viewfestival/delete';
+    var viewfestivaldel = BASEURL38985 + '/api/as/tc/viewfestival/delete';
     
 
     return {

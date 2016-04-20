@@ -82,8 +82,8 @@ module.exports = function($urlRouterProvider, $stateProvider){
         	info : function(deviceservice){
         		return deviceservice.info();
         	},
-        	slist : function(deviceservice){
-        		return deviceservice.slist;
+        	slist : function(viewservice){
+        		return viewservice.slist;
         	},
         	devicetype : function(deviceservice){
         		return deviceservice.devicetype;

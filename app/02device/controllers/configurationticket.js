@@ -1,7 +1,7 @@
 module.exports = function($scope, typeauthinfo, $stateParams, typeauthupdate, 
 	$uibModal, viewfestivallist, viewfestivalcreate, viewfestivaldel){
 
-	var view = '0099';
+	var view = 'J0062';
 	var ticket_type = $stateParams.tktcode;
 
 	$scope.use_rule1 = 

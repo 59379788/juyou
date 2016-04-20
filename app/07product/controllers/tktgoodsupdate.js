@@ -38,6 +38,7 @@ module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist
 		if(res.errcode === 0)
 		{
 			$scope.goodsobj = res.data;
+			$scope.goodsobj.cost_price *= 0.01;
 			var view = $scope.goodsobj.place_code;
 
 			goodsdetail($scope.goodsobj.code);
@@ -143,13 +144,14 @@ module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist
 			return;
 		}
 
+		$scope.goodsobj.cost_price *= 100;
 		goodsupdate.save($scope.goodsobj, function(res){
 
 			var view = $scope.goodsobj.place_code;
 
 			if(res.errcode === 0)
 			{
-				//getinfo();
+				$scope.goodsobj.cost_price *= 0.01;
 				alert('保存成功');
 			}
 			else
