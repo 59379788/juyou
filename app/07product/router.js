@@ -124,6 +124,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             viewlist : function(productservice){
                 return productservice.viewlist;
+            },
+            attrlistsel : function(productservice){
+                return productservice.attrlistsel;
+            },
+            typelist : function(productservice){
+                return productservice.typelist();
             }
         }
       })

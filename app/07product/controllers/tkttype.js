@@ -126,6 +126,11 @@ module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktup
 			}
 		});
 	}
+
+    $scope.auth = function(code) {
+
+        $state.go('app.configurationticket', {'tktcode' : code});
+    }
 	
 
 };

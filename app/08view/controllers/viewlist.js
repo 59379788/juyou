@@ -81,4 +81,9 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE){
         $state.go('app.tkttypecreate', {'placeid' : id});
     }
 
+    $scope.device = function(code){
+        $state.go('app.devicelist', {'placecode' : code});
+    }
+
+    
 };

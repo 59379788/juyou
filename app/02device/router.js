@@ -9,7 +9,7 @@ module.exports = function($urlRouterProvider, $stateProvider){
 
  	  //设备监控
       .state('app.devicelist', {
-        url: '/devicelist',
+        url: '/devicelist/:placecode',
         title: 'devicelist',
         controller: 'list',
         template: require('./views/list.html'),
@@ -33,7 +33,7 @@ module.exports = function($urlRouterProvider, $stateProvider){
 
       //票种设置
       .state('app.devicetktlist', {
-        url: '/devicetktlist',
+        url: '/devicetktlist/:placecode',
         title: 'devicetktlist',
         controller: 'devicetktlist',
         template: require('./views/tktlist.html'),

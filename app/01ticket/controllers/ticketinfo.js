@@ -15,9 +15,9 @@ module.exports = function($scope, $uibModalInstance, info, para){
 		$uibModalInstance.dismiss('cancel');
 	};
 
-	$scope.use = function(type, num, type_attr){
+	$scope.use = function(type, num, type_attr, goods_code){
 
-		angular.extend(para, {"num" : num, "type" : type, "type_attr" : type_attr, "reqkey" : info.reqkey});
+		angular.extend(para, {"num" : num, "type" : type, "type_attr" : type_attr, "reqkey" : info.reqkey, 'goods_code' : goods_code});
 
 		console.log(para);
 

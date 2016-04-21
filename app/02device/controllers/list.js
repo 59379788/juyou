@@ -1,24 +1,6 @@
-module.exports = function($scope, $uibModal, typelist, devicelist, add, del, $state){
+module.exports = function($scope, $uibModal, typelist, devicelist, add, del, $state, $stateParams){
 
-	var view = 'J0062';
-
-	// var data = [
-	// 	{
-	// 		'type' : 1,
-	// 		'state' : 1,
-	// 		'remarks' : 'asdasdads',
-	// 		'code' : '12344556',
-	// 		'total' : 31
-	// 	},
-	// 	{
-	// 		'type' : 1,
-	// 		'state' : 1,
-	// 		'remarks' : 'asdasdads',
-	// 		'code' : '12344556',
-	// 		'total' : 32
-	// 	}
-	// ];
-
+	var view = $stateParams.placecode;
 
 	function load(){
 

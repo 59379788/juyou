@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, goodscreate, viewlist){
+module.exports = function($scope, $state, goodscreate, viewlist, typelist, attrlistsel){
 
 	$scope.goodsobj = {};
 	$scope.goodsobj.state = 0;
@@ -9,6 +9,21 @@ module.exports = function($scope, $state, goodscreate, viewlist){
         {
         	$scope.viewarr = res.data;
         	$scope.goodsobj.place_code=$scope.viewarr[0].code;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
+
+    //详细信息 票种属性下拉
+	attrlistsel().then(function(res) {
+		console.log(res);
+        if(res.errcode === 0)
+        {
+        	$scope.tktarr = res.data;
+        	$scope.goodsobj.attr = $scope.tktarr[0].ticket_attr_id;
+        	//console.log($scope.goodsobj.ticketattr);
         }
         else
         {

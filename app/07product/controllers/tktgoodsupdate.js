@@ -21,8 +21,8 @@ module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist
         if(res.errcode === 0)
         {
         	$scope.tktarr = res.data;
-        	$scope.tkttypeobj.ticket_attr = $scope.tktarr[0].ticket_attr_id;
-        	//console.log($scope.goodsobj.ticketattr);
+        	//$scope.goodsobj.attr = $scope.tktarr[0].ticket_attr_id;
+        	//console.log($scope.goodsobj.attr);
         }
         else
         {
@@ -88,6 +88,7 @@ module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist
 		}
 
 		$scope.tkttypeobj.code = $scope.goodsobj.code;
+		$scope.tkttypeobj.ticket_attr = $scope.goodsobj.attr;
 		goodsdetailcreate.save($scope.tkttypeobj, function(res){
 			console.log(res);
 	     	if(res.errcode === 0)
@@ -145,6 +146,7 @@ module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist
 		}
 
 		$scope.goodsobj.cost_price *= 100;
+		console.log($scope.goodsobj);
 		goodsupdate.save($scope.goodsobj, function(res){
 
 			var view = $scope.goodsobj.place_code;
