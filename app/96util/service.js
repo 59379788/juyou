@@ -7,6 +7,9 @@ var service = function(){
     
     return {
         getDate : function(d){
+        	if(d === undefined){
+        		return "";
+        	}
         	return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
     	},
 

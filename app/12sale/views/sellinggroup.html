@@ -1,0 +1,86 @@
+<div class="col-sm-12">
+
+	<div class="panel panel-default">
+	    <div class="panel-body">
+	        <div class="form-group form-inline">
+	            <div class="col-sm-10">
+	                <label>出游时间</label>&nbsp;&nbsp;
+	                <div class="input-group">
+	                	<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+	                    <span class="input-group-btn">
+	                      <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+	                    </span>
+	                </div>
+	                &nbsp;&nbsp;&nbsp;&nbsp;
+	                <label>导游姓名</label>&nbsp;&nbsp;
+	                <input type="text" class="form-control" ng-model="searchform.guide_name" >
+	                &nbsp;&nbsp;&nbsp;&nbsp;
+	                <label>导游电话</label>&nbsp;&nbsp;
+	                <input type="text" class="form-control" ng-model="searchform.guide_mobile" >
+	                &nbsp;&nbsp;&nbsp;&nbsp;
+	                <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+	            </div>
+	            <div class="col-sm-2 text-right">
+	                <button type="button" class="btn btn-info new" ng-click="create()">创建团订单</button>
+	            </div>
+	        </div>
+	    </div>
+	</div> <!--searchArea -->
+		
+	 <table class="table table-bordered text-center">
+	    <thead>
+	      <tr>
+	        <th class="text-center">预订人数</th>
+			<th class="text-center">实际人数</th>
+			<th class="text-center col-md-1">出游时间</th>
+			<th class="text-center">预订团票</th>
+			<th class="text-center">导游姓名</th>
+			<th class="text-center">导游电话</th>
+			<th class="text-center">导游车牌号</th>
+			<th class="text-center">备注信息</th>
+			<th class="text-center col-md-1">最后操作时间</th>
+			<th class="text-center col-md-1">最后操作人</th>
+			<th class="text-center col-md-2">操作</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr ng-repeat="obj in objs">
+	        <td class="text-center">{{obj.book_count}}</td>
+	        <td class="text-center">{{obj.actual_count}}</td>
+	        <td class="text-center">{{obj.arrival_date}}</td>
+	        <td class="">{{obj.name}}</td>
+	        <td class="text-center">{{obj.guide_name}}</td>
+	        <td class="text-center">{{obj.guide_mobile}}</td>
+	        <td class="text-center">{{obj.vehicle_number}}</td>
+	        <td class="text-center">{{obj.remark}}</td>
+	        <td class="text-center">{{obj.update_time}}</td>
+	        <td class="text-center">{{obj.update_by}}</td>
+			<td class="text-center">
+				<a ng-click="edit(obj.id)" class="btn btn-success btn-sm">编辑</a>
+		        <a ng-click="usedstart(obj.id)" class="btn btn-danger btn-sm">删除</a>
+		        <a ng-click="usedstart(obj.id)" class="btn btn-info btn-sm">详情</a>
+	        </td>
+	      </tr>
+	    </tbody>
+	  </table>
+
+	  <div class="text-right">
+
+	    <uib-pagination 
+	      total-items="bigTotalItems" 
+	      ng-model="bigCurrentPage" 
+	      max-size="maxSize" 
+	      class="pagination-sm" 
+	      boundary-links="true" 
+	      ng-change="load()"
+	      items-per-page="itemsPerPage"
+	      previous-text="上一页"
+	      next-text="下一页"
+	      first-text="首页"
+	      last-text="末页"
+	      rotate="false">
+	    </uib-pagination>
+
+	  </div>
+  
+</div>

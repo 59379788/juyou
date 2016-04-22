@@ -1,0 +1,84 @@
+<div class="col-xs-10 col-xs-offset-1 form-horizontal" >
+	
+	<div class="form-group">
+		<label class="col-xs-2 control-label">出游人数</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control" placeholder="请输入出游人数"
+			ng-model="groupobj.book_count"
+			>
+		</div>
+	</div>
+
+	<div class="form-group">
+	    <label class="col-xs-2 control-label">出游时间</label>
+	    <div class="col-xs-10">
+
+		    <p class="input-group col-xs-3 pull-left">
+	          <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+	          <span class="input-group-btn">
+	            <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+	          </span>
+	        </p>
+
+	    </div>
+	  </div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">预定团票</label>
+		<div class="col-xs-5">
+			<select class="form-control" ng-model="groupobj.ticket_type" 
+              ng-options="sale.code as sale.name for sale in salearr"
+            >
+            </select>
+		</div>
+		<div class="col-xs-1" style="margin-left:-5px;">
+			<a ng-click="detail()" class="btn btn-info btn-sm">团票简介</a>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">导游姓名</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control" placeholder="请输入导游姓名"
+			ng-model="groupobj.guide_name"
+			>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">导游电话</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control" placeholder="请输入导游电话"
+			ng-model="groupobj.guide_mobile"
+			>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">车牌号</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control" placeholder="请输入车牌号"
+			ng-model="groupobj.vehicle_number"
+			>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">备注</label>
+		<div class="col-xs-6">
+			<textarea class="form-control" rows="3"
+			ng-model="groupobj.remark"
+			></textarea>
+		</div>
+	</div>
+
+	<button 
+    type="button" 
+    class="btn btn-primary btn-lg btn-block" 
+    ng-click="gogo()"
+    >
+    提交
+    </button>
+
+
+</div>
