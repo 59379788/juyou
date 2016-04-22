@@ -10,8 +10,8 @@ App.factory('orderservice', require('./service'));
 
 App.controller('orderlist',require('./controllers/list'));
 App.controller('orderbycode',require('./controllers/orderbycode'));
-// App.controller('doc',require('./controllers/doc'));
-// App.controller('info',require('./controllers/info'));
+App.controller('orderticketlist',require('./controllers/orderticketlist'));
+App.controller('allorderlist',require('./controllers/allorderlist'));
 
 
 module.exports = App;

@@ -55,7 +55,7 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-3 text-center">订单名称</th>
+        <th class="col-md-2 text-center">订单名称</th>
         <th class="col-md-1 text-center">订单编号</th>
         <th class="col-md-2 text-center">身份证</th>
         <th class="col-md-1 text-center">姓名</th>
@@ -63,6 +63,7 @@
         <th class="col-md-1 text-center">数量</th>
         <th class="col-md-2 text-center">购买时间</th>
         <th class="col-md-1 text-center">备注</th>
+        <th class="col-md-1 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -75,6 +76,9 @@
         <td class="text-center">{{obj.num}}</td>
         <td class="text-center">{{obj.create_time}}</td>
         <td class="text-center">{{obj.note}}</td>
+        <th class="text-center">
+          <a ng-click="ticketlist(obj.code)" class="btn btn-success btn-xs">票信息</a>
+        </th>
       </tr>
     </tbody>
   </table>

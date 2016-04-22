@@ -14,6 +14,6 @@ App.controller('configurationticket',require('./controllers/configurationticket'
 App.controller('devicetktedit',require('./controllers/devicetktedit'));
 App.controller('festivallist',require('./controllers/festivallist'));
 
-
+App.controller('devicecreate',require('./controllers/devicecreate'));
 
 module.exports = App;

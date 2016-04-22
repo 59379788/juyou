@@ -64,5 +64,10 @@ module.exports = function($scope, $uibModal, typelist, devicelist, add, del, $st
 
 	};
 
+	$scope.create = function()
+	{
+		$state.go('app.devicetktcreate', {'placecode' : view});
+	}
+
 
 };

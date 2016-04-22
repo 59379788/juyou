@@ -110,6 +110,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             goodsupdate : function(productservice){
                 return productservice.goodsupdate();
+            },
+            goodsup : function(productservice){
+                return productservice.goodsup();
+            },
+            goodsdown : function(productservice){
+                return productservice.goodsdown();
             }
         }
       })
