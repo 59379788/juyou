@@ -70,7 +70,27 @@ module.exports = function($urlRouterProvider, $stateProvider){
         }
       })
 
-
+      //创建设备
+      .state('app.devicetktcreate', {
+        url: '/devicetkt/:placecode',
+        controller: 'devicecreate',
+        template: require('./views/module.html'),
+        resolve:{
+            create : function(deviceservice){
+                return deviceservice.create();
+            },
+            slist : function(viewservice){
+                return viewservice.slist;
+            },
+            devicetype : function(deviceservice){
+                return deviceservice.devicetype;
+            }
+            // update : function(deviceservice){
+            //     return deviceservice.update();
+            // }
+        }
+        
+      })
 
       //编辑设备
       .state('app.devicetktedit', {

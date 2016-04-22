@@ -1,16 +1,10 @@
-module.exports = function($scope, $state, goodslist, goodsupdate, goodsup, goodsdown){
+module.exports = function($scope, $state, $stateParams, ticketlist){
 
-	$scope.searchform = {};
+    var code = $stateParams.code;
 
-
-	$scope.create = function(){
-
-		$state.go('app.creategoods');
-		
-	};
 
     $scope.load = function () {
-        goodslist.save($scope.searchform, function(res){
+        ticketlist.get({'order_code' : code}, function(res){
 
             /* 门票存储结构
              * ========================================= */
@@ -29,14 +23,14 @@ module.exports = function($scope, $state, goodslist, goodsupdate, goodsup, goods
             for(var i = 0, j = res.data.length; i < j; i++)
             {
                 var tt = res.data[i];
-                var v = tt.place_code;
+                var v = tt.sequence;
 
                 if(!tkt.hasOwnProperty(v))
                 {
                     tkt[v] = new Object();
                     tkt[v].ticketarr = new Array();
-                    tkt[v].viewname = tt.place_name;
-                    tkt[v].viewcode = tt.place_code;
+                    tkt[v].sequence = '第 ' + tt.sequence + '个';
+                    tkt[v].name = tt.order_name;
                 }
                 tkt[v].ticketarr.push(tt);
             }
@@ -58,33 +52,6 @@ module.exports = function($scope, $state, goodslist, goodsupdate, goodsup, goods
 
     };
     $scope.load();
-
-    $scope.start = function(id) {
-		goodsup.get({'id' : id}, function(res){
-			if(res.errcode === 0){
-				$scope.load();
-			}else{
-				alert(res.errmsg);
-			}
-		});
-	}
-
-	$scope.stop = function(id) {
-		goodsdown.get({'id' : id}, function(res){
-			if(res.errcode === 0){
-				$scope.load();
-			}else{
-				alert(res.errmsg);
-			}
-		});
-	}
-
-
-    $scope.edit = function(id){
-
-    	$state.go('app.editgoods', {'id' : id});
-
-    };
 
 
 };

@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate){
+module.exports = function($scope, $state, alllist, ITEMS_PERPAGE, getDate){
 
     $scope.searchform = {};
 
@@ -37,7 +37,7 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate){
 
         console.log(para);
         
-        list.save(para, function(res){
+        alllist.save(para, function(res){
 
             console.log(res);
 

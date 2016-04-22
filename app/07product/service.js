@@ -62,6 +62,11 @@ var service = function($resource, BASEURL38985, $q, $http){
     var sel_id = BASEURL38985 + '/api/as/tc/goods/sel_id';
 
 
+    var goodsup = BASEURL38985 + '/api/ac/tc/changeGoodsStateService/updategoodsstateup';
+
+    var goodsdown = BASEURL38985 + '/api/ac/tc/changeGoodsStateService/updategoodsstatedown';
+
+
 
     //查询销售品（全部）
     var salelist = BASEURL38985 + '/api/as/tc/sale/alllist';
@@ -95,7 +100,7 @@ var service = function($resource, BASEURL38985, $q, $http){
 
     //销售品上架
     var saleup = BASEURL38985 + '/api/ac/tc/salehService/up';
-    
+
     //销售品下架
     var saledown = BASEURL38985 + '/api/ac/tc/salehService/down';
 
@@ -156,6 +161,12 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         goodsdetaildelete : function(){
             return $resource(goodsdetaildelete, {}, {});
+        },
+        goodsup : function(){
+            return $resource(goodsup, {}, {});
+        },
+        goodsdown : function(){
+            return $resource(goodsdown, {}, {});
         },
         sel_id : function(){
             return $resource(sel_id, {}, {});

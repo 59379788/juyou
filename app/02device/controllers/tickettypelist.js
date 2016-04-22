@@ -11,7 +11,7 @@ module.exports = function($scope, $uibModalInstance, view, typelist, device_code
 		$uibModalInstance.dismiss('cancel');
 	};
 
-	typelist.get({'view' : 'J0061', 'device_code' : device_code}, function(res){
+	typelist.get({'view' : view, 'device_code' : device_code}, function(res){
 
 		console.log(res);
 
