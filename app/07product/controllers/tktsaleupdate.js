@@ -38,14 +38,6 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 			$scope.saleobj.market_price *= 0.01;
 			$scope.saleobj.guide_price *= 0.01;
 			$scope.saleobj.cost_price *= 0.01;
-
-			// for(var i = 0; i < $scope.typearr.length; i++)
-   //      	{
-   //      		if($scope.typearr[i].value === $scope.saleobj.sale_category)
-   //      		{
-   //      			$scope.category = $scope.typearr[i].label;
-   //      		}
-   //      	}
 			
 			//初始化商品列表
 			getsaledetail($scope.saleobj.code);
