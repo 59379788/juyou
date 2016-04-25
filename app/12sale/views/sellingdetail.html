@@ -1,0 +1,35 @@
+<div class="col-xs-12" >
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			订单操作记录
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+	            <table class="table table-bordered text-center">
+				    <thead>
+				      <tr>
+				        <th class="text-center">预订人数</th>
+						<th class="text-center">导游姓名</th>
+						<th class="text-center">导游电话</th>
+						<th class="text-center">导游车牌号</th>
+						<th class="text-center col-md-2">备注信息</th>
+						<th class="text-center col-md-1">最后操作时间</th>
+						<th class="text-center col-md-1">最后操作人</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr ng-repeat="obj in objs">
+				        <td class="text-center">{{obj.book_count}}</td>
+				        <td class="text-center">{{obj.guide_name}}</td>
+				        <td class="text-center">{{obj.guide_mobile}}</td>
+				        <td class="text-center">{{obj.vehicle_number}}</td>
+				        <td class="text-center">{{obj.remark}}</td>
+				        <td class="text-center">{{obj.update_time}}</td>
+				        <td class="text-center">{{obj.update_by}}</td>
+				      </tr>
+				    </tbody>
+			    </table>
+		    </div>
+	    </div>
+    </div>
+</div>

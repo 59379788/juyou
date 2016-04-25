@@ -38,6 +38,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getDate : function(utilservice){
                 return utilservice.getDate;
+            },
+            update : function(sellingservice){
+                return sellingservice.update();
+            },
+            groupdetail : function(sellingservice){
+                return sellingservice.groupdetail();
             }
         }
         
@@ -64,7 +70,37 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
-      
+      .state('app.editsellinggroup', {
+        url: '/editsellinggroup/:code',
+        controller : 'sellinggroupupdate',
+        template: require('./views/sellinggroupmodel.html'),
+        resolve:{
+            groupsalelist : function(sellingservice){
+                return sellingservice.groupsalelist;
+            },
+            groupone : function(sellingservice){
+                return sellingservice.groupone();
+            },
+            update : function(sellingservice){
+                return sellingservice.update();
+            },
+            updatedetail : function(sellingservice){
+                return sellingservice.updatedetail();
+            }
+        }
+      })
+
+      .state('app.sellingdetail', {
+        url: '/sellingdetail/:code',
+        controller : 'sellingdetail',
+        template: require('./views/sellingdetail.html'),
+        resolve:{
+            groupdetail : function(sellingservice){
+                return sellingservice.groupdetail();
+            }
+        }
+        
+      })
 
 
 };

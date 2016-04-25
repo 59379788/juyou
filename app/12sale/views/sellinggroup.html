@@ -37,7 +37,7 @@
 			<th class="text-center">导游姓名</th>
 			<th class="text-center">导游电话</th>
 			<th class="text-center">导游车牌号</th>
-			<th class="text-center">备注信息</th>
+			<th class="text-center col-md-2">备注信息</th>
 			<th class="text-center col-md-1">最后操作时间</th>
 			<th class="text-center col-md-1">最后操作人</th>
 			<th class="text-center col-md-2">操作</th>
@@ -48,7 +48,7 @@
 	        <td class="text-center">{{obj.book_count}}</td>
 	        <td class="text-center">{{obj.actual_count}}</td>
 	        <td class="text-center">{{obj.arrival_date}}</td>
-	        <td class="">{{obj.name}}</td>
+	        <td class="">{{obj.order_name}}</td>
 	        <td class="text-center">{{obj.guide_name}}</td>
 	        <td class="text-center">{{obj.guide_mobile}}</td>
 	        <td class="text-center">{{obj.vehicle_number}}</td>
@@ -56,9 +56,9 @@
 	        <td class="text-center">{{obj.update_time}}</td>
 	        <td class="text-center">{{obj.update_by}}</td>
 			<td class="text-center">
-				<a ng-click="edit(obj.id)" class="btn btn-success btn-sm">编辑</a>
-		        <a ng-click="usedstart(obj.id)" class="btn btn-danger btn-sm">删除</a>
-		        <a ng-click="usedstart(obj.id)" class="btn btn-info btn-sm">详情</a>
+				<a ng-click="edit(obj.code)" class="btn btn-success btn-sm">编辑</a>
+		        <a ng-click="del(obj.code)" class="btn btn-danger btn-sm">删除</a>
+		        <a ng-click="detail(obj.code)" class="btn btn-info btn-sm">详情</a>
 	        </td>
 	      </tr>
 	    </tbody>

@@ -11,6 +11,8 @@ App.factory('sellingservice', require('./service'));
 App.controller('selling',require('./controllers/selling'));
 App.controller('sellinggroup',require('./controllers/sellinggroup'));
 App.controller('sellinggroupcreate',require('./controllers/sellinggroupcreate'));
+App.controller('sellinggroupupdate',require('./controllers/sellinggroupupdate'));
+App.controller('sellingdetail',require('./controllers/sellingdetail'));
 App.controller('saledetail',require('./controllers/saledetail'));
 // App.controller('doccreate',require('./controllers/module'));
 // App.controller('doc',require('./controllers/doc'));

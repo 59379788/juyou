@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate){
+module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, update, groupdetail){
 
    	$scope.searchform = {};
 
@@ -34,47 +34,59 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate){
             stb_code:'001001'
         };
     
+    $scope.init = function () {
+	    grouplist.save(para, function(res){
+
+	     	console.log(res);
+
+	     	if(res.errcode !== 0)
+	     	{
+	     		alert("数据获取失败");
+	     		return;
+	     	}
+
+	     	$scope.objs = res.data.results;
+	        $scope.bigTotalItems = res.data.totalRecord;
+
+	    });
+    }
+
     $scope.load = function () {
 
         para = angular.extend($scope.searchform, para);
 
         para['arrival_date'] = getDate($scope.section.start.date);
         
-        grouplist.save(para, function(res){
-
-         	console.log(res);
-
-         	if(res.errcode !== 0)
-         	{
-         		alert("数据获取失败");
-         		return;
-         	}
-
-         	$scope.objs = res.data.results;
-            $scope.bigTotalItems = res.data.totalRecord;
-
-        });
+        $scope.init();
 
     };
-    //$scope.load();
 
-    grouplist.save(para, function(res){
+    $scope.init();
 
-     	console.log(res);
+    $scope.del = function (code) {
+    	if (confirm("确定要删除吗?")) {
+		    update.get({'code' : code, 'del_flg' : '1'}, function(res){
 
-     	if(res.errcode !== 0)
-     	{
-     		alert("数据获取失败");
-     		return;
-     	}
+		        if(res.errcode === 0)
+				{
+					$scope.init();
+				}
+				else
+				{
+					alert(res.errmsg);
+				}
 
-     	$scope.objs = res.data.results;
-        $scope.bigTotalItems = res.data.totalRecord;
+		    });
+	    }
+    };
 
-    });
+    $scope.edit = function (code) {
+    	$state.go('app.editsellinggroup', {'code' : code});
+    };
 
-
-
+    $scope.detail = function(code){
+        $state.go('app.sellingdetail', {'code' : code});
+    }
 
 
 
