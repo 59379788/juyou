@@ -69,7 +69,35 @@ var router = function($urlRouterProvider, $stateProvider){
         
       })
 
-      
+      .state('app.grouporderlist', {
+        url: '/grouporderlist',
+        controller : 'grouplist',
+        template: require('./views/grouplist.html'),
+        resolve:{
+            grouplist : function(orderservice){
+                return orderservice.grouplist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            }
+        }
+        
+      })
+
+      .state('app.allgrouporderlist', {
+        url: '/grouporderalllist',
+        controller : 'groupalllist',
+        template: require('./views/grouplist.html'),
+        resolve:{
+            groupalllist : function(orderservice){
+                return orderservice.groupalllist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            }
+        }
+        
+      })
 
 
 };

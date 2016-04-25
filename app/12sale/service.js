@@ -20,7 +20,9 @@ var service = function($resource, BASEURL38985, $q, $http){
 
     var updatedetail = BASEURL38985 + '/api/as/tc/grouporder/updatedetail';
 
-    var groupdetail = BASEURL38985 + '/api/as/tc/grouporder/groupdetail';
+    var groupdetail = BASEURL38985 + '/api/as/tc/grouporder/groupdetaillist';
+
+    var groupone = BASEURL38985 + '/api/as/tc/grouporder/groupone';
 
     return {
         namelist : function(){
@@ -57,6 +59,9 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         groupdetail : function(){
             return $resource(groupdetail, {}, {});
+        },
+        groupone : function(){
+            return $resource(groupone, {}, {});
         }
        
     };

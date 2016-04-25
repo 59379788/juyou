@@ -4,6 +4,7 @@ module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, c
 	$scope.section = {};
 	$scope.section.start = {};
 	$scope.section.start.date = {};
+	$scope.groupobjstate = 1;
 
 
 	$scope.today = function() {
@@ -20,7 +21,7 @@ module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, c
         if(res.errcode === 0)
         {
         	$scope.salearr = res.data;
-        	$scope.groupobj.ticket_type = $scope.salearr[0].code;
+        	$scope.groupobj.sale_code = $scope.salearr[0].code;
         }
         else
         {
@@ -30,7 +31,7 @@ module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, c
 
     $scope.detail = function(){
 
-        detailmodal($scope.groupobj.ticket_type);
+        detailmodal($scope.groupobj.sale_code);
         
     }
 
@@ -66,6 +67,12 @@ module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, c
 			return;
 		}
 
+		if($scope.groupobj.sale_code === undefined || $scope.groupobj.sale_code == '')
+		{
+			alert('预定团票不能为空');
+			return;
+		}
+
 		if($scope.groupobj.guide_name === undefined || $scope.groupobj.guide_name == '')
 		{
 			alert('导游姓名不能为空');
@@ -85,15 +92,13 @@ module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, c
 		}
 
 		$scope.groupobj.arrival_date = getDate($scope.section.start.date);
-		$scope.groupobj.stb_code = '001001';
-		$scope.groupobj.create_by = 'djp';
 		createOrder.save($scope.groupobj, function(res){
 
 			console.log(res);
 
 			if(res.errcode === 0)
 			{
-				$state.go('app.createsellinggroup');
+				$state.go('app.sellinggroup');
 			}
 			else
 			{
