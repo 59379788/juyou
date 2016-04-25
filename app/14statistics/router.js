@@ -11,9 +11,10 @@ var router = function($urlRouterProvider, $stateProvider){
         url: '/uselist',
         controller : 'uselist',
         template: require('./views/uselist.html'),
+        //template: require('../99common/views/table.html'),
         resolve:{
-            list : function(orderservice){
-                return orderservice.list();
+            destoryDetail : function(statisticsservice){
+                return statisticsservice.destoryDetail();
             },
             getDate : function(utilservice){
                 return utilservice.getDate;

@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate){
+module.exports = function($scope, $state, destoryDetail, ITEMS_PERPAGE, getDate){
 
     $scope.searchform = {};
 
@@ -23,7 +23,7 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate){
     $scope.maxSize = 5;            //最多显示多少个按钮
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
-    
+
     $scope.load = function () {
         
         var para = {
@@ -37,7 +37,7 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate){
 
         console.log(para);
         
-        list.save(para, function(res){
+        destoryDetail.save({'view' : 'J0063'}, function(res){
 
             console.log(res);
 
@@ -55,5 +55,7 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate){
 
     };
     $scope.load();
+
+    
 
 };

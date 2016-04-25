@@ -3,12 +3,9 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
-                <div class="row">
-                  <label>订单标题</label>&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="searchform.title" >
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-
-                  <label>下单时间</label>&nbsp;&nbsp;
+                
+            
+                  <label>使用时间</label>&nbsp;&nbsp;
                   <div class="input-group">
                   <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
                       <span class="input-group-btn">
@@ -21,24 +18,12 @@
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
                       </span>
-                  </span>
                   </div>
-                </div>
-                <div class="row mt10">
-                  <label>身份证号</label>&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="searchform.cardno" >
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-
-                  <label>姓名</label>&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="searchform.name" >
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-
-                  <label>电话</label>&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="searchform.mobile" >
-                  &nbsp;&nbsp;&nbsp;&nbsp;
 
                   <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
-                </div>
+
+              
+              
                 
             </div>
         </div>
@@ -49,27 +34,28 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-3 text-center">订单名称</th>
-        <th class="col-md-2 text-center">身份证</th>
-        <th class="col-md-1 text-center">姓名</th>
-        <th class="col-md-1 text-center">电话</th>
-        <th class="col-md-1 text-center">数量</th>
-        <th class="col-md-2 text-center">购买时间</th>
-        <th class="col-md-2 text-center">备注</th>
+        <th class="col-md-6 text-center">商品名称</th>
+        <th class="col-md-2 text-center">使用时间</th>
+        <th class="col-md-2 text-center">使用</th>
+        <th class="col-md-2 text-center">退票</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
-        <td class="">{{obj.title}}</td>
-        <td class="text-center">{{obj.cardno}}</td>
-        <td class="text-center">{{obj.name}}</td>
-        <td class="text-center">{{obj.mobile}}</td>
-        <td class="text-center">{{obj.num}}</td>
-        <td class="text-center">{{obj.create_time}}</td>
-        <td class="text-center">{{obj.note}}</td>
+        <td class="">{{obj.type_name}}</td>
+        <td class="text-center">{{obj.otime}}</td>
+        <td class="text-center">
+          <span ng-show="{{obj.used == '1'}}" class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+          <span ng-show="{{obj.used == '0'}}" class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+        </td>
+        <td class="text-center">
+          <span ng-show="{{obj.back == '1'}}" class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+          <span ng-show="{{obj.back == '0'}}" class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+        </td>
       </tr>
     </tbody>
   </table>
+
 
 
   <div class="text-right">

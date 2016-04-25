@@ -1,0 +1,86 @@
+<div class="col-sm-12">
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div ng-repeat="search in obj.search">
+                <div class="col-sm-3 mb10" ng-show="search.type == 'text'">
+                    <input type="text" class="form-control" 
+                    placeholder={{search.title}}
+                    ng-model=search.value >
+                </div>
+                
+                <div class="col-sm-6 mb10 form-inline" ng-show="search.type == 'date'">
+                    <label>{{search.title}}</label>&nbsp;&nbsp;
+                    <div class="input-group col-sm-4">
+                    <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </div>
+                    &nbsp;&nbsp;到&nbsp;&nbsp;
+                    <div class="input-group col-sm-4">
+                    <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                    </div>
+                </div>
+                </div>
+
+
+                <div class="col-sm-3 mb10 text-right">
+                    <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+                </div>
+                <!-- &nbsp;&nbsp;&nbsp;&nbsp;
+                <label>景区编号</label>&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="searchform.code" >
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button> -->
+            </div>
+            <!-- <div class="col-sm-1 text-right">
+                <button type="button" class="btn btn-info new" ng-click="create()">创建景区</button>
+            </div> -->
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+<table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th class="text-center col-sm-{{t.length}}" 
+        ng-repeat="t in obj.title">{{t.name}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="xx in obj.content">
+        <td class="text-center"
+        ng-repeat="t in obj.title"
+        >{{xx[t.key]}}</td>
+      </tr>
+    </tbody>
+</table>
+
+
+  <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div>
+
+</div>

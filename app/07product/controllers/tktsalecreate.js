@@ -1,6 +1,7 @@
 module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist){
 
 	$scope.saleobj = {};
+	$scope.saleobj.id = '';
 
 	//初始化值
 	$scope.saleobj.sms_type = '0';
@@ -9,6 +10,10 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist){
 	$scope.saleobj.stock_type = '0';
 	$scope.saleobj.sale_target_type = '0';
 	$scope.saleobj.state = '0';
+
+	$scope.saleobj.market_price = 0;
+	$scope.saleobj.guide_price = 0;
+	$scope.saleobj.cost_price = 0;
 	
 
 	//基本信息 景区下拉
@@ -49,6 +54,7 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist){
 		}
 		$scope.saleobj.market_price *= 100;
 		$scope.saleobj.guide_price *= 100;
+		$scope.saleobj.cost_price *= 100;
 		salecreate.save($scope.saleobj, function(res){
 
 			console.log(res);

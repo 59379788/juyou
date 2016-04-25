@@ -1,7 +1,9 @@
 module.exports = function($scope, $state, goodscreate, viewlist, typelist, attrlistsel){
 
 	$scope.goodsobj = {};
+    $scope.goodsobj.id = '';
 	$scope.goodsobj.state = 0;
+    $scope.goodsobj.cost_price = 0;
 
 	//基本信息 景区下拉
 	viewlist().then(function(res) {

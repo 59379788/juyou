@@ -156,4 +156,10 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, saled
     };
 
 
+    $scope.info = function(id){
+
+        $state.go('app.editsale', {'id' : id, 'type' : 'info'});
+    };
+
+
 };
