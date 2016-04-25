@@ -1,0 +1,91 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                <div class="row">
+                  <input type="text" class="form-control" ng-model="searchform.code" placeholder="订单编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  
+
+                  <label>出游时间</label>&nbsp;&nbsp;
+                  <div class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                  </div>
+                </div>
+                <div class="row mt10">
+                  <input type="text" class="form-control" ng-model="searchform.order_name" placeholder="订单标题" 
+                  >
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.book_count"  placeholder="出游人数">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.guide_name"
+                   placeholder="导游姓名"
+                   >
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.guide_mobile" placeholder="导游电话">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  
+
+                  <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-3 text-center">订单名称</th>
+        <th class="col-md-1 text-center">订单编号</th>
+        <th class="col-md-2 text-center">出游信息</th>
+        <th class="col-md-3 text-center">导游信息</th>
+        <th class="col-md-2 text-center">备注</th>
+        <th class="col-md-1 text-center">最后更新时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="">{{obj.order_name}}</td>
+        <td class="text-center">{{obj.code}}</td>
+        <td class="text-center">[{{obj.book_count}}人][{{obj.arrival_date}}]</td>
+        <td class="text-center">[{{obj.guide_name}}][{{obj.guide_mobile}}][{{obj.vehicle_number}}]</td>
+        <td class="text-center">{{obj.remark}}</td>
+        <td class="text-center">{{obj.update_time}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div>
+  
+
+</div>

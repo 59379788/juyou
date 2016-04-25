@@ -31,11 +31,15 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, upd
     var para = {
             pageNo:$scope.bigCurrentPage, 
             pageSize:$scope.itemsPerPage,
-            stb_code:'001001'
         };
-    
-    $scope.init = function () {
-	    grouplist.save(para, function(res){
+
+    $scope.load = function () {
+
+        para = angular.extend($scope.searchform, para);
+
+        para['arrival_date'] = getDate($scope.section.start.date);
+        
+        grouplist.save(para, function(res){
 
 	     	console.log(res);
 
@@ -49,19 +53,10 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, upd
 	        $scope.bigTotalItems = res.data.totalRecord;
 
 	    });
-    }
-
-    $scope.load = function () {
-
-        para = angular.extend($scope.searchform, para);
-
-        para['arrival_date'] = getDate($scope.section.start.date);
-        
-        $scope.init();
 
     };
 
-    $scope.init();
+    $scope.load();
 
     $scope.del = function (code) {
     	if (confirm("确定要删除吗?")) {
@@ -69,7 +64,7 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, upd
 
 		        if(res.errcode === 0)
 				{
-					$scope.init();
+					$scope.load();
 				}
 				else
 				{
