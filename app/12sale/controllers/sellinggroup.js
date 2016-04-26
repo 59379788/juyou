@@ -27,35 +27,36 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, upd
     $scope.maxSize = 5;            //最多显示多少个按钮
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
-
-    var para = {
-            pageNo:$scope.bigCurrentPage, 
-            pageSize:$scope.itemsPerPage,
-        };
-
+    
     $scope.load = function () {
 
+    	var para = {
+            pageNo:$scope.bigCurrentPage, 
+            pageSize:$scope.itemsPerPage,
+            arrival_date : getDate($scope.section.start.date)
+        };
+        
         para = angular.extend($scope.searchform, para);
 
-        para['arrival_date'] = getDate($scope.section.start.date);
+        console.log(para);
         
         grouplist.save(para, function(res){
 
-	     	console.log(res);
+            console.log(res);
 
-	     	if(res.errcode !== 0)
-	     	{
-	     		alert("数据获取失败");
-	     		return;
-	     	}
+            if(res.errcode === 0)
+            {
+                $scope.objs = res.data.results;
+                $scope.bigTotalItems = res.data.totalRecord;
+            }
+            else
+            {
+                alert(res.errmsg);
+            }
 
-	     	$scope.objs = res.data.results;
-	        $scope.bigTotalItems = res.data.totalRecord;
-
-	    });
+        });
 
     };
-
     $scope.load();
 
     $scope.del = function (code) {

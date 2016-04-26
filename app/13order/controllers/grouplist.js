@@ -22,13 +22,13 @@ module.exports = function($scope, grouplist, ITEMS_PERPAGE, getDate){
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
     
     $scope.load = function () {
-        
-        var para = {
+
+    	var para = {
             pageNo:$scope.bigCurrentPage, 
             pageSize:$scope.itemsPerPage,
             arrival_date : getDate($scope.section.start.date)
         };
-
+        
         para = angular.extend($scope.searchform, para);
 
         console.log(para);
