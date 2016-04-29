@@ -4,7 +4,7 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                 <label>手机号</label>&nbsp;&nbsp;
-                <input type="text" class="form-control" ng-model="searchform.mobile" >
+                <input type="text" class="form-control" ng-model="searchform.mobile" placeholder="请输入手机号">
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
             </div>
@@ -26,20 +26,22 @@
         <th class="col-md-1 text-center">操作</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td class="text-center">{{obj.username}}</td>
-        <td class="text-center">{{obj.mobile}}</td>
-        <td class="text-center">{{obj.jycardno}}</td>
-        <td class="">{{obj.postaddress}}</td>
-        <td class="text-center">{{obj.state}}</td>
-        <td class="text-center">{{obj.digitalcardno}}</td>
-        <td class="text-center">{{obj.phycardno}}</td>
-        <td class="text-center">
-        	<a ng-click="edit(obj.id)" class="btn btn-success btn-xs">编辑</a>
-        </td>
-      </tr>
-    </tbody>
+    <div ng-show="userstate === 0">
+	    <tbody>
+	      <tr>
+	        <td class="text-center">{{obj.username}}</td>
+	        <td class="text-center">{{obj.mobile}}</td>
+	        <td class="text-center">{{obj.jycardno}}</td>
+	        <td class="">{{obj.postaddress}}</td>
+	        <td class="text-center">{{obj.state}}</td>
+	        <td class="text-center">{{obj.digitalcardno}}</td>
+	        <td class="text-center">{{obj.phycardno}}</td>
+	        <td class="text-center">
+	        	<a ng-click="edit(obj.mobile)" class="btn btn-success btn-xs">编辑</a>
+	        </td>
+	      </tr>
+	    </tbody>
+    </div>
   </table>
   
 

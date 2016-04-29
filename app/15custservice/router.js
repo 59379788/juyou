@@ -18,10 +18,24 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+      .state('app.edituserinfo', {
+        url: '/edituserinfo/:mobile',
+        controller : 'edituserinfo',
+        template: require('./user/edituserinfo.html'),
+        resolve:{
+            edituserinfo : function(custservice){
+                return custservice.edituserinfo();
+            },
+            oneuserinfo : function(custservice){
+                return custservice.oneuserinfo();
+            }
+        }
+      })
+
       .state('app.cardA', {
         url: '/cardA',
         controller : 'cardA',
-        template: require('./user/card.html'),
+        template: require('./user/cardA.html'),
         resolve:{
             cardA : function(custservice){
                 return custservice.cardA();
@@ -32,7 +46,7 @@ var router = function($urlRouterProvider, $stateProvider){
       .state('app.cardB', {
         url: '/cardB',
         controller : 'cardB',
-        template: require('./user/card.html'),
+        template: require('./user/cardB.html'),
         resolve:{
             cardB : function(custservice){
                 return custservice.cardB();

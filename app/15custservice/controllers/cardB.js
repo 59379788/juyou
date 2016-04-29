@@ -1,10 +1,10 @@
-module.exports = function($scope, cardA){
+module.exports = function($scope, cardB){
 
 	$scope.searchform = {};
     
     $scope.load = function () {
         
-        cardA.save($scope.searchform, function(res){
+        cardB.save($scope.searchform, function(res){
 
          	console.log(res);
 
@@ -19,6 +19,5 @@ module.exports = function($scope, cardA){
         });
 
     };
-    $scope.load();
 
 };

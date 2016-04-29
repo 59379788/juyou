@@ -6,20 +6,28 @@ var service = function($resource, BASEURL38985){
 
     var userinfo = "http://115.28.145.50:38985/api/uc/uc/userService/getUserInfoByMobile";
 
-    var cardA = BASEURL38985 + "/api/as/uc/jyu/getphycard";
+    var oneuserinfo = "/api/as/uc/jyu/getjyuserinfo";
 
-    var cardB = BASEURL38985 + "";
+    var edituserinfo = "http://115.28.145.50:38985/api/uc/uc/userService/updateUserInfoByMobile";
+
+    var cardA = BASEURL38985 + "/api/as/uc/jyu/getphycardlist";
+
+    var cardB = BASEURL38985 + "/api/as/uc/jyu/getdigcardlist";
 
     var infoticket = BASEURL38985 + "/api/as/tc/ticketorder/forKefuOrderInfoByMobilelist";
 
-    var order = BASEURL38985 + "";
-
-    var redpackage = BASEURL38985 + "";
+    var redpackage = BASEURL38985 + "/api/us/uc/jyu/getredpackagelist";
     
     return {
 
         userinfo : function(){
             return $resource(userinfo, {}, {});
+        },
+        oneuserinfo : function(){
+            return $resource(oneuserinfo, {}, {});
+        },
+        edituserinfo : function(){
+            return $resource(edituserinfo, {}, {});
         },
         cardA : function(){
             return $resource(cardA, {}, {});
@@ -29,9 +37,6 @@ var service = function($resource, BASEURL38985){
         },
         infoticket : function(){
             return $resource(infoticket, {}, {});
-        },
-        order : function(){
-            return $resource(order, {}, {});
         },
         redpackage : function(){
             return $resource(redpackage, {}, {});

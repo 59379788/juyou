@@ -19,6 +19,5 @@ module.exports = function($scope, cardA){
         });
 
     };
-    $scope.load();
 
 };

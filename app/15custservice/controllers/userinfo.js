@@ -1,7 +1,7 @@
-module.exports = function($scope, userinfo){
+module.exports = function($scope, $state, userinfo){
 
 	$scope.searchform = {};
-    $scope.searchform.mobile = '15840491086';
+    //$scope.searchform.mobile = '15840491086';
     $scope.load = function () {
         
         userinfo.save($scope.searchform, function(res){
@@ -19,6 +19,12 @@ module.exports = function($scope, userinfo){
         });
 
     };
-    $scope.load();
+    //$scope.load();
+
+    $scope.edit = function(mobile){
+
+    	$state.go('app.edituserinfo', {'mobile' : mobile});
+
+    };
 
 };
