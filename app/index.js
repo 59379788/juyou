@@ -41,6 +41,7 @@ require('./11member/app');
 require('./12sale/app');
 require('./13order/app');
 require('./14statistics/app');
+require('./15custservice/app');
 
 
 require('./96util/app');
@@ -83,6 +84,7 @@ var App = angular.module('juyouApp', [
     'sale',
     'order',
     'statistics',
+    'custservice',
     'util',
     'test',
     'common',

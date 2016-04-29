@@ -13,10 +13,10 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
         'mobile' : '',
         'num' : 0
     };
-    $scope.order.name = 'dlq';
+    /*$scope.order.name = 'dlq';
     $scope.order.cardno = '210302198308022412';
     $scope.order.mobile = '13840188285';
-    $scope.order.num = 3;
+    $scope.order.num = 3;*/
 
     //$scope.order.payment_type = '8';
 
