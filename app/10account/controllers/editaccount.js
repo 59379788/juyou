@@ -27,7 +27,7 @@ module.exports = function($scope, $uibModalInstance, id, role, info, create, off
             $scope.obj.oldLoginName = $scope.obj.loginName;
             $scope.obj.roleIdList = [];
             $scope.obj['company.id'] = res.company.id;
-            $scope.obj['office.id'] = res.company.id; 
+            $scope.obj['office.id'] = res.office.id; 
 
             console.log($scope.obj);
 

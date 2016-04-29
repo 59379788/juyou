@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, destoryDetail, ITEMS_PERPAGE, getDate){
+module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, viewdestorystatisticlist){
 
     $scope.searchform = {};
     $scope.searchform.usetype = "1";
@@ -21,15 +21,15 @@ module.exports = function($scope, $state, destoryDetail, ITEMS_PERPAGE, getDate)
 
     /* 分页
      * ========================================= */
-    $scope.maxSize = 5;            //最多显示多少个按钮
-    $scope.bigCurrentPage = 1;      //当前页码
-    $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+    // $scope.maxSize = 5;            //最多显示多少个按钮
+    // $scope.bigCurrentPage = 1;      //当前页码
+    // $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
 
     $scope.load = function () {
         
         var para = {
-            pageNo:$scope.bigCurrentPage, 
-            pageSize:$scope.itemsPerPage,
+            //pageNo:$scope.bigCurrentPage, 
+            //pageSize:$scope.itemsPerPage,
             start_time : getDate($scope.section.start.date) + " 00:00:00",
             end_time : getDate($scope.section.end.date) + " 23:59:59"
         };
@@ -38,14 +38,14 @@ module.exports = function($scope, $state, destoryDetail, ITEMS_PERPAGE, getDate)
 
         console.log(para);
         
-        destoryDetail.save(para, function(res){
+        viewdestorystatisticlist.save(para, function(res){
 
             console.log(res);
 
             if(res.errcode === 0)
             {
-                $scope.objs = res.data.results;
-                $scope.bigTotalItems = res.data.totalRecord;
+                $scope.objs = res.data;
+                //$scope.bigTotalItems = res.data.totalRecord;
             }
             else
             {

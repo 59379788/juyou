@@ -2,7 +2,13 @@ module.exports = function($scope, $uibModalInstance, create, code, officeid, off
 
     //上级旅行社编号
     $scope.code = code;
+
+    $scope.company = {};
+
+
     $scope.obj = {};
+    $scope.obj.loginName = '';
+    $scope.obj.name = '';
     var idobj = {};
 
     $scope.cancel = function () {
@@ -14,20 +20,25 @@ module.exports = function($scope, $uibModalInstance, create, code, officeid, off
         console.log(res);
 
         $scope.objs = res.allRoles;
+        $scope.company = res.company;
 
     });
 
     $scope.ok = function(){
 
-        $scope.obj.no = $scope.obj.loginName;
-        $scope.obj.loginName = code + $scope.obj.loginName;
-        $scope.obj.newPassword = '000000';
-        $scope.obj.confirmNewPassword = '000000';
-        $scope.obj['company.id'] = officeid;
-        $scope.obj['office.id'] = officeid;
-        $scope.obj.loginFlag = '1';
-        $scope.obj.roleIdList = [];
+        if($scope.obj.loginName === '')
+        {
+            alert('用户名必填');
+            return;
+        }
 
+        if($scope.obj.name === '')
+        {
+            alert('姓名必填');
+            return;
+        }
+
+        $scope.obj.roleIdList = [];
         angular.forEach(idobj, function (value, key) {
             $scope.obj.roleIdList.push(key)
         });
@@ -37,6 +48,17 @@ module.exports = function($scope, $uibModalInstance, create, code, officeid, off
             alert('请选择角色');
             return;
         }
+
+        $scope.obj.no = $scope.obj.loginName;
+        $scope.obj.loginName = $scope.company.code + $scope.obj.loginName;
+        $scope.obj.newPassword = '000000';
+        $scope.obj.confirmNewPassword = '000000';
+        $scope.obj['company.id'] = $scope.company.id;
+        $scope.obj['office.id'] = officeid;
+        $scope.obj.loginFlag = '1';
+        
+
+        
 
         create.save($scope.obj, {}, function(res){
 

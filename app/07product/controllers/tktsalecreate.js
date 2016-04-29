@@ -4,7 +4,7 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist){
 	$scope.saleobj.id = '';
 
 	//初始化值
-	$scope.saleobj.sms_type = '0';
+	$scope.saleobj.sms_type = '1';
 	$scope.saleobj.sys_affirm_type = '0';
 	$scope.saleobj.pay_type = '0';
 	$scope.saleobj.stock_type = '0';
