@@ -22,7 +22,7 @@
                   >
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <input type="text" class="form-control" ng-model="searchform.book_count"  placeholder="出游人数">
+                  <input type="text" class="form-control" ng-model="searchform.ticket_code"  placeholder="团票码">
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
                   <input type="text" class="form-control" ng-model="searchform.guide_name"
@@ -59,7 +59,7 @@
       <tr ng-repeat="obj in objs">
         <td class="">{{obj.order_name}}</td>
         <td class="text-center">{{obj.code}}</td>
-        <td class="text-center">[{{obj.book_count}}人][{{obj.arrival_date}}]</td>
+        <td class="text-center">[{{obj.book_count}}人][{{obj.arrival_date}}][{{obj.ticket_code}}]</td>
         <td class="text-center">[{{obj.guide_name}}][{{obj.guide_mobile}}][{{obj.vehicle_number}}]</td>
         <td class="text-center">{{obj.remark}}</td>
         <td class="text-center">{{obj.update_time}}</td>
