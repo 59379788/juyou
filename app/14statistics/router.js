@@ -23,6 +23,24 @@ var router = function($urlRouterProvider, $stateProvider){
         
       })
 
+
+
+      .state('app.statisticsviewlist', {
+        url: '/statisticsviewlist',
+        controller : 'statisticsviewlist',
+        template: require('./views/viewlist.html'),
+        //template: require('../99common/views/table.html'),
+        resolve:{
+            viewdestorystatisticlist : function(statisticsservice){
+                return statisticsservice.viewdestorystatisticlist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            }
+        }
+        
+      })
+
       
 
 

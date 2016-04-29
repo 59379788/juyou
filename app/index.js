@@ -54,8 +54,8 @@ require('./99common/app');
 
 //=================[ 常量 ]================================//
 angular.module('constant', [])
-  //.constant('BASEURL', 'http://115.28.145.50:38986')
-  .constant('BASEURL', 'http://115.28.189.180:38987')
+  .constant('BASEURL', 'http://115.28.145.50:38986')
+  //.constant('BASEURL', 'http://115.28.189.180:38987')
   //.constant('BASEURL38985', 'http://sit.juyouhx.com');
   .constant('BASEURL38985', '')
   //权限

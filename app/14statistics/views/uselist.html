@@ -19,6 +19,20 @@
                         <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
                       </span>
                   </div>
+                  &nbsp;&nbsp;
+
+                  <label>类别</label>&nbsp;&nbsp;
+                  <select class="form-control" ng-model="searchform.usetype">
+                    <option value=1> 使用 </option>
+                    <option value=2> 退票 </option>
+                    <option value=3> 未使用 </option>
+                    <option value=999> --全部-- </option>
+                  </select>
+                  &nbsp;&nbsp;
+
+                  共 {{bigTotalItems}} 条数据
+
+                  &nbsp;&nbsp;
 
                   <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
 
@@ -34,16 +48,16 @@
   <table class="table table-bordered">
     <thead>
       <tr>
+        <th class="col-md-2 text-center">操作时间</th>
         <th class="col-md-6 text-center">商品名称</th>
-        <th class="col-md-2 text-center">使用时间</th>
         <th class="col-md-2 text-center">使用</th>
         <th class="col-md-2 text-center">退票</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
-        <td class="">{{obj.type_name}}</td>
         <td class="text-center">{{obj.otime}}</td>
+        <td class="">{{obj.type_name}}</td>
         <td class="text-center">
           <span ng-show="{{obj.used == '1'}}" class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
           <span ng-show="{{obj.used == '0'}}" class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
