@@ -1,0 +1,48 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                <label>手机号</label>&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="searchform.mobile" placeholder="请输入手机号">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>	
+        <th class="col-md-1 text-center">用户名</th>
+        <th class="col-md-1 text-center">手机号</th>
+        <th class="col-md-2 text-center">身份证号</th>
+        <th class="col-md-4 text-center">地址</th>
+        <th class="col-md-1 text-center">实名制</th>
+        <th class="col-md-1 text-center">物理卡号</th>
+        <th class="col-md-1 text-center">电子卡号</th>
+        <th class="col-md-1 text-center">操作</th>
+      </tr>
+    </thead>
+    <div ng-show="userstate === 0">
+	    <tbody>
+	      <tr>
+	        <td class="text-center">{{obj.username}}</td>
+	        <td class="text-center">{{obj.mobile}}</td>
+	        <td class="text-center">{{obj.jycardno}}</td>
+	        <td class="">{{obj.postaddress}}</td>
+	        <td class="text-center">{{obj.state}}</td>
+	        <td class="text-center">{{obj.digitalcardno}}</td>
+	        <td class="text-center">{{obj.phycardno}}</td>
+	        <td class="text-center">
+	        	<a ng-click="edit(obj.mobile)" class="btn btn-success btn-xs">编辑</a>
+	        </td>
+	      </tr>
+	    </tbody>
+    </div>
+  </table>
+  
+
+</div>
