@@ -1,7 +1,6 @@
 module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, viewdestorystatisticlist){
 
     $scope.searchform = {};
-    $scope.searchform.usetype = "1";
 
     //有效区间
     $scope.section = {};

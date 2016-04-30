@@ -9,8 +9,13 @@ var router = function($urlRouterProvider, $stateProvider){
 
     .state('app.dashboard', {
       url: '/dashboard',
-      title: 'Dashboard',
-      template: require('./views/main.html')
+      controller : 'dashboard',
+      template: require('./views/main.html'),
+      resolve : {
+    	noticelist:  function(dashboardservice){
+     		return dashboardservice.noticelist();
+     	}
+      }
     })
 
 };

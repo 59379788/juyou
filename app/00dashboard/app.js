@@ -10,8 +10,8 @@ var App = angular.module('dashboard', [
 ]);
 
 App.config(require('./router'));
-//App.factory('service', require('./service'));
-
+App.factory('dashboardservice', require('./service'));
+App.controller('dashboard',require('./controllers/dashboard'));
 
 
 module.exports = App;

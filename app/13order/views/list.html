@@ -54,13 +54,13 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-3 text-center">订单名称</th>
+        <th class="col-md-2 text-center">订单名称</th>
         <th class="col-md-2 text-center">订单编号</th>
         <!-- <th class="col-md-2 text-center">身份证</th>
         <th class="col-md-1 text-center">姓名</th>
         <th class="col-md-1 text-center">电话</th> -->
-        <th class="col-md-3 text-center">游客信息</th>
-        <!-- <th class="col-md-1 text-center">数量</th> -->
+        <th class="col-md-2 text-center">游客信息</th>
+        <th class="col-md-2 text-center">数量</th>
         <th class="col-md-2 text-center">购买时间</th>
         <th class="col-md-1 text-center">分销商</th>
         <th class="col-md-1 text-center">操作</th>
@@ -74,7 +74,7 @@
         <td class="text-center">{{obj.name}}</td>
         <td class="text-center">{{obj.mobile}}</td> -->
         <td class="text-center">[{{obj.name}}][{{obj.mobile}}][{{obj.cardno}}]</td>
-        <!-- <td class="text-center">{{obj.num}}</td> -->
+        <td class="text-center">购买{{obj.num}}，退票{{obj.back}}，使用{{obj.used}}</td>
         <td class="text-center">{{obj.create_time}}</td>
         <td class="text-center">{{obj.company_id_name}}<br>{{obj.create_by_name}}</td>
         <th class="text-center">
