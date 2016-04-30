@@ -13,17 +13,11 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
         'mobile' : '',
         'num' : 0
     };
-<<<<<<< HEAD
+
     // $scope.order.name = 'dlq';
     // $scope.order.cardno = '210302198308022412';
     // $scope.order.mobile = '13840188285';
     // $scope.order.num = 3;
-=======
-    /*$scope.order.name = 'dlq';
-    $scope.order.cardno = '210302198308022412';
-    $scope.order.mobile = '13840188285';
-    $scope.order.num = 3;*/
->>>>>>> 5e4dbdc9c917f3c297ce7724935b1f9bc2f87c4b
 
     //$scope.order.payment_type = '8';
 
