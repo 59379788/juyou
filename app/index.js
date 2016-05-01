@@ -110,6 +110,12 @@ App.config(['$urlRouterProvider', '$stateProvider',
   $httpProvider.interceptors.push('httpInjector');
 })
 
+.filter('trustHtml', function ($sce) {
+    return function (input) {
+        return $sce.trustAsHtml(input);
+    }
+});
+
 ;
 
 //==================[ 主模块 ]=============================//

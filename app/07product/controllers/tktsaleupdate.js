@@ -155,6 +155,7 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 		}
 		$scope.saleobj.market_price *= 100;
 		$scope.saleobj.guide_price *= 100;
+		$scope.saleobj.cost_price *= 100;
 		console.log($scope.saleobj);
 		saleupdate.save($scope.saleobj, function(res){
 
@@ -162,6 +163,7 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 			{
 				$scope.saleobj.market_price *= 0.01;
 				$scope.saleobj.guide_price *= 0.01;
+				$scope.saleobj.cost_price *= 0.01;
 				alert('修改成功');
 			}
 			else
@@ -175,51 +177,5 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 	$scope.change = function(code){
 		getgoodslist(code);
 	}
-
-
-
-	// $scope.loadhalf = function(code){
-	// 	//根据销售品编号获取半价信息
-	// 	salehalfinfo.get({'code' : code}, function(res){
-	// 		console.log(res);
-
-	// 		if(res.errcode === 0)
-	// 		{
-	// 			$scope.salehalfobj = res.data;
-	// 		}
-	// 		else
-	// 		{
-	// 			//alert(res.errmsg);
-	// 		}
-	// 	});
-	// }
-
-
-
-
-
-
-	// //半价信息 保存
-	// $scope.salehalfgo = function(){
-
-	// 	$scope.salehalfobj.code = $scope.saleobj.code;
-	// 	salehalfupdate.save($scope.salehalfobj, function(res){
-
-	// 		if(res.errcode === 0)
-	// 		{
-	// 			$scope.salehalfobjstate = 0;
-	// 		}
-	// 		else
-	// 		{
-	// 			alert(res.errmsg);
-	// 		}
-	// 	});
-	// };
-
-	// //编辑半价信息改变状态
-	// $scope.salehalfedit = function(){
-	// 	$scope.salehalfobjstate = 1;
-	// 	$scope.loadhalf(code);
-	// };
 	
 };

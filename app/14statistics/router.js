@@ -41,6 +41,23 @@ var router = function($urlRouterProvider, $stateProvider){
         
       })
 
+
+
+      .state('app.statisticssale', {
+        url: '/statisticssale',
+        controller : 'statisticssale',
+        template: require('./views/statisticssale.html'),
+        resolve:{
+            orderstatisticslist : function(statisticsservice){
+                return statisticsservice.orderstatisticslist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            }
+        }
+        
+      })
+
       
 
 

@@ -10,7 +10,7 @@ App.factory('statisticsservice', require('./service'));
 
 App.controller('uselist',require('./controllers/uselist'));
 App.controller('statisticsviewlist',require('./controllers/viewlist'));
-// App.controller('doc',require('./controllers/doc'));
+App.controller('statisticssale',require('./controllers/statisticssale'));
 // App.controller('info',require('./controllers/info'));
 
 

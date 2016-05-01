@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $stateParams, ticketlist){
+module.exports = function($scope, $state, $stateParams, ticketlist, createBackOrder){
 
     var code = $stateParams.code;
 
@@ -29,7 +29,7 @@ module.exports = function($scope, $state, $stateParams, ticketlist){
                 {
                     tkt[v] = new Object();
                     tkt[v].ticketarr = new Array();
-                    tkt[v].sequence = '第 ' + tt.sequence + '个';
+                    tkt[v].sequence = tt.sequence;
                     tkt[v].name = tt.order_name;
                 }
                 tkt[v].ticketarr.push(tt);
@@ -52,6 +52,59 @@ module.exports = function($scope, $state, $stateParams, ticketlist){
 
     };
     $scope.load();
+
+
+    $scope.back = function(obj){
+
+        var flag = true;
+        console.log(obj);
+        for(var i = 0; i < obj.ticketarr.length; i++)
+        {
+            var tmp = obj.ticketarr[i];
+            if(tmp.state !== '1')
+            {
+                flag = false;
+            }
+        }
+
+
+        if(!flag)
+        {
+            alert('销售品中有已经使用的商品。');
+            return;
+        }
+
+        console.log(obj);
+
+        var para = {
+            'order_code' : code,
+            'sequence' : obj.sequence
+
+        };
+
+        if (!confirm("确定要退 " + obj.name + ' 中的第 ' + obj.sequence + ' 个吗？')) {
+            return false;
+        }
+
+        createBackOrder.save(para, function(res){
+
+            console.log(res);
+
+            if(res.errcode === 0)
+            {
+                alert('退票成功');
+                $scope.load();
+            }
+            else
+            {
+                alert(res.errmsg);
+            }
+
+        });
+        
+
+
+    };
 
 
 };

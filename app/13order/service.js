@@ -14,9 +14,12 @@ var service = function($resource, BASEURL38985){
 
     var grouplist = BASEURL38985 + '/api/as/tc/grouporder/grouplist';
 
-     var groupalllist = BASEURL38985 + '/api/as/tc/grouporder/groupalllist';
+    var groupalllist = BASEURL38985 + '/api/as/tc/grouporder/groupalllist';
+
+    var createBackOrder = BASEURL38985 + '/api/ac/tc/ticketOrderService/createBackOrder';
 
     return {
+
         createorder : function(){
             return $resource(create, {}, {});
         },
@@ -34,7 +37,11 @@ var service = function($resource, BASEURL38985){
         },
         groupalllist : function(){
             return $resource(groupalllist, {}, {});
+        },
+        createBackOrder : function(){
+            return $resource(createBackOrder, {}, {});
         }
+
     };
 
 

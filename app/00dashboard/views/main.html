@@ -3,50 +3,56 @@
     		<div class="col-md-4">
     			<div class="panel panel-default">
 				  <div class="panel-heading"><b>基本信息</b></div>
-					<table class="table base_info">
-						<tr>
-							<td><b>当前用户</b></td>
-							<td><span id="admin_name"></span></td>
-						</tr>
-						<tr>
-							<td><b>联系方式</b></td>
-							<td><span id="mobile"></span></td>
-						</tr>
-						<tr>
-							<td><b>员工编号</b></td>
-							<td><span id="code"></span></td>
-						</tr>
-						<tr>
-							<td><b>所属同业社</b></td>
-							<td><span id="stb_name"></span></td>
-						</tr>
-					</table>
+					<table class="table table-bordered">
+				        <tbody>
+				          <tr>
+				            <td class="col-xs-4 text-center">姓名</td>
+				            <td class="col-xs-8">dlq</td>
+				          </tr>
+				          <tr>
+				            <td class="col-xs-4 text-center">电话</td>
+				            <td class="col-xs-8">dlq</td>
+				          </tr>
+				          <tr>
+				            <td class="col-xs-4 text-center">用户名</td>
+				            <td class="col-xs-8">dlq</td>
+				          </tr>
+				          <tr>
+				            <td class="col-xs-4 text-center">所属机构</td>
+				            <td class="col-xs-8">dlq</td>
+				          </tr>
+				        </tbody>
+				      </table>
 				</div>
 				
     			<div class="panel panel-default">
 				  <div class="panel-heading"><b>平台服务</b></div>
-				  	<div class="row">
-					  	<div class="col-md-12">
-							<ul class="service_list list-group ">
-							    <li class="list-group-item">在线客服:22875750</li>
-							    <li class="list-group-item">技术咨询:22875750</li>
-							    <li class="list-group-item">投诉建议:22875750</li>
-							    <li class="list-group-item">同业维护:22875750</li>
-							</ul>
-					  	</div>
-
-					</div>
+				  	
+					<ul class="service_list list-group ">
+					    <li class="list-group-item">在线客服:22875750</li>
+					    <li class="list-group-item">技术咨询:22875750</li>
+					    <li class="list-group-item">投诉建议:22875750</li>
+					</ul>
+					  
 				</div>
     		</div><!-- /col-md-4 -->
     		<div class="col-md-8">
-    			<div class="panel panel-default">
-				  <div class="panel-heading"><b>系统公告</b></div>
-					<table class="table note_list">
-						<tbody class="ret">
-							
-						</tbody>
-					</table>
+
+				<div class="panel panel-default">
+				  <div class="panel-heading"><strong>系统公告</strong></div>
+				  
+				  <ul class="list-group">
+					<li class="list-group-item"
+						ng-repeat='obj in objs'
+						ng-click='info(obj.id)'
+						style="cursor: pointer;">
+						{{obj.title}}
+						<span class="small" style="float:right; color: #999;">{{obj.sdate}}</span>
+					</li>
+					
+				  </ul>
 				</div>
+
     		</div><!-- /col-md-8 -->
     	</div><!-- /row -->
     </div><!-- /container-fluid -->

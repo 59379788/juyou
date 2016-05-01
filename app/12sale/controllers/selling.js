@@ -90,11 +90,16 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
     };
 
 
+    //可用
+    $scope.btnstate = true;
+
     $scope.gogo = function(){
 
         //-------------- 参数验证 -----------------------//
         if(!check()) return ;
         //-------------- 参数验证 -----------------------//
+
+        $scope.btnstate = false;
 
         console.log($scope.order);
         createorder.save($scope.order, function(res){
@@ -104,11 +109,17 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
             if(res.errcode === 0)
             {
                 alert('下单成功，请注意查收短信');
+                $scope.order.name = '';
+                $scope.order.cardno = '';
+                $scope.order.mobile = '';
+                $scope.order.num = 0;
             }
             else
             {
                 alert(res.errmsg);
             }
+
+            $scope.btnstate = true;
 
         });
 

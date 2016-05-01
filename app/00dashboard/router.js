@@ -14,6 +14,9 @@ var router = function($urlRouterProvider, $stateProvider){
       resolve : {
     	noticelist:  function(dashboardservice){
      		return dashboardservice.noticelist();
+     	},
+     	noticeinfo:  function(dashboardservice){
+     		return dashboardservice.noticeinfo();
      	}
       }
     })

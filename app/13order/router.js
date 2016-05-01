@@ -45,6 +45,26 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
             ticketlist : function(orderservice){
                 return orderservice.ticketlist();
+            },
+            createBackOrder : function(orderservice){
+                return orderservice.createBackOrder();
+            }
+            // getDate : function(utilservice){
+            //     return utilservice.getDate;
+            // }
+        }
+        
+      })
+
+
+      //查看订单的所有票信息
+      .state('app.orderticketlistcode', {
+        url: '/orderticketlist/:code',
+        controller : 'orderticketlist',
+        template: require('./views/orderticketlistcode.html'),
+        resolve:{
+            ticketlist : function(orderservice){
+                return orderservice.ticketlist();
             }
             // getDate : function(utilservice){
             //     return utilservice.getDate;

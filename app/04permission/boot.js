@@ -8,6 +8,8 @@ module.exports = function($){
       dataType: 'json'
     }).then(function(res){
 
+      console.log(res);
+
       //按钮显示权限
       var permissions = new Array();
       //菜单
