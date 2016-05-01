@@ -4,11 +4,11 @@
  */
 var service = function($resource, BASEURL38985){
 
-    var userinfo = "http://115.28.145.50:38985/api/uc/uc/userService/getUserInfoByMobile";
+    var userinfo = "/api/ac/uc/userService/getUserInfoByMobile";
 
     var oneuserinfo = "/api/as/uc/jyu/getjyuserinfo";
 
-    var edituserinfo = "http://115.28.145.50:38985/api/uc/uc/userService/updateUserInfoByMobile";
+    var edituserinfo = "/api/ac/uc/userService/updateUserInfoByMobile";
 
     var cardA = BASEURL38985 + "/api/as/uc/jyu/getphycardlist";
 
