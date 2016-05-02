@@ -5,15 +5,11 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate){
     //有效区间
     $scope.section = {};
     $scope.section.start = {};
-    $scope.section.start.date = {};
+    $scope.section.start.date = new Date();
 
     $scope.section.end = {};
-    $scope.section.end.date = {};
+    $scope.section.end.date = new Date();
 
-    $scope.today = function() {
-        $scope.section.start.date = $scope.section.end.date = new Date();
-    };
-    $scope.today();
     $scope.open = function(obj) {
         obj.opened = true;
     };
@@ -25,6 +21,9 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate){
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
     
     $scope.load = function () {
+
+        console.log(getDate($scope.section.start.date));
+        console.log(getDate($scope.section.end.date));
         
         var para = {
             pageNo:$scope.bigCurrentPage, 

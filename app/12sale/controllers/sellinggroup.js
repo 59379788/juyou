@@ -4,12 +4,8 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, upd
 
 	$scope.section = {};
 	$scope.section.start = {};
-	$scope.section.start.date = {};
+	$scope.section.start.date = new Date();
 
-	$scope.today = function() {
-		$scope.section.start.date = new Date();
-	};
-	$scope.today();
 
 	$scope.open = function(obj) {
 		obj.opened = true;

@@ -5,15 +5,11 @@ module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE){
     //有效区间
     $scope.section = {};
     $scope.section.start = {};
-    $scope.section.start.date = {};
+    $scope.section.start.date = new Date();
 
     $scope.section.end = {};
-    $scope.section.end.date = {};
+    $scope.section.end.date = new Date();
 
-    $scope.today = function() {
-        $scope.section.start.date = $scope.section.end.date = new Date();
-    };
-    $scope.today();
     $scope.open = function(obj) {
         obj.opened = true;
     };

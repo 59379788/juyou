@@ -5,12 +5,8 @@ module.exports = function($scope, grouplist, ITEMS_PERPAGE, getDate){
     //有效区间
     $scope.section = {};
     $scope.section.start = {};
-    $scope.section.start.date = {};
+    $scope.section.start.date = new Date();
 
-    $scope.today = function() {
-        $scope.section.start.date = new Date();
-    };
-    $scope.today();
     $scope.open = function(obj) {
         obj.opened = true;
     };
