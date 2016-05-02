@@ -51296,7 +51296,7 @@
 /* 138 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- Nested node template -->\n<script type=\"text/ng-template\" id=\"nodes_renderer.html\">\n  <div ui-tree-handle class=\"tree-node tree-node-content\"\n  \tng-click=\"getit(this)\"\n  >\n    <a class=\"btn btn-success btn-xs\" ng-if=\"node.nodes && node.nodes.length > 0\" \n    data-nodrag ng-click=\"toggle(this)\">\n    <span class=\"glyphicon\"\n        ng-class=\"{\n          'glyphicon-chevron-right': collapsed,\n          'glyphicon-chevron-down': !collapsed\n        }\"></span></a>&nbsp;\n    {{node.name}} \n    <p class=\"text-right\" style=\"margin-bottom: 0px;\">\n    <small ng-show=\"node.guide_price != undefined\">\n    \t分销价{{node.guide_price * 0.01 | currency : '¥'}} \n    </small>\n    <small ng-show=\"node.market_price != undefined\">\n    \t市场价{{node.market_price * 0.01 | currency : '¥'}}\n    </small>\n    </p>\n\n    <!-- <a class=\"pull-right btn btn-danger btn-xs\" data-nodrag ng-click=\"remove(this)\"><span\n        class=\"glyphicon glyphicon-remove\"></span></a>\n    <a class=\"pull-right btn btn-primary btn-xs\" data-nodrag ng-click=\"newSubItem(this)\" style=\"margin-right: 8px;\"><span\n        class=\"glyphicon glyphicon-plus\"></span></a> -->\n  </div>\n  <ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\">\n    <li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'nodes_renderer.html'\">\n    </li>\n  </ol>\n</script>\n\n<div class=\"row\">\n  <div class=\"col-sm-4\">\n    <div ui-tree id=\"tree-root\" data-nodrop-enabled=\"true\" data-drag-enabled=\"false\">\n      <ol ui-tree-nodes ng-model=\"data\">\n        <li ng-repeat=\"node in data\" ui-tree-node ng-include=\"'nodes_renderer.html'\"></li>\n      </ol>\n    </div>\n\n  </div>\n\n  <div class=\"row col-sm-8\" ng-show=\"show == true\">\n    \n    <!-- <pre class=\"code\">{{ data | json }}</pre>\n\n    <pre class=\"code\">{{ show | json }}</pre> -->\n\n    <div class=\"panel panel-success \" >\n\t\t<div class=\"panel-heading \">{{obj.name}} (需要提前 <span class=\"bhour\"></span> 小时购票)</div>\n\t\t<div class=\"panel-body addTicketForm\">\n\t\t\t<div class=\"input-group\">\n\t\t\t\t<span class=\"input-group-addon\" >身份证号</span>\n\t\t\t  \t<input type=\"text\" class=\"form-control\" ng-model=\"order.cardno\" >\n\t\t\t</div>\n\t\t\t<div class=\"input-group mt20\">\n\t\t\t\t<span class=\"input-group-addon\" >游客姓名</span>\n\t\t\t  \t<input type=\"text\" class=\"form-control\" ng-model=\"order.name\" >\n\t\t\t</div>\n\t\t\t<div class=\"input-group mt20\">\n\t\t\t\t<span class=\"input-group-addon\" >联系电话</span>\n\t\t\t  \t<input type=\"text\" class=\"form-control\" ng-model=\"order.mobile\" >\n\t\t\t</div>\n\t\t\t<div class=\"input-group num mt20\">\n\t\t\t\t<span class=\"input-group-addon\">购票数量</span>\n\t\t\t  \t<button type=\"button\" class=\"btn btn-default jian \"\n\t\t\t  \tng-click=\"jian()\"\n\t\t\t  \t>-</button>\n\t    \t\t<input  type=\"text\"   class=\"kuang\" ng-model=\"order.num\" >\n\t    \t\t<button type=\"button\" class=\"btn btn-default jia\"\n\t    \t\tng-click=\"jia()\"\n\t    \t\t>+</button>\n\t\t\t</div>\n\t\t\t<div class=\"input-group mt20\">\n\t\t\t\t<span class=\"input-group-addon\">备注信息</span>\n\t\t\t  \t<input type=\"text\" class=\"form-control\" ng-model=\"order.note\" >\n\t\t\t</div>\n\t\t\t<button type=\"button\" class=\"btn btn-info btn-block mt20\" \n\t\t\t\tng-click=\"gogo()\"\n\t\t\t>确认购票</button>\n\t\t</div>\n\t</div>\n\n\t\n\t<div class=\"panel panel-success\">\n\t\t  <div class=\"panel-heading\">预定需知</div>\n\t\t  <div class=\"panel-body tinfo\"></div>\n\t</div>\n\n  </div>\n</div>\n"
+	module.exports = "<!-- Nested node template -->\n<script type=\"text/ng-template\" id=\"nodes_renderer.html\">\n  <div ui-tree-handle class=\"tree-node tree-node-content\"\n  \tng-click=\"getit(this)\"\n  >\n    <a class=\"btn btn-success btn-xs\" ng-if=\"node.nodes && node.nodes.length > 0\" \n    data-nodrag ng-click=\"toggle(this)\">\n    <span class=\"glyphicon\"\n        ng-class=\"{\n          'glyphicon-chevron-right': collapsed,\n          'glyphicon-chevron-down': !collapsed\n        }\"></span></a>&nbsp;\n    {{node.name}} \n    <p class=\"text-right\" style=\"margin-bottom: 0px;\">\n    <small ng-show=\"node.guide_price != undefined\">\n    \t分销价{{node.guide_price * 0.01 | currency : '¥'}} \n    </small>\n    <small ng-show=\"node.market_price != undefined\">\n    \t市场价{{node.market_price * 0.01 | currency : '¥'}}\n    </small>\n    </p>\n\n    <!-- <a class=\"pull-right btn btn-danger btn-xs\" data-nodrag ng-click=\"remove(this)\"><span\n        class=\"glyphicon glyphicon-remove\"></span></a>\n    <a class=\"pull-right btn btn-primary btn-xs\" data-nodrag ng-click=\"newSubItem(this)\" style=\"margin-right: 8px;\"><span\n        class=\"glyphicon glyphicon-plus\"></span></a> -->\n  </div>\n  <ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\">\n    <li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'nodes_renderer.html'\">\n    </li>\n  </ol>\n</script>\n\n<div class=\"row\">\n  <div class=\"col-sm-4\">\n    <div ui-tree id=\"tree-root\" data-nodrop-enabled=\"true\" data-drag-enabled=\"false\">\n      <ol ui-tree-nodes ng-model=\"data\">\n        <li ng-repeat=\"node in data\" ui-tree-node ng-include=\"'nodes_renderer.html'\"></li>\n      </ol>\n    </div>\n\n  </div>\n\n  <div class=\"row col-sm-8\" ng-show=\"show == true\">\n    \n    <!-- <pre class=\"code\">{{ data | json }}</pre>\n\n    <pre class=\"code\">{{ show | json }}</pre> -->\n\n    <div class=\"panel panel-success \" >\n\t\t<div class=\"panel-heading \">{{obj.name}} (需要提前 <span class=\"bhour\"></span> 小时购票)</div>\n\t\t<div class=\"panel-body addTicketForm\">\n\t\t\t<div class=\"input-group\">\n\t\t\t\t<span class=\"input-group-addon\" >身份证号</span>\n\t\t\t  \t<input type=\"text\" class=\"form-control\" ng-model=\"order.cardno\" >\n\t\t\t</div>\n\t\t\t<div class=\"input-group mt20\">\n\t\t\t\t<span class=\"input-group-addon\" >游客姓名</span>\n\t\t\t  \t<input type=\"text\" class=\"form-control\" ng-model=\"order.name\" >\n\t\t\t</div>\n\t\t\t<div class=\"input-group mt20\">\n\t\t\t\t<span class=\"input-group-addon\" >联系电话</span>\n\t\t\t  \t<input type=\"text\" class=\"form-control\" ng-model=\"order.mobile\" >\n\t\t\t</div>\n\t\t\t<div class=\"input-group num mt20\">\n\t\t\t\t<span class=\"input-group-addon\">购票数量</span>\n\t\t\t  \t<button type=\"button\" class=\"btn btn-default jian \"\n\t\t\t  \tng-click=\"jian()\"\n\t\t\t  \t>-</button>\n\t    \t\t<input  type=\"text\"   class=\"kuang\" ng-model=\"order.num\" >\n\t    \t\t<button type=\"button\" class=\"btn btn-default jia\"\n\t    \t\tng-click=\"jia()\"\n\t    \t\t>+</button>\n\t\t\t</div>\n\t\t\t<div class=\"input-group mt20\">\n\t\t\t\t<span class=\"input-group-addon\">备注信息</span>\n\t\t\t  \t<input type=\"text\" class=\"form-control\" ng-model=\"order.note\" >\n\t\t\t</div>\n\t\t\t<button type=\"button\" class=\"btn btn-info btn-block mt20\" \n\t\t\t\tng-click=\"gogo()\" ng-disabled=\"!btnstate\"\n\t\t\t>确认购票</button>\n\t\t</div>\n\t</div>\n\n\t\n\t<div class=\"panel panel-success\">\n\t\t  <div class=\"panel-heading\">预定需知</div>\n\t\t  <div class=\"panel-body tinfo\"></div>\n\t</div>\n\n  </div>\n</div>\n"
 
 /***/ },
 /* 139 */
@@ -51488,11 +51488,16 @@
 	    };
 
 
+	    //可用
+	    $scope.btnstate = true;
+
 	    $scope.gogo = function(){
 
 	        //-------------- 参数验证 -----------------------//
 	        if(!check()) return ;
 	        //-------------- 参数验证 -----------------------//
+
+	        $scope.btnstate = false;
 
 	        console.log($scope.order);
 	        createorder.save($scope.order, function(res){
@@ -51502,11 +51507,17 @@
 	            if(res.errcode === 0)
 	            {
 	                alert('下单成功，请注意查收短信');
+	                $scope.order.name = '';
+	                $scope.order.cardno = '';
+	                $scope.order.mobile = '';
+	                $scope.order.num = 0;
 	            }
 	            else
 	            {
 	                alert(res.errmsg);
 	            }
+
+	            $scope.btnstate = true;
 
 	        });
 
@@ -53085,11 +53096,11 @@
 	 */
 	var service = function($resource, BASEURL38985){
 
-	    var userinfo = "http://115.28.145.50:38985/api/uc/uc/userService/getUserInfoByMobile";
+	    var userinfo = "/api/ac/uc/userService/getUserInfoByMobile";
 
 	    var oneuserinfo = "/api/as/uc/jyu/getjyuserinfo";
 
-	    var edituserinfo = "http://115.28.145.50:38985/api/uc/uc/userService/updateUserInfoByMobile";
+	    var edituserinfo = "/api/ac/uc/userService/updateUserInfoByMobile";
 
 	    var cardA = BASEURL38985 + "/api/as/uc/jyu/getphycardlist";
 
