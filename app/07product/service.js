@@ -114,6 +114,16 @@ var service = function($resource, BASEURL38985, $q, $http){
     var salehalfinfo = BASEURL38985 + '/api/as/tc/salehalf/info';
 
 
+
+    //销售品类型
+    var salecategorylist = BASEURL38985 + '/api/as/tc/salecategory/list';
+
+    //销售品类型列表
+    var salecategoryinsert = BASEURL38985 + '/api/as/tc/salecategory/insert';
+
+    //销售品类型列表
+    var salecategorydelete = BASEURL38985 + '/api/as/tc/salecategory/delete';
+
     
     return {
 
@@ -258,7 +268,16 @@ var service = function($resource, BASEURL38985, $q, $http){
                 'statename' : '有效',
                 'statecode' : '1'
             }
-        ]
+        ],
+        salecategorylist : function(){
+            return $resource(salecategorylist, {}, {});
+        },
+        salecategoryinsert : function(){
+            return $resource(salecategoryinsert, {}, {});
+        },
+        salecategorydelete : function(){
+            return $resource(salecategorydelete, {}, {});
+        }
 
        
     };

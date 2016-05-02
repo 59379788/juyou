@@ -249,6 +249,31 @@ var router = function($urlRouterProvider, $stateProvider){
       })
 
 
+
+    //销售品类型管理
+    .state('app.salecategory', {
+        url: '/salecategory',
+        controller : 'salecategory',
+        template: require('./views/salecategory.html'),
+        resolve:{
+            salecategorylist : function(productservice){
+                return productservice.salecategorylist();
+            },
+            salecategoryinsert : function(productservice){
+                return productservice.salecategoryinsert();
+            },
+            salecategorydelete : function(productservice){
+                return productservice.salecategorydelete();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
+            }
+        }
+      })
+
+
+
+
 };
 
 module.exports = router;

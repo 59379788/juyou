@@ -20,6 +20,10 @@ App.controller('tktgoodsupdate',require('./controllers/tktgoodsupdate'));
 App.controller('tktsale',require('./controllers/tktsale'));
 App.controller('tktsalecreate',require('./controllers/tktsalecreate'));
 App.controller('tktsaleupdate',require('./controllers/tktsaleupdate'));
+App.controller('salecategory',require('./controllers/salecategory'));
+
+App.controller('salecategorycreate',require('./controllers/salecategorycreate'));
+
 
 
 module.exports = App;

@@ -1,0 +1,37 @@
+
+<div class="modal-header">
+    <h4 class="modal-title">销售品功能</h4>
+</div>
+<div class="modal-body">
+
+<div class="container-fluid">
+    
+    <div class="form-group" >
+        <label class="col-xs-4 control-label">销售品分类</label>
+        <div class="col-xs-8" >
+            <select class="form-control" ng-model="obj.sale_category_code" 
+              ng-options="type1.value as type1.label for type1 in typearr"
+            >
+            </select>
+        </div>
+    </div>
+
+
+   
+    <div class="form-group" >
+        <label class="col-xs-4 control-label">功能</label>
+        <div class="col-xs-8" >
+            <select class="form-control" ng-model="obj.sub_table_code" 
+              ng-options="type2.value as type2.label for type2 in salesubarr"
+            >
+            </select>
+        </div>
+    </div>
+
+    
+</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="gogo()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+</div>

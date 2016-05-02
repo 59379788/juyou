@@ -1,0 +1,43 @@
+<div class="col-sm-12 ">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-10">
+              
+            </div>
+            <div class="col-sm-2 text-right">
+                <button type="button" class="btn btn-info new" ng-click="create()">创建</button>
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-2 text-center">销售品类别编号</th>
+        <th class="col-md-3 text-center">销售品类别名称</th>
+        <th class="col-md-2 text-center">功能编号</th>
+        <th class="col-md-3 text-center">功能名称</th>
+        <th class="col-md-2 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.sale_category_code}}</td>
+        <td class="text-center">{{obj.sale_category_name}}</td>
+        <td class="text-center">{{obj.sub_table_code}}</td>
+        <td class="text-center">{{obj.sub_table_name}}</td>
+        <td class="text-center">
+          
+          <a ng-click="del(obj)" class="btn btn-danger btn-xs">删除</a>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  
+
+</div>
