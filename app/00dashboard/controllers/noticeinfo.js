@@ -1,4 +1,4 @@
-module.exports = function($scope, id, noticeinfo){
+module.exports = function($scope, id, noticeinfo, $uibModalInstance){
 
     noticeinfo.get({'id' : id}, function(res){
 
