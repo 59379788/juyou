@@ -1,4 +1,4 @@
-module.exports = function($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticeinfo){
+module.exports = function($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticeinfo, userinfo){
 
     /* 分页
      * ========================================= */
@@ -33,12 +33,8 @@ module.exports = function($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticein
     $scope.load();
 
 
-
-
     //打开模态框
     $scope.info = function(id){
-
-        //alert(device_code);
 
         var modalInstance = $uibModal.open({
           template: require('../views/noticeinfo.html'),
@@ -54,13 +50,21 @@ module.exports = function($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticein
         });
 
         modalInstance.result.then(function () {
-          
-          load();
-
+          //load();
         }, function () {
           //$log.info('Modal dismissed at: ' + new Date());
         });
     }
+
+
+    //用户信息
+    userinfo().then(function(res) {
+
+        //console.log(res);
+
+        $scope.userobj = res;
+
+    });
 
 
 };

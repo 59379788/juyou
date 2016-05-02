@@ -10,7 +10,7 @@ var service = function($resource, BASEURL38985, $q, $http){
     //公告详情
     var noticeinfo = BASEURL38985 + "/api/as/tc/notice/info";
 
-    var info = BASEURL38985 + "/api/as/info";
+    var userinfo = BASEURL38985 + "/api/as/info";
 
    
     return {
@@ -21,9 +21,9 @@ var service = function($resource, BASEURL38985, $q, $http){
         noticeinfo : function(){
             return $resource(noticeinfo, {}, {});
         },
-        getinfo1 : function(){
+        userinfo : function(){
           var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  
-          $http({method: 'GET', url: info}).
+          $http({method: 'GET', url: userinfo}).
           success(function(data, status, headers, config) {  
             deferred.resolve(data);  // 声明执行成功，即http请求数据成功，可以返回数据了  
           }).  
