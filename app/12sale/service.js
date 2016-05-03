@@ -24,6 +24,8 @@ var service = function($resource, BASEURL38985, $q, $http){
 
     var groupone = BASEURL38985 + '/api/as/tc/grouporder/groupone';
 
+
+    
     return {
         namelist : function(){
             return $resource(saleNameList, {}, {});
