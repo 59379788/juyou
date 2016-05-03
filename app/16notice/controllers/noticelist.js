@@ -44,14 +44,14 @@ module.exports = function($scope, $state, mylist, update, ITEMS_PERPAGE){
 
     $scope.edit = function(id){
 
-    	$state.go('app.editview', {'placeid' : id});
+    	$state.go('app.noticeedit', {'id' : id});
 
     };
 
 
     $scope.asort = function(id, asort){
     	
-    	update.save({'place_id' : id, 'asort' : asort}, function(res){
+    	update.save({'id' : id, 'asort' : asort}, function(res){
 
 			console.log(res);
 
@@ -67,6 +67,28 @@ module.exports = function($scope, $state, mylist, update, ITEMS_PERPAGE){
 		});
 
     };
+
+    $scope.start = function(id) {
+		update.get({'id' : id, 'state' : '1'}, function(res){
+            console.log(res);
+			if(res.errcode === 0){
+				$scope.load();
+			}else{
+				alert(res.errmsg);
+			}
+		});
+	}
+
+	$scope.stop = function(id) {
+		update.get({'id' : id, 'state' : '0'}, function(res){
+            console.log(res);
+			if(res.errcode === 0){
+				$scope.load();
+			}else{
+				alert(res.errmsg);
+			}
+		});
+	}
 
     
 };

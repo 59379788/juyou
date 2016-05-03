@@ -17,6 +17,10 @@ var service = function($resource, BASEURL38985){
     var infoticket = BASEURL38985 + "/api/as/tc/ticketorder/forKefuOrderInfoByMobilelist";
 
     var redpackage = BASEURL38985 + "/api/us/uc/jyu/getredpackagelist";
+
+    var updateUserAuthInfo = BASEURL38985 + "/api/ac/uc/userService/updateUserAuthInfo";
+
+    var updateUserSubsidy = BASEURL38985 + "/api/ac/uc/userService/updateUserSubsidy";
     
     return {
 
@@ -40,6 +44,12 @@ var service = function($resource, BASEURL38985){
         },
         redpackage : function(){
             return $resource(redpackage, {}, {});
+        },
+        updateUserAuthInfo : function(){
+            return $resource(updateUserAuthInfo, {}, {});
+        },
+        updateUserSubsidy : function(){
+            return $resource(updateUserSubsidy, {}, {});
         }
        
     };

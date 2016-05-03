@@ -1,519 +1,57 @@
-<div class="col-xs-10 col-xs-offset-1" >
-
-	<div class="panel panel-default form-horizontal">
-		<div class="panel-heading">
-			基本信息
-			<button type="button" 
-				class="btn btn-xs btn-info pull-right"
-				ng-click="placego()"
-				ng-show="placeobjstate === 1"
+<div class="col-xs-10 col-xs-offset-1 form-horizontal" >
+	
+	<div class="form-group">
+		<label class="col-xs-2 control-label">公告标题</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control"
+			ng-model="objt.title"
 			>
-				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-			</button>
-
-			<button type="button" 
-				class="btn btn-xs btn-success pull-right"
-				ng-click="placeedit()"
-				ng-show="placeobjstate === 0"
-			>
-				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-			</button>
 		</div>
-		<div class="panel-body">
-		<div class="container-fluid">
-			<!-- 编辑状态 -->
-			<div ng-show="placeobjstate === 1">
-				<div class="col-xs-8" >
-					<div class="form-group">
-						<label class="col-xs-2 control-label">名称</label>
-						<div class="col-xs-10">
-							<input type="text" class="form-control" placeholder="请输入名称"
-							ng-model="placeobj.name"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">地址</label>
-						<div class="col-xs-10">
-							<input type="text" class="form-control" 
-							ng-model="placeobj.address"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">简介</label>
-						<div class="col-xs-10">
-							<textarea class="form-control" rows="4"
-							ng-model="placeobj.content"
-							></textarea>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">营业时间</label>
-						<div class="col-xs-10">
-							<input type="text" class="form-control" 
-							ng-model="placeobj.open_time"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">省</label>
-						<div class="col-xs-10">
-							<input type="text" class="form-control" 
-							ng-model="placeobj.province"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">市</label>
-						<div class="col-xs-10">
-							<input type="text" class="form-control" 
-							ng-model="placeobj.city"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">区</label>
-						<div class="col-xs-10">
-							<input type="text" class="form-control" 
-							ng-model="placeobj.area"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">经度</label>
-						<div class="col-xs-4">
-							<input type="text" class="form-control"
-							ng-model="placeobj.longitude"
-							>
-						</div>
-						<label class="col-xs-2 control-label">纬度</label>
-						<div class="col-xs-4">
-							<input type="text" class="form-control"
-							ng-model="placeobj.latitude"
-							>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-xs-4">
-
-					<label class="control-label">logo</label>
-					<img ng-src="{{placeobj.logo}}" width="150" height="150" ng-model="placeobj.logo">
-					<input type="file" nv-file-select uploader="uploader1" /><br/>
-					<ul class="list-group">
-					    <li class="list-group-item" ng-repeat="item in uploader1.queue">
-					        文件名: <span ng-bind="item.file.name"></span>
-					        <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
-					        <div class="progress mt10">
-					            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader1.progress + '%' }"></div>
-					        </div>
-					    </li>
-					</ul>
-
-					<label class="control-label">景区顶图</label>
-					<img ng-src="{{placeobj.img}}" width="100%" height="200" ng-model="placeobj.img">
-					<input type="file" nv-file-select uploader="uploader2" /><br/>
-					<ul class="list-group">
-					    <li class="list-group-item" ng-repeat="item in uploader2.queue">
-					        文件名: <span ng-bind="item.file.name"></span>
-					        <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
-					        <div class="progress mt10">
-					            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader2.progress + '%' }"></div>
-					        </div>
-					    </li>
-					</ul>
-
-				</div>
-
-			</div>
-
-
-			<!-- 展示状态 -->
-			<div ng-show="placeobjstate === 0">
-				<div class="col-xs-8" >
-					<div class="form-group">
-						<label class="col-xs-2 control-label">名称</label>
-						<div class="col-xs-10">
-							<p class="form-control-static">{{placeobj.name}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">地址</label>
-						<div class="col-xs-10">
-							<p class="form-control-static">{{placeobj.address}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">简介</label>
-						<div class="col-xs-10">
-							<p class="form-control-static">{{placeobj.content}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">营业时间</label>
-						<div class="col-xs-10">
-							<p class="form-control-static">{{placeobj.open_time}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">省</label>
-						<div class="col-xs-10">
-							<p class="form-control-static">{{placeobj.province}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">市</label>
-						<div class="col-xs-10">
-							<p class="form-control-static">{{placeobj.city}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">区</label>
-						<div class="col-xs-10">
-							<p class="form-control-static">{{placeobj.area}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">经度</label>
-						<div class="col-xs-4">
-							<p class="form-control-static">{{placeobj.longitude}}</p>
-						</div>
-						<label class="col-xs-2 control-label">纬度</label>
-						<div class="col-xs-4">
-							<p class="form-control-static">{{placeobj.latitude}}</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-xs-4">
-
-					<label class="control-label">logo</label>
-					<img ng-src="{{placeobj.logo}}" width="150" height="150" ng-model="placeobj.logo">
-					<!-- <p class="form-control-static">{{placeobj.logo}}</p><br> -->
-					<br><br>
-					<label class="control-label">景区顶图</label>
-					<img ng-src="{{placeobj.img}}" width="100%" height="200" ng-model="placeobj.img">
-					<!-- <p class="form-control-static">{{placeobj.img}}</p><br> -->
-
-				</div>
-
-			</div>
-
-		</div>
-		</div>
-
 	</div>
 
-
-</div>
-
-
-
-
-
-
-<div class="col-xs-10 col-xs-offset-1"
-	ng-show="placeobj.id != ''"
- >
-
-	<div class="panel panel-default form-horizontal">
-		<div class="panel-heading">
-			景区信息
-			<button type="button" 
-				class="btn btn-xs btn-info pull-right"
-				ng-click="viewgo()"
-				ng-show="viewobjstate === 1"
-			>
-				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-			</button>
-
-			<button type="button" 
-				class="btn btn-xs btn-success pull-right"
-				ng-click="viewedit()"
-				ng-show="viewobjstate === 0"
-			>
-				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-			</button>
-			
-		</div>
-		<div class="panel-body">
-		<div class="container-fluid">
-			<!-- 编辑状态 -->
-			<div ng-show="viewobjstate === 1">
-				<div class="col-xs-6">
-					
-					<div class="form-group">
-						<label class="col-xs-3 control-label">主题</label>
-						<div class="col-xs-9">
-							<select class="form-control" ng-model="viewobj.theme" 
-				              ng-options="view.code as view.name for view in viewarr"
-				            >
-				            </select>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">子名称</label>
-						<div class="col-xs-9">
-							<input type="text" class="form-control" 
-							ng-model="viewobj.subname"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">开放日期</label>
-						<div class="col-xs-9">
-							<input type="text" class="form-control" 
-							ng-model="viewobj.open_date"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">服务承诺</label>
-						<div class="col-xs-9">
-							<textarea class="form-control" rows="3"
-							ng-model="viewobj.promise"
-							></textarea>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">预订须知</label>
-						<div class="col-xs-9">
-							<textarea class="form-control" rows="3"
-							ng-model="viewobj.book_info"
-							></textarea>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">星级</label>
-						<div class="col-xs-9">
-							<select class="form-control" ng-model="viewobj.star" >
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-				            </select>
-						</div>
-					</div>
-
-				</div>
-
-				<div class="col-xs-6">
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">好评</label>
-						<div class="col-xs-9">
-							<input type="text" class="form-control" 
-							ng-model="viewobj.ev_good"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">一般评价</label>
-						<div class="col-xs-9">
-							<input type="text" class="form-control" 
-							ng-model="viewobj.ev_general"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">差评</label>
-						<div class="col-xs-9">
-							<input type="text" class="form-control" 
-							ng-model="viewobj.ev_bad"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">全景地址</label>
-						<div class="col-xs-9">
-							<input type="text" class="form-control" 
-							ng-model="viewobj.view720_url"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">电子杂志</label>
-						<div class="col-xs-9">
-							<input type="text" class="form-control" 
-							ng-model="viewobj.ebook_url"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">优惠政策</label>
-						<div class="col-xs-9">
-							<input type="text" class="form-control" 
-							ng-model="viewobj.fav_policy"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">提前时间(小时）</label>
-						<div class="col-xs-9">
-							<input type="text" class="form-control" 
-							ng-model="viewobj.bef_hour"
-							>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">排序</label>
-						<div class="col-xs-9">
-							<input type="text" class="form-control" 
-							ng-model="viewobj.asort"
-							>
-						</div>
-					</div>
-
-				</div>
-			</div>
-
-
-
-			<!-- 展示状态 -->
-			<div ng-show="viewobjstate === 0">
-				<div class="col-xs-6">
-					
-					<div class="form-group">
-						<label class="col-xs-3 control-label">主题</label>
-						<div class="col-xs-9">
-							<select class="form-control" ng-model="viewobj.theme" 
-				              ng-options="view.code as view.name for view in viewarr"
-				            >
-				            </select>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">子名称</label>
-						<div class="col-xs-9">
-							<p class="form-control-static">{{viewobj.subname}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">开放日期</label>
-						<div class="col-xs-9">
-							<p class="form-control-static">{{viewobj.open_date}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">服务承诺</label>
-						<div class="col-xs-9">
-							<p class="form-control-static">{{viewobj.promise}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">预订须知</label>
-						<div class="col-xs-9">
-							<p class="form-control-static">{{viewobj.book_info}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">星级</label>
-						<div class="col-xs-9">
-							<p class="form-control-static">{{viewobj.star}}</p>
-						</div>
-					</div>
-
-				</div>
-
-				<div class="col-xs-6">
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">好评</label>
-						<div class="col-xs-9">
-							<p class="form-control-static">{{viewobj.ev_good}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">一般评价</label>
-						<div class="col-xs-9">
-							<p class="form-control-static">{{viewobj.ev_general}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">差评</label>
-						<div class="col-xs-9">
-							<p class="form-control-static">{{viewobj.ev_bad}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">全景地址</label>
-						<div class="col-xs-9">
-							<p class="form-control-static">{{viewobj.view720_url}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">电子杂志</label>
-						<div class="col-xs-9">
-							<p class="form-control-static">{{viewobj.ebook_url}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">优惠政策</label>
-						<div class="col-xs-9">
-							<p class="form-control-static">{{viewobj.fav_policy}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">提前时间(小时）</label>
-						<div class="col-xs-9">
-							<p class="form-control-static">{{viewobj.bef_hour}}</p>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">排序</label>
-						<div class="col-xs-9">
-							<p class="form-control-static">{{viewobj.asort}}</p>
-						</div>
-					</div>
-
-				</div>
-			</div>
-
-
-		</div>
-
+	<div class="form-group">
+		<label class="col-xs-2 control-label">公告内容</label>
+		<div class="col-xs-6">
+			<textarea class="form-control" rows="15"
+			ng-model="objt.content"
+			></textarea>
 		</div>
 	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">公告排序</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control"
+			ng-model="objt.asort"
+			>
+		</div>
+	</div>
+
+	<div class="form-group">
+	    <label class="col-xs-2 control-label">公告状态</label>
+	    <div class="col-xs-10">
+	    	<label class="radio-inline">
+			  <input type="radio" name="state" value="1"
+			  ng-model="objt.state"
+			  > 显示
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="state" value="0"
+			  ng-model="objt.state"
+			  > 隐藏
+			</label>
+	    </div>
+  	</div>
+
+	
+
+	<button 
+    type="button" 
+    class="btn btn-primary btn-lg btn-block" 
+    ng-click="gogo()"
+    >
+    提交
+    </button>
 
 
 </div>

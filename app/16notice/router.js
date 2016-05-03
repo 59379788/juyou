@@ -21,40 +21,31 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
-      /*.state('app.createview', {
-        url: '/view',
-        controller : 'viewcreate',
-        template: require('./views/viewmodel.html'),
+      .state('app.noticecreate', {
+        url: '/notice',
+        controller : 'noticecreate',
+        template: require('./notice/noticemodel.html'),
         resolve:{
-            placecreate : function(placeservice){
-                return placeservice.create();
-            },
-            viewcreate : function(viewservice){
-                return viewservice.create();
+            create : function(noticeservice){
+                return noticeservice.create();
             }
         }
       })
 
 
-      .state('app.editview', {
-        url: '/view/:placeid',
-        controller : 'viewedit',
-        template: require('./views/viewmodel.html'),
+      .state('app.noticeedit', {
+        url: '/notice/:id',
+        controller : 'noticeedit',
+        template: require('./notice/noticemodel.html'),
         resolve:{
-            placeinfo : function(placeservice){
-                return placeservice.info();
+            myinfo : function(noticeservice){
+                return noticeservice.myinfo();
             },
-            placeupdate : function(placeservice){
-                return placeservice.update();
-            },
-            viewinfo : function(viewservice){
-                return viewservice.info();
-            },
-            viewupdate : function(viewservice){
-                return viewservice.update();
+            update : function(noticeservice){
+                return noticeservice.update();
             }
         }
-      })*/
+      })
 
       
 

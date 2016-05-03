@@ -31,7 +31,7 @@
       <tr ng-repeat="obj in objs">
         <td class="">{{obj.title}}</td>
         <td class="">{{obj.content}}</td>
-        <td class="text-center">{{obj.state}}</td>
+        <td class="text-center">{{obj.statename}}</td>
         <td class="form-horizontal ">
           <div class="col-sm-6">
             <input class="form-control input-sm" 
@@ -44,11 +44,9 @@
         </td>
         <td class="text-center">{{obj.sdate}}</td>
         <td class="text-center">
-          <a ng-show="obj.state=='1'" ng-click="stop(obj.id)" class="btn btn-primary btn-xs">下架</a>
-          <a ng-show="obj.state=='0' || obj.state=='2'" ng-click="start(obj.id)" class="btn btn-danger btn-xs">上架</a>
+          <a ng-show="obj.state=='1'" ng-click="stop(obj.id)" class="btn btn-primary btn-xs">隐藏</a>
+          <a ng-show="obj.state=='0'" ng-click="start(obj.id)" class="btn btn-danger btn-xs">显示</a>
           <a ng-click="edit(obj.id)" class="btn btn-success btn-xs">编辑</a>
-          <!--<a ng-click="type(obj.code)" class="btn btn-danger btn-xs">票种管理</a>
-          <a ng-click="device(obj.code)" class="btn btn-primary btn-xs">配置设备</a>-->
         </td>
       </tr>
     </tbody>

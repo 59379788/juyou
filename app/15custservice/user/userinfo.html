@@ -18,9 +18,11 @@
       <tr>	
         <th class="col-md-1 text-center">用户名</th>
         <th class="col-md-1 text-center">手机号</th>
-        <th class="col-md-2 text-center">身份证号</th>
-        <th class="col-md-4 text-center">地址</th>
-        <th class="col-md-1 text-center">实名制</th>
+        <th class="col-md-1 text-center">身份证号</th>
+        <th class="col-md-2 text-center">地址</th>
+        <th class="col-md-2 text-center">实名制</th>
+        <th class="col-md-1 text-center">通用补贴</th>
+        <th class="col-md-1 text-center">政府补贴</th>
         <th class="col-md-1 text-center">物理卡号</th>
         <th class="col-md-1 text-center">电子卡号</th>
         <th class="col-md-1 text-center">操作</th>
@@ -33,7 +35,9 @@
 	        <td class="text-center">{{obj.mobile}}</td>
 	        <td class="text-center">{{obj.jycardno}}</td>
 	        <td class="">{{obj.postaddress}}</td>
-	        <td class="text-center">{{obj.state}}</td>
+	        <td class="text-center">{{obj.state}}&nbsp;&nbsp;&nbsp;<a ng-click="clear(obj.mobile)" class="btn btn-info btn-xs">清空</a></td>
+	        <td class="text-center">{{obj.generalsubsidy | currency : '￥'}}</td>
+	        <td class="text-center">{{obj.hdticketsubsidy | currency : '￥'}}</td>
 	        <td class="text-center">{{obj.digitalcardno}}</td>
 	        <td class="text-center">{{obj.phycardno}}</td>
 	        <td class="text-center">
