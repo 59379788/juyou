@@ -243,86 +243,85 @@
 		</div>
 	</div>
 </div>
-<div class="col-xs-10 col-xs-offset-1" >
+
+
+
+
+<div class="col-xs-10 col-xs-offset-1" ng-show="funobj.hasOwnProperty('govsubsidy')">
 	<div class="panel panel-default form-horizontal">
 		<div class="panel-heading">
-			半价信息
+			旅游局补贴
 			<button type="button" 
 				class="btn btn-xs btn-info pull-right"
-				ng-click="salehalfgo()"
-				ng-show="salehalfobjstate === 1"
+				ng-show="!funobj.govsubsidy.has"
+				ng-click="govcreate()"
 			>
 				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 			</button>
 
 			<button type="button" 
-				class="btn btn-xs btn-success pull-right"
-				ng-click="salehalfedit()"
-				ng-show="salehalfobjstate === 0"
+				class="btn btn-xs btn-info pull-right"
+				ng-show="funobj.govsubsidy.has"
+				ng-click="govupdate()"
 			>
-				<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 			</button>
 		</div>
 		<div class="panel-body">
 			<div class="container-fluid">
-				<!-- 编辑状态 -->
-				<div ng-show="salehalfobjstate === 1">
-					<div class="col-xs-10" >
-						<div class="form-group">
-							<label class="col-xs-2 control-label">反补</label>
-							<div class="col-xs-10">
-								<input type="text" class="form-control" placeholder="请输入反补金额"
-								ng-model="salehalfobj.subsidy"
-								>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-xs-2 control-label">立减</label>
-							<div class="col-xs-10">
-								<input type="text" class="form-control" placeholder="请输入立减金额"
-								ng-model="salehalfobj.rebate"
-								>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-xs-2 control-label">最大购票数</label>
-							<div class="col-xs-10">
-								<input type="text" class="form-control" placeholder="请输入最大购票数"
-								ng-model="salehalfobj.max_sell"
-								>
-							</div>
-						</div>
-
-					</div>			
-				</div>
-
-
-				<!-- 展示状态 -->
-				<div ng-show="salehalfobjstate === 0">
-					<div class="col-xs-10" >
-						<div class="form-group">
-							<label class="col-xs-2 control-label">反补</label>
-							<div class="col-xs-10">
-								<p class="form-control-static">{{salehalfobj.subsidy}}</p>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-xs-2 control-label">立减</label>
-							<div class="col-xs-10">
-								<p class="form-control-static">{{salehalfobj.rebate}}</p>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-xs-2 control-label">最大购票数</label>
-							<div class="col-xs-10">
-								<p class="form-control-static">{{salehalfobj.max_sell}}</p>
-							</div>
+				
+				<div class="col-xs-10" >
+					<div class="form-group">
+						<label class="col-xs-2 control-label">补贴金额</label>
+						<div class="col-xs-10">
+							<input type="text" class="form-control"
+							ng-model="govobj.govsubsidy_price"
+							>
 						</div>
 					</div>
 				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="col-xs-10 col-xs-offset-1" ng-show="funobj.hasOwnProperty('juyousubsidy')">
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			居游补贴
+			<button type="button" 
+				class="btn btn-xs btn-info pull-right"
+				ng-show="!funobj.juyousubsidy.has"
+				ng-click="juyoucreate()"
+			>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+
+			<button type="button" 
+				class="btn btn-xs btn-info pull-right"
+				ng-show="funobj.juyousubsidy.has"
+				ng-click="juyouupdate()"
+			>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				
+				<div class="col-xs-10" >
+					<div class="form-group">
+						<label class="col-xs-2 control-label">补贴金额</label>
+						<div class="col-xs-10">
+							<input type="text" class="form-control"
+							ng-model="juyouobj.juyousubsidy_price"
+							>
+						</div>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 	</div>

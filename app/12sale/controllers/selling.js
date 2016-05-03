@@ -5,6 +5,8 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
 
     $scope.show = false;
 
+    $scope.state = false;
+
     $scope.obj = {};
 
     $scope.order = {
