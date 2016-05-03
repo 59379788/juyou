@@ -1,7 +1,7 @@
 <!-- Nested node template -->
 <script type="text/ng-template" id="nodes_renderer.html">
   <div ui-tree-handle class="tree-node tree-node-content"
-  	ng-click="getit(this)" 
+  	ng-click="getit(this)" ng-class="{'unavailable': node.unavailable} "
   >
     <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" 
     data-nodrag ng-click="toggle(this)" >
@@ -10,7 +10,7 @@
           'glyphicon-chevron-right': collapsed,
           'glyphicon-chevron-down': !collapsed
         }"></span></a>&nbsp;
-    {{node.name}} 
+    {{node.name}} {{unavailable}}
     <p class="text-right" style="margin-bottom: 0px;">
     <small ng-show="node.guide_price != undefined">
     	分销价{{node.guide_price * 0.01 | currency : '¥'}} 
@@ -31,6 +31,31 @@
   </ol>
 </script>
 
+
+
+<div class="col-sm-12" ng-show="sale_category == 'F11'">
+<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="form-group form-inline">
+          <div class="col-sm-4">
+              <label>电话</label>&nbsp;&nbsp;
+              <input type="text" class="form-control" ng-model="searchform.mobile" >
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <button type="button" class="btn btn-default search" ng-click="search()">立即搜索</button>
+          </div>
+          <div class="col-sm-8" >
+              <p class="bg-info" style="padding: 10px;">
+                {{userinfo}}
+              </p>
+
+          </div>
+      </div>
+  </div>
+</div><!-- searchArea -->
+</div>
+
+
+
 <div class="row">
   <div class="col-sm-4">
     <div ui-tree id="tree-root" data-nodrop-enabled="true" data-drag-enabled="false">
@@ -42,10 +67,6 @@
   </div>
 
   <div class="row col-sm-8" ng-show="show == true">
-    
-    <!-- <pre class="code">{{ data | json }}</pre>
-
-    <pre class="code">{{ show | json }}</pre> -->
 
     <div class="panel panel-success " >
 		<div class="panel-heading ">{{obj.name}} 

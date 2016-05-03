@@ -1,11 +1,9 @@
-module.exports = function($scope, $state, $stateParams, namelist, info, createorder, IdentityCodeValid){
+module.exports = function($scope, $state, $stateParams, namelist, info, createorder, IdentityCodeValid, getuserinfobymobile){
 
     //类别
-    var sale_category = $stateParams.type;
+    $scope.sale_category = $stateParams.type;
 
     $scope.show = false;
-
-    $scope.state = false;
 
     $scope.obj = {};
 
@@ -24,7 +22,7 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
     //$scope.order.payment_type = '8';
 
     //销售品树
-    namelist.get({'sale_category' : sale_category}, function(res){
+    namelist.get({'sale_category' : $scope.sale_category}, function(res){
 
         console.log(res);
 
@@ -42,12 +40,14 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
             o.name = tmp.sale_name;
             o.guide_price = tmp.guide_price;
             o.market_price = tmp.market_price;
+            if($scope.sale_category === 'F11') o.unavailable = true;
 
             if(!r.hasOwnProperty(tmp.place_code))
             {
                 r[tmp.place_code] = {};
                 r[tmp.place_code].name = tmp.place_name;
                 r[tmp.place_code].nodes = []; 
+                r[tmp.place_code].unavailable = false; 
             }
 
             r[tmp.place_code].nodes.push(o);
@@ -62,6 +62,8 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
     $scope.getit = function(obj){
 
         if(obj.$modelValue === undefined) return;
+
+        if(obj.$modelValue.unavailable) return;
 
         $scope.show = true;
 
@@ -190,5 +192,33 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
 
         return true;
     }
+
+
+
+
+
+    // --------------- 卖补贴商品 --------------------------- //
+    $scope.searchform = {};
+    $scope.search = function(){
+
+        getuserinfobymobile.get($scope.searchform, function(res){
+
+            console.log(res);
+
+            if(res.errcode === 0)
+            {
+                alert(res.data.generalsubsidy);
+            }
+            else
+            {
+                alert(res.errmsg);
+            }
+
+        });
+
+
+    };
+
+    // --------------- 卖补贴商品 --------------------------- //
 
 };

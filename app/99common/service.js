@@ -4,6 +4,8 @@ module.exports = function(BASEURL38985, $resource){
 
 	var permission = BASEURL38985 + '/api/ac/sc/menuService/menulist';
 
+	
+
 	return {
 
 		permission : function(){

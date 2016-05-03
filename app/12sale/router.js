@@ -23,6 +23,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             IdentityCodeValid : function(utilservice){
                 return utilservice.IdentityCodeValid;
+            },
+            getuserinfobymobile : function(memberservice){
+                return memberservice.getuserinfobymobile();
             }
         }
         
