@@ -236,11 +236,29 @@ var router = function($urlRouterProvider, $stateProvider){
             saledetaildelete : function(productservice){
                 return productservice.saledetaildelete();
             },
-            salehalfupdate : function(productservice){
-                return productservice.salehalfupdate();
+            //政府补贴
+            salegovsubsidycreate : function(productservice){
+                return productservice.salegovsubsidycreate();
             },
-            salehalfinfo : function(productservice){
-                return productservice.salehalfinfo();
+            salegovsubsidyupdate : function(productservice){
+                return productservice.salegovsubsidyupdate();
+            },
+            salegovsubsidyinfo : function(productservice){
+                return productservice.salegovsubsidyinfo();
+            },
+            //居游补贴
+            salejuyousubsidycreate : function(productservice){
+                return productservice.salejuyousubsidycreate();
+            },
+            salejuyousubsidyupdate : function(productservice){
+                return productservice.salejuyousubsidyupdate();
+            },
+            salejuyousubsidyinfo : function(productservice){
+                return productservice.salejuyousubsidyinfo();
+            },
+            //销售品类型查询功能模块
+            salecategorylist : function(productservice){
+                return productservice.salecategorylist();
             },
             dictbytypelist : function(productservice){
                 return productservice.dictbytypelist;

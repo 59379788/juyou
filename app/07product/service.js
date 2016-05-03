@@ -124,6 +124,22 @@ var service = function($resource, BASEURL38985, $q, $http){
     //销售品类型列表
     var salecategorydelete = BASEURL38985 + '/api/as/tc/salecategory/delete';
 
+
+    //创建政府补贴
+    var salegovsubsidycreate = BASEURL38985 + '/api/as/tc/salegovsubsidy/create';
+    //修改政府补贴
+    var salegovsubsidyupdate = BASEURL38985 + '/api/as/tc/salegovsubsidy/update';
+    //政府补贴详情
+    var salegovsubsidyinfo = BASEURL38985 + '/api/as/tc/salegovsubsidy/info';
+
+
+    //创建居游补贴
+    var salejuyousubsidycreate = BASEURL38985 + '/api/as/tc/salejuyousubsidy/create';
+    //修改居游补贴
+    var salejuyousubsidyupdate = BASEURL38985 + '/api/as/tc/salejuyousubsidy/update';
+    //居游补贴详情
+    var salejuyousubsidyinfo = BASEURL38985 + '/api/as/tc/salejuyousubsidy/info';
+
     
     return {
 
@@ -277,7 +293,26 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         salecategorydelete : function(){
             return $resource(salecategorydelete, {}, {});
+        },
+        salegovsubsidycreate : function(){
+            return $resource(salegovsubsidycreate, {}, {});
+        },
+        salegovsubsidyupdate : function(){
+            return $resource(salegovsubsidyupdate, {}, {});
+        },
+        salegovsubsidyinfo : function(){
+            return $resource(salegovsubsidyinfo, {}, {});
+        },
+        salejuyousubsidycreate : function(){
+            return $resource(salejuyousubsidycreate, {}, {});
+        },
+        salejuyousubsidyupdate : function(){
+            return $resource(salejuyousubsidyupdate, {}, {});
+        },
+        salejuyousubsidyinfo : function(){
+            return $resource(salejuyousubsidyinfo, {}, {});
         }
+        
 
        
     };

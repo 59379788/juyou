@@ -56,7 +56,7 @@ require('./99common/app');
 angular.module('constant', [])
   .constant('BASEURL', 'http://115.28.145.50:38986')
   //.constant('BASEURL', 'http://115.28.189.180:38987')
-  //.constant('BASEURL38985', 'http://sit.juyouhx.com');
+  //.constant('BASEURL', 'http://www.juyouhx.com')
   .constant('BASEURL38985', '')
   //权限
   .constant('SYS', '')
