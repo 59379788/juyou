@@ -14,6 +14,9 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
             userinfo : function(custservice){
                 return custservice.userinfo();
+            },
+            updateUserAuthInfo : function(custservice){
+                return custservice.updateUserAuthInfo();
             }
         }
       })
@@ -28,6 +31,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             oneuserinfo : function(custservice){
                 return custservice.oneuserinfo();
+            },
+            updateUserSubsidy : function(custservice){
+                return custservice.updateUserSubsidy();
             }
         }
       })

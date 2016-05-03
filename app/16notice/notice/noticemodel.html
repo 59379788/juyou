@@ -1,0 +1,57 @@
+<div class="col-xs-10 col-xs-offset-1 form-horizontal" >
+	
+	<div class="form-group">
+		<label class="col-xs-2 control-label">公告标题</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control"
+			ng-model="objt.title"
+			>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">公告内容</label>
+		<div class="col-xs-6">
+			<textarea class="form-control" rows="15"
+			ng-model="objt.content"
+			></textarea>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">公告排序</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control"
+			ng-model="objt.asort"
+			>
+		</div>
+	</div>
+
+	<div class="form-group">
+	    <label class="col-xs-2 control-label">公告状态</label>
+	    <div class="col-xs-10">
+	    	<label class="radio-inline">
+			  <input type="radio" name="state" value="1"
+			  ng-model="objt.state"
+			  > 显示
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="state" value="0"
+			  ng-model="objt.state"
+			  > 隐藏
+			</label>
+	    </div>
+  	</div>
+
+	
+
+	<button 
+    type="button" 
+    class="btn btn-primary btn-lg btn-block" 
+    ng-click="gogo()"
+    >
+    提交
+    </button>
+
+
+</div>
