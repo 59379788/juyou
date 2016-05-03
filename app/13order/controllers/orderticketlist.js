@@ -2,7 +2,6 @@ module.exports = function($scope, $state, $stateParams, ticketlist, createBackOr
 
     var code = $stateParams.code;
 
-
     $scope.load = function () {
         ticketlist.get({'order_code' : code}, function(res){
 

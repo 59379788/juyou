@@ -308,6 +308,6 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 
 /* 产品销售－补贴产品 */
 .unavailable, .unavailable:hover {cursor:not-allowed; color:#aaaaaa;}
-
+.tree-node-content:hover, .selected {color:#3c763d; background: #dff0d8;}
 
 

@@ -21,6 +21,9 @@ var router = function($urlRouterProvider, $stateProvider){
             createorder : function(orderservice){
                 return orderservice.createorder();
             },
+            createSubsidyOrder : function(orderservice){
+                return orderservice.createSubsidyOrder();
+            },
             IdentityCodeValid : function(utilservice){
                 return utilservice.IdentityCodeValid;
             },

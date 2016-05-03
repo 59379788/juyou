@@ -5,6 +5,8 @@
 var service = function($resource, BASEURL38985){
 
     var create = BASEURL38985 + '/api/ac/tc/ticketOrderService/createOrder';
+    //买补贴销售品订单
+    var createSubsidyOrder = BASEURL38985 + '/api/ac/tc/ticketOrderSubsidyService/createOrder';
 
     var list = BASEURL38985 + '/api/as/tc/ticketorder/orderlist';
 
@@ -22,6 +24,9 @@ var service = function($resource, BASEURL38985){
 
         createorder : function(){
             return $resource(create, {}, {});
+        },
+        createSubsidyOrder : function(){
+            return $resource(createSubsidyOrder, {}, {});
         },
         list : function(){
             return $resource(list, {}, {});

@@ -1,18 +1,27 @@
-module.exports = function($scope, $state, $stateParams, namelist, info, createorder, IdentityCodeValid, getuserinfobymobile){
+module.exports = function($scope, $state, $stateParams, namelist, info, 
+    createorder, IdentityCodeValid, getuserinfobymobile, createSubsidyOrder){
 
     //类别
     $scope.sale_category = $stateParams.type;
 
+    //显示购票界面
     $scope.show = false;
 
-    $scope.obj = {};
+    $scope.obj = {
+        'name' : '',
+        //最大购票数量
+        'max' : 99
+    };
 
+    //订单对象
     $scope.order = {
         'name' : '',
         'cardno' : '',
         'mobile' : '',
         'num' : 0
     };
+
+    //
 
     // $scope.order.name = 'dlq';
     // $scope.order.cardno = '210302198308022412';
@@ -23,6 +32,12 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
 
     //销售品树
     namelist.get({'sale_category' : $scope.sale_category}, function(res){
+
+        if(res.errcode !== 0)
+        {
+            alert(res.errmsg);
+            return;
+        }
 
         console.log(res);
 
@@ -40,6 +55,7 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
             o.name = tmp.sale_name;
             o.guide_price = tmp.guide_price;
             o.market_price = tmp.market_price;
+            o.govsubsidy_price = tmp.govsubsidy_price;
             if($scope.sale_category === 'F11') o.unavailable = true;
 
             if(!r.hasOwnProperty(tmp.place_code))
@@ -71,6 +87,11 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
         $scope.order.sale_code = obj.$modelValue.code;
         //销售品名称，用于显示
         $scope.obj.name = obj.$modelValue.name;
+
+        $scope.obj.id = obj.$modelValue.id;
+
+        //销售品政府补贴
+        $scope.obj.govsubsidy_price = obj.$modelValue.govsubsidy_price;
 
         if(obj.$modelValue.hasOwnProperty('id'))
         {
@@ -105,8 +126,15 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
 
         $scope.btnstate = false;
 
+        var fun = createorder;
+
+        if($scope.sale_category === 'F11')
+        {
+            fun = createSubsidyOrder;
+        }
+
         console.log($scope.order);
-        createorder.save($scope.order, function(res){
+        fun.save($scope.order, function(res){
 
             console.log(res);
 
@@ -148,6 +176,10 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
             return;
         }
         $scope.order.num += 1;
+        if($scope.order.num + 1 > $scope.obj.max)
+        {
+            $scope.order.num = $scope.obj.max;
+        }
     };
 
 
@@ -190,15 +222,31 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
             return false;
         }
 
+
+        //补贴销售品验证
+        if($scope.sale_category === 'F11'){
+
+            var usergov = parseInt($scope.order.gov) ;
+            var gov = parseInt($scope.obj.govsubsidy_price);
+
+            var n = (usergov - (usergov % gov)) / gov;
+            if($scope.order.num > n){
+                alert('该用户这种商品最多只能购买' + n + '张');
+                $scope.order.num  = n;
+                return false;
+            }
+            
+        }
+        
+
         return true;
     }
 
 
 
-
-
     // --------------- 卖补贴商品 --------------------------- //
     $scope.searchform = {};
+    //$scope.searchform.mobile = '13840188285';
     $scope.search = function(){
 
         getuserinfobymobile.get($scope.searchform, function(res){
@@ -207,17 +255,51 @@ module.exports = function($scope, $state, $stateParams, namelist, info, createor
 
             if(res.errcode === 0)
             {
-                alert(res.data.generalsubsidy);
+                $scope.userinfo = '游客 : ' + res.data.username + 
+                ' , 身份证 : ' + res.data.papersno + 
+                ' , 可用政府补贴 : ' + res.data.generalsubsidy * 0.01 + '元';
+
+                checkgoodsbuy(res.data.generalsubsidy);
+
+                $scope.order.name = res.data.username;
+                $scope.order.cardno = res.data.papersno;
+                $scope.order.mobile = res.data.mobile;
+                //政府补贴
+                $scope.order.gov = res.data.generalsubsidy;
+
             }
             else
             {
-                alert(res.errmsg);
+                $scope.userinfo = '用户不存在';
             }
 
         });
 
-
     };
+
+
+
+    //检查哪些销售品可以购买
+    function checkgoodsbuy(gov){
+
+        if(!angular.isNumber(gov)){
+            alert('补贴值有误');
+            return;
+        }
+
+        angular.forEach($scope.data, function (value, key) {
+            var arr = $scope.data[key].nodes;
+            for(var i = 0, j = arr.length; i < j; i++){
+                var tmp = arr[i];
+                if(tmp.govsubsidy_price !== -1 
+                && tmp.govsubsidy_price < gov * 100)
+                {
+                    tmp.unavailable = false;
+                }
+            }
+        });
+
+    }
 
     // --------------- 卖补贴商品 --------------------------- //
 

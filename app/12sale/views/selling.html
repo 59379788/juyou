@@ -1,7 +1,8 @@
 <!-- Nested node template -->
 <script type="text/ng-template" id="nodes_renderer.html">
   <div ui-tree-handle class="tree-node tree-node-content"
-  	ng-click="getit(this)" ng-class="{'unavailable': node.unavailable} "
+  	ng-click="getit(this)" 
+    ng-class="{'unavailable': node.unavailable, 'selected' : obj.id != undefined && node.id != undefined && obj.id == node.id} "
   >
     <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" 
     data-nodrag ng-click="toggle(this)" >
@@ -10,14 +11,17 @@
           'glyphicon-chevron-right': collapsed,
           'glyphicon-chevron-down': !collapsed
         }"></span></a>&nbsp;
-    {{node.name}} {{unavailable}}
-    <p class="text-right" style="margin-bottom: 0px;">
-    <small ng-show="node.guide_price != undefined">
-    	分销价{{node.guide_price * 0.01 | currency : '¥'}} 
-    </small>
-    <small ng-show="node.market_price != undefined">
-    	市场价{{node.market_price * 0.01 | currency : '¥'}}
-    </small>
+    {{node.name}}
+    <p class="text-right" style="margin-top: 5px;margin-bottom: 0px;">
+      <small ng-show="node.govsubsidy_price != undefined && node.govsubsidy_price != -1">
+        政府补贴{{node.govsubsidy_price * 0.01 | currency : '¥'}} 
+      </small>
+      <small ng-show="node.guide_price != undefined">
+      	分销价{{node.guide_price * 0.01 | currency : '¥'}} 
+      </small>
+      <small ng-show="node.market_price != undefined">
+      	市场价{{node.market_price * 0.01 | currency : '¥'}}
+      </small>
     </p>
 
     <!-- <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
@@ -45,9 +49,8 @@
           </div>
           <div class="col-sm-8" >
               <p class="bg-info" style="padding: 10px;">
-                {{userinfo}}
+                &nbsp;{{userinfo}}
               </p>
-
           </div>
       </div>
   </div>
@@ -74,15 +77,18 @@
 		<div class="panel-body addTicketForm">
 			<div class="input-group">
 				<span class="input-group-addon" >身份证号</span>
-			  	<input type="text" class="form-control" ng-model="order.cardno" >
+			  	<input type="text" class="form-control" ng-model="order.cardno" 
+          ng-disabled="sale_category == 'F11'">
 			</div>
 			<div class="input-group mt20">
 				<span class="input-group-addon" >游客姓名</span>
-			  	<input type="text" class="form-control" ng-model="order.name" >
+			  	<input type="text" class="form-control" ng-model="order.name" 
+          ng-disabled="sale_category == 'F11'">
 			</div>
 			<div class="input-group mt20">
 				<span class="input-group-addon" >联系电话</span>
-			  	<input type="text" class="form-control" ng-model="order.mobile" >
+			  	<input type="text" class="form-control" ng-model="order.mobile" 
+          ng-disabled="sale_category == 'F11'">
 			</div>
 			<div class="input-group num mt20">
 				<span class="input-group-addon">购票数量</span>

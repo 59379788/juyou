@@ -4,7 +4,9 @@
  */
 var service = function($resource, BASEURL38985, $q, $http){
 
-    var saleNameList = BASEURL38985 + '/api/as/tc/sale/saleNameList';
+    //var saleNameList = BASEURL38985 + '/api/as/tc/sale/saleNameList';
+
+    var saleNameList = BASEURL38985 + '/api/as/tc/sale/saleNameBySubsidyList';
 
     var saleInfo = BASEURL38985 + '/api/as/tc/sale/saleInfo';
     
