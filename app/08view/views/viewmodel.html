@@ -69,12 +69,21 @@
 						</div>
 					</div>
 
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label class="col-xs-2 control-label">市</label>
 						<div class="col-xs-10">
 							<input type="text" class="form-control" 
 							ng-model="placeobj.city"
 							>
+						</div>
+					</div> -->
+					<div class="form-group" >
+						<label class="col-xs-2 control-label">市</label>
+						<div class="col-xs-10" >
+							<select class="form-control" ng-model="placeobj.city" 
+				              ng-options="city.CODE as city.NAME for city in cityarr"
+				            >
+				            </select>
 						</div>
 					</div>
 
@@ -177,7 +186,7 @@
 					<div class="form-group">
 						<label class="col-xs-2 control-label">市</label>
 						<div class="col-xs-10">
-							<p class="form-control-static">{{placeobj.city}}</p>
+							<p class="form-control-static">{{placeobj.cityname}}</p>
 						</div>
 					</div>
 

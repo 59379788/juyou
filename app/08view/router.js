@@ -31,6 +31,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             viewcreate : function(viewservice){
                 return viewservice.create();
+            },
+            city : function(viewservice){
+                return viewservice.city;
             }
         }
       })
@@ -52,6 +55,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             viewupdate : function(viewservice){
                 return viewservice.update();
+            },
+            city : function(viewservice){
+                return viewservice.city;
             }
         }
       })

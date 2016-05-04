@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, placecreate, viewcreate, FileUploader){
+module.exports = function($scope, $state, placecreate, viewcreate, FileUploader, city){
 
 	$scope.placeobj = {};
 	$scope.placeobj.id = '';
@@ -10,6 +10,19 @@ module.exports = function($scope, $state, placecreate, viewcreate, FileUploader)
 	$scope.viewobj = {};
 	$scope.viewobjstate = 1;	//编辑状态
 	$scope.viewobj.star = 5;
+
+	//基本信息 城市下拉
+	city().then(function(res) {
+        if(res.errcode === 0)
+        {
+        	$scope.cityarr = res.data;
+        	$scope.placeobj.city=$scope.cityarr[0].CODE;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
 
 
 	var uploader1 = $scope.uploader1 = new FileUploader({

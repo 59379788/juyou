@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, FileUploader, placeinfo, placeupdate, viewinfo, viewupdate){
+module.exports = function($scope, $stateParams, FileUploader, placeinfo, placeupdate, viewinfo, viewupdate, city){
 
 	$scope.placeobj = {};
 	$scope.placeobj.id = $stateParams.placeid;
@@ -9,6 +9,8 @@ module.exports = function($scope, $stateParams, FileUploader, placeinfo, placeup
 	$scope.viewobj = {};
 	$scope.viewobj.place_id = $stateParams.placeid;
 	$scope.viewobjstate = 0;	//展示状态
+
+
 
 
 	var uploader1 = $scope.uploader1 = new FileUploader({
@@ -47,9 +49,14 @@ module.exports = function($scope, $stateParams, FileUploader, placeinfo, placeup
 		if(res.errcode === 0)
 		{
 			$scope.placeobj = res.data;
+
+			getcity($scope.placeobj.city);
 		}
 
 	});
+
+
+
 
 	viewinfo.get({'place_id' : $scope.placeobj.id}, function(res){
 
@@ -88,6 +95,7 @@ module.exports = function($scope, $stateParams, FileUploader, placeinfo, placeup
 			{
 				//$scope.placeobj.id = res.data.uuid;
 				$scope.placeobjstate = 0;
+				getcity($scope.placeobj.city);
 			}
 			else
 			{
@@ -122,5 +130,28 @@ module.exports = function($scope, $stateParams, FileUploader, placeinfo, placeup
 		});
 
 	};
+
+
+	function getcity(code){
+		//基本信息 城市下拉
+		city().then(function(res) {
+	        if(res.errcode === 0)
+	        {
+	        	$scope.cityarr = res.data;
+	        	for(var i = 0, j = res.data.length; i < j; i++)
+				{
+					if(res.data[i].CODE == code)
+					{
+						$scope.placeobj['cityname'] = res.data[i].NAME;
+						break;
+					}
+				}
+	        }
+	        else
+	        {
+	            alert(res.errmsg);
+	        }
+	    });
+	}
 	
 };
