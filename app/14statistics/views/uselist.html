@@ -4,8 +4,11 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                 
+
+                  <input type="text" class="form-control" ng-model="searchform.place_name" placeholder="景区名称">
+                  &nbsp;&nbsp;
             
-                  <label>使用时间</label>&nbsp;&nbsp;
+                  
                   <div class="input-group">
                   <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
                       <span class="input-group-btn">
@@ -48,16 +51,22 @@
   <table class="table table-bordered">
     <thead>
       <tr>
+        <th class="col-md-2 text-center">购票时间</th>
         <th class="col-md-2 text-center">操作时间</th>
-        <th class="col-md-6 text-center">商品名称</th>
-        <th class="col-md-2 text-center">已使用</th>
-        <th class="col-md-2 text-center">已退票</th>
+        <th class="col-md-2 text-center">景区名称</th>
+        <th class="col-md-3 text-center">商品名称</th>
+        <th class="col-md-1 text-center">票号</th>
+        <th class="col-md-1 text-center">已使用</th>
+        <th class="col-md-1 text-center">已退票</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.create_time}}</td>
         <td class="text-center">{{obj.otime}}</td>
-        <td class="">{{obj.type_name}}</td>
+        <td class="text-center">{{obj.place_name}}</td>
+        <td class="text-center">{{obj.type_name}}</td>
+        <td class="text-center">{{obj.code}}</td>
         <td class="text-center">
           <span ng-show="{{obj.used == '1'}}" class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
           <span ng-show="{{obj.used == '0'}}" class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
