@@ -113,7 +113,9 @@
 	
 	<div class="panel panel-success">
 		  <div class="panel-heading">预定需知</div>
-		  <div class="panel-body tinfo"></div>
+		  <div class="panel-body tinfo">
+        <p ng-bind-html="obj.detail | trustHtml"></p>
+      </div>
 	</div>
 
   </div>

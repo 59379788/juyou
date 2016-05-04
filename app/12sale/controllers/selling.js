@@ -95,22 +95,20 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
 
         if(obj.$modelValue.hasOwnProperty('id'))
         {
-            // info.get({'id' : obj.$modelValue.id}, function(res){
+            info.get({'id' : obj.$modelValue.id}, function(res){
 
-            //     console.log(res);
-            //     if(res.errcode === 0)
-            //     {
-            //         $scope.show = true;
-            //         $scope.obj = res.data;
-            //         $scope.order.sale_code = obj.$modelValue.code;
-            //     }
-            //     else
-            //     {
-            //         $scope.show = false;
-            //         alert(res.errmsg);
-            //     }
+                console.log(res);
+                if(res.errcode === 0)
+                {
+                    $scope.obj.detail = res.data.detail;
+                }
+                else
+                {
+                    $scope.show = false;
+                    alert(res.errmsg);
+                }
 
-            // });
+            });
         }
     };
 
