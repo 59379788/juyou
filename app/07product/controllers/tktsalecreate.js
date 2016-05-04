@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist){
+module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, FileUploader){
 
 	$scope.saleobj = {};
 	$scope.saleobj.id = '';
@@ -14,6 +14,20 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist){
 	$scope.saleobj.market_price = 0;
 	$scope.saleobj.guide_price = 0;
 	$scope.saleobj.cost_price = 0;
+
+	var uploader1 = $scope.uploader1 = new FileUploader({
+        url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
+    });
+    uploader1.filters.push({
+        name: 'imageFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    }); 
+    uploader1.onSuccessItem = function(fileItem, response, status, headers) {
+        $scope.saleobj.top_pic = response.savename;
+    };
 	
 
 	//基本信息 景区下拉

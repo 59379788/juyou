@@ -1,4 +1,4 @@
-<div class="col-xs-10 col-xs-offset-1" >
+<div class="col-xs-12 " >
 	<div class="panel panel-default form-horizontal">
 		<div class="panel-heading">
 			基本信息
@@ -12,11 +12,11 @@
 		<div class="panel-body">
 			<div class="container-fluid">
 				
-				<div class="col-xs-10" >
+				<div class="col-xs-12 col-md-8" >
 
 					<div class="form-group">
-						<label class="col-xs-2 control-label">销售品名称</label>
-						<div class="col-xs-10">
+						<label class="col-xs-4 control-label">销售品名称</label>
+						<div class="col-xs-8">
 							<input type="text" class="form-control" placeholder="请输入销售品名称"
 							ng-model="saleobj.name"
 							>
@@ -24,8 +24,8 @@
 					</div>
 
 					<div class="form-group">
-						<label class="col-xs-2 control-label">销售品简介</label>
-						<div class="col-xs-10">
+						<label class="col-xs-4 control-label">销售品简介</label>
+						<div class="col-xs-8">
 							<textarea class="form-control" rows="3"
 							ng-model="saleobj.detail"
 							></textarea>
@@ -43,8 +43,8 @@
 					</div> -->
 
 					<div class="form-group">
-						<label class="col-xs-2 control-label">市场价格</label>
-						<div class="col-xs-10">
+						<label class="col-xs-4 control-label">市场价格</label>
+						<div class="col-xs-8">
 							<div class="input-group">
 								<span class="input-group-addon">¥</span>
 								<input type="number" class="form-control" placeholder="请输入市场价格" min='0'
@@ -55,8 +55,8 @@
 					</div>
 
 					<div class="form-group">
-						<label class="col-xs-2 control-label">居游价格</label>
-						<div class="col-xs-10">
+						<label class="col-xs-4 control-label">居游价格</label>
+						<div class="col-xs-8">
 							<div class="input-group">
 								<span class="input-group-addon">¥</span>
 								<input type="number" class="form-control" placeholder="请输入居游价格" min='0'
@@ -67,8 +67,8 @@
 					</div>
 
 					<div class="form-group">
-						<label class="col-xs-2 control-label">分销商成本价格</label>
-						<div class="col-xs-10">
+						<label class="col-xs-4 control-label">分销商成本价格</label>
+						<div class="col-xs-8">
 							<div class="input-group">
 								<span class="input-group-addon">¥</span>
 								<input type="number" class="form-control" placeholder="请输入分销商成本价格" min='0'
@@ -79,8 +79,8 @@
 					</div>
 
 					<div class="form-group" >
-						<label class="col-xs-2 control-label">销售品分类</label>
-						<div class="col-xs-10" >
+						<label class="col-xs-4 control-label">销售品分类</label>
+						<div class="col-xs-8" >
 							<select class="form-control" ng-model="saleobj.sale_category" ng-disabled="saleobj.id != ''"
 				              ng-options="type1.value as type1.label for type1 in typearr"
 				            >
@@ -89,8 +89,8 @@
 					</div>
 
 					<div class="form-group">
-						<label class="col-xs-2 control-label">短信模板编号</label>
-						<div class="col-xs-10">
+						<label class="col-xs-4 control-label">短信模板编号</label>
+						<div class="col-xs-8">
 							<input type="text" class="form-control" placeholder="请输入短信模板编号"
 							ng-model="saleobj.sms_template_id"
 							>
@@ -98,8 +98,8 @@
 					</div>
 
 					<div class="form-group">
-						<label class="col-xs-2 control-label">短信追加内容</label>
-						<div class="col-xs-10">
+						<label class="col-xs-4 control-label">短信追加内容</label>
+						<div class="col-xs-8">
 							<textarea class="form-control" rows="3"
 							ng-model="saleobj.sms_diy"
 							></textarea>
@@ -107,8 +107,8 @@
 					</div>
 
 					<div class="form-group">
-					    <label class="col-xs-2 control-label">短信发送类型</label>
-					    <div class="col-xs-10">
+					    <label class="col-xs-4 control-label">短信发送类型</label>
+					    <div class="col-xs-8">
 					    	<label class="radio-inline">
 							  <input type="radio" name="sms_type" value="1"
 							  ng-model="saleobj.sms_type"
@@ -123,8 +123,8 @@
 				  	</div>
 
 				  	<div class="form-group">
-					    <label class="col-xs-2 control-label">系统确认</label>
-					    <div class="col-xs-10">
+					    <label class="col-xs-4 control-label">系统确认</label>
+					    <div class="col-xs-8">
 					    	<label class="radio-inline">
 							  <input type="radio" name="sys_affirm_type" value="0"
 							  ng-model="saleobj.sys_affirm_type"
@@ -139,8 +139,8 @@
 				  	</div>
 
 				  	<div class="form-group">
-					    <label class="col-xs-2 control-label">支付类型</label>
-					    <div class="col-xs-10">
+					    <label class="col-xs-4 control-label">支付类型</label>
+					    <div class="col-xs-8">
 					    	<label class="radio-inline">
 							  <input type="radio" name="pay_type" value="0"
 							  ng-model="saleobj.pay_type"
@@ -155,8 +155,8 @@
 				  	</div>
 
 				  	<div class="form-group">
-					    <label class="col-xs-2 control-label">库存类型</label>
-					    <div class="col-xs-10">
+					    <label class="col-xs-4 control-label">库存类型</label>
+					    <div class="col-xs-8">
 					    	<label class="radio-inline">
 							  <input type="radio" name="stock_type" value="0"
 							  ng-model="saleobj.stock_type"
@@ -171,8 +171,8 @@
 				  	</div>
 
 				  	<div class="form-group">
-					    <label class="col-xs-2 control-label">销售目标</label>
-					    <div class="col-xs-10">
+					    <label class="col-xs-4 control-label">销售目标</label>
+					    <div class="col-xs-8">
 					    	<label class="radio-inline">
 							  <input type="radio" name="sale_target_type" value="0"
 							  ng-model="saleobj.sale_target_type"
@@ -186,6 +186,21 @@
 					    </div>
 				  	</div>
 
+				</div>
+
+				<div class="col-xs-12 col-md-4">
+					<label class="control-label">销售品图片</label>
+					<img ng-src="{{saleobj.top_pic}}" width="150" height="150" ng-model="saleobj.top_pic">
+					<input type="file" nv-file-select uploader="uploader1" /><br/>
+					<ul class="list-group">
+					    <li class="list-group-item" ng-repeat="item in uploader1.queue">
+					        文件名: <span ng-bind="item.file.name"></span>
+					        <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+					        <div class="progress mt10">
+					            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader1.progress + '%' }"></div>
+					        </div>
+					    </li>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -292,6 +307,49 @@
 	<div class="panel panel-default form-horizontal">
 		<div class="panel-heading">
 			居游补贴
+			<button type="button" 
+				class="btn btn-xs btn-info pull-right"
+				ng-show="!funobj.juyousubsidy.has"
+				ng-click="juyoucreate()"
+			>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+
+			<button type="button" 
+				class="btn btn-xs btn-info pull-right"
+				ng-show="funobj.juyousubsidy.has"
+				ng-click="juyouupdate()"
+			>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				
+				<div class="col-xs-10" >
+					<div class="form-group">
+						<label class="col-xs-2 control-label">补贴金额</label>
+						<div class="col-xs-10">
+							<input type="text" class="form-control"
+							ng-model="juyouobj.juyousubsidy_price"
+							>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<div class="col-xs-10 col-xs-offset-1" ng-show="funobj.hasOwnProperty('juyousubsidy')">
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			用户限制数量
 			<button type="button" 
 				class="btn btn-xs btn-info pull-right"
 				ng-show="!funobj.juyousubsidy.has"

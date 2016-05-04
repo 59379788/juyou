@@ -1,5 +1,5 @@
 module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, goodlist, 
-	saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, 
+	saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, FileUploader,
 	salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
 	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo){
 	
@@ -23,6 +23,20 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
         }
     });
 
+    var uploader1 = $scope.uploader1 = new FileUploader({
+        url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
+    });
+    uploader1.filters.push({
+        name: 'imageFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    }); 
+    uploader1.onSuccessItem = function(fileItem, response, status, headers) {
+        $scope.saleobj.top_pic = response.savename;
+    };
+
     dictbytypelist({'type' : 'sale_category'}).then(function(res) {
     	//console.log(res);
         if(res.errcode === 0)
@@ -36,7 +50,7 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
     });
 
 	saleinfo.get({'id' : $stateParams.id}, function(res){
-		//console.log(res);
+		console.log(res);
 
 		if(res.errcode === 0)
 		{
