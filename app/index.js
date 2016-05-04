@@ -11,6 +11,17 @@ require('angular-ui-bootstrap');
 require('angular-file-upload');
 require('angular-ui-tree');
 
+
+// ------------ 富文本编辑器 ----------------------//
+//require('../node_modules/textangular/dist/textAngular-rangy.min');
+require('../node_modules/textangular/dist/textAngular-sanitize.min');
+require('../node_modules/textangular/dist/textAngular.min');
+require('../node_modules/textangular/dist/textAngular.umd');
+require('../node_modules/textangular/dist/textAngularSetup');
+require('../node_modules/textangular/dist/textAngular.css');
+// ------------ 富文本编辑器 ----------------------//
+
+
 require('../node_modules/angular-ui-tree/dist/angular-ui-tree.css');
 require('./style/app.css');
 
@@ -97,6 +108,7 @@ var App = angular.module('juyouApp', [
     'ngResource',
     'angularFileUpload',
     'ui.tree',
+    'textAngular',
     'constant'
 ]);
 
