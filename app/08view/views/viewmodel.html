@@ -269,10 +269,13 @@
 					<div class="form-group">
 						<label class="col-xs-3 control-label">主题</label>
 						<div class="col-xs-9">
-							<select class="form-control" ng-model="viewobj.theme" 
+							<!-- <select class="form-control" ng-model="viewobj.theme" 
 				              ng-options="view.code as view.name for view in viewarr"
 				            >
-				            </select>
+				            </select> -->
+				            <input type="text" class="form-control" 
+							ng-model="viewobj.theme"
+							>
 						</div>
 					</div>
 
@@ -413,10 +416,11 @@
 					<div class="form-group">
 						<label class="col-xs-3 control-label">主题</label>
 						<div class="col-xs-9">
-							<select class="form-control" ng-model="viewobj.theme" 
+							<!-- <select class="form-control" ng-model="viewobj.theme" 
 				              ng-options="view.code as view.name for view in viewarr"
 				            >
-				            </select>
+				            </select> -->
+				            <p class="form-control-static">{{viewobj.theme}}</p>
 						</div>
 					</div>
 
