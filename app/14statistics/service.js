@@ -10,7 +10,10 @@ var service = function($resource, BASEURL38985){
 
     var viewdestorystatisticlist = BASEURL38985 + '/api/as/tc/ticket2/viewdestorystatisticlist';
 
-    var orderstatisticslist = BASEURL38985 + '/api/as/tc/ticketorder/orderstatisticslist'
+    var orderstatisticslist = BASEURL38985 + '/api/as/tc/ticketorder/orderstatisticslist';
+
+    var orderstatisticscompanylist = BASEURL38985 + '/api/as/tc/ticketorder/orderstatisticscompanylist';
+
 
     return {
         uselist : function(){
@@ -24,6 +27,9 @@ var service = function($resource, BASEURL38985){
         },
         orderstatisticslist : function(){
             return $resource(orderstatisticslist, {}, {});
+        },
+        orderstatisticscompanylist : function(){
+            return $resource(orderstatisticscompanylist, {}, {});
         }
     };
 

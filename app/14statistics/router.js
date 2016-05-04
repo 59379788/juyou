@@ -58,6 +58,23 @@ var router = function($urlRouterProvider, $stateProvider){
         
       })
 
+
+
+      .state('app.statisticscompanylist', {
+        url: '/statisticscompanylist',
+        controller : 'statisticscompanylist',
+        template: require('./views/statisticscompanylist.html'),
+        resolve:{
+            orderstatisticscompanylist : function(statisticsservice){
+                return statisticsservice.orderstatisticscompanylist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            }
+        }
+        
+      })
+
       
 
 

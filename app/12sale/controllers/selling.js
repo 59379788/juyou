@@ -145,6 +145,9 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
                 $scope.order.cardno = '';
                 $scope.order.mobile = '';
                 $scope.order.num = 0;
+
+                $scope.searchform.mobile = '';
+                $scope.userinfo = '';
             }
             else
             {
@@ -264,6 +267,7 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
                 $scope.order.name = res.data.username;
                 $scope.order.cardno = res.data.papersno;
                 $scope.order.mobile = res.data.mobile;
+                $scope.order.uid = res.data.userid;
                 //政府补贴
                 $scope.order.gov = res.data.generalsubsidy;
 
