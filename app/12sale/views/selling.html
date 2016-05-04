@@ -13,9 +13,7 @@
         }"></span></a>&nbsp;
     {{node.name}}
     <p class="text-right" style="margin-top: 5px;margin-bottom: 0px;">
-      <small ng-show="node.govsubsidy_price != undefined && node.govsubsidy_price != -1">
-        政府补贴{{node.govsubsidy_price * 0.01 | currency : '¥'}} 
-      </small>
+      
       <small ng-show="node.guide_price != undefined">
         成本价{{node.cost_price * 0.01 | currency : '¥'}} 
       </small>
@@ -24,6 +22,9 @@
       </small>
       <small ng-show="node.market_price != undefined">
       	市场价{{node.market_price * 0.01 | currency : '¥'}}
+      </small><br>
+      <small ng-show="node.govsubsidy_price != undefined && node.govsubsidy_price != -1">
+        政府补贴{{node.govsubsidy_price * 0.01 | currency : '¥'}} 
       </small>
     </p>
 
