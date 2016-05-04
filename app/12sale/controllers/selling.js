@@ -56,6 +56,7 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
             o.guide_price = tmp.guide_price;
             o.market_price = tmp.market_price;
             o.govsubsidy_price = tmp.govsubsidy_price;
+            o.cost_price = tmp.cost_price;
             if($scope.sale_category === 'F11') o.unavailable = true;
 
             if(!r.hasOwnProperty(tmp.place_code))

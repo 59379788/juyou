@@ -17,6 +17,9 @@
         政府补贴{{node.govsubsidy_price * 0.01 | currency : '¥'}} 
       </small>
       <small ng-show="node.guide_price != undefined">
+        成本价{{node.cost_price * 0.01 | currency : '¥'}} 
+      </small>
+      <small ng-show="node.guide_price != undefined">
       	分销价{{node.guide_price * 0.01 | currency : '¥'}} 
       </small>
       <small ng-show="node.market_price != undefined">
