@@ -17,7 +17,7 @@
 					<div class="form-group">
 						<label class="col-xs-4 control-label">销售品名称</label>
 						<div class="col-xs-8">
-							<input type="text" class="form-control" placeholder="请输入销售品名称"
+							<input type="text" class="form-control" placeholder="请输入销售品名称" ng-disabled="saleobj.id != ''"
 							ng-model="saleobj.name"
 							>
 						</div>
@@ -211,7 +211,7 @@
 </div>
 
 
-<div class="col-xs-10 col-xs-offset-1" ng-show="saleobj.id">
+<div class="col-xs-10 col-xs-offset-1" ng-show="saleobj.id" >
 	<div class="panel panel-default form-horizontal">
 		<div class="panel-heading">
 			详情信息
@@ -235,7 +235,9 @@
 				            </select>
 						</div>
 						<div class="col-xs-2">
-							<a ng-click="add()" class="btn btn-success btn-sm">添加</a>
+							<a ng-click="add()" class="btn btn-success btn-sm"
+							ng-show="saleobj.id == ''"
+							>添加</a>
 						</div>
 					</div>
 
@@ -250,7 +252,9 @@
 					      <tr ng-repeat="obj in objs">
 					        <td class="text-center">{{obj.goods_name}}</td>
 					        <td class="text-center">
-					          <a ng-click="del(obj.id)" class="btn btn-warning btn-xs">删除</a>
+					          <a ng-click="del(obj.id)" 
+					          ng-show="saleobj.id == ''"
+					          class="btn btn-warning btn-xs">删除</a>
 					        </td>
 					      </tr>
 					    </tbody>

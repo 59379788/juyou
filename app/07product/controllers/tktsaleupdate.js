@@ -155,6 +155,10 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
 
 	//详细信息	删除
 	$scope.del = function(id){
+		if (!confirm("确定要删除商品吗，亲！！～～")) {
+            return false;
+        }
+
 		saledetaildelete.get({'id' : id}, function(res){
 			if(res.errcode === 0)
 			{

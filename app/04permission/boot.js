@@ -8,7 +8,7 @@ module.exports = function($){
       dataType: 'json'
     }).then(function(res){
 
-      //console.log(res);
+      console.log(res);
 
       //按钮显示权限
       var permissions = new Array();
@@ -32,6 +32,18 @@ module.exports = function($){
           }
         }
 
+        angular.module('juyouApp').run(['$rootScope','$location','angularPermission', function($rootScope,$location,angularPermission){
+
+          $rootScope.menudata = menudata;
+
+          $rootScope.userPermissionList = permissions;
+
+          angularPermission.setPermissions($rootScope.userPermissionList);
+
+        }]);
+
+        angular.bootstrap(document, ['juyouApp']);
+
       //  console.log(menudata);
       }
       else if(res.errcode === 1001)
@@ -47,18 +59,6 @@ module.exports = function($){
         alert(res.errmsg);
         //window.location = "/manager/login";
       }
-
-      angular.module('juyouApp').run(['$rootScope','$location','angularPermission', function($rootScope,$location,angularPermission){
-
-        $rootScope.menudata = menudata;
-
-        $rootScope.userPermissionList = permissions;
-
-        angularPermission.setPermissions($rootScope.userPermissionList);
-
-      }]);
-
-      angular.bootstrap(document, ['juyouApp']);
 
     });
   });
