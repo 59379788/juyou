@@ -15,7 +15,7 @@ body {
 .mt25{margin-top: 25px;}
 .mb10{margin-bottom: 10px;}
 
-body { padding-bottom: 70px; }
+body { /*padding-bottom: 70px;*/ }
 .navbar-brand{/*padding-top: 5px;*/}
 
 

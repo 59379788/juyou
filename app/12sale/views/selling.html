@@ -1,7 +1,7 @@
 <!-- Nested node template -->
 <script type="text/ng-template" id="nodes_renderer.html">
   <div ui-tree-handle class="tree-node tree-node-content"
-  	ng-click="getit(this)" 
+    ng-click="getit(this)" 
     ng-class="{'unavailable': node.unavailable, 'selected' : obj.id != undefined && node.id != undefined && obj.id == node.id} "
   >
     <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" 
@@ -18,10 +18,10 @@
         成本价{{node.cost_price * 0.01 | currency : '¥'}} 
       </small>
       <small ng-show="node.guide_price != undefined">
-      	指导价{{node.guide_price * 0.01 | currency : '¥'}} 
+        指导价{{node.guide_price * 0.01 | currency : '¥'}} 
       </small>
       <small ng-show="node.market_price != undefined">
-      	门市价{{node.market_price * 0.01 | currency : '¥'}}
+        门市价{{node.market_price * 0.01 | currency : '¥'}}
       </small>
       <small ng-show="node.govsubsidy_price != undefined && node.govsubsidy_price != -1">
         政府补贴{{node.govsubsidy_price * 0.01 | currency : '¥'}} 
@@ -64,7 +64,7 @@
 
 
 <div class="row">
-  <div class="col-sm-5">
+  <div class="col-sm-5" style="height:600px; overflow: auto; ">
     <div ui-tree id="tree-root" data-nodrop-enabled="true" data-drag-enabled="false">
       <ol ui-tree-nodes ng-model="data">
         <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
@@ -76,51 +76,51 @@
   <div class="row col-sm-7" ng-show="show == true">
 
     <div class="panel panel-success " >
-		<div class="panel-heading ">{{obj.name}} 
+    <div class="panel-heading ">{{obj.name}} 
     <!-- (需要提前 <span class="bhour"></span> 小时购票)--></div> 
-		<div class="panel-body addTicketForm">
-			<div class="input-group">
-				<span class="input-group-addon" >身份证号</span>
-			  	<input type="text" class="form-control" ng-model="order.cardno" 
+    <div class="panel-body addTicketForm">
+      <div class="input-group">
+        <span class="input-group-addon" >身份证号</span>
+          <input type="text" class="form-control" ng-model="order.cardno" 
           ng-disabled="sale_category == 'F11'">
-			</div>
-			<div class="input-group mt20">
-				<span class="input-group-addon" >游客姓名</span>
-			  	<input type="text" class="form-control" ng-model="order.name" 
+      </div>
+      <div class="input-group mt20">
+        <span class="input-group-addon" >游客姓名</span>
+          <input type="text" class="form-control" ng-model="order.name" 
           ng-disabled="sale_category == 'F11'">
-			</div>
-			<div class="input-group mt20">
-				<span class="input-group-addon" >联系电话</span>
-			  	<input type="text" class="form-control" ng-model="order.mobile" 
+      </div>
+      <div class="input-group mt20">
+        <span class="input-group-addon" >联系电话</span>
+          <input type="text" class="form-control" ng-model="order.mobile" 
           ng-disabled="sale_category == 'F11'">
-			</div>
-			<div class="input-group num mt20">
-				<span class="input-group-addon">购票数量</span>
-			  	<button type="button" class="btn btn-default jian "
-			  	ng-click="jian()"
-			  	>-</button>
-	    		<input  type="text"   class="kuang" ng-model="order.num" >
-	    		<button type="button" class="btn btn-default jia"
-	    		ng-click="jia()"
-	    		>+</button>
-			</div>
-			<div class="input-group mt20">
-				<span class="input-group-addon">备注信息</span>
-			  	<input type="text" class="form-control" ng-model="order.note" >
-			</div>
-			<button type="button" class="btn btn-info btn-block mt20" 
-				ng-click="gogo()" ng-disabled="!btnstate"
-			>确认购票</button>
-		</div>
-	</div>
+      </div>
+      <div class="input-group num mt20">
+        <span class="input-group-addon">购票数量</span>
+          <button type="button" class="btn btn-default jian "
+          ng-click="jian()"
+          >-</button>
+          <input  type="text"   class="kuang" ng-model="order.num" >
+          <button type="button" class="btn btn-default jia"
+          ng-click="jia()"
+          >+</button>
+      </div>
+      <div class="input-group mt20">
+        <span class="input-group-addon">备注信息</span>
+          <input type="text" class="form-control" ng-model="order.note" >
+      </div>
+      <button type="button" class="btn btn-info btn-block mt20" 
+        ng-click="gogo()" ng-disabled="!btnstate"
+      >确认购票</button>
+    </div>
+  </div>
 
-	
-	<div class="panel panel-success">
-		  <div class="panel-heading">预定需知</div>
-		  <div class="panel-body tinfo">
+  
+  <div class="panel panel-success">
+      <div class="panel-heading">预定需知</div>
+      <div class="panel-body tinfo">
         <p ng-bind-html="obj.detail | trustHtml"></p>
       </div>
-	</div>
+  </div>
 
   </div>
 </div>
