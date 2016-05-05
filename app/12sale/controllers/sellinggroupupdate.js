@@ -1,8 +1,9 @@
-module.exports = function($scope, $stateParams, $state, groupsalelist, groupone, update, updatedetail){
+module.exports = function($scope, $stateParams, $state, groupsalelist, groupone, update, updatedetail, userinfo){
 
 	$scope.groupobj = {};
 	$scope.groupobjstate = 0;
 
+	var name;
 
 	groupsalelist().then(function(res) {
 		console.log(res);
@@ -15,6 +16,10 @@ module.exports = function($scope, $stateParams, $state, groupsalelist, groupone,
         {
             alert(res.errmsg);
         }
+    });
+
+    userinfo().then(function(res) {
+		name = res.name;
     });
 
     groupone.get({'code' : $stateParams.code}, function(res){
@@ -58,6 +63,7 @@ module.exports = function($scope, $stateParams, $state, groupsalelist, groupone,
 		}
 
 		$scope.groupobj.code = $stateParams.code;
+		$scope.groupobj.username = name;
 		update.save($scope.groupobj, function(res){
 
 			if(res.errcode === 0)

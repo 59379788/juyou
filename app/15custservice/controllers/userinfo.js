@@ -14,6 +14,14 @@ module.exports = function($scope, $state, userinfo, updateUserAuthInfo){
          		return;
          	}
 
+         	if(res.data.phycardno.toString() == 'null'){
+         		res.data.phycardno = '';
+         	}
+
+         	if(res.data.digitalcardno.toString() == 'null'){
+         		res.data.digitalcardno = '';
+         	}
+
          	$scope.obj = res.data;
 
         });

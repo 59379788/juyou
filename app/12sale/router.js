@@ -72,6 +72,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getDate : function(utilservice){
                 return utilservice.getDate;
+            },
+            userinfo : function(sellingservice){
+                return sellingservice.userinfo;
             }
         }
       })
@@ -92,6 +95,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             updatedetail : function(sellingservice){
                 return sellingservice.updatedetail();
+            },
+            userinfo : function(sellingservice){
+                return sellingservice.userinfo;
             }
         }
       })
