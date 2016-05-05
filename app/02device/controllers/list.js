@@ -1,10 +1,12 @@
 module.exports = function($scope, $uibModal, typelist, devicelist, add, del, $state, $stateParams){
 
+	var para = {};
 	var view = $stateParams.placecode;
+	if(view !== '') para['view'] = view;
 
 	function load(){
 
-		devicelist.get({'view' : view}, function(res){
+		devicelist.get(para, function(res){
 
 			console.log(res);
 			if(res.errcode === 0)
@@ -19,7 +21,6 @@ module.exports = function($scope, $uibModal, typelist, devicelist, add, del, $st
 		});
 	}
 	load();
-
 
 
 	//打开模态框

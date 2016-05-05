@@ -1,9 +1,6 @@
 module.exports = function($scope, tktlist, $state, $stateParams){
 
-
-
-	
-	tktlist.get({'view' : $stateParams.placecode}, function(res){
+	tktlist.save({'view' : $stateParams.placecode}, function(res){
 
 		console.log(res);
 
