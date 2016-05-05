@@ -1,10 +1,12 @@
-module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, createOrder, getDate){
+module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, createOrder, getDate, userinfo){
 
 	$scope.groupobj = {};
 	$scope.section = {};
 	$scope.section.start = {};
 	$scope.section.start.date = new Date();
 	$scope.groupobjstate = 1;
+
+	var name;
 
 	$scope.open = function(obj) {
 		obj.opened = true;
@@ -21,6 +23,10 @@ module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, c
         {
             alert(res.errmsg);
         }
+    });
+
+    userinfo().then(function(res) {
+		name = res.name;
     });
 
     $scope.detail = function(){
@@ -86,6 +92,7 @@ module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, c
 		}
 
 		$scope.groupobj.arrival_date = getDate($scope.section.start.date);
+		$scope.groupobj.username = name;
 		createOrder.save($scope.groupobj, function(res){
 
 			console.log(res);
