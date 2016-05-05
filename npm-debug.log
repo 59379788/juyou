@@ -1,0 +1,44 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'D:\\软件\\node.js\\node.exe',
+1 verbose cli   'D:\\软件\\node.js\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'start' ]
+2 info using npm@3.3.6
+3 info using node@v5.0.0
+4 verbose run-script [ 'prestart', 'start', 'poststart' ]
+5 info lifecycle juyou@1.0.0~prestart: juyou@1.0.0
+6 silly lifecycle juyou@1.0.0~prestart: no script for prestart, continuing
+7 info lifecycle juyou@1.0.0~start: juyou@1.0.0
+8 verbose lifecycle juyou@1.0.0~start: unsafe-perm in lifecycle true
+9 verbose lifecycle juyou@1.0.0~start: PATH: D:\软件\node.js\node_modules\npm\bin\node-gyp-bin;D:\juyou\node_modules\.bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Java\jdk1.7.0_67\bin;C:\Program Files\Java\jdk1.7.0_67\jre\bin;C:\Program Files\Apache Software Foundation\lib;C:\Program Files\Apache Software Foundation\bin;E:\java环境\adt-bundle-windows-x86-20130917\sdk\tools;C;\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\Program Files\Java\jdk1.7.0_67\bin;E:\apache-maven-3.2.5\bin;D:\软件\node.js\;D:\软件\Git\bin;D:\软件\android-sdk\tools;D:\软件\android-sdk\platform-tools;C:\Users\dell\AppData\Roaming\npm
+10 verbose lifecycle juyou@1.0.0~start: CWD: D:\juyou
+11 silly lifecycle juyou@1.0.0~start: Args: [ '/d /s /c', 'webpack-dev-server --hot --inline' ]
+12 silly lifecycle juyou@1.0.0~start: Returned: code: 1  signal: null
+13 info lifecycle juyou@1.0.0~start: Failed to exec start script
+14 verbose stack Error: juyou@1.0.0 start: `webpack-dev-server --hot --inline`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (D:\软件\node.js\node_modules\npm\lib\utils\lifecycle.js:233:16)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at EventEmitter.emit (events.js:172:7)
+14 verbose stack     at ChildProcess.<anonymous> (D:\软件\node.js\node_modules\npm\lib\utils\spawn.js:24:14)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at ChildProcess.emit (events.js:172:7)
+14 verbose stack     at maybeClose (internal/child_process.js:818:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+15 verbose pkgid juyou@1.0.0
+16 verbose cwd D:\juyou
+17 error Windows_NT 6.1.7601
+18 error argv "D:\\软件\\node.js\\node.exe" "D:\\软件\\node.js\\node_modules\\npm\\bin\\npm-cli.js" "start"
+19 error node v5.0.0
+20 error npm  v3.3.6
+21 error code ELIFECYCLE
+22 error juyou@1.0.0 start: `webpack-dev-server --hot --inline`
+22 error Exit status 1
+23 error Failed at the juyou@1.0.0 start script 'webpack-dev-server --hot --inline'.
+23 error This is most likely a problem with the juyou package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     webpack-dev-server --hot --inline
+23 error You can get their info via:
+23 error     npm owner ls juyou
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]
