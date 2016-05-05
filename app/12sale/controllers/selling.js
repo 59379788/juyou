@@ -269,7 +269,6 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
                 $scope.order.uid = res.data.userid;
                 //政府补贴
                 $scope.order.gov = res.data.generalsubsidy;
-
             }
             else
             {
@@ -285,6 +284,7 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
     //检查哪些销售品可以购买
     function checkgoodsbuy(gov){
 
+        //console.log(gov);
         if(!angular.isNumber(gov)){
             alert('补贴值有误');
             return;
@@ -294,8 +294,11 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
             var arr = $scope.data[key].nodes;
             for(var i = 0, j = arr.length; i < j; i++){
                 var tmp = arr[i];
+                // console.log(tmp.govsubsidy_price);
+                // console.log(gov);
+                
                 if(tmp.govsubsidy_price !== -1 
-                && tmp.govsubsidy_price < gov * 100)
+                && tmp.govsubsidy_price < gov)
                 {
                     tmp.unavailable = false;
                 }
