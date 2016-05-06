@@ -1,7 +1,9 @@
-module.exports = function($scope, info, $stateParams, slist, devicetype, update){
+module.exports = function($scope, info, $stateParams, slist, devicetype, update, remove){
 
 	//机器id
 	var id = $stateParams.id;
+
+	$scope.lock = true;
 
 	//机器类型
 	$scope.typearr = devicetype;
@@ -56,5 +58,26 @@ module.exports = function($scope, info, $stateParams, slist, devicetype, update)
 		});
 
 	};
+
+
+	//
+	$scope.remove = function(){
+
+		console.log({'device_code' : $scope.obj.code});
+		remove.save({'device_code' : $scope.obj.code}, function(res){
+
+			console.log(res);
+
+			if(res.errcode === 0 || res.errcode === 1105)
+			{
+				$scope.lock = false;
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+
+		});
+	}
 
 };

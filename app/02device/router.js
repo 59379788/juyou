@@ -110,7 +110,10 @@ module.exports = function($urlRouterProvider, $stateProvider){
         	},
         	update : function(deviceservice){
         		return deviceservice.update();
-        	}
+        	},
+            remove : function(deviceservice){
+                return deviceservice.remove();
+            }
         }
         
       })

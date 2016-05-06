@@ -147,6 +147,14 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
 
                 $scope.searchform.mobile = '';
                 $scope.userinfo = '';
+
+                $scope.obj.id = '';
+                $scope.obj.name = '';
+                $scope.obj.sale_code = '';
+
+                $scope.show = false;
+
+                checkgoodsbuy(0);
             }
             else
             {
@@ -281,10 +289,9 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
 
 
 
-    //检查哪些销售品可以购买
+    //检查哪些销售品可以购买18640527880
     function checkgoodsbuy(gov){
 
-        //console.log(gov);
         if(!angular.isNumber(gov)){
             alert('补贴值有误');
             return;
@@ -294,13 +301,22 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
             var arr = $scope.data[key].nodes;
             for(var i = 0, j = arr.length; i < j; i++){
                 var tmp = arr[i];
-                // console.log(tmp.govsubsidy_price);
-                // console.log(gov);
+                //console.log(tmp.govsubsidy_price);//222
+                //console.log(gov);   //0
                 
-                if(tmp.govsubsidy_price !== -1 
+                if(tmp.govsubsidy_price === -1 )
+                {
+                    tmp.unavailable = true;
+                }
+                else if(tmp.govsubsidy_price !== -1 
                 && tmp.govsubsidy_price < gov)
                 {
                     tmp.unavailable = false;
+                }
+                else if(tmp.govsubsidy_price !== -1 
+                && tmp.govsubsidy_price >= gov){
+
+                    tmp.unavailable = true;
                 }
             }
         });

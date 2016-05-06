@@ -24,7 +24,7 @@
 <table class="table table-bordered table-hover">
     <thead>
       <tr>
-        <th class="text-center col-md-1">设备类型</th>
+        <th class="text-center col-md-2">景区</th>
         <!-- <th class="text-center col-md-1">状态</th> -->
         <th class="text-center col-md-1">备注</th>
         <th class="text-center col-md-2">设备号</th>
@@ -35,7 +35,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
-        <td class="text-center">{{obj.device_type}}</td>
+        <td class="text-center">{{obj.place_name}}</td>
         <!-- <td class="text-center">{{obj.state}}</td> -->
         <td class="text-center">{{obj.remarks}}</td>
         <td class="text-center">{{obj.code}}</td>
@@ -48,7 +48,7 @@
             >编辑</button>
             <button type="submit" 
             class="btn btn-default input-sm"
-            ng-click="configurationticket(obj.code)"
+            ng-click="configurationticket(obj.code, obj.view)"
             >配置票种</button>
         </td>
       </tr>

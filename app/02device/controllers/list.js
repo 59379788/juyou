@@ -24,16 +24,14 @@ module.exports = function($scope, $uibModal, typelist, devicelist, add, del, $st
 
 
 	//打开模态框
-	$scope.configurationticket = function(device_code){
-
-		//alert(device_code);
+	$scope.configurationticket = function(device_code, place_code){
 
 		var modalInstance = $uibModal.open({
 	      template: require('../views/tickettypelist.html'),
 	      controller: 'tickettypelist',
 	      resolve: {
 	      	view : function(){
-	      		return view;
+	      		return place_code;
 	      	},
 	      	device_code : function(){
 	      		return device_code;

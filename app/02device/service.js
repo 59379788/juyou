@@ -23,6 +23,9 @@ module.exports = function($resource, BASEURL38985, $q, $http){
 
     var create = BASEURL38985 + '/api/as/tc/device/create';
 
+
+    var remove = BASEURL38985 + '/api/as/tc/deviceauth/deleteall';
+
     //景区简表
     //var slist = BASEURL38985 + "/api/as/sa/placeview/jlist";
 
@@ -70,6 +73,9 @@ module.exports = function($resource, BASEURL38985, $q, $http){
         },
         create : function(){
             return $resource(create, {}, {});
+        },
+        remove : function(){
+            return $resource(remove, {}, {});
         },
         slist : function(obj){
             var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  

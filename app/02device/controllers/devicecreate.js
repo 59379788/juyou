@@ -3,6 +3,8 @@ module.exports = function($scope, $stateParams, slist, devicetype, create, $stat
 	//机器id
 	var placecode = $stateParams.placecode;
 
+	$scope.lock = false;
+
 	$scope.obj = {};
 	$scope.obj.view = placecode;
 	//机器类型
