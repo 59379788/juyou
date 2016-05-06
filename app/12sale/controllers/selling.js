@@ -72,8 +72,21 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
 
         console.log(r);
         $scope.data = r;
+        // $scope.data = [];
+        // angular.forEach(r, function (value, key) {
+        //     console.log(key + ':' + value);
+        //     $scope.data.push(r[key]);
+        // });
 
     });
+
+
+    $scope.visible = function (item) {
+
+        return !($scope.query && $scope.query.length > 0
+        && item.name.indexOf($scope.query) == -1);
+
+    };
 
 
     $scope.getit = function(obj){
