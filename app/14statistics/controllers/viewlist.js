@@ -1,6 +1,14 @@
-module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, viewdestorystatisticlist){
+module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, 
+    viewdestorystatisticlist, govsubsidygoodscodelist){
 
     $scope.searchform = {};
+
+    $scope.total = {
+        'buy' : 0,
+        'used' : 0,
+        'back' : 0,
+        'total' : 0
+    };
 
     //有效区间
     $scope.section = {};
@@ -13,6 +21,18 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, viewdestorysta
     $scope.open = function(obj) {
         obj.opened = true;
     };
+
+
+    $scope.subsidy = [
+        {
+            'goodscode' : 'J006100001',
+            'subsidy' : '20'
+        },
+        {
+            'goodscode' : 'J006100002',
+            'subsidy' : '30'
+        }
+    ];
 
     /* 分页
      * ========================================= */
@@ -37,9 +57,39 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, viewdestorysta
 
             console.log(res);
 
+             $scope.total = {
+                'buy' : 0,
+                'used' : 0,
+                'back' : 0,
+                'total' : 0
+            };
+            
             if(res.errcode === 0)
             {
                 $scope.objs = res.data;
+
+                for(var i = 0, j = res.data.length; i < j; i++)
+                {
+                    $scope.total.buy += parseInt(res.data[i].buy);
+                    $scope.total.used += parseInt(res.data[i].used);
+                    $scope.total.back += parseInt(res.data[i].back);
+                    $scope.total.total += parseInt(res.data[i].cost_price) * parseInt(res.data[i].used);
+                }
+
+                console.log($scope.total);
+
+                govsubsidygoodscodelist.get({}, function(res1){
+
+                    console.log(res1);
+                    if(res1.errcode === 0)
+                    {
+                        $scope.subsidy = res1.data;
+                    }
+                    else
+                    {
+                        alert(res1.errmsg);
+                    }
+                });
                 //$scope.bigTotalItems = res.data.totalRecord;
             }
             else

@@ -14,6 +14,7 @@ App.controller('orderticketlist',require('./controllers/orderticketlist'));
 App.controller('allorderlist',require('./controllers/allorderlist'));
 App.controller('grouplist',require('./controllers/grouplist'));
 App.controller('groupalllist',require('./controllers/groupalllist'));
+App.controller('orderinfo',require('./controllers/orderinfo'));
 
 
 module.exports = App;

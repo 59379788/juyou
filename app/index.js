@@ -124,11 +124,30 @@ App.config(['$urlRouterProvider', '$stateProvider',
   $httpProvider.interceptors.push('httpInjector');
 })
 
+//html过滤器
 .filter('trustHtml', function ($sce) {
     return function (input) {
         return $sce.trustAsHtml(input);
     }
-});
+})
+
+//挂数据
+.filter('arrfilter', function () {
+    return function (input, key1, key2, value) {
+        var output = '';
+
+        for(var i = 0, j = input.length; i < j; i++)
+        {
+            var tmp = input[i];
+            if(tmp[key1] == value)
+            {
+              output = tmp[key2];
+            }
+        }
+
+        return output;
+    };
+})
 
 ;
 

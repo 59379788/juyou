@@ -36,6 +36,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getDate : function(utilservice){
                 return utilservice.getDate;
+            },
+            govsubsidygoodscodelist : function(statisticsservice){
+                return statisticsservice.govsubsidygoodscodelist();
             }
         }
         

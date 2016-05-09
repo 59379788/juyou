@@ -53,6 +53,7 @@ module.exports = function($){
       else if(res.errcode === 1002)
       {
         alert('无菜单权限');
+        window.location = "/manager/login";
       }
       else
       {

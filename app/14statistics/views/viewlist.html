@@ -4,11 +4,12 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
 
-              <input type="text" class="form-control" ng-model="searchform.place_code" placeholder="景区编号">
-              &nbsp;&nbsp;&nbsp;&nbsp;
-
               <input type="text" class="form-control" ng-model="searchform.place_name" placeholder="景区名称">
               &nbsp;&nbsp;&nbsp;&nbsp;
+
+              <input type="text" class="form-control" ng-model="searchform.type_name" placeholder="票种名称">
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              
                 
               <label>使用时间</label>&nbsp;&nbsp;
               <div class="input-group">
@@ -40,10 +41,12 @@
         <th class="col-md-1 text-center">时间</th>
         <th class="col-md-2 text-center">景区名称</th>
         <th class="col-md-2 text-center">商品名称</th>
-        <th class="col-md-1 text-center">商品编号</th>
+        <!-- <th class="col-md-1 text-center">商品编号</th> -->
+        <!-- <th class="col-md-2 text-center">数量</th> -->
         <th class="col-md-1 text-center">购买数量</th>
         <th class="col-md-1 text-center">使用数量</th>
         <th class="col-md-1 text-center">退票数量</th>
+        <th class="col-md-1 text-center">政府补贴</th>
         <th class="col-md-1 text-center">单价</th>
         <th class="col-md-1 text-center">总计</th>
       </tr>
@@ -52,14 +55,36 @@
       <tr ng-repeat="obj in objs">
         <td class="text-center">{{obj.date}}</td>
         <td class="text-center">{{obj.place_name}}</td>
-        <td class="">{{obj.type_name}}</td>
-        <td class="text-center">{{obj.goods_code}}</td>
+        <td class="">{{obj.type_name}}<br>商品编号：{{obj.goods_code}}</td>
+        <!-- <td class="text-center">{{obj.goods_code}}</td> -->
+        <!-- <td class="text-center">
+          购买：{{obj.buy}}&nbsp;&nbsp;
+          使用：{{obj.used}}&nbsp;&nbsp;
+          退票：{{obj.back}}
+        </td> -->
         <td class="text-center">{{obj.buy}}</td>
         <td class="text-center">{{obj.used}}</td>
         <td class="text-center">{{obj.back}}</td>
+        <td class="text-center">
+            {{(subsidy | arrfilter:'goods_code':'govsubsidy_price':obj.goods_code) * 0.01 | currency : '￥'}}
+        </td>
         <td class="text-center">{{obj.cost_price  * 0.01 | currency : '￥'}}</td>
         <td class="text-center">{{obj.cost_price * obj.used  * 0.01 | currency : '￥'}}</td>
       </tr>
+
+      <tr >
+        <td class="text-center">总计</td>
+        <td class="text-center"></td>
+        <td class=""></td>
+        <td class="text-center">{{total.buy}}</td>
+        <td class="text-center">{{total.used}}</td>
+        <td class="text-center">{{total.back}}</td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+        <td class="text-center">{{total.total * 0.01 | currency : '￥'}}</td>
+      </tr>
+
+
     </tbody>
   </table>
 

@@ -14,6 +14,8 @@ var service = function($resource, BASEURL38985){
 
     var orderstatisticscompanylist = BASEURL38985 + '/api/as/tc/ticketorder/orderstatisticscompanylist';
 
+    var govsubsidygoodscodelist = BASEURL38985 + '/api/as/tc/salegovsubsidy/govsubsidygoodscodelist';
+
 
     return {
         uselist : function(){
@@ -30,6 +32,9 @@ var service = function($resource, BASEURL38985){
         },
         orderstatisticscompanylist : function(){
             return $resource(orderstatisticscompanylist, {}, {});
+        },
+        govsubsidygoodscodelist : function(){
+            return $resource(govsubsidygoodscodelist, {}, {});
         }
     };
 

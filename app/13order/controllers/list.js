@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate){
+module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, $uibModal){
 
     $scope.searchform = {};
 
@@ -60,5 +60,51 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate){
 
         $state.go('app.orderticketlist', {'code' : code});
     };
+
+    //打开模态框
+    $scope.orderinfo = function(obj){
+
+        var modalInstance = $uibModal.open({
+          template: require('../views/orderinfo.html'),
+          controller: 'orderinfo',
+          resolve: {
+            obj : function(){
+                return obj;
+            }
+            // device_code : function(){
+            //     return device_code;
+            // },
+            // typelist : function(){
+            //     return typelist;
+            // },
+            // add : function(){
+            //     return add;
+            // },
+            // del : function(){
+            //     return del;
+            // }
+          }
+        });
+
+
+        // var modalInstance = $uibModal.open({
+        //   template: require('../views/orderinfo.html'),
+        //   //controller: 'orderinfo',
+        //   resolve: {
+        //     obj : function(){
+        //         return obj;
+        //     }
+        //   }
+        // });
+
+        modalInstance.result.then(function () {
+          //load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+    }
+
+
+   
 
 };
