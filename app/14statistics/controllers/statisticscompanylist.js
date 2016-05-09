@@ -2,6 +2,13 @@ module.exports = function($scope, getDate, orderstatisticscompanylist, ITEMS_PER
 
     $scope.searchform = {};
 
+    $scope.total = {
+        'buy' : 0,
+        'used' : 0,
+        'back' : 0,
+        'total' : 0
+    };
+
     //有效区间
     $scope.section = {};
     $scope.section.start = {};
@@ -37,8 +44,23 @@ module.exports = function($scope, getDate, orderstatisticscompanylist, ITEMS_PER
 
             console.log(res);
 
+            $scope.total = {
+                'buy' : 0,
+                'used' : 0,
+                'back' : 0,
+                'total' : 0
+            };
+
             if(res.errcode === 0)
             {
+                for(var i = 0, j = res.data.length; i < j; i++)
+                {
+                    $scope.total.buy += parseInt(res.data[i].buy);
+                    $scope.total.used += parseInt(res.data[i].used);
+                    $scope.total.back += parseInt(res.data[i].back);
+                    $scope.total.total += parseInt(res.data[i].cost_price) * parseInt(res.data[i].buy - res.data[i].back);
+                }
+
                 $scope.objs = res.data;
                 //$scope.bigTotalItems = res.data.totalRecord;
             }

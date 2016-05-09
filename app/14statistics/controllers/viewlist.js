@@ -22,18 +22,6 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate,
         obj.opened = true;
     };
 
-
-    $scope.subsidy = [
-        {
-            'goodscode' : 'J006100001',
-            'subsidy' : '20'
-        },
-        {
-            'goodscode' : 'J006100002',
-            'subsidy' : '30'
-        }
-    ];
-
     /* 分页
      * ========================================= */
     // $scope.maxSize = 5;            //最多显示多少个按钮
@@ -63,7 +51,7 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate,
                 'back' : 0,
                 'total' : 0
             };
-            
+
             if(res.errcode === 0)
             {
                 $scope.objs = res.data;
