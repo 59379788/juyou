@@ -50,29 +50,43 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate,
                 'buy' : 0,
                 'used' : 0,
                 'back' : 0,
-                'total' : 0
+                'total' : 0,
+                'gov' : 0
             };
 
             if(res.errcode === 0)
             {
                 $scope.objs = res.data;
 
-                for(var i = 0, j = res.data.length; i < j; i++)
-                {
-                    $scope.total.buy += parseInt(res.data[i].buy);
-                    $scope.total.used += parseInt(res.data[i].used);
-                    $scope.total.back += parseInt(res.data[i].back);
-                    $scope.total.total += parseInt(res.data[i].cost_price) * parseInt(res.data[i].used);
-                }
-
-                console.log($scope.total);
-
                 govsubsidygoodscodelist.get({}, function(res1){
 
-                    console.log(res1);
+                    //console.log(res1);
                     if(res1.errcode === 0)
                     {
                         $scope.subsidy = res1.data;
+                        //console.log($scope.objs);
+                        for(var i = 0, j = $scope.objs.length; i < j; i++)
+                        {
+                            var tmp = $scope.objs[i]
+                            $scope.total.buy += tmp.buy;
+                            $scope.total.used += tmp.used;
+                            $scope.total.back += tmp.back;
+                            $scope.total.total += tmp.cost_price * tmp.used;
+                            tmp.gov = 0;
+                            for(var m = 0, n = $scope.subsidy.length; m < n; m++)
+                            {
+                                if($scope.subsidy[m]['goods_code'] == tmp.code)
+                                {
+                                    tmp.gov = $scope.subsidy[m]['govsubsidy_price'];
+                                    break;
+                                }
+                            }
+
+                            $scope.total.gov += tmp.gov * tmp.used;
+                            
+                        }
+
+                        //console.log($scope.total);
                     }
                     else
                     {

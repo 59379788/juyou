@@ -134,7 +134,9 @@ App.config(['$urlRouterProvider', '$stateProvider',
 //挂数据
 .filter('arrfilter', function () {
     return function (input, key1, key2, value) {
-        var output = '';
+        var output = 0;
+
+        if(!angular.isArray(input)) return output;
 
         for(var i = 0, j = input.length; i < j; i++)
         {
@@ -144,7 +146,6 @@ App.config(['$urlRouterProvider', '$stateProvider',
               output = tmp[key2];
             }
         }
-
         return output;
     };
 })
