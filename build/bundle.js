@@ -51,6 +51,7 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	/**
 	 * 项目入口
 	 * dlq
@@ -205,6 +206,162 @@
 	;
 
 	//==================[ 主模块 ]=============================//
+=======
+	/**
+	 * 项目入口
+	 * dlq
+	 */
+
+
+	var angular = __webpack_require__(2);
+	__webpack_require__(4);
+	__webpack_require__(6);
+	__webpack_require__(7);
+	__webpack_require__(9);
+	__webpack_require__(10);
+
+
+	// ------------ 富文本编辑器 ----------------------//
+	//require('../node_modules/textangular/dist/textAngular-rangy.min');
+	__webpack_require__(12);
+	__webpack_require__(13);
+	__webpack_require__(16);
+	__webpack_require__(17);
+	__webpack_require__(18);
+	// ------------ 富文本编辑器 ----------------------//
+
+
+	__webpack_require__(22);
+	__webpack_require__(24);
+
+
+
+	//=================[ 权限模块加载 ]===========================//
+
+	(__webpack_require__(26))(jQuery);
+
+	//=================[ 权限模块加载 ]===========================//
+
+
+
+	//=================[ 子模块加载 ]===========================//
+
+	__webpack_require__(27);
+	__webpack_require__(34);
+	__webpack_require__(44);
+	__webpack_require__(59);
+	__webpack_require__(70);
+	__webpack_require__(71);
+	__webpack_require__(90);
+	__webpack_require__(94);
+	__webpack_require__(121);
+	__webpack_require__(129);
+	__webpack_require__(132);
+	__webpack_require__(143);
+	__webpack_require__(148);
+	__webpack_require__(162);
+	__webpack_require__(178);
+	__webpack_require__(189);
+	__webpack_require__(206);
+
+
+	__webpack_require__(214);
+	__webpack_require__(216);   //拦截器
+	__webpack_require__(218);
+	__webpack_require__(222);
+
+	//=================[ 子模块加载 ]===========================//
+
+
+	//=================[ 常量 ]================================//
+	angular.module('constant', [])
+	  .constant('BASEURL', 'http://115.28.145.50:38986')
+	  //.constant('BASEURL', 'http://115.28.189.180:38987')
+	  //.constant('BASEURL', 'http://www.juyouhx.com')
+	  .constant('BASEURL38985', '')
+	  //权限
+	  .constant('SYS', '')
+	  //分页默认每页显示几条
+	  .constant('ITEMS_PERPAGE', 10)
+
+	  ;
+	//=================[ 常量 ]================================//
+
+
+	//=================[ 主模块 ]==============================//
+
+	var App = angular.module('juyouApp', [
+	    'dashboard',
+	    'ticket',
+	    'device',
+	    'doc',
+	    'ticketdeviceorder',
+	    'deposit',
+	    'product',
+	    'view',
+	    'place',
+	    'account',
+	    'member',
+	    'sale',
+	    'order',
+	    'statistics',
+	    'custservice',
+	    'notice',
+	    'util',
+	    'test',
+	    'common',
+	    'permission',
+	    'intercept',
+	    'ui.bootstrap',
+	    'ui.router',
+	    'ngResource',
+	    'angularFileUpload',
+	    'ui.tree',
+	    'textAngular',
+	    'constant'
+	]);
+
+	App.config(['$urlRouterProvider', '$stateProvider', 
+	 	function ($urlRouterProvider, $stateProvider) {
+	 	// 默认地址
+	 	$urlRouterProvider.otherwise('/app/dashboard');
+
+	}])
+
+	//拦截器
+	.config(function($httpProvider) {
+	  $httpProvider.interceptors.push('httpInjector');
+	})
+
+	//html过滤器
+	.filter('trustHtml', function ($sce) {
+	    return function (input) {
+	        return $sce.trustAsHtml(input);
+	    }
+	})
+
+	//挂数据
+	.filter('arrfilter', function () {
+	    return function (input, key1, key2, value) {
+	        var output = '';
+
+	        for(var i = 0, j = input.length; i < j; i++)
+	        {
+	            var tmp = input[i];
+	            if(tmp[key1] == value)
+	            {
+	              output = tmp[key2];
+	            }
+	        }
+
+	        return output;
+	    };
+	})
+
+	;
+
+	//==================[ 主模块 ]=============================//
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
 
 
 /***/ },
@@ -62997,6 +63154,104 @@
 /***/ },
 /* 186 */
 /***/ function(module, exports) {
+<<<<<<< HEAD
+=======
+
+	module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, 
+	    viewdestorystatisticlist, govsubsidygoodscodelist){
+
+	    $scope.searchform = {};
+
+	    $scope.total = {
+	        'buy' : 0,
+	        'used' : 0,
+	        'back' : 0,
+	        'total' : 0,
+	        'gov' : 0
+	    };
+
+	    //有效区间
+	    $scope.section = {};
+	    $scope.section.start = {};
+	    $scope.section.start.date = new Date();
+
+	    $scope.section.end = {};
+	    $scope.section.end.date = new Date();
+
+	    $scope.open = function(obj) {
+	        obj.opened = true;
+	    };
+
+	    /* 分页
+	     * ========================================= */
+	    // $scope.maxSize = 5;            //最多显示多少个按钮
+	    // $scope.bigCurrentPage = 1;      //当前页码
+	    // $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+
+	    $scope.load = function () {
+	        
+	        var para = {
+	            //pageNo:$scope.bigCurrentPage, 
+	            //pageSize:$scope.itemsPerPage,
+	            start_time : getDate($scope.section.start.date) + " 00:00:00",
+	            end_time : getDate($scope.section.end.date) + " 23:59:59"
+	        };
+
+	        para = angular.extend($scope.searchform, para);
+
+	        console.log(para);
+	        
+	        viewdestorystatisticlist.save(para, function(res){
+
+	            console.log(res);
+
+	             $scope.total = {
+	                'buy' : 0,
+	                'used' : 0,
+	                'back' : 0,
+	                'total' : 0
+	            };
+
+	            if(res.errcode === 0)
+	            {
+	                $scope.objs = res.data;
+
+	                for(var i = 0, j = res.data.length; i < j; i++)
+	                {
+	                    $scope.total.buy += parseInt(res.data[i].buy);
+	                    $scope.total.used += parseInt(res.data[i].used);
+	                    $scope.total.back += parseInt(res.data[i].back);
+	                    $scope.total.total += parseInt(res.data[i].cost_price) * parseInt(res.data[i].used);
+	                }
+
+	                console.log($scope.total);
+
+	                govsubsidygoodscodelist.get({}, function(res1){
+
+	                    console.log(res1);
+	                    if(res1.errcode === 0)
+	                    {
+	                        $scope.subsidy = res1.data;
+	                    }
+	                    else
+	                    {
+	                        alert(res1.errmsg);
+	                    }
+	                });
+	                //$scope.bigTotalItems = res.data.totalRecord;
+	            }
+	            else
+	            {
+	                alert(res.errmsg);
+	            }
+
+	        });
+
+	    };
+	    $scope.load();
+
+	    
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
 
 	module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, 
 	    viewdestorystatisticlist, govsubsidygoodscodelist){
@@ -63270,6 +63525,7 @@
 /* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	/**
 	 * 子模块入口
 	 * dlq
@@ -63289,12 +63545,34 @@
 	App.controller('orderlist',__webpack_require__(205));
 
 
+=======
+	/**
+	 * 子模块入口
+	 * dlq
+	 */
+
+	var App = angular.module('custservice', []);
+
+	App.config(__webpack_require__(190));
+	App.factory('custservice', __webpack_require__(198));
+
+	App.controller('userinfo',__webpack_require__(199));
+	App.controller('cardA',__webpack_require__(200));
+	App.controller('cardB',__webpack_require__(201));
+	App.controller('infoticket',__webpack_require__(202));
+	App.controller('edituserinfo',__webpack_require__(203));
+	App.controller('redpackage',__webpack_require__(204));
+	App.controller('orderlist',__webpack_require__(205));
+
+
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
 	module.exports = App;
 
 /***/ },
 /* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	/**
 	 * 子模块路由
 	 * djp
@@ -63395,6 +63673,108 @@
 
 	};
 
+=======
+	/**
+	 * 子模块路由
+	 * djp
+	 */
+
+	var router = function($urlRouterProvider, $stateProvider){
+
+	 	$stateProvider
+
+	 	  .state('app.userinfo', {
+	        url: '/userinfo',
+	        controller : 'userinfo',
+	        template: __webpack_require__(191),
+	        resolve:{
+	            userinfo : function(custservice){
+	                return custservice.userinfo();
+	            },
+	            updateUserAuthInfo : function(custservice){
+	                return custservice.updateUserAuthInfo();
+	            }
+	        }
+	      })
+
+	      .state('app.edituserinfo', {
+	        url: '/edituserinfo/:mobile',
+	        controller : 'edituserinfo',
+	        template: __webpack_require__(192),
+	        resolve:{
+	            edituserinfo : function(custservice){
+	                return custservice.edituserinfo();
+	            },
+	            oneuserinfo : function(custservice){
+	                return custservice.oneuserinfo();
+	            },
+	            updateUserSubsidy : function(custservice){
+	                return custservice.updateUserSubsidy();
+	            }
+	        }
+	      })
+
+	      .state('app.cardA', {
+	        url: '/cardA',
+	        controller : 'cardA',
+	        template: __webpack_require__(193),
+	        resolve:{
+	            cardA : function(custservice){
+	                return custservice.cardA();
+	            }
+	        }
+	      })
+
+	      .state('app.cardB', {
+	        url: '/cardB',
+	        controller : 'cardB',
+	        template: __webpack_require__(194),
+	        resolve:{
+	            cardB : function(custservice){
+	                return custservice.cardB();
+	            }
+	        }
+	      })
+
+	      .state('app.infoticket', {
+	        url: '/infoticket',
+	        controller : 'infoticket',
+	        template: __webpack_require__(195),
+	        resolve:{
+	            infoticket : function(custservice){
+	                return custservice.infoticket();
+	            }
+	        }
+	      })
+
+	      .state('app.redpackage', {
+	        url: '/redpackage',
+	        controller : 'redpackage',
+	        template: __webpack_require__(196),
+	        resolve:{
+	            redpackage : function(custservice){
+	                return custservice.redpackage();
+	            }
+	        }
+	      })
+
+	      .state('app.userorderlist', {
+	        url: '/userorderlist',
+	        controller : 'orderlist',
+	        template: __webpack_require__(197),
+	        resolve:{
+	            orderlist : function(custservice){
+	                return custservice.orderlist();
+	            }
+	        }
+	      })
+
+	      
+
+
+	};
+
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
 	module.exports = router;
 
 /***/ },
@@ -63437,7 +63817,10 @@
 /* 197 */
 /***/ function(module, exports) {
 
+<<<<<<< HEAD
 	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n                <label>手机号</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n      \t<th class=\"col-md-1 text-center\">订单编号</th>\r\n        <th class=\"col-md-1 text-center\">用户名</th>\r\n        <th class=\"col-md-1 text-center\">地址</th>\r\n        <th class=\"col-md-1 text-center\">电话</th>\r\n        <th class=\"col-md-1 text-center\">证件号</th>\r\n        <th class=\"col-md-1 text-center\">申请时间</th>\r\n        <th class=\"col-md-1 text-center\">支付状态</th>\r\n        <th class=\"col-md-2 text-center\">支付宝订单号</th>\r\n        <th class=\"col-md-1 text-center\">支付金额</th>\r\n        <th class=\"col-md-1 text-center\">支付时间</th>\r\n        <th class=\"col-md-1 text-center\">儿童套票</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.systradeno}}</td>\r\n        <td class=\"text-center\">{{obj.username}}</td>\r\n        <td class=\"text-center\">{{obj.address}}</td>\r\n        <td class=\"text-center\">{{obj.mobile}}</td>\r\n        <td class=\"text-center\">{{obj.papersno}}</td>\r\n        <td class=\"text-center\">{{obj.appdatec}}</td>\r\n        <td class=\"text-center\">{{obj.paystatusname}}</td>\r\n        <td class=\"text-center\">{{obj.alitradeno}}</td>\r\n        <td class=\"text-center\">{{obj.fee | currency : '￥'}}</td>\r\n        <td class=\"text-center\">{{obj.paytimec}}</td>\r\n        <td class=\"text-center\">{{obj.ischildname}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  \r\n\r\n</div>"
+=======
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>手机号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n      \t<th class=\"col-md-1 text-center\">订单编号</th>\n        <th class=\"col-md-1 text-center\">用户名</th>\n        <th class=\"col-md-1 text-center\">地址</th>\n        <th class=\"col-md-1 text-center\">电话</th>\n        <th class=\"col-md-1 text-center\">证件号</th>\n        <th class=\"col-md-1 text-center\">申请时间</th>\n        <th class=\"col-md-1 text-center\">支付状态</th>\n        <th class=\"col-md-2 text-center\">支付宝订单号</th>\n        <th class=\"col-md-1 text-center\">支付金额</th>\n        <th class=\"col-md-1 text-center\">支付时间</th>\n        <th class=\"col-md-1 text-center\">儿童套票</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.systradeno}}</td>\n        <td class=\"text-center\">{{obj.username}}</td>\n        <td class=\"text-center\">{{obj.address}}</td>\n        <td class=\"text-center\">{{obj.mobile}}</td>\n        <td class=\"text-center\">{{obj.papersno}}</td>\n        <td class=\"text-center\">{{obj.appdatec}}</td>\n        <td class=\"text-center\">{{obj.paystatusname}}</td>\n        <td class=\"text-center\">{{obj.alitradeno}}</td>\n        <td class=\"text-center\">{{obj.fee | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.paytimec}}</td>\n        <td class=\"text-center\">{{obj.ischildname}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
 
 /***/ },
 /* 198 */
@@ -63507,9 +63890,79 @@
 	};
 
 	module.exports = service;
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
 
 /***/ },
 /* 199 */
+/***/ function(module, exports) {
+
+	/**
+	 * 子模块service
+	 * djp
+	 */
+	var service = function($resource, BASEURL38985){
+
+	    var userinfo = "/api/ac/uc/userService/getUserInfoByMobile";
+
+	    var oneuserinfo = "/api/as/uc/jyu/getjyuserinfo";
+
+	    var edituserinfo = "/api/ac/uc/userService/updateUserInfoByMobile";
+
+	    var cardA = BASEURL38985 + "/api/as/uc/jyu/getphycardlist";
+
+	    var cardB = BASEURL38985 + "/api/as/uc/jyu/getdigcardlist";
+
+	    var infoticket = BASEURL38985 + "/api/as/tc/ticketorder/forKefuOrderInfoByMobilelist";
+
+	    var redpackage = BASEURL38985 + "/api/us/uc/jyu/getredpackagelist";
+
+	    var updateUserAuthInfo = BASEURL38985 + "/api/ac/uc/userService/updateUserAuthInfo";
+
+	    var updateUserSubsidy = BASEURL38985 + "/api/ac/uc/userService/updateUserSubsidy";
+
+	    var orderlist = "/api/as/uc/jyu/getOrderListForKList";
+	    
+	    return {
+
+	        userinfo : function(){
+	            return $resource(userinfo, {}, {});
+	        },
+	        oneuserinfo : function(){
+	            return $resource(oneuserinfo, {}, {});
+	        },
+	        edituserinfo : function(){
+	            return $resource(edituserinfo, {}, {});
+	        },
+	        cardA : function(){
+	            return $resource(cardA, {}, {});
+	        },
+	        cardB : function(){
+	            return $resource(cardB, {}, {});
+	        },
+	        infoticket : function(){
+	            return $resource(infoticket, {}, {});
+	        },
+	        redpackage : function(){
+	            return $resource(redpackage, {}, {});
+	        },
+	        updateUserAuthInfo : function(){
+	            return $resource(updateUserAuthInfo, {}, {});
+	        },
+	        updateUserSubsidy : function(){
+	            return $resource(updateUserSubsidy, {}, {});
+	        },
+	        orderlist : function(){
+	            return $resource(orderlist, {}, {});
+	        }
+	       
+	    };
+
+	};
+
+	module.exports = service;
+
+/***/ },
+/* 200 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, userinfo, updateUserAuthInfo){
@@ -63572,7 +64025,7 @@
 	};
 
 /***/ },
-/* 200 */
+/* 201 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, cardA){
@@ -63600,7 +64053,7 @@
 	};
 
 /***/ },
-/* 201 */
+/* 202 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, cardB){
@@ -63628,7 +64081,7 @@
 	};
 
 /***/ },
-/* 202 */
+/* 203 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, infoticket){
@@ -63657,7 +64110,7 @@
 	};
 
 /***/ },
-/* 203 */
+/* 204 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, edituserinfo, oneuserinfo, updateUserSubsidy){
@@ -63715,34 +64168,10 @@
 
 
 /***/ },
+<<<<<<< HEAD
 /* 204 */
 /***/ function(module, exports) {
-
-	module.exports = function($scope, redpackage){
-
-		$scope.searchform = {};
-	    
-	    $scope.load = function () {
-	        
-	        redpackage.save($scope.searchform, function(res){
-
-	         	console.log(res);
-
-	         	if(res.errcode !== 0)
-	         	{
-	         		alert("数据获取失败");
-	         		return;
-	         	}
-
-	         	$scope.objs = res.data;
-
-	        });
-
-	    };
-
-	};
-
-/***/ },
+=======
 /* 205 */
 /***/ function(module, exports) {
 
@@ -63789,12 +64218,152 @@
 	App.controller('noticeedit',__webpack_require__(212));
 	App.controller('noticecreate',__webpack_require__(213));
 
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
+
+	module.exports = function($scope, redpackage){
+
+		$scope.searchform = {};
+	    
+	    $scope.load = function () {
+	        
+	        redpackage.save($scope.searchform, function(res){
+
+	         	console.log(res);
+
+	         	if(res.errcode !== 0)
+	         	{
+	         		alert("数据获取失败");
+	         		return;
+	         	}
+
+	         	$scope.objs = res.data;
+
+	        });
+
+	    };
+
+	};
+
+/***/ },
+<<<<<<< HEAD
+/* 205 */
+/***/ function(module, exports) {
+=======
+/* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * 子模块路由
+	 * djp
+	 */
+
+	var router = function($urlRouterProvider, $stateProvider){
+
+	 	$stateProvider
+
+	 	  .state('app.createnotice', {
+	        url: '/noticelist',
+	        controller : 'noticelist',
+	        template: __webpack_require__(208),
+	        resolve:{
+	            mylist : function(noticeservice){
+	                return noticeservice.mylist();
+	            },
+	            update : function(noticeservice){
+	                return noticeservice.update();
+	            }
+	        }
+	      })
+
+	      .state('app.noticecreate', {
+	        url: '/notice',
+	        controller : 'noticecreate',
+	        template: __webpack_require__(209),
+	        resolve:{
+	            create : function(noticeservice){
+	                return noticeservice.create();
+	            }
+	        }
+	      })
+
+
+	      .state('app.noticeedit', {
+	        url: '/notice/:id',
+	        controller : 'noticeedit',
+	        template: __webpack_require__(209),
+	        resolve:{
+	            myinfo : function(noticeservice){
+	                return noticeservice.myinfo();
+	            },
+	            update : function(noticeservice){
+	                return noticeservice.update();
+	            }
+	        }
+	      })
+
+	      
+
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
+
+	module.exports = function($scope, orderlist){
+
+		$scope.searchform = {};
+	    
+	    $scope.load = function () {
+	        
+	        orderlist.save($scope.searchform, function(res){
+
+	         	console.log(res);
+
+	         	if(res.errcode !== 0)
+	         	{
+	         		alert("数据获取失败");
+	         		return;
+	         	}
+
+	         	$scope.objs = res.data;
+
+	        });
+
+	    };
+	    $scope.load();
+
+	};
+
+/***/ },
+<<<<<<< HEAD
+/* 206 */
+/***/ function(module, exports, __webpack_require__) {
+=======
+/* 208 */
+/***/ function(module, exports) {
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
+
+	/**
+	 * 子模块入口
+	 * dlq
+	 */
+
+	var App = angular.module('notice', []);
+
+	App.config(__webpack_require__(207));
+	App.factory('noticeservice', __webpack_require__(210));
+
+	App.controller('noticelist',__webpack_require__(211));
+	App.controller('noticeedit',__webpack_require__(212));
+	App.controller('noticecreate',__webpack_require__(213));
+
 
 	module.exports = App;
 
 /***/ },
+<<<<<<< HEAD
 /* 207 */
 /***/ function(module, exports, __webpack_require__) {
+=======
+/* 209 */
+/***/ function(module, exports) {
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
 
 	/**
 	 * 子模块路由
@@ -63853,19 +64422,19 @@
 	module.exports = router;
 
 /***/ },
-/* 208 */
+/* 210 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-10\">\r\n                <label>公告标题</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.title\" >\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n            <div class=\"col-sm-2 text-right\">\r\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建公告</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-4 text-center\">公告标题</th>\r\n        <th class=\"col-md-2 text-center\">公告状态</th>\r\n        <th class=\"col-md-2 text-center\">排序</th>\r\n        <th class=\"col-md-2 text-center\">创建时间</th>\r\n        <th class=\"col-md-2 text-center\">操作</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"\">{{obj.title}}</td>\r\n        <td class=\"text-center\">{{obj.statename}}</td>\r\n        <td class=\"form-horizontal \">\r\n          <div class=\"col-sm-6\">\r\n            <input class=\"form-control input-sm\" \r\n            style=\"height:22px;\" \r\n            type=\"text\" \r\n            value=\"{{obj.asort}}\" \r\n            ng-model=\"obj.asort\">\r\n          </div>\r\n          <a ng-click=\"asort(obj.id, obj.asort)\" class=\"btn btn-info btn-xs\">gogo</a> \r\n        </td>\r\n        <td class=\"text-center\">{{obj.sdate}}</td>\r\n        <td class=\"text-center\">\r\n          <a ng-show=\"obj.state=='1'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">隐藏</a>\r\n          <a ng-show=\"obj.state=='0'\" ng-click=\"start(obj.id)\" class=\"btn btn-danger btn-xs\">显示</a>\r\n          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n\r\n  <div class=\"text-right\">\r\n\r\n    <uib-pagination \r\n      total-items=\"bigTotalItems\" \r\n      ng-model=\"bigCurrentPage\" \r\n      max-size=\"maxSize\" \r\n      class=\"pagination-sm\" \r\n      boundary-links=\"true\" \r\n      ng-change=\"load()\"\r\n      items-per-page=\"itemsPerPage\"\r\n      previous-text=\"上一页\"\r\n      next-text=\"下一页\"\r\n      first-text=\"首页\"\r\n      last-text=\"末页\"\r\n      rotate=\"false\">\r\n    </uib-pagination>\r\n\r\n  </div>\r\n  \r\n\r\n</div>"
 
 /***/ },
-/* 209 */
+/* 211 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\r\n\t\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">公告标题</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\"\r\n\t\t\tng-model=\"objt.title\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">公告内容</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<!--<textarea class=\"form-control\" rows=\"15\"\r\n\t\t\tng-model=\"objt.content\"\r\n\t\t\t></textarea>-->\r\n\t\t\t<div text-angular ng-model=\"objt.content\"></div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">公告排序</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\"\r\n\t\t\tng-model=\"objt.asort\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t    <label class=\"col-xs-2 control-label\">公告状态</label>\r\n\t    <div class=\"col-xs-10\">\r\n\t    \t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"1\"\r\n\t\t\t  ng-model=\"objt.state\"\r\n\t\t\t  > 显示\r\n\t\t\t</label>\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"0\"\r\n\t\t\t  ng-model=\"objt.state\"\r\n\t\t\t  > 隐藏\r\n\t\t\t</label>\r\n\t    </div>\r\n  \t</div>\r\n\r\n\t\r\n\r\n\t<button \r\n    type=\"button\" \r\n    class=\"btn btn-primary btn-lg btn-block\" \r\n    ng-click=\"gogo()\"\r\n    >\r\n    提交\r\n    </button>\r\n\r\n\r\n</div>"
 
 /***/ },
-/* 210 */
+/* 212 */
 /***/ function(module, exports) {
 
 	/**
@@ -63904,7 +64473,7 @@
 	module.exports = service;
 
 /***/ },
-/* 211 */
+/* 213 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, mylist, update, ITEMS_PERPAGE){
@@ -64003,8 +64572,24 @@
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 212 */
 /***/ function(module, exports) {
+=======
+/* 214 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * 子模块入口
+	 * dlq
+	 */
+
+	var App = angular.module('util', []);
+
+
+	App.factory('utilservice', __webpack_require__(215));
+
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
 
 	module.exports = function($scope, $state, $stateParams, update, myinfo){
 
@@ -64047,7 +64632,7 @@
 	};
 
 /***/ },
-/* 213 */
+/* 215 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, create){
@@ -64079,9 +64664,10 @@
 	};
 
 /***/ },
-/* 214 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	/**
 	 * 子模块入口
 	 * dlq
@@ -64093,10 +64679,18 @@
 	App.factory('utilservice', __webpack_require__(215));
 
 
+=======
+	//拦截器
+
+	var App = angular.module('intercept', []);
+	//alert('sadsadsadasas');
+	App.factory('httpInjector', __webpack_require__(217));
+
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
 	module.exports = App;
 
 /***/ },
-/* 215 */
+/* 217 */
 /***/ function(module, exports) {
 
 	/**
@@ -64198,9 +64792,10 @@
 	module.exports = service;
 
 /***/ },
-/* 216 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	//拦截器
 
 	var App = angular.module('intercept', []);
@@ -64212,28 +64807,7 @@
 /***/ },
 /* 217 */
 /***/ function(module, exports) {
-
-	module.exports = function($location){
-
-	    var responseInterceptor = {
-	        response: function(response) {
-	            //console.log(response)
-	            if(response.data.errcode === 1001)
-	            {
-	               window.location = "/manager/login";
-	            }
-	            return response;
-	        }
-	    };
-
-	    return responseInterceptor;
-
-	};
-
-/***/ },
-/* 218 */
-/***/ function(module, exports, __webpack_require__) {
-
+=======
 	/**
 	 * 子模块入口
 	 * dlq
@@ -64267,14 +64841,345 @@
 	      })
 
 	 	  
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
+
+	module.exports = function($location){
+
+	    var responseInterceptor = {
+	        response: function(response) {
+	            //console.log(response)
+	            if(response.data.errcode === 1001)
+	            {
+	               window.location = "/manager/login";
+	            }
+	            return response;
+	        }
+	    };
+
+	    return responseInterceptor;
+
+	};
+
+/***/ },
+<<<<<<< HEAD
+/* 218 */
+/***/ function(module, exports, __webpack_require__) {
+=======
+/* 220 */
+/***/ function(module, exports) {
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
+
+	/**
+	 * 子模块入口
+	 * dlq
+	 */
+
+	var App = angular.module('test', []);
+
+	App.config(__webpack_require__(219));
+
+	App.controller('cccc',__webpack_require__(221));
+
+	module.exports = App;
+
+/***/ },
+<<<<<<< HEAD
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+=======
+/* 221 */
+/***/ function(module, exports) {
+
+	module.exports = function($scope, $stateParams, $resource, BASEURL38985){
+
+		var url = BASEURL38985 + '/' + $stateParams.url.split("_").join('/');
+
+		var dlq = $resource(url, {});
+
+		$scope.maxSize = 5;             //最多显示多少个按钮
+	    $scope.bigCurrentPage = 1;      //当前页码
+	    $scope.itemsPerPage = 7;        //每页显示几条
+
+
+		$scope.load = function(){
+
+			var para = {
+	            pageNo:$scope.bigCurrentPage, 
+	            pageSize:$scope.itemsPerPage
+	        };
+
+			dlq.save(para, function(res){
+
+				console.log(res);
+
+				$scope.obj = {
+
+					'title' : [
+						{
+							'name' : '姓名',
+							'length' : '2',
+							'key' : 'name'
+						},
+						{
+							'name' : '密码',
+							'length' : '2',
+							'key' : 'pass'
+						},
+						{
+							'name' : '真实姓名',
+							'length' : '4',
+							'key' : 'rname'
+						},
+						{
+							'name' : '电话',
+							'length' : '4',
+							'key' : 'tel'
+						}
+					],
+
+					'content' : [
+						{
+							'name' : 'dlq',
+							'pass' : '1234',
+							'rname' : 'ddd',
+							'tel' : '13840188285'
+						},
+						{
+							'name' : 'dlq1',
+							'pass' : '1234111',
+							'rname' : 'ddd111',
+							'tel' : '138401882851'
+						},
+						{
+							'name' : 'dlq2',
+							'pass' : '12342222',
+							'rname' : 'ddd222',
+							'tel' : '138401882852'
+						}
+						
+					],
+
+					'page' : {
+
+						'maxSize' : 5,
+						'bigCurrentPage' : 1,
+						'itemsPerPage' : 7	
+
+					}
+				};
+
+
+
+
+			});
+
+		};
+		$scope.load();
+		
+
+		
+		
+
+
+
+
+		// $scope.obj = {
+
+	 //        'title' : [
+	 //            {
+	 //                'name' : '商品名称',
+	 //                'length' : '6',
+	 //                'key' : 'type_name'
+	 //            },
+	 //            {
+	 //                'name' : '使用时间',
+	 //                'length' : '2',
+	 //                'key' : 'otime'
+	 //            },
+	 //            {
+	 //                'name' : '使用',
+	 //                'length' : '2',
+	 //                'key' : 'used'
+	 //            },
+	 //            {
+	 //                'name' : '退票',
+	 //                'length' : '2',
+	 //                'key' : 'back'
+	 //            }
+	 //        ],
+
+	 //        'content' : [
+	            
+	            
+	 //        ],
+
+	 //        'search' : {
+
+	 //            'view' : {
+	 //                'type' : 'text',
+	 //                'title' : '景区',
+	 //                'value' : ''
+	 //            },
+
+	 //            'haha' : {
+	 //                'type' : 'date',
+	 //                'title' : '查询时间',
+	 //                'value' : ''
+	 //            }
+
+
+	 //        },
+
+	 //        'page' : {
+
+	 //            'maxSize' : 5,
+	 //            'bigCurrentPage' : 1,
+	 //            'itemsPerPage' : ITEMS_PERPAGE  
+
+	 //        }
+	 //    };
+
+	 //    //有效区间
+	 //    $scope.section = {};
+	 //    $scope.section.start = {};
+	 //    $scope.section.start.date = {};
+
+	 //    $scope.section.end = {};
+	 //    $scope.section.end.date = {};
+
+	 //    $scope.today = function() {
+	 //        $scope.section.start.date = $scope.section.end.date = new Date();
+	 //    };
+	 //    $scope.today();
+	 //    $scope.open = function(obj) {
+	 //        obj.opened = true;
+	 //    };
+
+
+	 //    $scope.load = function () {
+	        
+	 //        // var para = {
+	 //        //     pageNo:$scope.bigCurrentPage, 
+	 //        //     pageSize:$scope.itemsPerPage,
+	 //        //     start_time : getDate($scope.section.start.date) + " 00:00:00",
+	 //        //     end_time : getDate($scope.section.end.date) + " 23:59:59"
+	 //        // };
+
+	 //        // para = angular.extend($scope.searchform, para);
+
+	 //        // console.log(para);
+	        
+	 //        destoryDetail.save({'view' : 'J0063'}, function(res){
+
+	 //            console.log(res);
+
+	 //            if(res.errcode === 0)
+	 //            {
+	 //                //$scope.objs = res.data.results;
+	 //                $scope.obj.content = res.data.results;
+	 //                $scope.bigTotalItems = res.data.totalRecord;
+	 //            }
+	 //            else
+	 //            {
+	 //                alert(res.errmsg);
+	 //            }
+
+	 //        });
+
+	 //    };
+	 //    $scope.load();
+
+
+	    // $scope.searchform = {};
+
+	    // //有效区间
+	    // $scope.section = {};
+	    // $scope.section.start = {};
+	    // $scope.section.start.date = {};
+
+	    // $scope.section.end = {};
+	    // $scope.section.end.date = {};
+
+	    // $scope.today = function() {
+	    //     $scope.section.start.date = $scope.section.end.date = new Date();
+	    // };
+	    // $scope.today();
+	    // $scope.open = function(obj) {
+	    //     obj.opened = true;
+	    // };
+
+	    // /* 分页
+	    //  * ========================================= */
+	    // $scope.maxSize = 5;            //最多显示多少个按钮
+	    // $scope.bigCurrentPage = 1;      //当前页码
+	    // $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+	    
+	    // $scope.load = function () {
+	        
+	    //     var para = {
+	    //         pageNo:$scope.bigCurrentPage, 
+	    //         pageSize:$scope.itemsPerPage,
+	    //         start_time : getDate($scope.section.start.date) + " 00:00:00",
+	    //         end_time : getDate($scope.section.end.date) + " 23:59:59"
+	    //     };
+
+	    //     para = angular.extend($scope.searchform, para);
+
+	    //     console.log(para);
+	        
+	    //     list.save(para, function(res){
+
+	    //         console.log(res);
+
+	    //         if(res.errcode === 0)
+	    //         {
+	    //             $scope.objs = res.data.results;
+	    //             $scope.bigTotalItems = res.data.totalRecord;
+	    //         }
+	    //         else
+	    //         {
+	    //             alert(res.errmsg);
+	    //         }
+
+	    //     });
+
+	    // };
+	    // $scope.load();
+
+
+
+	};
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
+
+	/**
+	 * 子模块路由
+	 * dlq
+	 */
+
+	var router = function($urlRouterProvider, $stateProvider){
+
+	 	$stateProvider
+
+	 	  .state('app.table', {
+	        url: '/table/:url',
+	        controller : 'cccc',
+	        template: __webpack_require__(220)
+	      })
+
+	 	  
 
 	};
 
 	module.exports = router;
 
 /***/ },
+<<<<<<< HEAD
 /* 220 */
 /***/ function(module, exports) {
+=======
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
 
 	module.exports = "<table class=\"table table-bordered table-hover\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"text-center col-sm-{{t.length}}\" \r\n        ng-repeat=\"t in obj.title\">{{t.name}}</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"xx in obj.content\">\r\n        <td class=\"text-center\"\r\n        ng-repeat=\"t in obj.title\"\r\n        >{{xx[t.key]}}</td>\r\n      </tr>\r\n    </tbody>\r\n</table>\r\n\r\n\r\n<div class=\"text-right\">\r\n    <pagination items-per-page=\"itemsPerPage\" \r\n                total-items=\"bigTotalItems\" \r\n                ng-model=\"bigCurrentPage\" \r\n                max-size=\"maxSize\" \r\n                class=\"pagination-sm\" \r\n                boundary-links=\"true\" \r\n                rotate=\"false\" \r\n                num-pages=\"numPages\" \r\n                previous-text=\"上一页\"\r\n                next-text=\"下一页\"\r\n                first-text=\"首页\"\r\n                last-text=\"末页\"\r\n                ng-change=\"load()\"></pagination>\r\n</div>"
 
@@ -64282,6 +65187,7 @@
 /* 221 */
 /***/ function(module, exports) {
 
+<<<<<<< HEAD
 	module.exports = function($scope, $stateParams, $resource, BASEURL38985){
 
 		var url = BASEURL38985 + '/' + $stateParams.url.split("_").join('/');
@@ -64546,6 +65452,13 @@
 /***/ },
 /* 222 */
 /***/ function(module, exports, __webpack_require__) {
+=======
+	App.config(__webpack_require__(223));
+
+	App.factory('commonservice', __webpack_require__(225));
+
+	App.controller('appcontroller',__webpack_require__(226));
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
 
 	/**
 	 * 子模块入口
@@ -64566,6 +65479,7 @@
 /* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	/**
 	 * 子模块路由
 	 * dlq
@@ -64591,6 +65505,33 @@
 
 	};
 
+=======
+	/**
+	 * 子模块路由
+	 * dlq
+	 */
+
+	var router = function($urlRouterProvider, $stateProvider){
+
+	 	$stateProvider
+
+	 	  $stateProvider
+		 	.state('app', {
+		      url: '/app',
+		      abstract: true,
+		      controller : 'appcontroller',
+		      template : __webpack_require__(224),
+		      resolve:{
+	        	permission : function(commonservice){
+	        		return commonservice.permission();
+	        	}
+	          }
+		    })
+	 	  
+
+	};
+
+>>>>>>> a920b9220f0e4ba894fd6eec138212a2de32a361
 	module.exports = router;
 
 /***/ },

@@ -1,5 +1,5 @@
 module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, $uibModal){
-
+    
     $scope.searchform = {};
 
     //有效区间

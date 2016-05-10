@@ -7,7 +7,8 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate,
         'buy' : 0,
         'used' : 0,
         'back' : 0,
-        'total' : 0
+        'total' : 0,
+        'gov' : 0
     };
 
     //有效区间
