@@ -14,6 +14,7 @@ App.controller('cardB',require('./controllers/cardB'));
 App.controller('infoticket',require('./controllers/infoticket'));
 App.controller('edituserinfo',require('./controllers/edituserinfo'));
 App.controller('redpackage',require('./controllers/redpackage'));
+App.controller('orderlist',require('./controllers/orderlist'));
 
 
 module.exports = App;
