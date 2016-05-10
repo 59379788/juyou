@@ -186,8 +186,10 @@
 
 	//挂数据
 	.filter('arrfilter', function () {
-	    return function (input, key1, key2, value, out) {
-	        var output = '';
+	    return function (input, key1, key2, value) {
+	        var output = 0;
+
+	        if(!angular.isArray(input)) return output;
 
 	        for(var i = 0, j = input.length; i < j; i++)
 	        {
@@ -197,7 +199,6 @@
 	              output = tmp[key2];
 	            }
 	        }
-	        out = output;
 	        return output;
 	    };
 	})
@@ -62462,7 +62463,7 @@
 /* 181 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_name\" placeholder=\"景区名称\">\n              &nbsp;&nbsp;&nbsp;&nbsp;\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.type_name\" placeholder=\"票种名称\">\n              &nbsp;&nbsp;&nbsp;&nbsp;\n              \n                \n              <label>使用时间</label>&nbsp;&nbsp;\n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n                    &nbsp;&nbsp;到&nbsp;&nbsp;            \n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n              &nbsp;&nbsp;\n\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n              \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-1 text-center\">时间</th>\n        <th class=\"col-md-2 text-center\">景区名称</th>\n        <th class=\"col-md-2 text-center\">商品名称</th>\n        <!-- <th class=\"col-md-1 text-center\">商品编号</th> -->\n        <!-- <th class=\"col-md-2 text-center\">数量</th> -->\n        <th class=\"col-md-1 text-center\">购买数量</th>\n        <th class=\"col-md-1 text-center\">使用数量</th>\n        <th class=\"col-md-1 text-center\">退票数量</th>\n        <th class=\"col-md-1 text-center\">政府补贴</th>\n        <th class=\"col-md-1 text-center\">单价</th>\n        <th class=\"col-md-1 text-center\">居游结算价</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.date}}</td>\n        <td class=\"text-center\">{{obj.place_name}}</td>\n        <td class=\"\">{{obj.type_name}}<br>商品编号：{{obj.goods_code}}</td>\n        <!-- <td class=\"text-center\">{{obj.goods_code}}</td> -->\n        <!-- <td class=\"text-center\">\n          购买：{{obj.buy}}&nbsp;&nbsp;\n          使用：{{obj.used}}&nbsp;&nbsp;\n          退票：{{obj.back}}\n        </td> -->\n        <td class=\"text-center\">{{obj.buy}}</td>\n        <td class=\"text-center\">{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.back}}</td>\n        <td class=\"text-center\">\n            {{(subsidy | arrfilter:'goods_code':'govsubsidy_price':obj.goods_code) * 0.01 | currency : '￥'}}\n        </td>\n        <td class=\"text-center\">{{obj.cost_price  * 0.01 | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.cost_price * obj.used  * 0.01 | currency : '￥'}}</td>\n      </tr>\n\n      <tr >\n        <td class=\"text-center\">总计</td>\n        <td class=\"text-center\"></td>\n        <td class=\"\"></td>\n        <td class=\"text-center\">{{total.buy}}</td>\n        <td class=\"text-center\">{{total.used}}</td>\n        <td class=\"text-center\">{{total.back}}</td>\n        <td class=\"text-center\"></td>\n        <td class=\"text-center\"></td>\n        <td class=\"text-center\">{{total.total * 0.01 | currency : '￥'}}</td>\n      </tr>\n\n\n    </tbody>\n  </table>\n\n\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_name\" placeholder=\"景区名称\">\n              &nbsp;&nbsp;&nbsp;&nbsp;\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.type_name\" placeholder=\"票种名称\">\n              &nbsp;&nbsp;&nbsp;&nbsp;\n              \n                \n              <label>使用时间</label>&nbsp;&nbsp;\n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n                    &nbsp;&nbsp;到&nbsp;&nbsp;            \n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n              &nbsp;&nbsp;\n\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n              \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-1 text-center\">时间</th>\n        <th class=\"col-md-2 text-center\">景区名称</th>\n        <th class=\"col-md-2 text-center\">商品名称</th>\n        <!-- <th class=\"col-md-1 text-center\">商品编号</th> -->\n        <!-- <th class=\"col-md-2 text-center\">数量</th> -->\n        <th class=\"col-md-1 text-center\">购买数量</th>\n        <th class=\"col-md-1 text-center\">使用数量</th>\n        <th class=\"col-md-1 text-center\">退票数量</th>\n        <th class=\"col-md-1 text-center\">政府补贴</th>\n        <th class=\"col-md-1 text-center\">单价</th>\n        <th class=\"col-md-1 text-center\">居游结算价</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.date}}</td>\n        <td class=\"text-center\">{{obj.place_name}}</td>\n        <td class=\"\">{{obj.type_name}}<br>商品编号：{{obj.goods_code}}</td>\n        <!-- <td class=\"text-center\">{{obj.goods_code}}</td> -->\n        <!-- <td class=\"text-center\">\n          购买：{{obj.buy}}&nbsp;&nbsp;\n          使用：{{obj.used}}&nbsp;&nbsp;\n          退票：{{obj.back}}\n        </td> -->\n        <td class=\"text-center\">{{obj.buy}}</td>\n        <td class=\"text-center\">{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.back}}</td>\n        <td class=\"text-center\">\n            {{(subsidy | arrfilter:'goods_code':'govsubsidy_price':obj.goods_code) * 0.01 | currency : '￥'}}\n        </td>\n        <td class=\"text-center\">{{obj.cost_price  * 0.01 | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.cost_price * obj.used  * 0.01 | currency : '￥'}}</td>\n      </tr>\n\n      <tr >\n        <td class=\"text-center\">总计</td>\n        <td class=\"text-center\"></td>\n        <td class=\"\"></td>\n        <td class=\"text-center\">{{total.buy}}</td>\n        <td class=\"text-center\">{{total.used}}</td>\n        <td class=\"text-center\">{{total.back}}</td>\n        <td class=\"text-center\">{{total.gov * 0.01 | currency : '￥'}}</td>\n        <td class=\"text-center\"></td>\n        <td class=\"text-center\">{{total.total * 0.01 | currency : '￥'}}</td>\n      </tr>\n\n\n    </tbody>\n  </table>\n\n\n</div>"
 
 /***/ },
 /* 182 */
@@ -62645,29 +62646,43 @@
 	                'buy' : 0,
 	                'used' : 0,
 	                'back' : 0,
-	                'total' : 0
+	                'total' : 0,
+	                'gov' : 0
 	            };
 
 	            if(res.errcode === 0)
 	            {
 	                $scope.objs = res.data;
 
-	                for(var i = 0, j = res.data.length; i < j; i++)
-	                {
-	                    $scope.total.buy += parseInt(res.data[i].buy);
-	                    $scope.total.used += parseInt(res.data[i].used);
-	                    $scope.total.back += parseInt(res.data[i].back);
-	                    $scope.total.total += parseInt(res.data[i].cost_price) * parseInt(res.data[i].used);
-	                }
-
-	                console.log($scope.total);
-
 	                govsubsidygoodscodelist.get({}, function(res1){
 
-	                    console.log(res1);
+	                    //console.log(res1);
 	                    if(res1.errcode === 0)
 	                    {
 	                        $scope.subsidy = res1.data;
+	                        //console.log($scope.objs);
+	                        for(var i = 0, j = $scope.objs.length; i < j; i++)
+	                        {
+	                            var tmp = $scope.objs[i]
+	                            $scope.total.buy += tmp.buy;
+	                            $scope.total.used += tmp.used;
+	                            $scope.total.back += tmp.back;
+	                            $scope.total.total += tmp.cost_price * tmp.used;
+	                            tmp.gov = 0;
+	                            for(var m = 0, n = $scope.subsidy.length; m < n; m++)
+	                            {
+	                                if($scope.subsidy[m]['goods_code'] == tmp.code)
+	                                {
+	                                    tmp.gov = $scope.subsidy[m]['govsubsidy_price'];
+	                                    break;
+	                                }
+	                            }
+
+	                            $scope.total.gov += tmp.gov * tmp.used;
+	                            
+	                        }
+
+	                        //console.log($scope.total);
 	                    }
 	                    else
 	                    {

@@ -75,18 +75,17 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate,
                             tmp.gov = 0;
                             for(var m = 0, n = $scope.subsidy.length; m < n; m++)
                             {
-                                if($scope.subsidy[m]['goods_code'] == tmp.code)
+                                if($scope.subsidy[m]['goods_code'] == tmp.goods_code)
                                 {
                                     tmp.gov = $scope.subsidy[m]['govsubsidy_price'];
                                     break;
                                 }
                             }
-
                             $scope.total.gov += tmp.gov * tmp.used;
                             
                         }
 
-                        //console.log($scope.total);
+                        console.log($scope.total);
                     }
                     else
                     {
