@@ -21,6 +21,8 @@ var service = function($resource, BASEURL38985){
     var updateUserAuthInfo = BASEURL38985 + "/api/ac/uc/userService/updateUserAuthInfo";
 
     var updateUserSubsidy = BASEURL38985 + "/api/ac/uc/userService/updateUserSubsidy";
+
+    var orderlist = "/api/as/uc/jyu/getOrderListForKList";
     
     return {
 
@@ -50,6 +52,9 @@ var service = function($resource, BASEURL38985){
         },
         updateUserSubsidy : function(){
             return $resource(updateUserSubsidy, {}, {});
+        },
+        orderlist : function(){
+            return $resource(orderlist, {}, {});
         }
        
     };

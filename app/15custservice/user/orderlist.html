@@ -1,0 +1,50 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                <label>手机号</label>&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="searchform.mobile" placeholder="请输入手机号">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+      	<th class="col-md-1 text-center">订单编号</th>
+        <th class="col-md-1 text-center">用户名</th>
+        <th class="col-md-1 text-center">地址</th>
+        <th class="col-md-1 text-center">电话</th>
+        <th class="col-md-1 text-center">证件号</th>
+        <th class="col-md-1 text-center">申请时间</th>
+        <th class="col-md-1 text-center">支付状态</th>
+        <th class="col-md-2 text-center">支付宝订单号</th>
+        <th class="col-md-1 text-center">支付金额</th>
+        <th class="col-md-1 text-center">支付时间</th>
+        <th class="col-md-1 text-center">儿童套票</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.systradeno}}</td>
+        <td class="text-center">{{obj.username}}</td>
+        <td class="text-center">{{obj.address}}</td>
+        <td class="text-center">{{obj.mobile}}</td>
+        <td class="text-center">{{obj.papersno}}</td>
+        <td class="text-center">{{obj.appdatec}}</td>
+        <td class="text-center">{{obj.paystatusname}}</td>
+        <td class="text-center">{{obj.alitradeno}}</td>
+        <td class="text-center">{{obj.fee | currency : '￥'}}</td>
+        <td class="text-center">{{obj.paytimec}}</td>
+        <td class="text-center">{{obj.ischildname}}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+
+</div>

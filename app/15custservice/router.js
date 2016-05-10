@@ -82,7 +82,16 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
-      
+      .state('app.userorderlist', {
+        url: '/userorderlist',
+        controller : 'orderlist',
+        template: require('./user/orderlist.html'),
+        resolve:{
+            orderlist : function(custservice){
+                return custservice.orderlist();
+            }
+        }
+      })
 
       
 
