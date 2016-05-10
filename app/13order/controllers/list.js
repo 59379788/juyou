@@ -67,6 +67,7 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, $uibModa
         var modalInstance = $uibModal.open({
           template: require('../views/orderinfo.html'),
           controller: 'orderinfo',
+          size: 'lg',
           resolve: {
             obj : function(){
                 return obj;

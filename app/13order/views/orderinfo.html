@@ -1,96 +1,203 @@
 
+
 <div class="modal-header">
     <h4 class="modal-title">订单详情</h4>
 </div>
 <div class="modal-body">
 
-    <div class="container-fluid form-horizontal">
+    <div class="container-fluid form-horizontal ">
+        <div class="col-xs-6">
         <div class="form-group">
-            <label class="col-xs-2 control-label">订单编号</label>
+            <label class="col-xs-6 control-label">订单编号</label>
             <div class="col-xs-6">
                 <p class="form-control-static">{{obj.code}}</p>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-xs-2 control-label">订单标题</label>
+            <label class="col-xs-6 control-label">订单标题</label>
             <div class="col-xs-6">
                 <p class="form-control-static">{{obj.title}}</p>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-xs-2 control-label">支付金额</label>
+            <label class="col-xs-6 control-label">支付金额</label>
             <div class="col-xs-6">
                 <p class="form-control-static">{{obj.pay_fee}}</p>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-xs-2 control-label">支付状态</label>
+            <label class="col-xs-6 control-label">支付状态</label>
             <div class="col-xs-6">
                 <p class="form-control-static">{{obj.pay_state}}</p>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-xs-2 control-label">支付时间</label>
+            <label class="col-xs-6 control-label">支付时间</label>
             <div class="col-xs-6">
                 <p class="form-control-static">{{obj.pay_time}}</p>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-xs-2 control-label">支付流水号</label>
+            <label class="col-xs-6 control-label">支付流水号</label>
             <div class="col-xs-6">
                 <p class="form-control-static">{{obj.pay_trade_no}}</p>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-xs-2 control-label">支付类型</label>
+            <label class="col-xs-6 control-label">支付类型</label>
             <div class="col-xs-6">
                 <p class="form-control-static">{{obj.payment_type}}</p>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-xs-2 control-label">系统确定状态</label>
+            <label class="col-xs-6 control-label">系统确定状态</label>
             <div class="col-xs-6">
                 <p class="form-control-static">{{obj.sys_affirm_state}}</p>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-xs-2 control-label">订单取消状态</label>
+            <label class="col-xs-6 control-label">订单取消状态</label>
             <div class="col-xs-6">
                 <p class="form-control-static">{{obj.cancel_state}}</p>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-xs-2 control-label">订单取消时间</label>
+            <label class="col-xs-6 control-label">订单取消时间</label>
             <div class="col-xs-6">
                 <p class="form-control-static">{{obj.cancel_time}}</p>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-xs-2 control-label">订单取消原因</label>
+            <label class="col-xs-6 control-label">订单取消原因</label>
             <div class="col-xs-6">
                 <p class="form-control-static">{{obj.cancel_reason}}</p>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-xs-2 control-label">支付流水号</label>
+            <label class="col-xs-6 control-label">票状态</label>
             <div class="col-xs-6">
-                <p class="form-control-static">{{obj.pay_trade_no}}</p>
+                <p class="form-control-static">{{obj.ticket_state}}</p>
             </div>
         </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">出票时间</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.ticket_out_time}}</p>
+            </div>
+        </div>
+
+        </div>
+
+        <div class="col-xs-6">
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">短信发送状态</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.sms_state}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">短信发送时间</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.sms_send_time}}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-xs-6 control-label">身份证</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.cardno}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">电话</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.mobile}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">姓名</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.name}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">备注</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.note}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">数量</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.num}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">退票数量</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.back}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">使用数量</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.used}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">创建时间</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.create_time}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">创建时间</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.create_time}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">创建者</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.create_by}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">公司</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.company_id}}</p>
+            </div>
+        </div>
+        </div>
+
     </div>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
     <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
 </div>
+
