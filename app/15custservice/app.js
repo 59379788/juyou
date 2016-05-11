@@ -13,6 +13,7 @@ App.controller('cardA',require('./controllers/cardA'));
 App.controller('cardB',require('./controllers/cardB'));
 App.controller('infoticket',require('./controllers/infoticket'));
 App.controller('edituserinfo',require('./controllers/edituserinfo'));
+App.controller('createuserinfo',require('./controllers/createuserinfo'));
 App.controller('redpackage',require('./controllers/redpackage'));
 App.controller('userorderlist',require('./controllers/orderlist'));
 
