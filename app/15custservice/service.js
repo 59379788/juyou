@@ -4,11 +4,13 @@
  */
 var service = function($resource, BASEURL38985){
 
-    var userinfo = "/api/ac/uc/userService/getUserInfoByMobile";
+    var userinfo = BASEURL38985 + "/api/ac/uc/userService/getUserInfoByMobile";
 
-    var oneuserinfo = "/api/as/uc/jyu/getjyuserinfo";
+    var oneuserinfo = BASEURL38985 + "/api/as/uc/jyu/getjyuserinfo";
 
-    var edituserinfo = "/api/ac/uc/userService/updateUserInfoByMobile";
+    var edituserinfo = BASEURL38985 + "/api/ac/uc/userService/updateUserInfoByMobile";
+
+    var createuserinfo = "http://weixint.juyouhx.com/api/uc/uc/userService/insertUserAuthKF";
 
     var cardA = BASEURL38985 + "/api/as/uc/jyu/getphycardlist";
 
@@ -22,7 +24,7 @@ var service = function($resource, BASEURL38985){
 
     var updateUserSubsidy = BASEURL38985 + "/api/ac/uc/userService/updateUserSubsidy";
 
-    var orderlist = "/api/as/uc/jyu/getOrderListForKList";
+    var orderlist = BASEURL38985 + "/api/as/uc/jyu/getOrderListForKList";
     
     return {
 
@@ -34,6 +36,9 @@ var service = function($resource, BASEURL38985){
         },
         edituserinfo : function(){
             return $resource(edituserinfo, {}, {});
+        },
+        createuserinfo : function(){
+            return $resource(createuserinfo, {}, {});
         },
         cardA : function(){
             return $resource(cardA, {}, {});

@@ -29,7 +29,7 @@
       <tr ng-repeat="obj in objs">
         <td class="text-center">{{obj.giftcode}}</td>
         <td class="text-center">{{obj.mobile}}</td>
-        <td class="text-center">{{obj.money | currency : '￥'}}</td>
+        <td class="text-center">{{obj.money/100 | currency : '￥'}}</td>
         <td class="text-center">{{obj.state}}</td>
         <td class="text-center">{{obj.sendtime}}</td>
       </tr>

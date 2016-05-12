@@ -55,4 +55,10 @@ module.exports = function($scope, $state, userinfo, updateUserAuthInfo){
 		});
 	}
 
+	$scope.create = function(){
+
+		$state.go('app.createuserinfo');
+		
+	};
+
 };

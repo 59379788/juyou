@@ -38,6 +38,17 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+      .state('app.createuserinfo', {
+        url: '/createuserinfo',
+        controller : 'createuserinfo',
+        template: require('./user/createuserinfo.html'),
+        resolve:{
+            createuserinfo : function(custservice){
+                return custservice.createuserinfo();
+            }
+        }
+      })
+
       .state('app.cardA', {
         url: '/cardA',
         controller : 'cardA',
