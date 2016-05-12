@@ -15,6 +15,8 @@ App.controller('dashboard',require('./controllers/dashboard'));
 
 App.controller('noticeinfo',require('./controllers/noticeinfo'));
 
+App.controller('chart',require('./controllers/chart'));
+
 
 
 module.exports = App;

@@ -22,6 +22,12 @@ require('../node_modules/textangular/dist/textAngular.css');
 // ------------ 富文本编辑器 ----------------------//
 
 
+// ------------ 图表 ----------------------//
+require('../node_modules/angular-chart.js/dist/angular-chart.min');
+require('../node_modules/angular-chart.js/dist/angular-chart.min.css');
+// ------------ 图表 ----------------------//
+
+
 require('../node_modules/angular-ui-tree/dist/angular-ui-tree.css');
 require('./style/app.css');
 
@@ -54,6 +60,7 @@ require('./13order/app');
 require('./14statistics/app');
 require('./15custservice/app');
 require('./16notice/app');
+require('./17chart/app');
 
 
 require('./96util/app');
@@ -98,6 +105,7 @@ var App = angular.module('juyouApp', [
     'statistics',
     'custservice',
     'notice',
+    'chart',
     'util',
     'test',
     'common',
@@ -109,6 +117,7 @@ var App = angular.module('juyouApp', [
     'angularFileUpload',
     'ui.tree',
     'textAngular',
+    'chart.js',
     'constant'
 ]);
 
@@ -120,9 +129,21 @@ App.config(['$urlRouterProvider', '$stateProvider',
 }])
 
 //拦截器
-.config(function($httpProvider) {
+.config(function($httpProvider, ChartJsProvider) {
   $httpProvider.interceptors.push('httpInjector');
+
+  // Configure all charts
+  ChartJsProvider.setOptions({
+    colours: ['#97BBCD', '#DCDCDC', '#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'],
+    responsive: true
+  });
+  // Configure all doughnut charts
+  ChartJsProvider.setOptions('Doughnut', {
+    animateScale: true
+  });
+
 })
+
 
 //html过滤器
 .filter('trustHtml', function ($sce) {
@@ -132,6 +153,7 @@ App.config(['$urlRouterProvider', '$stateProvider',
 })
 
 //挂数据
+//key1数据相等挂key2的数据
 .filter('arrfilter', function () {
     return function (input, key1, key2, value) {
         var output = 0;

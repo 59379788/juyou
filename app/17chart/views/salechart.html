@@ -1,0 +1,62 @@
+<div class="col-xs-12">
+<div class="row">
+
+<div class="col-sm-8">
+<div class="panel panel-default">
+<div class="panel-body">
+<div class="form-group form-inline">
+    <div class="col-sm-12">
+
+    	<div class="row">
+    		<label>景区</label>&nbsp;&nbsp;
+            <select class="form-control" ng-model="searchform.place_code" 
+              ng-options="view.viewcode as view.viewname for view in viewarr"
+              ng-change="change(searchform.place_code)" 
+            >
+              <option value=""> --全部-- </option>
+            </select>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <label>销售品</label>&nbsp;&nbsp;
+            <select class="form-control" ng-model="searchform.sale_code" 
+              ng-options="sale.code as sale.name for sale in salearr"
+              ng-change="changesale($index)" 
+            >
+            </select>
+
+    	</div>
+
+		<div class="row mt10">
+			<div class="input-group">
+			<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+			  <span class="input-group-btn">
+			    <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+			  </span>
+			</div>
+			    &nbsp;&nbsp;到&nbsp;&nbsp;            
+			<div class="input-group">
+			<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+			  <span class="input-group-btn">
+			    <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+			  </span>
+			</div>
+			&nbsp;&nbsp;
+
+			<button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+		</div>
+      
+    </div>
+</div>
+</div>
+</div><!-- searchArea -->
+
+
+
+<canvas id="line" class="chart chart-line" chart-data="line.data"
+  chart-labels="line.labels" chart-legend="true" chart-series="line.series"
+  chart-click="onClick" >
+</canvas> 
+</div>
+
+
+</div>
+</div>

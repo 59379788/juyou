@@ -167,7 +167,7 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
 
                 $scope.show = false;
 
-                checkgoodsbuy(0);
+                if($scope.sale_category === 'F11') checkgoodsbuy(0);
             }
             else
             {

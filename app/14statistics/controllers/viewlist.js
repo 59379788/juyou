@@ -104,6 +104,4 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate,
     };
     $scope.load();
 
-    
-
 };

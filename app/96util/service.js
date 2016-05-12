@@ -10,7 +10,9 @@ var service = function(){
         	if(d === undefined){
         		return "";
         	}
-        	return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+        	var month = (d.getMonth()+1).toString();
+        	//if(month.length == 1) month = '0' + month;
+        	return d.getFullYear() + "-" + month + "-" + d.getDate();
     	},
 
     	transData : function(a, idStr, pidStr, chindrenStr){    
@@ -88,6 +90,64 @@ var service = function(){
 	        if(!pass) alert(tip);
 	        return pass;
 			
+		}
+
+		,
+
+		/*************************
+		 * 计算两个日期时间段内所有日期 
+		 * 
+		 * @param value1 
+		 *            开始日期 YYYY-MM-DD 
+		 * @param value2 
+		 *            结束日期 
+		 * return 日期数组 
+		 */  
+		dataScope : function(value1, value2) {  
+		    var getDate1 = function(str) {  
+		        var tempDate = new Date();  
+		        var list = str.split("-");  
+		        tempDate.setFullYear(list[0]);  
+		        tempDate.setMonth(list[1] - 1);  
+		        tempDate.setDate(list[2]);  
+		        return tempDate;  
+		    }  
+		    var date1 = getDate1(value1);  
+		    var date2 = getDate1(value2);  
+		    if (date1 > date2) {  
+		        var tempDate = date1;  
+		        date1 = date2;  
+		        date2 = tempDate;  
+		    }  
+		    date2.setDate(date2.getDate() + 1);  
+		    var dateArr = [];  
+		    
+
+		    while (!(date1.getFullYear() == date2.getFullYear()  
+		            && date1.getMonth() == date2.getMonth() 
+		            && date1.getDate() == date2.getDate())) {  
+
+		         var dayStr =date1.getDate().toString();
+	            if(dayStr.length ==1){  
+	                dayStr="0"+dayStr;  
+	            }  
+
+	            var month = (date1.getMonth() + 1).toString();
+	            if(month.length == 1) month = '0' + month;
+		        dateArr.push(date1.getFullYear() + "-" + 
+		        			month + "-"  
+		                	+ dayStr);  
+		        
+		        /* 
+		         * document.write("<div style='display:block'>" + date1.getFullYear() + 
+		         * "-" + (date1.getMonth() + 1) + "-" + date1.getDate() + "</div>"); 
+		         */  
+		        // document.write(dateArr[i] + "<br>");  
+		        
+		        date1.setDate(date1.getDate() + 1);  
+
+		    }  
+		    return dateArr;  
 		}
        
     };

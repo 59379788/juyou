@@ -12,16 +12,44 @@ var router = function($urlRouterProvider, $stateProvider){
       controller : 'dashboard',
       template: require('./views/main.html'),
       resolve : {
-      	noticelist:  function(dashboardservice){
-       		return dashboardservice.noticelist();
-       	},
-       	noticeinfo:  function(dashboardservice){
-       		return dashboardservice.noticeinfo();
-       	},
+       noticelist:  function(dashboardservice){
+           return dashboardservice.noticelist();
+         },
+         noticeinfo:  function(dashboardservice){
+           return dashboardservice.noticeinfo();
+         },
         userinfo:  function(dashboardservice){
           return dashboardservice.userinfo;
         }
+      // controller : 'chart',
+      // template: require('./views/chart.html'),
+      // resolve : {
+      //   orderstatisticslist : function(statisticsservice){
+      //       return statisticsservice.orderstatisticslist();
+      //   },
+      //   getDate : function(utilservice){
+      //       return utilservice.getDate;
+      //   },
+      //   dataScope : function(utilservice){
+      //       return utilservice.dataScope;
+      //   },
+      //   viewlist : function(viewservice){
+      //       return viewservice.slist;
+      //   },
+      //   salelist : function(productservice){
+      //       return productservice.salelist();
+      //   }
+        // noticelist:  function(dashboardservice){
+        //   return dashboardservice.noticelist();
+        // },
+        // noticeinfo:  function(dashboardservice){
+        //   return dashboardservice.noticeinfo();
+        // },
+        // userinfo:  function(dashboardservice){
+        //   return dashboardservice.userinfo;
+        // }
       }
+      
     })
 
 };
