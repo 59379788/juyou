@@ -10,6 +10,7 @@ module.exports = function($scope, orderstatisticslist, getDate, dataScope, salel
     ];
 
     $scope.searchform = {};
+    $scope.searchform.sale = {};
     var view = new Object();
     $scope.viewarr = [];
 
@@ -25,9 +26,11 @@ module.exports = function($scope, orderstatisticslist, getDate, dataScope, salel
         obj.opened = true;
     };
 
+
+    //填充景区和产品下拉
     salelist.get({}, function(res){
 
-    	console.log(res);
+    	//console.log(res);
 
     	/* 销售品存储结构
          * ========================================= */
@@ -41,12 +44,12 @@ module.exports = function($scope, orderstatisticslist, getDate, dataScope, salel
         }
 
         //用景区编号作为存储结构的属性，值是数组
-        for(var i = 0, j = res.data.length; i < j; i++)
+        for(var i = 1, j = res.data.length; i < j; i++)
         {
             var tt = res.data[i];
             var v = tt.place_code;
+            if(v === 'ERROR') continue;
             var type = tt.sale_category;
-
             if(!view.hasOwnProperty(v))
             {
                 view[v] = new Object();
@@ -62,32 +65,39 @@ module.exports = function($scope, orderstatisticslist, getDate, dataScope, salel
 
         $scope.searchform.place_code = $scope.viewarr[0].viewcode;
         $scope.salearr = $scope.viewarr[0].salearr;
-        $scope.searchform.sale_code = $scope.salearr[0].code;
+
+
+        $scope.searchform.sale = $scope.salearr[0];
+        console.log($scope.searchform.sale);
+
+        $scope.load();
         
     });
-
  
 
     $scope.change = function(code){
-
     	$scope.salearr = view[code].salearr;
-    	$scope.searchform.sale_code = $scope.salearr[0].code;
+    	$scope.searchform.sale = $scope.salearr[0];
     };
 
-    $scope.changesale = function(index){
+    // $scope.changesale = function(obj){
+    //     console.log(obj);
+    // };
 
-    	//alert(index);
-    };
+
 
     $scope.load = function(){
 
     	var start = getDate($scope.section.start.date);
     	var end = getDate($scope.section.end.date);
 
+        console.log($scope.searchform.sale);
+
+
     	var para = {
 	    	'start_time' : start + " 00:00:00",
             'end_time' : end + " 23:59:59",
-	        'sale_code' : $scope.searchform.sale_code
+	        'sale_code' : $scope.searchform.sale.code
 	    };
 
 	    $scope.line.labels = dataScope(start, end);
@@ -100,29 +110,32 @@ module.exports = function($scope, orderstatisticslist, getDate, dataScope, salel
 		$scope.line.data = [];
 	    orderstatisticslist.save(para, function(res){
 
+            console.log(res);
+
 	    	if(res.errcode === 0)
 	    	{
 	    		var arr = [];
 	    		for(var i = 0, j = res.data.length; i < j; i++)
 	    		{
-	    			labels[res.data[i].date] = res.data[i].buy;
+	    			labels[res.data[i].date] += res.data[i].buy;
 	    		}
 	    		angular.forEach(labels, function (value, key) {
-				    //console.log(key + ':' + value);
 				    arr.push(value);
 				});
 	     		$scope.line.data.push(arr);
+                $scope.line.series = [];
+                $scope.line.series.push($scope.searchform.sale.name);
 	    	}
 	    	else
 	    	{
 	    		alert(res.errmsg);
 	    	}
 
-	    	console.log($scope.line.data);
+	    	//console.log($scope.line.data);
 
 	    });
 
     }
-    $scope.load();
+    
 
 };

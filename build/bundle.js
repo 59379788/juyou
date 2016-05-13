@@ -75,14 +75,20 @@
 	// ------------ 富文本编辑器 ----------------------//
 
 
+	// ------------ 图表 ----------------------//
 	__webpack_require__(22);
-	__webpack_require__(24);
+	__webpack_require__(25);
+	// ------------ 图表 ----------------------//
+
+
+	__webpack_require__(27);
+	__webpack_require__(29);
 
 
 
 	//=================[ 权限模块加载 ]===========================//
 
-	(__webpack_require__(26))(jQuery);
+	(__webpack_require__(31))(jQuery);
 
 	//=================[ 权限模块加载 ]===========================//
 
@@ -90,29 +96,30 @@
 
 	//=================[ 子模块加载 ]===========================//
 
-	__webpack_require__(27);
-	__webpack_require__(34);
-	__webpack_require__(44);
-	__webpack_require__(59);
-	__webpack_require__(70);
-	__webpack_require__(71);
-	__webpack_require__(90);
-	__webpack_require__(94);
-	__webpack_require__(121);
-	__webpack_require__(129);
-	__webpack_require__(132);
-	__webpack_require__(143);
-	__webpack_require__(148);
-	__webpack_require__(162);
-	__webpack_require__(178);
-	__webpack_require__(189);
-	__webpack_require__(206);
-
-
+	__webpack_require__(32);
+	__webpack_require__(40);
+	__webpack_require__(50);
+	__webpack_require__(65);
+	__webpack_require__(76);
+	__webpack_require__(77);
+	__webpack_require__(96);
+	__webpack_require__(100);
+	__webpack_require__(127);
+	__webpack_require__(135);
+	__webpack_require__(138);
+	__webpack_require__(149);
+	__webpack_require__(154);
+	__webpack_require__(168);
+	__webpack_require__(184);
+	__webpack_require__(195);
 	__webpack_require__(214);
-	__webpack_require__(216);   //拦截器
-	__webpack_require__(218);
 	__webpack_require__(222);
+
+
+	__webpack_require__(227);
+	__webpack_require__(229);   //拦截器
+	__webpack_require__(231);
+	__webpack_require__(235);
 
 	//=================[ 子模块加载 ]===========================//
 
@@ -151,6 +158,7 @@
 	    'statistics',
 	    'custservice',
 	    'notice',
+	    'chart',
 	    'util',
 	    'test',
 	    'common',
@@ -162,6 +170,7 @@
 	    'angularFileUpload',
 	    'ui.tree',
 	    'textAngular',
+	    'chart.js',
 	    'constant'
 	]);
 
@@ -173,9 +182,21 @@
 	}])
 
 	//拦截器
-	.config(function($httpProvider) {
+	.config(function($httpProvider, ChartJsProvider) {
 	  $httpProvider.interceptors.push('httpInjector');
+
+	  // Configure all charts
+	  ChartJsProvider.setOptions({
+	    colours: ['#97BBCD', '#DCDCDC', '#F7464A', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'],
+	    responsive: true
+	  });
+	  // Configure all doughnut charts
+	  ChartJsProvider.setOptions('Doughnut', {
+	    animateScale: true
+	  });
+
 	})
+
 
 	//html过滤器
 	.filter('trustHtml', function ($sce) {
@@ -185,6 +206,7 @@
 	})
 
 	//挂数据
+	//key1数据相等挂key2的数据
 	.filter('arrfilter', function () {
 	    return function (input, key1, key2, value) {
 	        var output = 0;
@@ -221,11 +243,11 @@
 /***/ function(module, exports) {
 
 	/**
-	 * @license AngularJS v1.5.5
+	 * @license AngularJS v1.5.0
 	 * (c) 2010-2016 Google, Inc. http://angularjs.org
 	 * License: MIT
 	 */
-	(function(window) {'use strict';
+	(function(window, document, undefined) {'use strict';
 
 	/**
 	 * @description
@@ -279,7 +301,7 @@
 	      return match;
 	    });
 
-	    message += '\nhttp://errors.angularjs.org/1.5.5/' +
+	    message += '\nhttp://errors.angularjs.org/1.5.0/' +
 	      (module ? module + '/' : '') + code;
 
 	    for (i = SKIP_INDEXES, paramPrefix = '?'; i < templateArgs.length; i++, paramPrefix = '&') {
@@ -393,7 +415,6 @@
 	 * @ngdoc module
 	 * @name ng
 	 * @module ng
-	 * @installation
 	 * @description
 	 *
 	 * # ng (core module)
@@ -460,7 +481,7 @@
 	 * documentMode is an IE-only property
 	 * http://msdn.microsoft.com/en-us/library/ie/cc196988(v=vs.85).aspx
 	 */
-	msie = window.document.documentMode;
+	msie = document.documentMode;
 
 
 	/**
@@ -508,7 +529,7 @@
 	 *
 	 * Unlike ES262's
 	 * [Array.prototype.forEach](http://www.ecma-international.org/ecma-262/5.1/#sec-15.4.4.18),
-	 * providing 'undefined' or 'null' values for `obj` will not throw a TypeError, but rather just
+	 * Providing 'undefined' or 'null' values for `obj` will not throw a TypeError, but rather just
 	 * return the value provided.
 	 *
 	   ```js
@@ -749,7 +770,7 @@
 	identity.$inject = [];
 
 
-	function valueFn(value) {return function valueRef() {return value;};}
+	function valueFn(value) {return function() {return value;};}
 
 	function hasCustomToString(obj) {
 	  return isFunction(obj.toString) && obj.toString !== toString;
@@ -1111,7 +1132,7 @@
 
 	  function copyRecurse(source, destination) {
 	    var h = destination.$$hashKey;
-	    var key;
+	    var result, key;
 	    if (isArray(source)) {
 	      for (var i = 0, ii = source.length; i < ii; i++) {
 	        destination.push(copyElement(source[i]));
@@ -1205,9 +1226,6 @@
 	        var re = new RegExp(source.source, source.toString().match(/[^\/]*$/)[0]);
 	        re.lastIndex = source.lastIndex;
 	        return re;
-
-	      case '[object Blob]':
-	        return new source.constructor([source], {type: source.type});
 	    }
 
 	    if (isFunction(source.cloneNode)) {
@@ -1270,41 +1288,6 @@
 	 * @param {*} o1 Object or value to compare.
 	 * @param {*} o2 Object or value to compare.
 	 * @returns {boolean} True if arguments are equal.
-	 *
-	 * @example
-	   <example module="equalsExample" name="equalsExample">
-	     <file name="index.html">
-	      <div ng-controller="ExampleController">
-	        <form novalidate>
-	          <h3>User 1</h3>
-	          Name: <input type="text" ng-model="user1.name">
-	          Age: <input type="number" ng-model="user1.age">
-
-	          <h3>User 2</h3>
-	          Name: <input type="text" ng-model="user2.name">
-	          Age: <input type="number" ng-model="user2.age">
-
-	          <div>
-	            <br/>
-	            <input type="button" value="Compare" ng-click="compare()">
-	          </div>
-	          User 1: <pre>{{user1 | json}}</pre>
-	          User 2: <pre>{{user2 | json}}</pre>
-	          Equal: <pre>{{result}}</pre>
-	        </form>
-	      </div>
-	    </file>
-	    <file name="script.js">
-	        angular.module('equalsExample', []).controller('ExampleController', ['$scope', function($scope) {
-	          $scope.user1 = {};
-	          $scope.user2 = {};
-	          $scope.result;
-	          $scope.compare = function() {
-	            $scope.result = angular.equals($scope.user1, $scope.user2);
-	          };
-	        }]);
-	    </file>
-	  </example>
 	 */
 	function equals(o1, o2) {
 	  if (o1 === o2) return true;
@@ -1351,8 +1334,8 @@
 	  if (!isDefined(csp.rules)) {
 
 
-	    var ngCspElement = (window.document.querySelector('[ng-csp]') ||
-	                    window.document.querySelector('[data-ng-csp]'));
+	    var ngCspElement = (document.querySelector('[ng-csp]') ||
+	                    document.querySelector('[data-ng-csp]'));
 
 	    if (ngCspElement) {
 	      var ngCspAttribute = ngCspElement.getAttribute('ng-csp') ||
@@ -1427,7 +1410,7 @@
 	  var i, ii = ngAttrPrefixes.length, prefix, name;
 	  for (i = 0; i < ii; ++i) {
 	    prefix = ngAttrPrefixes[i];
-	    if (el = window.document.querySelector('[' + prefix.replace(':', '\\:') + 'jq]')) {
+	    if (el = document.querySelector('[' + prefix.replace(':', '\\:') + 'jq]')) {
 	      name = el.getAttribute(prefix + 'jq');
 	      break;
 	    }
@@ -1492,7 +1475,7 @@
 	    val = undefined;
 	  } else if (isWindow(value)) {
 	    val = '$WINDOW';
-	  } else if (value &&  window.document === value) {
+	  } else if (value &&  document === value) {
 	    val = '$DOCUMENT';
 	  } else if (isScope(value)) {
 	    val = '$SCOPE';
@@ -1732,17 +1715,10 @@
 	 * designates the **root element** of the application and is typically placed near the root element
 	 * of the page - e.g. on the `<body>` or `<html>` tags.
 	 *
-	 * There are a few things to keep in mind when using `ngApp`:
-	 * - only one AngularJS application can be auto-bootstrapped per HTML document. The first `ngApp`
-	 *   found in the document will be used to define the root element to auto-bootstrap as an
-	 *   application. To run multiple applications in an HTML document you must manually bootstrap them using
-	 *   {@link angular.bootstrap} instead.
-	 * - AngularJS applications cannot be nested within each other.
-	 * - Do not use a directive that uses {@link ng.$compile#transclusion transclusion} on the same element as `ngApp`.
-	 *   This includes directives such as {@link ng.ngIf `ngIf`}, {@link ng.ngInclude `ngInclude`} and
-	 *   {@link ngRoute.ngView `ngView`}.
-	 *   Doing this misplaces the app {@link ng.$rootElement `$rootElement`} and the app's {@link auto.$injector injector},
-	 *   causing animations to stop working and making the injector inaccessible from outside the app.
+	 * Only one AngularJS application can be auto-bootstrapped per HTML document. The first `ngApp`
+	 * found in the document will be used to define the root element to auto-bootstrap as an
+	 * application. To run multiple applications in an HTML document you must manually bootstrap them using
+	 * {@link angular.bootstrap} instead. AngularJS applications cannot be nested within each other.
 	 *
 	 * You can specify an **AngularJS module** to be used as the root module for the application.  This
 	 * module will be loaded into the {@link auto.$injector} when the application is bootstrapped. It
@@ -1882,24 +1858,15 @@
 	 * @description
 	 * Use this function to manually start up angular application.
 	 *
-	 * For more information, see the {@link guide/bootstrap Bootstrap guide}.
+	 * See: {@link guide/bootstrap Bootstrap}
+	 *
+	 * Note that Protractor based end-to-end tests cannot use this function to bootstrap manually.
+	 * They must use {@link ng.directive:ngApp ngApp}.
 	 *
 	 * Angular will detect if it has been loaded into the browser more than once and only allow the
 	 * first loaded script to be bootstrapped and will report a warning to the browser console for
 	 * each of the subsequent scripts. This prevents strange results in applications, where otherwise
 	 * multiple instances of Angular try to work on the DOM.
-	 *
-	 * <div class="alert alert-warning">
-	 * **Note:** Protractor based end-to-end tests cannot use this function to bootstrap manually.
-	 * They must use {@link ng.directive:ngApp ngApp}.
-	 * </div>
-	 *
-	 * <div class="alert alert-warning">
-	 * **Note:** Do not bootstrap the app on an element with a directive that uses {@link ng.$compile#transclusion transclusion},
-	 * such as {@link ng.ngIf `ngIf`}, {@link ng.ngInclude `ngInclude`} and {@link ngRoute.ngView `ngView`}.
-	 * Doing this misplaces the app {@link ng.$rootElement `$rootElement`} and the app's {@link auto.$injector injector},
-	 * causing animations to stop working and making the injector inaccessible from outside the app.
-	 * </div>
 	 *
 	 * ```html
 	 * <!doctype html>
@@ -1944,11 +1911,11 @@
 	    element = jqLite(element);
 
 	    if (element.injector()) {
-	      var tag = (element[0] === window.document) ? 'document' : startingTag(element);
+	      var tag = (element[0] === document) ? 'document' : startingTag(element);
 	      //Encode angle brackets to prevent input from being sanitized to empty string #8683
 	      throw ngMinErr(
 	          'btstrpd',
-	          "App already bootstrapped with this element '{0}'",
+	          "App Already Bootstrapped with this Element '{0}'",
 	          tag.replace(/</,'&lt;').replace(/>/,'&gt;'));
 	    }
 
@@ -2395,9 +2362,9 @@
 	           * @ngdoc method
 	           * @name angular.Module#decorator
 	           * @module ng
-	           * @param {string} name The name of the service to decorate.
-	           * @param {Function} decorFn This function will be invoked when the service needs to be
-	           *                           instantiated and should return the decorated service instance.
+	           * @param {string} The name of the service to decorate.
+	           * @param {Function} This function will be invoked when the service needs to be
+	           *                                    instantiated and should return the decorated service instance.
 	           * @description
 	           * See {@link auto.$provide#decorator $provide.decorator()}.
 	           */
@@ -2701,11 +2668,11 @@
 	 * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
 	 */
 	var version = {
-	  full: '1.5.5',    // all of these placeholder strings will be replaced by grunt's
+	  full: '1.5.0',    // all of these placeholder strings will be replaced by grunt's
 	  major: 1,    // package task
 	  minor: 5,
-	  dot: 5,
-	  codeName: 'material-conspiration'
+	  dot: 0,
+	  codeName: 'ennoblement-facilitation'
 	};
 
 
@@ -2962,9 +2929,6 @@
 	 * - `inheritedData()` - same as `data()`, but walks up the DOM until a value is found or the top
 	 *   parent element is reached.
 	 *
-	 * @knownIssue You cannot spy on `angular.element` if you are using Jasmine version 1.x. See
-	 * https://github.com/angular/angular.js/issues/14251 for more information.
-	 *
 	 * @param {string|DOMElement} element HTML string or DOMElement to be wrapped into jQuery.
 	 * @returns {Object} jQuery object.
 	 */
@@ -3091,7 +3055,7 @@
 	}
 
 	function jqLiteParseHTML(html, context) {
-	  context = context || window.document;
+	  context = context || document;
 	  var parsed;
 
 	  if ((parsed = SINGLE_TAG_REGEXP.exec(html))) {
@@ -3117,7 +3081,7 @@
 
 
 	// IE9-11 has no method "contains" in SVG element and in Node.prototype. Bug #10259.
-	var jqLiteContains = window.Node.prototype.contains || function(arg) {
+	var jqLiteContains = Node.prototype.contains || function(arg) {
 	  // jshint bitwise: false
 	  return !!(this.compareDocumentPosition(arg) & 16);
 	  // jshint bitwise: true
@@ -3389,8 +3353,8 @@
 	    }
 
 	    // check if document is already loaded
-	    if (window.document.readyState === 'complete') {
-	      window.setTimeout(trigger);
+	    if (document.readyState === 'complete') {
+	      setTimeout(trigger);
 	    } else {
 	      this.on('DOMContentLoaded', trigger); // works for modern browsers and IE9
 	      // we can not use jqLite since we are not done loading and jQuery could be loaded later.
@@ -4080,7 +4044,6 @@
 	/**
 	 * @ngdoc module
 	 * @name auto
-	 * @installation
 	 * @description
 	 *
 	 * Implicit module which gets automatically added to each {@link auto.$injector $injector}.
@@ -4094,7 +4057,7 @@
 	var $injectorMinErr = minErr('$injector');
 
 	function extractArgs(fn) {
-	  var fnText = Function.prototype.toString.call(fn).replace(STRIP_COMMENTS, ''),
+	  var fnText = fn.toString().replace(STRIP_COMMENTS, ''),
 	      args = fnText.match(ARROW_ARG) || fnText.match(FN_ARGS);
 	  return args;
 	}
@@ -4568,13 +4531,14 @@
 	 * @description
 	 *
 	 * Register a **value service** with the {@link auto.$injector $injector}, such as a string, a
-	 * number, an array, an object or a function. This is short for registering a service where its
+	 * number, an array, an object or a function.  This is short for registering a service where its
 	 * provider's `$get` property is a factory function that takes no arguments and returns the **value
-	 * service**. That also means it is not possible to inject other services into a value service.
+	 * service**.
 	 *
 	 * Value services are similar to constant services, except that they cannot be injected into a
 	 * module configuration function (see {@link angular.Module#config}) but they can be overridden by
-	 * an Angular {@link auto.$provide#decorator decorator}.
+	 * an Angular
+	 * {@link auto.$provide#decorator decorator}.
 	 *
 	 * @param {string} name The name of the instance.
 	 * @param {*} value The value.
@@ -4599,11 +4563,8 @@
 	 * @name $provide#constant
 	 * @description
 	 *
-	 * Register a **constant service** with the {@link auto.$injector $injector}, such as a string,
-	 * a number, an array, an object or a function. Like the {@link auto.$provide#value value}, it is not
-	 * possible to inject other services into a constant.
-	 *
-	 * But unlike {@link auto.$provide#value value}, a constant can be
+	 * Register a **constant service**, such as a string, a number, an array, an object or a function,
+	 * with the {@link auto.$injector $injector}. Unlike {@link auto.$provide#value value} it can be
 	 * injected into a module configuration function (see {@link angular.Module#config}) and it cannot
 	 * be overridden by an Angular {@link auto.$provide#decorator decorator}.
 	 *
@@ -5242,7 +5203,7 @@
 	}
 
 	var $$CoreAnimateJsProvider = function() {
-	  this.$get = noop;
+	  this.$get = function() {};
 	};
 
 	// this is prefixed with Core since it conflicts with
@@ -5514,9 +5475,6 @@
 	       * // remove all the animation event listeners listening for `enter`
 	       * $animate.off('enter');
 	       *
-	       * // remove listeners for all animation events from the container element
-	       * $animate.off(container);
-	       *
 	       * // remove all the animation event listeners listening for `enter` on the given element and its children
 	       * $animate.off('enter', container);
 	       *
@@ -5525,9 +5483,7 @@
 	       * $animate.off('enter', container, callback);
 	       * ```
 	       *
-	       * @param {string|DOMElement} event|container the animation event (e.g. enter, leave, move,
-	       * addClass, removeClass, etc...), or the container element. If it is the element, all other
-	       * arguments are ignored.
+	       * @param {string} event the animation event (e.g. enter, leave, move, addClass, removeClass, etc...)
 	       * @param {DOMElement=} container the container element the event listener was placed on
 	       * @param {Function=} callback the callback function that was registered as the listener
 	       */
@@ -6067,6 +6023,7 @@
 	 */
 	function Browser(window, document, $log, $sniffer) {
 	  var self = this,
+	      rawDocument = document[0],
 	      location = window.location,
 	      history = window.history,
 	      setTimeout = window.setTimeout,
@@ -6129,14 +6086,7 @@
 	  var cachedState, lastHistoryState,
 	      lastBrowserUrl = location.href,
 	      baseElement = document.find('base'),
-	      pendingLocation = null,
-	      getCurrentState = !$sniffer.history ? noop : function getCurrentState() {
-	        try {
-	          return history.state;
-	        } catch (e) {
-	          // MSIE can reportedly throw when there is no state (UNCONFIRMED).
-	        }
-	      };
+	      pendingLocation = null;
 
 	  cacheState();
 	  lastHistoryState = cachedState;
@@ -6242,6 +6192,14 @@
 	    pendingLocation = null;
 	    cacheState();
 	    fireUrlChange();
+	  }
+
+	  function getCurrentState() {
+	    try {
+	      return history.state;
+	    } catch (e) {
+	      // MSIE can reportedly throw when there is no state (UNCONFIRMED).
+	    }
 	  }
 
 	  // This variable should be used *only* inside the cacheState function.
@@ -7095,23 +7053,9 @@
 	 *    `true` if the specified slot contains content (i.e. one or more DOM nodes).
 	 *
 	 * The controller can provide the following methods that act as life-cycle hooks:
-	 * * `$onInit()` - Called on each controller after all the controllers on an element have been constructed and
+	 * * `$onInit` - Called on each controller after all the controllers on an element have been constructed and
 	 *   had their bindings initialized (and before the pre &amp; post linking functions for the directives on
 	 *   this element). This is a good place to put initialization code for your controller.
-	 * * `$onChanges(changesObj)` - Called whenever one-way (`<`) or interpolation (`@`) bindings are updated. The
-	 *   `changesObj` is a hash whose keys are the names of the bound properties that have changed, and the values are an
-	 *   object of the form `{ currentValue, previousValue, isFirstChange() }`. Use this hook to trigger updates within a
-	 *   component such as cloning the bound value to prevent accidental mutation of the outer value.
-	 * * `$onDestroy()` - Called on a controller when its containing scope is destroyed. Use this hook for releasing
-	 *   external resources, watches and event handlers. Note that components have their `$onDestroy()` hooks called in
-	 *   the same order as the `$scope.$broadcast` events are triggered, which is top down. This means that parent
-	 *   components will have their `$onDestroy()` hook called before child components.
-	 * * `$postLink()` - Called after this controller's element and its children have been linked. Similar to the post-link
-	 *   function this hook can be used to set up DOM event handlers and do direct DOM manipulation.
-	 *   Note that child elements that contain `templateUrl` directives will not have been compiled and linked since
-	 *   they are waiting for their template to load asynchronously and their own compilation and linking has been
-	 *   suspended until that occurs.
-	 *
 	 *
 	 * #### `require`
 	 * Require another directive and inject its controller as the fourth argument to the linking function. The
@@ -7648,9 +7592,6 @@
 
 	var $compileMinErr = minErr('$compile');
 
-	function UNINITIALIZED_VALUE() {}
-	var _UNINITIALIZED_VALUE = new UNINITIALIZED_VALUE();
-
 	/**
 	 * @ngdoc provider
 	 * @name $compileProvider
@@ -7670,18 +7611,13 @@
 	  // The assumption is that future DOM event attribute names will begin with
 	  // 'on' and be composed of only English letters.
 	  var EVENT_HANDLER_ATTR_REGEXP = /^(on[a-z]+|formaction)$/;
-	  var bindingCache = createMap();
 
 	  function parseIsolateBindings(scope, directiveName, isController) {
 	    var LOCAL_REGEXP = /^\s*([@&<]|=(\*?))(\??)\s*(\w*)\s*$/;
 
-	    var bindings = createMap();
+	    var bindings = {};
 
 	    forEach(scope, function(definition, scopeName) {
-	      if (definition in bindingCache) {
-	        bindings[scopeName] = bindingCache[definition];
-	        return;
-	      }
 	      var match = definition.match(LOCAL_REGEXP);
 
 	      if (!match) {
@@ -7699,9 +7635,6 @@
 	        optional: match[3] === '?',
 	        attrName: match[4] || scopeName
 	      };
-	      if (match[4]) {
-	        bindingCache[definition] = bindings[scopeName];
-	      }
 	    });
 
 	    return bindings;
@@ -7747,11 +7680,11 @@
 	  function assertValidDirectiveName(name) {
 	    var letter = name.charAt(0);
 	    if (!letter || letter !== lowercase(letter)) {
-	      throw $compileMinErr('baddir', "Directive/Component name '{0}' is invalid. The first character must be a lowercase letter", name);
+	      throw $compileMinErr('baddir', "Directive name '{0}' is invalid. The first character must be a lowercase letter", name);
 	    }
 	    if (name !== name.trim()) {
 	      throw $compileMinErr('baddir',
-	            "Directive/Component name '{0}' is invalid. The name should not contain leading or trailing whitespaces",
+	            "Directive name '{0}' is invalid. The name should not contain leading or trailing whitespaces",
 	            name);
 	    }
 	  }
@@ -7771,7 +7704,7 @@
 	   *    {@link guide/directive directive guide} and the {@link $compile compile API} for more info.
 	   * @returns {ng.$compileProvider} Self for chaining.
 	   */
-	  this.directive = function registerDirective(name, directiveFactory) {
+	   this.directive = function registerDirective(name, directiveFactory) {
 	    assertNotHasOwnProperty(name, 'directive');
 	    if (isString(name)) {
 	      assertValidDirectiveName(name);
@@ -7794,6 +7727,11 @@
 	                directive.name = directive.name || name;
 	                directive.require = directive.require || (directive.controller && directive.name);
 	                directive.restrict = directive.restrict || 'EA';
+	                var bindings = directive.$$bindings =
+	                    parseDirectiveBindings(directive, directive.name);
+	                if (isObject(bindings.isolateScope)) {
+	                  directive.$$isolateBindings = bindings.isolateScope;
+	                }
 	                directive.$$moduleName = directiveFactory.$$moduleName;
 	                directives.push(directive);
 	              } catch (e) {
@@ -7849,11 +7787,7 @@
 	   *      See {@link ng.$compile#-bindtocontroller- `bindToController`}.
 	   *    - `transclude` – `{boolean=}` – whether {@link $compile#transclusion content transclusion} is enabled.
 	   *      Disabled by default.
-	   *    - `require` - `{Object<string, string>=}` - requires the controllers of other directives and binds them to
-	   *      this component's controller. The object keys specify the property names under which the required
-	   *      controllers (object values) will be bound. See {@link ng.$compile#-require- `require`}.
-	   *    - `$...` – additional properties to attach to the directive factory function and the controller
-	   *      constructor function. (This is used by the component router to annotate)
+	   *    - `$...` – `{function()=}` – additional annotations to provide to the directive factory function.
 	   *
 	   * @returns {ng.$compileProvider} the compile provider itself, for chaining of function calls.
 	   * @description
@@ -7885,8 +7819,7 @@
 	   *
 	   *   myMod.component('myComp', {
 	   *     templateUrl: 'views/my-comp.html',
-	   *     controller: 'MyCtrl',
-	   *     controllerAs: 'ctrl',
+	   *     controller: 'MyCtrl as ctrl',
 	   *     bindings: {name: '@'}
 	   *   });
 	   *
@@ -7911,7 +7844,7 @@
 	      }
 
 	      var template = (!options.template && !options.templateUrl ? '' : options.template);
-	      var ddo = {
+	      return {
 	        controller: controller,
 	        controllerAs: identifierForController(options.controller) || options.controllerAs || '$ctrl',
 	        template: makeInjectable(template),
@@ -7922,27 +7855,13 @@
 	        restrict: 'E',
 	        require: options.require
 	      };
-
-	      // Copy annotations (starting with $) over to the DDO
-	      forEach(options, function(val, key) {
-	        if (key.charAt(0) === '$') ddo[key] = val;
-	      });
-
-	      return ddo;
 	    }
 
-	    // TODO(pete) remove the following `forEach` before we release 1.6.0
-	    // The component-router@0.2.0 looks for the annotations on the controller constructor
-	    // Nothing in Angular looks for annotations on the factory function but we can't remove
-	    // it from 1.5.x yet.
-
-	    // Copy any annotation properties (starting with $) over to the factory and controller constructor functions
+	    // Copy any annotation properties (starting with $) over to the factory function
 	    // These could be used by libraries such as the new component router
 	    forEach(options, function(val, key) {
 	      if (key.charAt(0) === '$') {
 	        factory[key] = val;
-	        // Don't try to copy over annotations to named controller
-	        if (isFunction(controller)) controller[key] = val;
 	      }
 	    });
 
@@ -8042,36 +7961,6 @@
 	    return debugInfoEnabled;
 	  };
 
-
-	  var TTL = 10;
-	  /**
-	   * @ngdoc method
-	   * @name $compileProvider#onChangesTtl
-	   * @description
-	   *
-	   * Sets the number of times `$onChanges` hooks can trigger new changes before giving up and
-	   * assuming that the model is unstable.
-	   *
-	   * The current default is 10 iterations.
-	   *
-	   * In complex applications it's possible that dependencies between `$onChanges` hooks and bindings will result
-	   * in several iterations of calls to these hooks. However if an application needs more than the default 10
-	   * iterations to stabilize then you should investigate what is causing the model to continuously change during
-	   * the `$onChanges` hook execution.
-	   *
-	   * Increasing the TTL could have performance implications, so you should not change it without proper justification.
-	   *
-	   * @param {number} limit The number of `$onChanges` hook iterations.
-	   * @returns {number|object} the current limit (or `this` if called as a setter for chaining)
-	   */
-	  this.onChangesTtl = function(value) {
-	    if (arguments.length) {
-	      TTL = value;
-	      return this;
-	    }
-	    return TTL;
-	  };
-
 	  this.$get = [
 	            '$injector', '$interpolate', '$exceptionHandler', '$templateRequest', '$parse',
 	            '$controller', '$rootScope', '$sce', '$animate', '$$sanitizeUri',
@@ -8079,38 +7968,8 @@
 	             $controller,   $rootScope,   $sce,   $animate,   $$sanitizeUri) {
 
 	    var SIMPLE_ATTR_NAME = /^\w/;
-	    var specialAttrHolder = window.document.createElement('div');
-
-
-
-	    var onChangesTtl = TTL;
-	    // The onChanges hooks should all be run together in a single digest
-	    // When changes occur, the call to trigger their hooks will be added to this queue
-	    var onChangesQueue;
-
-	    // This function is called in a $$postDigest to trigger all the onChanges hooks in a single digest
-	    function flushOnChangesQueue() {
-	      try {
-	        if (!(--onChangesTtl)) {
-	          // We have hit the TTL limit so reset everything
-	          onChangesQueue = undefined;
-	          throw $compileMinErr('infchng', '{0} $onChanges() iterations reached. Aborting!\n', TTL);
-	        }
-	        // We must run this hook in an apply since the $$postDigest runs outside apply
-	        $rootScope.$apply(function() {
-	          for (var i = 0, ii = onChangesQueue.length; i < ii; ++i) {
-	            onChangesQueue[i]();
-	          }
-	          // Reset the queue to trigger a new schedule next time there is a change
-	          onChangesQueue = undefined;
-	        });
-	      } finally {
-	        onChangesTtl++;
-	      }
-	    }
-
-
-	    function Attributes(element, attributesToCopy) {
+	    var specialAttrHolder = document.createElement('div');
+	    var Attributes = function(element, attributesToCopy) {
 	      if (attributesToCopy) {
 	        var keys = Object.keys(attributesToCopy);
 	        var i, l, key;
@@ -8124,7 +7983,7 @@
 	      }
 
 	      this.$$element = element;
-	    }
+	    };
 
 	    Attributes.prototype = {
 	      /**
@@ -8405,14 +8264,6 @@
 	      safeAddClass($element, isolated ? 'ng-isolate-scope' : 'ng-scope');
 	    } : noop;
 
-	    compile.$$createComment = function(directiveName, comment) {
-	      var content = '';
-	      if (debugInfoEnabled) {
-	        content = ' ' + (directiveName || '') + ': ' + (comment || '') + ' ';
-	      }
-	      return window.document.createComment(content);
-	    };
-
 	    return compile;
 
 	    //================================
@@ -8433,7 +8284,7 @@
 	        var domNode = $compileNodes[i];
 
 	        if (domNode.nodeType === NODE_TYPE_TEXT && domNode.nodeValue.match(NOT_EMPTY) /* non-empty */) {
-	          jqLiteWrapNode(domNode, $compileNodes[i] = window.document.createElement('span'));
+	          jqLiteWrapNode(domNode, $compileNodes[i] = document.createElement('span'));
 	        }
 	      }
 
@@ -8626,7 +8477,8 @@
 	    }
 
 	    function createBoundTranscludeFn(scope, transcludeFn, previousBoundTranscludeFn) {
-	      function boundTranscludeFn(transcludedScope, cloneFn, controllers, futureParentElement, containingScope) {
+
+	      var boundTranscludeFn = function(transcludedScope, cloneFn, controllers, futureParentElement, containingScope) {
 
 	        if (!transcludedScope) {
 	          transcludedScope = scope.$new(false, containingScope);
@@ -8638,7 +8490,7 @@
 	          transcludeControllers: controllers,
 	          futureParentElement: futureParentElement
 	        });
-	      }
+	      };
 
 	      // We need  to attach the transclusion slots onto the `boundTranscludeFn`
 	      // so that they are available inside the `controllersBoundTransclude` function
@@ -8803,7 +8655,7 @@
 	     * @returns {Function}
 	     */
 	    function groupElementsLinkFnWrapper(linkFn, attrStart, attrEnd) {
-	      return function groupedElementsLink(scope, element, attrs, controllers, transcludeFn) {
+	      return function(scope, element, attrs, controllers, transcludeFn) {
 	        element = groupScan(element[0], attrStart, attrEnd);
 	        return linkFn(scope, element, attrs, controllers, transcludeFn);
 	      };
@@ -8821,21 +8673,23 @@
 	     * @returns {Function}
 	     */
 	    function compilationGenerator(eager, $compileNodes, transcludeFn, maxPriority, ignoreDirective, previousCompileContext) {
-	      var compiled;
-
-	      if (eager) {
-	        return compile($compileNodes, transcludeFn, maxPriority, ignoreDirective, previousCompileContext);
-	      }
-	      return function lazyCompilation() {
-	        if (!compiled) {
-	          compiled = compile($compileNodes, transcludeFn, maxPriority, ignoreDirective, previousCompileContext);
-
-	          // Null out all of these references in order to make them eligible for garbage collection
-	          // since this is a potentially long lived closure
-	          $compileNodes = transcludeFn = previousCompileContext = null;
+	        if (eager) {
+	            return compile($compileNodes, transcludeFn, maxPriority, ignoreDirective, previousCompileContext);
 	        }
-	        return compiled.apply(this, arguments);
-	      };
+
+	        var compiled;
+
+	        return function() {
+	            if (!compiled) {
+	                compiled = compile($compileNodes, transcludeFn, maxPriority, ignoreDirective, previousCompileContext);
+
+	                // Null out all of these references in order to make them eligible for garbage collection
+	                // since this is a potentially long lived closure
+	                $compileNodes = transcludeFn = previousCompileContext = null;
+	            }
+
+	            return compiled.apply(this, arguments);
+	        };
 	    }
 
 	    /**
@@ -8971,20 +8825,10 @@
 	            terminalPriority = directive.priority;
 	            $template = $compileNode;
 	            $compileNode = templateAttrs.$$element =
-	                jqLite(compile.$$createComment(directiveName, templateAttrs[directiveName]));
+	                jqLite(document.createComment(' ' + directiveName + ': ' +
+	                                              templateAttrs[directiveName] + ' '));
 	            compileNode = $compileNode[0];
 	            replaceWith(jqCollection, sliceArgs($template), compileNode);
-
-	            // Support: Chrome < 50
-	            // https://github.com/angular/angular.js/issues/14041
-
-	            // In the versions of V8 prior to Chrome 50, the document fragment that is created
-	            // in the `replaceWith` function is improperly garbage collected despite still
-	            // being referenced by the `parentNode` property of all of the child nodes.  By adding
-	            // a reference to the fragment via a different property, we can avoid that incorrect
-	            // behavior.
-	            // TODO: remove this line after Chrome 50 has been released
-	            $template[0].$$parentNode = $template[0].parentNode;
 
 	            childTranscludeFn = compilationGenerator(mightHaveMultipleTransclusionError, $template, transcludeFn, terminalPriority,
 	                                        replaceDirective && replaceDirective.name, {
@@ -9126,9 +8970,7 @@
 	            replaceDirective = directive;
 	          }
 
-	          /* jshint -W021 */
 	          nodeLinkFn = compileTemplateUrl(directives.splice(i, directives.length - i), $compileNode,
-	          /* jshint +W021 */
 	              templateAttrs, jqCollection, hasTranscludeDirective && childTranscludeFn, preLinkFns, postLinkFns, {
 	                controllerDirectives: controllerDirectives,
 	                newScopeDirective: (newScopeDirective !== directive) && newScopeDirective,
@@ -9190,9 +9032,85 @@
 	        }
 	      }
 
+
+	      function getControllers(directiveName, require, $element, elementControllers) {
+	        var value;
+
+	        if (isString(require)) {
+	          var match = require.match(REQUIRE_PREFIX_REGEXP);
+	          var name = require.substring(match[0].length);
+	          var inheritType = match[1] || match[3];
+	          var optional = match[2] === '?';
+
+	          //If only parents then start at the parent element
+	          if (inheritType === '^^') {
+	            $element = $element.parent();
+	          //Otherwise attempt getting the controller from elementControllers in case
+	          //the element is transcluded (and has no data) and to avoid .data if possible
+	          } else {
+	            value = elementControllers && elementControllers[name];
+	            value = value && value.instance;
+	          }
+
+	          if (!value) {
+	            var dataName = '$' + name + 'Controller';
+	            value = inheritType ? $element.inheritedData(dataName) : $element.data(dataName);
+	          }
+
+	          if (!value && !optional) {
+	            throw $compileMinErr('ctreq',
+	                "Controller '{0}', required by directive '{1}', can't be found!",
+	                name, directiveName);
+	          }
+	        } else if (isArray(require)) {
+	          value = [];
+	          for (var i = 0, ii = require.length; i < ii; i++) {
+	            value[i] = getControllers(directiveName, require[i], $element, elementControllers);
+	          }
+	        } else if (isObject(require)) {
+	          value = {};
+	          forEach(require, function(controller, property) {
+	            value[property] = getControllers(directiveName, controller, $element, elementControllers);
+	          });
+	        }
+
+	        return value || null;
+	      }
+
+	      function setupControllers($element, attrs, transcludeFn, controllerDirectives, isolateScope, scope) {
+	        var elementControllers = createMap();
+	        for (var controllerKey in controllerDirectives) {
+	          var directive = controllerDirectives[controllerKey];
+	          var locals = {
+	            $scope: directive === newIsolateScopeDirective || directive.$$isolateScope ? isolateScope : scope,
+	            $element: $element,
+	            $attrs: attrs,
+	            $transclude: transcludeFn
+	          };
+
+	          var controller = directive.controller;
+	          if (controller == '@') {
+	            controller = attrs[directive.name];
+	          }
+
+	          var controllerInstance = $controller(controller, locals, true, directive.controllerAs);
+
+	          // For directives with element transclusion the element is a comment,
+	          // but jQuery .data doesn't support attaching data to comment nodes as it's hard to
+	          // clean up (http://bugs.jquery.com/ticket/8335).
+	          // Instead, we save the controllers for the element in a local hash and attach to .data
+	          // later, once we have the actual element.
+	          elementControllers[directive.name] = controllerInstance;
+	          if (!hasElementTranscludeDirective) {
+	            $element.data('$' + directive.name + 'Controller', controllerInstance.instance);
+	          }
+	        }
+	        return elementControllers;
+	      }
+
 	      function nodeLinkFn(childLinkFn, scope, linkNode, $rootElement, boundTranscludeFn) {
 	        var i, ii, linkFn, isolateScope, controllerScope, elementControllers, transcludeFn, $element,
-	            attrs, scopeBindingInfo;
+	            attrs, removeScopeBindingWatches, removeControllerBindingWatches;
 
 	        if (compileNode === linkNode) {
 	          attrs = templateAttrs;
@@ -9221,7 +9139,7 @@
 	        }
 
 	        if (controllerDirectives) {
-	          elementControllers = setupControllers($element, attrs, transcludeFn, controllerDirectives, isolateScope, scope, newIsolateScopeDirective);
+	          elementControllers = setupControllers($element, attrs, transcludeFn, controllerDirectives, isolateScope, scope);
 	        }
 
 	        if (newIsolateScopeDirective) {
@@ -9231,11 +9149,11 @@
 	          compile.$$addScopeClass($element, true);
 	          isolateScope.$$isolateBindings =
 	              newIsolateScopeDirective.$$isolateBindings;
-	          scopeBindingInfo = initializeDirectiveBindings(scope, attrs, isolateScope,
+	          removeScopeBindingWatches = initializeDirectiveBindings(scope, attrs, isolateScope,
 	                                        isolateScope.$$isolateBindings,
 	                                        newIsolateScopeDirective);
-	          if (scopeBindingInfo.removeWatches) {
-	            isolateScope.$on('$destroy', scopeBindingInfo.removeWatches);
+	          if (removeScopeBindingWatches) {
+	            isolateScope.$on('$destroy', removeScopeBindingWatches);
 	          }
 	        }
 
@@ -9246,10 +9164,8 @@
 	          var bindings = controllerDirective.$$bindings.bindToController;
 
 	          if (controller.identifier && bindings) {
-	            controller.bindingInfo =
+	            removeControllerBindingWatches =
 	              initializeDirectiveBindings(controllerScope, attrs, controller.instance, bindings, controllerDirective);
-	          } else {
-	            controller.bindingInfo = {};
 	          }
 
 	          var controllerResult = controller();
@@ -9258,8 +9174,8 @@
 	            // from setupControllers
 	            controller.instance = controllerResult;
 	            $element.data('$' + controllerDirective.name + 'Controller', controllerResult);
-	            controller.bindingInfo.removeWatches && controller.bindingInfo.removeWatches();
-	            controller.bindingInfo =
+	            removeControllerBindingWatches && removeControllerBindingWatches();
+	            removeControllerBindingWatches =
 	              initializeDirectiveBindings(controllerScope, attrs, controller.instance, bindings, controllerDirective);
 	          }
 	        }
@@ -9272,19 +9188,10 @@
 	          }
 	        });
 
-	        // Handle the init and destroy lifecycle hooks on all controllers that have them
+	        // Trigger the `$onInit` method on all controllers that have one
 	        forEach(elementControllers, function(controller) {
-	          var controllerInstance = controller.instance;
-	          if (isFunction(controllerInstance.$onChanges)) {
-	            controllerInstance.$onChanges(controller.bindingInfo.initialChanges);
-	          }
-	          if (isFunction(controllerInstance.$onInit)) {
-	            controllerInstance.$onInit();
-	          }
-	          if (isFunction(controllerInstance.$onDestroy)) {
-	            controllerScope.$on('$destroy', function callOnDestroyHook() {
-	              controllerInstance.$onDestroy();
-	            });
+	          if (isFunction(controller.instance.$onInit)) {
+	            controller.instance.$onInit();
 	          }
 	        });
 
@@ -9320,14 +9227,6 @@
 	              transcludeFn
 	          );
 	        }
-
-	        // Trigger $postLink lifecycle hooks
-	        forEach(elementControllers, function(controller) {
-	          var controllerInstance = controller.instance;
-	          if (isFunction(controllerInstance.$postLink)) {
-	            controllerInstance.$postLink();
-	          }
-	        });
 
 	        // This is the function that is injected as `$transclude`.
 	        // Note: all arguments are optional!
@@ -9366,78 +9265,6 @@
 	          }
 	        }
 	      }
-	    }
-
-	    function getControllers(directiveName, require, $element, elementControllers) {
-	      var value;
-
-	      if (isString(require)) {
-	        var match = require.match(REQUIRE_PREFIX_REGEXP);
-	        var name = require.substring(match[0].length);
-	        var inheritType = match[1] || match[3];
-	        var optional = match[2] === '?';
-
-	        //If only parents then start at the parent element
-	        if (inheritType === '^^') {
-	          $element = $element.parent();
-	        //Otherwise attempt getting the controller from elementControllers in case
-	        //the element is transcluded (and has no data) and to avoid .data if possible
-	        } else {
-	          value = elementControllers && elementControllers[name];
-	          value = value && value.instance;
-	        }
-
-	        if (!value) {
-	          var dataName = '$' + name + 'Controller';
-	          value = inheritType ? $element.inheritedData(dataName) : $element.data(dataName);
-	        }
-
-	        if (!value && !optional) {
-	          throw $compileMinErr('ctreq',
-	              "Controller '{0}', required by directive '{1}', can't be found!",
-	              name, directiveName);
-	        }
-	      } else if (isArray(require)) {
-	        value = [];
-	        for (var i = 0, ii = require.length; i < ii; i++) {
-	          value[i] = getControllers(directiveName, require[i], $element, elementControllers);
-	        }
-	      } else if (isObject(require)) {
-	        value = {};
-	        forEach(require, function(controller, property) {
-	          value[property] = getControllers(directiveName, controller, $element, elementControllers);
-	        });
-	      }
-
-	      return value || null;
-	    }
-
-	    function setupControllers($element, attrs, transcludeFn, controllerDirectives, isolateScope, scope, newIsolateScopeDirective) {
-	      var elementControllers = createMap();
-	      for (var controllerKey in controllerDirectives) {
-	        var directive = controllerDirectives[controllerKey];
-	        var locals = {
-	          $scope: directive === newIsolateScopeDirective || directive.$$isolateScope ? isolateScope : scope,
-	          $element: $element,
-	          $attrs: attrs,
-	          $transclude: transcludeFn
-	        };
-
-	        var controller = directive.controller;
-	        if (controller == '@') {
-	          controller = attrs[directive.name];
-	        }
-
-	        var controllerInstance = $controller(controller, locals, true, directive.controllerAs);
-
-	        // For directives with element transclusion the element is a comment.
-	        // In this case .data will not attach any data.
-	        // Instead, we save the controllers for the element in a local hash and attach to .data
-	        // later, once we have the actual element.
-	        elementControllers[directive.name] = controllerInstance;
-	        $element.data('$' + directive.name + 'Controller', controllerInstance.instance);
-	      }
-	      return elementControllers;
 	    }
 
 	    // Depending upon the context in which a directive finds itself it might need to have a new isolated
@@ -9479,13 +9306,6 @@
 	                 directive.restrict.indexOf(location) != -1) {
 	              if (startAttrName) {
 	                directive = inherit(directive, {$$start: startAttrName, $$end: endAttrName});
-	              }
-	              if (!directive.$$bindings) {
-	                var bindings = directive.$$bindings =
-	                    parseDirectiveBindings(directive, directive.name);
-	                if (isObject(bindings.isolateScope)) {
-	                  directive.$$isolateBindings = bindings.isolateScope;
-	                }
 	              }
 	              tDirectives.push(directive);
 	              match = directive;
@@ -9734,7 +9554,7 @@
 	      switch (type) {
 	      case 'svg':
 	      case 'math':
-	        var wrapper = window.document.createElement('div');
+	        var wrapper = document.createElement('div');
 	        wrapper.innerHTML = '<' + type + '>' + template + '</' + type + '>';
 	        return wrapper.childNodes[0].childNodes;
 	      default:
@@ -9878,7 +9698,7 @@
 	      // - remove them from the DOM
 	      // - allow them to still be traversed with .nextSibling
 	      // - allow a single fragment.qSA to fetch all elements being removed
-	      var fragment = window.document.createDocumentFragment();
+	      var fragment = document.createDocumentFragment();
 	      for (i = 0; i < removeCount; i++) {
 	        fragment.appendChild(elementsToRemove[i]);
 	      }
@@ -9924,9 +9744,7 @@
 	    // only occurs for isolate scopes and new scopes with controllerAs.
 	    function initializeDirectiveBindings(scope, attrs, destination, bindings, directive) {
 	      var removeWatchCollection = [];
-	      var initialChanges = {};
-	      var changes;
-	      forEach(bindings, function initializeBinding(definition, scopeName) {
+	      forEach(bindings, function(definition, scopeName) {
 	        var attrName = definition.attrName,
 	        optional = definition.optional,
 	        mode = definition.mode, // @, =, or &
@@ -9940,9 +9758,7 @@
 	              destination[scopeName] = attrs[attrName] = void 0;
 	            }
 	            attrs.$observe(attrName, function(value) {
-	              if (isString(value) || isBoolean(value)) {
-	                var oldValue = destination[scopeName];
-	                recordChanges(scopeName, value, oldValue);
+	              if (isString(value)) {
 	                destination[scopeName] = value;
 	              }
 	            });
@@ -9957,7 +9773,6 @@
 	              // the value to boolean rather than a string, so we special case this situation
 	              destination[scopeName] = lastValue;
 	            }
-	            initialChanges[scopeName] = new SimpleChange(_UNINITIALIZED_VALUE, destination[scopeName]);
 	            break;
 
 	          case '=':
@@ -9971,7 +9786,7 @@
 	            if (parentGet.literal) {
 	              compare = equals;
 	            } else {
-	              compare = function simpleCompare(a, b) { return a === b || (a !== a && b !== b); };
+	              compare = function(a, b) { return a === b || (a !== a && b !== b); };
 	            }
 	            parentSet = parentGet.assign || function() {
 	              // reset the change, or we will throw this exception on every $digest
@@ -10013,16 +9828,9 @@
 	            parentGet = $parse(attrs[attrName]);
 
 	            destination[scopeName] = parentGet(scope);
-	            initialChanges[scopeName] = new SimpleChange(_UNINITIALIZED_VALUE, destination[scopeName]);
 
-	            removeWatch = scope.$watch(parentGet, function parentValueWatchAction(newValue, oldValue) {
-	              if (newValue === oldValue) {
-	                // If the new and old values are identical then this is the first time the watch has been triggered
-	                // So instead we use the current value on the destination as the old value
-	                oldValue = destination[scopeName];
-	              }
-	              recordChanges(scopeName, newValue, oldValue);
-	              destination[scopeName] = newValue;
+	            removeWatch = scope.$watch(parentGet, function parentValueWatchAction(newParentValue) {
+	              destination[scopeName] = newParentValue;
 	            }, parentGet.literal);
 
 	            removeWatchCollection.push(removeWatch);
@@ -10042,51 +9850,14 @@
 	        }
 	      });
 
-	      function recordChanges(key, currentValue, previousValue) {
-	        if (isFunction(destination.$onChanges) && currentValue !== previousValue) {
-	          // If we have not already scheduled the top level onChangesQueue handler then do so now
-	          if (!onChangesQueue) {
-	            scope.$$postDigest(flushOnChangesQueue);
-	            onChangesQueue = [];
-	          }
-	          // If we have not already queued a trigger of onChanges for this controller then do so now
-	          if (!changes) {
-	            changes = {};
-	            onChangesQueue.push(triggerOnChangesHook);
-	          }
-	          // If the has been a change on this property already then we need to reuse the previous value
-	          if (changes[key]) {
-	            previousValue = changes[key].previousValue;
-	          }
-	          // Store this change
-	          changes[key] = new SimpleChange(previousValue, currentValue);
-	        }
-	      }
-
-	      function triggerOnChangesHook() {
-	        destination.$onChanges(changes);
-	        // Now clear the changes so that we schedule onChanges when more changes arrive
-	        changes = undefined;
-	      }
-
-	      return {
-	        initialChanges: initialChanges,
-	        removeWatches: removeWatchCollection.length && function removeWatches() {
-	          for (var i = 0, ii = removeWatchCollection.length; i < ii; ++i) {
-	            removeWatchCollection[i]();
-	          }
+	      return removeWatchCollection.length && function removeWatches() {
+	        for (var i = 0, ii = removeWatchCollection.length; i < ii; ++i) {
+	          removeWatchCollection[i]();
 	        }
 	      };
 	    }
 	  }];
 	}
-
-	function SimpleChange(previous, current) {
-	  this.previousValue = previous;
-	  this.currentValue = current;
-	}
-	SimpleChange.prototype.isFirstChange = function() { return this.previousValue === _UNINITIALIZED_VALUE; };
-
 
 	var PREFIX_REGEXP = /^((?:x|data)[\:\-_])/i;
 	/**
@@ -10219,15 +9990,6 @@
 
 	  /**
 	   * @ngdoc method
-	   * @name $controllerProvider#has
-	   * @param {string} name Controller name to check.
-	   */
-	  this.has = function(name) {
-	    return controllers.hasOwnProperty(name);
-	  };
-
-	  /**
-	   * @ngdoc method
 	   * @name $controllerProvider#register
 	   * @param {string|Object} name Controller name, or an object map of controllers where the keys are
 	   *    the names and the values are the constructors.
@@ -10282,7 +10044,7 @@
 	     * It's just a simple call to {@link auto.$injector $injector}, but extracted into
 	     * a service, so that one can override this service with [BC version](https://gist.github.com/1649788).
 	     */
-	    return function $controller(expression, locals, later, ident) {
+	    return function(expression, locals, later, ident) {
 	      // PRIVATE API:
 	      //   param `later` --- indicates that the controller's constructor is invoked at a later time.
 	      //                     If true, $controller will allocate the object with the correct
@@ -10333,7 +10095,7 @@
 	        }
 
 	        var instantiate;
-	        return instantiate = extend(function $controllerInit() {
+	        return instantiate = extend(function() {
 	          var result = $injector.invoke(expression, instance, locals, constructor);
 	          if (result !== instance && (isObject(result) || isFunction(result))) {
 	            instance = result;
@@ -10519,7 +10281,7 @@
 	      forEachSorted(params, function(value, key) {
 	        if (value === null || isUndefined(value)) return;
 	        if (isArray(value)) {
-	          forEach(value, function(v) {
+	          forEach(value, function(v, k) {
 	            parts.push(encodeUriQuery(key)  + '=' + encodeUriQuery(serializeValue(v)));
 	          });
 	        } else {
@@ -10729,9 +10491,10 @@
 	   *
 	   * Object containing default values for all {@link ng.$http $http} requests.
 	   *
-	   * - **`defaults.cache`** - {boolean|Object} - A boolean value or object created with
-	   * {@link ng.$cacheFactory `$cacheFactory`} to enable or disable caching of HTTP responses
-	   * by default. See {@link $http#caching $http Caching} for more information.
+	   * - **`defaults.cache`** - {Object} - an object built with {@link ng.$cacheFactory `$cacheFactory`}
+	   * that will provide the cache for all requests who set their `cache` property to `true`.
+	   * If you set the `defaults.cache = false` then only requests that specify their own custom
+	   * cache object will be cached. See {@link $http#caching $http Caching} for more information.
 	   *
 	   * - **`defaults.xsrfCookieName`** - {string} - Name of cookie containing the XSRF token.
 	   * Defaults value is `'XSRF-TOKEN'`.
@@ -11022,15 +10785,6 @@
 	     * the transformed value (`function(data, headersGetter, status)`) or an array of such transformation functions,
 	     * which allows you to `push` or `unshift` a new transformation function into the transformation chain.
 	     *
-	     * <div class="alert alert-warning">
-	     * **Note:** Angular does not make a copy of the `data` parameter before it is passed into the `transformRequest` pipeline.
-	     * That means changes to the properties of `data` are not local to the transform function (since Javascript passes objects by reference).
-	     * For example, when calling `$http.get(url, $scope.myObject)`, modifications to the object's properties in a transformRequest
-	     * function will be reflected on the scope and in any templates where the object is data-bound.
-	     * To prevent this, transform functions should have no side-effects.
-	     * If you need to modify properties, it is recommended to make a copy of the data, or create new object to return.
-	     * </div>
-	     *
 	     * ### Default Transformations
 	     *
 	     * The `$httpProvider` provider and `$http` service expose `defaults.transformRequest` and
@@ -11088,35 +10842,26 @@
 	     *
 	     * ## Caching
 	     *
-	     * {@link ng.$http `$http`} responses are not cached by default. To enable caching, you must
-	     * set the config.cache value or the default cache value to TRUE or to a cache object (created
-	     * with {@link ng.$cacheFactory `$cacheFactory`}). If defined, the value of config.cache takes
-	     * precedence over the default cache value.
+	     * To enable caching, set the request configuration `cache` property to `true` (to use default
+	     * cache) or to a custom cache object (built with {@link ng.$cacheFactory `$cacheFactory`}).
+	     * When the cache is enabled, `$http` stores the response from the server in the specified
+	     * cache. The next time the same request is made, the response is served from the cache without
+	     * sending a request to the server.
 	     *
-	     * In order to:
-	     *   * cache all responses - set the default cache value to TRUE or to a cache object
-	     *   * cache a specific response - set config.cache value to TRUE or to a cache object
+	     * Note that even if the response is served from cache, delivery of the data is asynchronous in
+	     * the same way that real requests are.
 	     *
-	     * If caching is enabled, but neither the default cache nor config.cache are set to a cache object,
-	     * then the default `$cacheFactory($http)` object is used.
+	     * If there are multiple GET requests for the same URL that should be cached using the same
+	     * cache, but the cache is not populated yet, only one request to the server will be made and
+	     * the remaining requests will be fulfilled using the response from the first request.
 	     *
-	     * The default cache value can be set by updating the
-	     * {@link ng.$http#defaults `$http.defaults.cache`} property or the
-	     * {@link $httpProvider#defaults `$httpProvider.defaults.cache`} property.
+	     * You can change the default cache to a new object (built with
+	     * {@link ng.$cacheFactory `$cacheFactory`}) by updating the
+	     * {@link ng.$http#defaults `$http.defaults.cache`} property. All requests who set
+	     * their `cache` property to `true` will now use this cache object.
 	     *
-	     * When caching is enabled, {@link ng.$http `$http`} stores the response from the server using
-	     * the relevant cache object. The next time the same request is made, the response is returned
-	     * from the cache without sending a request to the server.
-	     *
-	     * Take note that:
-	     *
-	     *   * Only GET and JSONP requests are cached.
-	     *   * The cache key is the request URL including search parameters; headers are not considered.
-	     *   * Cached responses are returned asynchronously, in the same way as responses from the server.
-	     *   * If multiple identical requests are made using the same cache, which is not yet populated,
-	     *     one request will be made to the server and remaining requests will return the same response.
-	     *   * A cache-control header on the response does not affect if or how responses are cached.
-	     *
+	     * If you set the default cache to `false` then only requests that specify their own custom
+	     * cache object will be cached.
 	     *
 	     * ## Interceptors
 	     *
@@ -11273,12 +11018,6 @@
 	     *    - **headers** – `{Object}` – Map of strings or functions which return strings representing
 	     *      HTTP headers to send to the server. If the return value of a function is null, the
 	     *      header will not be sent. Functions accept a config object as an argument.
-	     *    - **eventHandlers** - `{Object}` - Event listeners to be bound to the XMLHttpRequest object.
-	     *      To bind events to the XMLHttpRequest upload object, use `uploadEventHandlers`.
-	     *      The handler will be called in the context of a `$apply` block.
-	     *    - **uploadEventHandlers** - `{Object}` - Event listeners to be bound to the XMLHttpRequest upload
-	     *      object. To bind events to the XMLHttpRequest object, use `eventHandlers`.
-	     *      The handler will be called in the context of a `$apply` block.
 	     *    - **xsrfHeaderName** – `{string}` – Name of HTTP header to populate with the XSRF token.
 	     *    - **xsrfCookieName** – `{string}` – Name of cookie containing the XSRF token.
 	     *    - **transformRequest** –
@@ -11292,7 +11031,7 @@
 	     *      transform function or an array of such functions. The transform function takes the http
 	     *      response body, headers and status and returns its transformed (typically deserialized) version.
 	     *      See {@link ng.$http#overriding-the-default-transformations-per-request
-	     *      Overriding the Default Transformations}
+	     *      Overriding the Default TransformationjqLiks}
 	     *    - **paramSerializer** - `{string|function(Object<string,string>):string}` - A function used to
 	     *      prepare the string representation of request parameters (specified as an object).
 	     *      If specified as string, it is interpreted as function registered with the
@@ -11300,9 +11039,10 @@
 	     *      by registering it as a {@link auto.$provide#service service}.
 	     *      The default serializer is the {@link $httpParamSerializer $httpParamSerializer};
 	     *      alternatively, you can use the {@link $httpParamSerializerJQLike $httpParamSerializerJQLike}
-	     *    - **cache** – `{boolean|Object}` – A boolean value or object created with
-	     *      {@link ng.$cacheFactory `$cacheFactory`} to enable or disable caching of the HTTP response.
-	     *      See {@link $http#caching $http Caching} for more information.
+	     *    - **cache** – `{boolean|Cache}` – If true, a default $http cache will be used to cache the
+	     *      GET request, otherwise if a cache instance built with
+	     *      {@link ng.$cacheFactory $cacheFactory}, this cache will be used for
+	     *      caching.
 	     *    - **timeout** – `{number|Promise}` – timeout in milliseconds, or {@link ng.$q promise}
 	     *      that should abort the request when resolved.
 	     *    - **withCredentials** - `{boolean}` - whether to set the `withCredentials` flag on the
@@ -11737,34 +11477,10 @@
 	        }
 
 	        $httpBackend(config.method, url, reqData, done, reqHeaders, config.timeout,
-	            config.withCredentials, config.responseType,
-	            createApplyHandlers(config.eventHandlers),
-	            createApplyHandlers(config.uploadEventHandlers));
+	            config.withCredentials, config.responseType);
 	      }
 
 	      return promise;
-
-	      function createApplyHandlers(eventHandlers) {
-	        if (eventHandlers) {
-	          var applyHandlers = {};
-	          forEach(eventHandlers, function(eventHandler, key) {
-	            applyHandlers[key] = function(event) {
-	              if (useApplyAsync) {
-	                $rootScope.$applyAsync(callEventHandler);
-	              } else if ($rootScope.$$phase) {
-	                callEventHandler();
-	              } else {
-	                $rootScope.$apply(callEventHandler);
-	              }
-
-	              function callEventHandler() {
-	                eventHandler(event);
-	              }
-	            };
-	          });
-	          return applyHandlers;
-	        }
-	      }
 
 
 	      /**
@@ -11886,7 +11602,7 @@
 
 	function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDocument) {
 	  // TODO(vojta): fix the signature
-	  return function(method, url, post, callback, headers, timeout, withCredentials, responseType, eventHandlers, uploadEventHandlers) {
+	  return function(method, url, post, callback, headers, timeout, withCredentials, responseType) {
 	    $browser.$$incOutstandingRequestCount();
 	    url = url || $browser.url();
 
@@ -11945,14 +11661,6 @@
 
 	      xhr.onerror = requestError;
 	      xhr.onabort = requestError;
-
-	      forEach(eventHandlers, function(value, key) {
-	          xhr.addEventListener(key, value);
-	      });
-
-	      forEach(uploadEventHandlers, function(value, key) {
-	        xhr.upload.addEventListener(key, value);
-	      });
 
 	      if (withCredentials) {
 	        xhr.withCredentials = true;
@@ -13932,7 +13640,7 @@
 	        this.readString(ch);
 	      } else if (this.isNumber(ch) || ch === '.' && this.isNumber(this.peek())) {
 	        this.readNumber();
-	      } else if (this.isIdentifierStart(this.peekMultichar())) {
+	      } else if (this.isIdent(ch)) {
 	        this.readIdent();
 	      } else if (this.is(ch, '(){}[].,;:?')) {
 	        this.tokens.push({index: this.index, text: ch});
@@ -13976,47 +13684,10 @@
 	            ch === '\n' || ch === '\v' || ch === '\u00A0');
 	  },
 
-	  isIdentifierStart: function(ch) {
-	    return this.options.isIdentifierStart ?
-	        this.options.isIdentifierStart(ch, this.codePointAt(ch)) :
-	        this.isValidIdentifierStart(ch);
-	  },
-
-	  isValidIdentifierStart: function(ch) {
+	  isIdent: function(ch) {
 	    return ('a' <= ch && ch <= 'z' ||
 	            'A' <= ch && ch <= 'Z' ||
 	            '_' === ch || ch === '$');
-	  },
-
-	  isIdentifierContinue: function(ch) {
-	    return this.options.isIdentifierContinue ?
-	        this.options.isIdentifierContinue(ch, this.codePointAt(ch)) :
-	        this.isValidIdentifierContinue(ch);
-	  },
-
-	  isValidIdentifierContinue: function(ch, cp) {
-	    return this.isValidIdentifierStart(ch, cp) || this.isNumber(ch);
-	  },
-
-	  codePointAt: function(ch) {
-	    if (ch.length === 1) return ch.charCodeAt(0);
-	    /*jshint bitwise: false*/
-	    return (ch.charCodeAt(0) << 10) + ch.charCodeAt(1) - 0x35FDC00;
-	    /*jshint bitwise: true*/
-	  },
-
-	  peekMultichar: function() {
-	    var ch = this.text.charAt(this.index);
-	    var peek = this.peek();
-	    if (!peek) {
-	      return ch;
-	    }
-	    var cp1 = ch.charCodeAt(0);
-	    var cp2 = peek.charCodeAt(0);
-	    if (cp1 >= 0xD800 && cp1 <= 0xDBFF && cp2 >= 0xDC00 && cp2 <= 0xDFFF) {
-	      return ch + peek;
-	    }
-	    return ch;
 	  },
 
 	  isExpOperator: function(ch) {
@@ -14067,13 +13738,12 @@
 
 	  readIdent: function() {
 	    var start = this.index;
-	    this.index += this.peekMultichar().length;
 	    while (this.index < this.text.length) {
-	      var ch = this.peekMultichar();
-	      if (!this.isIdentifierContinue(ch)) {
+	      var ch = this.text.charAt(this.index);
+	      if (!(this.isIdent(ch) || this.isNumber(ch))) {
 	        break;
 	      }
-	      this.index += ch.length;
+	      this.index++;
 	    }
 	    this.tokens.push({
 	      index: start,
@@ -14283,10 +13953,8 @@
 	      primary = this.arrayDeclaration();
 	    } else if (this.expect('{')) {
 	      primary = this.object();
-	    } else if (this.selfReferential.hasOwnProperty(this.peek().text)) {
-	      primary = copy(this.selfReferential[this.consume().text]);
-	    } else if (this.options.literals.hasOwnProperty(this.peek().text)) {
-	      primary = { type: AST.Literal, value: this.options.literals[this.consume().text]};
+	    } else if (this.constants.hasOwnProperty(this.peek().text)) {
+	      primary = copy(this.constants[this.consume().text]);
 	    } else if (this.peek().identifier) {
 	      primary = this.identifier();
 	    } else if (this.peek().constant) {
@@ -14438,7 +14106,15 @@
 	    return false;
 	  },
 
-	  selfReferential: {
+
+	  /* `undefined` is not a constant, it is an identifier,
+	   * but using it as an identifier is not supported
+	   */
+	  constants: {
+	    'true': { type: AST.Literal, value: true },
+	    'false': { type: AST.Literal, value: false },
+	    'null': { type: AST.Literal, value: null },
+	    'undefined': {type: AST.Literal, value: undefined },
 	    'this': {type: AST.ThisExpression },
 	    '$locals': {type: AST.LocalsExpression }
 	  }
@@ -15003,13 +14679,7 @@
 	  },
 
 	  nonComputedMember: function(left, right) {
-	    var SAFE_IDENTIFIER = /[$_a-zA-Z][$_a-zA-Z0-9]*/;
-	    var UNSAFE_CHARACTERS = /[^$_a-zA-Z0-9]/g;
-	    if (SAFE_IDENTIFIER.test(right)) {
-	      return left + '.' + right;
-	    } else {
-	      return left  + '["' + right.replace(UNSAFE_CHARACTERS, this.stringEscapeFn) + '"]';
-	    }
+	    return left + '.' + right;
 	  },
 
 	  computedMember: function(left, right) {
@@ -15134,7 +14804,7 @@
 	    forEach(ast.body, function(expression) {
 	      expressions.push(self.recurse(expression.expression));
 	    });
-	    var fn = ast.body.length === 0 ? noop :
+	    var fn = ast.body.length === 0 ? function() {} :
 	             ast.body.length === 1 ? expressions[0] :
 	             function(scope, locals) {
 	               var lastValue;
@@ -15275,7 +14945,7 @@
 	        return context ? {value: locals} : locals;
 	      };
 	    case AST.NGValueParameter:
-	      return function(scope, locals, assign) {
+	      return function(scope, locals, assign, inputs) {
 	        return context ? {value: assign} : assign;
 	      };
 	    }
@@ -15489,7 +15159,7 @@
 	  this.lexer = lexer;
 	  this.$filter = $filter;
 	  this.options = options;
-	  this.ast = new AST(lexer, options);
+	  this.ast = new AST(this.lexer);
 	  this.astCompiler = options.csp ? new ASTInterpreter(this.ast, $filter) :
 	                                   new ASTCompiler(this.ast, $filter);
 	};
@@ -15566,73 +15236,16 @@
 	function $ParseProvider() {
 	  var cacheDefault = createMap();
 	  var cacheExpensive = createMap();
-	  var literals = {
-	    'true': true,
-	    'false': false,
-	    'null': null,
-	    'undefined': undefined
-	  };
-	  var identStart, identContinue;
-
-	  /**
-	   * @ngdoc method
-	   * @name $parseProvider#addLiteral
-	   * @description
-	   *
-	   * Configure $parse service to add literal values that will be present as literal at expressions.
-	   *
-	   * @param {string} literalName Token for the literal value. The literal name value must be a valid literal name.
-	   * @param {*} literalValue Value for this literal. All literal values must be primitives or `undefined`.
-	   *
-	   **/
-	  this.addLiteral = function(literalName, literalValue) {
-	    literals[literalName] = literalValue;
-	  };
-
-	 /**
-	  * @ngdoc method
-	  * @name $parseProvider#setIdentifierFns
-	  * @description
-	  *
-	  * Allows defining the set of characters that are allowed in Angular expressions. The function
-	  * `identifierStart` will get called to know if a given character is a valid character to be the
-	  * first character for an identifier. The function `identifierContinue` will get called to know if
-	  * a given character is a valid character to be a follow-up identifier character. The functions
-	  * `identifierStart` and `identifierContinue` will receive as arguments the single character to be
-	  * identifier and the character code point. These arguments will be `string` and `numeric`. Keep in
-	  * mind that the `string` parameter can be two characters long depending on the character
-	  * representation. It is expected for the function to return `true` or `false`, whether that
-	  * character is allowed or not.
-	  *
-	  * Since this function will be called extensivelly, keep the implementation of these functions fast,
-	  * as the performance of these functions have a direct impact on the expressions parsing speed.
-	  *
-	  * @param {function=} identifierStart The function that will decide whether the given character is
-	  *   a valid identifier start character.
-	  * @param {function=} identifierContinue The function that will decide whether the given character is
-	  *   a valid identifier continue character.
-	  */
-	  this.setIdentifierFns = function(identifierStart, identifierContinue) {
-	    identStart = identifierStart;
-	    identContinue = identifierContinue;
-	    return this;
-	  };
 
 	  this.$get = ['$filter', function($filter) {
 	    var noUnsafeEval = csp().noUnsafeEval;
 	    var $parseOptions = {
 	          csp: noUnsafeEval,
-	          expensiveChecks: false,
-	          literals: copy(literals),
-	          isIdentifierStart: isFunction(identStart) && identStart,
-	          isIdentifierContinue: isFunction(identContinue) && identContinue
+	          expensiveChecks: false
 	        },
 	        $parseOptionsExpensive = {
 	          csp: noUnsafeEval,
-	          expensiveChecks: true,
-	          literals: copy(literals),
-	          isIdentifierStart: isFunction(identStart) && identStart,
-	          isIdentifierContinue: isFunction(identContinue) && identContinue
+	          expensiveChecks: true
 	        };
 	    var runningChecksEnabled = false;
 
@@ -15881,15 +15494,15 @@
 	 * [Kris Kowal's Q](https://github.com/kriskowal/q).
 	 *
 	 * $q can be used in two fashions --- one which is more similar to Kris Kowal's Q or jQuery's Deferred
-	 * implementations, and the other which resembles ES6 (ES2015) promises to some degree.
+	 * implementations, and the other which resembles ES6 promises to some degree.
 	 *
 	 * # $q constructor
 	 *
 	 * The streamlined ES6 style promise is essentially just using $q as a constructor which takes a `resolver`
-	 * function as the first argument. This is similar to the native Promise implementation from ES6,
+	 * function as the first argument. This is similar to the native Promise implementation from ES6 Harmony,
 	 * see [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
 	 *
-	 * While the constructor-style use is supported, not all of the supporting methods from ES6 promises are
+	 * While the constructor-style use is supported, not all of the supporting methods from ES6 Harmony promises are
 	 * available yet.
 	 *
 	 * It can be used like so:
@@ -16054,7 +15667,7 @@
 	 * - Q has many more features than $q, but that comes at a cost of bytes. $q is tiny, but contains
 	 *   all the important functionality needed for common async tasks.
 	 *
-	 * # Testing
+	 *  # Testing
 	 *
 	 *  ```js
 	 *    it('should simulate promise', inject(function($q, $rootScope) {
@@ -17242,7 +16855,7 @@
 	            dirty, ttl = TTL,
 	            next, current, target = this,
 	            watchLog = [],
-	            logIdx, asyncTask;
+	            logIdx, logMsg, asyncTask;
 
 	        beginPhase('$digest');
 	        // Check for changes to browser url that happened in sync before the call to $digest
@@ -19027,10 +18640,6 @@
 	function $SnifferProvider() {
 	  this.$get = ['$window', '$document', function($window, $document) {
 	    var eventSupport = {},
-	        // Chrome Packaged Apps are not allowed to access `history.pushState`. They can be detected by
-	        // the presence of `chrome.app.runtime` (see https://developer.chrome.com/apps/api_index)
-	        isChromePackagedApp = $window.chrome && $window.chrome.app && $window.chrome.app.runtime,
-	        hasHistoryPushState = !isChromePackagedApp && $window.history && $window.history.pushState,
 	        android =
 	          toInt((/android (\d+)/.exec(lowercase(($window.navigator || {}).userAgent)) || [])[1]),
 	        boxee = /Boxee/i.test(($window.navigator || {}).userAgent),
@@ -19075,7 +18684,7 @@
 	      // so let's not use the history API also
 	      // We are purposefully using `!(android < 4)` to cover the case when `android` is undefined
 	      // jshint -W018
-	      history: !!(hasHistoryPushState && !(android < 4) && !boxee),
+	      history: !!($window.history && $window.history.pushState && !(android < 4) && !boxee),
 	      // jshint +W018
 	      hasEvent: function(event) {
 	        // IE9 implements 'input' event it's so fubared that we rather pretend that it doesn't have
@@ -19101,7 +18710,7 @@
 	  }];
 	}
 
-	var $templateRequestMinErr = minErr('$compile');
+	var $compileMinErr = minErr('$compile');
 
 	/**
 	 * @ngdoc provider
@@ -19197,7 +18806,7 @@
 
 	      function handleError(resp) {
 	        if (!ignoreRequestError) {
-	          throw $templateRequestMinErr('tpload', 'Failed to load template: {0} (HTTP status: {1} {2})',
+	          throw $compileMinErr('tpload', 'Failed to load template: {0} (HTTP status: {1} {2})',
 	            tpl, resp.status, resp.statusText);
 	        }
 	        return $q.reject(resp);
@@ -19427,7 +19036,7 @@
 	// doesn't know about mocked locations and resolves URLs to the real document - which is
 	// exactly the behavior needed here.  There is little value is mocking these out for this
 	// service.
-	var urlParsingNode = window.document.createElement("a");
+	var urlParsingNode = document.createElement("a");
 	var originUrl = urlResolve(window.location.href);
 
 
@@ -20119,7 +19728,7 @@
 	 * Formats a number as text.
 	 *
 	 * If the input is null or undefined, it will just be returned.
-	 * If the input is infinite (Infinity or -Infinity), the Infinity symbol '∞' or '-∞' is returned, respectively.
+	 * If the input is infinite (Infinity/-Infinity) the Infinity symbol '∞' is returned.
 	 * If the input is not a number an empty string is returned.
 	 *
 	 *
@@ -20127,9 +19736,7 @@
 	 * @param {(number|string)=} fractionSize Number of decimal places to round the number to.
 	 * If this is not provided then the fraction size is computed from the current locale's number
 	 * formatting pattern. In the case of the default locale, it will be 3.
-	 * @returns {string} Number rounded to `fractionSize` appropriately formatted based on the current
-	 *                   locale (e.g., in the en_US locale it will have "." as the decimal separator and
-	 *                   include "," group separators after each third digit).
+	 * @returns {string} Number rounded to fractionSize and places a “,” after each third digit.
 	 *
 	 * @example
 	   <example module="numberFilterExample">
@@ -20211,7 +19818,7 @@
 	  }
 
 	  // Count the number of leading zeros.
-	  for (i = 0; numStr.charAt(i) == ZERO_CHAR; i++) {/* jshint noempty: false */}
+	  for (i = 0; numStr.charAt(i) == ZERO_CHAR; i++);
 
 	  if (i == (zeros = numStr.length)) {
 	    // The digits are all zero.
@@ -20257,37 +19864,18 @@
 	    var digit = digits[roundAt];
 
 	    if (roundAt > 0) {
-	      // Drop fractional digits beyond `roundAt`
-	      digits.splice(Math.max(parsedNumber.i, roundAt));
-
-	      // Set non-fractional digits beyond `roundAt` to 0
-	      for (var j = roundAt; j < digits.length; j++) {
-	        digits[j] = 0;
-	      }
+	      digits.splice(roundAt);
 	    } else {
 	      // We rounded to zero so reset the parsedNumber
-	      fractionLen = Math.max(0, fractionLen);
 	      parsedNumber.i = 1;
-	      digits.length = Math.max(1, roundAt = fractionSize + 1);
-	      digits[0] = 0;
-	      for (var i = 1; i < roundAt; i++) digits[i] = 0;
+	      digits.length = roundAt = fractionSize + 1;
+	      for (var i=0; i < roundAt; i++) digits[i] = 0;
 	    }
 
-	    if (digit >= 5) {
-	      if (roundAt - 1 < 0) {
-	        for (var k = 0; k > roundAt; k--) {
-	          digits.unshift(0);
-	          parsedNumber.i++;
-	        }
-	        digits.unshift(1);
-	        parsedNumber.i++;
-	      } else {
-	        digits[roundAt - 1]++;
-	      }
-	    }
+	    if (digit >= 5) digits[roundAt - 1]++;
 
 	    // Pad out with zeros to get the required fraction length
-	    for (; fractionLen < Math.max(0, fractionSize); fractionLen++) digits.push(0);
+	    for (; fractionLen < fractionSize; fractionLen++) digits.push(0);
 
 
 	    // Do any carrying, e.g. a digit was rounded up to 10
@@ -20359,7 +19947,7 @@
 
 	    // format the integer digits with grouping separators
 	    var groups = [];
-	    if (digits.length >= pattern.lgSize) {
+	    if (digits.length > pattern.lgSize) {
 	      groups.unshift(digits.splice(-pattern.lgSize).join(''));
 	    }
 	    while (digits.length > pattern.gSize) {
@@ -20386,15 +19974,11 @@
 	  }
 	}
 
-	function padNumber(num, digits, trim, negWrap) {
+	function padNumber(num, digits, trim) {
 	  var neg = '';
-	  if (num < 0 || (negWrap && num <= 0)) {
-	    if (negWrap) {
-	      num = -num + 1;
-	    } else {
-	      num = -num;
-	      neg = '-';
-	    }
+	  if (num < 0) {
+	    neg =  '-';
+	    num = -num;
 	  }
 	  num = '' + num;
 	  while (num.length < digits) num = ZERO_CHAR + num;
@@ -20405,7 +19989,7 @@
 	}
 
 
-	function dateGetter(name, size, offset, trim, negWrap) {
+	function dateGetter(name, size, offset, trim) {
 	  offset = offset || 0;
 	  return function(date) {
 	    var value = date['get' + name]();
@@ -20413,15 +19997,14 @@
 	      value += offset;
 	    }
 	    if (value === 0 && offset == -12) value = 12;
-	    return padNumber(value, size, trim, negWrap);
+	    return padNumber(value, size, trim);
 	  };
 	}
 
-	function dateStrGetter(name, shortForm, standAlone) {
+	function dateStrGetter(name, shortForm) {
 	  return function(date, formats) {
 	    var value = date['get' + name]();
-	    var propPrefix = (standAlone ? 'STANDALONE' : '') + (shortForm ? 'SHORT' : '');
-	    var get = uppercase(propPrefix + name);
+	    var get = uppercase(shortForm ? ('SHORT' + name) : name);
 
 	    return formats[get][value];
 	  };
@@ -20476,14 +20059,13 @@
 	}
 
 	var DATE_FORMATS = {
-	  yyyy: dateGetter('FullYear', 4, 0, false, true),
-	    yy: dateGetter('FullYear', 2, 0, true, true),
-	     y: dateGetter('FullYear', 1, 0, false, true),
+	  yyyy: dateGetter('FullYear', 4),
+	    yy: dateGetter('FullYear', 2, 0, true),
+	     y: dateGetter('FullYear', 1),
 	  MMMM: dateStrGetter('Month'),
 	   MMM: dateStrGetter('Month', true),
 	    MM: dateGetter('Month', 2, 1),
 	     M: dateGetter('Month', 1, 1),
-	  LLLL: dateStrGetter('Month', false, true),
 	    dd: dateGetter('Date', 2),
 	     d: dateGetter('Date', 1),
 	    HH: dateGetter('Hours', 2),
@@ -20509,7 +20091,7 @@
 	     GGGG: longEraGetter
 	};
 
-	var DATE_FORMATS_SPLIT = /((?:[^yMLdHhmsaZEwG']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|L+|d+|H+|h+|m+|s+|a|Z|G+|w+))(.*)/,
+	var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZEwG']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d+|H+|h+|m+|s+|a|Z|G+|w+))(.*)/,
 	    NUMBER_STRING = /^\-?\d+$/;
 
 	/**
@@ -20529,7 +20111,6 @@
 	 *   * `'MMM'`: Month in year (Jan-Dec)
 	 *   * `'MM'`: Month in year, padded (01-12)
 	 *   * `'M'`: Month in year (1-12)
-	 *   * `'LLLL'`: Stand-alone month in year (January-December)
 	 *   * `'dd'`: Day in month, padded (01-31)
 	 *   * `'d'`: Day in month (1-31)
 	 *   * `'EEEE'`: Day in Week,(Sunday-Saturday)
@@ -22211,8 +21792,8 @@
 	  ngModelMinErr: false,
 	*/
 
-	// Regex code was initially obtained from SO prior to modification: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime#answer-3143231
-	var ISO_DATE_REGEXP = /^\d{4,}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+(?:[+-][0-2]\d:[0-5]\d|Z)$/;
+	// Regex code is obtained from SO: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime#answer-3143231
+	var ISO_DATE_REGEXP = /\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z)/;
 	// See valid URLs in RFC3987 (http://tools.ietf.org/html/rfc3987)
 	// Note: We are being more lenient, because browsers are too.
 	//   1. Scheme
@@ -22228,17 +21809,11 @@
 	var URL_REGEXP = /^[a-z][a-z\d.+-]*:\/*(?:[^:@]+(?::[^@]+)?@)?(?:[^\s:/?#]+|\[[a-f\d:]+\])(?::\d+)?(?:\/[^?#]*)?(?:\?[^#]*)?(?:#.*)?$/i;
 	var EMAIL_REGEXP = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
 	var NUMBER_REGEXP = /^\s*(\-|\+)?(\d+|(\d*(\.\d*)))([eE][+-]?\d+)?\s*$/;
-	var DATE_REGEXP = /^(\d{4,})-(\d{2})-(\d{2})$/;
-	var DATETIMELOCAL_REGEXP = /^(\d{4,})-(\d\d)-(\d\d)T(\d\d):(\d\d)(?::(\d\d)(\.\d{1,3})?)?$/;
-	var WEEK_REGEXP = /^(\d{4,})-W(\d\d)$/;
-	var MONTH_REGEXP = /^(\d{4,})-(\d\d)$/;
+	var DATE_REGEXP = /^(\d{4})-(\d{2})-(\d{2})$/;
+	var DATETIMELOCAL_REGEXP = /^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)(?::(\d\d)(\.\d{1,3})?)?$/;
+	var WEEK_REGEXP = /^(\d{4})-W(\d\d)$/;
+	var MONTH_REGEXP = /^(\d{4})-(\d\d)$/;
 	var TIME_REGEXP = /^(\d\d):(\d\d)(?::(\d\d)(\.\d{1,3})?)?$/;
-
-	var PARTIAL_VALIDATION_EVENTS = 'keydown wheel mousedown';
-	var PARTIAL_VALIDATION_TYPES = createMap();
-	forEach('date,datetime-local,month,time,week'.split(','), function(type) {
-	  PARTIAL_VALIDATION_TYPES[type] = true;
-	});
 
 	var inputType = {
 
@@ -22595,7 +22170,7 @@
 	        }]);
 	     </script>
 	     <form name="myForm" ng-controller="DateController as dateCtrl">
-	        <label for="exampleInput">Pick a time between 8am and 5pm:</label>
+	        <label for="exampleInput">Pick a between 8am and 5pm:</label>
 	        <input type="time" id="exampleInput" name="input" ng-model="example.value"
 	            placeholder="HH:mm:ss" min="08:00:00" max="17:00:00" required />
 	        <div role="alert">
@@ -23316,7 +22891,7 @@
 	  if (!$sniffer.android) {
 	    var composing = false;
 
-	    element.on('compositionstart', function() {
+	    element.on('compositionstart', function(data) {
 	      composing = true;
 	    });
 
@@ -23325,8 +22900,6 @@
 	      listener();
 	    });
 	  }
-
-	  var timeout;
 
 	  var listener = function(ev) {
 	    if (timeout) {
@@ -23357,6 +22930,8 @@
 	  if ($sniffer.hasEvent('input')) {
 	    element.on('input', listener);
 	  } else {
+	    var timeout;
+
 	    var deferListener = function(ev, input, origValue) {
 	      if (!timeout) {
 	        timeout = $browser.defer(function() {
@@ -23387,26 +22962,6 @@
 	  // if user paste into input using mouse on older browser
 	  // or form autocomplete on newer browser, we need "change" event to catch it
 	  element.on('change', listener);
-
-	  // Some native input types (date-family) have the ability to change validity without
-	  // firing any input/change events.
-	  // For these event types, when native validators are present and the browser supports the type,
-	  // check for validity changes on various DOM events.
-	  if (PARTIAL_VALIDATION_TYPES[type] && ctrl.$$hasNativeValidators && type === attr.type) {
-	    element.on(PARTIAL_VALIDATION_EVENTS, function(ev) {
-	      if (!timeout) {
-	        var validity = this[VALIDITY_STATE_PROPERTY];
-	        var origBadInput = validity.badInput;
-	        var origTypeMismatch = validity.typeMismatch;
-	        timeout = $browser.defer(function() {
-	          timeout = null;
-	          if (validity.badInput !== origBadInput || validity.typeMismatch !== origTypeMismatch) {
-	            listener(ev);
-	          }
-	        });
-	      }
-	    });
-	  }
 
 	  ctrl.$render = function() {
 	    // Workaround for Firefox validation #12102.
@@ -24358,11 +23913,7 @@
 	              updateClasses(oldClasses, newClasses);
 	            }
 	          }
-	          if (isArray(newVal)) {
-	            oldVal = newVal.map(function(v) { return shallowCopy(v); });
-	          } else {
-	            oldVal = shallowCopy(newVal);
-	          }
+	          oldVal = shallowCopy(newVal);
 	        }
 	      }
 	    };
@@ -24432,10 +23983,9 @@
 	 * new classes added.
 	 *
 	 * @animations
-	 * | Animation                        | Occurs                              |
-	 * |----------------------------------|-------------------------------------|
-	 * | {@link ng.$animate#addClass addClass}       | just before the class is applied to the element   |
-	 * | {@link ng.$animate#removeClass removeClass} | just before the class is removed from the element |
+	 * **add** - happens just before the class is applied to the elements
+	 *
+	 * **remove** - happens just before the class is removed from the element
 	 *
 	 * @element ANY
 	 * @param {expression} ngClass {@link guide/expression Expression} to eval. The result
@@ -25694,10 +25244,8 @@
 	 * and `leave` effects.
 	 *
 	 * @animations
-	 * | Animation                        | Occurs                               |
-	 * |----------------------------------|-------------------------------------|
-	 * | {@link ng.$animate#enter enter}  | just after the `ngIf` contents change and a new DOM element is created and injected into the `ngIf` container |
-	 * | {@link ng.$animate#leave leave}  | just before the `ngIf` contents are removed from the DOM |
+	 * enter - happens just after the `ngIf` contents change and a new DOM element is created and injected into the `ngIf` container
+	 * leave - happens just before the `ngIf` contents are removed from the DOM
 	 *
 	 * @element ANY
 	 * @scope
@@ -25738,7 +25286,7 @@
 	    </file>
 	  </example>
 	 */
-	var ngIfDirective = ['$animate', '$compile', function($animate, $compile) {
+	var ngIfDirective = ['$animate', function($animate) {
 	  return {
 	    multiElement: true,
 	    transclude: 'element',
@@ -25754,7 +25302,7 @@
 	            if (!childScope) {
 	              $transclude(function(clone, newScope) {
 	                childScope = newScope;
-	                clone[clone.length++] = $compile.$$createComment('end ngIf', $attr.ngIf);
+	                clone[clone.length++] = document.createComment(' end ngIf: ' + $attr.ngIf + ' ');
 	                // Note: We only need the first/last node of the cloned nodes.
 	                // However, we need to keep the reference to the jqlite wrapper as it might be changed later
 	                // by a directive with templateUrl when its template arrives.
@@ -25809,10 +25357,8 @@
 	 * access on some browsers.
 	 *
 	 * @animations
-	 * | Animation                        | Occurs                              |
-	 * |----------------------------------|-------------------------------------|
-	 * | {@link ng.$animate#enter enter}  | when the expression changes, on the new include |
-	 * | {@link ng.$animate#leave leave}  | when the expression changes, on the old include |
+	 * enter - animation is used to bring new content into the browser.
+	 * leave - animation is used to animate existing content away.
 	 *
 	 * The enter and leave animation occur concurrently.
 	 *
@@ -26078,7 +25624,7 @@
 	          // support innerHTML, so detect this here and try to generate the contents
 	          // specially.
 	          $element.empty();
-	          $compile(jqLiteBuildFragment(ctrl.template, window.document).childNodes)(scope,
+	          $compile(jqLiteBuildFragment(ctrl.template, document).childNodes)(scope,
 	              function namespaceAdaptedClone(clone) {
 	            $element.append(clone);
 	          }, {futureParentElement: $element});
@@ -26553,9 +26099,9 @@
 	      };
 	      ngModelSet = function($scope, newValue) {
 	        if (isFunction(parsedNgModel($scope))) {
-	          invokeModelSetter($scope, {$$$p: newValue});
+	          invokeModelSetter($scope, {$$$p: ctrl.$modelValue});
 	        } else {
-	          parsedNgModelAssign($scope, newValue);
+	          parsedNgModelAssign($scope, ctrl.$modelValue);
 	        }
 	      };
 	    } else if (!parsedNgModel.assign) {
@@ -26580,7 +26126,7 @@
 	   *   the `$viewValue` are different from last time.
 	   *
 	   * Since `ng-model` does not do a deep watch, `$render()` is only invoked if the values of
-	   * `$modelValue` and `$viewValue` are actually different from their previous values. If `$modelValue`
+	   * `$modelValue` and `$viewValue` are actually different from their previous value. If `$modelValue`
 	   * or `$viewValue` are objects (rather than a string or number) then `$render()` will not be
 	   * invoked if you only change a property on the objects.
 	   */
@@ -26932,7 +26478,7 @@
 	        setValidity(name, undefined);
 	        validatorPromises.push(promise.then(function() {
 	          setValidity(name, true);
-	        }, function() {
+	        }, function(error) {
 	          allValid = false;
 	          setValidity(name, false);
 	        }));
@@ -27406,7 +26952,7 @@
 	            });
 	          }
 
-	          element.on('blur', function() {
+	          element.on('blur', function(ev) {
 	            if (modelCtrl.$touched) return;
 
 	            if ($rootScope.$$phase) {
@@ -27992,7 +27538,7 @@
 	// jshint maxlen: 100
 
 
-	var ngOptionsDirective = ['$compile', '$document', '$parse', function($compile, $document, $parse) {
+	var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
 
 	  function parseOptionsExpression(optionsExp, selectElement, scope) {
 
@@ -28089,8 +27635,8 @@
 	          var key = (optionValues === optionValuesKeys) ? index : optionValuesKeys[index];
 	          var value = optionValues[key];
 
-	          var locals = getLocals(value, key);
-	          var selectValue = getTrackByValueFn(value, locals);
+	          var locals = getLocals(optionValues[key], key);
+	          var selectValue = getTrackByValueFn(optionValues[key], locals);
 	          watchedArray.push(selectValue);
 
 	          // Only need to watch the displayFn if there is a specific label expression
@@ -28153,8 +27699,8 @@
 
 	  // we can't just jqLite('<option>') since jqLite is not smart enough
 	  // to create it in <select> and IE barfs otherwise.
-	  var optionTemplate = window.document.createElement('option'),
-	      optGroupTemplate = window.document.createElement('optgroup');
+	  var optionTemplate = document.createElement('option'),
+	      optGroupTemplate = document.createElement('optgroup');
 
 	    function ngOptionsPostLink(scope, selectElement, attr, ctrls) {
 
@@ -28179,10 +27725,7 @@
 
 	      var options;
 	      var ngOptions = parseOptionsExpression(attr.ngOptions, selectElement, scope);
-	      // This stores the newly created options before they are appended to the select.
-	      // Since the contents are removed from the fragment when it is appended,
-	      // we only need to create it once.
-	      var listFragment = $document[0].createDocumentFragment();
+
 
 	      var renderEmptyOption = function() {
 	        if (!providedEmptyOption) {
@@ -28217,21 +27760,15 @@
 	        selectCtrl.writeValue = function writeNgOptionsValue(value) {
 	          var option = options.getOptionFromViewValue(value);
 
-	          if (option) {
-	            // Don't update the option when it is already selected.
-	            // For example, the browser will select the first option by default. In that case,
-	            // most properties are set automatically - except the `selected` attribute, which we
-	            // set always
-
+	          if (option && !option.disabled) {
 	            if (selectElement[0].value !== option.selectValue) {
 	              removeUnknownOption();
 	              removeEmptyOption();
 
 	              selectElement[0].value = option.selectValue;
 	              option.element.selected = true;
+	              option.element.setAttribute('selected', 'selected');
 	            }
-
-	            option.element.setAttribute('selected', 'selected');
 	          } else {
 	            if (value === null || providedEmptyOption) {
 	              removeUnknownOption();
@@ -28279,7 +27816,7 @@
 	          if (value) {
 	            value.forEach(function(item) {
 	              var option = options.getOptionFromViewValue(item);
-	              if (option) option.element.selected = true;
+	              if (option && !option.disabled) option.element.selected = true;
 	            });
 	          }
 	        };
@@ -28331,8 +27868,6 @@
 	        emptyOption = jqLite(optionTemplate.cloneNode(false));
 	      }
 
-	      selectElement.empty();
-
 	      // We need to do this here to ensure that the options object is defined
 	      // when we first hit it in writeNgOptionsValue
 	      updateOptions();
@@ -28341,12 +27876,6 @@
 	      scope.$watchCollection(ngOptions.getWatchables, updateOptions);
 
 	      // ------------------------------------------------------------------ //
-
-	      function addOptionElement(option, parent) {
-	        var optionElement = optionTemplate.cloneNode(false);
-	        parent.appendChild(optionElement);
-	        updateOptionElement(option, optionElement);
-	      }
 
 
 	      function updateOptionElement(option, element) {
@@ -28364,66 +27893,133 @@
 	        if (option.value !== element.value) element.value = option.selectValue;
 	      }
 
-	      function updateOptions() {
-	        var previousValue = options && selectCtrl.readValue();
-
-	        // We must remove all current options, but cannot simply set innerHTML = null
-	        // since the providedEmptyOption might have an ngIf on it that inserts comments which we
-	        // must preserve.
-	        // Instead, iterate over the current option elements and remove them or their optgroup
-	        // parents
-	        if (options) {
-
-	          for (var i = options.items.length - 1; i >= 0; i--) {
-	            var option = options.items[i];
-	            if (option.group) {
-	              jqLiteRemove(option.element.parentNode);
-	            } else {
-	              jqLiteRemove(option.element);
-	            }
+	      function addOrReuseElement(parent, current, type, templateElement) {
+	        var element;
+	        // Check whether we can reuse the next element
+	        if (current && lowercase(current.nodeName) === type) {
+	          // The next element is the right type so reuse it
+	          element = current;
+	        } else {
+	          // The next element is not the right type so create a new one
+	          element = templateElement.cloneNode(false);
+	          if (!current) {
+	            // There are no more elements so just append it to the select
+	            parent.appendChild(element);
+	          } else {
+	            // The next element is not a group so insert the new one
+	            parent.insertBefore(element, current);
 	          }
 	        }
+	        return element;
+	      }
+
+
+	      function removeExcessElements(current) {
+	        var next;
+	        while (current) {
+	          next = current.nextSibling;
+	          jqLiteRemove(current);
+	          current = next;
+	        }
+	      }
+
+
+	      function skipEmptyAndUnknownOptions(current) {
+	        var emptyOption_ = emptyOption && emptyOption[0];
+	        var unknownOption_ = unknownOption && unknownOption[0];
+
+	        // We cannot rely on the extracted empty option being the same as the compiled empty option,
+	        // because the compiled empty option might have been replaced by a comment because
+	        // it had an "element" transclusion directive on it (such as ngIf)
+	        if (emptyOption_ || unknownOption_) {
+	          while (current &&
+	                (current === emptyOption_ ||
+	                current === unknownOption_ ||
+	                current.nodeType === NODE_TYPE_COMMENT ||
+	                (nodeName_(current) === 'option' && current.value === ''))) {
+	            current = current.nextSibling;
+	          }
+	        }
+	        return current;
+	      }
+
+
+	      function updateOptions() {
+
+	        var previousValue = options && selectCtrl.readValue();
 
 	        options = ngOptions.getOptions();
 
-	        var groupElementMap = {};
+	        var groupMap = {};
+	        var currentElement = selectElement[0].firstChild;
 
 	        // Ensure that the empty option is always there if it was explicitly provided
 	        if (providedEmptyOption) {
 	          selectElement.prepend(emptyOption);
 	        }
 
-	        options.items.forEach(function addOption(option) {
+	        currentElement = skipEmptyAndUnknownOptions(currentElement);
+
+	        options.items.forEach(function updateOption(option) {
+	          var group;
 	          var groupElement;
+	          var optionElement;
 
 	          if (isDefined(option.group)) {
 
 	            // This option is to live in a group
 	            // See if we have already created this group
-	            groupElement = groupElementMap[option.group];
+	            group = groupMap[option.group];
 
-	            if (!groupElement) {
+	            if (!group) {
 
-	              groupElement = optGroupTemplate.cloneNode(false);
-	              listFragment.appendChild(groupElement);
+	              // We have not already created this group
+	              groupElement = addOrReuseElement(selectElement[0],
+	                                               currentElement,
+	                                               'optgroup',
+	                                               optGroupTemplate);
+	              // Move to the next element
+	              currentElement = groupElement.nextSibling;
 
 	              // Update the label on the group element
 	              groupElement.label = option.group;
 
 	              // Store it for use later
-	              groupElementMap[option.group] = groupElement;
+	              group = groupMap[option.group] = {
+	                groupElement: groupElement,
+	                currentOptionElement: groupElement.firstChild
+	              };
+
 	            }
 
-	            addOptionElement(option, groupElement);
+	            // So now we have a group for this option we add the option to the group
+	            optionElement = addOrReuseElement(group.groupElement,
+	                                              group.currentOptionElement,
+	                                              'option',
+	                                              optionTemplate);
+	            updateOptionElement(option, optionElement);
+	            // Move to the next element
+	            group.currentOptionElement = optionElement.nextSibling;
 
 	          } else {
 
 	            // This option is not in a group
-	            addOptionElement(option, listFragment);
+	            optionElement = addOrReuseElement(selectElement[0],
+	                                              currentElement,
+	                                              'option',
+	                                              optionTemplate);
+	            updateOptionElement(option, optionElement);
+	            // Move to the next element
+	            currentElement = optionElement.nextSibling;
 	          }
 	        });
 
-	        selectElement[0].appendChild(listFragment);
+
+	        // Now remove all excess options and group
+	        Object.keys(groupMap).forEach(function(key) {
+	          removeExcessElements(groupMap[key].currentOptionElement);
+	        });
+	        removeExcessElements(currentElement);
 
 	        ngModelCtrl.$render();
 
@@ -28731,23 +28327,17 @@
 	 * <div ng-repeat="(key, value) in myObj"> ... </div>
 	 * ```
 	 *
-	 * However, there are a limitations compared to array iteration:
+	 * You need to be aware that the JavaScript specification does not define the order of keys
+	 * returned for an object. (To mitigate this in Angular 1.3 the `ngRepeat` directive
+	 * used to sort the keys alphabetically.)
 	 *
-	 * - The JavaScript specification does not define the order of keys
-	 *   returned for an object, so Angular relies on the order returned by the browser
-	 *   when running `for key in myObj`. Browsers generally follow the strategy of providing
-	 *   keys in the order in which they were defined, although there are exceptions when keys are deleted
-	 *   and reinstated. See the
-	 *   [MDN page on `delete` for more info](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete#Cross-browser_notes).
+	 * Version 1.4 removed the alphabetic sorting. We now rely on the order returned by the browser
+	 * when running `for key in myObj`. It seems that browsers generally follow the strategy of providing
+	 * keys in the order in which they were defined, although there are exceptions when keys are deleted
+	 * and reinstated. See the [MDN page on `delete` for more info](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete#Cross-browser_notes).
 	 *
-	 * - `ngRepeat` will silently *ignore* object keys starting with `$`, because
-	 *   it's a prefix used by Angular for public (`$`) and private (`$$`) properties.
-	 *
-	 * - The built-in filters {@link ng.orderBy orderBy} and {@link ng.filter filter} do not work with
-	 *   objects, and will throw if used with one.
-	 *
-	 * If you are hitting any of these limitations, the recommended workaround is to convert your object into an array
-	 * that is sorted into the order that you prefer before providing it to `ngRepeat`. You could
+	 * If this is not desired, the recommended workaround is to convert your object into an array
+	 * that is sorted into the order that you prefer before providing it to `ngRepeat`.  You could
 	 * do this with a filter such as [toArrayFilter](http://ngmodules.org/modules/angular-toArrayFilter)
 	 * or implement a `$watch` on the object yourself.
 	 *
@@ -28865,11 +28455,11 @@
 	 * as **data-ng-repeat-start**, **x-ng-repeat-start** and **ng:repeat-start**).
 	 *
 	 * @animations
-	 * | Animation                        | Occurs                              |
-	 * |----------------------------------|-------------------------------------|
-	 * | {@link ng.$animate#enter enter} | when a new item is added to the list or when an item is revealed after a filter |
-	 * | {@link ng.$animate#leave leave} | when an item is removed from the list or when an item is filtered out |
-	 * | {@link ng.$animate#move move } | when an adjacent item is filtered out causing a reorder or when the item contents are reordered |
+	 * **.enter** - when a new item is added to the list or when an item is revealed after a filter
+	 *
+	 * **.leave** - when an item is removed from the list or when an item is filtered out
+	 *
+	 * **.move** - when an adjacent item is filtered out causing a reorder or when the item contents are reordered
 	 *
 	 * See the example below for defining CSS animations with ngRepeat.
 	 *
@@ -29017,7 +28607,7 @@
 	      </file>
 	    </example>
 	 */
-	var ngRepeatDirective = ['$parse', '$animate', '$compile', function($parse, $animate, $compile) {
+	var ngRepeatDirective = ['$parse', '$animate', function($parse, $animate) {
 	  var NG_REMOVED = '$$NG_REMOVED';
 	  var ngRepeatMinErr = minErr('ngRepeat');
 
@@ -29052,7 +28642,7 @@
 	    $$tlb: true,
 	    compile: function ngRepeatCompile($element, $attr) {
 	      var expression = $attr.ngRepeat;
-	      var ngRepeatEndComment = $compile.$$createComment('end ngRepeat', expression);
+	      var ngRepeatEndComment = document.createComment(' end ngRepeat: ' + expression + ' ');
 
 	      var match = expression.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+track\s+by\s+([\s\S]+?))?\s*$/);
 
@@ -29216,7 +28806,7 @@
 
 	              if (getBlockStart(block) != nextNode) {
 	                // existing item which got moved
-	                $animate.move(getBlockNodes(block.clone), null, previousNode);
+	                $animate.move(getBlockNodes(block.clone), null, jqLite(previousNode));
 	              }
 	              previousNode = getBlockEnd(block);
 	              updateScope(block.scope, index, valueIdentifier, value, keyIdentifier, key, collectionLength);
@@ -29228,7 +28818,8 @@
 	                var endNode = ngRepeatEndComment.cloneNode(false);
 	                clone[clone.length++] = endNode;
 
-	                $animate.enter(clone, null, previousNode);
+	                // TODO(perf): support naked previousNode in `enter` to avoid creation of jqLite wrapper?
+	                $animate.enter(clone, null, jqLite(previousNode));
 	                previousNode = endNode;
 	                // Note: We only need the first/last node of the cloned nodes.
 	                // However, we need to keep the reference to the jqlite wrapper as it might be changed later
@@ -29331,14 +28922,12 @@
 	 * .my-element.ng-hide-remove.ng-hide-remove-active { ... }
 	 * ```
 	 *
-	 * Keep in mind that, as of AngularJS version 1.3, there is no need to change the display
+	 * Keep in mind that, as of AngularJS version 1.3.0-beta.11, there is no need to change the display
 	 * property to block during animation states--ngAnimate will handle the style toggling automatically for you.
 	 *
 	 * @animations
-	 * | Animation                        | Occurs                              |
-	 * |----------------------------------|-------------------------------------|
-	 * | {@link $animate#addClass addClass} `.ng-hide`  | after the `ngShow` expression evaluates to a non truthy value and just before the contents are set to hidden |
-	 * | {@link $animate#removeClass removeClass}  `.ng-hide`  | after the `ngShow` expression evaluates to a truthy value and just before contents are set to visible |
+	 * addClass: `.ng-hide` - happens after the `ngShow` expression evaluates to a truthy value and the just before contents are set to visible
+	 * removeClass: `.ng-hide` - happens after the `ngShow` expression evaluates to a non truthy value and just before the contents are set to hidden
 	 *
 	 * @element ANY
 	 * @param {expression} ngShow If the {@link guide/expression expression} is truthy
@@ -29497,15 +29086,12 @@
 	 * .my-element.ng-hide-remove.ng-hide-remove-active { ... }
 	 * ```
 	 *
-	 * Keep in mind that, as of AngularJS version 1.3, there is no need to change the display
+	 * Keep in mind that, as of AngularJS version 1.3.0-beta.11, there is no need to change the display
 	 * property to block during animation states--ngAnimate will handle the style toggling automatically for you.
 	 *
 	 * @animations
-	 * | Animation                        | Occurs                              |
-	 * |----------------------------------|-------------------------------------|
-	 * | {@link $animate#addClass addClass} `.ng-hide`  | after the `ngHide` expression evaluates to a truthy value and just before the contents are set to hidden |
-	 * | {@link $animate#removeClass removeClass}  `.ng-hide`  | after the `ngHide` expression evaluates to a non truthy value and just before contents are set to visible |
-	 *
+	 * removeClass: `.ng-hide` - happens after the `ngHide` expression evaluates to a truthy value and just before the contents are set to hidden
+	 * addClass: `.ng-hide` - happens after the `ngHide` expression evaluates to a non truthy value and just before the contents are set to visible
 	 *
 	 * @element ANY
 	 * @param {expression} ngHide If the {@link guide/expression expression} is truthy then
@@ -29667,10 +29253,8 @@
 	 * </div>
 
 	 * @animations
-	 * | Animation                        | Occurs                              |
-	 * |----------------------------------|-------------------------------------|
-	 * | {@link ng.$animate#enter enter}  | after the ngSwitch contents change and the matched child element is placed inside the container |
-	 * | {@link ng.$animate#leave leave}  | after the ngSwitch contents change and just before the former contents are removed from the DOM |
+	 * enter - happens after the ngSwitch contents change and the matched child element is placed inside the container
+	 * leave - happens just after the ngSwitch contents change and just before the former contents are removed from the DOM
 	 *
 	 * @usage
 	 *
@@ -29769,7 +29353,7 @@
 	    </file>
 	  </example>
 	 */
-	var ngSwitchDirective = ['$animate', '$compile', function($animate, $compile) {
+	var ngSwitchDirective = ['$animate', function($animate) {
 	  return {
 	    require: 'ngSwitch',
 
@@ -29810,7 +29394,7 @@
 	            selectedTransclude.transclude(function(caseElement, selectedScope) {
 	              selectedScopes.push(selectedScope);
 	              var anchor = selectedTransclude.element;
-	              caseElement[caseElement.length++] = $compile.$$createComment('end ngSwitchWhen');
+	              caseElement[caseElement.length++] = document.createComment(' end ngSwitchWhen: ');
 	              var block = { clone: caseElement };
 
 	              selectedElements.push(block);
@@ -30104,7 +29688,7 @@
 	 * added `<option>` elements, perhaps by an `ngRepeat` directive.
 	 */
 	var SelectController =
-	        ['$element', '$scope', function($element, $scope) {
+	        ['$element', '$scope', '$attrs', function($element, $scope, $attrs) {
 
 	  var self = this,
 	      optionsMap = new HashMap();
@@ -30118,7 +29702,7 @@
 	  //
 	  // We can't just jqLite('<option>') since jqLite is not smart enough
 	  // to create it in <select> and IE barfs otherwise.
-	  self.unknownOption = jqLite(window.document.createElement('option'));
+	  self.unknownOption = jqLite(document.createElement('option'));
 	  self.renderUnknownOption = function(val) {
 	    var unknownVal = '? ' + hashKey(val) + ' ?';
 	    self.unknownOption.val(unknownVal);
@@ -30926,9 +30510,7 @@
 
 	if (window.angular.bootstrap) {
 	  //AngularJS is already loaded, so we can return here...
-	  if (window.console) {
-	    console.log('WARNING: Tried to load angular more than once.');
-	  }
+	  console.log('WARNING: Tried to load angular more than once.');
 	  return;
 	}
 
@@ -31081,11 +30663,11 @@
 	});
 	}]);
 
-	  jqLite(window.document).ready(function() {
-	    angularInit(window.document, bootstrap);
+	  jqLite(document).ready(function() {
+	    angularInit(document, bootstrap);
 	  });
 
-	})(window);
+	})(window, document);
 
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
@@ -31102,11 +30684,11 @@
 /***/ function(module, exports) {
 
 	/**
-	 * @license AngularJS v1.5.5
+	 * @license AngularJS v1.5.0
 	 * (c) 2010-2016 Google, Inc. http://angularjs.org
 	 * License: MIT
 	 */
-	(function(window, angular) {'use strict';
+	(function(window, angular, undefined) {'use strict';
 
 	var $resourceMinErr = angular.$$minErr('$resource');
 
@@ -31814,7 +31396,7 @@
 	              return $q.reject(response);
 	            });
 
-	            promise['finally'](function() {
+	            promise.finally(function() {
 	              value.$resolved = true;
 	              if (!isInstanceCall && cancellable) {
 	                value.$cancelRequest = angular.noop;
@@ -36432,10 +36014,10 @@
 	 * angular-ui-bootstrap
 	 * http://angular-ui.github.io/bootstrap/
 
-	 * Version: 1.3.2 - 2016-04-14
+	 * Version: 1.2.1 - 2016-02-27
 	 * License: MIT
-	 */angular.module("ui.bootstrap", ["ui.bootstrap.tpls", "ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.dateparser","ui.bootstrap.isClass","ui.bootstrap.datepicker","ui.bootstrap.position","ui.bootstrap.datepickerPopup","ui.bootstrap.debounce","ui.bootstrap.dropdown","ui.bootstrap.stackedMap","ui.bootstrap.modal","ui.bootstrap.paging","ui.bootstrap.pager","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.typeahead"]);
-	angular.module("ui.bootstrap.tpls", ["uib/template/accordion/accordion-group.html","uib/template/accordion/accordion.html","uib/template/alert/alert.html","uib/template/carousel/carousel.html","uib/template/carousel/slide.html","uib/template/datepicker/datepicker.html","uib/template/datepicker/day.html","uib/template/datepicker/month.html","uib/template/datepicker/year.html","uib/template/datepickerPopup/popup.html","uib/template/modal/backdrop.html","uib/template/modal/window.html","uib/template/pager/pager.html","uib/template/pagination/pagination.html","uib/template/tooltip/tooltip-html-popup.html","uib/template/tooltip/tooltip-popup.html","uib/template/tooltip/tooltip-template-popup.html","uib/template/popover/popover-html.html","uib/template/popover/popover-template.html","uib/template/popover/popover.html","uib/template/progressbar/bar.html","uib/template/progressbar/progress.html","uib/template/progressbar/progressbar.html","uib/template/rating/rating.html","uib/template/tabs/tab.html","uib/template/tabs/tabset.html","uib/template/timepicker/timepicker.html","uib/template/typeahead/typeahead-match.html","uib/template/typeahead/typeahead-popup.html"]);
+	 */angular.module("ui.bootstrap", ["ui.bootstrap.tpls", "ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.dateparser","ui.bootstrap.isClass","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.debounce","ui.bootstrap.dropdown","ui.bootstrap.stackedMap","ui.bootstrap.modal","ui.bootstrap.paging","ui.bootstrap.pager","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.typeahead"]);
+	angular.module("ui.bootstrap.tpls", ["uib/template/accordion/accordion-group.html","uib/template/accordion/accordion.html","uib/template/alert/alert.html","uib/template/carousel/carousel.html","uib/template/carousel/slide.html","uib/template/datepicker/datepicker.html","uib/template/datepicker/day.html","uib/template/datepicker/month.html","uib/template/datepicker/popup.html","uib/template/datepicker/year.html","uib/template/modal/backdrop.html","uib/template/modal/window.html","uib/template/pager/pager.html","uib/template/pagination/pagination.html","uib/template/tooltip/tooltip-html-popup.html","uib/template/tooltip/tooltip-popup.html","uib/template/tooltip/tooltip-template-popup.html","uib/template/popover/popover-html.html","uib/template/popover/popover-template.html","uib/template/popover/popover.html","uib/template/progressbar/bar.html","uib/template/progressbar/progress.html","uib/template/progressbar/progressbar.html","uib/template/rating/rating.html","uib/template/tabs/tab.html","uib/template/tabs/tabset.html","uib/template/timepicker/timepicker.html","uib/template/typeahead/typeahead-match.html","uib/template/typeahead/typeahead-popup.html"]);
 	angular.module('ui.bootstrap.collapse', [])
 
 	  .directive('uibCollapse', ['$animate', '$q', '$parse', '$injector', function($animate, $q, $parse, $injector) {
@@ -36604,7 +36186,6 @@
 	    },
 	    scope: {
 	      heading: '@',               // Interpolate the heading attribute onto this scope
-	      panelClass: '@?',           // Ditto with panelClass
 	      isOpen: '=?',
 	      isDisabled: '=?'
 	    },
@@ -36816,7 +36397,7 @@
 	      element: element
 	    });
 	    slides.sort(function(a, b) {
-	      return +a.slide.index - +b.slide.index;
+	      return +a.slide.index > +b.slide.index;
 	    });
 	    //if this is the first slide or the slide is set to active, select it
 	    if (slide.index === $scope.active || slides.length === 1 && !angular.isNumber($scope.active)) {
@@ -36924,14 +36505,6 @@
 	    return $scope.active === slide.slide.index;
 	  };
 
-	  $scope.isPrevDisabled = function() {
-	    return $scope.active === 0 && $scope.noWrap();
-	  };
-
-	  $scope.isNextDisabled = function() {
-	    return $scope.active === slides.length - 1 && $scope.noWrap();
-	  };
-
 	  $scope.pause = function() {
 	    if (!$scope.noPause) {
 	      isPlaying = false;
@@ -36970,9 +36543,9 @@
 
 	      var slide = slides[index];
 	      if (slide) {
+	        currentIndex = index;
 	        setActive(index);
 	        self.select(slides[index]);
-	        currentIndex = index;
 	      }
 	    }
 	  });
@@ -37199,7 +36772,7 @@
 	      {
 	        key: 'yy',
 	        regex: '\\d{2}',
-	        apply: function(value) { value = +value; this.year = value < 69 ? value + 2000 : value + 1900; },
+	        apply: function(value) { this.year = +value + 2000; },
 	        formatter: function(date) {
 	          var _date = new Date();
 	          _date.setFullYear(Math.abs(date.getFullYear()));
@@ -37648,7 +37221,7 @@
 
 	  return {
 	    restrict: 'A',
-	    compile: function(tElement, tAttrs) {
+	    compile: function (tElement, tAttrs) {
 	      var linkedScopes = [];
 	      var instances = [];
 	      var expToData = {};
@@ -37667,7 +37240,7 @@
 	          element: element
 	        });
 
-	        exps.forEach(function(exp, k) {
+	        exps.forEach(function (exp, k) {
 	          addForExp(exp, scope);
 	        });
 
@@ -37680,9 +37253,9 @@
 	        var compareWithExp = matches[2];
 	        var data = expToData[exp];
 	        if (!data) {
-	          var watchFn = function(compareWithVal) {
+	          var watchFn = function (compareWithVal) {
 	            var newActivated = null;
-	            instances.some(function(instance) {
+	            instances.some(function (instance) {
 	              var thisVal = instance.scope.$eval(onExp);
 	              if (thisVal === compareWithVal) {
 	                newActivated = instance;
@@ -37717,660 +37290,20 @@
 	        instances.splice(index, 1);
 	        if (linkedScopes.length) {
 	          var newWatchScope = linkedScopes[0];
-	          angular.forEach(expToData, function(data) {
+	          angular.forEach(expToData, function (data) {
 	            if (data.scope === removedScope) {
 	              data.watcher = newWatchScope.$watch(data.compareWithExp, data.watchFn);
 	              data.scope = newWatchScope;
 	            }
 	          });
-	        } else {
+	        }
+	        else {
 	          expToData = {};
 	        }
 	      }
 	    }
 	  };
 	}]);
-	angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootstrap.isClass'])
-
-	.value('$datepickerSuppressError', false)
-
-	.value('$datepickerLiteralWarning', true)
-
-	.constant('uibDatepickerConfig', {
-	  datepickerMode: 'day',
-	  formatDay: 'dd',
-	  formatMonth: 'MMMM',
-	  formatYear: 'yyyy',
-	  formatDayHeader: 'EEE',
-	  formatDayTitle: 'MMMM yyyy',
-	  formatMonthTitle: 'yyyy',
-	  maxDate: null,
-	  maxMode: 'year',
-	  minDate: null,
-	  minMode: 'day',
-	  ngModelOptions: {},
-	  shortcutPropagation: false,
-	  showWeeks: true,
-	  yearColumns: 5,
-	  yearRows: 4
-	})
-
-	.controller('UibDatepickerController', ['$scope', '$attrs', '$parse', '$interpolate', '$locale', '$log', 'dateFilter', 'uibDatepickerConfig', '$datepickerLiteralWarning', '$datepickerSuppressError', 'uibDateParser',
-	  function($scope, $attrs, $parse, $interpolate, $locale, $log, dateFilter, datepickerConfig, $datepickerLiteralWarning, $datepickerSuppressError, dateParser) {
-	  var self = this,
-	      ngModelCtrl = { $setViewValue: angular.noop }, // nullModelCtrl;
-	      ngModelOptions = {},
-	      watchListeners = [],
-	      optionsUsed = !!$attrs.datepickerOptions;
-
-	  if (!$scope.datepickerOptions) {
-	    $scope.datepickerOptions = {};
-	  }
-
-	  // Modes chain
-	  this.modes = ['day', 'month', 'year'];
-
-	  [
-	    'customClass',
-	    'dateDisabled',
-	    'datepickerMode',
-	    'formatDay',
-	    'formatDayHeader',
-	    'formatDayTitle',
-	    'formatMonth',
-	    'formatMonthTitle',
-	    'formatYear',
-	    'maxDate',
-	    'maxMode',
-	    'minDate',
-	    'minMode',
-	    'showWeeks',
-	    'shortcutPropagation',
-	    'startingDay',
-	    'yearColumns',
-	    'yearRows'
-	  ].forEach(function(key) {
-	    switch (key) {
-	      case 'customClass':
-	      case 'dateDisabled':
-	        $scope[key] = $scope.datepickerOptions[key] || angular.noop;
-	        break;
-	      case 'datepickerMode':
-	        $scope.datepickerMode = angular.isDefined($scope.datepickerOptions.datepickerMode) ?
-	          $scope.datepickerOptions.datepickerMode : datepickerConfig.datepickerMode;
-	        break;
-	      case 'formatDay':
-	      case 'formatDayHeader':
-	      case 'formatDayTitle':
-	      case 'formatMonth':
-	      case 'formatMonthTitle':
-	      case 'formatYear':
-	        self[key] = angular.isDefined($scope.datepickerOptions[key]) ?
-	          $interpolate($scope.datepickerOptions[key])($scope.$parent) :
-	          datepickerConfig[key];
-	        break;
-	      case 'showWeeks':
-	      case 'shortcutPropagation':
-	      case 'yearColumns':
-	      case 'yearRows':
-	        self[key] = angular.isDefined($scope.datepickerOptions[key]) ?
-	          $scope.datepickerOptions[key] : datepickerConfig[key];
-	        break;
-	      case 'startingDay':
-	        if (angular.isDefined($scope.datepickerOptions.startingDay)) {
-	          self.startingDay = $scope.datepickerOptions.startingDay;
-	        } else if (angular.isNumber(datepickerConfig.startingDay)) {
-	          self.startingDay = datepickerConfig.startingDay;
-	        } else {
-	          self.startingDay = ($locale.DATETIME_FORMATS.FIRSTDAYOFWEEK + 8) % 7;
-	        }
-
-	        break;
-	      case 'maxDate':
-	      case 'minDate':
-	        $scope.$watch('datepickerOptions.' + key, function(value) {
-	          if (value) {
-	            if (angular.isDate(value)) {
-	              self[key] = dateParser.fromTimezone(new Date(value), ngModelOptions.timezone);
-	            } else {
-	              if ($datepickerLiteralWarning) {
-	                $log.warn('Literal date support has been deprecated, please switch to date object usage');
-	              }
-
-	              self[key] = new Date(dateFilter(value, 'medium'));
-	            }
-	          } else {
-	            self[key] = datepickerConfig[key] ?
-	              dateParser.fromTimezone(new Date(datepickerConfig[key]), ngModelOptions.timezone) :
-	              null;
-	          }
-
-	          self.refreshView();
-	        });
-
-	        break;
-	      case 'maxMode':
-	      case 'minMode':
-	        if ($scope.datepickerOptions[key]) {
-	          $scope.$watch(function() { return $scope.datepickerOptions[key]; }, function(value) {
-	            self[key] = $scope[key] = angular.isDefined(value) ? value : datepickerOptions[key];
-	            if (key === 'minMode' && self.modes.indexOf($scope.datepickerOptions.datepickerMode) < self.modes.indexOf(self[key]) ||
-	              key === 'maxMode' && self.modes.indexOf($scope.datepickerOptions.datepickerMode) > self.modes.indexOf(self[key])) {
-	              $scope.datepickerMode = self[key];
-	              $scope.datepickerOptions.datepickerMode = self[key];
-	            }
-	          });
-	        } else {
-	          self[key] = $scope[key] = datepickerConfig[key] || null;
-	        }
-
-	        break;
-	    }
-	  });
-
-	  $scope.uniqueId = 'datepicker-' + $scope.$id + '-' + Math.floor(Math.random() * 10000);
-
-	  $scope.disabled = angular.isDefined($attrs.disabled) || false;
-	  if (angular.isDefined($attrs.ngDisabled)) {
-	    watchListeners.push($scope.$parent.$watch($attrs.ngDisabled, function(disabled) {
-	      $scope.disabled = disabled;
-	      self.refreshView();
-	    }));
-	  }
-
-	  $scope.isActive = function(dateObject) {
-	    if (self.compare(dateObject.date, self.activeDate) === 0) {
-	      $scope.activeDateId = dateObject.uid;
-	      return true;
-	    }
-	    return false;
-	  };
-
-	  this.init = function(ngModelCtrl_) {
-	    ngModelCtrl = ngModelCtrl_;
-	    ngModelOptions = ngModelCtrl_.$options || datepickerConfig.ngModelOptions;
-	    if ($scope.datepickerOptions.initDate) {
-	      self.activeDate = dateParser.fromTimezone($scope.datepickerOptions.initDate, ngModelOptions.timezone) || new Date();
-	      $scope.$watch('datepickerOptions.initDate', function(initDate) {
-	        if (initDate && (ngModelCtrl.$isEmpty(ngModelCtrl.$modelValue) || ngModelCtrl.$invalid)) {
-	          self.activeDate = dateParser.fromTimezone(initDate, ngModelOptions.timezone);
-	          self.refreshView();
-	        }
-	      });
-	    } else {
-	      self.activeDate = new Date();
-	    }
-
-	    this.activeDate = ngModelCtrl.$modelValue ?
-	      dateParser.fromTimezone(new Date(ngModelCtrl.$modelValue), ngModelOptions.timezone) :
-	      dateParser.fromTimezone(new Date(), ngModelOptions.timezone);
-
-	    ngModelCtrl.$render = function() {
-	      self.render();
-	    };
-	  };
-
-	  this.render = function() {
-	    if (ngModelCtrl.$viewValue) {
-	      var date = new Date(ngModelCtrl.$viewValue),
-	          isValid = !isNaN(date);
-
-	      if (isValid) {
-	        this.activeDate = dateParser.fromTimezone(date, ngModelOptions.timezone);
-	      } else if (!$datepickerSuppressError) {
-	        $log.error('Datepicker directive: "ng-model" value must be a Date object');
-	      }
-	    }
-	    this.refreshView();
-	  };
-
-	  this.refreshView = function() {
-	    if (this.element) {
-	      $scope.selectedDt = null;
-	      this._refreshView();
-	      if ($scope.activeDt) {
-	        $scope.activeDateId = $scope.activeDt.uid;
-	      }
-
-	      var date = ngModelCtrl.$viewValue ? new Date(ngModelCtrl.$viewValue) : null;
-	      date = dateParser.fromTimezone(date, ngModelOptions.timezone);
-	      ngModelCtrl.$setValidity('dateDisabled', !date ||
-	        this.element && !this.isDisabled(date));
-	    }
-	  };
-
-	  this.createDateObject = function(date, format) {
-	    var model = ngModelCtrl.$viewValue ? new Date(ngModelCtrl.$viewValue) : null;
-	    model = dateParser.fromTimezone(model, ngModelOptions.timezone);
-	    var today = new Date();
-	    today = dateParser.fromTimezone(today, ngModelOptions.timezone);
-	    var time = this.compare(date, today);
-	    var dt = {
-	      date: date,
-	      label: dateParser.filter(date, format),
-	      selected: model && this.compare(date, model) === 0,
-	      disabled: this.isDisabled(date),
-	      past: time < 0,
-	      current: time === 0,
-	      future: time > 0,
-	      customClass: this.customClass(date) || null
-	    };
-
-	    if (model && this.compare(date, model) === 0) {
-	      $scope.selectedDt = dt;
-	    }
-
-	    if (self.activeDate && this.compare(dt.date, self.activeDate) === 0) {
-	      $scope.activeDt = dt;
-	    }
-
-	    return dt;
-	  };
-
-	  this.isDisabled = function(date) {
-	    return $scope.disabled ||
-	      this.minDate && this.compare(date, this.minDate) < 0 ||
-	      this.maxDate && this.compare(date, this.maxDate) > 0 ||
-	      $scope.dateDisabled && $scope.dateDisabled({date: date, mode: $scope.datepickerMode});
-	  };
-
-	  this.customClass = function(date) {
-	    return $scope.customClass({date: date, mode: $scope.datepickerMode});
-	  };
-
-	  // Split array into smaller arrays
-	  this.split = function(arr, size) {
-	    var arrays = [];
-	    while (arr.length > 0) {
-	      arrays.push(arr.splice(0, size));
-	    }
-	    return arrays;
-	  };
-
-	  $scope.select = function(date) {
-	    if ($scope.datepickerMode === self.minMode) {
-	      var dt = ngModelCtrl.$viewValue ? dateParser.fromTimezone(new Date(ngModelCtrl.$viewValue), ngModelOptions.timezone) : new Date(0, 0, 0, 0, 0, 0, 0);
-	      dt.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
-	      dt = dateParser.toTimezone(dt, ngModelOptions.timezone);
-	      ngModelCtrl.$setViewValue(dt);
-	      ngModelCtrl.$render();
-	    } else {
-	      self.activeDate = date;
-	      setMode(self.modes[self.modes.indexOf($scope.datepickerMode) - 1]);
-
-	      $scope.$emit('uib:datepicker.mode');
-	    }
-
-	    $scope.$broadcast('uib:datepicker.focus');
-	  };
-
-	  $scope.move = function(direction) {
-	    var year = self.activeDate.getFullYear() + direction * (self.step.years || 0),
-	        month = self.activeDate.getMonth() + direction * (self.step.months || 0);
-	    self.activeDate.setFullYear(year, month, 1);
-	    self.refreshView();
-	  };
-
-	  $scope.toggleMode = function(direction) {
-	    direction = direction || 1;
-
-	    if ($scope.datepickerMode === self.maxMode && direction === 1 ||
-	      $scope.datepickerMode === self.minMode && direction === -1) {
-	      return;
-	    }
-
-	    setMode(self.modes[self.modes.indexOf($scope.datepickerMode) + direction]);
-
-	    $scope.$emit('uib:datepicker.mode');
-	  };
-
-	  // Key event mapper
-	  $scope.keys = { 13: 'enter', 32: 'space', 33: 'pageup', 34: 'pagedown', 35: 'end', 36: 'home', 37: 'left', 38: 'up', 39: 'right', 40: 'down' };
-
-	  var focusElement = function() {
-	    self.element[0].focus();
-	  };
-
-	  // Listen for focus requests from popup directive
-	  $scope.$on('uib:datepicker.focus', focusElement);
-
-	  $scope.keydown = function(evt) {
-	    var key = $scope.keys[evt.which];
-
-	    if (!key || evt.shiftKey || evt.altKey || $scope.disabled) {
-	      return;
-	    }
-
-	    evt.preventDefault();
-	    if (!self.shortcutPropagation) {
-	      evt.stopPropagation();
-	    }
-
-	    if (key === 'enter' || key === 'space') {
-	      if (self.isDisabled(self.activeDate)) {
-	        return; // do nothing
-	      }
-	      $scope.select(self.activeDate);
-	    } else if (evt.ctrlKey && (key === 'up' || key === 'down')) {
-	      $scope.toggleMode(key === 'up' ? 1 : -1);
-	    } else {
-	      self.handleKeyDown(key, evt);
-	      self.refreshView();
-	    }
-	  };
-
-	  $scope.$on('$destroy', function() {
-	    //Clear all watch listeners on destroy
-	    while (watchListeners.length) {
-	      watchListeners.shift()();
-	    }
-	  });
-
-	  function setMode(mode) {
-	    $scope.datepickerMode = mode;
-	    $scope.datepickerOptions.datepickerMode = mode;
-	  }
-	}])
-
-	.controller('UibDaypickerController', ['$scope', '$element', 'dateFilter', function(scope, $element, dateFilter) {
-	  var DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-	  this.step = { months: 1 };
-	  this.element = $element;
-	  function getDaysInMonth(year, month) {
-	    return month === 1 && year % 4 === 0 &&
-	      (year % 100 !== 0 || year % 400 === 0) ? 29 : DAYS_IN_MONTH[month];
-	  }
-
-	  this.init = function(ctrl) {
-	    angular.extend(ctrl, this);
-	    scope.showWeeks = ctrl.showWeeks;
-	    ctrl.refreshView();
-	  };
-
-	  this.getDates = function(startDate, n) {
-	    var dates = new Array(n), current = new Date(startDate), i = 0, date;
-	    while (i < n) {
-	      date = new Date(current);
-	      dates[i++] = date;
-	      current.setDate(current.getDate() + 1);
-	    }
-	    return dates;
-	  };
-
-	  this._refreshView = function() {
-	    var year = this.activeDate.getFullYear(),
-	      month = this.activeDate.getMonth(),
-	      firstDayOfMonth = new Date(this.activeDate);
-
-	    firstDayOfMonth.setFullYear(year, month, 1);
-
-	    var difference = this.startingDay - firstDayOfMonth.getDay(),
-	      numDisplayedFromPreviousMonth = difference > 0 ?
-	        7 - difference : - difference,
-	      firstDate = new Date(firstDayOfMonth);
-
-	    if (numDisplayedFromPreviousMonth > 0) {
-	      firstDate.setDate(-numDisplayedFromPreviousMonth + 1);
-	    }
-
-	    // 42 is the number of days on a six-week calendar
-	    var days = this.getDates(firstDate, 42);
-	    for (var i = 0; i < 42; i ++) {
-	      days[i] = angular.extend(this.createDateObject(days[i], this.formatDay), {
-	        secondary: days[i].getMonth() !== month,
-	        uid: scope.uniqueId + '-' + i
-	      });
-	    }
-
-	    scope.labels = new Array(7);
-	    for (var j = 0; j < 7; j++) {
-	      scope.labels[j] = {
-	        abbr: dateFilter(days[j].date, this.formatDayHeader),
-	        full: dateFilter(days[j].date, 'EEEE')
-	      };
-	    }
-
-	    scope.title = dateFilter(this.activeDate, this.formatDayTitle);
-	    scope.rows = this.split(days, 7);
-
-	    if (scope.showWeeks) {
-	      scope.weekNumbers = [];
-	      var thursdayIndex = (4 + 7 - this.startingDay) % 7,
-	          numWeeks = scope.rows.length;
-	      for (var curWeek = 0; curWeek < numWeeks; curWeek++) {
-	        scope.weekNumbers.push(
-	          getISO8601WeekNumber(scope.rows[curWeek][thursdayIndex].date));
-	      }
-	    }
-	  };
-
-	  this.compare = function(date1, date2) {
-	    var _date1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
-	    var _date2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
-	    _date1.setFullYear(date1.getFullYear());
-	    _date2.setFullYear(date2.getFullYear());
-	    return _date1 - _date2;
-	  };
-
-	  function getISO8601WeekNumber(date) {
-	    var checkDate = new Date(date);
-	    checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7)); // Thursday
-	    var time = checkDate.getTime();
-	    checkDate.setMonth(0); // Compare with Jan 1
-	    checkDate.setDate(1);
-	    return Math.floor(Math.round((time - checkDate) / 86400000) / 7) + 1;
-	  }
-
-	  this.handleKeyDown = function(key, evt) {
-	    var date = this.activeDate.getDate();
-
-	    if (key === 'left') {
-	      date = date - 1;
-	    } else if (key === 'up') {
-	      date = date - 7;
-	    } else if (key === 'right') {
-	      date = date + 1;
-	    } else if (key === 'down') {
-	      date = date + 7;
-	    } else if (key === 'pageup' || key === 'pagedown') {
-	      var month = this.activeDate.getMonth() + (key === 'pageup' ? - 1 : 1);
-	      this.activeDate.setMonth(month, 1);
-	      date = Math.min(getDaysInMonth(this.activeDate.getFullYear(), this.activeDate.getMonth()), date);
-	    } else if (key === 'home') {
-	      date = 1;
-	    } else if (key === 'end') {
-	      date = getDaysInMonth(this.activeDate.getFullYear(), this.activeDate.getMonth());
-	    }
-	    this.activeDate.setDate(date);
-	  };
-	}])
-
-	.controller('UibMonthpickerController', ['$scope', '$element', 'dateFilter', function(scope, $element, dateFilter) {
-	  this.step = { years: 1 };
-	  this.element = $element;
-
-	  this.init = function(ctrl) {
-	    angular.extend(ctrl, this);
-	    ctrl.refreshView();
-	  };
-
-	  this._refreshView = function() {
-	    var months = new Array(12),
-	        year = this.activeDate.getFullYear(),
-	        date;
-
-	    for (var i = 0; i < 12; i++) {
-	      date = new Date(this.activeDate);
-	      date.setFullYear(year, i, 1);
-	      months[i] = angular.extend(this.createDateObject(date, this.formatMonth), {
-	        uid: scope.uniqueId + '-' + i
-	      });
-	    }
-
-	    scope.title = dateFilter(this.activeDate, this.formatMonthTitle);
-	    scope.rows = this.split(months, 3);
-	  };
-
-	  this.compare = function(date1, date2) {
-	    var _date1 = new Date(date1.getFullYear(), date1.getMonth());
-	    var _date2 = new Date(date2.getFullYear(), date2.getMonth());
-	    _date1.setFullYear(date1.getFullYear());
-	    _date2.setFullYear(date2.getFullYear());
-	    return _date1 - _date2;
-	  };
-
-	  this.handleKeyDown = function(key, evt) {
-	    var date = this.activeDate.getMonth();
-
-	    if (key === 'left') {
-	      date = date - 1;
-	    } else if (key === 'up') {
-	      date = date - 3;
-	    } else if (key === 'right') {
-	      date = date + 1;
-	    } else if (key === 'down') {
-	      date = date + 3;
-	    } else if (key === 'pageup' || key === 'pagedown') {
-	      var year = this.activeDate.getFullYear() + (key === 'pageup' ? - 1 : 1);
-	      this.activeDate.setFullYear(year);
-	    } else if (key === 'home') {
-	      date = 0;
-	    } else if (key === 'end') {
-	      date = 11;
-	    }
-	    this.activeDate.setMonth(date);
-	  };
-	}])
-
-	.controller('UibYearpickerController', ['$scope', '$element', 'dateFilter', function(scope, $element, dateFilter) {
-	  var columns, range;
-	  this.element = $element;
-
-	  function getStartingYear(year) {
-	    return parseInt((year - 1) / range, 10) * range + 1;
-	  }
-
-	  this.yearpickerInit = function() {
-	    columns = this.yearColumns;
-	    range = this.yearRows * columns;
-	    this.step = { years: range };
-	  };
-
-	  this._refreshView = function() {
-	    var years = new Array(range), date;
-
-	    for (var i = 0, start = getStartingYear(this.activeDate.getFullYear()); i < range; i++) {
-	      date = new Date(this.activeDate);
-	      date.setFullYear(start + i, 0, 1);
-	      years[i] = angular.extend(this.createDateObject(date, this.formatYear), {
-	        uid: scope.uniqueId + '-' + i
-	      });
-	    }
-
-	    scope.title = [years[0].label, years[range - 1].label].join(' - ');
-	    scope.rows = this.split(years, columns);
-	    scope.columns = columns;
-	  };
-
-	  this.compare = function(date1, date2) {
-	    return date1.getFullYear() - date2.getFullYear();
-	  };
-
-	  this.handleKeyDown = function(key, evt) {
-	    var date = this.activeDate.getFullYear();
-
-	    if (key === 'left') {
-	      date = date - 1;
-	    } else if (key === 'up') {
-	      date = date - columns;
-	    } else if (key === 'right') {
-	      date = date + 1;
-	    } else if (key === 'down') {
-	      date = date + columns;
-	    } else if (key === 'pageup' || key === 'pagedown') {
-	      date += (key === 'pageup' ? - 1 : 1) * range;
-	    } else if (key === 'home') {
-	      date = getStartingYear(this.activeDate.getFullYear());
-	    } else if (key === 'end') {
-	      date = getStartingYear(this.activeDate.getFullYear()) + range - 1;
-	    }
-	    this.activeDate.setFullYear(date);
-	  };
-	}])
-
-	.directive('uibDatepicker', function() {
-	  return {
-	    replace: true,
-	    templateUrl: function(element, attrs) {
-	      return attrs.templateUrl || 'uib/template/datepicker/datepicker.html';
-	    },
-	    scope: {
-	      datepickerOptions: '=?'
-	    },
-	    require: ['uibDatepicker', '^ngModel'],
-	    controller: 'UibDatepickerController',
-	    controllerAs: 'datepicker',
-	    link: function(scope, element, attrs, ctrls) {
-	      var datepickerCtrl = ctrls[0], ngModelCtrl = ctrls[1];
-
-	      datepickerCtrl.init(ngModelCtrl);
-	    }
-	  };
-	})
-
-	.directive('uibDaypicker', function() {
-	  return {
-	    replace: true,
-	    templateUrl: function(element, attrs) {
-	      return attrs.templateUrl || 'uib/template/datepicker/day.html';
-	    },
-	    require: ['^uibDatepicker', 'uibDaypicker'],
-	    controller: 'UibDaypickerController',
-	    link: function(scope, element, attrs, ctrls) {
-	      var datepickerCtrl = ctrls[0],
-	        daypickerCtrl = ctrls[1];
-
-	      daypickerCtrl.init(datepickerCtrl);
-	    }
-	  };
-	})
-
-	.directive('uibMonthpicker', function() {
-	  return {
-	    replace: true,
-	    templateUrl: function(element, attrs) {
-	      return attrs.templateUrl || 'uib/template/datepicker/month.html';
-	    },
-	    require: ['^uibDatepicker', 'uibMonthpicker'],
-	    controller: 'UibMonthpickerController',
-	    link: function(scope, element, attrs, ctrls) {
-	      var datepickerCtrl = ctrls[0],
-	        monthpickerCtrl = ctrls[1];
-
-	      monthpickerCtrl.init(datepickerCtrl);
-	    }
-	  };
-	})
-
-	.directive('uibYearpicker', function() {
-	  return {
-	    replace: true,
-	    templateUrl: function(element, attrs) {
-	      return attrs.templateUrl || 'uib/template/datepicker/year.html';
-	    },
-	    require: ['^uibDatepicker', 'uibYearpicker'],
-	    controller: 'UibYearpickerController',
-	    link: function(scope, element, attrs, ctrls) {
-	      var ctrl = ctrls[0];
-	      angular.extend(ctrl, ctrls[1]);
-	      ctrl.yearpickerInit();
-
-	      ctrl.refreshView();
-	    }
-	  };
-	});
-
 	angular.module('ui.bootstrap.position', [])
 
 	/**
@@ -38385,11 +37318,6 @@
 	     * Do not access this variable directly, use scrollbarWidth() instead.
 	     */
 	    var SCROLLBAR_WIDTH;
-	    /**
-	     * scrollbar on body and html element in IE and Edge overlay
-	     * content and should be considered 0 width.
-	     */
-	    var BODY_SCROLLBAR_WIDTH;
 	    var OVERFLOW_REGEX = {
 	      normal: /(auto|scroll)/,
 	      hidden: /(auto|scroll|hidden)/
@@ -38400,7 +37328,6 @@
 	      secondary: /^(top|bottom|left|right|center)$/,
 	      vertical: /^(top|bottom)$/
 	    };
-	    var BODY_REGEX = /(HTML|BODY)/;
 
 	    return {
 
@@ -38454,23 +37381,10 @@
 	      /**
 	       * Provides the scrollbar width, concept from TWBS measureScrollbar()
 	       * function in https://github.com/twbs/bootstrap/blob/master/js/modal.js
-	       * In IE and Edge, scollbar on body and html element overlay and should
-	       * return a width of 0.
 	       *
 	       * @returns {number} The width of the browser scollbar.
 	       */
-	      scrollbarWidth: function(isBody) {
-	        if (isBody) {
-	          if (angular.isUndefined(BODY_SCROLLBAR_WIDTH)) {
-	            var bodyElem = $document.find('body');
-	            bodyElem.addClass('uib-position-body-scrollbar-measure');
-	            BODY_SCROLLBAR_WIDTH = $window.innerWidth - bodyElem[0].clientWidth;
-	            BODY_SCROLLBAR_WIDTH = isFinite(BODY_SCROLLBAR_WIDTH) ? BODY_SCROLLBAR_WIDTH : 0;
-	            bodyElem.removeClass('uib-position-body-scrollbar-measure');
-	          }
-	          return BODY_SCROLLBAR_WIDTH;
-	        }
-
+	      scrollbarWidth: function() {
 	        if (angular.isUndefined(SCROLLBAR_WIDTH)) {
 	          var scrollElem = angular.element('<div class="uib-position-scrollbar-measure"></div>');
 	          $document.find('body').append(scrollElem);
@@ -38480,40 +37394,6 @@
 	        }
 
 	        return SCROLLBAR_WIDTH;
-	      },
-
-	      /**
-	       * Provides the padding required on an element to replace the scrollbar.
-	       *
-	       * @returns {object} An object with the following properties:
-	       *   <ul>
-	       *     <li>**scrollbarWidth**: the width of the scrollbar</li>
-	       *     <li>**widthOverflow**: whether the the width is overflowing</li>
-	       *     <li>**right**: the amount of right padding on the element needed to replace the scrollbar</li>
-	       *     <li>**rightOriginal**: the amount of right padding currently on the element</li>
-	       *     <li>**heightOverflow**: whether the the height is overflowing</li>
-	       *     <li>**bottom**: the amount of bottom padding on the element needed to replace the scrollbar</li>
-	       *     <li>**bottomOriginal**: the amount of bottom padding currently on the element</li>
-	       *   </ul>
-	       */
-	      scrollbarPadding: function(elem) {
-	        elem = this.getRawNode(elem);
-
-	        var elemStyle = $window.getComputedStyle(elem);
-	        var paddingRight = this.parseStyle(elemStyle.paddingRight);
-	        var paddingBottom = this.parseStyle(elemStyle.paddingBottom);
-	        var scrollParent = this.scrollParent(elem, false, true);
-	        var scrollbarWidth = this.scrollbarWidth(scrollParent, BODY_REGEX.test(scrollParent.tagName));
-
-	        return {
-	          scrollbarWidth: scrollbarWidth,
-	          widthOverflow: scrollParent.scrollWidth > scrollParent.clientWidth,
-	          right: paddingRight + scrollbarWidth,
-	          originalRight: paddingRight,
-	          heightOverflow: scrollParent.scrollHeight > scrollParent.clientHeight,
-	          bottom: paddingBottom + scrollbarWidth,
-	          originalBottom: paddingBottom
-	         };
 	      },
 
 	      /**
@@ -38541,20 +37421,15 @@
 	       * @param {element} elem - The element to find the scroll parent of.
 	       * @param {boolean=} [includeHidden=false] - Should scroll style of 'hidden' be considered,
 	       *   default is false.
-	       * @param {boolean=} [includeSelf=false] - Should the element being passed be
-	       * included in the scrollable llokup.
 	       *
 	       * @returns {element} A HTML element.
 	       */
-	      scrollParent: function(elem, includeHidden, includeSelf) {
+	      scrollParent: function(elem, includeHidden) {
 	        elem = this.getRawNode(elem);
 
 	        var overflowRegex = includeHidden ? OVERFLOW_REGEX.hidden : OVERFLOW_REGEX.normal;
 	        var documentEl = $document[0].documentElement;
 	        var elemStyle = $window.getComputedStyle(elem);
-	        if (includeSelf && overflowRegex.test(elemStyle.overflow + elemStyle.overflowY + elemStyle.overflowX)) {
-	          return elem;
-	        }
 	        var excludeStatic = elemStyle.position === 'absolute';
 	        var scrollParent = elem.parentElement || documentEl;
 
@@ -38818,7 +37693,7 @@
 	        var targetElemPos = {top: 0, left: 0, placement: ''};
 
 	        if (placement[2]) {
-	          var viewportOffset = this.viewportOffset(hostElem, appendToBody);
+	          var viewportOffset = this.viewportOffset(hostElem);
 
 	          var targetElemStyle = $window.getComputedStyle(targetElem);
 	          var adjustedSize = {
@@ -38972,9 +37847,747 @@
 	    };
 	  }]);
 
-	angular.module('ui.bootstrap.datepickerPopup', ['ui.bootstrap.datepicker', 'ui.bootstrap.position'])
+	angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootstrap.isClass', 'ui.bootstrap.position'])
 
-	.value('$datepickerPopupLiteralWarning', true)
+	.value('$datepickerSuppressError', false)
+	.value('uibDatepickerAttributeWarning', true)
+
+	.constant('uibDatepickerConfig', {
+	  datepickerMode: 'day',
+	  formatDay: 'dd',
+	  formatMonth: 'MMMM',
+	  formatYear: 'yyyy',
+	  formatDayHeader: 'EEE',
+	  formatDayTitle: 'MMMM yyyy',
+	  formatMonthTitle: 'yyyy',
+	  maxDate: null,
+	  maxMode: 'year',
+	  minDate: null,
+	  minMode: 'day',
+	  ngModelOptions: {},
+	  shortcutPropagation: false,
+	  showWeeks: true,
+	  yearColumns: 5,
+	  yearRows: 4
+	})
+
+	.controller('UibDatepickerController', ['$scope', '$attrs', '$parse', '$interpolate', '$locale', '$log', 'dateFilter', 'uibDatepickerConfig', '$datepickerSuppressError', 'uibDatepickerAttributeWarning', 'uibDateParser',
+	  function($scope, $attrs, $parse, $interpolate, $locale, $log, dateFilter, datepickerConfig, $datepickerSuppressError, datepickerAttributeWarning, dateParser) {
+	  var self = this,
+	      ngModelCtrl = { $setViewValue: angular.noop }, // nullModelCtrl;
+	      ngModelOptions = {},
+	      watchListeners = [],
+	      optionsUsed = !!$attrs.datepickerOptions;
+
+	  // Modes chain
+	  this.modes = ['day', 'month', 'year'];
+
+	  if (optionsUsed) {
+	    [
+	      'customClass',
+	      'dateDisabled',
+	      'datepickerMode',
+	      'formatDay',
+	      'formatDayHeader',
+	      'formatDayTitle',
+	      'formatMonth',
+	      'formatMonthTitle',
+	      'formatYear',
+	      'initDate',
+	      'maxDate',
+	      'maxMode',
+	      'minDate',
+	      'minMode',
+	      'showWeeks',
+	      'shortcutPropagation',
+	      'startingDay',
+	      'yearColumns',
+	      'yearRows'
+	    ].forEach(function(key) {
+	      switch (key) {
+	        case 'customClass':
+	        case 'dateDisabled':
+	          $scope[key] = $scope.datepickerOptions[key] || angular.noop;
+	          break;
+	        case 'datepickerMode':
+	          $scope.datepickerMode = angular.isDefined($scope.datepickerOptions.datepickerMode) ?
+	            $scope.datepickerOptions.datepickerMode : datepickerConfig.datepickerMode;
+	          break;
+	        case 'formatDay':
+	        case 'formatDayHeader':
+	        case 'formatDayTitle':
+	        case 'formatMonth':
+	        case 'formatMonthTitle':
+	        case 'formatYear':
+	          self[key] = angular.isDefined($scope.datepickerOptions[key]) ?
+	            $interpolate($scope.datepickerOptions[key])($scope.$parent) :
+	            datepickerConfig[key];
+	          break;
+	        case 'showWeeks':
+	        case 'shortcutPropagation':
+	        case 'yearColumns':
+	        case 'yearRows':
+	          self[key] = angular.isDefined($scope.datepickerOptions[key]) ?
+	            $scope.datepickerOptions[key] : datepickerConfig[key];
+	          break;
+	        case 'startingDay':
+	          if (angular.isDefined($scope.datepickerOptions.startingDay)) {
+	            self.startingDay = $scope.datepickerOptions.startingDay;
+	          } else if (angular.isNumber(datepickerConfig.startingDay)) {
+	            self.startingDay = datepickerConfig.startingDay;
+	          } else {
+	            self.startingDay = ($locale.DATETIME_FORMATS.FIRSTDAYOFWEEK + 8) % 7;
+	          }
+
+	          break;
+	        case 'maxDate':
+	        case 'minDate':
+	          if ($scope.datepickerOptions[key]) {
+	            $scope.$watch(function() { return $scope.datepickerOptions[key]; }, function(value) {
+	              if (value) {
+	                if (angular.isDate(value)) {
+	                  self[key] = dateParser.fromTimezone(new Date(value), ngModelOptions.timezone);
+	                } else {
+	                  self[key] = new Date(dateFilter(value, 'medium'));
+	                }
+	              } else {
+	                self[key] = null;
+	              }
+
+	              self.refreshView();
+	            });
+	          } else {
+	            self[key] = datepickerConfig[key] ? dateParser.fromTimezone(new Date(datepickerConfig[key]), ngModelOptions.timezone) : null;
+	          }
+
+	          break;
+	        case 'maxMode':
+	        case 'minMode':
+	          if ($scope.datepickerOptions[key]) {
+	            $scope.$watch(function() { return $scope.datepickerOptions[key]; }, function(value) {
+	              self[key] = $scope[key] = angular.isDefined(value) ? value : datepickerOptions[key];
+	              if (key === 'minMode' && self.modes.indexOf($scope.datepickerOptions.datepickerMode) < self.modes.indexOf(self[key]) ||
+	                key === 'maxMode' && self.modes.indexOf($scope.datepickerOptions.datepickerMode) > self.modes.indexOf(self[key])) {
+	                $scope.datepickerMode = self[key];
+	                $scope.datepickerOptions.datepickerMode = self[key];
+	              }
+	            });
+	          } else {
+	            self[key] = $scope[key] = datepickerConfig[key] || null;
+	          }
+
+	          break;
+	        case 'initDate':
+	          if ($scope.datepickerOptions.initDate) {
+	            self.activeDate = dateParser.fromTimezone($scope.datepickerOptions.initDate, ngModelOptions.timezone) || new Date();
+	            $scope.$watch(function() { return $scope.datepickerOptions.initDate; }, function(initDate) {
+	              if (initDate && (ngModelCtrl.$isEmpty(ngModelCtrl.$modelValue) || ngModelCtrl.$invalid)) {
+	                self.activeDate = dateParser.fromTimezone(initDate, ngModelOptions.timezone);
+	                self.refreshView();
+	              }
+	            });
+	          } else {
+	            self.activeDate = new Date();
+	          }
+	      }
+	    });
+	  } else {
+	    // Interpolated configuration attributes
+	    angular.forEach(['formatDay', 'formatMonth', 'formatYear', 'formatDayHeader', 'formatDayTitle', 'formatMonthTitle'], function(key) {
+	      self[key] = angular.isDefined($attrs[key]) ? $interpolate($attrs[key])($scope.$parent) : datepickerConfig[key];
+
+	      if (angular.isDefined($attrs[key]) && datepickerAttributeWarning) {
+	        $log.warn('uib-datepicker ' + key + ' attribute usage is deprecated, use datepicker-options attribute instead');
+	      }
+	    });
+
+	    // Evaled configuration attributes
+	    angular.forEach(['showWeeks', 'yearRows', 'yearColumns', 'shortcutPropagation'], function(key) {
+	      self[key] = angular.isDefined($attrs[key]) ?
+	        $scope.$parent.$eval($attrs[key]) : datepickerConfig[key];
+
+	      if (angular.isDefined($attrs[key]) && datepickerAttributeWarning) {
+	        $log.warn('uib-datepicker ' + key + ' attribute usage is deprecated, use datepicker-options attribute instead');
+	      }
+	    });
+
+	    angular.forEach(['dateDisabled', 'customClass'], function(key) {
+	      if (angular.isDefined($attrs[key]) && datepickerAttributeWarning) {
+	        $log.warn('uib-datepicker ' + key + ' attribute usage is deprecated, use datepicker-options attribute instead');
+	      }
+	    });
+
+	    if (angular.isDefined($attrs.startingDay)) {
+	      if (datepickerAttributeWarning) {
+	        $log.warn('uib-datepicker startingDay attribute usage is deprecated, use datepicker-options attribute instead');
+	      }
+
+	      self.startingDay = $scope.$parent.$eval($attrs.startingDay);
+	    } else if (angular.isNumber(datepickerConfig.startingDay)) {
+	      self.startingDay = datepickerConfig.startingDay;
+	    } else {
+	      self.startingDay = ($locale.DATETIME_FORMATS.FIRSTDAYOFWEEK + 8) % 7;
+	    }
+
+	    // Watchable date attributes
+	    angular.forEach(['minDate', 'maxDate'], function(key) {
+	      if ($attrs[key]) {
+	        if (datepickerAttributeWarning) {
+	          $log.warn('uib-datepicker ' + key + ' attribute usage is deprecated, use datepicker-options attribute instead');
+	        }
+
+	        watchListeners.push($scope.$parent.$watch($attrs[key], function(value) {
+	          if (value) {
+	            if (angular.isDate(value)) {
+	              self[key] = dateParser.fromTimezone(new Date(value), ngModelOptions.timezone);
+	            } else {
+	              self[key] = new Date(dateFilter(value, 'medium'));
+	            }
+	          } else {
+	            self[key] = null;
+	          }
+
+	          self.refreshView();
+	        }));
+	      } else {
+	        self[key] = datepickerConfig[key] ? dateParser.fromTimezone(new Date(datepickerConfig[key]), ngModelOptions.timezone) : null;
+	      }
+	    });
+
+	    angular.forEach(['minMode', 'maxMode'], function(key) {
+	      if ($attrs[key]) {
+	        if (datepickerAttributeWarning) {
+	          $log.warn('uib-datepicker ' + key + ' attribute usage is deprecated, use datepicker-options attribute instead');
+	        }
+
+	        watchListeners.push($scope.$parent.$watch($attrs[key], function(value) {
+	          self[key] = $scope[key] = angular.isDefined(value) ? value : $attrs[key];
+	          if (key === 'minMode' && self.modes.indexOf($scope.datepickerMode) < self.modes.indexOf(self[key]) ||
+	            key === 'maxMode' && self.modes.indexOf($scope.datepickerMode) > self.modes.indexOf(self[key])) {
+	            $scope.datepickerMode = self[key];
+	          }
+	        }));
+	      } else {
+	        self[key] = $scope[key] = datepickerConfig[key] || null;
+	      }
+	    });
+
+	    if (angular.isDefined($attrs.initDate)) {
+	      if (datepickerAttributeWarning) {
+	        $log.warn('uib-datepicker initDate attribute usage is deprecated, use datepicker-options attribute instead');
+	      }
+
+	      var initDate = dateParser.fromTimezone($scope.$parent.$eval($attrs.initDate), ngModelOptions.timezone);
+	      this.activeDate = !isNaN(initDate) ? initDate : new Date();
+	      watchListeners.push($scope.$parent.$watch($attrs.initDate, function(initDate) {
+	        if (initDate && (ngModelCtrl.$isEmpty(ngModelCtrl.$modelValue) || ngModelCtrl.$invalid)) {
+	          initDate = dateParser.fromTimezone(initDate, ngModelOptions.timezone);
+	          self.activeDate = !isNaN(initDate) ? initDate : new Date();
+	          self.refreshView();
+	        }
+	      }));
+	    } else {
+	      this.activeDate = new Date();
+	    }
+
+	    if ($attrs.datepickerMode && datepickerAttributeWarning) {
+	      $log.warn('uib-datepicker datepickerMode attribute usage is deprecated, use datepicker-options attribute instead');
+	    }
+
+	    $scope.datepickerMode = $scope.datepickerMode ||
+	      datepickerConfig.datepickerMode;
+	  }
+
+	  $scope.uniqueId = 'datepicker-' + $scope.$id + '-' + Math.floor(Math.random() * 10000);
+
+	  $scope.disabled = angular.isDefined($attrs.disabled) || false;
+	  if (angular.isDefined($attrs.ngDisabled)) {
+	    watchListeners.push($scope.$parent.$watch($attrs.ngDisabled, function(disabled) {
+	      $scope.disabled = disabled;
+	      self.refreshView();
+	    }));
+	  }
+
+	  $scope.isActive = function(dateObject) {
+	    if (self.compare(dateObject.date, self.activeDate) === 0) {
+	      $scope.activeDateId = dateObject.uid;
+	      return true;
+	    }
+	    return false;
+	  };
+
+	  this.init = function(ngModelCtrl_) {
+	    ngModelCtrl = ngModelCtrl_;
+	    ngModelOptions = ngModelCtrl_.$options || datepickerConfig.ngModelOptions;
+
+	    this.activeDate = ngModelCtrl.$modelValue || new Date();
+
+	    ngModelCtrl.$render = function() {
+	      self.render();
+	    };
+	  };
+
+	  this.render = function() {
+	    if (ngModelCtrl.$viewValue) {
+	      var date = new Date(ngModelCtrl.$viewValue),
+	          isValid = !isNaN(date);
+
+	      if (isValid) {
+	        this.activeDate = dateParser.fromTimezone(date, ngModelOptions.timezone);
+	      } else if (!$datepickerSuppressError) {
+	        $log.error('Datepicker directive: "ng-model" value must be a Date object');
+	      }
+	    }
+	    this.refreshView();
+	  };
+
+	  this.refreshView = function() {
+	    if (this.element) {
+	      $scope.selectedDt = null;
+	      this._refreshView();
+	      if ($scope.activeDt) {
+	        $scope.activeDateId = $scope.activeDt.uid;
+	      }
+
+	      var date = ngModelCtrl.$viewValue ? new Date(ngModelCtrl.$viewValue) : null;
+	      date = dateParser.fromTimezone(date, ngModelOptions.timezone);
+	      ngModelCtrl.$setValidity('dateDisabled', !date ||
+	        this.element && !this.isDisabled(date));
+	    }
+	  };
+
+	  this.createDateObject = function(date, format) {
+	    var model = ngModelCtrl.$viewValue ? new Date(ngModelCtrl.$viewValue) : null;
+	    model = dateParser.fromTimezone(model, ngModelOptions.timezone);
+	    var dt = {
+	      date: date,
+	      label: dateParser.filter(date, format),
+	      selected: model && this.compare(date, model) === 0,
+	      disabled: this.isDisabled(date),
+	      current: this.compare(date, new Date()) === 0,
+	      customClass: this.customClass(date) || null
+	    };
+
+	    if (model && this.compare(date, model) === 0) {
+	      $scope.selectedDt = dt;
+	    }
+
+	    if (self.activeDate && this.compare(dt.date, self.activeDate) === 0) {
+	      $scope.activeDt = dt;
+	    }
+
+	    return dt;
+	  };
+
+	  this.isDisabled = function(date) {
+	    return $scope.disabled ||
+	      this.minDate && this.compare(date, this.minDate) < 0 ||
+	      this.maxDate && this.compare(date, this.maxDate) > 0 ||
+	      $scope.dateDisabled && $scope.dateDisabled({date: date, mode: $scope.datepickerMode});
+	  };
+
+	  this.customClass = function(date) {
+	    return $scope.customClass({date: date, mode: $scope.datepickerMode});
+	  };
+
+	  // Split array into smaller arrays
+	  this.split = function(arr, size) {
+	    var arrays = [];
+	    while (arr.length > 0) {
+	      arrays.push(arr.splice(0, size));
+	    }
+	    return arrays;
+	  };
+
+	  $scope.select = function(date) {
+	    if ($scope.datepickerMode === self.minMode) {
+	      var dt = ngModelCtrl.$viewValue ? dateParser.fromTimezone(new Date(ngModelCtrl.$viewValue), ngModelOptions.timezone) : new Date(0, 0, 0, 0, 0, 0, 0);
+	      dt.setFullYear(date.getFullYear(), date.getMonth(), date.getDate());
+	      dt = dateParser.toTimezone(dt, ngModelOptions.timezone);
+	      ngModelCtrl.$setViewValue(dt);
+	      ngModelCtrl.$render();
+	    } else {
+	      self.activeDate = date;
+	      setMode(self.modes[self.modes.indexOf($scope.datepickerMode) - 1]);
+
+	      $scope.$emit('uib:datepicker.mode');
+	    }
+	  };
+
+	  $scope.move = function(direction) {
+	    var year = self.activeDate.getFullYear() + direction * (self.step.years || 0),
+	        month = self.activeDate.getMonth() + direction * (self.step.months || 0);
+	    self.activeDate.setFullYear(year, month, 1);
+	    self.refreshView();
+	  };
+
+	  $scope.toggleMode = function(direction) {
+	    direction = direction || 1;
+
+	    if ($scope.datepickerMode === self.maxMode && direction === 1 ||
+	      $scope.datepickerMode === self.minMode && direction === -1) {
+	      return;
+	    }
+
+	    setMode(self.modes[self.modes.indexOf($scope.datepickerMode) + direction]);
+
+	    $scope.$emit('uib:datepicker.mode');
+	  };
+
+	  // Key event mapper
+	  $scope.keys = { 13: 'enter', 32: 'space', 33: 'pageup', 34: 'pagedown', 35: 'end', 36: 'home', 37: 'left', 38: 'up', 39: 'right', 40: 'down' };
+
+	  var focusElement = function() {
+	    self.element[0].focus();
+	  };
+
+	  // Listen for focus requests from popup directive
+	  $scope.$on('uib:datepicker.focus', focusElement);
+
+	  $scope.keydown = function(evt) {
+	    var key = $scope.keys[evt.which];
+
+	    if (!key || evt.shiftKey || evt.altKey || $scope.disabled) {
+	      return;
+	    }
+
+	    evt.preventDefault();
+	    if (!self.shortcutPropagation) {
+	      evt.stopPropagation();
+	    }
+
+	    if (key === 'enter' || key === 'space') {
+	      if (self.isDisabled(self.activeDate)) {
+	        return; // do nothing
+	      }
+	      $scope.select(self.activeDate);
+	    } else if (evt.ctrlKey && (key === 'up' || key === 'down')) {
+	      $scope.toggleMode(key === 'up' ? 1 : -1);
+	    } else {
+	      self.handleKeyDown(key, evt);
+	      self.refreshView();
+	    }
+	  };
+
+	  $scope.$on("$destroy", function() {
+	    //Clear all watch listeners on destroy
+	    while (watchListeners.length) {
+	      watchListeners.shift()();
+	    }
+	  });
+
+	  function setMode(mode) {
+	    $scope.datepickerMode = mode;
+	    if (optionsUsed) {
+	      $scope.datepickerOptions.datepickerMode = mode;
+	    }
+	  }
+	}])
+
+	.controller('UibDaypickerController', ['$scope', '$element', 'dateFilter', function(scope, $element, dateFilter) {
+	  var DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+	  this.step = { months: 1 };
+	  this.element = $element;
+	  function getDaysInMonth(year, month) {
+	    return month === 1 && year % 4 === 0 &&
+	      (year % 100 !== 0 || year % 400 === 0) ? 29 : DAYS_IN_MONTH[month];
+	  }
+
+	  this.init = function(ctrl) {
+	    angular.extend(ctrl, this);
+	    scope.showWeeks = ctrl.showWeeks;
+	    ctrl.refreshView();
+	  };
+
+	  this.getDates = function(startDate, n) {
+	    var dates = new Array(n), current = new Date(startDate), i = 0, date;
+	    while (i < n) {
+	      date = new Date(current);
+	      dates[i++] = date;
+	      current.setDate(current.getDate() + 1);
+	    }
+	    return dates;
+	  };
+
+	  this._refreshView = function() {
+	    var year = this.activeDate.getFullYear(),
+	      month = this.activeDate.getMonth(),
+	      firstDayOfMonth = new Date(this.activeDate);
+
+	    firstDayOfMonth.setFullYear(year, month, 1);
+
+	    var difference = this.startingDay - firstDayOfMonth.getDay(),
+	      numDisplayedFromPreviousMonth = difference > 0 ?
+	        7 - difference : - difference,
+	      firstDate = new Date(firstDayOfMonth);
+
+	    if (numDisplayedFromPreviousMonth > 0) {
+	      firstDate.setDate(-numDisplayedFromPreviousMonth + 1);
+	    }
+
+	    // 42 is the number of days on a six-week calendar
+	    var days = this.getDates(firstDate, 42);
+	    for (var i = 0; i < 42; i ++) {
+	      days[i] = angular.extend(this.createDateObject(days[i], this.formatDay), {
+	        secondary: days[i].getMonth() !== month,
+	        uid: scope.uniqueId + '-' + i
+	      });
+	    }
+
+	    scope.labels = new Array(7);
+	    for (var j = 0; j < 7; j++) {
+	      scope.labels[j] = {
+	        abbr: dateFilter(days[j].date, this.formatDayHeader),
+	        full: dateFilter(days[j].date, 'EEEE')
+	      };
+	    }
+
+	    scope.title = dateFilter(this.activeDate, this.formatDayTitle);
+	    scope.rows = this.split(days, 7);
+
+	    if (scope.showWeeks) {
+	      scope.weekNumbers = [];
+	      var thursdayIndex = (4 + 7 - this.startingDay) % 7,
+	          numWeeks = scope.rows.length;
+	      for (var curWeek = 0; curWeek < numWeeks; curWeek++) {
+	        scope.weekNumbers.push(
+	          getISO8601WeekNumber(scope.rows[curWeek][thursdayIndex].date));
+	      }
+	    }
+	  };
+
+	  this.compare = function(date1, date2) {
+	    var _date1 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
+	    var _date2 = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+	    _date1.setFullYear(date1.getFullYear());
+	    _date2.setFullYear(date2.getFullYear());
+	    return _date1 - _date2;
+	  };
+
+	  function getISO8601WeekNumber(date) {
+	    var checkDate = new Date(date);
+	    checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7)); // Thursday
+	    var time = checkDate.getTime();
+	    checkDate.setMonth(0); // Compare with Jan 1
+	    checkDate.setDate(1);
+	    return Math.floor(Math.round((time - checkDate) / 86400000) / 7) + 1;
+	  }
+
+	  this.handleKeyDown = function(key, evt) {
+	    var date = this.activeDate.getDate();
+
+	    if (key === 'left') {
+	      date = date - 1;
+	    } else if (key === 'up') {
+	      date = date - 7;
+	    } else if (key === 'right') {
+	      date = date + 1;
+	    } else if (key === 'down') {
+	      date = date + 7;
+	    } else if (key === 'pageup' || key === 'pagedown') {
+	      var month = this.activeDate.getMonth() + (key === 'pageup' ? - 1 : 1);
+	      this.activeDate.setMonth(month, 1);
+	      date = Math.min(getDaysInMonth(this.activeDate.getFullYear(), this.activeDate.getMonth()), date);
+	    } else if (key === 'home') {
+	      date = 1;
+	    } else if (key === 'end') {
+	      date = getDaysInMonth(this.activeDate.getFullYear(), this.activeDate.getMonth());
+	    }
+	    this.activeDate.setDate(date);
+	  };
+	}])
+
+	.controller('UibMonthpickerController', ['$scope', '$element', 'dateFilter', function(scope, $element, dateFilter) {
+	  this.step = { years: 1 };
+	  this.element = $element;
+
+	  this.init = function(ctrl) {
+	    angular.extend(ctrl, this);
+	    ctrl.refreshView();
+	  };
+
+	  this._refreshView = function() {
+	    var months = new Array(12),
+	        year = this.activeDate.getFullYear(),
+	        date;
+
+	    for (var i = 0; i < 12; i++) {
+	      date = new Date(this.activeDate);
+	      date.setFullYear(year, i, 1);
+	      months[i] = angular.extend(this.createDateObject(date, this.formatMonth), {
+	        uid: scope.uniqueId + '-' + i
+	      });
+	    }
+
+	    scope.title = dateFilter(this.activeDate, this.formatMonthTitle);
+	    scope.rows = this.split(months, 3);
+	  };
+
+	  this.compare = function(date1, date2) {
+	    var _date1 = new Date(date1.getFullYear(), date1.getMonth());
+	    var _date2 = new Date(date2.getFullYear(), date2.getMonth());
+	    _date1.setFullYear(date1.getFullYear());
+	    _date2.setFullYear(date2.getFullYear());
+	    return _date1 - _date2;
+	  };
+
+	  this.handleKeyDown = function(key, evt) {
+	    var date = this.activeDate.getMonth();
+
+	    if (key === 'left') {
+	      date = date - 1;
+	    } else if (key === 'up') {
+	      date = date - 3;
+	    } else if (key === 'right') {
+	      date = date + 1;
+	    } else if (key === 'down') {
+	      date = date + 3;
+	    } else if (key === 'pageup' || key === 'pagedown') {
+	      var year = this.activeDate.getFullYear() + (key === 'pageup' ? - 1 : 1);
+	      this.activeDate.setFullYear(year);
+	    } else if (key === 'home') {
+	      date = 0;
+	    } else if (key === 'end') {
+	      date = 11;
+	    }
+	    this.activeDate.setMonth(date);
+	  };
+	}])
+
+	.controller('UibYearpickerController', ['$scope', '$element', 'dateFilter', function(scope, $element, dateFilter) {
+	  var columns, range;
+	  this.element = $element;
+
+	  function getStartingYear(year) {
+	    return parseInt((year - 1) / range, 10) * range + 1;
+	  }
+
+	  this.yearpickerInit = function() {
+	    columns = this.yearColumns;
+	    range = this.yearRows * columns;
+	    this.step = { years: range };
+	  };
+
+	  this._refreshView = function() {
+	    var years = new Array(range), date;
+
+	    for (var i = 0, start = getStartingYear(this.activeDate.getFullYear()); i < range; i++) {
+	      date = new Date(this.activeDate);
+	      date.setFullYear(start + i, 0, 1);
+	      years[i] = angular.extend(this.createDateObject(date, this.formatYear), {
+	        uid: scope.uniqueId + '-' + i
+	      });
+	    }
+
+	    scope.title = [years[0].label, years[range - 1].label].join(' - ');
+	    scope.rows = this.split(years, columns);
+	    scope.columns = columns;
+	  };
+
+	  this.compare = function(date1, date2) {
+	    return date1.getFullYear() - date2.getFullYear();
+	  };
+
+	  this.handleKeyDown = function(key, evt) {
+	    var date = this.activeDate.getFullYear();
+
+	    if (key === 'left') {
+	      date = date - 1;
+	    } else if (key === 'up') {
+	      date = date - columns;
+	    } else if (key === 'right') {
+	      date = date + 1;
+	    } else if (key === 'down') {
+	      date = date + columns;
+	    } else if (key === 'pageup' || key === 'pagedown') {
+	      date += (key === 'pageup' ? - 1 : 1) * range;
+	    } else if (key === 'home') {
+	      date = getStartingYear(this.activeDate.getFullYear());
+	    } else if (key === 'end') {
+	      date = getStartingYear(this.activeDate.getFullYear()) + range - 1;
+	    }
+	    this.activeDate.setFullYear(date);
+	  };
+	}])
+
+	.directive('uibDatepicker', function() {
+	  return {
+	    replace: true,
+	    templateUrl: function(element, attrs) {
+	      return attrs.templateUrl || 'uib/template/datepicker/datepicker.html';
+	    },
+	    scope: {
+	      datepickerMode: '=?',
+	      datepickerOptions: '=?',
+	      dateDisabled: '&',
+	      customClass: '&',
+	      shortcutPropagation: '&?'
+	    },
+	    require: ['uibDatepicker', '^ngModel'],
+	    controller: 'UibDatepickerController',
+	    controllerAs: 'datepicker',
+	    link: function(scope, element, attrs, ctrls) {
+	      var datepickerCtrl = ctrls[0], ngModelCtrl = ctrls[1];
+
+	      datepickerCtrl.init(ngModelCtrl);
+	    }
+	  };
+	})
+
+	.directive('uibDaypicker', function() {
+	  return {
+	    replace: true,
+	    templateUrl: function(element, attrs) {
+	      return attrs.templateUrl || 'uib/template/datepicker/day.html';
+	    },
+	    require: ['^uibDatepicker', 'uibDaypicker'],
+	    controller: 'UibDaypickerController',
+	    link: function(scope, element, attrs, ctrls) {
+	      var datepickerCtrl = ctrls[0],
+	        daypickerCtrl = ctrls[1];
+
+	      daypickerCtrl.init(datepickerCtrl);
+	    }
+	  };
+	})
+
+	.directive('uibMonthpicker', function() {
+	  return {
+	    replace: true,
+	    templateUrl: function(element, attrs) {
+	      return attrs.templateUrl || 'uib/template/datepicker/month.html';
+	    },
+	    require: ['^uibDatepicker', 'uibMonthpicker'],
+	    controller: 'UibMonthpickerController',
+	    link: function(scope, element, attrs, ctrls) {
+	      var datepickerCtrl = ctrls[0],
+	        monthpickerCtrl = ctrls[1];
+
+	      monthpickerCtrl.init(datepickerCtrl);
+	    }
+	  };
+	})
+
+	.directive('uibYearpicker', function() {
+	  return {
+	    replace: true,
+	    templateUrl: function(element, attrs) {
+	      return attrs.templateUrl || 'uib/template/datepicker/year.html';
+	    },
+	    require: ['^uibDatepicker', 'uibYearpicker'],
+	    controller: 'UibYearpickerController',
+	    link: function(scope, element, attrs, ctrls) {
+	      var ctrl = ctrls[0];
+	      angular.extend(ctrl, ctrls[1]);
+	      ctrl.yearpickerInit();
+
+	      ctrl.refreshView();
+	    }
+	  };
+	})
+
+	.value('uibDatepickerPopupAttributeWarning', true)
 
 	.constant('uibDatepickerPopupConfig', {
 	  altInputFormats: [],
@@ -38984,7 +38597,7 @@
 	  closeText: 'Done',
 	  currentText: 'Today',
 	  datepickerPopup: 'yyyy-MM-dd',
-	  datepickerPopupTemplateUrl: 'uib/template/datepickerPopup/popup.html',
+	  datepickerPopupTemplateUrl: 'uib/template/datepicker/popup.html',
 	  datepickerTemplateUrl: 'uib/template/datepicker/datepicker.html',
 	  html5Types: {
 	    date: 'yyyy-MM-dd',
@@ -38996,18 +38609,19 @@
 	  placement: 'auto bottom-left'
 	})
 
-	.controller('UibDatepickerPopupController', ['$scope', '$element', '$attrs', '$compile', '$log', '$parse', '$window', '$document', '$rootScope', '$uibPosition', 'dateFilter', 'uibDateParser', 'uibDatepickerPopupConfig', '$timeout', 'uibDatepickerConfig', '$datepickerPopupLiteralWarning',
-	function($scope, $element, $attrs, $compile, $log, $parse, $window, $document, $rootScope, $position, dateFilter, dateParser, datepickerPopupConfig, $timeout, datepickerConfig, $datepickerPopupLiteralWarning) {
+	.controller('UibDatepickerPopupController', ['$scope', '$element', '$attrs', '$compile', '$log', '$parse', '$window', '$document', '$rootScope', '$uibPosition', 'dateFilter', 'uibDateParser', 'uibDatepickerPopupConfig', '$timeout', 'uibDatepickerConfig', 'uibDatepickerPopupAttributeWarning',
+	function($scope, $element, $attrs, $compile, $log, $parse, $window, $document, $rootScope, $position, dateFilter, dateParser, datepickerPopupConfig, $timeout, datepickerConfig, datepickerPopupAttributeWarning) {
 	  var cache = {},
 	    isHtml5DateInput = false;
 	  var dateFormat, closeOnDateSelection, appendToBody, onOpenFocus,
 	    datepickerPopupTemplateUrl, datepickerTemplateUrl, popupEl, datepickerEl, scrollParentEl,
-	    ngModel, ngModelOptions, $popup, altInputFormats, watchListeners = [],
-	    timezone;
+	    ngModel, ngModelOptions, $popup, altInputFormats, watchListeners = [];
+
+	  $scope.watchData = {};
 
 	  this.init = function(_ngModel_) {
 	    ngModel = _ngModel_;
-	    ngModelOptions = _ngModel_.$options;
+	    ngModelOptions = _ngModel_.$options || datepickerConfig.ngModelOptions;
 	    closeOnDateSelection = angular.isDefined($attrs.closeOnDateSelection) ?
 	      $scope.$parent.$eval($attrs.closeOnDateSelection) :
 	      datepickerPopupConfig.closeOnDateSelection;
@@ -39059,22 +38673,16 @@
 
 	    // popup element used to display calendar
 	    popupEl = angular.element('<div uib-datepicker-popup-wrap><div uib-datepicker></div></div>');
-	    if (ngModelOptions) {
-	      timezone = ngModelOptions.timezone;
-	      $scope.ngModelOptions = angular.copy(ngModelOptions);
-	      $scope.ngModelOptions.timezone = null;
-	      if ($scope.ngModelOptions.updateOnDefault === true) {
-	        $scope.ngModelOptions.updateOn = $scope.ngModelOptions.updateOn ?
-	          $scope.ngModelOptions.updateOn + ' default' : 'default';
-	      }
-
-	      popupEl.attr('ng-model-options', 'ngModelOptions');
-	    } else {
-	      timezone = null;
+	    $scope.ngModelOptions = angular.copy(ngModelOptions);
+	    $scope.ngModelOptions.timezone = null;
+	    if ($scope.ngModelOptions.updateOnDefault === true) {
+	      $scope.ngModelOptions.updateOn = $scope.ngModelOptions.updateOn ?
+	        $scope.ngModelOptions.updateOn + ' default' : 'default';
 	    }
 
 	    popupEl.attr({
 	      'ng-model': 'date',
+	      'ng-model-options': 'ngModelOptions',
 	      'ng-change': 'dateSelection(date)',
 	      'template-url': datepickerPopupTemplateUrl
 	    });
@@ -39083,18 +38691,98 @@
 	    datepickerEl = angular.element(popupEl.children()[0]);
 	    datepickerEl.attr('template-url', datepickerTemplateUrl);
 
-	    if (!$scope.datepickerOptions) {
-	      $scope.datepickerOptions = {};
-	    }
-
 	    if (isHtml5DateInput) {
 	      if ($attrs.type === 'month') {
-	        $scope.datepickerOptions.datepickerMode = 'month';
-	        $scope.datepickerOptions.minMode = 'month';
+	        datepickerEl.attr('datepicker-mode', '"month"');
+	        datepickerEl.attr('min-mode', 'month');
 	      }
 	    }
 
-	    datepickerEl.attr('datepicker-options', 'datepickerOptions');
+	    if ($scope.datepickerOptions) {
+	      datepickerEl.attr('datepicker-options', 'datepickerOptions');
+	    }
+
+	    angular.forEach(['minMode', 'maxMode', 'datepickerMode', 'shortcutPropagation'], function(key) {
+	      if ($attrs[key]) {
+	        if (datepickerPopupAttributeWarning) {
+	          $log.warn('uib-datepicker settings via uib-datepicker-popup attributes are deprecated and will be removed in UI Bootstrap 1.3, use datepicker-options attribute instead');
+	        }
+
+	        var getAttribute = $parse($attrs[key]);
+	        var propConfig = {
+	          get: function() {
+	            return getAttribute($scope.$parent);
+	          }
+	        };
+
+	        datepickerEl.attr(cameltoDash(key), 'watchData.' + key);
+
+	        // Propagate changes from datepicker to outside
+	        if (key === 'datepickerMode') {
+	          var setAttribute = getAttribute.assign;
+	          propConfig.set = function(v) {
+	            setAttribute($scope.$parent, v);
+	          };
+	        }
+
+	        Object.defineProperty($scope.watchData, key, propConfig);
+	      }
+	    });
+
+	    angular.forEach(['minDate', 'maxDate', 'initDate'], function(key) {
+	      if ($attrs[key]) {
+	        if (datepickerPopupAttributeWarning) {
+	          $log.warn('uib-datepicker settings via uib-datepicker-popup attributes are deprecated and will be removed in UI Bootstrap 1.3, use datepicker-options attribute instead');
+	        }
+
+	        var getAttribute = $parse($attrs[key]);
+
+	        watchListeners.push($scope.$parent.$watch(getAttribute, function(value) {
+	          if (key === 'minDate' || key === 'maxDate') {
+	            if (value === null) {
+	              cache[key] = null;
+	            } else if (angular.isDate(value)) {
+	              cache[key] = dateParser.fromTimezone(new Date(value), ngModelOptions.timezone);
+	            } else {
+	              cache[key] = new Date(dateFilter(value, 'medium'));
+	            }
+
+	            $scope.watchData[key] = value === null ? null : cache[key];
+	          } else {
+	            var date = value ? new Date(value) : new Date();
+	            $scope.watchData[key] = dateParser.fromTimezone(date, ngModelOptions.timezone);
+	          }
+	        }));
+
+	        datepickerEl.attr(cameltoDash(key), 'watchData.' + key);
+	      }
+	    });
+
+	    if ($attrs.dateDisabled) {
+	      if (datepickerPopupAttributeWarning) {
+	        $log.warn('uib-datepicker settings via uib-datepicker-popup attributes are deprecated and will be removed in UI Bootstrap 1.3, use datepicker-options attribute instead');
+	      }
+
+	      datepickerEl.attr('date-disabled', 'dateDisabled({ date: date, mode: mode })');
+	    }
+
+	    angular.forEach(['formatDay', 'formatMonth', 'formatYear', 'formatDayHeader', 'formatDayTitle', 'formatMonthTitle', 'showWeeks', 'startingDay', 'yearRows', 'yearColumns'], function(key) {
+	      if (angular.isDefined($attrs[key])) {
+	        if (datepickerPopupAttributeWarning) {
+	          $log.warn('uib-datepicker settings via uib-datepicker-popup attributes are deprecated and will be removed in UI Bootstrap 1.3, use datepicker-options attribute instead');
+	        }
+
+	        datepickerEl.attr(cameltoDash(key), $attrs[key]);
+	      }
+	    });
+
+	    if ($attrs.customClass) {
+	      if (datepickerPopupAttributeWarning) {
+	        $log.warn('uib-datepicker settings via uib-datepicker-popup attributes are deprecated and will be removed in UI Bootstrap 1.3, use datepicker-options attribute instead');
+	      }
+
+	      datepickerEl.attr('custom-class', 'customClass({ date: date, mode: mode })');
+	    }
 
 	    if (!isHtml5DateInput) {
 	      // Internal API to maintain the correct ng-invalid-[key] class
@@ -39107,7 +38795,7 @@
 	          return value;
 	        }
 
-	        $scope.date = dateParser.fromTimezone(value, timezone);
+	        $scope.date = dateParser.fromTimezone(value, ngModelOptions.timezone);
 
 	        if (angular.isNumber($scope.date)) {
 	          $scope.date = new Date($scope.date);
@@ -39117,7 +38805,7 @@
 	      });
 	    } else {
 	      ngModel.$formatters.push(function(value) {
-	        $scope.date = dateParser.fromTimezone(value, timezone);
+	        $scope.date = dateParser.fromTimezone(value, ngModelOptions.timezone);
 	        return value;
 	      });
 	    }
@@ -39169,27 +38857,11 @@
 
 	  $scope.isDisabled = function(date) {
 	    if (date === 'today') {
-	      date = dateParser.fromTimezone(new Date(), timezone);
+	      date = new Date();
 	    }
 
-	    var dates = {};
-	    angular.forEach(['minDate', 'maxDate'], function(key) {
-	      if (!$scope.datepickerOptions[key]) {
-	        dates[key] = null;
-	      } else if (angular.isDate($scope.datepickerOptions[key])) {
-	        dates[key] = dateParser.fromTimezone(new Date($scope.datepickerOptions[key]), timezone);
-	      } else {
-	        if ($datepickerPopupLiteralWarning) {
-	          $log.warn('Literal date support has been deprecated, please switch to date object usage');
-	        }
-
-	        dates[key] = new Date(dateFilter($scope.datepickerOptions[key], 'medium'));
-	      }
-	    });
-
-	    return $scope.datepickerOptions &&
-	      dates.minDate && $scope.compare(date, dates.minDate) < 0 ||
-	      dates.maxDate && $scope.compare(date, dates.maxDate) > 0;
+	    return $scope.watchData.minDate && $scope.compare(date, cache.minDate) < 0 ||
+	        $scope.watchData.maxDate && $scope.compare(date, cache.maxDate) > 0;
 	  };
 
 	  $scope.compare = function(date1, date2) {
@@ -39257,7 +38929,6 @@
 	          if (onOpenFocus) {
 	            $scope.$broadcast('uib:datepicker.focus');
 	          }
-
 	          $document.on('click', documentClickBind);
 
 	          var placement = $attrs.popupPlacement ? $attrs.popupPlacement : datepickerPopupConfig.placement;
@@ -39318,7 +38989,7 @@
 	    if (angular.isString(viewValue)) {
 	      var date = parseDateString(viewValue);
 	      if (!isNaN(date)) {
-	        return dateParser.toTimezone(date, timezone);
+	        return dateParser.toTimezone(date, ngModelOptions.timezone);
 	      }
 	    }
 
@@ -39411,7 +39082,9 @@
 	      isOpen: '=?',
 	      currentText: '@',
 	      clearText: '@',
-	      closeText: '@'
+	      closeText: '@',
+	      dateDisabled: '&',
+	      customClass: '&'
 	    },
 	    link: function(scope, element, attrs, ctrls) {
 	      var ngModel = ctrls[0],
@@ -39427,7 +39100,7 @@
 	    replace: true,
 	    transclude: true,
 	    templateUrl: function(element, attrs) {
-	      return attrs.templateUrl || 'uib/template/datepickerPopup/popup.html';
+	      return attrs.templateUrl || 'uib/template/datepicker/popup.html';
 	    }
 	  };
 	});
@@ -39464,10 +39137,10 @@
 	.service('uibDropdownService', ['$document', '$rootScope', function($document, $rootScope) {
 	  var openScope = null;
 
-	  this.open = function(dropdownScope, element) {
+	  this.open = function(dropdownScope) {
 	    if (!openScope) {
 	      $document.on('click', closeDropdown);
-	      element.on('keydown', keybindFilter);
+	      $document.on('keydown', keybindFilter);
 	    }
 
 	    if (openScope && openScope !== dropdownScope) {
@@ -39477,11 +39150,11 @@
 	    openScope = dropdownScope;
 	  };
 
-	  this.close = function(dropdownScope, element) {
+	  this.close = function(dropdownScope) {
 	    if (openScope === dropdownScope) {
 	      openScope = null;
 	      $document.off('click', closeDropdown);
-	      element.off('keydown', keybindFilter);
+	      $document.off('keydown', keybindFilter);
 	    }
 	  };
 
@@ -39514,7 +39187,6 @@
 
 	  var keybindFilter = function(evt) {
 	    if (evt.which === 27) {
-	      evt.stopPropagation();
 	      openScope.focusToggleElement();
 	      closeDropdown();
 	    } else if (openScope.isKeynavEnabled() && [38, 40].indexOf(evt.which) !== -1 && openScope.isOpen) {
@@ -39575,12 +39247,7 @@
 	  };
 
 	  this.toggle = function(open) {
-	    scope.isOpen = arguments.length ? !!open : !scope.isOpen;
-	    if (angular.isFunction(setIsOpen)) {
-	      setIsOpen(scope, scope.isOpen);
-	    }
-
-	    return scope.isOpen;
+	    return scope.isOpen = arguments.length ? !!open : !scope.isOpen;
 	  };
 
 	  // Allow other directives to watch status
@@ -39706,7 +39373,7 @@
 	      }
 
 	      scope.focusToggleElement();
-	      uibDropdownService.open(scope, $element);
+	      uibDropdownService.open(scope);
 	    } else {
 	      if (self.dropdownMenuTemplateUrl) {
 	        if (templateScope) {
@@ -39717,12 +39384,18 @@
 	        self.dropdownMenu = newEl;
 	      }
 
-	      uibDropdownService.close(scope, $element);
+	      uibDropdownService.close(scope);
 	      self.selectedOption = null;
 	    }
 
 	    if (angular.isFunction(setIsOpen)) {
 	      setIsOpen($scope, isOpen);
+	    }
+	  });
+
+	  $scope.$on('$locationChangeSuccess', function() {
+	    if (scope.getAutoClose() !== 'disabled') {
+	      scope.isOpen = false;
 	    }
 	  });
 	}])
@@ -39850,7 +39523,7 @@
 	      }
 	    };
 	  });
-	angular.module('ui.bootstrap.modal', ['ui.bootstrap.stackedMap', 'ui.bootstrap.position'])
+	angular.module('ui.bootstrap.modal', ['ui.bootstrap.stackedMap'])
 	/**
 	 * A helper, internal data structure that stores all references attached to key
 	 */
@@ -39955,8 +39628,8 @@
 	/**
 	 * A helper directive for the $modal service. It creates a backdrop element.
 	 */
-	  .directive('uibModalBackdrop', ['$animate', '$injector', '$uibModalStack',
-	  function($animate, $injector, $modalStack) {
+	  .directive('uibModalBackdrop', ['$animateCss', '$injector', '$uibModalStack',
+	  function($animateCss, $injector, $modalStack) {
 	    return {
 	      replace: true,
 	      templateUrl: 'uib/template/modal/backdrop.html',
@@ -39968,12 +39641,16 @@
 
 	    function linkFn(scope, element, attrs) {
 	      if (attrs.modalInClass) {
-	        $animate.addClass(element, attrs.modalInClass);
+	        $animateCss(element, {
+	          addClass: attrs.modalInClass
+	        }).start();
 
 	        scope.$on($modalStack.NOW_CLOSING_EVENT, function(e, setIsAsync) {
 	          var done = setIsAsync();
 	          if (scope.modalOptions.animation) {
-	            $animate.removeClass(element, attrs.modalInClass).then(done);
+	            $animateCss(element, {
+	              removeClass: attrs.modalInClass
+	            }).start().then(done);
 	          } else {
 	            done();
 	          }
@@ -39982,8 +39659,8 @@
 	    }
 	  }])
 
-	  .directive('uibModalWindow', ['$uibModalStack', '$q', '$animateCss', '$document',
-	  function($modalStack, $q, $animateCss, $document) {
+	  .directive('uibModalWindow', ['$uibModalStack', '$q', '$animate', '$animateCss', '$document',
+	  function($modalStack, $q, $animate, $animateCss, $document) {
 	    return {
 	      scope: {
 	        index: '@'
@@ -40037,9 +39714,13 @@
 
 	            scope.$on($modalStack.NOW_CLOSING_EVENT, function(e, setIsAsync) {
 	              var done = setIsAsync();
-	              $animateCss(element, {
-	                removeClass: attrs.modalInClass
-	              }).start().then(done);
+	              if ($animateCss) {
+	                $animateCss(element, {
+	                  removeClass: attrs.modalInClass
+	                }).start().then(done);
+	              } else {
+	                $animate.removeClass(element, attrs.modalInClass).then(done);
+	              }
 	            });
 	          }
 
@@ -40099,8 +39780,8 @@
 	  })
 
 	  .factory('$uibModalStack', ['$animate', '$animateCss', '$document',
-	    '$compile', '$rootScope', '$q', '$$multiMap', '$$stackedMap', '$uibPosition',
-	    function($animate, $animateCss, $document, $compile, $rootScope, $q, $$multiMap, $$stackedMap, $uibPosition) {
+	    '$compile', '$rootScope', '$q', '$$multiMap', '$$stackedMap',
+	    function($animate, $animateCss, $document, $compile, $rootScope, $q, $$multiMap, $$stackedMap) {
 	      var OPENED_MODAL_CLASS = 'modal-open';
 
 	      var backdropDomEl, backdropScope;
@@ -40109,20 +39790,13 @@
 	      var $modalStack = {
 	        NOW_CLOSING_EVENT: 'modal.stack.now-closing'
 	      };
-	      var topModalIndex = 0;
-	      var previousTopOpenedModal = null;
 
 	      //Modal focus behavior
-	      var tabableSelector = 'a[href], area[href], input:not([disabled]), ' +
+	      var focusableElementList;
+	      var focusIndex = 0;
+	      var tababbleSelector = 'a[href], area[href], input:not([disabled]), ' +
 	        'button:not([disabled]),select:not([disabled]), textarea:not([disabled]), ' +
 	        'iframe, object, embed, *[tabindex], *[contenteditable=true]';
-	      var scrollbarPadding;
-
-	      function isVisible(element) {
-	        return !!(element.offsetWidth ||
-	          element.offsetHeight ||
-	          element.getClientRects().length);
-	      }
 
 	      function backdropIndex() {
 	        var topBackdropIndex = -1;
@@ -40131,12 +39805,6 @@
 	          if (openedWindows.get(opened[i]).value.backdrop) {
 	            topBackdropIndex = i;
 	          }
-	        }
-
-	        // If any backdrop exist, ensure that it's index is always
-	        // right below the top modal
-	        if (topBackdropIndex > -1 && topBackdropIndex < topModalIndex) {
-	          topBackdropIndex = topModalIndex;
 	        }
 	        return topBackdropIndex;
 	      }
@@ -40153,24 +39821,11 @@
 
 	        //clean up the stack
 	        openedWindows.remove(modalInstance);
-	        previousTopOpenedModal = openedWindows.top();
-	        if (previousTopOpenedModal) {
-	          topModalIndex = parseInt(previousTopOpenedModal.value.modalDomEl.attr('index'), 10);
-	        }
 
 	        removeAfterAnimate(modalWindow.modalDomEl, modalWindow.modalScope, function() {
 	          var modalBodyClass = modalWindow.openedClass || OPENED_MODAL_CLASS;
 	          openedClasses.remove(modalBodyClass, modalInstance);
-	          var areAnyOpen = openedClasses.hasKey(modalBodyClass);
-	          appendToElement.toggleClass(modalBodyClass, areAnyOpen);
-	          if (!areAnyOpen && scrollbarPadding && scrollbarPadding.heightOverflow && scrollbarPadding.scrollbarWidth) {
-	            if (scrollbarPadding.originalRight) {
-	              appendToElement.css({paddingRight: scrollbarPadding.originalRight + 'px'});
-	            } else {
-	              appendToElement.css({paddingRight: ''});
-	            }
-	            scrollbarPadding = null;
-	          }
+	          appendToElement.toggleClass(modalBodyClass, openedClasses.hasKey(modalBodyClass));
 	          toggleTopWindowClass(true);
 	        }, modalWindow.closedDeferred);
 	        checkRemoveBackdrop();
@@ -40231,7 +39886,9 @@
 	          }
 	          afterAnimating.done = true;
 
-	          $animate.leave(domEl).then(function() {
+	          $animateCss(domEl, {
+	            event: 'leave'
+	          }).start().then(function() {
 	            domEl.remove();
 	            if (closedDeferred) {
 	              closedDeferred.resolve();
@@ -40269,15 +39926,15 @@
 	              break;
 	            }
 	            case 9: {
-	              var list = $modalStack.loadFocusElementList(modal);
+	              $modalStack.loadFocusElementList(modal);
 	              var focusChanged = false;
 	              if (evt.shiftKey) {
-	                if ($modalStack.isFocusInFirstItem(evt, list) || $modalStack.isModalFocused(evt, modal)) {
-	                  focusChanged = $modalStack.focusLastFocusableElement(list);
+	                if ($modalStack.isFocusInFirstItem(evt) || $modalStack.isModalFocused(evt, modal)) {
+	                  focusChanged = $modalStack.focusLastFocusableElement();
 	                }
 	              } else {
-	                if ($modalStack.isFocusInLastItem(evt, list)) {
-	                  focusChanged = $modalStack.focusFirstFocusableElement(list);
+	                if ($modalStack.isFocusInLastItem(evt)) {
+	                  focusChanged = $modalStack.focusFirstFocusableElement();
 	                }
 	              }
 
@@ -40285,7 +39942,6 @@
 	                evt.preventDefault();
 	                evt.stopPropagation();
 	              }
-
 	              break;
 	            }
 	          }
@@ -40297,10 +39953,6 @@
 	          modalBodyClass = modal.openedClass || OPENED_MODAL_CLASS;
 
 	        toggleTopWindowClass(false);
-
-	        // Store the current top first, to determine what index we ought to use
-	        // for the current top modal
-	        previousTopOpenedModal = openedWindows.top();
 
 	        openedWindows.add(modalInstance, {
 	          deferred: modal.deferred,
@@ -40335,32 +39987,32 @@
 	          }
 	          $compile(backdropDomEl)(backdropScope);
 	          $animate.enter(backdropDomEl, appendToElement);
-	          scrollbarPadding = $uibPosition.scrollbarPadding(appendToElement);
-	          if (scrollbarPadding.heightOverflow && scrollbarPadding.scrollbarWidth) {
-	            appendToElement.css({paddingRight: scrollbarPadding.right + 'px'});
-	          }
 	        }
 
-	        // Set the top modal index based on the index of the previous top modal
-	        topModalIndex = previousTopOpenedModal ? parseInt(previousTopOpenedModal.value.modalDomEl.attr('index'), 10) + 1 : 0;
 	        var angularDomEl = angular.element('<div uib-modal-window="modal-window"></div>');
 	        angularDomEl.attr({
 	          'template-url': modal.windowTemplateUrl,
 	          'window-class': modal.windowClass,
 	          'window-top-class': modal.windowTopClass,
 	          'size': modal.size,
-	          'index': topModalIndex,
+	          'index': openedWindows.length() - 1,
 	          'animate': 'animate'
 	        }).html(modal.content);
 	        if (modal.animation) {
 	          angularDomEl.attr('modal-animation', 'true');
 	        }
 
-	        appendToElement.addClass(modalBodyClass);
-	        $animate.enter($compile(angularDomEl)(modal.scope), appendToElement);
+	        $animate.enter($compile(angularDomEl)(modal.scope), appendToElement)
+	          .then(function() {
+	            if (!modal.scope.$$uibDestructionScheduled) {
+	              $animate.addClass(appendToElement, modalBodyClass);
+	            }
+	          });
 
 	        openedWindows.top().value.modalDomEl = angularDomEl;
 	        openedWindows.top().value.modalOpener = modalOpener;
+
+	        $modalStack.clearFocusListCache();
 	      };
 
 	      function broadcastClosing(modalWindow, resultOrReason, closing) {
@@ -40407,17 +40059,16 @@
 	        }
 	      };
 
-	      $modalStack.focusFirstFocusableElement = function(list) {
-	        if (list.length > 0) {
-	          list[0].focus();
+	      $modalStack.focusFirstFocusableElement = function() {
+	        if (focusableElementList.length > 0) {
+	          focusableElementList[0].focus();
 	          return true;
 	        }
 	        return false;
 	      };
-
-	      $modalStack.focusLastFocusableElement = function(list) {
-	        if (list.length > 0) {
-	          list[list.length - 1].focus();
+	      $modalStack.focusLastFocusableElement = function() {
+	        if (focusableElementList.length > 0) {
+	          focusableElementList[focusableElementList.length - 1].focus();
 	          return true;
 	        }
 	        return false;
@@ -40433,29 +40084,32 @@
 	        return false;
 	      };
 
-	      $modalStack.isFocusInFirstItem = function(evt, list) {
-	        if (list.length > 0) {
-	          return (evt.target || evt.srcElement) === list[0];
+	      $modalStack.isFocusInFirstItem = function(evt) {
+	        if (focusableElementList.length > 0) {
+	          return (evt.target || evt.srcElement) === focusableElementList[0];
 	        }
 	        return false;
 	      };
 
-	      $modalStack.isFocusInLastItem = function(evt, list) {
-	        if (list.length > 0) {
-	          return (evt.target || evt.srcElement) === list[list.length - 1];
+	      $modalStack.isFocusInLastItem = function(evt) {
+	        if (focusableElementList.length > 0) {
+	          return (evt.target || evt.srcElement) === focusableElementList[focusableElementList.length - 1];
 	        }
 	        return false;
+	      };
+
+	      $modalStack.clearFocusListCache = function() {
+	        focusableElementList = [];
+	        focusIndex = 0;
 	      };
 
 	      $modalStack.loadFocusElementList = function(modalWindow) {
-	        if (modalWindow) {
-	          var modalDomE1 = modalWindow.value.modalDomEl;
-	          if (modalDomE1 && modalDomE1.length) {
-	            var elements = modalDomE1[0].querySelectorAll(tabableSelector);
-	            return elements ?
-	              Array.prototype.filter.call(elements, function(element) {
-	                return isVisible(element);
-	              }) : elements;
+	        if (focusableElementList === undefined || !focusableElementList.length) {
+	          if (modalWindow) {
+	            var modalDomE1 = modalWindow.value.modalDomEl;
+	            if (modalDomE1 && modalDomE1.length) {
+	              focusableElementList = modalDomE1[0].querySelectorAll(tababbleSelector);
+	            }
 	          }
 	        }
 	      };
@@ -40542,7 +40196,7 @@
 	                  }
 	                });
 
-	                var ctrlInstance, ctrlInstantiate, ctrlLocals = {};
+	                var ctrlInstance, ctrlLocals = {};
 
 	                //controllers
 	                if (modalOptions.controller) {
@@ -40552,27 +40206,18 @@
 	                    ctrlLocals[key] = value;
 	                  });
 
-	                  // the third param will make the controller instantiate later,private api
-	                  // @see https://github.com/angular/angular.js/blob/master/src/ng/controller.js#L126
-	                  ctrlInstantiate = $controller(modalOptions.controller, ctrlLocals, true);
+	                  ctrlInstance = $controller(modalOptions.controller, ctrlLocals);
 	                  if (modalOptions.controllerAs) {
-	                    ctrlInstance = ctrlInstantiate.instance;
-
 	                    if (modalOptions.bindToController) {
 	                      ctrlInstance.$close = modalScope.$close;
 	                      ctrlInstance.$dismiss = modalScope.$dismiss;
 	                      angular.extend(ctrlInstance, providedScope);
+	                      if (angular.isFunction(ctrlInstance.$onInit)) {
+	                        ctrlInstance.$onInit();
+	                      }
 	                    }
 
-	                    ctrlInstance = ctrlInstantiate();
-
 	                    modalScope[modalOptions.controllerAs] = ctrlInstance;
-	                  } else {
-	                    ctrlInstance = ctrlInstantiate();
-	                  }
-
-	                  if (angular.isFunction(ctrlInstance.$onInit)) {
-	                    ctrlInstance.$onInit();
 	                  }
 	                }
 
@@ -40952,7 +40597,7 @@
 	  /**
 	   * This allows you to extend the set of trigger mappings available. E.g.:
 	   *
-	   *   $tooltipProvider.setTriggers( { 'openTrigger': 'closeTrigger' } );
+	   *   $tooltipProvider.setTriggers( 'openTrigger': 'closeTrigger' );
 	   */
 	  this.setTriggers = function setTriggers(triggers) {
 	    angular.extend(triggerMap, triggers);
@@ -41025,15 +40670,15 @@
 	      var startSym = $interpolate.startSymbol();
 	      var endSym = $interpolate.endSymbol();
 	      var template =
-	        '<div '+ directiveName + '-popup ' +
-	          'uib-title="' + startSym + 'title' + endSym + '" ' +
+	        '<div '+ directiveName + '-popup '+
+	          'title="' + startSym + 'title' + endSym + '" '+
 	          (options.useContentExp ?
 	            'content-exp="contentExp()" ' :
 	            'content="' + startSym + 'content' + endSym + '" ') +
-	          'placement="' + startSym + 'placement' + endSym + '" ' +
-	          'popup-class="' + startSym + 'popupClass' + endSym + '" ' +
+	          'placement="' + startSym + 'placement' + endSym + '" '+
+	          'popup-class="' + startSym + 'popupClass' + endSym + '" '+
 	          'animation="animation" ' +
-	          'is-open="isOpen" ' +
+	          'is-open="isOpen"' +
 	          'origin-scope="origScope" ' +
 	          'class="uib-position-measure"' +
 	          '>' +
@@ -41354,6 +40999,8 @@
 	              observers.push(
 	                attrs.$observe(prefix + 'Placement', function(val) {
 	                  ttScope.placement = val ? val : options.placement;
+	                  var placement = $position.parsePlacement(ttScope.placement);
+	                  lastPlacement = placement[1] ? placement[0] + '-' + placement[1] : placement[0];
 	                  if (ttScope.isOpen) {
 	                    positionTooltip();
 	                  }
@@ -41606,7 +41253,7 @@
 	.directive('uibPopoverTemplatePopup', function() {
 	  return {
 	    replace: true,
-	    scope: { uibTitle: '@', contentExp: '&', placement: '@', popupClass: '@', animation: '&', isOpen: '&',
+	    scope: { title: '@', contentExp: '&', placement: '@', popupClass: '@', animation: '&', isOpen: '&',
 	      originScope: '&' },
 	    templateUrl: 'uib/template/popover/popover-template.html'
 	  };
@@ -41621,7 +41268,7 @@
 	.directive('uibPopoverHtmlPopup', function() {
 	  return {
 	    replace: true,
-	    scope: { contentExp: '&', uibTitle: '@', placement: '@', popupClass: '@', animation: '&', isOpen: '&' },
+	    scope: { contentExp: '&', title: '@', placement: '@', popupClass: '@', animation: '&', isOpen: '&' },
 	    templateUrl: 'uib/template/popover/popover-html.html'
 	  };
 	})
@@ -41635,7 +41282,7 @@
 	.directive('uibPopoverPopup', function() {
 	  return {
 	    replace: true,
-	    scope: { uibTitle: '@', content: '@', placement: '@', popupClass: '@', animation: '&', isOpen: '&' },
+	    scope: { title: '@', content: '@', placement: '@', popupClass: '@', animation: '&', isOpen: '&' },
 	    templateUrl: 'uib/template/popover/popover.html'
 	  };
 	})
@@ -41761,13 +41408,11 @@
 	  max: 5,
 	  stateOn: null,
 	  stateOff: null,
-	  enableReset: true,
 	  titles : ['one', 'two', 'three', 'four', 'five']
 	})
 
 	.controller('UibRatingController', ['$scope', '$attrs', 'uibRatingConfig', function($scope, $attrs, ratingConfig) {
-	  var ngModelCtrl = { $setViewValue: angular.noop },
-	    self = this;
+	  var ngModelCtrl = { $setViewValue: angular.noop };
 
 	  this.init = function(ngModelCtrl_) {
 	    ngModelCtrl = ngModelCtrl_;
@@ -41783,9 +41428,7 @@
 
 	    this.stateOn = angular.isDefined($attrs.stateOn) ? $scope.$parent.$eval($attrs.stateOn) : ratingConfig.stateOn;
 	    this.stateOff = angular.isDefined($attrs.stateOff) ? $scope.$parent.$eval($attrs.stateOff) : ratingConfig.stateOff;
-	    this.enableReset = angular.isDefined($attrs.enableReset) ?
-	      $scope.$parent.$eval($attrs.enableReset) : ratingConfig.enableReset;
-	    var tmpTitles = angular.isDefined($attrs.titles) ? $scope.$parent.$eval($attrs.titles) : ratingConfig.titles;
+	    var tmpTitles = angular.isDefined($attrs.titles) ? $scope.$parent.$eval($attrs.titles) : ratingConfig.titles ;
 	    this.titles = angular.isArray(tmpTitles) && tmpTitles.length > 0 ?
 	      tmpTitles : ratingConfig.titles;
 
@@ -41812,8 +41455,7 @@
 
 	  $scope.rate = function(value) {
 	    if (!$scope.readonly && value >= 0 && value <= $scope.range.length) {
-	      var newViewValue = self.enableReset && ngModelCtrl.$viewValue === value ? 0 : value;
-	      ngModelCtrl.$setViewValue(newViewValue);
+	      ngModelCtrl.$setViewValue(ngModelCtrl.$viewValue === value ? 0 : value);
 	      ngModelCtrl.$render();
 	    }
 	  };
@@ -41840,7 +41482,6 @@
 
 	  this.render = function() {
 	    $scope.value = ngModelCtrl.$viewValue;
-	    $scope.title = self.getTitle($scope.value - 1);
 	  };
 	}])
 
@@ -41869,25 +41510,18 @@
 	    oldIndex;
 	  ctrl.tabs = [];
 
-	  ctrl.select = function(index, evt) {
+	  ctrl.select = function(index) {
 	    if (!destroyed) {
 	      var previousIndex = findTabIndex(oldIndex);
 	      var previousSelected = ctrl.tabs[previousIndex];
 	      if (previousSelected) {
-	        previousSelected.tab.onDeselect({
-	          $event: evt
-	        });
-	        if (evt && evt.isDefaultPrevented()) {
-	          return;
-	        }
+	        previousSelected.tab.onDeselect();
 	        previousSelected.tab.active = false;
 	      }
 
 	      var selected = ctrl.tabs[index];
 	      if (selected) {
-	        selected.tab.onSelect({
-	          $event: evt
-	        });
+	        selected.tab.onSelect();
 	        selected.tab.active = true;
 	        ctrl.active = selected.index;
 	        oldIndex = selected.index;
@@ -41922,15 +41556,9 @@
 	  };
 
 	  ctrl.removeTab = function removeTab(tab) {
-	    var index;
-	    for (var i = 0; i < ctrl.tabs.length; i++) {
-	      if (ctrl.tabs[i].tab === tab) {
-	        index = i;
-	        break;
-	      }
-	    }
+	    var index = findTabIndex(tab.index);
 
-	    if (ctrl.tabs[index].index === ctrl.active) {
+	    if (tab.index === ctrl.active) {
 	      var newActiveTabIndex = index === ctrl.tabs.length - 1 ?
 	        index - 1 : index + 1 % ctrl.tabs.length;
 	      ctrl.select(newActiveTabIndex);
@@ -42025,7 +41653,7 @@
 	        scope.classes = '';
 	      }
 
-	      scope.select = function(evt) {
+	      scope.select = function() {
 	        if (!scope.disabled) {
 	          var index;
 	          for (var i = 0; i < tabsetCtrl.tabs.length; i++) {
@@ -42035,7 +41663,7 @@
 	            }
 	          }
 
-	          tabsetCtrl.select(index, evt);
+	          tabsetCtrl.select(index);
 	        }
 	      };
 
@@ -42095,8 +41723,7 @@
 	      node.hasAttribute('x-uib-tab-heading') ||
 	      node.tagName.toLowerCase() === 'uib-tab-heading' ||
 	      node.tagName.toLowerCase() === 'data-uib-tab-heading' ||
-	      node.tagName.toLowerCase() === 'x-uib-tab-heading' ||
-	      node.tagName.toLowerCase() === 'uib:tab-heading'
+	      node.tagName.toLowerCase() === 'x-uib-tab-heading'
 	    );
 	  }
 	});
@@ -42121,8 +41748,7 @@
 	  var selected = new Date(),
 	    watchers = [],
 	    ngModelCtrl = { $setViewValue: angular.noop }, // nullModelCtrl
-	    meridians = angular.isDefined($attrs.meridians) ? $scope.$parent.$eval($attrs.meridians) : timepickerConfig.meridians || $locale.DATETIME_FORMATS.AMPMS,
-	    padHours = angular.isDefined($attrs.padHours) ? $scope.$parent.$eval($attrs.padHours) : true;
+	    meridians = angular.isDefined($attrs.meridians) ? $scope.$parent.$eval($attrs.meridians) : timepickerConfig.meridians || $locale.DATETIME_FORMATS.AMPMS;
 
 	  $scope.tabindex = angular.isDefined($attrs.tabindex) ? $attrs.tabindex : 0;
 	  $element.removeAttr('tabindex');
@@ -42269,7 +41895,7 @@
 	    var hours = +$scope.hours;
 	    var valid = $scope.showMeridian ? hours > 0 && hours < 13 :
 	      hours >= 0 && hours < 24;
-	    if (!valid || $scope.hours === '') {
+	    if (!valid) {
 	      return undefined;
 	    }
 
@@ -42286,11 +41912,7 @@
 
 	  function getMinutesFromTemplate() {
 	    var minutes = +$scope.minutes;
-	    var valid = minutes >= 0 && minutes < 60;
-	    if (!valid || $scope.minutes === '') {
-	      return undefined;
-	    }
-	    return minutes;
+	    return minutes >= 0 && minutes < 60 ? minutes : undefined;
 	  }
 
 	  function getSecondsFromTemplate() {
@@ -42298,12 +41920,12 @@
 	    return seconds >= 0 && seconds < 60 ? seconds : undefined;
 	  }
 
-	  function pad(value, noPad) {
+	  function pad(value) {
 	    if (value === null) {
 	      return '';
 	    }
 
-	    return angular.isDefined(value) && value.toString().length < 2 && !noPad ?
+	    return angular.isDefined(value) && value.toString().length < 2 ?
 	      '0' + value : value.toString();
 	  }
 
@@ -42430,13 +42052,11 @@
 
 	    hoursInputEl.bind('blur', function(e) {
 	      ngModelCtrl.$setTouched();
-	      if (modelIsEmpty()) {
-	        makeValid();
-	      } else if ($scope.hours === null || $scope.hours === '') {
+	      if ($scope.hours === null || $scope.hours === '') {
 	        invalidate(true);
 	      } else if (!$scope.invalidHours && $scope.hours < 10) {
 	        $scope.$apply(function() {
-	          $scope.hours = pad($scope.hours, !padHours);
+	          $scope.hours = pad($scope.hours);
 	        });
 	      }
 	    });
@@ -42462,9 +42082,7 @@
 
 	    minutesInputEl.bind('blur', function(e) {
 	      ngModelCtrl.$setTouched();
-	      if (modelIsEmpty()) {
-	        makeValid();
-	      } else if ($scope.minutes === null) {
+	      if ($scope.minutes === null) {
 	        invalidate(undefined, true);
 	      } else if (!$scope.invalidMinutes && $scope.minutes < 10) {
 	        $scope.$apply(function() {
@@ -42487,9 +42105,7 @@
 	    };
 
 	    secondsInputEl.bind('blur', function(e) {
-	      if (modelIsEmpty()) {
-	        makeValid();
-	      } else if (!$scope.invalidSeconds && $scope.seconds < 10) {
+	      if (!$scope.invalidSeconds && $scope.seconds < 10) {
 	        $scope.$apply( function() {
 	          $scope.seconds = pad($scope.seconds);
 	        });
@@ -42549,7 +42165,7 @@
 	        hours = hours === 0 || hours === 12 ? 12 : hours % 12; // Convert 24 to 12 hour system
 	      }
 
-	      $scope.hours = keyboardChange === 'h' ? hours : pad(hours, !padHours);
+	      $scope.hours = keyboardChange === 'h' ? hours : pad(hours);
 	      if (keyboardChange !== 'm') {
 	        $scope.minutes = pad(minutes);
 	      }
@@ -42576,12 +42192,6 @@
 	    var newDate = new Date(date);
 	    newDate.setHours(dt.getHours(), dt.getMinutes(), dt.getSeconds());
 	    return newDate;
-	  }
-
-	  function modelIsEmpty() {
-	    return ($scope.hours === null || $scope.hours === '') &&
-	      ($scope.minutes === null || $scope.minutes === '') &&
-	      (!$scope.showSeconds || $scope.showSeconds && ($scope.seconds === null || $scope.seconds === ''));
 	  }
 
 	  $scope.showSpinners = angular.isDefined($attrs.showSpinners) ?
@@ -43070,7 +42680,7 @@
 	          evt.stopPropagation();
 
 	          resetMatches();
-	          originalScope.$digest();
+	          scope.$digest();
 	          break;
 	        case 38:
 	          scope.activeIdx = (scope.activeIdx > 0 ? scope.activeIdx : scope.matches.length) - 1;
@@ -43110,10 +42720,7 @@
 	        });
 	      }
 	      if (!isEditable && modelCtrl.$error.editable) {
-	        modelCtrl.$setViewValue();
-	        // Reset validity as we are clearing
-	        modelCtrl.$setValidity('editable', true);
-	        modelCtrl.$setValidity('parse', true);
+	        modelCtrl.$viewValue = '';
 	        element.val('');
 	      }
 	      hasFocus = false;
@@ -43127,7 +42734,7 @@
 	      if (element[0] !== evt.target && evt.which !== 3 && scope.matches.length !== 0) {
 	        resetMatches();
 	        if (!$rootScope.$$phase) {
-	          originalScope.$digest();
+	          scope.$digest();
 	        }
 	      }
 	    };
@@ -43365,11 +42972,11 @@
 	  $templateCache.put("uib/template/carousel/carousel.html",
 	    "<div ng-mouseenter=\"pause()\" ng-mouseleave=\"play()\" class=\"carousel\" ng-swipe-right=\"prev()\" ng-swipe-left=\"next()\">\n" +
 	    "  <div class=\"carousel-inner\" ng-transclude></div>\n" +
-	    "  <a role=\"button\" href class=\"left carousel-control\" ng-click=\"prev()\" ng-class=\"{ disabled: isPrevDisabled() }\" ng-show=\"slides.length > 1\">\n" +
+	    "  <a role=\"button\" href class=\"left carousel-control\" ng-click=\"prev()\" ng-show=\"slides.length > 1\">\n" +
 	    "    <span aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-left\"></span>\n" +
 	    "    <span class=\"sr-only\">previous</span>\n" +
 	    "  </a>\n" +
-	    "  <a role=\"button\" href class=\"right carousel-control\" ng-click=\"next()\" ng-class=\"{ disabled: isNextDisabled() }\" ng-show=\"slides.length > 1\">\n" +
+	    "  <a role=\"button\" href class=\"right carousel-control\" ng-click=\"next()\" ng-show=\"slides.length > 1\">\n" +
 	    "    <span aria-hidden=\"true\" class=\"glyphicon glyphicon-chevron-right\"></span>\n" +
 	    "    <span class=\"sr-only\">next</span>\n" +
 	    "  </a>\n" +
@@ -43465,6 +43072,23 @@
 	    "");
 	}]);
 
+	angular.module("uib/template/datepicker/popup.html", []).run(["$templateCache", function($templateCache) {
+	  $templateCache.put("uib/template/datepicker/popup.html",
+	    "<div>\n" +
+	    "  <ul class=\"uib-datepicker-popup dropdown-menu uib-position-measure\" dropdown-nested ng-if=\"isOpen\" ng-keydown=\"keydown($event)\" ng-click=\"$event.stopPropagation()\">\n" +
+	    "    <li ng-transclude></li>\n" +
+	    "    <li ng-if=\"showButtonBar\" class=\"uib-button-bar\">\n" +
+	    "      <span class=\"btn-group pull-left\">\n" +
+	    "        <button type=\"button\" class=\"btn btn-sm btn-info uib-datepicker-current\" ng-click=\"select('today', $event)\" ng-disabled=\"isDisabled('today')\">{{ getText('current') }}</button>\n" +
+	    "        <button type=\"button\" class=\"btn btn-sm btn-danger uib-clear\" ng-click=\"select(null, $event)\">{{ getText('clear') }}</button>\n" +
+	    "      </span>\n" +
+	    "      <button type=\"button\" class=\"btn btn-sm btn-success pull-right uib-close\" ng-click=\"close($event)\">{{ getText('close') }}</button>\n" +
+	    "    </li>\n" +
+	    "  </ul>\n" +
+	    "</div>\n" +
+	    "");
+	}]);
+
 	angular.module("uib/template/datepicker/year.html", []).run(["$templateCache", function($templateCache) {
 	  $templateCache.put("uib/template/datepicker/year.html",
 	    "<table class=\"uib-yearpicker\" role=\"grid\" aria-labelledby=\"{{::uniqueId}}-title\" aria-activedescendant=\"{{activeDateId}}\">\n" +
@@ -43495,23 +43119,6 @@
 	    "");
 	}]);
 
-	angular.module("uib/template/datepickerPopup/popup.html", []).run(["$templateCache", function($templateCache) {
-	  $templateCache.put("uib/template/datepickerPopup/popup.html",
-	    "<div>\n" +
-	    "  <ul class=\"uib-datepicker-popup dropdown-menu uib-position-measure\" dropdown-nested ng-if=\"isOpen\" ng-keydown=\"keydown($event)\" ng-click=\"$event.stopPropagation()\">\n" +
-	    "    <li ng-transclude></li>\n" +
-	    "    <li ng-if=\"showButtonBar\" class=\"uib-button-bar\">\n" +
-	    "      <span class=\"btn-group pull-left\">\n" +
-	    "        <button type=\"button\" class=\"btn btn-sm btn-info uib-datepicker-current\" ng-click=\"select('today', $event)\" ng-disabled=\"isDisabled('today')\">{{ getText('current') }}</button>\n" +
-	    "        <button type=\"button\" class=\"btn btn-sm btn-danger uib-clear\" ng-click=\"select(null, $event)\">{{ getText('clear') }}</button>\n" +
-	    "      </span>\n" +
-	    "      <button type=\"button\" class=\"btn btn-sm btn-success pull-right uib-close\" ng-click=\"close($event)\">{{ getText('close') }}</button>\n" +
-	    "    </li>\n" +
-	    "  </ul>\n" +
-	    "</div>\n" +
-	    "");
-	}]);
-
 	angular.module("uib/template/modal/backdrop.html", []).run(["$templateCache", function($templateCache) {
 	  $templateCache.put("uib/template/modal/backdrop.html",
 	    "<div class=\"modal-backdrop\"\n" +
@@ -43535,6 +43142,15 @@
 
 	angular.module("uib/template/pager/pager.html", []).run(["$templateCache", function($templateCache) {
 	  $templateCache.put("uib/template/pager/pager.html",
+	    "<ul class=\"pager\">\n" +
+	    "  <li ng-class=\"{disabled: noPrevious()||ngDisabled, previous: align}\"><a href ng-click=\"selectPage(page - 1, $event)\">{{::getText('previous')}}</a></li>\n" +
+	    "  <li ng-class=\"{disabled: noNext()||ngDisabled, next: align}\"><a href ng-click=\"selectPage(page + 1, $event)\">{{::getText('next')}}</a></li>\n" +
+	    "</ul>\n" +
+	    "");
+	}]);
+
+	angular.module("uib/template/pagination/pager.html", []).run(["$templateCache", function($templateCache) {
+	  $templateCache.put("uib/template/pagination/pager.html",
 	    "<ul class=\"pager\">\n" +
 	    "  <li ng-class=\"{disabled: noPrevious()||ngDisabled, previous: align}\"><a href ng-click=\"selectPage(page - 1, $event)\">{{::getText('previous')}}</a></li>\n" +
 	    "  <li ng-class=\"{disabled: noNext()||ngDisabled, next: align}\"><a href ng-click=\"selectPage(page + 1, $event)\">{{::getText('next')}}</a></li>\n" +
@@ -43601,7 +43217,7 @@
 	    "  <div class=\"arrow\"></div>\n" +
 	    "\n" +
 	    "  <div class=\"popover-inner\">\n" +
-	    "      <h3 class=\"popover-title\" ng-bind=\"uibTitle\" ng-if=\"uibTitle\"></h3>\n" +
+	    "      <h3 class=\"popover-title\" ng-bind=\"title\" ng-if=\"title\"></h3>\n" +
 	    "      <div class=\"popover-content\" ng-bind-html=\"contentExp()\"></div>\n" +
 	    "  </div>\n" +
 	    "</div>\n" +
@@ -43617,7 +43233,7 @@
 	    "  <div class=\"arrow\"></div>\n" +
 	    "\n" +
 	    "  <div class=\"popover-inner\">\n" +
-	    "      <h3 class=\"popover-title\" ng-bind=\"uibTitle\" ng-if=\"uibTitle\"></h3>\n" +
+	    "      <h3 class=\"popover-title\" ng-bind=\"title\" ng-if=\"title\"></h3>\n" +
 	    "      <div class=\"popover-content\"\n" +
 	    "        uib-tooltip-template-transclude=\"contentExp()\"\n" +
 	    "        tooltip-template-transclude-scope=\"originScope()\"></div>\n" +
@@ -43635,7 +43251,7 @@
 	    "  <div class=\"arrow\"></div>\n" +
 	    "\n" +
 	    "  <div class=\"popover-inner\">\n" +
-	    "      <h3 class=\"popover-title\" ng-bind=\"uibTitle\" ng-if=\"uibTitle\"></h3>\n" +
+	    "      <h3 class=\"popover-title\" ng-bind=\"title\" ng-if=\"title\"></h3>\n" +
 	    "      <div class=\"popover-content\" ng-bind=\"content\"></div>\n" +
 	    "  </div>\n" +
 	    "</div>\n" +
@@ -43663,9 +43279,9 @@
 
 	angular.module("uib/template/rating/rating.html", []).run(["$templateCache", function($templateCache) {
 	  $templateCache.put("uib/template/rating/rating.html",
-	    "<span ng-mouseleave=\"reset()\" ng-keydown=\"onKeydown($event)\" tabindex=\"0\" role=\"slider\" aria-valuemin=\"0\" aria-valuemax=\"{{range.length}}\" aria-valuenow=\"{{value}}\" aria-valuetext=\"{{title}}\">\n" +
+	    "<span ng-mouseleave=\"reset()\" ng-keydown=\"onKeydown($event)\" tabindex=\"0\" role=\"slider\" aria-valuemin=\"0\" aria-valuemax=\"{{range.length}}\" aria-valuenow=\"{{value}}\">\n" +
 	    "    <span ng-repeat-start=\"r in range track by $index\" class=\"sr-only\">({{ $index < value ? '*' : ' ' }})</span>\n" +
-	    "    <i ng-repeat-end ng-mouseenter=\"enter($index + 1)\" ng-click=\"rate($index + 1)\" class=\"glyphicon\" ng-class=\"$index < value && (r.stateOn || 'glyphicon-star') || (r.stateOff || 'glyphicon-star-empty')\" ng-attr-title=\"{{r.title}}\"></i>\n" +
+	    "    <i ng-repeat-end ng-mouseenter=\"enter($index + 1)\" ng-click=\"rate($index + 1)\" class=\"glyphicon\" ng-class=\"$index < value && (r.stateOn || 'glyphicon-star') || (r.stateOff || 'glyphicon-star-empty')\" ng-attr-title=\"{{r.title}}\" aria-valuetext=\"{{r.title}}\"></i>\n" +
 	    "</span>\n" +
 	    "");
 	}]);
@@ -43673,7 +43289,7 @@
 	angular.module("uib/template/tabs/tab.html", []).run(["$templateCache", function($templateCache) {
 	  $templateCache.put("uib/template/tabs/tab.html",
 	    "<li ng-class=\"[{active: active, disabled: disabled}, classes]\" class=\"uib-tab nav-item\">\n" +
-	    "  <a href ng-click=\"select($event)\" class=\"nav-link\" uib-tab-heading-transclude>{{heading}}</a>\n" +
+	    "  <a href ng-click=\"select()\" class=\"nav-link\" uib-tab-heading-transclude>{{heading}}</a>\n" +
 	    "</li>\n" +
 	    "");
 	}]);
@@ -43707,15 +43323,15 @@
 	    "    </tr>\n" +
 	    "    <tr>\n" +
 	    "      <td class=\"form-group uib-time hours\" ng-class=\"{'has-error': invalidHours}\">\n" +
-	    "        <input type=\"text\" placeholder=\"HH\" ng-model=\"hours\" ng-change=\"updateHours()\" class=\"form-control text-center\" ng-readonly=\"::readonlyInput\" maxlength=\"2\" tabindex=\"{{::tabindex}}\" ng-disabled=\"noIncrementHours()\" ng-blur=\"blur()\">\n" +
+	    "        <input style=\"width:50px;\" type=\"text\" placeholder=\"HH\" ng-model=\"hours\" ng-change=\"updateHours()\" class=\"form-control text-center\" ng-readonly=\"::readonlyInput\" maxlength=\"2\" tabindex=\"{{::tabindex}}\" ng-disabled=\"noIncrementHours()\" ng-blur=\"blur()\">\n" +
 	    "      </td>\n" +
 	    "      <td class=\"uib-separator\">:</td>\n" +
 	    "      <td class=\"form-group uib-time minutes\" ng-class=\"{'has-error': invalidMinutes}\">\n" +
-	    "        <input type=\"text\" placeholder=\"MM\" ng-model=\"minutes\" ng-change=\"updateMinutes()\" class=\"form-control text-center\" ng-readonly=\"::readonlyInput\" maxlength=\"2\" tabindex=\"{{::tabindex}}\" ng-disabled=\"noIncrementMinutes()\" ng-blur=\"blur()\">\n" +
+	    "        <input style=\"width:50px;\" type=\"text\" placeholder=\"MM\" ng-model=\"minutes\" ng-change=\"updateMinutes()\" class=\"form-control text-center\" ng-readonly=\"::readonlyInput\" maxlength=\"2\" tabindex=\"{{::tabindex}}\" ng-disabled=\"noIncrementMinutes()\" ng-blur=\"blur()\">\n" +
 	    "      </td>\n" +
 	    "      <td ng-show=\"showSeconds\" class=\"uib-separator\">:</td>\n" +
 	    "      <td class=\"form-group uib-time seconds\" ng-class=\"{'has-error': invalidSeconds}\" ng-show=\"showSeconds\">\n" +
-	    "        <input type=\"text\" placeholder=\"SS\" ng-model=\"seconds\" ng-change=\"updateSeconds()\" class=\"form-control text-center\" ng-readonly=\"readonlyInput\" maxlength=\"2\" tabindex=\"{{::tabindex}}\" ng-disabled=\"noIncrementSeconds()\" ng-blur=\"blur()\">\n" +
+	    "        <input style=\"width:50px;\" type=\"text\" placeholder=\"SS\" ng-model=\"seconds\" ng-change=\"updateSeconds()\" class=\"form-control text-center\" ng-readonly=\"readonlyInput\" maxlength=\"2\" tabindex=\"{{::tabindex}}\" ng-disabled=\"noIncrementSeconds()\" ng-blur=\"blur()\">\n" +
 	    "      </td>\n" +
 	    "      <td ng-show=\"showMeridian\" class=\"uib-time am-pm\"><button type=\"button\" ng-class=\"{disabled: noToggleMeridian()}\" class=\"btn btn-default text-center\" ng-click=\"toggleMeridian()\" ng-disabled=\"noToggleMeridian()\" tabindex=\"{{::tabindex}}\">{{meridian}}</button></td>\n" +
 	    "    </tr>\n" +
@@ -43750,13 +43366,12 @@
 	    "</ul>\n" +
 	    "");
 	}]);
-	angular.module('ui.bootstrap.carousel').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibCarouselCss && angular.element(document).find('head').prepend('<style type="text/css">.ng-animate.item:not(.left):not(.right){-webkit-transition:0s ease-in-out left;transition:0s ease-in-out left}</style>'); angular.$$uibCarouselCss = true; });
-	angular.module('ui.bootstrap.datepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibDatepickerCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-datepicker .uib-title{width:100%;}.uib-day button,.uib-month button,.uib-year button{min-width:100%;}.uib-left,.uib-right{width:100%}</style>'); angular.$$uibDatepickerCss = true; });
-	angular.module('ui.bootstrap.position').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibPositionCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-position-measure{display:block !important;visibility:hidden !important;position:absolute !important;top:-9999px !important;left:-9999px !important;}.uib-position-scrollbar-measure{position:absolute !important;top:-9999px !important;width:50px !important;height:50px !important;overflow:scroll !important;}.uib-position-body-scrollbar-measure{overflow:scroll !important;}</style>'); angular.$$uibPositionCss = true; });
-	angular.module('ui.bootstrap.datepickerPopup').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibDatepickerpopupCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-datepicker-popup.dropdown-menu{display:block;float:none;margin:0;}.uib-button-bar{padding:10px 9px 2px;}</style>'); angular.$$uibDatepickerpopupCss = true; });
-	angular.module('ui.bootstrap.tooltip').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTooltipCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-html-popup].tooltip.right-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-template-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow,[uib-popover-html-popup].popover.top-left > .arrow,[uib-popover-html-popup].popover.top-right > .arrow,[uib-popover-html-popup].popover.bottom-left > .arrow,[uib-popover-html-popup].popover.bottom-right > .arrow,[uib-popover-html-popup].popover.left-top > .arrow,[uib-popover-html-popup].popover.left-bottom > .arrow,[uib-popover-html-popup].popover.right-top > .arrow,[uib-popover-html-popup].popover.right-bottom > .arrow,[uib-popover-template-popup].popover.top-left > .arrow,[uib-popover-template-popup].popover.top-right > .arrow,[uib-popover-template-popup].popover.bottom-left > .arrow,[uib-popover-template-popup].popover.bottom-right > .arrow,[uib-popover-template-popup].popover.left-top > .arrow,[uib-popover-template-popup].popover.left-bottom > .arrow,[uib-popover-template-popup].popover.right-top > .arrow,[uib-popover-template-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-html-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style>'); angular.$$uibTooltipCss = true; });
-	angular.module('ui.bootstrap.timepicker').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTimepickerCss && angular.element(document).find('head').prepend('<style type="text/css">.uib-time input{width:50px;}</style>'); angular.$$uibTimepickerCss = true; });
-	angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
+	angular.module('ui.bootstrap.carousel').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.ng-animate.item:not(.left):not(.right){-webkit-transition:0s ease-in-out left;transition:0s ease-in-out left}</style>'); });
+	angular.module('ui.bootstrap.position').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.uib-position-measure{display:block !important;visibility:hidden !important;position:absolute !important;top:-9999px !important;left:-9999px !important;}.uib-position-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll;}</style>'); });
+	angular.module('ui.bootstrap.datepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.uib-datepicker .uib-title{width:100%;}.uib-day button,.uib-month button,.uib-year button{min-width:100%;}.uib-datepicker-popup.dropdown-menu{display:block;float:none;margin:0;}.uib-button-bar{padding:10px 9px 2px;}.uib-left,.uib-right{width:100%}</style>'); });
+	angular.module('ui.bootstrap.tooltip').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">[uib-tooltip-popup].tooltip.top-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.top-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow,[uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-top > .tooltip-arrow,[uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow,[uib-popover-popup].popover.top-left > .arrow,[uib-popover-popup].popover.top-right > .arrow,[uib-popover-popup].popover.bottom-left > .arrow,[uib-popover-popup].popover.bottom-right > .arrow,[uib-popover-popup].popover.left-top > .arrow,[uib-popover-popup].popover.left-bottom > .arrow,[uib-popover-popup].popover.right-top > .arrow,[uib-popover-popup].popover.right-bottom > .arrow{top:auto;bottom:auto;left:auto;right:auto;margin:0;}[uib-popover-popup].popover,[uib-popover-template-popup].popover{display:block !important;}</style>'); });
+	angular.module('ui.bootstrap.timepicker').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">.uib-time input{width:50px;}</style>'); });
+	angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); });
 
 /***/ },
 /* 9 */
@@ -54491,6 +54106,7 @@
 	function applyToTag(styleElement, obj) {
 		var css = obj.css;
 		var media = obj.media;
+		var sourceMap = obj.sourceMap;
 
 		if(media) {
 			styleElement.setAttribute("media", media)
@@ -54508,6 +54124,7 @@
 
 	function updateLink(linkElement, obj) {
 		var css = obj.css;
+		var media = obj.media;
 		var sourceMap = obj.sourceMap;
 
 		if(sourceMap) {
@@ -54530,10 +54147,3808 @@
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
+	!function(t){"use strict"; true?module.exports=t("undefined"!=typeof angular?angular:__webpack_require__(2),"undefined"!=typeof Chart?Chart:__webpack_require__(23)):"function"==typeof define&&define.amd?define(["angular","chart"],t):t(angular,Chart)}(function(t,e){"use strict";function n(){var n={},r={Chart:e,getOptions:function(e){var r=e&&n[e]||{};return t.extend({},n,r)}};this.setOptions=function(e,r){return r?void(n[e]=t.extend(n[e]||{},r)):(r=e,void(n=t.extend(n,r)))},this.$get=function(){return r}}function r(n,r){function o(t,e){return t&&e&&t.length&&e.length?Array.isArray(t[0])?t.length===e.length&&t.every(function(t,n){return t.length===e[n].length}):e.reduce(i,0)>0?t.length===e.length:!1:!1}function i(t,e){return t+e}function c(e,n,r,a){var o=null;return function(i){var c=n.getPointsAtEvent||n.getBarsAtEvent||n.getSegmentsAtEvent;if(c){var l=c.call(n,i);a!==!1&&t.equals(o,l)!==!1||(o=l,e[r](l,i),e.$apply())}}}function l(r,a){for(var o=!1,i=t.copy(a.colours||n.getOptions(r).colours||e.defaults.global.colours);i.length<a.data.length;)i.push(a.getColour()),o=!0;return o&&(a.colours=i),i.map(u)}function u(t){return"object"==typeof t&&null!==t?t:"string"==typeof t&&"#"===t[0]?f(g(t.substr(1))):s()}function s(){var t=[h(0,255),h(0,255),h(0,255)];return f(t)}function f(t){return{fillColor:d(t,.2),strokeColor:d(t,1),pointColor:d(t,1),pointStrokeColor:"#fff",pointHighlightFill:"#fff",pointHighlightStroke:d(t,.8)}}function h(t,e){return Math.floor(Math.random()*(e-t+1))+t}function d(t,e){return a?"rgb("+t.join(",")+")":"rgba("+t.concat(e).join(",")+")"}function g(t){var e=parseInt(t,16),n=e>>16&255,r=e>>8&255,a=255&e;return[n,r,a]}function p(e,n,r,a){return{labels:e,datasets:n.map(function(e,n){return t.extend({},a[n],{label:r[n],data:e})})}}function v(e,n,r){return e.map(function(e,a){return t.extend({},r[a],{label:e,value:n[a],color:r[a].strokeColor,highlight:r[a].pointHighlightStroke})})}function y(t,e){var n=t.parent(),r=n.find("chart-legend"),a="<chart-legend>"+e.generateLegend()+"</chart-legend>";r.length?r.replaceWith(a):n.append(a)}function C(t,e,n,r){Array.isArray(n.data[0])?t.datasets.forEach(function(t,n){(t.points||t.bars).forEach(function(t,r){t.value=e[n][r]})}):t.segments.forEach(function(t,n){t.value=e[n]}),t.update(),n.$emit("update",t),n.legend&&"false"!==n.legend&&y(r,t)}function b(t){return!t||Array.isArray(t)&&!t.length||"object"==typeof t&&!Object.keys(t).length}function m(r,a){var o=t.extend({},e.defaults.global,n.getOptions(r),a.options);return o.responsive}function w(t,e){t&&(t.destroy(),e.$emit("destroy",t))}return function(e){return{restrict:"CA",scope:{data:"=?",labels:"=?",options:"=?",series:"=?",colours:"=?",getColour:"=?",chartType:"=",legend:"@",click:"=?",hover:"=?",chartData:"=?",chartLabels:"=?",chartOptions:"=?",chartSeries:"=?",chartColours:"=?",chartLegend:"@",chartClick:"=?",chartHover:"=?"},link:function(i,u){function f(t,e){i.$watch(t,function(t){"undefined"!=typeof t&&(i[e]=t)})}function h(n,r){if(!b(n)&&!t.equals(n,r)){var a=e||i.chartType;a&&d(a)}}function d(e){if(m(e,i)&&0===u[0].clientHeight&&0===k.clientHeight)return r(function(){d(e)},50,!1);if(i.data&&i.data.length){i.getColour="function"==typeof i.getColour?i.getColour:s;var a=l(e,i),o=u[0],f=o.getContext("2d"),h=Array.isArray(i.data[0])?p(i.labels,i.data,i.series||[],a):v(i.labels,i.data,a),g=t.extend({},n.getOptions(e),i.options);w(A,i),A=new n.Chart(f)[e](h,g),i.$emit("create",A),o.onclick=i.click?c(i,A,"click",!1):t.noop,o.onmousemove=i.hover?c(i,A,"hover",!0):t.noop,i.legend&&"false"!==i.legend&&y(u,A)}}function g(t){if("undefined"!=typeof console&&"test"!==n.getOptions().env){var e="function"==typeof console.warn?console.warn:console.log;i[t]&&e.call(console,'"%s" is deprecated and will be removed in a future version. Please use "chart-%s" instead.',t,t)}}var A,k=document.createElement("div");k.className="chart-container",u.replaceWith(k),k.appendChild(u[0]),a&&window.G_vmlCanvasManager.initElement(u[0]),["data","labels","options","series","colours","legend","click","hover"].forEach(g),f("chartData","data"),f("chartLabels","labels"),f("chartOptions","options"),f("chartSeries","series"),f("chartColours","colours"),f("chartLegend","legend"),f("chartClick","click"),f("chartHover","hover"),i.$watch("data",function(t,n){if(!t||!t.length||Array.isArray(t[0])&&!t[0].length)return void w(A,i);var r=e||i.chartType;if(r)return A&&o(t,n)?C(A,t,i,u):void d(r)},!0),i.$watch("series",h,!0),i.$watch("labels",h,!0),i.$watch("options",h,!0),i.$watch("colours",h,!0),i.$watch("chartType",function(e,n){b(e)||t.equals(e,n)||d(e)}),i.$on("$destroy",function(){w(A,i)})}}}}e.defaults.global.responsive=!0,e.defaults.global.multiTooltipTemplate="<%if (datasetLabel){%><%=datasetLabel%>: <%}%><%= value %>",e.defaults.global.colours=["#97BBCD","#DCDCDC","#F7464A","#46BFBD","#FDB45C","#949FB1","#4D5360"];var a="object"==typeof window.G_vmlCanvasManager&&null!==window.G_vmlCanvasManager&&"function"==typeof window.G_vmlCanvasManager.initElement;return a&&(e.defaults.global.animation=!1),t.module("chart.js",[]).provider("ChartJs",n).factory("ChartJsFactory",["ChartJs","$timeout",r]).directive("chartBase",["ChartJsFactory",function(t){return new t}]).directive("chartLine",["ChartJsFactory",function(t){return new t("Line")}]).directive("chartBar",["ChartJsFactory",function(t){return new t("Bar")}]).directive("chartRadar",["ChartJsFactory",function(t){return new t("Radar")}]).directive("chartDoughnut",["ChartJsFactory",function(t){return new t("Doughnut")}]).directive("chartPie",["ChartJsFactory",function(t){return new t("Pie")}]).directive("chartPolarArea",["ChartJsFactory",function(t){return new t("PolarArea")}])});
+	//# sourceMappingURL=angular-chart.min.js.map
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	 * Chart.js
+	 * http://chartjs.org/
+	 * Version: 1.1.1
+	 *
+	 * Copyright 2015 Nick Downie
+	 * Released under the MIT license
+	 * https://github.com/nnnick/Chart.js/blob/master/LICENSE.md
+	 */
+
+
+	(function(){
+
+		"use strict";
+
+		//Declare root variable - window in the browser, global on the server
+		var root = this,
+			previous = root.Chart;
+
+		//Occupy the global variable of Chart, and create a simple base class
+		var Chart = function(context){
+			var chart = this;
+			this.canvas = context.canvas;
+
+			this.ctx = context;
+
+			//Variables global to the chart
+			var computeDimension = function(element,dimension)
+			{
+				if (element['offset'+dimension])
+				{
+					return element['offset'+dimension];
+				}
+				else
+				{
+					return document.defaultView.getComputedStyle(element).getPropertyValue(dimension);
+				}
+			};
+
+			var width = this.width = computeDimension(context.canvas,'Width') || context.canvas.width;
+			var height = this.height = computeDimension(context.canvas,'Height') || context.canvas.height;
+
+			this.aspectRatio = this.width / this.height;
+			//High pixel density displays - multiply the size of the canvas height/width by the device pixel ratio, then scale.
+			helpers.retinaScale(this);
+
+			return this;
+		};
+		//Globally expose the defaults to allow for user updating/changing
+		Chart.defaults = {
+			global: {
+				// Boolean - Whether to animate the chart
+				animation: true,
+
+				// Number - Number of animation steps
+				animationSteps: 60,
+
+				// String - Animation easing effect
+				animationEasing: "easeOutQuart",
+
+				// Boolean - If we should show the scale at all
+				showScale: true,
+
+				// Boolean - If we want to override with a hard coded scale
+				scaleOverride: false,
+
+				// ** Required if scaleOverride is true **
+				// Number - The number of steps in a hard coded scale
+				scaleSteps: null,
+				// Number - The value jump in the hard coded scale
+				scaleStepWidth: null,
+				// Number - The scale starting value
+				scaleStartValue: null,
+
+				// String - Colour of the scale line
+				scaleLineColor: "rgba(0,0,0,.1)",
+
+				// Number - Pixel width of the scale line
+				scaleLineWidth: 1,
+
+				// Boolean - Whether to show labels on the scale
+				scaleShowLabels: true,
+
+				// Interpolated JS string - can access value
+				scaleLabel: "<%=value%>",
+
+				// Boolean - Whether the scale should stick to integers, and not show any floats even if drawing space is there
+				scaleIntegersOnly: true,
+
+				// Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+				scaleBeginAtZero: false,
+
+				// String - Scale label font declaration for the scale label
+				scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+				// Number - Scale label font size in pixels
+				scaleFontSize: 12,
+
+				// String - Scale label font weight style
+				scaleFontStyle: "normal",
+
+				// String - Scale label font colour
+				scaleFontColor: "#666",
+
+				// Boolean - whether or not the chart should be responsive and resize when the browser does.
+				responsive: false,
+
+				// Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+				maintainAspectRatio: true,
+
+				// Boolean - Determines whether to draw tooltips on the canvas or not - attaches events to touchmove & mousemove
+				showTooltips: true,
+
+				// Boolean - Determines whether to draw built-in tooltip or call custom tooltip function
+				customTooltips: false,
+
+				// Array - Array of string names to attach tooltip events
+				tooltipEvents: ["mousemove", "touchstart", "touchmove", "mouseout"],
+
+				// String - Tooltip background colour
+				tooltipFillColor: "rgba(0,0,0,0.8)",
+
+				// String - Tooltip label font declaration for the scale label
+				tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+				// Number - Tooltip label font size in pixels
+				tooltipFontSize: 14,
+
+				// String - Tooltip font weight style
+				tooltipFontStyle: "normal",
+
+				// String - Tooltip label font colour
+				tooltipFontColor: "#fff",
+
+				// String - Tooltip title font declaration for the scale label
+				tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+				// Number - Tooltip title font size in pixels
+				tooltipTitleFontSize: 14,
+
+				// String - Tooltip title font weight style
+				tooltipTitleFontStyle: "bold",
+
+				// String - Tooltip title font colour
+				tooltipTitleFontColor: "#fff",
+
+				// String - Tooltip title template
+				tooltipTitleTemplate: "<%= label%>",
+
+				// Number - pixel width of padding around tooltip text
+				tooltipYPadding: 6,
+
+				// Number - pixel width of padding around tooltip text
+				tooltipXPadding: 6,
+
+				// Number - Size of the caret on the tooltip
+				tooltipCaretSize: 8,
+
+				// Number - Pixel radius of the tooltip border
+				tooltipCornerRadius: 6,
+
+				// Number - Pixel offset from point x to tooltip edge
+				tooltipXOffset: 10,
+
+				// String - Template string for single tooltips
+				tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+
+				// String - Template string for single tooltips
+				multiTooltipTemplate: "<%= datasetLabel %>: <%= value %>",
+
+				// String - Colour behind the legend colour block
+				multiTooltipKeyBackground: '#fff',
+
+				// Array - A list of colors to use as the defaults
+				segmentColorDefault: ["#A6CEE3", "#1F78B4", "#B2DF8A", "#33A02C", "#FB9A99", "#E31A1C", "#FDBF6F", "#FF7F00", "#CAB2D6", "#6A3D9A", "#B4B482", "#B15928" ],
+
+				// Array - A list of highlight colors to use as the defaults
+				segmentHighlightColorDefaults: [ "#CEF6FF", "#47A0DC", "#DAFFB2", "#5BC854", "#FFC2C1", "#FF4244", "#FFE797", "#FFA728", "#F2DAFE", "#9265C2", "#DCDCAA", "#D98150" ],
+
+				// Function - Will fire on animation progression.
+				onAnimationProgress: function(){},
+
+				// Function - Will fire on animation completion.
+				onAnimationComplete: function(){}
+
+			}
+		};
+
+		//Create a dictionary of chart types, to allow for extension of existing types
+		Chart.types = {};
+
+		//Global Chart helpers object for utility methods and classes
+		var helpers = Chart.helpers = {};
+
+			//-- Basic js utility methods
+		var each = helpers.each = function(loopable,callback,self){
+				var additionalArgs = Array.prototype.slice.call(arguments, 3);
+				// Check to see if null or undefined firstly.
+				if (loopable){
+					if (loopable.length === +loopable.length){
+						var i;
+						for (i=0; i<loopable.length; i++){
+							callback.apply(self,[loopable[i], i].concat(additionalArgs));
+						}
+					}
+					else{
+						for (var item in loopable){
+							callback.apply(self,[loopable[item],item].concat(additionalArgs));
+						}
+					}
+				}
+			},
+			clone = helpers.clone = function(obj){
+				var objClone = {};
+				each(obj,function(value,key){
+					if (obj.hasOwnProperty(key)){
+						objClone[key] = value;
+					}
+				});
+				return objClone;
+			},
+			extend = helpers.extend = function(base){
+				each(Array.prototype.slice.call(arguments,1), function(extensionObject) {
+					each(extensionObject,function(value,key){
+						if (extensionObject.hasOwnProperty(key)){
+							base[key] = value;
+						}
+					});
+				});
+				return base;
+			},
+			merge = helpers.merge = function(base,master){
+				//Merge properties in left object over to a shallow clone of object right.
+				var args = Array.prototype.slice.call(arguments,0);
+				args.unshift({});
+				return extend.apply(null, args);
+			},
+			indexOf = helpers.indexOf = function(arrayToSearch, item){
+				if (Array.prototype.indexOf) {
+					return arrayToSearch.indexOf(item);
+				}
+				else{
+					for (var i = 0; i < arrayToSearch.length; i++) {
+						if (arrayToSearch[i] === item) return i;
+					}
+					return -1;
+				}
+			},
+			where = helpers.where = function(collection, filterCallback){
+				var filtered = [];
+
+				helpers.each(collection, function(item){
+					if (filterCallback(item)){
+						filtered.push(item);
+					}
+				});
+
+				return filtered;
+			},
+			findNextWhere = helpers.findNextWhere = function(arrayToSearch, filterCallback, startIndex){
+				// Default to start of the array
+				if (!startIndex){
+					startIndex = -1;
+				}
+				for (var i = startIndex + 1; i < arrayToSearch.length; i++) {
+					var currentItem = arrayToSearch[i];
+					if (filterCallback(currentItem)){
+						return currentItem;
+					}
+				}
+			},
+			findPreviousWhere = helpers.findPreviousWhere = function(arrayToSearch, filterCallback, startIndex){
+				// Default to end of the array
+				if (!startIndex){
+					startIndex = arrayToSearch.length;
+				}
+				for (var i = startIndex - 1; i >= 0; i--) {
+					var currentItem = arrayToSearch[i];
+					if (filterCallback(currentItem)){
+						return currentItem;
+					}
+				}
+			},
+			inherits = helpers.inherits = function(extensions){
+				//Basic javascript inheritance based on the model created in Backbone.js
+				var parent = this;
+				var ChartElement = (extensions && extensions.hasOwnProperty("constructor")) ? extensions.constructor : function(){ return parent.apply(this, arguments); };
+
+				var Surrogate = function(){ this.constructor = ChartElement;};
+				Surrogate.prototype = parent.prototype;
+				ChartElement.prototype = new Surrogate();
+
+				ChartElement.extend = inherits;
+
+				if (extensions) extend(ChartElement.prototype, extensions);
+
+				ChartElement.__super__ = parent.prototype;
+
+				return ChartElement;
+			},
+			noop = helpers.noop = function(){},
+			uid = helpers.uid = (function(){
+				var id=0;
+				return function(){
+					return "chart-" + id++;
+				};
+			})(),
+			warn = helpers.warn = function(str){
+				//Method for warning of errors
+				if (window.console && typeof window.console.warn === "function") console.warn(str);
+			},
+			amd = helpers.amd = ("function" === 'function' && __webpack_require__(24)),
+			//-- Math methods
+			isNumber = helpers.isNumber = function(n){
+				return !isNaN(parseFloat(n)) && isFinite(n);
+			},
+			max = helpers.max = function(array){
+				return Math.max.apply( Math, array );
+			},
+			min = helpers.min = function(array){
+				return Math.min.apply( Math, array );
+			},
+			cap = helpers.cap = function(valueToCap,maxValue,minValue){
+				if(isNumber(maxValue)) {
+					if( valueToCap > maxValue ) {
+						return maxValue;
+					}
+				}
+				else if(isNumber(minValue)){
+					if ( valueToCap < minValue ){
+						return minValue;
+					}
+				}
+				return valueToCap;
+			},
+			getDecimalPlaces = helpers.getDecimalPlaces = function(num){
+				if (num%1!==0 && isNumber(num)){
+					var s = num.toString();
+					if(s.indexOf("e-") < 0){
+						// no exponent, e.g. 0.01
+						return s.split(".")[1].length;
+					}
+					else if(s.indexOf(".") < 0) {
+						// no decimal point, e.g. 1e-9
+						return parseInt(s.split("e-")[1]);
+					}
+					else {
+						// exponent and decimal point, e.g. 1.23e-9
+						var parts = s.split(".")[1].split("e-");
+						return parts[0].length + parseInt(parts[1]);
+					}
+				}
+				else {
+					return 0;
+				}
+			},
+			toRadians = helpers.radians = function(degrees){
+				return degrees * (Math.PI/180);
+			},
+			// Gets the angle from vertical upright to the point about a centre.
+			getAngleFromPoint = helpers.getAngleFromPoint = function(centrePoint, anglePoint){
+				var distanceFromXCenter = anglePoint.x - centrePoint.x,
+					distanceFromYCenter = anglePoint.y - centrePoint.y,
+					radialDistanceFromCenter = Math.sqrt( distanceFromXCenter * distanceFromXCenter + distanceFromYCenter * distanceFromYCenter);
+
+
+				var angle = Math.PI * 2 + Math.atan2(distanceFromYCenter, distanceFromXCenter);
+
+				//If the segment is in the top left quadrant, we need to add another rotation to the angle
+				if (distanceFromXCenter < 0 && distanceFromYCenter < 0){
+					angle += Math.PI*2;
+				}
+
+				return {
+					angle: angle,
+					distance: radialDistanceFromCenter
+				};
+			},
+			aliasPixel = helpers.aliasPixel = function(pixelWidth){
+				return (pixelWidth % 2 === 0) ? 0 : 0.5;
+			},
+			splineCurve = helpers.splineCurve = function(FirstPoint,MiddlePoint,AfterPoint,t){
+				//Props to Rob Spencer at scaled innovation for his post on splining between points
+				//http://scaledinnovation.com/analytics/splines/aboutSplines.html
+				var d01=Math.sqrt(Math.pow(MiddlePoint.x-FirstPoint.x,2)+Math.pow(MiddlePoint.y-FirstPoint.y,2)),
+					d12=Math.sqrt(Math.pow(AfterPoint.x-MiddlePoint.x,2)+Math.pow(AfterPoint.y-MiddlePoint.y,2)),
+					fa=t*d01/(d01+d12),// scaling factor for triangle Ta
+					fb=t*d12/(d01+d12);
+				return {
+					inner : {
+						x : MiddlePoint.x-fa*(AfterPoint.x-FirstPoint.x),
+						y : MiddlePoint.y-fa*(AfterPoint.y-FirstPoint.y)
+					},
+					outer : {
+						x: MiddlePoint.x+fb*(AfterPoint.x-FirstPoint.x),
+						y : MiddlePoint.y+fb*(AfterPoint.y-FirstPoint.y)
+					}
+				};
+			},
+			calculateOrderOfMagnitude = helpers.calculateOrderOfMagnitude = function(val){
+				return Math.floor(Math.log(val) / Math.LN10);
+			},
+			calculateScaleRange = helpers.calculateScaleRange = function(valuesArray, drawingSize, textSize, startFromZero, integersOnly){
+
+				//Set a minimum step of two - a point at the top of the graph, and a point at the base
+				var minSteps = 2,
+					maxSteps = Math.floor(drawingSize/(textSize * 1.5)),
+					skipFitting = (minSteps >= maxSteps);
+
+				// Filter out null values since these would min() to zero
+				var values = [];
+				each(valuesArray, function( v ){
+					v == null || values.push( v );
+				});
+				var minValue = min(values),
+				    maxValue = max(values);
+
+				// We need some degree of separation here to calculate the scales if all the values are the same
+				// Adding/minusing 0.5 will give us a range of 1.
+				if (maxValue === minValue){
+					maxValue += 0.5;
+					// So we don't end up with a graph with a negative start value if we've said always start from zero
+					if (minValue >= 0.5 && !startFromZero){
+						minValue -= 0.5;
+					}
+					else{
+						// Make up a whole number above the values
+						maxValue += 0.5;
+					}
+				}
+
+				var	valueRange = Math.abs(maxValue - minValue),
+					rangeOrderOfMagnitude = calculateOrderOfMagnitude(valueRange),
+					graphMax = Math.ceil(maxValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude),
+					graphMin = (startFromZero) ? 0 : Math.floor(minValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude),
+					graphRange = graphMax - graphMin,
+					stepValue = Math.pow(10, rangeOrderOfMagnitude),
+					numberOfSteps = Math.round(graphRange / stepValue);
+
+				//If we have more space on the graph we'll use it to give more definition to the data
+				while((numberOfSteps > maxSteps || (numberOfSteps * 2) < maxSteps) && !skipFitting) {
+					if(numberOfSteps > maxSteps){
+						stepValue *=2;
+						numberOfSteps = Math.round(graphRange/stepValue);
+						// Don't ever deal with a decimal number of steps - cancel fitting and just use the minimum number of steps.
+						if (numberOfSteps % 1 !== 0){
+							skipFitting = true;
+						}
+					}
+					//We can fit in double the amount of scale points on the scale
+					else{
+						//If user has declared ints only, and the step value isn't a decimal
+						if (integersOnly && rangeOrderOfMagnitude >= 0){
+							//If the user has said integers only, we need to check that making the scale more granular wouldn't make it a float
+							if(stepValue/2 % 1 === 0){
+								stepValue /=2;
+								numberOfSteps = Math.round(graphRange/stepValue);
+							}
+							//If it would make it a float break out of the loop
+							else{
+								break;
+							}
+						}
+						//If the scale doesn't have to be an int, make the scale more granular anyway.
+						else{
+							stepValue /=2;
+							numberOfSteps = Math.round(graphRange/stepValue);
+						}
+
+					}
+				}
+
+				if (skipFitting){
+					numberOfSteps = minSteps;
+					stepValue = graphRange / numberOfSteps;
+				}
+
+				return {
+					steps : numberOfSteps,
+					stepValue : stepValue,
+					min : graphMin,
+					max	: graphMin + (numberOfSteps * stepValue)
+				};
+
+			},
+			/* jshint ignore:start */
+			// Blows up jshint errors based on the new Function constructor
+			//Templating methods
+			//Javascript micro templating by John Resig - source at http://ejohn.org/blog/javascript-micro-templating/
+			template = helpers.template = function(templateString, valuesObject){
+
+				// If templateString is function rather than string-template - call the function for valuesObject
+
+				if(templateString instanceof Function){
+				 	return templateString(valuesObject);
+			 	}
+
+				var cache = {};
+				function tmpl(str, data){
+					// Figure out if we're getting a template, or if we need to
+					// load the template - and be sure to cache the result.
+					var fn = !/\W/.test(str) ?
+					cache[str] = cache[str] :
+
+					// Generate a reusable function that will serve as a template
+					// generator (and which will be cached).
+					new Function("obj",
+						"var p=[],print=function(){p.push.apply(p,arguments);};" +
+
+						// Introduce the data as local variables using with(){}
+						"with(obj){p.push('" +
+
+						// Convert the template into pure JavaScript
+						str
+							.replace(/[\r\t\n]/g, " ")
+							.split("<%").join("\t")
+							.replace(/((^|%>)[^\t]*)'/g, "$1\r")
+							.replace(/\t=(.*?)%>/g, "',$1,'")
+							.split("\t").join("');")
+							.split("%>").join("p.push('")
+							.split("\r").join("\\'") +
+						"');}return p.join('');"
+					);
+
+					// Provide some basic currying to the user
+					return data ? fn( data ) : fn;
+				}
+				return tmpl(templateString,valuesObject);
+			},
+			/* jshint ignore:end */
+			generateLabels = helpers.generateLabels = function(templateString,numberOfSteps,graphMin,stepValue){
+				var labelsArray = new Array(numberOfSteps);
+				if (templateString){
+					each(labelsArray,function(val,index){
+						labelsArray[index] = template(templateString,{value: (graphMin + (stepValue*(index+1)))});
+					});
+				}
+				return labelsArray;
+			},
+			//--Animation methods
+			//Easing functions adapted from Robert Penner's easing equations
+			//http://www.robertpenner.com/easing/
+			easingEffects = helpers.easingEffects = {
+				linear: function (t) {
+					return t;
+				},
+				easeInQuad: function (t) {
+					return t * t;
+				},
+				easeOutQuad: function (t) {
+					return -1 * t * (t - 2);
+				},
+				easeInOutQuad: function (t) {
+					if ((t /= 1 / 2) < 1){
+						return 1 / 2 * t * t;
+					}
+					return -1 / 2 * ((--t) * (t - 2) - 1);
+				},
+				easeInCubic: function (t) {
+					return t * t * t;
+				},
+				easeOutCubic: function (t) {
+					return 1 * ((t = t / 1 - 1) * t * t + 1);
+				},
+				easeInOutCubic: function (t) {
+					if ((t /= 1 / 2) < 1){
+						return 1 / 2 * t * t * t;
+					}
+					return 1 / 2 * ((t -= 2) * t * t + 2);
+				},
+				easeInQuart: function (t) {
+					return t * t * t * t;
+				},
+				easeOutQuart: function (t) {
+					return -1 * ((t = t / 1 - 1) * t * t * t - 1);
+				},
+				easeInOutQuart: function (t) {
+					if ((t /= 1 / 2) < 1){
+						return 1 / 2 * t * t * t * t;
+					}
+					return -1 / 2 * ((t -= 2) * t * t * t - 2);
+				},
+				easeInQuint: function (t) {
+					return 1 * (t /= 1) * t * t * t * t;
+				},
+				easeOutQuint: function (t) {
+					return 1 * ((t = t / 1 - 1) * t * t * t * t + 1);
+				},
+				easeInOutQuint: function (t) {
+					if ((t /= 1 / 2) < 1){
+						return 1 / 2 * t * t * t * t * t;
+					}
+					return 1 / 2 * ((t -= 2) * t * t * t * t + 2);
+				},
+				easeInSine: function (t) {
+					return -1 * Math.cos(t / 1 * (Math.PI / 2)) + 1;
+				},
+				easeOutSine: function (t) {
+					return 1 * Math.sin(t / 1 * (Math.PI / 2));
+				},
+				easeInOutSine: function (t) {
+					return -1 / 2 * (Math.cos(Math.PI * t / 1) - 1);
+				},
+				easeInExpo: function (t) {
+					return (t === 0) ? 1 : 1 * Math.pow(2, 10 * (t / 1 - 1));
+				},
+				easeOutExpo: function (t) {
+					return (t === 1) ? 1 : 1 * (-Math.pow(2, -10 * t / 1) + 1);
+				},
+				easeInOutExpo: function (t) {
+					if (t === 0){
+						return 0;
+					}
+					if (t === 1){
+						return 1;
+					}
+					if ((t /= 1 / 2) < 1){
+						return 1 / 2 * Math.pow(2, 10 * (t - 1));
+					}
+					return 1 / 2 * (-Math.pow(2, -10 * --t) + 2);
+				},
+				easeInCirc: function (t) {
+					if (t >= 1){
+						return t;
+					}
+					return -1 * (Math.sqrt(1 - (t /= 1) * t) - 1);
+				},
+				easeOutCirc: function (t) {
+					return 1 * Math.sqrt(1 - (t = t / 1 - 1) * t);
+				},
+				easeInOutCirc: function (t) {
+					if ((t /= 1 / 2) < 1){
+						return -1 / 2 * (Math.sqrt(1 - t * t) - 1);
+					}
+					return 1 / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1);
+				},
+				easeInElastic: function (t) {
+					var s = 1.70158;
+					var p = 0;
+					var a = 1;
+					if (t === 0){
+						return 0;
+					}
+					if ((t /= 1) == 1){
+						return 1;
+					}
+					if (!p){
+						p = 1 * 0.3;
+					}
+					if (a < Math.abs(1)) {
+						a = 1;
+						s = p / 4;
+					} else{
+						s = p / (2 * Math.PI) * Math.asin(1 / a);
+					}
+					return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * 1 - s) * (2 * Math.PI) / p));
+				},
+				easeOutElastic: function (t) {
+					var s = 1.70158;
+					var p = 0;
+					var a = 1;
+					if (t === 0){
+						return 0;
+					}
+					if ((t /= 1) == 1){
+						return 1;
+					}
+					if (!p){
+						p = 1 * 0.3;
+					}
+					if (a < Math.abs(1)) {
+						a = 1;
+						s = p / 4;
+					} else{
+						s = p / (2 * Math.PI) * Math.asin(1 / a);
+					}
+					return a * Math.pow(2, -10 * t) * Math.sin((t * 1 - s) * (2 * Math.PI) / p) + 1;
+				},
+				easeInOutElastic: function (t) {
+					var s = 1.70158;
+					var p = 0;
+					var a = 1;
+					if (t === 0){
+						return 0;
+					}
+					if ((t /= 1 / 2) == 2){
+						return 1;
+					}
+					if (!p){
+						p = 1 * (0.3 * 1.5);
+					}
+					if (a < Math.abs(1)) {
+						a = 1;
+						s = p / 4;
+					} else {
+						s = p / (2 * Math.PI) * Math.asin(1 / a);
+					}
+					if (t < 1){
+						return -0.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * 1 - s) * (2 * Math.PI) / p));}
+					return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * 1 - s) * (2 * Math.PI) / p) * 0.5 + 1;
+				},
+				easeInBack: function (t) {
+					var s = 1.70158;
+					return 1 * (t /= 1) * t * ((s + 1) * t - s);
+				},
+				easeOutBack: function (t) {
+					var s = 1.70158;
+					return 1 * ((t = t / 1 - 1) * t * ((s + 1) * t + s) + 1);
+				},
+				easeInOutBack: function (t) {
+					var s = 1.70158;
+					if ((t /= 1 / 2) < 1){
+						return 1 / 2 * (t * t * (((s *= (1.525)) + 1) * t - s));
+					}
+					return 1 / 2 * ((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2);
+				},
+				easeInBounce: function (t) {
+					return 1 - easingEffects.easeOutBounce(1 - t);
+				},
+				easeOutBounce: function (t) {
+					if ((t /= 1) < (1 / 2.75)) {
+						return 1 * (7.5625 * t * t);
+					} else if (t < (2 / 2.75)) {
+						return 1 * (7.5625 * (t -= (1.5 / 2.75)) * t + 0.75);
+					} else if (t < (2.5 / 2.75)) {
+						return 1 * (7.5625 * (t -= (2.25 / 2.75)) * t + 0.9375);
+					} else {
+						return 1 * (7.5625 * (t -= (2.625 / 2.75)) * t + 0.984375);
+					}
+				},
+				easeInOutBounce: function (t) {
+					if (t < 1 / 2){
+						return easingEffects.easeInBounce(t * 2) * 0.5;
+					}
+					return easingEffects.easeOutBounce(t * 2 - 1) * 0.5 + 1 * 0.5;
+				}
+			},
+			//Request animation polyfill - http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+			requestAnimFrame = helpers.requestAnimFrame = (function(){
+				return window.requestAnimationFrame ||
+					window.webkitRequestAnimationFrame ||
+					window.mozRequestAnimationFrame ||
+					window.oRequestAnimationFrame ||
+					window.msRequestAnimationFrame ||
+					function(callback) {
+						return window.setTimeout(callback, 1000 / 60);
+					};
+			})(),
+			cancelAnimFrame = helpers.cancelAnimFrame = (function(){
+				return window.cancelAnimationFrame ||
+					window.webkitCancelAnimationFrame ||
+					window.mozCancelAnimationFrame ||
+					window.oCancelAnimationFrame ||
+					window.msCancelAnimationFrame ||
+					function(callback) {
+						return window.clearTimeout(callback, 1000 / 60);
+					};
+			})(),
+			animationLoop = helpers.animationLoop = function(callback,totalSteps,easingString,onProgress,onComplete,chartInstance){
+
+				var currentStep = 0,
+					easingFunction = easingEffects[easingString] || easingEffects.linear;
+
+				var animationFrame = function(){
+					currentStep++;
+					var stepDecimal = currentStep/totalSteps;
+					var easeDecimal = easingFunction(stepDecimal);
+
+					callback.call(chartInstance,easeDecimal,stepDecimal, currentStep);
+					onProgress.call(chartInstance,easeDecimal,stepDecimal);
+					if (currentStep < totalSteps){
+						chartInstance.animationFrame = requestAnimFrame(animationFrame);
+					} else{
+						onComplete.apply(chartInstance);
+					}
+				};
+				requestAnimFrame(animationFrame);
+			},
+			//-- DOM methods
+			getRelativePosition = helpers.getRelativePosition = function(evt){
+				var mouseX, mouseY;
+				var e = evt.originalEvent || evt,
+					canvas = evt.currentTarget || evt.srcElement,
+					boundingRect = canvas.getBoundingClientRect();
+
+				if (e.touches){
+					mouseX = e.touches[0].clientX - boundingRect.left;
+					mouseY = e.touches[0].clientY - boundingRect.top;
+
+				}
+				else{
+					mouseX = e.clientX - boundingRect.left;
+					mouseY = e.clientY - boundingRect.top;
+				}
+
+				return {
+					x : mouseX,
+					y : mouseY
+				};
+
+			},
+			addEvent = helpers.addEvent = function(node,eventType,method){
+				if (node.addEventListener){
+					node.addEventListener(eventType,method);
+				} else if (node.attachEvent){
+					node.attachEvent("on"+eventType, method);
+				} else {
+					node["on"+eventType] = method;
+				}
+			},
+			removeEvent = helpers.removeEvent = function(node, eventType, handler){
+				if (node.removeEventListener){
+					node.removeEventListener(eventType, handler, false);
+				} else if (node.detachEvent){
+					node.detachEvent("on"+eventType,handler);
+				} else{
+					node["on" + eventType] = noop;
+				}
+			},
+			bindEvents = helpers.bindEvents = function(chartInstance, arrayOfEvents, handler){
+				// Create the events object if it's not already present
+				if (!chartInstance.events) chartInstance.events = {};
+
+				each(arrayOfEvents,function(eventName){
+					chartInstance.events[eventName] = function(){
+						handler.apply(chartInstance, arguments);
+					};
+					addEvent(chartInstance.chart.canvas,eventName,chartInstance.events[eventName]);
+				});
+			},
+			unbindEvents = helpers.unbindEvents = function (chartInstance, arrayOfEvents) {
+				each(arrayOfEvents, function(handler,eventName){
+					removeEvent(chartInstance.chart.canvas, eventName, handler);
+				});
+			},
+			getMaximumWidth = helpers.getMaximumWidth = function(domNode){
+				var container = domNode.parentNode,
+				    padding = parseInt(getStyle(container, 'padding-left')) + parseInt(getStyle(container, 'padding-right'));
+				// TODO = check cross browser stuff with this.
+				return container ? container.clientWidth - padding : 0;
+			},
+			getMaximumHeight = helpers.getMaximumHeight = function(domNode){
+				var container = domNode.parentNode,
+				    padding = parseInt(getStyle(container, 'padding-bottom')) + parseInt(getStyle(container, 'padding-top'));
+				// TODO = check cross browser stuff with this.
+				return container ? container.clientHeight - padding : 0;
+			},
+			getStyle = helpers.getStyle = function (el, property) {
+				return el.currentStyle ?
+					el.currentStyle[property] :
+					document.defaultView.getComputedStyle(el, null).getPropertyValue(property);
+			},
+			getMaximumSize = helpers.getMaximumSize = helpers.getMaximumWidth, // legacy support
+			retinaScale = helpers.retinaScale = function(chart){
+				var ctx = chart.ctx,
+					width = chart.canvas.width,
+					height = chart.canvas.height;
+
+				if (window.devicePixelRatio) {
+					ctx.canvas.style.width = width + "px";
+					ctx.canvas.style.height = height + "px";
+					ctx.canvas.height = height * window.devicePixelRatio;
+					ctx.canvas.width = width * window.devicePixelRatio;
+					ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+				}
+			},
+			//-- Canvas methods
+			clear = helpers.clear = function(chart){
+				chart.ctx.clearRect(0,0,chart.width,chart.height);
+			},
+			fontString = helpers.fontString = function(pixelSize,fontStyle,fontFamily){
+				return fontStyle + " " + pixelSize+"px " + fontFamily;
+			},
+			longestText = helpers.longestText = function(ctx,font,arrayOfStrings){
+				ctx.font = font;
+				var longest = 0;
+				each(arrayOfStrings,function(string){
+					var textWidth = ctx.measureText(string).width;
+					longest = (textWidth > longest) ? textWidth : longest;
+				});
+				return longest;
+			},
+			drawRoundedRectangle = helpers.drawRoundedRectangle = function(ctx,x,y,width,height,radius){
+				ctx.beginPath();
+				ctx.moveTo(x + radius, y);
+				ctx.lineTo(x + width - radius, y);
+				ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+				ctx.lineTo(x + width, y + height - radius);
+				ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+				ctx.lineTo(x + radius, y + height);
+				ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+				ctx.lineTo(x, y + radius);
+				ctx.quadraticCurveTo(x, y, x + radius, y);
+				ctx.closePath();
+			};
+
+
+		//Store a reference to each instance - allowing us to globally resize chart instances on window resize.
+		//Destroy method on the chart will remove the instance of the chart from this reference.
+		Chart.instances = {};
+
+		Chart.Type = function(data,options,chart){
+			this.options = options;
+			this.chart = chart;
+			this.id = uid();
+			//Add the chart instance to the global namespace
+			Chart.instances[this.id] = this;
+
+			// Initialize is always called when a chart type is created
+			// By default it is a no op, but it should be extended
+			if (options.responsive){
+				this.resize();
+			}
+			this.initialize.call(this,data);
+		};
+
+		//Core methods that'll be a part of every chart type
+		extend(Chart.Type.prototype,{
+			initialize : function(){return this;},
+			clear : function(){
+				clear(this.chart);
+				return this;
+			},
+			stop : function(){
+				// Stops any current animation loop occuring
+				Chart.animationService.cancelAnimation(this);
+				return this;
+			},
+			resize : function(callback){
+				this.stop();
+				var canvas = this.chart.canvas,
+					newWidth = getMaximumWidth(this.chart.canvas),
+					newHeight = this.options.maintainAspectRatio ? newWidth / this.chart.aspectRatio : getMaximumHeight(this.chart.canvas);
+
+				canvas.width = this.chart.width = newWidth;
+				canvas.height = this.chart.height = newHeight;
+
+				retinaScale(this.chart);
+
+				if (typeof callback === "function"){
+					callback.apply(this, Array.prototype.slice.call(arguments, 1));
+				}
+				return this;
+			},
+			reflow : noop,
+			render : function(reflow){
+				if (reflow){
+					this.reflow();
+				}
+				
+				if (this.options.animation && !reflow){
+					var animation = new Chart.Animation();
+					animation.numSteps = this.options.animationSteps;
+					animation.easing = this.options.animationEasing;
+					
+					// render function
+					animation.render = function(chartInstance, animationObject) {
+						var easingFunction = helpers.easingEffects[animationObject.easing];
+						var stepDecimal = animationObject.currentStep / animationObject.numSteps;
+						var easeDecimal = easingFunction(stepDecimal);
+						
+						chartInstance.draw(easeDecimal, stepDecimal, animationObject.currentStep);
+					};
+					
+					// user events
+					animation.onAnimationProgress = this.options.onAnimationProgress;
+					animation.onAnimationComplete = this.options.onAnimationComplete;
+					
+					Chart.animationService.addAnimation(this, animation);
+				}
+				else{
+					this.draw();
+					this.options.onAnimationComplete.call(this);
+				}
+				return this;
+			},
+			generateLegend : function(){
+				return helpers.template(this.options.legendTemplate, this);
+			},
+			destroy : function(){
+				this.stop();
+				this.clear();
+				unbindEvents(this, this.events);
+				var canvas = this.chart.canvas;
+
+				// Reset canvas height/width attributes starts a fresh with the canvas context
+				canvas.width = this.chart.width;
+				canvas.height = this.chart.height;
+
+				// < IE9 doesn't support removeProperty
+				if (canvas.style.removeProperty) {
+					canvas.style.removeProperty('width');
+					canvas.style.removeProperty('height');
+				} else {
+					canvas.style.removeAttribute('width');
+					canvas.style.removeAttribute('height');
+				}
+
+				delete Chart.instances[this.id];
+			},
+			showTooltip : function(ChartElements, forceRedraw){
+				// Only redraw the chart if we've actually changed what we're hovering on.
+				if (typeof this.activeElements === 'undefined') this.activeElements = [];
+
+				var isChanged = (function(Elements){
+					var changed = false;
+
+					if (Elements.length !== this.activeElements.length){
+						changed = true;
+						return changed;
+					}
+
+					each(Elements, function(element, index){
+						if (element !== this.activeElements[index]){
+							changed = true;
+						}
+					}, this);
+					return changed;
+				}).call(this, ChartElements);
+
+				if (!isChanged && !forceRedraw){
+					return;
+				}
+				else{
+					this.activeElements = ChartElements;
+				}
+				this.draw();
+				if(this.options.customTooltips){
+					this.options.customTooltips(false);
+				}
+				if (ChartElements.length > 0){
+					// If we have multiple datasets, show a MultiTooltip for all of the data points at that index
+					if (this.datasets && this.datasets.length > 1) {
+						var dataArray,
+							dataIndex;
+
+						for (var i = this.datasets.length - 1; i >= 0; i--) {
+							dataArray = this.datasets[i].points || this.datasets[i].bars || this.datasets[i].segments;
+							dataIndex = indexOf(dataArray, ChartElements[0]);
+							if (dataIndex !== -1){
+								break;
+							}
+						}
+						var tooltipLabels = [],
+							tooltipColors = [],
+							medianPosition = (function(index) {
+
+								// Get all the points at that particular index
+								var Elements = [],
+									dataCollection,
+									xPositions = [],
+									yPositions = [],
+									xMax,
+									yMax,
+									xMin,
+									yMin;
+								helpers.each(this.datasets, function(dataset){
+									dataCollection = dataset.points || dataset.bars || dataset.segments;
+									if (dataCollection[dataIndex] && dataCollection[dataIndex].hasValue()){
+										Elements.push(dataCollection[dataIndex]);
+									}
+								});
+
+								helpers.each(Elements, function(element) {
+									xPositions.push(element.x);
+									yPositions.push(element.y);
+
+
+									//Include any colour information about the element
+									tooltipLabels.push(helpers.template(this.options.multiTooltipTemplate, element));
+									tooltipColors.push({
+										fill: element._saved.fillColor || element.fillColor,
+										stroke: element._saved.strokeColor || element.strokeColor
+									});
+
+								}, this);
+
+								yMin = min(yPositions);
+								yMax = max(yPositions);
+
+								xMin = min(xPositions);
+								xMax = max(xPositions);
+
+								return {
+									x: (xMin > this.chart.width/2) ? xMin : xMax,
+									y: (yMin + yMax)/2
+								};
+							}).call(this, dataIndex);
+
+						new Chart.MultiTooltip({
+							x: medianPosition.x,
+							y: medianPosition.y,
+							xPadding: this.options.tooltipXPadding,
+							yPadding: this.options.tooltipYPadding,
+							xOffset: this.options.tooltipXOffset,
+							fillColor: this.options.tooltipFillColor,
+							textColor: this.options.tooltipFontColor,
+							fontFamily: this.options.tooltipFontFamily,
+							fontStyle: this.options.tooltipFontStyle,
+							fontSize: this.options.tooltipFontSize,
+							titleTextColor: this.options.tooltipTitleFontColor,
+							titleFontFamily: this.options.tooltipTitleFontFamily,
+							titleFontStyle: this.options.tooltipTitleFontStyle,
+							titleFontSize: this.options.tooltipTitleFontSize,
+							cornerRadius: this.options.tooltipCornerRadius,
+							labels: tooltipLabels,
+							legendColors: tooltipColors,
+							legendColorBackground : this.options.multiTooltipKeyBackground,
+							title: template(this.options.tooltipTitleTemplate,ChartElements[0]),
+							chart: this.chart,
+							ctx: this.chart.ctx,
+							custom: this.options.customTooltips
+						}).draw();
+
+					} else {
+						each(ChartElements, function(Element) {
+							var tooltipPosition = Element.tooltipPosition();
+							new Chart.Tooltip({
+								x: Math.round(tooltipPosition.x),
+								y: Math.round(tooltipPosition.y),
+								xPadding: this.options.tooltipXPadding,
+								yPadding: this.options.tooltipYPadding,
+								fillColor: this.options.tooltipFillColor,
+								textColor: this.options.tooltipFontColor,
+								fontFamily: this.options.tooltipFontFamily,
+								fontStyle: this.options.tooltipFontStyle,
+								fontSize: this.options.tooltipFontSize,
+								caretHeight: this.options.tooltipCaretSize,
+								cornerRadius: this.options.tooltipCornerRadius,
+								text: template(this.options.tooltipTemplate, Element),
+								chart: this.chart,
+								custom: this.options.customTooltips
+							}).draw();
+						}, this);
+					}
+				}
+				return this;
+			},
+			toBase64Image : function(){
+				return this.chart.canvas.toDataURL.apply(this.chart.canvas, arguments);
+			}
+		});
+
+		Chart.Type.extend = function(extensions){
+
+			var parent = this;
+
+			var ChartType = function(){
+				return parent.apply(this,arguments);
+			};
+
+			//Copy the prototype object of the this class
+			ChartType.prototype = clone(parent.prototype);
+			//Now overwrite some of the properties in the base class with the new extensions
+			extend(ChartType.prototype, extensions);
+
+			ChartType.extend = Chart.Type.extend;
+
+			if (extensions.name || parent.prototype.name){
+
+				var chartName = extensions.name || parent.prototype.name;
+				//Assign any potential default values of the new chart type
+
+				//If none are defined, we'll use a clone of the chart type this is being extended from.
+				//I.e. if we extend a line chart, we'll use the defaults from the line chart if our new chart
+				//doesn't define some defaults of their own.
+
+				var baseDefaults = (Chart.defaults[parent.prototype.name]) ? clone(Chart.defaults[parent.prototype.name]) : {};
+
+				Chart.defaults[chartName] = extend(baseDefaults,extensions.defaults);
+
+				Chart.types[chartName] = ChartType;
+
+				//Register this new chart type in the Chart prototype
+				Chart.prototype[chartName] = function(data,options){
+					var config = merge(Chart.defaults.global, Chart.defaults[chartName], options || {});
+					return new ChartType(data,config,this);
+				};
+			} else{
+				warn("Name not provided for this chart, so it hasn't been registered");
+			}
+			return parent;
+		};
+
+		Chart.Element = function(configuration){
+			extend(this,configuration);
+			this.initialize.apply(this,arguments);
+			this.save();
+		};
+		extend(Chart.Element.prototype,{
+			initialize : function(){},
+			restore : function(props){
+				if (!props){
+					extend(this,this._saved);
+				} else {
+					each(props,function(key){
+						this[key] = this._saved[key];
+					},this);
+				}
+				return this;
+			},
+			save : function(){
+				this._saved = clone(this);
+				delete this._saved._saved;
+				return this;
+			},
+			update : function(newProps){
+				each(newProps,function(value,key){
+					this._saved[key] = this[key];
+					this[key] = value;
+				},this);
+				return this;
+			},
+			transition : function(props,ease){
+				each(props,function(value,key){
+					this[key] = ((value - this._saved[key]) * ease) + this._saved[key];
+				},this);
+				return this;
+			},
+			tooltipPosition : function(){
+				return {
+					x : this.x,
+					y : this.y
+				};
+			},
+			hasValue: function(){
+				return isNumber(this.value);
+			}
+		});
+
+		Chart.Element.extend = inherits;
+
+
+		Chart.Point = Chart.Element.extend({
+			display: true,
+			inRange: function(chartX,chartY){
+				var hitDetectionRange = this.hitDetectionRadius + this.radius;
+				return ((Math.pow(chartX-this.x, 2)+Math.pow(chartY-this.y, 2)) < Math.pow(hitDetectionRange,2));
+			},
+			draw : function(){
+				if (this.display){
+					var ctx = this.ctx;
+					ctx.beginPath();
+
+					ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+					ctx.closePath();
+
+					ctx.strokeStyle = this.strokeColor;
+					ctx.lineWidth = this.strokeWidth;
+
+					ctx.fillStyle = this.fillColor;
+
+					ctx.fill();
+					ctx.stroke();
+				}
+
+
+				//Quick debug for bezier curve splining
+				//Highlights control points and the line between them.
+				//Handy for dev - stripped in the min version.
+
+				// ctx.save();
+				// ctx.fillStyle = "black";
+				// ctx.strokeStyle = "black"
+				// ctx.beginPath();
+				// ctx.arc(this.controlPoints.inner.x,this.controlPoints.inner.y, 2, 0, Math.PI*2);
+				// ctx.fill();
+
+				// ctx.beginPath();
+				// ctx.arc(this.controlPoints.outer.x,this.controlPoints.outer.y, 2, 0, Math.PI*2);
+				// ctx.fill();
+
+				// ctx.moveTo(this.controlPoints.inner.x,this.controlPoints.inner.y);
+				// ctx.lineTo(this.x, this.y);
+				// ctx.lineTo(this.controlPoints.outer.x,this.controlPoints.outer.y);
+				// ctx.stroke();
+
+				// ctx.restore();
+
+
+
+			}
+		});
+
+		Chart.Arc = Chart.Element.extend({
+			inRange : function(chartX,chartY){
+
+				var pointRelativePosition = helpers.getAngleFromPoint(this, {
+					x: chartX,
+					y: chartY
+				});
+
+				// Normalize all angles to 0 - 2*PI (0 - 360°)
+				var pointRelativeAngle = pointRelativePosition.angle % (Math.PI * 2),
+				    startAngle = (Math.PI * 2 + this.startAngle) % (Math.PI * 2),
+				    endAngle = (Math.PI * 2 + this.endAngle) % (Math.PI * 2) || 360;
+
+				// Calculate wether the pointRelativeAngle is between the start and the end angle
+				var betweenAngles = (endAngle < startAngle) ?
+					pointRelativeAngle <= endAngle || pointRelativeAngle >= startAngle:
+					pointRelativeAngle >= startAngle && pointRelativeAngle <= endAngle;
+
+				//Check if within the range of the open/close angle
+				var withinRadius = (pointRelativePosition.distance >= this.innerRadius && pointRelativePosition.distance <= this.outerRadius);
+
+				return (betweenAngles && withinRadius);
+				//Ensure within the outside of the arc centre, but inside arc outer
+			},
+			tooltipPosition : function(){
+				var centreAngle = this.startAngle + ((this.endAngle - this.startAngle) / 2),
+					rangeFromCentre = (this.outerRadius - this.innerRadius) / 2 + this.innerRadius;
+				return {
+					x : this.x + (Math.cos(centreAngle) * rangeFromCentre),
+					y : this.y + (Math.sin(centreAngle) * rangeFromCentre)
+				};
+			},
+			draw : function(animationPercent){
+
+				var easingDecimal = animationPercent || 1;
+
+				var ctx = this.ctx;
+
+				ctx.beginPath();
+
+				ctx.arc(this.x, this.y, this.outerRadius < 0 ? 0 : this.outerRadius, this.startAngle, this.endAngle);
+
+	            ctx.arc(this.x, this.y, this.innerRadius < 0 ? 0 : this.innerRadius, this.endAngle, this.startAngle, true);
+
+				ctx.closePath();
+				ctx.strokeStyle = this.strokeColor;
+				ctx.lineWidth = this.strokeWidth;
+
+				ctx.fillStyle = this.fillColor;
+
+				ctx.fill();
+				ctx.lineJoin = 'bevel';
+
+				if (this.showStroke){
+					ctx.stroke();
+				}
+			}
+		});
+
+		Chart.Rectangle = Chart.Element.extend({
+			draw : function(){
+				var ctx = this.ctx,
+					halfWidth = this.width/2,
+					leftX = this.x - halfWidth,
+					rightX = this.x + halfWidth,
+					top = this.base - (this.base - this.y),
+					halfStroke = this.strokeWidth / 2;
+
+				// Canvas doesn't allow us to stroke inside the width so we can
+				// adjust the sizes to fit if we're setting a stroke on the line
+				if (this.showStroke){
+					leftX += halfStroke;
+					rightX -= halfStroke;
+					top += halfStroke;
+				}
+
+				ctx.beginPath();
+
+				ctx.fillStyle = this.fillColor;
+				ctx.strokeStyle = this.strokeColor;
+				ctx.lineWidth = this.strokeWidth;
+
+				// It'd be nice to keep this class totally generic to any rectangle
+				// and simply specify which border to miss out.
+				ctx.moveTo(leftX, this.base);
+				ctx.lineTo(leftX, top);
+				ctx.lineTo(rightX, top);
+				ctx.lineTo(rightX, this.base);
+				ctx.fill();
+				if (this.showStroke){
+					ctx.stroke();
+				}
+			},
+			height : function(){
+				return this.base - this.y;
+			},
+			inRange : function(chartX,chartY){
+				return (chartX >= this.x - this.width/2 && chartX <= this.x + this.width/2) && (chartY >= this.y && chartY <= this.base);
+			}
+		});
+
+		Chart.Animation = Chart.Element.extend({
+			currentStep: null, // the current animation step
+			numSteps: 60, // default number of steps
+			easing: "", // the easing to use for this animation
+			render: null, // render function used by the animation service
+			
+			onAnimationProgress: null, // user specified callback to fire on each step of the animation 
+			onAnimationComplete: null, // user specified callback to fire when the animation finishes
+		});
+		
+		Chart.Tooltip = Chart.Element.extend({
+			draw : function(){
+
+				var ctx = this.chart.ctx;
+
+				ctx.font = fontString(this.fontSize,this.fontStyle,this.fontFamily);
+
+				this.xAlign = "center";
+				this.yAlign = "above";
+
+				//Distance between the actual element.y position and the start of the tooltip caret
+				var caretPadding = this.caretPadding = 2;
+
+				var tooltipWidth = ctx.measureText(this.text).width + 2*this.xPadding,
+					tooltipRectHeight = this.fontSize + 2*this.yPadding,
+					tooltipHeight = tooltipRectHeight + this.caretHeight + caretPadding;
+
+				if (this.x + tooltipWidth/2 >this.chart.width){
+					this.xAlign = "left";
+				} else if (this.x - tooltipWidth/2 < 0){
+					this.xAlign = "right";
+				}
+
+				if (this.y - tooltipHeight < 0){
+					this.yAlign = "below";
+				}
+
+
+				var tooltipX = this.x - tooltipWidth/2,
+					tooltipY = this.y - tooltipHeight;
+
+				ctx.fillStyle = this.fillColor;
+
+				// Custom Tooltips
+				if(this.custom){
+					this.custom(this);
+				}
+				else{
+					switch(this.yAlign)
+					{
+					case "above":
+						//Draw a caret above the x/y
+						ctx.beginPath();
+						ctx.moveTo(this.x,this.y - caretPadding);
+						ctx.lineTo(this.x + this.caretHeight, this.y - (caretPadding + this.caretHeight));
+						ctx.lineTo(this.x - this.caretHeight, this.y - (caretPadding + this.caretHeight));
+						ctx.closePath();
+						ctx.fill();
+						break;
+					case "below":
+						tooltipY = this.y + caretPadding + this.caretHeight;
+						//Draw a caret below the x/y
+						ctx.beginPath();
+						ctx.moveTo(this.x, this.y + caretPadding);
+						ctx.lineTo(this.x + this.caretHeight, this.y + caretPadding + this.caretHeight);
+						ctx.lineTo(this.x - this.caretHeight, this.y + caretPadding + this.caretHeight);
+						ctx.closePath();
+						ctx.fill();
+						break;
+					}
+
+					switch(this.xAlign)
+					{
+					case "left":
+						tooltipX = this.x - tooltipWidth + (this.cornerRadius + this.caretHeight);
+						break;
+					case "right":
+						tooltipX = this.x - (this.cornerRadius + this.caretHeight);
+						break;
+					}
+
+					drawRoundedRectangle(ctx,tooltipX,tooltipY,tooltipWidth,tooltipRectHeight,this.cornerRadius);
+
+					ctx.fill();
+
+					ctx.fillStyle = this.textColor;
+					ctx.textAlign = "center";
+					ctx.textBaseline = "middle";
+					ctx.fillText(this.text, tooltipX + tooltipWidth/2, tooltipY + tooltipRectHeight/2);
+				}
+			}
+		});
+
+		Chart.MultiTooltip = Chart.Element.extend({
+			initialize : function(){
+				this.font = fontString(this.fontSize,this.fontStyle,this.fontFamily);
+
+				this.titleFont = fontString(this.titleFontSize,this.titleFontStyle,this.titleFontFamily);
+
+				this.titleHeight = this.title ? this.titleFontSize * 1.5 : 0;
+				this.height = (this.labels.length * this.fontSize) + ((this.labels.length-1) * (this.fontSize/2)) + (this.yPadding*2) + this.titleHeight;
+
+				this.ctx.font = this.titleFont;
+
+				var titleWidth = this.ctx.measureText(this.title).width,
+					//Label has a legend square as well so account for this.
+					labelWidth = longestText(this.ctx,this.font,this.labels) + this.fontSize + 3,
+					longestTextWidth = max([labelWidth,titleWidth]);
+
+				this.width = longestTextWidth + (this.xPadding*2);
+
+
+				var halfHeight = this.height/2;
+
+				//Check to ensure the height will fit on the canvas
+				if (this.y - halfHeight < 0 ){
+					this.y = halfHeight;
+				} else if (this.y + halfHeight > this.chart.height){
+					this.y = this.chart.height - halfHeight;
+				}
+
+				//Decide whether to align left or right based on position on canvas
+				if (this.x > this.chart.width/2){
+					this.x -= this.xOffset + this.width;
+				} else {
+					this.x += this.xOffset;
+				}
+
+
+			},
+			getLineHeight : function(index){
+				var baseLineHeight = this.y - (this.height/2) + this.yPadding,
+					afterTitleIndex = index-1;
+
+				//If the index is zero, we're getting the title
+				if (index === 0){
+					return baseLineHeight + this.titleHeight / 3;
+				} else{
+					return baseLineHeight + ((this.fontSize * 1.5 * afterTitleIndex) + this.fontSize / 2) + this.titleHeight;
+				}
+
+			},
+			draw : function(){
+				// Custom Tooltips
+				if(this.custom){
+					this.custom(this);
+				}
+				else{
+					drawRoundedRectangle(this.ctx,this.x,this.y - this.height/2,this.width,this.height,this.cornerRadius);
+					var ctx = this.ctx;
+					ctx.fillStyle = this.fillColor;
+					ctx.fill();
+					ctx.closePath();
+
+					ctx.textAlign = "left";
+					ctx.textBaseline = "middle";
+					ctx.fillStyle = this.titleTextColor;
+					ctx.font = this.titleFont;
+
+					ctx.fillText(this.title,this.x + this.xPadding, this.getLineHeight(0));
+
+					ctx.font = this.font;
+					helpers.each(this.labels,function(label,index){
+						ctx.fillStyle = this.textColor;
+						ctx.fillText(label,this.x + this.xPadding + this.fontSize + 3, this.getLineHeight(index + 1));
+
+						//A bit gnarly, but clearing this rectangle breaks when using explorercanvas (clears whole canvas)
+						//ctx.clearRect(this.x + this.xPadding, this.getLineHeight(index + 1) - this.fontSize/2, this.fontSize, this.fontSize);
+						//Instead we'll make a white filled block to put the legendColour palette over.
+
+						ctx.fillStyle = this.legendColorBackground;
+						ctx.fillRect(this.x + this.xPadding, this.getLineHeight(index + 1) - this.fontSize/2, this.fontSize, this.fontSize);
+
+						ctx.fillStyle = this.legendColors[index].fill;
+						ctx.fillRect(this.x + this.xPadding, this.getLineHeight(index + 1) - this.fontSize/2, this.fontSize, this.fontSize);
+
+
+					},this);
+				}
+			}
+		});
+
+		Chart.Scale = Chart.Element.extend({
+			initialize : function(){
+				this.fit();
+			},
+			buildYLabels : function(){
+				this.yLabels = [];
+
+				var stepDecimalPlaces = getDecimalPlaces(this.stepValue);
+
+				for (var i=0; i<=this.steps; i++){
+					this.yLabels.push(template(this.templateString,{value:(this.min + (i * this.stepValue)).toFixed(stepDecimalPlaces)}));
+				}
+				this.yLabelWidth = (this.display && this.showLabels) ? longestText(this.ctx,this.font,this.yLabels) + 10 : 0;
+			},
+			addXLabel : function(label){
+				this.xLabels.push(label);
+				this.valuesCount++;
+				this.fit();
+			},
+			removeXLabel : function(){
+				this.xLabels.shift();
+				this.valuesCount--;
+				this.fit();
+			},
+			// Fitting loop to rotate x Labels and figure out what fits there, and also calculate how many Y steps to use
+			fit: function(){
+				// First we need the width of the yLabels, assuming the xLabels aren't rotated
+
+				// To do that we need the base line at the top and base of the chart, assuming there is no x label rotation
+				this.startPoint = (this.display) ? this.fontSize : 0;
+				this.endPoint = (this.display) ? this.height - (this.fontSize * 1.5) - 5 : this.height; // -5 to pad labels
+
+				// Apply padding settings to the start and end point.
+				this.startPoint += this.padding;
+				this.endPoint -= this.padding;
+
+				// Cache the starting endpoint, excluding the space for x labels
+				var cachedEndPoint = this.endPoint;
+
+				// Cache the starting height, so can determine if we need to recalculate the scale yAxis
+				var cachedHeight = this.endPoint - this.startPoint,
+					cachedYLabelWidth;
+
+				// Build the current yLabels so we have an idea of what size they'll be to start
+				/*
+				 *	This sets what is returned from calculateScaleRange as static properties of this class:
+				 *
+					this.steps;
+					this.stepValue;
+					this.min;
+					this.max;
+				 *
+				 */
+				this.calculateYRange(cachedHeight);
+
+				// With these properties set we can now build the array of yLabels
+				// and also the width of the largest yLabel
+				this.buildYLabels();
+
+				this.calculateXLabelRotation();
+
+				while((cachedHeight > this.endPoint - this.startPoint)){
+					cachedHeight = this.endPoint - this.startPoint;
+					cachedYLabelWidth = this.yLabelWidth;
+
+					this.calculateYRange(cachedHeight);
+					this.buildYLabels();
+
+					// Only go through the xLabel loop again if the yLabel width has changed
+					if (cachedYLabelWidth < this.yLabelWidth){
+						this.endPoint = cachedEndPoint;
+						this.calculateXLabelRotation();
+					}
+				}
+
+			},
+			calculateXLabelRotation : function(){
+				//Get the width of each grid by calculating the difference
+				//between x offsets between 0 and 1.
+
+				this.ctx.font = this.font;
+
+				var firstWidth = this.ctx.measureText(this.xLabels[0]).width,
+					lastWidth = this.ctx.measureText(this.xLabels[this.xLabels.length - 1]).width,
+					firstRotated,
+					lastRotated;
+
+
+				this.xScalePaddingRight = lastWidth/2 + 3;
+				this.xScalePaddingLeft = (firstWidth/2 > this.yLabelWidth) ? firstWidth/2 : this.yLabelWidth;
+
+				this.xLabelRotation = 0;
+				if (this.display){
+					var originalLabelWidth = longestText(this.ctx,this.font,this.xLabels),
+						cosRotation,
+						firstRotatedWidth;
+					this.xLabelWidth = originalLabelWidth;
+					//Allow 3 pixels x2 padding either side for label readability
+					var xGridWidth = Math.floor(this.calculateX(1) - this.calculateX(0)) - 6;
+
+					//Max label rotate should be 90 - also act as a loop counter
+					while ((this.xLabelWidth > xGridWidth && this.xLabelRotation === 0) || (this.xLabelWidth > xGridWidth && this.xLabelRotation <= 90 && this.xLabelRotation > 0)){
+						cosRotation = Math.cos(toRadians(this.xLabelRotation));
+
+						firstRotated = cosRotation * firstWidth;
+						lastRotated = cosRotation * lastWidth;
+
+						// We're right aligning the text now.
+						if (firstRotated + this.fontSize / 2 > this.yLabelWidth){
+							this.xScalePaddingLeft = firstRotated + this.fontSize / 2;
+						}
+						this.xScalePaddingRight = this.fontSize/2;
+
+
+						this.xLabelRotation++;
+						this.xLabelWidth = cosRotation * originalLabelWidth;
+
+					}
+					if (this.xLabelRotation > 0){
+						this.endPoint -= Math.sin(toRadians(this.xLabelRotation))*originalLabelWidth + 3;
+					}
+				}
+				else{
+					this.xLabelWidth = 0;
+					this.xScalePaddingRight = this.padding;
+					this.xScalePaddingLeft = this.padding;
+				}
+
+			},
+			// Needs to be overidden in each Chart type
+			// Otherwise we need to pass all the data into the scale class
+			calculateYRange: noop,
+			drawingArea: function(){
+				return this.startPoint - this.endPoint;
+			},
+			calculateY : function(value){
+				var scalingFactor = this.drawingArea() / (this.min - this.max);
+				return this.endPoint - (scalingFactor * (value - this.min));
+			},
+			calculateX : function(index){
+				var isRotated = (this.xLabelRotation > 0),
+					// innerWidth = (this.offsetGridLines) ? this.width - offsetLeft - this.padding : this.width - (offsetLeft + halfLabelWidth * 2) - this.padding,
+					innerWidth = this.width - (this.xScalePaddingLeft + this.xScalePaddingRight),
+					valueWidth = innerWidth/Math.max((this.valuesCount - ((this.offsetGridLines) ? 0 : 1)), 1),
+					valueOffset = (valueWidth * index) + this.xScalePaddingLeft;
+
+				if (this.offsetGridLines){
+					valueOffset += (valueWidth/2);
+				}
+
+				return Math.round(valueOffset);
+			},
+			update : function(newProps){
+				helpers.extend(this, newProps);
+				this.fit();
+			},
+			draw : function(){
+				var ctx = this.ctx,
+					yLabelGap = (this.endPoint - this.startPoint) / this.steps,
+					xStart = Math.round(this.xScalePaddingLeft);
+				if (this.display){
+					ctx.fillStyle = this.textColor;
+					ctx.font = this.font;
+					each(this.yLabels,function(labelString,index){
+						var yLabelCenter = this.endPoint - (yLabelGap * index),
+							linePositionY = Math.round(yLabelCenter),
+							drawHorizontalLine = this.showHorizontalLines;
+
+						ctx.textAlign = "right";
+						ctx.textBaseline = "middle";
+						if (this.showLabels){
+							ctx.fillText(labelString,xStart - 10,yLabelCenter);
+						}
+
+						// This is X axis, so draw it
+						if (index === 0 && !drawHorizontalLine){
+							drawHorizontalLine = true;
+						}
+
+						if (drawHorizontalLine){
+							ctx.beginPath();
+						}
+
+						if (index > 0){
+							// This is a grid line in the centre, so drop that
+							ctx.lineWidth = this.gridLineWidth;
+							ctx.strokeStyle = this.gridLineColor;
+						} else {
+							// This is the first line on the scale
+							ctx.lineWidth = this.lineWidth;
+							ctx.strokeStyle = this.lineColor;
+						}
+
+						linePositionY += helpers.aliasPixel(ctx.lineWidth);
+
+						if(drawHorizontalLine){
+							ctx.moveTo(xStart, linePositionY);
+							ctx.lineTo(this.width, linePositionY);
+							ctx.stroke();
+							ctx.closePath();
+						}
+
+						ctx.lineWidth = this.lineWidth;
+						ctx.strokeStyle = this.lineColor;
+						ctx.beginPath();
+						ctx.moveTo(xStart - 5, linePositionY);
+						ctx.lineTo(xStart, linePositionY);
+						ctx.stroke();
+						ctx.closePath();
+
+					},this);
+
+					each(this.xLabels,function(label,index){
+						var xPos = this.calculateX(index) + aliasPixel(this.lineWidth),
+							// Check to see if line/bar here and decide where to place the line
+							linePos = this.calculateX(index - (this.offsetGridLines ? 0.5 : 0)) + aliasPixel(this.lineWidth),
+							isRotated = (this.xLabelRotation > 0),
+							drawVerticalLine = this.showVerticalLines;
+
+						// This is Y axis, so draw it
+						if (index === 0 && !drawVerticalLine){
+							drawVerticalLine = true;
+						}
+
+						if (drawVerticalLine){
+							ctx.beginPath();
+						}
+
+						if (index > 0){
+							// This is a grid line in the centre, so drop that
+							ctx.lineWidth = this.gridLineWidth;
+							ctx.strokeStyle = this.gridLineColor;
+						} else {
+							// This is the first line on the scale
+							ctx.lineWidth = this.lineWidth;
+							ctx.strokeStyle = this.lineColor;
+						}
+
+						if (drawVerticalLine){
+							ctx.moveTo(linePos,this.endPoint);
+							ctx.lineTo(linePos,this.startPoint - 3);
+							ctx.stroke();
+							ctx.closePath();
+						}
+
+
+						ctx.lineWidth = this.lineWidth;
+						ctx.strokeStyle = this.lineColor;
+
+
+						// Small lines at the bottom of the base grid line
+						ctx.beginPath();
+						ctx.moveTo(linePos,this.endPoint);
+						ctx.lineTo(linePos,this.endPoint + 5);
+						ctx.stroke();
+						ctx.closePath();
+
+						ctx.save();
+						ctx.translate(xPos,(isRotated) ? this.endPoint + 12 : this.endPoint + 8);
+						ctx.rotate(toRadians(this.xLabelRotation)*-1);
+						ctx.font = this.font;
+						ctx.textAlign = (isRotated) ? "right" : "center";
+						ctx.textBaseline = (isRotated) ? "middle" : "top";
+						ctx.fillText(label, 0, 0);
+						ctx.restore();
+					},this);
+
+				}
+			}
+
+		});
+
+		Chart.RadialScale = Chart.Element.extend({
+			initialize: function(){
+				this.size = min([this.height, this.width]);
+				this.drawingArea = (this.display) ? (this.size/2) - (this.fontSize/2 + this.backdropPaddingY) : (this.size/2);
+			},
+			calculateCenterOffset: function(value){
+				// Take into account half font size + the yPadding of the top value
+				var scalingFactor = this.drawingArea / (this.max - this.min);
+
+				return (value - this.min) * scalingFactor;
+			},
+			update : function(){
+				if (!this.lineArc){
+					this.setScaleSize();
+				} else {
+					this.drawingArea = (this.display) ? (this.size/2) - (this.fontSize/2 + this.backdropPaddingY) : (this.size/2);
+				}
+				this.buildYLabels();
+			},
+			buildYLabels: function(){
+				this.yLabels = [];
+
+				var stepDecimalPlaces = getDecimalPlaces(this.stepValue);
+
+				for (var i=0; i<=this.steps; i++){
+					this.yLabels.push(template(this.templateString,{value:(this.min + (i * this.stepValue)).toFixed(stepDecimalPlaces)}));
+				}
+			},
+			getCircumference : function(){
+				return ((Math.PI*2) / this.valuesCount);
+			},
+			setScaleSize: function(){
+				/*
+				 * Right, this is really confusing and there is a lot of maths going on here
+				 * The gist of the problem is here: https://gist.github.com/nnnick/696cc9c55f4b0beb8fe9
+				 *
+				 * Reaction: https://dl.dropboxusercontent.com/u/34601363/toomuchscience.gif
+				 *
+				 * Solution:
+				 *
+				 * We assume the radius of the polygon is half the size of the canvas at first
+				 * at each index we check if the text overlaps.
+				 *
+				 * Where it does, we store that angle and that index.
+				 *
+				 * After finding the largest index and angle we calculate how much we need to remove
+				 * from the shape radius to move the point inwards by that x.
+				 *
+				 * We average the left and right distances to get the maximum shape radius that can fit in the box
+				 * along with labels.
+				 *
+				 * Once we have that, we can find the centre point for the chart, by taking the x text protrusion
+				 * on each side, removing that from the size, halving it and adding the left x protrusion width.
+				 *
+				 * This will mean we have a shape fitted to the canvas, as large as it can be with the labels
+				 * and position it in the most space efficient manner
+				 *
+				 * https://dl.dropboxusercontent.com/u/34601363/yeahscience.gif
+				 */
+
+
+				// Get maximum radius of the polygon. Either half the height (minus the text width) or half the width.
+				// Use this to calculate the offset + change. - Make sure L/R protrusion is at least 0 to stop issues with centre points
+				var largestPossibleRadius = min([(this.height/2 - this.pointLabelFontSize - 5), this.width/2]),
+					pointPosition,
+					i,
+					textWidth,
+					halfTextWidth,
+					furthestRight = this.width,
+					furthestRightIndex,
+					furthestRightAngle,
+					furthestLeft = 0,
+					furthestLeftIndex,
+					furthestLeftAngle,
+					xProtrusionLeft,
+					xProtrusionRight,
+					radiusReductionRight,
+					radiusReductionLeft,
+					maxWidthRadius;
+				this.ctx.font = fontString(this.pointLabelFontSize,this.pointLabelFontStyle,this.pointLabelFontFamily);
+				for (i=0;i<this.valuesCount;i++){
+					// 5px to space the text slightly out - similar to what we do in the draw function.
+					pointPosition = this.getPointPosition(i, largestPossibleRadius);
+					textWidth = this.ctx.measureText(template(this.templateString, { value: this.labels[i] })).width + 5;
+					if (i === 0 || i === this.valuesCount/2){
+						// If we're at index zero, or exactly the middle, we're at exactly the top/bottom
+						// of the radar chart, so text will be aligned centrally, so we'll half it and compare
+						// w/left and right text sizes
+						halfTextWidth = textWidth/2;
+						if (pointPosition.x + halfTextWidth > furthestRight) {
+							furthestRight = pointPosition.x + halfTextWidth;
+							furthestRightIndex = i;
+						}
+						if (pointPosition.x - halfTextWidth < furthestLeft) {
+							furthestLeft = pointPosition.x - halfTextWidth;
+							furthestLeftIndex = i;
+						}
+					}
+					else if (i < this.valuesCount/2) {
+						// Less than half the values means we'll left align the text
+						if (pointPosition.x + textWidth > furthestRight) {
+							furthestRight = pointPosition.x + textWidth;
+							furthestRightIndex = i;
+						}
+					}
+					else if (i > this.valuesCount/2){
+						// More than half the values means we'll right align the text
+						if (pointPosition.x - textWidth < furthestLeft) {
+							furthestLeft = pointPosition.x - textWidth;
+							furthestLeftIndex = i;
+						}
+					}
+				}
+
+				xProtrusionLeft = furthestLeft;
+
+				xProtrusionRight = Math.ceil(furthestRight - this.width);
+
+				furthestRightAngle = this.getIndexAngle(furthestRightIndex);
+
+				furthestLeftAngle = this.getIndexAngle(furthestLeftIndex);
+
+				radiusReductionRight = xProtrusionRight / Math.sin(furthestRightAngle + Math.PI/2);
+
+				radiusReductionLeft = xProtrusionLeft / Math.sin(furthestLeftAngle + Math.PI/2);
+
+				// Ensure we actually need to reduce the size of the chart
+				radiusReductionRight = (isNumber(radiusReductionRight)) ? radiusReductionRight : 0;
+				radiusReductionLeft = (isNumber(radiusReductionLeft)) ? radiusReductionLeft : 0;
+
+				this.drawingArea = largestPossibleRadius - (radiusReductionLeft + radiusReductionRight)/2;
+
+				//this.drawingArea = min([maxWidthRadius, (this.height - (2 * (this.pointLabelFontSize + 5)))/2])
+				this.setCenterPoint(radiusReductionLeft, radiusReductionRight);
+
+			},
+			setCenterPoint: function(leftMovement, rightMovement){
+
+				var maxRight = this.width - rightMovement - this.drawingArea,
+					maxLeft = leftMovement + this.drawingArea;
+
+				this.xCenter = (maxLeft + maxRight)/2;
+				// Always vertically in the centre as the text height doesn't change
+				this.yCenter = (this.height/2);
+			},
+
+			getIndexAngle : function(index){
+				var angleMultiplier = (Math.PI * 2) / this.valuesCount;
+				// Start from the top instead of right, so remove a quarter of the circle
+
+				return index * angleMultiplier - (Math.PI/2);
+			},
+			getPointPosition : function(index, distanceFromCenter){
+				var thisAngle = this.getIndexAngle(index);
+				return {
+					x : (Math.cos(thisAngle) * distanceFromCenter) + this.xCenter,
+					y : (Math.sin(thisAngle) * distanceFromCenter) + this.yCenter
+				};
+			},
+			draw: function(){
+				if (this.display){
+					var ctx = this.ctx;
+					each(this.yLabels, function(label, index){
+						// Don't draw a centre value
+						if (index > 0){
+							var yCenterOffset = index * (this.drawingArea/this.steps),
+								yHeight = this.yCenter - yCenterOffset,
+								pointPosition;
+
+							// Draw circular lines around the scale
+							if (this.lineWidth > 0){
+								ctx.strokeStyle = this.lineColor;
+								ctx.lineWidth = this.lineWidth;
+
+								if(this.lineArc){
+									ctx.beginPath();
+									ctx.arc(this.xCenter, this.yCenter, yCenterOffset, 0, Math.PI*2);
+									ctx.closePath();
+									ctx.stroke();
+								} else{
+									ctx.beginPath();
+									for (var i=0;i<this.valuesCount;i++)
+									{
+										pointPosition = this.getPointPosition(i, this.calculateCenterOffset(this.min + (index * this.stepValue)));
+										if (i === 0){
+											ctx.moveTo(pointPosition.x, pointPosition.y);
+										} else {
+											ctx.lineTo(pointPosition.x, pointPosition.y);
+										}
+									}
+									ctx.closePath();
+									ctx.stroke();
+								}
+							}
+							if(this.showLabels){
+								ctx.font = fontString(this.fontSize,this.fontStyle,this.fontFamily);
+								if (this.showLabelBackdrop){
+									var labelWidth = ctx.measureText(label).width;
+									ctx.fillStyle = this.backdropColor;
+									ctx.fillRect(
+										this.xCenter - labelWidth/2 - this.backdropPaddingX,
+										yHeight - this.fontSize/2 - this.backdropPaddingY,
+										labelWidth + this.backdropPaddingX*2,
+										this.fontSize + this.backdropPaddingY*2
+									);
+								}
+								ctx.textAlign = 'center';
+								ctx.textBaseline = "middle";
+								ctx.fillStyle = this.fontColor;
+								ctx.fillText(label, this.xCenter, yHeight);
+							}
+						}
+					}, this);
+
+					if (!this.lineArc){
+						ctx.lineWidth = this.angleLineWidth;
+						ctx.strokeStyle = this.angleLineColor;
+						for (var i = this.valuesCount - 1; i >= 0; i--) {
+							var centerOffset = null, outerPosition = null;
+
+							if (this.angleLineWidth > 0 && (i % this.angleLineInterval === 0)){
+								centerOffset = this.calculateCenterOffset(this.max);
+								outerPosition = this.getPointPosition(i, centerOffset);
+								ctx.beginPath();
+								ctx.moveTo(this.xCenter, this.yCenter);
+								ctx.lineTo(outerPosition.x, outerPosition.y);
+								ctx.stroke();
+								ctx.closePath();
+							}
+
+							if (this.backgroundColors && this.backgroundColors.length == this.valuesCount) {
+								if (centerOffset == null)
+									centerOffset = this.calculateCenterOffset(this.max);
+
+								if (outerPosition == null)
+									outerPosition = this.getPointPosition(i, centerOffset);
+
+								var previousOuterPosition = this.getPointPosition(i === 0 ? this.valuesCount - 1 : i - 1, centerOffset);
+								var nextOuterPosition = this.getPointPosition(i === this.valuesCount - 1 ? 0 : i + 1, centerOffset);
+
+								var previousOuterHalfway = { x: (previousOuterPosition.x + outerPosition.x) / 2, y: (previousOuterPosition.y + outerPosition.y) / 2 };
+								var nextOuterHalfway = { x: (outerPosition.x + nextOuterPosition.x) / 2, y: (outerPosition.y + nextOuterPosition.y) / 2 };
+
+								ctx.beginPath();
+								ctx.moveTo(this.xCenter, this.yCenter);
+								ctx.lineTo(previousOuterHalfway.x, previousOuterHalfway.y);
+								ctx.lineTo(outerPosition.x, outerPosition.y);
+								ctx.lineTo(nextOuterHalfway.x, nextOuterHalfway.y);
+								ctx.fillStyle = this.backgroundColors[i];
+								ctx.fill();
+								ctx.closePath();
+							}
+							// Extra 3px out for some label spacing
+							var pointLabelPosition = this.getPointPosition(i, this.calculateCenterOffset(this.max) + 5);
+							ctx.font = fontString(this.pointLabelFontSize,this.pointLabelFontStyle,this.pointLabelFontFamily);
+							ctx.fillStyle = this.pointLabelFontColor;
+
+							var labelsCount = this.labels.length,
+								halfLabelsCount = this.labels.length/2,
+								quarterLabelsCount = halfLabelsCount/2,
+								upperHalf = (i < quarterLabelsCount || i > labelsCount - quarterLabelsCount),
+								exactQuarter = (i === quarterLabelsCount || i === labelsCount - quarterLabelsCount);
+							if (i === 0){
+								ctx.textAlign = 'center';
+							} else if(i === halfLabelsCount){
+								ctx.textAlign = 'center';
+							} else if (i < halfLabelsCount){
+								ctx.textAlign = 'left';
+							} else {
+								ctx.textAlign = 'right';
+							}
+
+							// Set the correct text baseline based on outer positioning
+							if (exactQuarter){
+								ctx.textBaseline = 'middle';
+							} else if (upperHalf){
+								ctx.textBaseline = 'bottom';
+							} else {
+								ctx.textBaseline = 'top';
+							}
+
+							ctx.fillText(this.labels[i], pointLabelPosition.x, pointLabelPosition.y);
+						}
+					}
+				}
+			}
+		});
+
+		Chart.animationService = {
+			frameDuration: 17,
+			animations: [],
+			dropFrames: 0,
+			addAnimation: function(chartInstance, animationObject) {
+				for (var index = 0; index < this.animations.length; ++ index){
+					if (this.animations[index].chartInstance === chartInstance){
+						// replacing an in progress animation
+						this.animations[index].animationObject = animationObject;
+						return;
+					}
+				}
+				
+				this.animations.push({
+					chartInstance: chartInstance,
+					animationObject: animationObject
+				});
+
+				// If there are no animations queued, manually kickstart a digest, for lack of a better word
+				if (this.animations.length == 1) {
+					helpers.requestAnimFrame.call(window, this.digestWrapper);
+				}
+			},
+			// Cancel the animation for a given chart instance
+			cancelAnimation: function(chartInstance) {
+				var index = helpers.findNextWhere(this.animations, function(animationWrapper) {
+					return animationWrapper.chartInstance === chartInstance;
+				});
+				
+				if (index)
+				{
+					this.animations.splice(index, 1);
+				}
+			},
+			// calls startDigest with the proper context
+			digestWrapper: function() {
+				Chart.animationService.startDigest.call(Chart.animationService);
+			},
+			startDigest: function() {
+
+				var startTime = Date.now();
+				var framesToDrop = 0;
+
+				if(this.dropFrames > 1){
+					framesToDrop = Math.floor(this.dropFrames);
+					this.dropFrames -= framesToDrop;
+				}
+
+				for (var i = 0; i < this.animations.length; i++) {
+
+					if (this.animations[i].animationObject.currentStep === null){
+						this.animations[i].animationObject.currentStep = 0;
+					}
+
+					this.animations[i].animationObject.currentStep += 1 + framesToDrop;
+					if(this.animations[i].animationObject.currentStep > this.animations[i].animationObject.numSteps){
+						this.animations[i].animationObject.currentStep = this.animations[i].animationObject.numSteps;
+					}
+					
+					this.animations[i].animationObject.render(this.animations[i].chartInstance, this.animations[i].animationObject);
+					
+					// Check if executed the last frame.
+					if (this.animations[i].animationObject.currentStep == this.animations[i].animationObject.numSteps){
+						// Call onAnimationComplete
+						this.animations[i].animationObject.onAnimationComplete.call(this.animations[i].chartInstance);
+						// Remove the animation.
+						this.animations.splice(i, 1);
+						// Keep the index in place to offset the splice
+						i--;
+					}
+				}
+
+				var endTime = Date.now();
+				var delay = endTime - startTime - this.frameDuration;
+				var frameDelay = delay / this.frameDuration;
+
+				if(frameDelay > 1){
+					this.dropFrames += frameDelay;
+				}
+
+				// Do we have more stuff to animate?
+				if (this.animations.length > 0){
+					helpers.requestAnimFrame.call(window, this.digestWrapper);
+				}
+			}
+		};
+
+		// Attach global event to resize each chart instance when the browser resizes
+		helpers.addEvent(window, "resize", (function(){
+			// Basic debounce of resize function so it doesn't hurt performance when resizing browser.
+			var timeout;
+			return function(){
+				clearTimeout(timeout);
+				timeout = setTimeout(function(){
+					each(Chart.instances,function(instance){
+						// If the responsive flag is set in the chart instance config
+						// Cascade the resize event down to the chart.
+						if (instance.options.responsive){
+							instance.resize(instance.render, true);
+						}
+					});
+				}, 50);
+			};
+		})());
+
+
+		if (amd) {
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function(){
+				return Chart;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (typeof module === 'object' && module.exports) {
+			module.exports = Chart;
+		}
+
+		root.Chart = Chart;
+
+		Chart.noConflict = function(){
+			root.Chart = previous;
+			return Chart;
+		};
+
+	}).call(this);
+
+	(function(){
+		"use strict";
+
+		var root = this,
+			Chart = root.Chart,
+			helpers = Chart.helpers;
+
+
+		var defaultConfig = {
+			//Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+			scaleBeginAtZero : true,
+
+			//Boolean - Whether grid lines are shown across the chart
+			scaleShowGridLines : true,
+
+			//String - Colour of the grid lines
+			scaleGridLineColor : "rgba(0,0,0,.05)",
+
+			//Number - Width of the grid lines
+			scaleGridLineWidth : 1,
+
+			//Boolean - Whether to show horizontal lines (except X axis)
+			scaleShowHorizontalLines: true,
+
+			//Boolean - Whether to show vertical lines (except Y axis)
+			scaleShowVerticalLines: true,
+
+			//Boolean - If there is a stroke on each bar
+			barShowStroke : true,
+
+			//Number - Pixel width of the bar stroke
+			barStrokeWidth : 2,
+
+			//Number - Spacing between each of the X value sets
+			barValueSpacing : 5,
+
+			//Number - Spacing between data sets within X values
+			barDatasetSpacing : 1,
+
+			//String - A legend template
+			legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span class=\"<%=name.toLowerCase()%>-legend-icon\" style=\"background-color:<%=datasets[i].fillColor%>\"></span><span class=\"<%=name.toLowerCase()%>-legend-text\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span></li><%}%></ul>"
+
+		};
+
+
+		Chart.Type.extend({
+			name: "Bar",
+			defaults : defaultConfig,
+			initialize:  function(data){
+
+				//Expose options as a scope variable here so we can access it in the ScaleClass
+				var options = this.options;
+
+				this.ScaleClass = Chart.Scale.extend({
+					offsetGridLines : true,
+					calculateBarX : function(datasetCount, datasetIndex, barIndex){
+						//Reusable method for calculating the xPosition of a given bar based on datasetIndex & width of the bar
+						var xWidth = this.calculateBaseWidth(),
+							xAbsolute = this.calculateX(barIndex) - (xWidth/2),
+							barWidth = this.calculateBarWidth(datasetCount);
+
+						return xAbsolute + (barWidth * datasetIndex) + (datasetIndex * options.barDatasetSpacing) + barWidth/2;
+					},
+					calculateBaseWidth : function(){
+						return (this.calculateX(1) - this.calculateX(0)) - (2*options.barValueSpacing);
+					},
+					calculateBarWidth : function(datasetCount){
+						//The padding between datasets is to the right of each bar, providing that there are more than 1 dataset
+						var baseWidth = this.calculateBaseWidth() - ((datasetCount - 1) * options.barDatasetSpacing);
+
+						return (baseWidth / datasetCount);
+					}
+				});
+
+				this.datasets = [];
+
+				//Set up tooltip events on the chart
+				if (this.options.showTooltips){
+					helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
+						var activeBars = (evt.type !== 'mouseout') ? this.getBarsAtEvent(evt) : [];
+
+						this.eachBars(function(bar){
+							bar.restore(['fillColor', 'strokeColor']);
+						});
+						helpers.each(activeBars, function(activeBar){
+							if (activeBar) {
+								activeBar.fillColor = activeBar.highlightFill;
+								activeBar.strokeColor = activeBar.highlightStroke;
+							}
+						});
+						this.showTooltip(activeBars);
+					});
+				}
+
+				//Declare the extension of the default point, to cater for the options passed in to the constructor
+				this.BarClass = Chart.Rectangle.extend({
+					strokeWidth : this.options.barStrokeWidth,
+					showStroke : this.options.barShowStroke,
+					ctx : this.chart.ctx
+				});
+
+				//Iterate through each of the datasets, and build this into a property of the chart
+				helpers.each(data.datasets,function(dataset,datasetIndex){
+
+					var datasetObject = {
+						label : dataset.label || null,
+						fillColor : dataset.fillColor,
+						strokeColor : dataset.strokeColor,
+						bars : []
+					};
+
+					this.datasets.push(datasetObject);
+
+					helpers.each(dataset.data,function(dataPoint,index){
+						//Add a new point for each piece of data, passing any required data to draw.
+						datasetObject.bars.push(new this.BarClass({
+							value : dataPoint,
+							label : data.labels[index],
+							datasetLabel: dataset.label,
+							strokeColor : (typeof dataset.strokeColor == 'object') ? dataset.strokeColor[index] : dataset.strokeColor,
+							fillColor : (typeof dataset.fillColor == 'object') ? dataset.fillColor[index] : dataset.fillColor,
+							highlightFill : (dataset.highlightFill) ? (typeof dataset.highlightFill == 'object') ? dataset.highlightFill[index] : dataset.highlightFill : (typeof dataset.fillColor == 'object') ? dataset.fillColor[index] : dataset.fillColor,
+							highlightStroke : (dataset.highlightStroke) ? (typeof dataset.highlightStroke == 'object') ? dataset.highlightStroke[index] : dataset.highlightStroke : (typeof dataset.strokeColor == 'object') ? dataset.strokeColor[index] : dataset.strokeColor
+						}));
+					},this);
+
+				},this);
+
+				this.buildScale(data.labels);
+
+				this.BarClass.prototype.base = this.scale.endPoint;
+
+				this.eachBars(function(bar, index, datasetIndex){
+					helpers.extend(bar, {
+						width : this.scale.calculateBarWidth(this.datasets.length),
+						x: this.scale.calculateBarX(this.datasets.length, datasetIndex, index),
+						y: this.scale.endPoint
+					});
+					bar.save();
+				}, this);
+
+				this.render();
+			},
+			update : function(){
+				this.scale.update();
+				// Reset any highlight colours before updating.
+				helpers.each(this.activeElements, function(activeElement){
+					activeElement.restore(['fillColor', 'strokeColor']);
+				});
+
+				this.eachBars(function(bar){
+					bar.save();
+				});
+				this.render();
+			},
+			eachBars : function(callback){
+				helpers.each(this.datasets,function(dataset, datasetIndex){
+					helpers.each(dataset.bars, callback, this, datasetIndex);
+				},this);
+			},
+			getBarsAtEvent : function(e){
+				var barsArray = [],
+					eventPosition = helpers.getRelativePosition(e),
+					datasetIterator = function(dataset){
+						barsArray.push(dataset.bars[barIndex]);
+					},
+					barIndex;
+
+				for (var datasetIndex = 0; datasetIndex < this.datasets.length; datasetIndex++) {
+					for (barIndex = 0; barIndex < this.datasets[datasetIndex].bars.length; barIndex++) {
+						if (this.datasets[datasetIndex].bars[barIndex].inRange(eventPosition.x,eventPosition.y)){
+							helpers.each(this.datasets, datasetIterator);
+							return barsArray;
+						}
+					}
+				}
+
+				return barsArray;
+			},
+			buildScale : function(labels){
+				var self = this;
+
+				var dataTotal = function(){
+					var values = [];
+					self.eachBars(function(bar){
+						values.push(bar.value);
+					});
+					return values;
+				};
+
+				var scaleOptions = {
+					templateString : this.options.scaleLabel,
+					height : this.chart.height,
+					width : this.chart.width,
+					ctx : this.chart.ctx,
+					textColor : this.options.scaleFontColor,
+					fontSize : this.options.scaleFontSize,
+					fontStyle : this.options.scaleFontStyle,
+					fontFamily : this.options.scaleFontFamily,
+					valuesCount : labels.length,
+					beginAtZero : this.options.scaleBeginAtZero,
+					integersOnly : this.options.scaleIntegersOnly,
+					calculateYRange: function(currentHeight){
+						var updatedRanges = helpers.calculateScaleRange(
+							dataTotal(),
+							currentHeight,
+							this.fontSize,
+							this.beginAtZero,
+							this.integersOnly
+						);
+						helpers.extend(this, updatedRanges);
+					},
+					xLabels : labels,
+					font : helpers.fontString(this.options.scaleFontSize, this.options.scaleFontStyle, this.options.scaleFontFamily),
+					lineWidth : this.options.scaleLineWidth,
+					lineColor : this.options.scaleLineColor,
+					showHorizontalLines : this.options.scaleShowHorizontalLines,
+					showVerticalLines : this.options.scaleShowVerticalLines,
+					gridLineWidth : (this.options.scaleShowGridLines) ? this.options.scaleGridLineWidth : 0,
+					gridLineColor : (this.options.scaleShowGridLines) ? this.options.scaleGridLineColor : "rgba(0,0,0,0)",
+					padding : (this.options.showScale) ? 0 : (this.options.barShowStroke) ? this.options.barStrokeWidth : 0,
+					showLabels : this.options.scaleShowLabels,
+					display : this.options.showScale
+				};
+
+				if (this.options.scaleOverride){
+					helpers.extend(scaleOptions, {
+						calculateYRange: helpers.noop,
+						steps: this.options.scaleSteps,
+						stepValue: this.options.scaleStepWidth,
+						min: this.options.scaleStartValue,
+						max: this.options.scaleStartValue + (this.options.scaleSteps * this.options.scaleStepWidth)
+					});
+				}
+
+				this.scale = new this.ScaleClass(scaleOptions);
+			},
+			addData : function(valuesArray,label){
+				//Map the values array for each of the datasets
+				helpers.each(valuesArray,function(value,datasetIndex){
+					//Add a new point for each piece of data, passing any required data to draw.
+					this.datasets[datasetIndex].bars.push(new this.BarClass({
+						value : value,
+						label : label,
+						datasetLabel: this.datasets[datasetIndex].label,
+						x: this.scale.calculateBarX(this.datasets.length, datasetIndex, this.scale.valuesCount+1),
+						y: this.scale.endPoint,
+						width : this.scale.calculateBarWidth(this.datasets.length),
+						base : this.scale.endPoint,
+						strokeColor : this.datasets[datasetIndex].strokeColor,
+						fillColor : this.datasets[datasetIndex].fillColor
+					}));
+				},this);
+
+				this.scale.addXLabel(label);
+				//Then re-render the chart.
+				this.update();
+			},
+			removeData : function(){
+				this.scale.removeXLabel();
+				//Then re-render the chart.
+				helpers.each(this.datasets,function(dataset){
+					dataset.bars.shift();
+				},this);
+				this.update();
+			},
+			reflow : function(){
+				helpers.extend(this.BarClass.prototype,{
+					y: this.scale.endPoint,
+					base : this.scale.endPoint
+				});
+				var newScaleProps = helpers.extend({
+					height : this.chart.height,
+					width : this.chart.width
+				});
+				this.scale.update(newScaleProps);
+			},
+			draw : function(ease){
+				var easingDecimal = ease || 1;
+				this.clear();
+
+				var ctx = this.chart.ctx;
+
+				this.scale.draw(easingDecimal);
+
+				//Draw all the bars for each dataset
+				helpers.each(this.datasets,function(dataset,datasetIndex){
+					helpers.each(dataset.bars,function(bar,index){
+						if (bar.hasValue()){
+							bar.base = this.scale.endPoint;
+							//Transition then draw
+							bar.transition({
+								x : this.scale.calculateBarX(this.datasets.length, datasetIndex, index),
+								y : this.scale.calculateY(bar.value),
+								width : this.scale.calculateBarWidth(this.datasets.length)
+							}, easingDecimal).draw();
+						}
+					},this);
+
+				},this);
+			}
+		});
+
+
+	}).call(this);
+
+	(function(){
+		"use strict";
+
+		var root = this,
+			Chart = root.Chart,
+			//Cache a local reference to Chart.helpers
+			helpers = Chart.helpers;
+
+		var defaultConfig = {
+			//Boolean - Whether we should show a stroke on each segment
+			segmentShowStroke : true,
+
+			//String - The colour of each segment stroke
+			segmentStrokeColor : "#fff",
+
+			//Number - The width of each segment stroke
+			segmentStrokeWidth : 2,
+
+			//The percentage of the chart that we cut out of the middle.
+			percentageInnerCutout : 50,
+
+			//Number - Amount of animation steps
+			animationSteps : 100,
+
+			//String - Animation easing effect
+			animationEasing : "easeOutBounce",
+
+			//Boolean - Whether we animate the rotation of the Doughnut
+			animateRotate : true,
+
+			//Boolean - Whether we animate scaling the Doughnut from the centre
+			animateScale : false,
+
+			//String - A legend template
+			legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span class=\"<%=name.toLowerCase()%>-legend-icon\" style=\"background-color:<%=segments[i].fillColor%>\"></span><span class=\"<%=name.toLowerCase()%>-legend-text\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>"
+
+		};
+
+		Chart.Type.extend({
+			//Passing in a name registers this chart in the Chart namespace
+			name: "Doughnut",
+			//Providing a defaults will also register the defaults in the chart namespace
+			defaults : defaultConfig,
+			//Initialize is fired when the chart is initialized - Data is passed in as a parameter
+			//Config is automatically merged by the core of Chart.js, and is available at this.options
+			initialize:  function(data){
+
+				//Declare segments as a static property to prevent inheriting across the Chart type prototype
+				this.segments = [];
+				this.outerRadius = (helpers.min([this.chart.width,this.chart.height]) -	this.options.segmentStrokeWidth/2)/2;
+
+				this.SegmentArc = Chart.Arc.extend({
+					ctx : this.chart.ctx,
+					x : this.chart.width/2,
+					y : this.chart.height/2
+				});
+
+				//Set up tooltip events on the chart
+				if (this.options.showTooltips){
+					helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
+						var activeSegments = (evt.type !== 'mouseout') ? this.getSegmentsAtEvent(evt) : [];
+
+						helpers.each(this.segments,function(segment){
+							segment.restore(["fillColor"]);
+						});
+						helpers.each(activeSegments,function(activeSegment){
+							activeSegment.fillColor = activeSegment.highlightColor;
+						});
+						this.showTooltip(activeSegments);
+					});
+				}
+				this.calculateTotal(data);
+
+				helpers.each(data,function(datapoint, index){
+					if (!datapoint.color) {
+						datapoint.color = 'hsl(' + (360 * index / data.length) + ', 100%, 50%)';
+					}
+					this.addData(datapoint, index, true);
+				},this);
+
+				this.render();
+			},
+			getSegmentsAtEvent : function(e){
+				var segmentsArray = [];
+
+				var location = helpers.getRelativePosition(e);
+
+				helpers.each(this.segments,function(segment){
+					if (segment.inRange(location.x,location.y)) segmentsArray.push(segment);
+				},this);
+				return segmentsArray;
+			},
+			addData : function(segment, atIndex, silent){
+				var index = atIndex !== undefined ? atIndex : this.segments.length;
+				if ( typeof(segment.color) === "undefined" ) {
+					segment.color = Chart.defaults.global.segmentColorDefault[index % Chart.defaults.global.segmentColorDefault.length];
+					segment.highlight = Chart.defaults.global.segmentHighlightColorDefaults[index % Chart.defaults.global.segmentHighlightColorDefaults.length];				
+				}
+				this.segments.splice(index, 0, new this.SegmentArc({
+					value : segment.value,
+					outerRadius : (this.options.animateScale) ? 0 : this.outerRadius,
+					innerRadius : (this.options.animateScale) ? 0 : (this.outerRadius/100) * this.options.percentageInnerCutout,
+					fillColor : segment.color,
+					highlightColor : segment.highlight || segment.color,
+					showStroke : this.options.segmentShowStroke,
+					strokeWidth : this.options.segmentStrokeWidth,
+					strokeColor : this.options.segmentStrokeColor,
+					startAngle : Math.PI * 1.5,
+					circumference : (this.options.animateRotate) ? 0 : this.calculateCircumference(segment.value),
+					label : segment.label
+				}));
+				if (!silent){
+					this.reflow();
+					this.update();
+				}
+			},
+			calculateCircumference : function(value) {
+				if ( this.total > 0 ) {
+					return (Math.PI*2)*(value / this.total);
+				} else {
+					return 0;
+				}
+			},
+			calculateTotal : function(data){
+				this.total = 0;
+				helpers.each(data,function(segment){
+					this.total += Math.abs(segment.value);
+				},this);
+			},
+			update : function(){
+				this.calculateTotal(this.segments);
+
+				// Reset any highlight colours before updating.
+				helpers.each(this.activeElements, function(activeElement){
+					activeElement.restore(['fillColor']);
+				});
+
+				helpers.each(this.segments,function(segment){
+					segment.save();
+				});
+				this.render();
+			},
+
+			removeData: function(atIndex){
+				var indexToDelete = (helpers.isNumber(atIndex)) ? atIndex : this.segments.length-1;
+				this.segments.splice(indexToDelete, 1);
+				this.reflow();
+				this.update();
+			},
+
+			reflow : function(){
+				helpers.extend(this.SegmentArc.prototype,{
+					x : this.chart.width/2,
+					y : this.chart.height/2
+				});
+				this.outerRadius = (helpers.min([this.chart.width,this.chart.height]) -	this.options.segmentStrokeWidth/2)/2;
+				helpers.each(this.segments, function(segment){
+					segment.update({
+						outerRadius : this.outerRadius,
+						innerRadius : (this.outerRadius/100) * this.options.percentageInnerCutout
+					});
+				}, this);
+			},
+			draw : function(easeDecimal){
+				var animDecimal = (easeDecimal) ? easeDecimal : 1;
+				this.clear();
+				helpers.each(this.segments,function(segment,index){
+					segment.transition({
+						circumference : this.calculateCircumference(segment.value),
+						outerRadius : this.outerRadius,
+						innerRadius : (this.outerRadius/100) * this.options.percentageInnerCutout
+					},animDecimal);
+
+					segment.endAngle = segment.startAngle + segment.circumference;
+
+					segment.draw();
+					if (index === 0){
+						segment.startAngle = Math.PI * 1.5;
+					}
+					//Check to see if it's the last segment, if not get the next and update the start angle
+					if (index < this.segments.length-1){
+						this.segments[index+1].startAngle = segment.endAngle;
+					}
+				},this);
+
+			}
+		});
+
+		Chart.types.Doughnut.extend({
+			name : "Pie",
+			defaults : helpers.merge(defaultConfig,{percentageInnerCutout : 0})
+		});
+
+	}).call(this);
+
+	(function(){
+		"use strict";
+
+		var root = this,
+			Chart = root.Chart,
+			helpers = Chart.helpers;
+
+		var defaultConfig = {
+
+			///Boolean - Whether grid lines are shown across the chart
+			scaleShowGridLines : true,
+
+			//String - Colour of the grid lines
+			scaleGridLineColor : "rgba(0,0,0,.05)",
+
+			//Number - Width of the grid lines
+			scaleGridLineWidth : 1,
+
+			//Boolean - Whether to show horizontal lines (except X axis)
+			scaleShowHorizontalLines: true,
+
+			//Boolean - Whether to show vertical lines (except Y axis)
+			scaleShowVerticalLines: true,
+
+			//Boolean - Whether the line is curved between points
+			bezierCurve : true,
+
+			//Number - Tension of the bezier curve between points
+			bezierCurveTension : 0.4,
+
+			//Boolean - Whether to show a dot for each point
+			pointDot : true,
+
+			//Number - Radius of each point dot in pixels
+			pointDotRadius : 4,
+
+			//Number - Pixel width of point dot stroke
+			pointDotStrokeWidth : 1,
+
+			//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+			pointHitDetectionRadius : 20,
+
+			//Boolean - Whether to show a stroke for datasets
+			datasetStroke : true,
+
+			//Number - Pixel width of dataset stroke
+			datasetStrokeWidth : 2,
+
+			//Boolean - Whether to fill the dataset with a colour
+			datasetFill : true,
+
+			//String - A legend template
+			legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span class=\"<%=name.toLowerCase()%>-legend-icon\" style=\"background-color:<%=datasets[i].strokeColor%>\"></span><span class=\"<%=name.toLowerCase()%>-legend-text\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span></li><%}%></ul>",
+
+			//Boolean - Whether to horizontally center the label and point dot inside the grid
+			offsetGridLines : false
+
+		};
+
+
+		Chart.Type.extend({
+			name: "Line",
+			defaults : defaultConfig,
+			initialize:  function(data){
+				//Declare the extension of the default point, to cater for the options passed in to the constructor
+				this.PointClass = Chart.Point.extend({
+					offsetGridLines : this.options.offsetGridLines,
+					strokeWidth : this.options.pointDotStrokeWidth,
+					radius : this.options.pointDotRadius,
+					display: this.options.pointDot,
+					hitDetectionRadius : this.options.pointHitDetectionRadius,
+					ctx : this.chart.ctx,
+					inRange : function(mouseX){
+						return (Math.pow(mouseX-this.x, 2) < Math.pow(this.radius + this.hitDetectionRadius,2));
+					}
+				});
+
+				this.datasets = [];
+
+				//Set up tooltip events on the chart
+				if (this.options.showTooltips){
+					helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
+						var activePoints = (evt.type !== 'mouseout') ? this.getPointsAtEvent(evt) : [];
+						this.eachPoints(function(point){
+							point.restore(['fillColor', 'strokeColor']);
+						});
+						helpers.each(activePoints, function(activePoint){
+							activePoint.fillColor = activePoint.highlightFill;
+							activePoint.strokeColor = activePoint.highlightStroke;
+						});
+						this.showTooltip(activePoints);
+					});
+				}
+
+				//Iterate through each of the datasets, and build this into a property of the chart
+				helpers.each(data.datasets,function(dataset){
+
+					var datasetObject = {
+						label : dataset.label || null,
+						fillColor : dataset.fillColor,
+						strokeColor : dataset.strokeColor,
+						pointColor : dataset.pointColor,
+						pointStrokeColor : dataset.pointStrokeColor,
+						points : []
+					};
+
+					this.datasets.push(datasetObject);
+
+
+					helpers.each(dataset.data,function(dataPoint,index){
+						//Add a new point for each piece of data, passing any required data to draw.
+						datasetObject.points.push(new this.PointClass({
+							value : dataPoint,
+							label : data.labels[index],
+							datasetLabel: dataset.label,
+							strokeColor : dataset.pointStrokeColor,
+							fillColor : dataset.pointColor,
+							highlightFill : dataset.pointHighlightFill || dataset.pointColor,
+							highlightStroke : dataset.pointHighlightStroke || dataset.pointStrokeColor
+						}));
+					},this);
+
+					this.buildScale(data.labels);
+
+
+					this.eachPoints(function(point, index){
+						helpers.extend(point, {
+							x: this.scale.calculateX(index),
+							y: this.scale.endPoint
+						});
+						point.save();
+					}, this);
+
+				},this);
+
+
+				this.render();
+			},
+			update : function(){
+				this.scale.update();
+				// Reset any highlight colours before updating.
+				helpers.each(this.activeElements, function(activeElement){
+					activeElement.restore(['fillColor', 'strokeColor']);
+				});
+				this.eachPoints(function(point){
+					point.save();
+				});
+				this.render();
+			},
+			eachPoints : function(callback){
+				helpers.each(this.datasets,function(dataset){
+					helpers.each(dataset.points,callback,this);
+				},this);
+			},
+			getPointsAtEvent : function(e){
+				var pointsArray = [],
+					eventPosition = helpers.getRelativePosition(e);
+				helpers.each(this.datasets,function(dataset){
+					helpers.each(dataset.points,function(point){
+						if (point.inRange(eventPosition.x,eventPosition.y)) pointsArray.push(point);
+					});
+				},this);
+				return pointsArray;
+			},
+			buildScale : function(labels){
+				var self = this;
+
+				var dataTotal = function(){
+					var values = [];
+					self.eachPoints(function(point){
+						values.push(point.value);
+					});
+
+					return values;
+				};
+
+				var scaleOptions = {
+					templateString : this.options.scaleLabel,
+					height : this.chart.height,
+					width : this.chart.width,
+					ctx : this.chart.ctx,
+					textColor : this.options.scaleFontColor,
+					offsetGridLines : this.options.offsetGridLines,
+					fontSize : this.options.scaleFontSize,
+					fontStyle : this.options.scaleFontStyle,
+					fontFamily : this.options.scaleFontFamily,
+					valuesCount : labels.length,
+					beginAtZero : this.options.scaleBeginAtZero,
+					integersOnly : this.options.scaleIntegersOnly,
+					calculateYRange : function(currentHeight){
+						var updatedRanges = helpers.calculateScaleRange(
+							dataTotal(),
+							currentHeight,
+							this.fontSize,
+							this.beginAtZero,
+							this.integersOnly
+						);
+						helpers.extend(this, updatedRanges);
+					},
+					xLabels : labels,
+					font : helpers.fontString(this.options.scaleFontSize, this.options.scaleFontStyle, this.options.scaleFontFamily),
+					lineWidth : this.options.scaleLineWidth,
+					lineColor : this.options.scaleLineColor,
+					showHorizontalLines : this.options.scaleShowHorizontalLines,
+					showVerticalLines : this.options.scaleShowVerticalLines,
+					gridLineWidth : (this.options.scaleShowGridLines) ? this.options.scaleGridLineWidth : 0,
+					gridLineColor : (this.options.scaleShowGridLines) ? this.options.scaleGridLineColor : "rgba(0,0,0,0)",
+					padding: (this.options.showScale) ? 0 : this.options.pointDotRadius + this.options.pointDotStrokeWidth,
+					showLabels : this.options.scaleShowLabels,
+					display : this.options.showScale
+				};
+
+				if (this.options.scaleOverride){
+					helpers.extend(scaleOptions, {
+						calculateYRange: helpers.noop,
+						steps: this.options.scaleSteps,
+						stepValue: this.options.scaleStepWidth,
+						min: this.options.scaleStartValue,
+						max: this.options.scaleStartValue + (this.options.scaleSteps * this.options.scaleStepWidth)
+					});
+				}
+
+
+				this.scale = new Chart.Scale(scaleOptions);
+			},
+			addData : function(valuesArray,label){
+				//Map the values array for each of the datasets
+
+				helpers.each(valuesArray,function(value,datasetIndex){
+					//Add a new point for each piece of data, passing any required data to draw.
+					this.datasets[datasetIndex].points.push(new this.PointClass({
+						value : value,
+						label : label,
+						datasetLabel: this.datasets[datasetIndex].label,
+						x: this.scale.calculateX(this.scale.valuesCount+1),
+						y: this.scale.endPoint,
+						strokeColor : this.datasets[datasetIndex].pointStrokeColor,
+						fillColor : this.datasets[datasetIndex].pointColor
+					}));
+				},this);
+
+				this.scale.addXLabel(label);
+				//Then re-render the chart.
+				this.update();
+			},
+			removeData : function(){
+				this.scale.removeXLabel();
+				//Then re-render the chart.
+				helpers.each(this.datasets,function(dataset){
+					dataset.points.shift();
+				},this);
+				this.update();
+			},
+			reflow : function(){
+				var newScaleProps = helpers.extend({
+					height : this.chart.height,
+					width : this.chart.width
+				});
+				this.scale.update(newScaleProps);
+			},
+			draw : function(ease){
+				var easingDecimal = ease || 1;
+				this.clear();
+
+				var ctx = this.chart.ctx;
+
+				// Some helper methods for getting the next/prev points
+				var hasValue = function(item){
+					return item.value !== null;
+				},
+				nextPoint = function(point, collection, index){
+					return helpers.findNextWhere(collection, hasValue, index) || point;
+				},
+				previousPoint = function(point, collection, index){
+					return helpers.findPreviousWhere(collection, hasValue, index) || point;
+				};
+
+				if (!this.scale) return;
+				this.scale.draw(easingDecimal);
+
+
+				helpers.each(this.datasets,function(dataset){
+					var pointsWithValues = helpers.where(dataset.points, hasValue);
+
+					//Transition each point first so that the line and point drawing isn't out of sync
+					//We can use this extra loop to calculate the control points of this dataset also in this loop
+
+					helpers.each(dataset.points, function(point, index){
+						if (point.hasValue()){
+							point.transition({
+								y : this.scale.calculateY(point.value),
+								x : this.scale.calculateX(index)
+							}, easingDecimal);
+						}
+					},this);
+
+
+					// Control points need to be calculated in a separate loop, because we need to know the current x/y of the point
+					// This would cause issues when there is no animation, because the y of the next point would be 0, so beziers would be skewed
+					if (this.options.bezierCurve){
+						helpers.each(pointsWithValues, function(point, index){
+							var tension = (index > 0 && index < pointsWithValues.length - 1) ? this.options.bezierCurveTension : 0;
+							point.controlPoints = helpers.splineCurve(
+								previousPoint(point, pointsWithValues, index),
+								point,
+								nextPoint(point, pointsWithValues, index),
+								tension
+							);
+
+							// Prevent the bezier going outside of the bounds of the graph
+
+							// Cap puter bezier handles to the upper/lower scale bounds
+							if (point.controlPoints.outer.y > this.scale.endPoint){
+								point.controlPoints.outer.y = this.scale.endPoint;
+							}
+							else if (point.controlPoints.outer.y < this.scale.startPoint){
+								point.controlPoints.outer.y = this.scale.startPoint;
+							}
+
+							// Cap inner bezier handles to the upper/lower scale bounds
+							if (point.controlPoints.inner.y > this.scale.endPoint){
+								point.controlPoints.inner.y = this.scale.endPoint;
+							}
+							else if (point.controlPoints.inner.y < this.scale.startPoint){
+								point.controlPoints.inner.y = this.scale.startPoint;
+							}
+						},this);
+					}
+
+
+					//Draw the line between all the points
+					ctx.lineWidth = this.options.datasetStrokeWidth;
+					ctx.strokeStyle = dataset.strokeColor;
+					ctx.beginPath();
+
+					helpers.each(pointsWithValues, function(point, index){
+						if (index === 0){
+							ctx.moveTo(point.x, point.y);
+						}
+						else{
+							if(this.options.bezierCurve){
+								var previous = previousPoint(point, pointsWithValues, index);
+
+								ctx.bezierCurveTo(
+									previous.controlPoints.outer.x,
+									previous.controlPoints.outer.y,
+									point.controlPoints.inner.x,
+									point.controlPoints.inner.y,
+									point.x,
+									point.y
+								);
+							}
+							else{
+								ctx.lineTo(point.x,point.y);
+							}
+						}
+					}, this);
+
+					if (this.options.datasetStroke) {
+						ctx.stroke();
+					}
+
+					if (this.options.datasetFill && pointsWithValues.length > 0){
+						//Round off the line by going to the base of the chart, back to the start, then fill.
+						ctx.lineTo(pointsWithValues[pointsWithValues.length - 1].x, this.scale.endPoint);
+						ctx.lineTo(pointsWithValues[0].x, this.scale.endPoint);
+						ctx.fillStyle = dataset.fillColor;
+						ctx.closePath();
+						ctx.fill();
+					}
+
+					//Now draw the points over the line
+					//A little inefficient double looping, but better than the line
+					//lagging behind the point positions
+					helpers.each(pointsWithValues,function(point){
+						point.draw();
+					});
+				},this);
+			}
+		});
+
+
+	}).call(this);
+
+	(function(){
+		"use strict";
+
+		var root = this,
+			Chart = root.Chart,
+			//Cache a local reference to Chart.helpers
+			helpers = Chart.helpers;
+
+		var defaultConfig = {
+			//Boolean - Show a backdrop to the scale label
+			scaleShowLabelBackdrop : true,
+
+			//String - The colour of the label backdrop
+			scaleBackdropColor : "rgba(255,255,255,0.75)",
+
+			// Boolean - Whether the scale should begin at zero
+			scaleBeginAtZero : true,
+
+			//Number - The backdrop padding above & below the label in pixels
+			scaleBackdropPaddingY : 2,
+
+			//Number - The backdrop padding to the side of the label in pixels
+			scaleBackdropPaddingX : 2,
+
+			//Boolean - Show line for each value in the scale
+			scaleShowLine : true,
+
+			//Boolean - Stroke a line around each segment in the chart
+			segmentShowStroke : true,
+
+			//String - The colour of the stroke on each segment.
+			segmentStrokeColor : "#fff",
+
+			//Number - The width of the stroke value in pixels
+			segmentStrokeWidth : 2,
+
+			//Number - Amount of animation steps
+			animationSteps : 100,
+
+			//String - Animation easing effect.
+			animationEasing : "easeOutBounce",
+
+			//Boolean - Whether to animate the rotation of the chart
+			animateRotate : true,
+
+			//Boolean - Whether to animate scaling the chart from the centre
+			animateScale : false,
+
+			//String - A legend template
+			legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span class=\"<%=name.toLowerCase()%>-legend-icon\" style=\"background-color:<%=segments[i].fillColor%>\"></span><span class=\"<%=name.toLowerCase()%>-legend-text\"><%if(segments[i].label){%><%=segments[i].label%><%}%></span></li><%}%></ul>"
+		};
+
+
+		Chart.Type.extend({
+			//Passing in a name registers this chart in the Chart namespace
+			name: "PolarArea",
+			//Providing a defaults will also register the defaults in the chart namespace
+			defaults : defaultConfig,
+			//Initialize is fired when the chart is initialized - Data is passed in as a parameter
+			//Config is automatically merged by the core of Chart.js, and is available at this.options
+			initialize:  function(data){
+				this.segments = [];
+				//Declare segment class as a chart instance specific class, so it can share props for this instance
+				this.SegmentArc = Chart.Arc.extend({
+					showStroke : this.options.segmentShowStroke,
+					strokeWidth : this.options.segmentStrokeWidth,
+					strokeColor : this.options.segmentStrokeColor,
+					ctx : this.chart.ctx,
+					innerRadius : 0,
+					x : this.chart.width/2,
+					y : this.chart.height/2
+				});
+				this.scale = new Chart.RadialScale({
+					display: this.options.showScale,
+					fontStyle: this.options.scaleFontStyle,
+					fontSize: this.options.scaleFontSize,
+					fontFamily: this.options.scaleFontFamily,
+					fontColor: this.options.scaleFontColor,
+					showLabels: this.options.scaleShowLabels,
+					showLabelBackdrop: this.options.scaleShowLabelBackdrop,
+					backdropColor: this.options.scaleBackdropColor,
+					backdropPaddingY : this.options.scaleBackdropPaddingY,
+					backdropPaddingX: this.options.scaleBackdropPaddingX,
+					lineWidth: (this.options.scaleShowLine) ? this.options.scaleLineWidth : 0,
+					lineColor: this.options.scaleLineColor,
+					lineArc: true,
+					width: this.chart.width,
+					height: this.chart.height,
+					xCenter: this.chart.width/2,
+					yCenter: this.chart.height/2,
+					ctx : this.chart.ctx,
+					templateString: this.options.scaleLabel,
+					valuesCount: data.length
+				});
+
+				this.updateScaleRange(data);
+
+				this.scale.update();
+
+				helpers.each(data,function(segment,index){
+					this.addData(segment,index,true);
+				},this);
+
+				//Set up tooltip events on the chart
+				if (this.options.showTooltips){
+					helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
+						var activeSegments = (evt.type !== 'mouseout') ? this.getSegmentsAtEvent(evt) : [];
+						helpers.each(this.segments,function(segment){
+							segment.restore(["fillColor"]);
+						});
+						helpers.each(activeSegments,function(activeSegment){
+							activeSegment.fillColor = activeSegment.highlightColor;
+						});
+						this.showTooltip(activeSegments);
+					});
+				}
+
+				this.render();
+			},
+			getSegmentsAtEvent : function(e){
+				var segmentsArray = [];
+
+				var location = helpers.getRelativePosition(e);
+
+				helpers.each(this.segments,function(segment){
+					if (segment.inRange(location.x,location.y)) segmentsArray.push(segment);
+				},this);
+				return segmentsArray;
+			},
+			addData : function(segment, atIndex, silent){
+				var index = atIndex || this.segments.length;
+
+				this.segments.splice(index, 0, new this.SegmentArc({
+					fillColor: segment.color,
+					highlightColor: segment.highlight || segment.color,
+					label: segment.label,
+					value: segment.value,
+					outerRadius: (this.options.animateScale) ? 0 : this.scale.calculateCenterOffset(segment.value),
+					circumference: (this.options.animateRotate) ? 0 : this.scale.getCircumference(),
+					startAngle: Math.PI * 1.5
+				}));
+				if (!silent){
+					this.reflow();
+					this.update();
+				}
+			},
+			removeData: function(atIndex){
+				var indexToDelete = (helpers.isNumber(atIndex)) ? atIndex : this.segments.length-1;
+				this.segments.splice(indexToDelete, 1);
+				this.reflow();
+				this.update();
+			},
+			calculateTotal: function(data){
+				this.total = 0;
+				helpers.each(data,function(segment){
+					this.total += segment.value;
+				},this);
+				this.scale.valuesCount = this.segments.length;
+			},
+			updateScaleRange: function(datapoints){
+				var valuesArray = [];
+				helpers.each(datapoints,function(segment){
+					valuesArray.push(segment.value);
+				});
+
+				var scaleSizes = (this.options.scaleOverride) ?
+					{
+						steps: this.options.scaleSteps,
+						stepValue: this.options.scaleStepWidth,
+						min: this.options.scaleStartValue,
+						max: this.options.scaleStartValue + (this.options.scaleSteps * this.options.scaleStepWidth)
+					} :
+					helpers.calculateScaleRange(
+						valuesArray,
+						helpers.min([this.chart.width, this.chart.height])/2,
+						this.options.scaleFontSize,
+						this.options.scaleBeginAtZero,
+						this.options.scaleIntegersOnly
+					);
+
+				helpers.extend(
+					this.scale,
+					scaleSizes,
+					{
+						size: helpers.min([this.chart.width, this.chart.height]),
+						xCenter: this.chart.width/2,
+						yCenter: this.chart.height/2
+					}
+				);
+
+			},
+			update : function(){
+				this.calculateTotal(this.segments);
+
+				helpers.each(this.segments,function(segment){
+					segment.save();
+				});
+				
+				this.reflow();
+				this.render();
+			},
+			reflow : function(){
+				helpers.extend(this.SegmentArc.prototype,{
+					x : this.chart.width/2,
+					y : this.chart.height/2
+				});
+				this.updateScaleRange(this.segments);
+				this.scale.update();
+
+				helpers.extend(this.scale,{
+					xCenter: this.chart.width/2,
+					yCenter: this.chart.height/2
+				});
+
+				helpers.each(this.segments, function(segment){
+					segment.update({
+						outerRadius : this.scale.calculateCenterOffset(segment.value)
+					});
+				}, this);
+
+			},
+			draw : function(ease){
+				var easingDecimal = ease || 1;
+				//Clear & draw the canvas
+				this.clear();
+				helpers.each(this.segments,function(segment, index){
+					segment.transition({
+						circumference : this.scale.getCircumference(),
+						outerRadius : this.scale.calculateCenterOffset(segment.value)
+					},easingDecimal);
+
+					segment.endAngle = segment.startAngle + segment.circumference;
+
+					// If we've removed the first segment we need to set the first one to
+					// start at the top.
+					if (index === 0){
+						segment.startAngle = Math.PI * 1.5;
+					}
+
+					//Check to see if it's the last segment, if not get the next and update the start angle
+					if (index < this.segments.length - 1){
+						this.segments[index+1].startAngle = segment.endAngle;
+					}
+					segment.draw();
+				}, this);
+				this.scale.draw();
+			}
+		});
+
+	}).call(this);
+
+	(function(){
+		"use strict";
+
+		var root = this,
+			Chart = root.Chart,
+			helpers = Chart.helpers;
+
+
+
+		Chart.Type.extend({
+			name: "Radar",
+			defaults:{
+				//Boolean - Whether to show lines for each scale point
+				scaleShowLine : true,
+
+				//Boolean - Whether we show the angle lines out of the radar
+				angleShowLineOut : true,
+
+				//Boolean - Whether to show labels on the scale
+				scaleShowLabels : false,
+
+				// Boolean - Whether the scale should begin at zero
+				scaleBeginAtZero : true,
+
+				//String - Colour of the angle line
+				angleLineColor : "rgba(0,0,0,.1)",
+
+				//Number - Pixel width of the angle line
+				angleLineWidth : 1,
+
+				//Number - Interval at which to draw angle lines ("every Nth point")
+				angleLineInterval: 1,
+
+				//String - Point label font declaration
+				pointLabelFontFamily : "'Arial'",
+
+				//String - Point label font weight
+				pointLabelFontStyle : "normal",
+
+				//Number - Point label font size in pixels
+				pointLabelFontSize : 10,
+
+				//String - Point label font colour
+				pointLabelFontColor : "#666",
+
+				//Boolean - Whether to show a dot for each point
+				pointDot : true,
+
+				//Number - Radius of each point dot in pixels
+				pointDotRadius : 3,
+
+				//Number - Pixel width of point dot stroke
+				pointDotStrokeWidth : 1,
+
+				//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+				pointHitDetectionRadius : 20,
+
+				//Boolean - Whether to show a stroke for datasets
+				datasetStroke : true,
+
+				//Number - Pixel width of dataset stroke
+				datasetStrokeWidth : 2,
+
+				//Boolean - Whether to fill the dataset with a colour
+				datasetFill : true,
+
+				//String - A legend template
+				legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span class=\"<%=name.toLowerCase()%>-legend-icon\" style=\"background-color:<%=datasets[i].strokeColor%>\"></span><span class=\"<%=name.toLowerCase()%>-legend-text\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span></li><%}%></ul>"
+
+			},
+
+			initialize: function(data){
+				this.PointClass = Chart.Point.extend({
+					strokeWidth : this.options.pointDotStrokeWidth,
+					radius : this.options.pointDotRadius,
+					display: this.options.pointDot,
+					hitDetectionRadius : this.options.pointHitDetectionRadius,
+					ctx : this.chart.ctx
+				});
+
+				this.datasets = [];
+
+				this.buildScale(data);
+
+				//Set up tooltip events on the chart
+				if (this.options.showTooltips){
+					helpers.bindEvents(this, this.options.tooltipEvents, function(evt){
+						var activePointsCollection = (evt.type !== 'mouseout') ? this.getPointsAtEvent(evt) : [];
+
+						this.eachPoints(function(point){
+							point.restore(['fillColor', 'strokeColor']);
+						});
+						helpers.each(activePointsCollection, function(activePoint){
+							activePoint.fillColor = activePoint.highlightFill;
+							activePoint.strokeColor = activePoint.highlightStroke;
+						});
+
+						this.showTooltip(activePointsCollection);
+					});
+				}
+
+				//Iterate through each of the datasets, and build this into a property of the chart
+				helpers.each(data.datasets,function(dataset){
+
+					var datasetObject = {
+						label: dataset.label || null,
+						fillColor : dataset.fillColor,
+						strokeColor : dataset.strokeColor,
+						pointColor : dataset.pointColor,
+						pointStrokeColor : dataset.pointStrokeColor,
+						points : []
+					};
+
+					this.datasets.push(datasetObject);
+
+					helpers.each(dataset.data,function(dataPoint,index){
+						//Add a new point for each piece of data, passing any required data to draw.
+						var pointPosition;
+						if (!this.scale.animation){
+							pointPosition = this.scale.getPointPosition(index, this.scale.calculateCenterOffset(dataPoint));
+						}
+						datasetObject.points.push(new this.PointClass({
+							value : dataPoint,
+							label : data.labels[index],
+							datasetLabel: dataset.label,
+							x: (this.options.animation) ? this.scale.xCenter : pointPosition.x,
+							y: (this.options.animation) ? this.scale.yCenter : pointPosition.y,
+							strokeColor : dataset.pointStrokeColor,
+							fillColor : dataset.pointColor,
+							highlightFill : dataset.pointHighlightFill || dataset.pointColor,
+							highlightStroke : dataset.pointHighlightStroke || dataset.pointStrokeColor
+						}));
+					},this);
+
+				},this);
+
+				this.render();
+			},
+			eachPoints : function(callback){
+				helpers.each(this.datasets,function(dataset){
+					helpers.each(dataset.points,callback,this);
+				},this);
+			},
+
+			getPointsAtEvent : function(evt){
+				var mousePosition = helpers.getRelativePosition(evt),
+					fromCenter = helpers.getAngleFromPoint({
+						x: this.scale.xCenter,
+						y: this.scale.yCenter
+					}, mousePosition);
+
+				var anglePerIndex = (Math.PI * 2) /this.scale.valuesCount,
+					pointIndex = Math.round((fromCenter.angle - Math.PI * 1.5) / anglePerIndex),
+					activePointsCollection = [];
+
+				// If we're at the top, make the pointIndex 0 to get the first of the array.
+				if (pointIndex >= this.scale.valuesCount || pointIndex < 0){
+					pointIndex = 0;
+				}
+
+				if (fromCenter.distance <= this.scale.drawingArea){
+					helpers.each(this.datasets, function(dataset){
+						activePointsCollection.push(dataset.points[pointIndex]);
+					});
+				}
+
+				return activePointsCollection;
+			},
+
+			buildScale : function(data){
+				this.scale = new Chart.RadialScale({
+					display: this.options.showScale,
+					fontStyle: this.options.scaleFontStyle,
+					fontSize: this.options.scaleFontSize,
+					fontFamily: this.options.scaleFontFamily,
+					fontColor: this.options.scaleFontColor,
+					showLabels: this.options.scaleShowLabels,
+					showLabelBackdrop: this.options.scaleShowLabelBackdrop,
+					backdropColor: this.options.scaleBackdropColor,
+					backgroundColors: this.options.scaleBackgroundColors,
+					backdropPaddingY : this.options.scaleBackdropPaddingY,
+					backdropPaddingX: this.options.scaleBackdropPaddingX,
+					lineWidth: (this.options.scaleShowLine) ? this.options.scaleLineWidth : 0,
+					lineColor: this.options.scaleLineColor,
+					angleLineColor : this.options.angleLineColor,
+					angleLineWidth : (this.options.angleShowLineOut) ? this.options.angleLineWidth : 0,
+	        angleLineInterval: (this.options.angleLineInterval) ? this.options.angleLineInterval : 1,
+					// Point labels at the edge of each line
+					pointLabelFontColor : this.options.pointLabelFontColor,
+					pointLabelFontSize : this.options.pointLabelFontSize,
+					pointLabelFontFamily : this.options.pointLabelFontFamily,
+					pointLabelFontStyle : this.options.pointLabelFontStyle,
+					height : this.chart.height,
+					width: this.chart.width,
+					xCenter: this.chart.width/2,
+					yCenter: this.chart.height/2,
+					ctx : this.chart.ctx,
+					templateString: this.options.scaleLabel,
+					labels: data.labels,
+					valuesCount: data.datasets[0].data.length
+				});
+
+				this.scale.setScaleSize();
+				this.updateScaleRange(data.datasets);
+				this.scale.buildYLabels();
+			},
+			updateScaleRange: function(datasets){
+				var valuesArray = (function(){
+					var totalDataArray = [];
+					helpers.each(datasets,function(dataset){
+						if (dataset.data){
+							totalDataArray = totalDataArray.concat(dataset.data);
+						}
+						else {
+							helpers.each(dataset.points, function(point){
+								totalDataArray.push(point.value);
+							});
+						}
+					});
+					return totalDataArray;
+				})();
+
+
+				var scaleSizes = (this.options.scaleOverride) ?
+					{
+						steps: this.options.scaleSteps,
+						stepValue: this.options.scaleStepWidth,
+						min: this.options.scaleStartValue,
+						max: this.options.scaleStartValue + (this.options.scaleSteps * this.options.scaleStepWidth)
+					} :
+					helpers.calculateScaleRange(
+						valuesArray,
+						helpers.min([this.chart.width, this.chart.height])/2,
+						this.options.scaleFontSize,
+						this.options.scaleBeginAtZero,
+						this.options.scaleIntegersOnly
+					);
+
+				helpers.extend(
+					this.scale,
+					scaleSizes
+				);
+
+			},
+			addData : function(valuesArray,label){
+				//Map the values array for each of the datasets
+				this.scale.valuesCount++;
+				helpers.each(valuesArray,function(value,datasetIndex){
+					var pointPosition = this.scale.getPointPosition(this.scale.valuesCount, this.scale.calculateCenterOffset(value));
+					this.datasets[datasetIndex].points.push(new this.PointClass({
+						value : value,
+						label : label,
+						datasetLabel: this.datasets[datasetIndex].label,
+						x: pointPosition.x,
+						y: pointPosition.y,
+						strokeColor : this.datasets[datasetIndex].pointStrokeColor,
+						fillColor : this.datasets[datasetIndex].pointColor
+					}));
+				},this);
+
+				this.scale.labels.push(label);
+
+				this.reflow();
+
+				this.update();
+			},
+			removeData : function(){
+				this.scale.valuesCount--;
+				this.scale.labels.shift();
+				helpers.each(this.datasets,function(dataset){
+					dataset.points.shift();
+				},this);
+				this.reflow();
+				this.update();
+			},
+			update : function(){
+				this.eachPoints(function(point){
+					point.save();
+				});
+				this.reflow();
+				this.render();
+			},
+			reflow: function(){
+				helpers.extend(this.scale, {
+					width : this.chart.width,
+					height: this.chart.height,
+					size : helpers.min([this.chart.width, this.chart.height]),
+					xCenter: this.chart.width/2,
+					yCenter: this.chart.height/2
+				});
+				this.updateScaleRange(this.datasets);
+				this.scale.setScaleSize();
+				this.scale.buildYLabels();
+			},
+			draw : function(ease){
+				var easeDecimal = ease || 1,
+					ctx = this.chart.ctx;
+				this.clear();
+				this.scale.draw();
+
+				helpers.each(this.datasets,function(dataset){
+
+					//Transition each point first so that the line and point drawing isn't out of sync
+					helpers.each(dataset.points,function(point,index){
+						if (point.hasValue()){
+							point.transition(this.scale.getPointPosition(index, this.scale.calculateCenterOffset(point.value)), easeDecimal);
+						}
+					},this);
+
+
+
+					//Draw the line between all the points
+					ctx.lineWidth = this.options.datasetStrokeWidth;
+					ctx.strokeStyle = dataset.strokeColor;
+					ctx.beginPath();
+					helpers.each(dataset.points,function(point,index){
+						if (index === 0){
+							ctx.moveTo(point.x,point.y);
+						}
+						else{
+							ctx.lineTo(point.x,point.y);
+						}
+					},this);
+					ctx.closePath();
+					ctx.stroke();
+
+					ctx.fillStyle = dataset.fillColor;
+					if(this.options.datasetFill){
+						ctx.fill();
+					}
+					//Now draw the points over the line
+					//A little inefficient double looping, but better than the line
+					//lagging behind the point positions
+					helpers.each(dataset.points,function(point){
+						if (point.hasValue()){
+							point.draw();
+						}
+					});
+
+				},this);
+
+			}
+
+		});
+
+
+
+
+
+	}).call(this);
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(23);
+	var content = __webpack_require__(26);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(21)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../css-loader/index.js!./angular-chart.min.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./angular-chart.min.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(20)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".bar-legend,.chart-legend,.doughnut-legend,.line-legend,.pie-legend,.polararea-legend,.radar-legend{list-style-type:none;margin-top:5px;text-align:center;-webkit-padding-start:0;-moz-padding-start:0;padding-left:0}.bar-legend li,.chart-legend li,.doughnut-legend li,.line-legend li,.pie-legend li,.polararea-legend li,.radar-legend li{display:inline-block;white-space:nowrap;position:relative;margin-bottom:4px;border-radius:5px;padding:2px 8px 2px 28px;font-size:smaller;cursor:default}.bar-legend-icon,.chart-legend-icon,.doughnut-legend-icon,.line-legend-icon,.pie-legend-icon,.polararea-legend-icon,.radar-legend-icon{display:block;position:absolute;left:0;top:0;width:20px;height:20px;border-radius:5px}\n/*# sourceMappingURL=angular-chart.min.css.map */\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(28);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(21)(content, {});
@@ -54553,7 +57968,7 @@
 	}
 
 /***/ },
-/* 23 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(20)();
@@ -54567,13 +57982,13 @@
 
 
 /***/ },
-/* 24 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(25);
+	var content = __webpack_require__(30);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(21)(content, {});
@@ -54593,7 +58008,7 @@
 	}
 
 /***/ },
-/* 25 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(20)();
@@ -54601,13 +58016,13 @@
 
 
 	// module
-	exports.push([module.id, "* {\r\n    margin: 0;\r\n    padding: 0;\r\n    border:0;\r\n}\r\n\r\nbody {\r\n  font-family: \"Segoe UI\", \"Lucida Grande\", Helvetica, Arial, \"Microsoft YaHei\", FreeSans, Arimo, \"Droid Sans\",\"wenquanyi micro hei\",\"Hiragino Sans GB\", \"Hiragino Sans GB W3\", Arial, sans-serif;\r\n}\r\n\r\n\r\n.mt10{margin-top: 10px;}\r\n.mt15{margin-top: 15px;}\r\n.mt20{margin-top: 20px;}\r\n.mt25{margin-top: 25px;}\r\n.mb10{margin-bottom: 10px;}\r\n\r\nbody { /*padding-bottom: 70px;*/ }\r\n.navbar-brand{/*padding-top: 5px;*/}\r\n\r\n\r\n\r\n\r\n/*.btn {\r\n    margin-right: 8px;\r\n}*/\r\n\r\n.angular-ui-tree-handle {\r\n    background: #f8faff;\r\n    border: 1px solid #dae2ea;\r\n    color: #7c9eb2;\r\n    padding: 10px 10px;\r\n}\r\n\r\n.angular-ui-tree-handle:hover {\r\n    color: #438eb9;\r\n    background: #f4f6f7;\r\n    border-color: #dce2e8;\r\n}\r\n\r\n.angular-ui-tree-placeholder {\r\n    background: #f0f9ff;\r\n    border: 2px dashed #bed2db;\r\n    -webkit-box-sizing: border-box;\r\n    -moz-box-sizing: border-box;\r\n    box-sizing: border-box;\r\n}\r\n\r\ntr.angular-ui-tree-empty {\r\n    height:100px\r\n}\r\n\r\n.group-title {\r\n    background-color: #687074 !important;\r\n    color: #FFF !important;\r\n}\r\n\r\n\r\n/* --- Tree --- */\r\n.tree-node {\r\n    border: 1px solid #dae2ea;\r\n    background: #f8faff;\r\n    color: #7c9eb2;\r\n}\r\n\r\n.nodrop {\r\n    background-color: #f2dede;\r\n}\r\n\r\n.tree-node-content {\r\n    margin: 10px;\r\n}\r\n.tree-handle {\r\n    padding: 10px;\r\n    background: #428bca;\r\n    color: #FFF;\r\n    margin-right: 10px;\r\n}\r\n\r\n.angular-ui-tree-handle:hover {\r\n}\r\n\r\n.angular-ui-tree-placeholder {\r\n    background: #f0f9ff;\r\n    border: 2px dashed #bed2db;\r\n    -webkit-box-sizing: border-box;\r\n    -moz-box-sizing: border-box;\r\n    box-sizing: border-box;\r\n}\r\n\r\n\r\n\r\n/* --- nav --- */\r\n/*.navbar-default {\r\n  background-color: #428BCA;\r\n  border-color: #e7e7e7;\r\n}\r\n.navbar-default .navbar-brand {\r\n  color: #fff;\r\n}\r\n.navbar-default .navbar-brand:hover,\r\n.navbar-default .navbar-brand:focus {\r\n  color: #5e5e5e;\r\n  background-color: transparent;\r\n}\r\n.navbar-default .navbar-text {\r\n  color: #fff;\r\n}\r\n.navbar-default .navbar-nav > li > a {\r\n  color: #fff;\r\n}\r\n.navbar-default .navbar-nav > li > a:hover,\r\n.navbar-default .navbar-nav > li > a:focus {\r\n  color: #fff;\r\n  background-color: transparent;\r\n}\r\n.navbar-default .navbar-nav > .active > a,\r\n.navbar-default .navbar-nav > .active > a:hover,\r\n.navbar-default .navbar-nav > .active > a:focus {\r\n  color: #fff;\r\n  background-color: #93cbf9;\r\n}\r\n.navbar-default .navbar-nav > .disabled > a,\r\n.navbar-default .navbar-nav > .disabled > a:hover,\r\n.navbar-default .navbar-nav > .disabled > a:focus {\r\n  color: #fff;\r\n  background-color: transparent;\r\n}\r\n.navbar-default .navbar-toggle {\r\n  border-color: #ddd;\r\n}\r\n.navbar-default .navbar-toggle:hover,\r\n.navbar-default .navbar-toggle:focus {\r\n  background-color: #ddd;\r\n}\r\n.navbar-default .navbar-toggle .icon-bar {\r\n  background-color: #888;\r\n}\r\n.navbar-default .navbar-collapse,\r\n.navbar-default .navbar-form {\r\n  border-color: #93cbf9;\r\n}\r\n.navbar-default .navbar-nav > .open > a,\r\n.navbar-default .navbar-nav > .open > a:hover,\r\n.navbar-default .navbar-nav > .open > a:focus {\r\n  color: #fff;\r\n  background-color: #93cbf9;\r\n}\r\n@media (max-width: 767px) {\r\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a {\r\n    color: #fff;\r\n  }\r\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,\r\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {\r\n    color: #333;\r\n    background-color: transparent;\r\n  }\r\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,\r\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,\r\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {\r\n    color: #fff;\r\n    background-color: #93cbf9;\r\n  }\r\n  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,\r\n  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,\r\n  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {\r\n    color: #ccc;\r\n    background-color: transparent;\r\n  }\r\n}\r\n.navbar-default .navbar-link {\r\n  color: #fff;\r\n}\r\n.navbar-default .navbar-link:hover {\r\n  color: #333;\r\n}\r\n.navbar-default .btn-link {\r\n  color: #fff;\r\n}\r\n.navbar-default .btn-link:hover,\r\n.navbar-default .btn-link:focus {\r\n  color: #333;\r\n}\r\n.navbar-default .btn-link[disabled]:hover,\r\nfieldset[disabled] .navbar-default .btn-link:hover,\r\n.navbar-default .btn-link[disabled]:focus,\r\nfieldset[disabled] .navbar-default .btn-link:focus {\r\n  color: #ccc;\r\n}\r\n*/\r\n\r\n\r\n.navbar-custom {\r\n  background-color: #428bca;\r\n  border-color: #337ab7;\r\n    border-radius: 0px; \r\n}\r\n.navbar-custom .navbar-brand {\r\n  color: #ffffff;\r\n}\r\n.navbar-custom .navbar-brand:hover,\r\n.navbar-custom .navbar-brand:focus {\r\n  color: #e6e6e6;\r\n  background-color: transparent;\r\n}\r\n.navbar-custom .navbar-text {\r\n  color: #ffffff;\r\n}\r\n.navbar-custom .navbar-nav > li > a {\r\n  color: #ffffff;\r\n}\r\n.navbar-custom .navbar-nav > li > a:hover,\r\n.navbar-custom .navbar-nav > li > a:focus {\r\n  color: #c0c0c0;\r\n  background-color: transparent;\r\n}\r\n.navbar-custom .navbar-nav > .active > a,\r\n.navbar-custom .navbar-nav > .active > a:hover,\r\n.navbar-custom .navbar-nav > .active > a:focus {\r\n  color: #c0c0c0;\r\n  background-color: #337ab7;\r\n}\r\n.navbar-custom .navbar-nav > .disabled > a,\r\n.navbar-custom .navbar-nav > .disabled > a:hover,\r\n.navbar-custom .navbar-nav > .disabled > a:focus {\r\n  color: #cccccc;\r\n  background-color: transparent;\r\n}\r\n.navbar-custom .navbar-toggle {\r\n  border-color: #dddddd;\r\n}\r\n.navbar-custom .navbar-toggle:hover,\r\n.navbar-custom .navbar-toggle:focus {\r\n  background-color: #dddddd;\r\n}\r\n.navbar-custom .navbar-toggle .icon-bar {\r\n  background-color: #cccccc;\r\n}\r\n.navbar-custom .navbar-collapse,\r\n.navbar-custom .navbar-form {\r\n  border-color: #3379b5;\r\n}\r\n.navbar-custom .navbar-nav > .dropdown > a:hover .caret,\r\n.navbar-custom .navbar-nav > .dropdown > a:focus .caret {\r\n  border-top-color: #c0c0c0;\r\n  border-bottom-color: #c0c0c0;\r\n}\r\n.navbar-custom .navbar-nav > .open > a,\r\n.navbar-custom .navbar-nav > .open > a:hover,\r\n.navbar-custom .navbar-nav > .open > a:focus {\r\n  background-color: #337ab7;\r\n  color: #c0c0c0;\r\n}\r\n.navbar-custom .navbar-nav > .open > a .caret,\r\n.navbar-custom .navbar-nav > .open > a:hover .caret,\r\n.navbar-custom .navbar-nav > .open > a:focus .caret {\r\n  border-top-color: #c0c0c0;\r\n  border-bottom-color: #c0c0c0;\r\n}\r\n.navbar-custom .navbar-nav > .dropdown > a .caret {\r\n  border-top-color: #ffffff;\r\n  border-bottom-color: #ffffff;\r\n}\r\n@media (max-width: 767) {\r\n  .navbar-custom .navbar-nav .open .dropdown-menu > li > a {\r\n    color: #ffffff;\r\n  }\r\n  .navbar-custom .navbar-nav .open .dropdown-menu > li > a:hover,\r\n  .navbar-custom .navbar-nav .open .dropdown-menu > li > a:focus {\r\n    color: #c0c0c0;\r\n    background-color: transparent;\r\n  }\r\n  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a,\r\n  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:hover,\r\n  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:focus {\r\n    color: #c0c0c0;\r\n    background-color: #337ab7;\r\n  }\r\n  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a,\r\n  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:hover,\r\n  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:focus {\r\n    color: #cccccc;\r\n    background-color: transparent;\r\n  }\r\n}\r\n.navbar-custom .navbar-link {\r\n  color: #ffffff;\r\n}\r\n.navbar-custom .navbar-link:hover {\r\n  color: #c0c0c0;\r\n}\r\n\r\n\r\n/* 产品销售 */\r\n.num .jian, .num .jia, .num .kuang{width: 40px; height:40px; float:left; font-size:16px; text-align:center;  }\r\n    \r\n.num .kuang{width:70px; border:none; border-top:1px solid #ccc; border-bottom:1px solid #ccc; }\r\n\r\n.num .jian, .num .jia{border:1px solid #ccc; cursor:pointer;}\r\n\r\n.num .jian{border-top-left-radius: 4px;border-bottom-left-radius: 4px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;}\r\n\r\n.num .jia{border-top-right-radius: 4px;border-bottom-right-radius: 4px;border-top-left-radius: 0px;border-bottom-left-radius: 0px;}\r\n\r\n\r\n\r\n\r\n\r\n/* 产品销售－补贴产品 */\r\n.unavailable, .unavailable:hover {cursor:not-allowed; color:#aaaaaa;}\r\n.tree-node-content:hover, .selected {color:#3c763d; background: #dff0d8;}\r\n\r\n\r\n", ""]);
+	exports.push([module.id, "* {\n    margin: 0;\n    padding: 0;\n    border:0;\n}\n\nbody {\n  font-family: \"Segoe UI\", \"Lucida Grande\", Helvetica, Arial, \"Microsoft YaHei\", FreeSans, Arimo, \"Droid Sans\",\"wenquanyi micro hei\",\"Hiragino Sans GB\", \"Hiragino Sans GB W3\", Arial, sans-serif;\n}\n\n\n.mt10{margin-top: 10px;}\n.mt15{margin-top: 15px;}\n.mt20{margin-top: 20px;}\n.mt25{margin-top: 25px;}\n.mb10{margin-bottom: 10px;}\n\nbody { /*padding-bottom: 70px;*/ }\n.navbar-brand{/*padding-top: 5px;*/}\n\n\n\n\n/*.btn {\n    margin-right: 8px;\n}*/\n\n.angular-ui-tree-handle {\n    background: #f8faff;\n    border: 1px solid #dae2ea;\n    color: #7c9eb2;\n    padding: 10px 10px;\n}\n\n.angular-ui-tree-handle:hover {\n    color: #438eb9;\n    background: #f4f6f7;\n    border-color: #dce2e8;\n}\n\n.angular-ui-tree-placeholder {\n    background: #f0f9ff;\n    border: 2px dashed #bed2db;\n    -webkit-box-sizing: border-box;\n    -moz-box-sizing: border-box;\n    box-sizing: border-box;\n}\n\ntr.angular-ui-tree-empty {\n    height:100px\n}\n\n.group-title {\n    background-color: #687074 !important;\n    color: #FFF !important;\n}\n\n\n/* --- Tree --- */\n.tree-node {\n    border: 1px solid #dae2ea;\n    background: #f8faff;\n    color: #7c9eb2;\n}\n\n.nodrop {\n    background-color: #f2dede;\n}\n\n.tree-node-content {\n    margin: 10px;\n}\n.tree-handle {\n    padding: 10px;\n    background: #428bca;\n    color: #FFF;\n    margin-right: 10px;\n}\n\n.angular-ui-tree-handle:hover {\n}\n\n.angular-ui-tree-placeholder {\n    background: #f0f9ff;\n    border: 2px dashed #bed2db;\n    -webkit-box-sizing: border-box;\n    -moz-box-sizing: border-box;\n    box-sizing: border-box;\n}\n\n\n\n/* --- nav --- */\n/*.navbar-default {\n  background-color: #428BCA;\n  border-color: #e7e7e7;\n}\n.navbar-default .navbar-brand {\n  color: #fff;\n}\n.navbar-default .navbar-brand:hover,\n.navbar-default .navbar-brand:focus {\n  color: #5e5e5e;\n  background-color: transparent;\n}\n.navbar-default .navbar-text {\n  color: #fff;\n}\n.navbar-default .navbar-nav > li > a {\n  color: #fff;\n}\n.navbar-default .navbar-nav > li > a:hover,\n.navbar-default .navbar-nav > li > a:focus {\n  color: #fff;\n  background-color: transparent;\n}\n.navbar-default .navbar-nav > .active > a,\n.navbar-default .navbar-nav > .active > a:hover,\n.navbar-default .navbar-nav > .active > a:focus {\n  color: #fff;\n  background-color: #93cbf9;\n}\n.navbar-default .navbar-nav > .disabled > a,\n.navbar-default .navbar-nav > .disabled > a:hover,\n.navbar-default .navbar-nav > .disabled > a:focus {\n  color: #fff;\n  background-color: transparent;\n}\n.navbar-default .navbar-toggle {\n  border-color: #ddd;\n}\n.navbar-default .navbar-toggle:hover,\n.navbar-default .navbar-toggle:focus {\n  background-color: #ddd;\n}\n.navbar-default .navbar-toggle .icon-bar {\n  background-color: #888;\n}\n.navbar-default .navbar-collapse,\n.navbar-default .navbar-form {\n  border-color: #93cbf9;\n}\n.navbar-default .navbar-nav > .open > a,\n.navbar-default .navbar-nav > .open > a:hover,\n.navbar-default .navbar-nav > .open > a:focus {\n  color: #fff;\n  background-color: #93cbf9;\n}\n@media (max-width: 767px) {\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a {\n    color: #fff;\n  }\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,\n  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {\n    color: #333;\n    background-color: transparent;\n  }\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,\n  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {\n    color: #fff;\n    background-color: #93cbf9;\n  }\n  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,\n  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,\n  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {\n    color: #ccc;\n    background-color: transparent;\n  }\n}\n.navbar-default .navbar-link {\n  color: #fff;\n}\n.navbar-default .navbar-link:hover {\n  color: #333;\n}\n.navbar-default .btn-link {\n  color: #fff;\n}\n.navbar-default .btn-link:hover,\n.navbar-default .btn-link:focus {\n  color: #333;\n}\n.navbar-default .btn-link[disabled]:hover,\nfieldset[disabled] .navbar-default .btn-link:hover,\n.navbar-default .btn-link[disabled]:focus,\nfieldset[disabled] .navbar-default .btn-link:focus {\n  color: #ccc;\n}\n*/\n\n\n.navbar-custom {\n  background-color: #428bca;\n  border-color: #337ab7;\n    border-radius: 0px; \n}\n.navbar-custom .navbar-brand {\n  color: #ffffff;\n}\n.navbar-custom .navbar-brand:hover,\n.navbar-custom .navbar-brand:focus {\n  color: #e6e6e6;\n  background-color: transparent;\n}\n.navbar-custom .navbar-text {\n  color: #ffffff;\n}\n.navbar-custom .navbar-nav > li > a {\n  color: #ffffff;\n}\n.navbar-custom .navbar-nav > li > a:hover,\n.navbar-custom .navbar-nav > li > a:focus {\n  color: #c0c0c0;\n  background-color: transparent;\n}\n.navbar-custom .navbar-nav > .active > a,\n.navbar-custom .navbar-nav > .active > a:hover,\n.navbar-custom .navbar-nav > .active > a:focus {\n  color: #c0c0c0;\n  background-color: #337ab7;\n}\n.navbar-custom .navbar-nav > .disabled > a,\n.navbar-custom .navbar-nav > .disabled > a:hover,\n.navbar-custom .navbar-nav > .disabled > a:focus {\n  color: #cccccc;\n  background-color: transparent;\n}\n.navbar-custom .navbar-toggle {\n  border-color: #dddddd;\n}\n.navbar-custom .navbar-toggle:hover,\n.navbar-custom .navbar-toggle:focus {\n  background-color: #dddddd;\n}\n.navbar-custom .navbar-toggle .icon-bar {\n  background-color: #cccccc;\n}\n.navbar-custom .navbar-collapse,\n.navbar-custom .navbar-form {\n  border-color: #3379b5;\n}\n.navbar-custom .navbar-nav > .dropdown > a:hover .caret,\n.navbar-custom .navbar-nav > .dropdown > a:focus .caret {\n  border-top-color: #c0c0c0;\n  border-bottom-color: #c0c0c0;\n}\n.navbar-custom .navbar-nav > .open > a,\n.navbar-custom .navbar-nav > .open > a:hover,\n.navbar-custom .navbar-nav > .open > a:focus {\n  background-color: #337ab7;\n  color: #c0c0c0;\n}\n.navbar-custom .navbar-nav > .open > a .caret,\n.navbar-custom .navbar-nav > .open > a:hover .caret,\n.navbar-custom .navbar-nav > .open > a:focus .caret {\n  border-top-color: #c0c0c0;\n  border-bottom-color: #c0c0c0;\n}\n.navbar-custom .navbar-nav > .dropdown > a .caret {\n  border-top-color: #ffffff;\n  border-bottom-color: #ffffff;\n}\n@media (max-width: 767) {\n  .navbar-custom .navbar-nav .open .dropdown-menu > li > a {\n    color: #ffffff;\n  }\n  .navbar-custom .navbar-nav .open .dropdown-menu > li > a:hover,\n  .navbar-custom .navbar-nav .open .dropdown-menu > li > a:focus {\n    color: #c0c0c0;\n    background-color: transparent;\n  }\n  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a,\n  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:hover,\n  .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:focus {\n    color: #c0c0c0;\n    background-color: #337ab7;\n  }\n  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a,\n  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:hover,\n  .navbar-custom .navbar-nav .open .dropdown-menu > .disabled > a:focus {\n    color: #cccccc;\n    background-color: transparent;\n  }\n}\n.navbar-custom .navbar-link {\n  color: #ffffff;\n}\n.navbar-custom .navbar-link:hover {\n  color: #c0c0c0;\n}\n\n\n/* 产品销售 */\n.num .jian, .num .jia, .num .kuang{width: 40px; height:40px; float:left; font-size:16px; text-align:center;  }\n    \n.num .kuang{width:70px; border:none; border-top:1px solid #ccc; border-bottom:1px solid #ccc; }\n\n.num .jian, .num .jia{border:1px solid #ccc; cursor:pointer;}\n\n.num .jian{border-top-left-radius: 4px;border-bottom-left-radius: 4px;border-top-right-radius: 0px;border-bottom-right-radius: 0px;}\n\n.num .jia{border-top-right-radius: 4px;border-bottom-right-radius: 4px;border-top-left-radius: 0px;border-bottom-left-radius: 0px;}\n\n\n\n\n\n/* 产品销售－补贴产品 */\n.unavailable, .unavailable:hover {cursor:not-allowed; color:#aaaaaa;}\n.tree-node-content:hover, .selected {color:#3c763d; background: #dff0d8;}\n\n\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 26 */
+/* 31 */
 /***/ function(module, exports) {
 
 	module.exports = function($){
@@ -54679,7 +58094,7 @@
 	};
 
 /***/ },
-/* 27 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54693,18 +58108,20 @@
 	    'constant'
 	]);
 
-	App.config(__webpack_require__(28));
-	App.factory('dashboardservice', __webpack_require__(30));
-	App.controller('dashboard',__webpack_require__(31));
+	App.config(__webpack_require__(33));
+	App.factory('dashboardservice', __webpack_require__(35));
+	App.controller('dashboard',__webpack_require__(36));
 
-	App.controller('noticeinfo',__webpack_require__(33));
+	App.controller('noticeinfo',__webpack_require__(38));
+
+	App.controller('chart',__webpack_require__(39));
 
 
 
 	module.exports = App;
 
 /***/ },
-/* 28 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54719,18 +58136,46 @@
 	    .state('app.dashboard', {
 	      url: '/dashboard',
 	      controller : 'dashboard',
-	      template: __webpack_require__(29),
+	      template: __webpack_require__(34),
 	      resolve : {
-	      	noticelist:  function(dashboardservice){
-	       		return dashboardservice.noticelist();
-	       	},
-	       	noticeinfo:  function(dashboardservice){
-	       		return dashboardservice.noticeinfo();
-	       	},
+	       noticelist:  function(dashboardservice){
+	           return dashboardservice.noticelist();
+	         },
+	         noticeinfo:  function(dashboardservice){
+	           return dashboardservice.noticeinfo();
+	         },
 	        userinfo:  function(dashboardservice){
 	          return dashboardservice.userinfo;
 	        }
+	      // controller : 'chart',
+	      // template: require('./views/chart.html'),
+	      // resolve : {
+	      //   orderstatisticslist : function(statisticsservice){
+	      //       return statisticsservice.orderstatisticslist();
+	      //   },
+	      //   getDate : function(utilservice){
+	      //       return utilservice.getDate;
+	      //   },
+	      //   dataScope : function(utilservice){
+	      //       return utilservice.dataScope;
+	      //   },
+	      //   viewlist : function(viewservice){
+	      //       return viewservice.slist;
+	      //   },
+	      //   salelist : function(productservice){
+	      //       return productservice.salelist();
+	      //   }
+	        // noticelist:  function(dashboardservice){
+	        //   return dashboardservice.noticelist();
+	        // },
+	        // noticeinfo:  function(dashboardservice){
+	        //   return dashboardservice.noticeinfo();
+	        // },
+	        // userinfo:  function(dashboardservice){
+	        //   return dashboardservice.userinfo;
+	        // }
 	      }
+	      
 	    })
 
 	};
@@ -54738,13 +58183,13 @@
 	module.exports = router;
 
 /***/ },
-/* 29 */
+/* 34 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-xs-12\">\r\n<div class=\"row\">\r\n\t<div class=\"col-md-4\">\r\n\t\t<div class=\"panel panel-default\">\r\n\t\t  \t<div class=\"panel-heading\">\r\n\t\t  \t\t<b>基本信息</b>\r\n\t\t  \t</div>\r\n\t\t\t<table class=\"table table-bordered\">\r\n\t\t        <tbody>\r\n\t\t          <tr>\r\n\t\t            <td class=\"col-xs-4 text-center\">姓名</td>\r\n\t\t            <td class=\"col-xs-8\">{{userobj.name}}</td>\r\n\t\t          </tr>\r\n\t\t          <tr>\r\n\t\t            <td class=\"col-xs-4 text-center\">电话</td>\r\n\t\t            <td class=\"col-xs-8\">{{userobj.phone}}</td>\r\n\t\t          </tr>\r\n\t\t          <tr>\r\n\t\t            <td class=\"col-xs-4 text-center\">用户名</td>\r\n\t\t            <td class=\"col-xs-8\">{{userobj.loginName}}</td>\r\n\t\t          </tr>\r\n\t\t          <tr>\r\n\t\t            <td class=\"col-xs-4 text-center\">所属机构</td>\r\n\t\t            <td class=\"col-xs-8\">{{userobj.company_name}}</td>\r\n\t\t          </tr>\r\n\t\t        </tbody>\r\n\t\t    </table>\r\n\t\t</div>\r\n\t\t\r\n\t\t<div class=\"panel panel-default\">\r\n\t\t  \t<div class=\"panel-heading\">\r\n\t\t  \t\t<b>平台服务</b>\r\n\t\t  \t</div>\r\n\t\t  \t\r\n\t\t\t<ul class=\"service_list list-group \">\r\n\t\t\t    <li class=\"list-group-item\">在线客服:4009900601</li>\r\n\t\t\t    <li class=\"list-group-item\">技术咨询:4009900601</li>\r\n\t\t\t    <li class=\"list-group-item\">投诉建议:4009900601</li>\r\n\t\t\t</ul>\r\n\t\t\t  \r\n\t\t</div>\r\n\t</div><!-- /col-md-4 -->\r\n\t<div class=\"col-md-8\">\r\n\r\n\t\t<div class=\"panel panel-default\">\r\n\t\t\t<div class=\"panel-heading\">\r\n\t\t\t\t<strong>系统公告</strong>\r\n\t\t\t</div>\r\n\r\n\t\t\t<ul class=\"list-group\">\r\n\t\t\t\t<li class=\"list-group-item\"\r\n\t\t\t\tng-repeat='obj in objs'\r\n\t\t\t\tng-click='info(obj.id)'\r\n\t\t\t\tstyle=\"cursor: pointer;\">\r\n\t\t\t\t\t{{obj.title}}\r\n\t\t\t\t\t<span class=\"small\" style=\"float:right; color: #999;\">{{obj.sdate}}</span>\r\n\t\t\t\t</li>\r\n\t\t\t</ul>\r\n\t\t</div>\t\r\n\t</div><!-- /col-md-8 -->\r\n</div><!-- /row -->\r\n</div><!-- /container-fluid -->"
+	module.exports = "<div class=\"col-xs-12\">\n<div class=\"row\">\n\t<div class=\"col-md-4\">\n\t\t<div class=\"panel panel-default\">\n\t\t  \t<div class=\"panel-heading\">\n\t\t  \t\t<b>基本信息</b>\n\t\t  \t</div>\n\t\t\t<table class=\"table table-bordered\">\n\t\t        <tbody>\n\t\t          <tr>\n\t\t            <td class=\"col-xs-4 text-center\">姓名</td>\n\t\t            <td class=\"col-xs-8\">{{userobj.name}}</td>\n\t\t          </tr>\n\t\t          <tr>\n\t\t            <td class=\"col-xs-4 text-center\">电话</td>\n\t\t            <td class=\"col-xs-8\">{{userobj.phone}}</td>\n\t\t          </tr>\n\t\t          <tr>\n\t\t            <td class=\"col-xs-4 text-center\">用户名</td>\n\t\t            <td class=\"col-xs-8\">{{userobj.loginName}}</td>\n\t\t          </tr>\n\t\t          <tr>\n\t\t            <td class=\"col-xs-4 text-center\">所属机构</td>\n\t\t            <td class=\"col-xs-8\">{{userobj.company_name}}</td>\n\t\t          </tr>\n\t\t        </tbody>\n\t\t    </table>\n\t\t</div>\n\t\t\n\t\t<div class=\"panel panel-default\">\n\t\t  \t<div class=\"panel-heading\">\n\t\t  \t\t<b>平台服务</b>\n\t\t  \t</div>\n\t\t  \t\n\t\t\t<ul class=\"service_list list-group \">\n\t\t\t    <li class=\"list-group-item\">在线客服:4009900601</li>\n\t\t\t    <li class=\"list-group-item\">技术咨询:4009900601</li>\n\t\t\t    <li class=\"list-group-item\">投诉建议:4009900601</li>\n\t\t\t</ul>\n\t\t\t  \n\t\t</div>\n\t</div><!-- /col-md-4 -->\n\t<div class=\"col-md-8\">\n\n\t\t<div class=\"panel panel-default\">\n\t\t\t<div class=\"panel-heading\">\n\t\t\t\t<strong>系统公告</strong>\n\t\t\t</div>\n\n\t\t\t<ul class=\"list-group\">\n\t\t\t\t<li class=\"list-group-item\"\n\t\t\t\tng-repeat='obj in objs'\n\t\t\t\tng-click='info(obj.id)'\n\t\t\t\tstyle=\"cursor: pointer;\">\n\t\t\t\t\t{{obj.title}}\n\t\t\t\t\t<span class=\"small\" style=\"float:right; color: #999;\">{{obj.sdate}}</span>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</div>\t\n\t</div><!-- /col-md-8 -->\n</div><!-- /row -->\n</div><!-- /container-fluid -->"
 
 /***/ },
-/* 30 */
+/* 35 */
 /***/ function(module, exports) {
 
 	/**
@@ -54790,7 +58235,7 @@
 	module.exports = service;
 
 /***/ },
-/* 31 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticeinfo, userinfo){
@@ -54832,7 +58277,7 @@
 	    $scope.info = function(id){
 
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(32),
+	          template: __webpack_require__(37),
 	          controller: 'noticeinfo',
 	          resolve: {
 	            id : function(){
@@ -54865,13 +58310,13 @@
 	};
 
 /***/ },
-/* 32 */
+/* 37 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"modal-header\">\r\n    <h3 class=\"modal-title\">{{obj.title}}</h3>\r\n</div>\r\n<div class=\"modal-body\">\r\n    <p ng-bind-html=\"obj.content | trustHtml\"></p>\r\n</div>\r\n<div class=\"modal-footer\">\r\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\r\n</div>"
+	module.exports = "<div class=\"modal-header\">\n    <h3 class=\"modal-title\">{{obj.title}}</h3>\n</div>\n<div class=\"modal-body\">\n    <p ng-bind-html=\"obj.content | trustHtml\"></p>\n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>"
 
 /***/ },
-/* 33 */
+/* 38 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, id, noticeinfo, $uibModalInstance){
@@ -54897,7 +58342,140 @@
 	};
 
 /***/ },
-/* 34 */
+/* 39 */
+/***/ function(module, exports) {
+
+	module.exports = function($scope, orderstatisticslist, getDate, dataScope, salelist){
+
+		$scope.line = {};
+		$scope.line.labels = [];
+	    //$scope.line.labels = dataScope('2016-05-4', '2016-05-11');//["January", "February", "March", "April", "May", "June", "July"];
+	    $scope.line.series = [];//['畅游卡套票'];
+	    $scope.line.data = [
+	        // [65, 59, 80, 81, 56, 55, 40],
+	        // [28, 48, 40, 19, 86, 27, 90]
+	    ];
+
+	    $scope.searchform = {};
+	    var view = new Object();
+	    $scope.viewarr = [];
+
+	    //有效区间
+	    $scope.section = {};
+	    $scope.section.start = {};
+	    $scope.section.start.date = new Date(new Date().getTime() - 7 * 24 * 3600 * 1000);
+
+	    $scope.section.end = {};
+	    $scope.section.end.date = new Date();
+
+	    $scope.open = function(obj) {
+	        obj.opened = true;
+	    };
+
+	    salelist.get({}, function(res){
+
+	    	console.log(res);
+
+	    	/* 销售品存储结构
+	         * ========================================= */
+	        
+	        //var resview = new Array();
+
+	        if(res.errcode !== 0)
+	        {
+	            alert(res.errmsg);
+	            return;
+	        }
+
+	        //用景区编号作为存储结构的属性，值是数组
+	        for(var i = 0, j = res.data.length; i < j; i++)
+	        {
+	            var tt = res.data[i];
+	            var v = tt.place_code;
+	            var type = tt.sale_category;
+
+	            if(!view.hasOwnProperty(v))
+	            {
+	                view[v] = new Object();
+	                view[v].salearr = new Array();
+	                //view[v].type = new Object();
+	                view[v].viewname = tt.place_name;
+	                view[v].viewcode = tt.place_code;
+	                $scope.viewarr.push(view[v]);
+	            }
+
+	            view[v].salearr.push(tt);
+	        }
+
+	        $scope.searchform.place_code = $scope.viewarr[0].viewcode;
+	        $scope.salearr = $scope.viewarr[0].salearr;
+	        $scope.searchform.sale_code = $scope.salearr[0].code;
+	        
+	    });
+
+	 
+
+	    $scope.change = function(code){
+
+	    	$scope.salearr = view[code].salearr;
+	    	$scope.searchform.sale_code = $scope.salearr[0].code;
+	    };
+
+	    $scope.changesale = function(index){
+
+	    	//alert(index);
+	    };
+
+	    $scope.load = function(){
+
+	    	var start = getDate($scope.section.start.date);
+	    	var end = getDate($scope.section.end.date);
+
+	    	var para = {
+		    	'start_time' : start + " 00:00:00",
+	            'end_time' : end + " 23:59:59",
+		        'sale_code' : $scope.searchform.sale_code
+		    };
+
+		    $scope.line.labels = dataScope(start, end);
+
+		    var labels = {};
+		    for(var i = 0, j = $scope.line.labels.length; i < j; i++)
+			{
+				labels[$scope.line.labels[i]] = 0;
+			}
+			$scope.line.data = [];
+		    orderstatisticslist.save(para, function(res){
+
+		    	if(res.errcode === 0)
+		    	{
+		    		var arr = [];
+		    		for(var i = 0, j = res.data.length; i < j; i++)
+		    		{
+		    			labels[res.data[i].date] = res.data[i].buy;
+		    		}
+		    		angular.forEach(labels, function (value, key) {
+					    //console.log(key + ':' + value);
+					    arr.push(value);
+					});
+		     		$scope.line.data.push(arr);
+		    	}
+		    	else
+		    	{
+		    		alert(res.errmsg);
+		    	}
+
+		    	console.log($scope.line.data);
+
+		    });
+
+	    }
+	    $scope.load();
+
+	};
+
+/***/ },
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54907,18 +58485,18 @@
 
 	var App = angular.module('ticket', []);
 
-	App.config(__webpack_require__(35));
-	App.factory('ticketservice', __webpack_require__(39));
+	App.config(__webpack_require__(41));
+	App.factory('ticketservice', __webpack_require__(45));
 
-	App.controller('login',__webpack_require__(40));
-	App.controller('check',__webpack_require__(41));
-	App.controller('ticketinfo',__webpack_require__(43));
+	App.controller('login',__webpack_require__(46));
+	App.controller('check',__webpack_require__(47));
+	App.controller('ticketinfo',__webpack_require__(49));
 
 
 	module.exports = App;
 
 /***/ },
-/* 35 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -54934,7 +58512,7 @@
 	        url: '/ticketlogin',
 	        title: 'ticketlogin',
 	        controller : 'login',
-	        template: __webpack_require__(36),
+	        template: __webpack_require__(42),
 	        resolve : {
 	        	login:  function(ticketservice){
 		     		return ticketservice.login();
@@ -54945,14 +58523,14 @@
 	      .state('app.ticketlist', {
 	        url: '/ticketlist',
 	        title: 'ticketlist',
-	        template: __webpack_require__(37)
+	        template: __webpack_require__(43)
 	      })
 
 	      .state('app.ticketinput', {
 	        url: '/ticketinput',
 	        title: 'ticketinput',
 	        controller : 'check',
-	        template: __webpack_require__(38),
+	        template: __webpack_require__(44),
 	        resolve : {
 	        	checkcode:  function(ticketservice){
 		     		return ticketservice.checkcode();
@@ -54986,25 +58564,25 @@
 	module.exports = router;
 
 /***/ },
-/* 36 */
+/* 42 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n\r\n\r\n<div class=\" col-md-8  col-md-offset-2\">\r\n<div class=\"panel panel-default\">\r\n\t<div class=\"panel-heading text-center \"><h4>登录</h4></div>\r\n\r\n\t<div class=\"panel-body\">\r\n\t\t<form class=\"form-horizontal\">\r\n\r\n\t\t  <div class=\"form-group mt10\">\r\n\t\t    \r\n\t\t    <div class=\"col-sm-9\">\r\n\t\t      <input type=\"text\" class=\"form-control\" ng-model=\"device\" placeholder=\"输入设备码\">\r\n\t\t    </div>\r\n\r\n\t\t  </div>\r\n\r\n\t\t  <div class=\"form-group\">\r\n\t\t    \r\n\t\t    <div class=\"col-sm-9\">\r\n\t\t      <input type=\"password\" class=\"form-control\" ng-model=\"password\" placeholder=\"输入密码\">\r\n\t\t    </div>\r\n\r\n\t\t    <div class=\"col-sm-3\">\r\n\t\t    \t<button type=\"button\" \r\n\t\t    \tclass=\"btn btn-default btn-block\"\r\n\t\t    \tng-click=\"gogo()\">确定</button>\r\n\t\t    </div>\r\n\t\t  </div>\r\n\t\t  \r\n\t\t</form>\r\n\t</div>\r\n</div>\r\n</div>\r\n"
+	module.exports = "\n\n\n<div class=\" col-md-8  col-md-offset-2\">\n<div class=\"panel panel-default\">\n\t<div class=\"panel-heading text-center \"><h4>登录</h4></div>\n\n\t<div class=\"panel-body\">\n\t\t<form class=\"form-horizontal\">\n\n\t\t  <div class=\"form-group mt10\">\n\t\t    \n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"text\" class=\"form-control\" ng-model=\"device\" placeholder=\"输入设备码\">\n\t\t    </div>\n\n\t\t  </div>\n\n\t\t  <div class=\"form-group\">\n\t\t    \n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"password\" class=\"form-control\" ng-model=\"password\" placeholder=\"输入密码\">\n\t\t    </div>\n\n\t\t    <div class=\"col-sm-3\">\n\t\t    \t<button type=\"button\" \n\t\t    \tclass=\"btn btn-default btn-block\"\n\t\t    \tng-click=\"gogo()\">确定</button>\n\t\t    </div>\n\t\t  </div>\n\t\t  \n\t\t</form>\n\t</div>\n</div>\n</div>\n"
 
 /***/ },
-/* 37 */
+/* 43 */
 /***/ function(module, exports) {
 
 	module.exports = "list111112222221111111.html111111111"
 
 /***/ },
-/* 38 */
+/* 44 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n\r\n<div class=\" col-md-4 \">\r\n<div class=\"panel panel-default\">\r\n\t<div class=\"panel-heading text-center \"><h4>测试数据</h4></div>\r\n\r\n\t<div class=\"panel-body\">\r\n\t\t\r\n\t\t90010091000 不存在 <br>\r\n\t\t90010091001  设备停用<br>\r\n\t\t90010091002  设备启用 未启用权限<br>\r\n\t\t90010091003  设备启用  开启权限  权限中无票种<br>\r\n\t\t90010091004   设备启用  开启权限  权限包含票种<br>\r\n\t\t90010091005   铁岭莲花湿地\r\n\t\t<hr>\r\n\r\n\t\t210302198308022412<br>\r\n\t\t<hr>\r\n\t\t90067214<br>\r\n\r\n\r\n\t</div>\r\n</div>\r\n</div>\r\n\r\n\r\n<div class=\" col-md-8 \">\r\n<div class=\"panel panel-default\">\r\n\t<div class=\"panel-heading text-center \"><h4>智慧景区验票系统</h4></div>\r\n\r\n\t<div class=\"panel-body\">\r\n\t\t<form class=\"form-horizontal\">\r\n\t\t<div class=\"form-group mt10\">\r\n\t\t    \r\n\t\t    <div class=\"col-sm-9\">\r\n\t\t      <input type=\"text\" class=\"form-control\" ng-model=\"device\" placeholder=\"输入设备码\">\r\n\t\t    </div>\r\n\r\n\t\t  </div>\r\n\r\n\t\t  <div class=\"form-group\">\r\n\t\t    \r\n\t\t    <div class=\"col-sm-9\">\r\n\t\t      <input type=\"text\" class=\"form-control\" ng-model=\"code\" placeholder=\"输入票码\">\r\n\t\t    </div>\r\n\r\n\t\t    <div class=\"col-sm-3\">\r\n\t\t    \t<button type=\"button\" \r\n\t\t    \tclass=\"btn btn-default btn-block\"\r\n\t\t    \tng-click=\"check()\">确定</button>\r\n\t\t    </div>\r\n\t\t  </div>\r\n\t\t  \r\n\t\t</form>\r\n\t</div>\r\n</div>\r\n</div>\r\n"
+	module.exports = "\n\n<div class=\" col-md-4 \">\n<div class=\"panel panel-default\">\n\t<div class=\"panel-heading text-center \"><h4>测试数据</h4></div>\n\n\t<div class=\"panel-body\">\n\t\t\n\t\t90010091000 不存在 <br>\n\t\t90010091001  设备停用<br>\n\t\t90010091002  设备启用 未启用权限<br>\n\t\t90010091003  设备启用  开启权限  权限中无票种<br>\n\t\t90010091004   设备启用  开启权限  权限包含票种<br>\n\t\t90010091005   铁岭莲花湿地\n\t\t<hr>\n\n\t\t210302198308022412<br>\n\t\t<hr>\n\t\t90067214<br>\n\n\n\t</div>\n</div>\n</div>\n\n\n<div class=\" col-md-8 \">\n<div class=\"panel panel-default\">\n\t<div class=\"panel-heading text-center \"><h4>智慧景区验票系统</h4></div>\n\n\t<div class=\"panel-body\">\n\t\t<form class=\"form-horizontal\">\n\t\t<div class=\"form-group mt10\">\n\t\t    \n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"text\" class=\"form-control\" ng-model=\"device\" placeholder=\"输入设备码\">\n\t\t    </div>\n\n\t\t  </div>\n\n\t\t  <div class=\"form-group\">\n\t\t    \n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"text\" class=\"form-control\" ng-model=\"code\" placeholder=\"输入票码\">\n\t\t    </div>\n\n\t\t    <div class=\"col-sm-3\">\n\t\t    \t<button type=\"button\" \n\t\t    \tclass=\"btn btn-default btn-block\"\n\t\t    \tng-click=\"check()\">确定</button>\n\t\t    </div>\n\t\t  </div>\n\t\t  \n\t\t</form>\n\t</div>\n</div>\n</div>\n"
 
 /***/ },
-/* 39 */
+/* 45 */
 /***/ function(module, exports) {
 
 	/**
@@ -55072,7 +58650,7 @@
 	module.exports = service;
 
 /***/ },
-/* 40 */
+/* 46 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, login){
@@ -55102,7 +58680,7 @@
 	};
 
 /***/ },
-/* 41 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function($scope, $uibModal,
@@ -55158,7 +58736,7 @@
 		function openticketinfo(info){
 
 			var modalInstance = $uibModal.open({
-		      template: __webpack_require__(42),
+		      template: __webpack_require__(48),
 		      controller: 'ticketinfo',
 		      resolve: {
 		        info: function () {
@@ -55205,13 +58783,13 @@
 	};
 
 /***/ },
-/* 42 */
+/* 48 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n<div class=\"modal-header\">\r\n    <h4 class=\"modal-title\">门票信息</h4>\r\n</div>\r\n<div class=\"modal-body\">\r\n\r\n\r\n    <table class=\"table\">\r\n        <thead>\r\n          <tr>\r\n            <th class=\"text-center col-md-6\">票种名</th>\r\n            <th class=\"text-center col-md-2\">数量</th>\r\n            <th class=\"text-center col-md-2\">消票数量</th>\r\n            <th class=\"text-center col-md-2\">操作</th>\r\n          </tr>\r\n        </thead>\r\n        <tbody>\r\n          <tr ng-repeat=\"obj in objs\">\r\n            <td class=\"text-center\">［{{obj.type_attr_name}}］{{obj.type_name}}</td>\r\n            <td class=\"text-center\">{{obj.count}}</td>\r\n            <!-- <td class=\"text-center\">\r\n                <button type=\"submit\" \r\n                class=\"btn btn-default input-sm\"\r\n                ng-click=\"gogo($index,obj.type,obj.usecount)\"\r\n                >选择</button>\r\n            </td> -->\r\n            <td>\r\n                <input type=\"text\" \r\n                class=\"form-control input-sm\"\r\n                ng-model=\"obj.usecount\"\r\n                ></td>\r\n            <td class=\"text-center\">\r\n                <button type=\"submit\" \r\n                class=\"btn btn-default input-sm\"\r\n                ng-click=\"use(obj.type,obj.usecount,obj.type_attr, obj.goods_code)\"\r\n                >消票</button>\r\n            </td>\r\n          </tr>\r\n        </tbody>\r\n    </table>\r\n    <!-- <ul>\r\n        <li ng-repeat=\"item in items\">\r\n            <a href=\"#\" ng-click=\"$event.preventDefault(); selected.item = item\">{{ item }}</a>\r\n        </li>\r\n    </ul>\r\n    Selected: <b>{{ selected.item }}</b> -->\r\n</div>\r\n<div class=\"modal-footer\">\r\n    <!-- <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button> -->\r\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\r\n</div>\r\n"
+	module.exports = "\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">门票信息</h4>\n</div>\n<div class=\"modal-body\">\n\n\n    <table class=\"table\">\n        <thead>\n          <tr>\n            <th class=\"text-center col-md-6\">票种名</th>\n            <th class=\"text-center col-md-2\">数量</th>\n            <th class=\"text-center col-md-2\">消票数量</th>\n            <th class=\"text-center col-md-2\">操作</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr ng-repeat=\"obj in objs\">\n            <td class=\"text-center\">［{{obj.type_attr_name}}］{{obj.type_name}}</td>\n            <td class=\"text-center\">{{obj.count}}</td>\n            <!-- <td class=\"text-center\">\n                <button type=\"submit\" \n                class=\"btn btn-default input-sm\"\n                ng-click=\"gogo($index,obj.type,obj.usecount)\"\n                >选择</button>\n            </td> -->\n            <td>\n                <input type=\"text\" \n                class=\"form-control input-sm\"\n                ng-model=\"obj.usecount\"\n                ></td>\n            <td class=\"text-center\">\n                <button type=\"submit\" \n                class=\"btn btn-default input-sm\"\n                ng-click=\"use(obj.type,obj.usecount,obj.type_attr, obj.goods_code)\"\n                >消票</button>\n            </td>\n          </tr>\n        </tbody>\n    </table>\n    <!-- <ul>\n        <li ng-repeat=\"item in items\">\n            <a href=\"#\" ng-click=\"$event.preventDefault(); selected.item = item\">{{ item }}</a>\n        </li>\n    </ul>\n    Selected: <b>{{ selected.item }}</b> -->\n</div>\n<div class=\"modal-footer\">\n    <!-- <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button> -->\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n"
 
 /***/ },
-/* 43 */
+/* 49 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $uibModalInstance, info, para){
@@ -55257,7 +58835,7 @@
 	};
 
 /***/ },
-/* 44 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55267,21 +58845,21 @@
 
 	var App = angular.module('device', []);
 
-	App.config(__webpack_require__(45));
-	App.factory('deviceservice', __webpack_require__(50));
-	App.controller('list',__webpack_require__(51));
-	App.controller('tickettypelist',__webpack_require__(53));
-	App.controller('devicetktlist',__webpack_require__(54));
-	App.controller('configurationticket',__webpack_require__(55));
-	App.controller('devicetktedit',__webpack_require__(56));
-	App.controller('festivallist',__webpack_require__(57));
+	App.config(__webpack_require__(51));
+	App.factory('deviceservice', __webpack_require__(56));
+	App.controller('list',__webpack_require__(57));
+	App.controller('tickettypelist',__webpack_require__(59));
+	App.controller('devicetktlist',__webpack_require__(60));
+	App.controller('configurationticket',__webpack_require__(61));
+	App.controller('devicetktedit',__webpack_require__(62));
+	App.controller('festivallist',__webpack_require__(63));
 
-	App.controller('devicecreate',__webpack_require__(58));
+	App.controller('devicecreate',__webpack_require__(64));
 
 	module.exports = App;
 
 /***/ },
-/* 45 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -55298,7 +58876,7 @@
 	        url: '/devicelist/:placecode',
 	        title: 'devicelist',
 	        controller: 'list',
-	        template: __webpack_require__(46),
+	        template: __webpack_require__(52),
 	        resolve:{
 	        	devicelist : function(deviceservice){
 	        		return deviceservice.devicelist();
@@ -55322,7 +58900,7 @@
 	        url: '/devicetktlist/:placecode',
 	        title: 'devicetktlist',
 	        controller: 'devicetktlist',
-	        template: __webpack_require__(47),
+	        template: __webpack_require__(53),
 	        resolve:{
 	        	tktlist : function(deviceservice){
 	        		return deviceservice.tktlist();
@@ -55336,7 +58914,7 @@
 	        url: '/configurationticket/:tktcode',
 	        title: 'configurationticket',
 	        controller: 'configurationticket',
-	        template: __webpack_require__(48),
+	        template: __webpack_require__(54),
 	        resolve:{
 	            typeauthinfo : function(deviceservice){
 	                return deviceservice.typeauthinfo();
@@ -55360,7 +58938,7 @@
 	      .state('app.devicetktcreate', {
 	        url: '/devicetkt/:placecode',
 	        controller: 'devicecreate',
-	        template: __webpack_require__(49),
+	        template: __webpack_require__(55),
 	        resolve:{
 	            create : function(deviceservice){
 	                return deviceservice.create();
@@ -55383,7 +58961,7 @@
 	        url: '/devicetktedit/:id',
 	        title: 'devicetktedit',
 	        controller: 'devicetktedit',
-	        template: __webpack_require__(49),
+	        template: __webpack_require__(55),
 	        resolve:{
 	        	info : function(deviceservice){
 	        		return deviceservice.info();
@@ -55407,31 +58985,31 @@
 	};
 
 /***/ },
-/* 46 */
+/* 52 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-md-12\">\r\n\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-10\">\r\n                <!-- <label>销售品名称</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\" >\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <label>景区编号</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_code\" >\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button> -->\r\n            </div>\r\n            <div class=\"col-sm-2 text-right\">\r\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建设备</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n<div class=\"panel panel-default\">\r\n<table class=\"table table-bordered table-hover\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"text-center col-md-2\">景区</th>\r\n        <!-- <th class=\"text-center col-md-1\">状态</th> -->\r\n        <th class=\"text-center col-md-1\">备注</th>\r\n        <th class=\"text-center col-md-2\">设备号</th>\r\n        <th class=\"text-center col-md-1\">今日累计</th>\r\n        <th class=\"text-center col-md-4\">配置票种</th>\r\n        <th class=\"text-center col-md-2\">操作</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.place_name}}</td>\r\n        <!-- <td class=\"text-center\">{{obj.state}}</td> -->\r\n        <td class=\"text-center\">{{obj.remarks}}</td>\r\n        <td class=\"text-center\">{{obj.code}}</td>\r\n        <td class=\"text-center\">{{obj.total}}</td>\r\n        <td class=\"text-center\">{{obj.type_name}}</td>\r\n        <td class=\"text-center\">\r\n            <button type=\"submit\" \r\n            class=\"btn btn-default input-sm\"\r\n            ng-click=\"edit(obj.id)\"\r\n            >编辑</button>\r\n            <button type=\"submit\" \r\n            class=\"btn btn-default input-sm\"\r\n            ng-click=\"configurationticket(obj.code, obj.view)\"\r\n            >配置票种</button>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n</table>\r\n</div>\r\n</div>"
+	module.exports = "<div class=\"col-md-12\">\n\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <!-- <label>销售品名称</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <label>景区编号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_code\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button> -->\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建设备</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n<div class=\"panel panel-default\">\n<table class=\"table table-bordered table-hover\">\n    <thead>\n      <tr>\n        <th class=\"text-center col-md-2\">景区</th>\n        <!-- <th class=\"text-center col-md-1\">状态</th> -->\n        <th class=\"text-center col-md-1\">备注</th>\n        <th class=\"text-center col-md-2\">设备号</th>\n        <th class=\"text-center col-md-1\">今日累计</th>\n        <th class=\"text-center col-md-4\">配置票种</th>\n        <th class=\"text-center col-md-2\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.place_name}}</td>\n        <!-- <td class=\"text-center\">{{obj.state}}</td> -->\n        <td class=\"text-center\">{{obj.remarks}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">{{obj.total}}</td>\n        <td class=\"text-center\">{{obj.type_name}}</td>\n        <td class=\"text-center\">\n            <button type=\"submit\" \n            class=\"btn btn-default input-sm\"\n            ng-click=\"edit(obj.id)\"\n            >编辑</button>\n            <button type=\"submit\" \n            class=\"btn btn-default input-sm\"\n            ng-click=\"configurationticket(obj.code, obj.view)\"\n            >配置票种</button>\n        </td>\n      </tr>\n    </tbody>\n</table>\n</div>\n</div>"
 
 /***/ },
-/* 47 */
+/* 53 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-md-12\">\r\n<div class=\"panel panel-default\">\r\n<table class=\"table table-bordered table-hover\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"text-center col-md-10\">票种名称</th>\r\n        <th class=\"text-center col-md-2\">编辑</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.name}}</td>\r\n        <td class=\"text-center\">\r\n            <button type=\"submit\" \r\n            class=\"btn btn-default \"\r\n            ng-click=\"edit(obj.code)\"\r\n            >编辑</button>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n</table>\r\n</div>\r\n</div>"
+	module.exports = "<div class=\"col-md-12\">\n<div class=\"panel panel-default\">\n<table class=\"table table-bordered table-hover\">\n    <thead>\n      <tr>\n        <th class=\"text-center col-md-10\">票种名称</th>\n        <th class=\"text-center col-md-2\">编辑</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.name}}</td>\n        <td class=\"text-center\">\n            <button type=\"submit\" \n            class=\"btn btn-default \"\n            ng-click=\"edit(obj.code)\"\n            >编辑</button>\n        </td>\n      </tr>\n    </tbody>\n</table>\n</div>\n</div>"
 
 /***/ },
-/* 48 */
+/* 54 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-10 col-sm-offset-1\">\r\n\r\n\t<form class=\"form-horizontal\">\r\n\t  <div class=\"form-group\">\r\n\t    <label class=\"col-sm-2 control-label\">票种名称：</label>\r\n\t    <div class=\"col-sm-10\">\r\n\t      <p class=\"form-control-static\">{{obj.name}}</p>\r\n\t    </div>\r\n\t  </div>\r\n\t  <div class=\"form-group\">\r\n\t    <label class=\"col-sm-2 control-label\">有效区间：</label>\r\n\t    <div class=\"col-sm-10\">\r\n\r\n\t\t    <p class=\"input-group col-sm-3 pull-left\">\r\n\t          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n\t          <span class=\"input-group-btn\">\r\n\t            <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n\t          </span>\r\n\t        </p>\r\n\t        <p class=\"form-control-static pull-left\"> &nbsp;&nbsp;-&nbsp;&nbsp; </p>\r\n\t        <p class=\"input-group col-sm-3 pull-left\">\r\n\t          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n\t          <span class=\"input-group-btn\">\r\n\t            <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n\t          </span>\r\n\t        </p>\r\n\r\n\t    </div>\r\n\t  </div>\r\n\r\n\t  <div class=\"form-group\">\r\n\t    <label class=\"col-sm-2 control-label\">有效时间：</label>\r\n\t    <div class=\"col-sm-10\">\r\n\t    \t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"time_state\" value=\"0\"\r\n\t\t\t  ng-model=\"obj.time_state\"\r\n\t\t\t  > 全程可用\r\n\t\t\t</label>\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"time_state\" value=\"1\"\r\n\t\t\t  ng-model=\"obj.time_state\"\r\n\t\t\t  > 部分时段\r\n\t\t\t</label>\r\n\t    </div>\r\n\t  </div>\r\n\t  \r\n\t  <div class=\"form-group\" ng-show=\"obj.time_state == 1\">\r\n\t    <label class=\"col-sm-2 control-label\">&nbsp;</label>\r\n\t    <div class=\"col-sm-10\">\r\n\t      \r\n\t    \t<p class=\"input-group col-sm-1 pull-left\">\r\n\t\t        <select class=\"form-control\" ng-model=\"obj.start_hous\" \r\n\t              ng-options=\"t.code as t.name for t in hourarr\"\r\n\t            ></select>\r\n\t        </p>\r\n\t        <p class=\"form-control-static pull-left\"> &nbsp;&nbsp;:&nbsp;&nbsp; </p>\r\n\t        <p class=\"input-group col-sm-1 pull-left\">\r\n\t\t        <select class=\"form-control\" ng-model=\"obj.start_minute\" \r\n\t              ng-options=\"t.code as t.name for t in minarr\"\r\n\t            ></select>\r\n\t        </p>\r\n\t        <p class=\"form-control-static pull-left\"> &nbsp;&nbsp;-&nbsp;&nbsp; </p>\r\n\t        <p class=\"input-group col-sm-1 pull-left\">\r\n\t\t        <select class=\"form-control\" ng-model=\"obj.end_hous\" \r\n\t              ng-options=\"t.code as t.name for t in hourarr\"\r\n\t            ></select>\r\n\t        </p>\r\n\t        <p class=\"form-control-static pull-left\"> &nbsp;&nbsp;:&nbsp;&nbsp; </p>\r\n\t        <p class=\"input-group col-sm-1 pull-left\">\r\n\t\t        <select class=\"form-control\" ng-model=\"obj.end_minute\" \r\n\t              ng-options=\"t.code as t.name for t in minarr\"\r\n\t            ></select>\r\n\t        </p>\r\n\r\n\t    </div>\r\n\t  </div>\r\n\r\n\t  <div class=\"form-group\">\r\n\t    <label class=\"col-sm-2 control-label\">有效日期：</label>\r\n\t    <div class=\"col-sm-10\">\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"rule_state\" value=\"0\"\r\n\t\t\t  ng-model=\"obj.rule_state\"\r\n\t\t\t  > 规则无效\r\n\t\t\t</label>\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"rule_state\" value=\"1\"\r\n\t\t\t  ng-model=\"obj.rule_state\"\r\n\t\t\t  > 规则生效\r\n\t\t\t</label>\r\n\t    </div>\r\n\t  </div>\r\n\r\n\t  <div ng-show=\"obj.rule_state == 1\">\r\n\t  <div class=\"form-group\">\r\n\t    <label class=\"col-sm-2 control-label\">&nbsp;</label>\r\n\t    <div class=\"col-sm-10\">\r\n\t\t\t\r\n\t\t\t<label class=\"checkbox-inline\">\r\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule1\"\r\n\t\t\t\tng-true-value=\"1\" ng-false-value=\"\"\r\n\t\t\t\t> 星期一\r\n\t\t\t</label>\r\n\t\t\t<label class=\"checkbox-inline\">\r\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule2\"\r\n\t\t\t\tng-true-value=\"2\" ng-false-value=\"\"\r\n\t\t\t\t> 星期二\r\n\t\t\t</label>\r\n\t\t\t<label class=\"checkbox-inline\">\r\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule3\"\r\n\t\t\t\tng-true-value=\"3\" ng-false-value=\"\"\r\n\t\t\t\t> 星期三\r\n\t\t\t</label>\r\n\t\t\t<label class=\"checkbox-inline\">\r\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule4\"\r\n\t\t\t\tng-true-value=\"4\" ng-false-value=\"\"\r\n\t\t\t\t> 星期四\r\n\t\t\t</label>\r\n\t\t\t<label class=\"checkbox-inline\">\r\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule5\"\r\n\t\t\t\tng-true-value=\"5\" ng-false-value=\"\"\r\n\t\t\t\t> 星期五\r\n\t\t\t</label>\r\n\t\t\t<label class=\"checkbox-inline\">\r\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule6\"\r\n\t\t\t\tng-true-value=\"6\" ng-false-value=\"\"\r\n\t\t\t\t> 星期六\r\n\t\t\t</label>\r\n\t\t\t<label class=\"checkbox-inline\">\r\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule7\"\r\n\t\t\t\tng-true-value=\"7\" ng-false-value=\"\"\r\n\t\t\t\t> 星期日\r\n\t\t\t</label>\r\n\t\t\t<!-- <label class=\"checkbox-inline\">\r\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule8\"\r\n\t\t\t\tng-true-value=\"8\" ng-false-value=\"\"\r\n\t\t\t\t> 节日\r\n\t\t\t</label>\r\n\t\t\t<label class=\"checkbox-inline\">\r\n\t\t\t\t<button \r\n\t\t\t    type=\"button\" \r\n\t\t\t    class=\"btn btn-danger btn-xs\" \r\n\t\t\t    ng-show=\"use_rule8 == 8\"\r\n\t\t\t    ng-click=\"editfestival()\"\r\n\t\t\t    >\r\n\t\t\t    编辑\r\n\t\t\t    </button>\r\n\t\t\t</label> -->\r\n\r\n\t    </div>\r\n\t  </div>\r\n\r\n\t  <div class=\"form-group\">\r\n\t    <label class=\"col-sm-2 control-label\">节日：</label>\r\n\t    <div class=\"col-sm-10\">\r\n\t    \t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"festival_state\" value=\"0\"\r\n\t\t\t  ng-model=\"obj.festival_state\"\r\n\t\t\t  > 不可用\r\n\t\t\t</label>\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"festival_state\" value=\"1\"\r\n\t\t\t  ng-model=\"obj.festival_state\"\r\n\t\t\t  > 可用\r\n\t\t\t</label>\r\n\t    </div>\r\n\t  </div>\r\n\r\n\t  <div class=\"form-group\" >\r\n\t    <label class=\"col-sm-2 control-label\">&nbsp;</label>\r\n\t    <div class=\"col-sm-10\">\r\n\r\n\t    \t<!-- <div class=\"panel panel-default pull-left\"\r\n\t\t\tng-repeat=\"f in festivalarr\"\r\n\t\t\t>\r\n\t\t\t  <div class=\"panel-body\">\r\n\t\t\t    {{f.day}}\r\n\t\t\t  </div>\r\n\t\t\t</div> -->\r\n\r\n\t    \t<span class=\"text-danger\">景区节日包含：<span ng-repeat=\"f in festivalarr\"> {{f.day}} ,</span></span>\r\n\r\n\t    </div>\r\n\t  </div>\r\n\t  </div>\r\n\r\n\t  <button \r\n\t    type=\"button\" \r\n\t    class=\"btn btn-primary btn-lg btn-block\" \r\n\t    ng-click=\"gogo()\"\r\n\t    >\r\n\t    提交\r\n\t    </button>\r\n\t</form>\r\n\r\n</div>"
+	module.exports = "<div class=\"col-sm-10 col-sm-offset-1\">\n\n\t<form class=\"form-horizontal\">\n\t  <div class=\"form-group\">\n\t    <label class=\"col-sm-2 control-label\">票种名称：</label>\n\t    <div class=\"col-sm-10\">\n\t      <p class=\"form-control-static\">{{obj.name}}</p>\n\t    </div>\n\t  </div>\n\t  <div class=\"form-group\">\n\t    <label class=\"col-sm-2 control-label\">有效区间：</label>\n\t    <div class=\"col-sm-10\">\n\n\t\t    <p class=\"input-group col-sm-3 pull-left\">\n\t          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t          <span class=\"input-group-btn\">\n\t            <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t          </span>\n\t        </p>\n\t        <p class=\"form-control-static pull-left\"> &nbsp;&nbsp;-&nbsp;&nbsp; </p>\n\t        <p class=\"input-group col-sm-3 pull-left\">\n\t          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t          <span class=\"input-group-btn\">\n\t            <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t          </span>\n\t        </p>\n\n\t    </div>\n\t  </div>\n\n\t  <div class=\"form-group\">\n\t    <label class=\"col-sm-2 control-label\">有效时间：</label>\n\t    <div class=\"col-sm-10\">\n\t    \t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"time_state\" value=\"0\"\n\t\t\t  ng-model=\"obj.time_state\"\n\t\t\t  > 全程可用\n\t\t\t</label>\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"time_state\" value=\"1\"\n\t\t\t  ng-model=\"obj.time_state\"\n\t\t\t  > 部分时段\n\t\t\t</label>\n\t    </div>\n\t  </div>\n\t  \n\t  <div class=\"form-group\" ng-show=\"obj.time_state == 1\">\n\t    <label class=\"col-sm-2 control-label\">&nbsp;</label>\n\t    <div class=\"col-sm-10\">\n\t      \n\t    \t<p class=\"input-group col-sm-1 pull-left\">\n\t\t        <select class=\"form-control\" ng-model=\"obj.start_hous\" \n\t              ng-options=\"t.code as t.name for t in hourarr\"\n\t            ></select>\n\t        </p>\n\t        <p class=\"form-control-static pull-left\"> &nbsp;&nbsp;:&nbsp;&nbsp; </p>\n\t        <p class=\"input-group col-sm-1 pull-left\">\n\t\t        <select class=\"form-control\" ng-model=\"obj.start_minute\" \n\t              ng-options=\"t.code as t.name for t in minarr\"\n\t            ></select>\n\t        </p>\n\t        <p class=\"form-control-static pull-left\"> &nbsp;&nbsp;-&nbsp;&nbsp; </p>\n\t        <p class=\"input-group col-sm-1 pull-left\">\n\t\t        <select class=\"form-control\" ng-model=\"obj.end_hous\" \n\t              ng-options=\"t.code as t.name for t in hourarr\"\n\t            ></select>\n\t        </p>\n\t        <p class=\"form-control-static pull-left\"> &nbsp;&nbsp;:&nbsp;&nbsp; </p>\n\t        <p class=\"input-group col-sm-1 pull-left\">\n\t\t        <select class=\"form-control\" ng-model=\"obj.end_minute\" \n\t              ng-options=\"t.code as t.name for t in minarr\"\n\t            ></select>\n\t        </p>\n\n\t    </div>\n\t  </div>\n\n\t  <div class=\"form-group\">\n\t    <label class=\"col-sm-2 control-label\">有效日期：</label>\n\t    <div class=\"col-sm-10\">\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"rule_state\" value=\"0\"\n\t\t\t  ng-model=\"obj.rule_state\"\n\t\t\t  > 规则无效\n\t\t\t</label>\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"rule_state\" value=\"1\"\n\t\t\t  ng-model=\"obj.rule_state\"\n\t\t\t  > 规则生效\n\t\t\t</label>\n\t    </div>\n\t  </div>\n\n\t  <div ng-show=\"obj.rule_state == 1\">\n\t  <div class=\"form-group\">\n\t    <label class=\"col-sm-2 control-label\">&nbsp;</label>\n\t    <div class=\"col-sm-10\">\n\t\t\t\n\t\t\t<label class=\"checkbox-inline\">\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule1\"\n\t\t\t\tng-true-value=\"1\" ng-false-value=\"\"\n\t\t\t\t> 星期一\n\t\t\t</label>\n\t\t\t<label class=\"checkbox-inline\">\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule2\"\n\t\t\t\tng-true-value=\"2\" ng-false-value=\"\"\n\t\t\t\t> 星期二\n\t\t\t</label>\n\t\t\t<label class=\"checkbox-inline\">\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule3\"\n\t\t\t\tng-true-value=\"3\" ng-false-value=\"\"\n\t\t\t\t> 星期三\n\t\t\t</label>\n\t\t\t<label class=\"checkbox-inline\">\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule4\"\n\t\t\t\tng-true-value=\"4\" ng-false-value=\"\"\n\t\t\t\t> 星期四\n\t\t\t</label>\n\t\t\t<label class=\"checkbox-inline\">\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule5\"\n\t\t\t\tng-true-value=\"5\" ng-false-value=\"\"\n\t\t\t\t> 星期五\n\t\t\t</label>\n\t\t\t<label class=\"checkbox-inline\">\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule6\"\n\t\t\t\tng-true-value=\"6\" ng-false-value=\"\"\n\t\t\t\t> 星期六\n\t\t\t</label>\n\t\t\t<label class=\"checkbox-inline\">\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule7\"\n\t\t\t\tng-true-value=\"7\" ng-false-value=\"\"\n\t\t\t\t> 星期日\n\t\t\t</label>\n\t\t\t<!-- <label class=\"checkbox-inline\">\n\t\t\t\t<input type=\"checkbox\" ng-model=\"use_rule8\"\n\t\t\t\tng-true-value=\"8\" ng-false-value=\"\"\n\t\t\t\t> 节日\n\t\t\t</label>\n\t\t\t<label class=\"checkbox-inline\">\n\t\t\t\t<button \n\t\t\t    type=\"button\" \n\t\t\t    class=\"btn btn-danger btn-xs\" \n\t\t\t    ng-show=\"use_rule8 == 8\"\n\t\t\t    ng-click=\"editfestival()\"\n\t\t\t    >\n\t\t\t    编辑\n\t\t\t    </button>\n\t\t\t</label> -->\n\n\t    </div>\n\t  </div>\n\n\t  <div class=\"form-group\">\n\t    <label class=\"col-sm-2 control-label\">节日：</label>\n\t    <div class=\"col-sm-10\">\n\t    \t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"festival_state\" value=\"0\"\n\t\t\t  ng-model=\"obj.festival_state\"\n\t\t\t  > 不可用\n\t\t\t</label>\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"festival_state\" value=\"1\"\n\t\t\t  ng-model=\"obj.festival_state\"\n\t\t\t  > 可用\n\t\t\t</label>\n\t    </div>\n\t  </div>\n\n\t  <div class=\"form-group\" >\n\t    <label class=\"col-sm-2 control-label\">&nbsp;</label>\n\t    <div class=\"col-sm-10\">\n\n\t    \t<!-- <div class=\"panel panel-default pull-left\"\n\t\t\tng-repeat=\"f in festivalarr\"\n\t\t\t>\n\t\t\t  <div class=\"panel-body\">\n\t\t\t    {{f.day}}\n\t\t\t  </div>\n\t\t\t</div> -->\n\n\t    \t<span class=\"text-danger\">景区节日包含：<span ng-repeat=\"f in festivalarr\"> {{f.day}} ,</span></span>\n\n\t    </div>\n\t  </div>\n\t  </div>\n\n\t  <button \n\t    type=\"button\" \n\t    class=\"btn btn-primary btn-lg btn-block\" \n\t    ng-click=\"gogo()\"\n\t    >\n\t    提交\n\t    </button>\n\t</form>\n\n</div>"
 
 /***/ },
-/* 49 */
+/* 55 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\r\n\t\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">机器码</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入机器码\"\r\n\t\t\tng-model=\"obj.code\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">景区</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<select class=\"form-control\" ng-model=\"obj.view\" \r\n              ng-options=\"view.code as view.name for view in viewarr\"\r\n              ng-disabled=\"lock\"\r\n            >\r\n            </select>\r\n\t\t</div>\r\n\t\t<div class=\"col-xs-2\">\r\n\t\t\t<button type=\"button\" class=\"btn btn-primary \" \r\n\t\t    ng-click=\"remove()\" ng-show=\"obj.id != ''\"\r\n\t\t    >\r\n\t\t    解除绑定\r\n\t\t    </button>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">密码</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入密码\"\r\n\t\t\tng-model=\"obj.pas\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">备注</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入密码\"\r\n\t\t\tng-model=\"obj.remarks\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">票机类型</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<select class=\"form-control\" ng-model=\"obj.type\" \r\n              ng-options=\"type.code as type.name for type in typearr\"\r\n            >\r\n            </select>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">设备状态</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"0\"\r\n\t\t\t  ng-model=\"obj.state\"\r\n\t\t\t  > 不可用\r\n\t\t\t</label>\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"1\"\r\n\t\t\t  ng-model=\"obj.state\"\r\n\t\t\t  > 可用\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<!-- <div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">删除标志</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"del_flg\" value=\"0\"\r\n\t\t\t  ng-model=\"obj.del_flg\"\r\n\t\t\t  > 未删除\r\n\t\t\t</label>\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"del_flg\" value=\"1\"\r\n\t\t\t  ng-model=\"obj.del_flg\"\r\n\t\t\t  > 已删除\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t</div> -->\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">散票-权限状态</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"auth_state\" value=\"0\"\r\n\t\t\t  ng-model=\"obj.auth_state\"\r\n\t\t\t  > 不启用\r\n\t\t\t</label>\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"auth_state\" value=\"1\"\r\n\t\t\t  ng-model=\"obj.auth_state\"\r\n\t\t\t  > 启用\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">散票-是否多销验票</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"many_state\" value=\"0\"\r\n\t\t\t  ng-model=\"obj.many_state\"\r\n\t\t\t  > 单独\r\n\t\t\t</label>\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"many_state\" value=\"1\"\r\n\t\t\t  ng-model=\"obj.many_state\"\r\n\t\t\t  > 多张\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">团票-权限状态</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"group_auth_state\" value=\"0\"\r\n\t\t\t  ng-model=\"obj.group_auth_state\"\r\n\t\t\t  > 不启用\r\n\t\t\t</label>\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"group_auth_state\" value=\"1\"\r\n\t\t\t  ng-model=\"obj.group_auth_state\"\r\n\t\t\t  > 启用\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">创建时间</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<p class=\"form-control-static\">{{obj.create_time}}</p>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">修改时间</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<p class=\"form-control-static\">{{obj.update_time}}</p>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<button \r\n    type=\"button\" \r\n    class=\"btn btn-primary btn-lg btn-block\" \r\n    ng-click=\"gogo()\"\r\n    >\r\n    提交吧！黄同学\r\n    </button>\r\n\r\n\r\n</div>"
+	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\n\t\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">机器码</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入机器码\"\n\t\t\tng-model=\"obj.code\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">景区</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<select class=\"form-control\" ng-model=\"obj.view\" \n              ng-options=\"view.code as view.name for view in viewarr\"\n              ng-disabled=\"lock\"\n            >\n            </select>\n\t\t</div>\n\t\t<div class=\"col-xs-2\">\n\t\t\t<button type=\"button\" class=\"btn btn-primary \" \n\t\t    ng-click=\"remove()\" ng-show=\"obj.id != ''\"\n\t\t    >\n\t\t    解除绑定\n\t\t    </button>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">密码</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入密码\"\n\t\t\tng-model=\"obj.pas\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">备注</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入密码\"\n\t\t\tng-model=\"obj.remarks\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">票机类型</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<select class=\"form-control\" ng-model=\"obj.type\" \n              ng-options=\"type.code as type.name for type in typearr\"\n            >\n            </select>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">设备状态</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"0\"\n\t\t\t  ng-model=\"obj.state\"\n\t\t\t  > 不可用\n\t\t\t</label>\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"1\"\n\t\t\t  ng-model=\"obj.state\"\n\t\t\t  > 可用\n\t\t\t</label>\n\t\t</div>\n\t</div>\n\n\t<!-- <div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">删除标志</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"del_flg\" value=\"0\"\n\t\t\t  ng-model=\"obj.del_flg\"\n\t\t\t  > 未删除\n\t\t\t</label>\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"del_flg\" value=\"1\"\n\t\t\t  ng-model=\"obj.del_flg\"\n\t\t\t  > 已删除\n\t\t\t</label>\n\t\t</div>\n\t</div> -->\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">散票-权限状态</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"auth_state\" value=\"0\"\n\t\t\t  ng-model=\"obj.auth_state\"\n\t\t\t  > 不启用\n\t\t\t</label>\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"auth_state\" value=\"1\"\n\t\t\t  ng-model=\"obj.auth_state\"\n\t\t\t  > 启用\n\t\t\t</label>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">散票-是否多销验票</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"many_state\" value=\"0\"\n\t\t\t  ng-model=\"obj.many_state\"\n\t\t\t  > 单独\n\t\t\t</label>\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"many_state\" value=\"1\"\n\t\t\t  ng-model=\"obj.many_state\"\n\t\t\t  > 多张\n\t\t\t</label>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">团票-权限状态</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"group_auth_state\" value=\"0\"\n\t\t\t  ng-model=\"obj.group_auth_state\"\n\t\t\t  > 不启用\n\t\t\t</label>\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"group_auth_state\" value=\"1\"\n\t\t\t  ng-model=\"obj.group_auth_state\"\n\t\t\t  > 启用\n\t\t\t</label>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">创建时间</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<p class=\"form-control-static\">{{obj.create_time}}</p>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">修改时间</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<p class=\"form-control-static\">{{obj.update_time}}</p>\n\t\t</div>\n\t</div>\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"gogo()\"\n    >\n    提交吧！黄同学\n    </button>\n\n\n</div>"
 
 /***/ },
-/* 50 */
+/* 56 */
 /***/ function(module, exports) {
 
 	/**
@@ -55566,7 +59144,7 @@
 	};
 
 /***/ },
-/* 51 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function($scope, $uibModal, typelist, devicelist, add, del, $state, $stateParams){
@@ -55598,7 +59176,7 @@
 		$scope.configurationticket = function(device_code, place_code){
 
 			var modalInstance = $uibModal.open({
-		      template: __webpack_require__(52),
+		      template: __webpack_require__(58),
 		      controller: 'tickettypelist',
 		      resolve: {
 		      	view : function(){
@@ -55643,13 +59221,13 @@
 	};
 
 /***/ },
-/* 52 */
+/* 58 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n<div class=\"modal-header\">\r\n    <h4 class=\"modal-title\">门票信息</h4>\r\n</div>\r\n<div class=\"modal-body\">\r\n\r\n    <div class=\"\">\r\n        <div class=\"checkbox\" ng-repeat=\"obj in objs\">\r\n          <label>\r\n            <input type=\"checkbox\" value=\"{{obj.code}}\"\r\n            ng-checked=\"obj.iselected == 1\"\r\n            ng-click=\"selection($event,obj)\">\r\n            {{obj.name}}\r\n          </label>\r\n        </div>\r\n    </div>\r\n</div>\r\n<div class=\"modal-footer\">\r\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\r\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\r\n</div>\r\n"
+	module.exports = "\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">门票信息</h4>\n</div>\n<div class=\"modal-body\">\n\n    <div class=\"\">\n        <div class=\"checkbox\" ng-repeat=\"obj in objs\">\n          <label>\n            <input type=\"checkbox\" value=\"{{obj.code}}\"\n            ng-checked=\"obj.iselected == 1\"\n            ng-click=\"selection($event,obj)\">\n            {{obj.name}}\n          </label>\n        </div>\n    </div>\n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n"
 
 /***/ },
-/* 53 */
+/* 59 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $uibModalInstance, view, typelist, device_code, add, del){
@@ -55721,7 +59299,7 @@
 	};
 
 /***/ },
-/* 54 */
+/* 60 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, tktlist, $state, $stateParams){
@@ -55751,7 +59329,7 @@
 	};
 
 /***/ },
-/* 55 */
+/* 61 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, typeauthinfo, $stateParams, typeauthupdate, 
@@ -55959,7 +59537,7 @@
 	};
 
 /***/ },
-/* 56 */
+/* 62 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, info, $stateParams, slist, devicetype, update, remove){
@@ -56047,7 +59625,7 @@
 	};
 
 /***/ },
-/* 57 */
+/* 63 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $uibModalInstance, view, viewfestivallist){
@@ -56137,7 +59715,7 @@
 	};
 
 /***/ },
-/* 58 */
+/* 64 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, slist, devicetype, create, $state){
@@ -56216,7 +59794,7 @@
 	};
 
 /***/ },
-/* 59 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56226,19 +59804,19 @@
 
 	var App = angular.module('doc', []);
 
-	App.config(__webpack_require__(60));
-	App.factory('docservice', __webpack_require__(65));
+	App.config(__webpack_require__(66));
+	App.factory('docservice', __webpack_require__(71));
 
-	App.controller('name',__webpack_require__(66));
-	App.controller('doccreate',__webpack_require__(67));
-	App.controller('doc',__webpack_require__(68));
-	App.controller('info',__webpack_require__(69));
+	App.controller('name',__webpack_require__(72));
+	App.controller('doccreate',__webpack_require__(73));
+	App.controller('doc',__webpack_require__(74));
+	App.controller('info',__webpack_require__(75));
 
 
 	module.exports = App;
 
 /***/ },
-/* 60 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56253,7 +59831,7 @@
 	 	  .state('app.docname', {
 	        url: '/docname',
 	        controller : 'name',
-	        template: __webpack_require__(61),
+	        template: __webpack_require__(67),
 	        resolve:{
 	        	insert : function(docservice){
 	        		return docservice.insert();
@@ -56267,7 +59845,7 @@
 	 	  .state('app.doccreate', {
 	        url: '/doccreate/:api_id',
 	        controller : 'doccreate',
-	        template: __webpack_require__(62),
+	        template: __webpack_require__(68),
 	        resolve:{
 	        	api : function(docservice){
 	        		return docservice.api();
@@ -56287,7 +59865,7 @@
 	 	  .state('app.doc', {
 	        url: '/doc/:type',
 	        controller : 'doc',
-	        template: __webpack_require__(63),
+	        template: __webpack_require__(69),
 	        resolve:{
 	        	group : function(docservice){
 	        		return docservice.group();
@@ -56298,7 +59876,7 @@
 		  .state('app.doc.info', {
 	        url: '/:api_id',
 	        controller : 'info',
-	        template: __webpack_require__(64),
+	        template: __webpack_require__(70),
 	        resolve:{
 	        	api : function(docservice){
 	        		return docservice.api();
@@ -56311,31 +59889,31 @@
 	module.exports = router;
 
 /***/ },
-/* 61 */
+/* 67 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n\r\n<br>\r\n<br>\r\n<br>\r\n<br>\r\n\r\n\r\n<div class=\"col-md-8 col-md-offset-2\">\r\n\r\n\t<div class=\"form-horizontal\">\r\n\t\t<div class=\" col-xs-12\">\r\n\t\t\t<!-- ng-options=\"group.id as group.title for group in grouparr\" -->\r\n\t\t\t<select class=\"form-control\" ng-model=\"group_id\" >\r\n\t\t\t\t<option value=\"ticket_destory\"> 消票 </option>\r\n\t\t\t\t<option value=\"ticketorder_query\"> 订单查询 </option>\r\n\t\t\t</select>\r\n\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<br><br><br>\r\n\r\n\t<div class=\"form-horizontal\">\r\n\t\t<div class=\" col-xs-10\">\r\n\t\t\t<input type=\"text\" class=\"form-control \" ng-model=\"name\" placeholder=\"请输入接口名称\">\r\n\t\t</div>\r\n\t\t<div class=\" col-xs-2\">\r\n\t\t\t<button type=\"button\" class=\"btn btn-primary btn-block\" \r\n\t\t\tng-click=\"gogo()\"\r\n\t\t\t> 下一步 <span class=\"glyphicon glyphicon-arrow-right\" ></span> </button>\r\n\t\t</div>\r\n\t</div>\r\n\r\n</div>"
+	module.exports = "\n\n<br>\n<br>\n<br>\n<br>\n\n\n<div class=\"col-md-8 col-md-offset-2\">\n\n\t<div class=\"form-horizontal\">\n\t\t<div class=\" col-xs-12\">\n\t\t\t<!-- ng-options=\"group.id as group.title for group in grouparr\" -->\n\t\t\t<select class=\"form-control\" ng-model=\"group_id\" >\n\t\t\t\t<option value=\"ticket_destory\"> 消票 </option>\n\t\t\t\t<option value=\"ticketorder_query\"> 订单查询 </option>\n\t\t\t</select>\n\n\t\t</div>\n\t</div>\n\n\t<br><br><br>\n\n\t<div class=\"form-horizontal\">\n\t\t<div class=\" col-xs-10\">\n\t\t\t<input type=\"text\" class=\"form-control \" ng-model=\"name\" placeholder=\"请输入接口名称\">\n\t\t</div>\n\t\t<div class=\" col-xs-2\">\n\t\t\t<button type=\"button\" class=\"btn btn-primary btn-block\" \n\t\t\tng-click=\"gogo()\"\n\t\t\t> 下一步 <span class=\"glyphicon glyphicon-arrow-right\" ></span> </button>\n\t\t</div>\n\t</div>\n\n</div>"
 
 /***/ },
-/* 62 */
+/* 68 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-md-8 col-md-offset-2\">\r\n\r\n<div class=\"panel panel-default\">\r\n\r\n  <div class=\"panel-body\">\r\n\r\n  \t<div ng-repeat='obj in objs' class=\"row\">\r\n\r\n      <div ng-switch on='$index' class=\"col-md-12\">\r\n        <div ng-switch-when='0' ng-show=\"obj.length > 0\">\r\n          <Strong>接口名称</Strong><hr>\r\n        </div>\r\n        <div ng-switch-when='1' ng-show=\"obj.length > 0\">\r\n          <br><Strong>接口介绍</Strong><hr>\r\n        </div>\r\n        <div ng-switch-when='2' ng-show=\"obj.length > 0\">\r\n          <br><Strong>接口调用请求说明</Strong><hr>\r\n        </div>\r\n        <div ng-switch-when='3' ng-show=\"obj.length > 0\">\r\n          <br><Strong>参数说明</Strong><hr>\r\n        </div>\r\n        <div ng-switch-when='4' ng-show=\"obj.length > 0\">\r\n          <br><Strong>返回说明</Strong><hr>\r\n        </div>\r\n        <div ng-switch-when='5' ng-show=\"obj.length > 0\">\r\n          <br><Strong>注意事项</Strong><hr>\r\n        </div>\r\n      </div>\r\n\r\n  \t\t<div ng-repeat='o in obj'>\r\n\r\n        <div ng-show=\"o.display_type==1\">\r\n          <!-- 正常状态 -->\r\n          <div ng-show=\"o.state==0\">\r\n            <div class=\"col-xs-11\">\r\n              <p>{{o.text}}</p>\r\n            </div>\r\n            <div class=\"col-xs-1\">\r\n              <button type=\"button\" \r\n                class=\"btn btn-xs btn-info\"\r\n                ng-click=\"edit($parent.$index, $index)\"\r\n              >\r\n                <span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\r\n              </button>\r\n              <button type=\"button\" \r\n                class=\"btn btn-xs btn-danger\"\r\n                ng-click=\"delete($parent.$index, $index)\"\r\n                ng-show=\"$parent.$index !== 0\"\r\n              >\r\n                <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\r\n              </button>\r\n            </div>\r\n          </div>\r\n\r\n          <!-- 编辑状态 -->\r\n          <div ng-show=\"o.state==1\">\r\n            <div class=\"col-xs-11\">\r\n              <textarea class=\"form-control\" rows=\"3\" \r\n              ng-model=\"objs[$parent.$index][$index].text\">{{o.text}}</textarea>\r\n            </div>\r\n            <div class=\"col-xs-1 text-center\">\r\n              <button type=\"button\" \r\n                class=\"btn btn-xs btn-info\"\r\n                ng-click=\"ok($parent.$index, $index)\"\r\n              >      \r\n                <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r\n              </button>\r\n              <input class=\"form-control\" \r\n                ng-model=\"o.asort\"\r\n                value=\"o.asort\" \r\n              >\r\n            </div>\r\n          </div>\r\n\r\n        </div>\r\n\r\n\r\n        <div ng-show=\"o.display_type==2\">\r\n\r\n          <!-- 正常状态 -->\r\n          <div ng-show=\"o.state==0\">\r\n            <div class=\"col-xs-11\">\r\n              <pre>{{o.text}}</pre>\r\n            </div>\r\n            <div class=\"col-xs-1\">\r\n              <button type=\"button\" \r\n                class=\"btn btn-xs btn-info\"\r\n                ng-click=\"edit($parent.$index, $index)\"\r\n              >      \r\n                <span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\r\n              </button>\r\n              <button type=\"button\" \r\n                class=\"btn btn-xs btn-danger\"\r\n                ng-click=\"delete($parent.$index, $index)\"\r\n              >      \r\n                <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\r\n              </button>\r\n            </div>\r\n          </div>\r\n\r\n          <!-- 编辑状态 -->\r\n          <div ng-show=\"o.state==1\">\r\n            <div class=\"col-xs-11\">\r\n              <textarea class=\"form-control\" rows=\"3\" \r\n              ng-model=\"objs[$parent.$index][$index].text\">{{o.text}}</textarea>\r\n            </div>\r\n            <div class=\"col-xs-1\">\r\n              <button type=\"button\" \r\n                class=\"btn btn-xs btn-info\"\r\n                ng-click=\"ok($parent.$index, $index)\"\r\n              >      \r\n                <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r\n              </button>\r\n              <input class=\"form-control\" \r\n                ng-model=\"o.asort\"\r\n                value=\"o.asort\" \r\n              >\r\n            </div>\r\n          </div>\r\n\r\n          \r\n        </div>\r\n\r\n\r\n\r\n        <div ng-show=\"o.display_type==0\">\r\n\r\n          <!-- 正常状态 -->\r\n          <div ng-show=\"o.state==0\">\r\n            <div class=\"col-xs-11\">\r\n              <table class=\"table table-bordered \">\r\n                <thead>\r\n                  <tr>\r\n                    <th class=\"col-md-4\">参数</th>\r\n                    <th class=\"col-md-8\">描述</th>\r\n                  </tr>\r\n                </thead>\r\n                <tbody>\r\n                  <tr ng-repeat=\"para in o.display_arr\">    \r\n                    <td>{{para.k}}</td>\r\n                    <td>{{para.v}}</td>\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n            </div>\r\n            <div class=\"col-xs-1\">\r\n              <button type=\"button\" \r\n                class=\"btn btn-xs btn-info\"\r\n                ng-click=\"edit($parent.$index, $index)\"\r\n              >      \r\n                <span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\r\n              </button>\r\n              <button type=\"button\" \r\n                class=\"btn btn-xs btn-danger\"\r\n                ng-click=\"delete($parent.$index, $index)\"\r\n              >      \r\n                <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\r\n              </button>\r\n            </div>\r\n          </div>\r\n\r\n\r\n\r\n\r\n          <!-- 编辑状态 -->\r\n          <div ng-show=\"o.state==1\">\r\n            <div class=\"col-xs-11\">\r\n              <table class=\"table table-bordered \">\r\n                <thead>\r\n                  <tr>\r\n                    <th class=\"col-md-3\">参数</th>\r\n                    <th class=\"col-md-7\">描述</th>\r\n                    <th class=\"text-center col-md-2\">\r\n                    <button type=\"button\" \r\n                    class=\"btn btn-success\"\r\n                    ng-click=\"addtr1($parent.$index, $index)\"\r\n                    >新增</button>\r\n                  </th>\r\n                  </tr>\r\n                </thead>\r\n                <tbody>\r\n                  <tr ng-repeat=\"para in o.display_arr\"> \r\n                    <td><input type=\"text\" class=\"form-control\"\r\n                    ng-model=\"para.k\" value=\"para.k\" \r\n                    ></td>\r\n                    <td><input type=\"text\" class=\"form-control\"\r\n                    ng-model=\"para.v\" value=\"para.v\"\r\n                    ></td>\r\n                    <td class=\"text-center\">\r\n                      <button type=\"button\" \r\n                      class=\"btn btn-danger\"\r\n                      ng-click=\"deltr1($parent.$parent.$index, $parent.$index, $index)\"\r\n                      >删除</button>\r\n                    </td>   \r\n                    <!-- <td>{{para.k}}</td>\r\n                    <td>{{para.v}}</td> -->\r\n                  </tr>\r\n                </tbody>\r\n              </table>\r\n            </div>\r\n            <div class=\"col-xs-1\">\r\n              <button type=\"button\" \r\n                class=\"btn btn-xs btn-info\"\r\n                ng-click=\"ok($parent.$index, $index)\"\r\n              >      \r\n                <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r\n              </button>\r\n              <input class=\"form-control\" \r\n                ng-model=\"o.asort\"\r\n                value=\"o.asort\" \r\n              >\r\n            </div>\r\n          </div>\r\n\r\n\r\n\r\n        </div>\r\n\r\n\r\n\r\n  \t\t</div>\r\n\r\n  \t</div>\r\n\r\n  </div>\r\n\r\n\r\n</div>\r\n\r\n\r\n\r\n\r\n  <div class=\"panel panel-default\">\r\n    <div class=\"panel-body form-horizontal\">\r\n      <div class=\" col-md-10\">\r\n          <div class=\"\">\r\n            <label class=\"radio-inline\">\r\n              <input type=\"radio\" name=\"text_type\" value=\"1\" ng-model=\"addm.text_type\"> 接口介绍\r\n            </label>\r\n            <label class=\"radio-inline\">\r\n              <input type=\"radio\" name=\"text_type\" value=\"2\" ng-model=\"addm.text_type\"> 接口调用请求说明\r\n            </label>\r\n            <label class=\"radio-inline\">\r\n              <input type=\"radio\" name=\"text_type\" value=\"3\" ng-model=\"addm.text_type\"> 参数说明\r\n            </label>\r\n            <label class=\"radio-inline\">\r\n              <input type=\"radio\" name=\"text_type\" value=\"4\" ng-model=\"addm.text_type\"> 返回说明\r\n            </label>\r\n            <label class=\"radio-inline\">\r\n              <input type=\"radio\" name=\"text_type\" value=\"5\" ng-model=\"addm.text_type\"> 注意事项\r\n            </label>\r\n          </div>\r\n          <hr>\r\n          <div class=\"\">\r\n            \r\n            <label class=\"radio-inline\">\r\n              <input type=\"radio\" name=\"display_type\" value=\"1\" ng-model=\"addm.display_type\"> 文本\r\n            </label>\r\n            <label class=\"radio-inline\">\r\n              <input type=\"radio\" name=\"display_type\" value=\"2\" ng-model=\"addm.display_type\"> 代码\r\n            </label>\r\n            <label class=\"radio-inline\">\r\n              <input type=\"radio\" name=\"display_type\" value=\"0\" ng-model=\"addm.display_type\"> 表格\r\n            </label>\r\n          </div>\r\n          <hr>\r\n          <div ng-show=\"addm.display_type != 0\">\r\n            <textarea class=\"form-control\" rows=\"3\" ng-model=\"addm.text\"></textarea>\r\n          </div>\r\n          <div ng-show=\"addm.display_type == 0\">\r\n            <table class=\"table table-bordered\">\r\n              <thead>\r\n                <tr>\r\n                  <th class=\"text-center col-md-3\">参数</th>\r\n                  <!-- <th class=\"text-center col-md-2\">是否必须</th> -->\r\n                  <th class=\"text-center col-md-7\">说明</th>\r\n                  <th class=\"text-center col-md-2\">\r\n                    <button type=\"button\" \r\n                    class=\"btn btn-success\"\r\n                    ng-click=\"addtr()\"\r\n                    >新增</button>\r\n                  </th>\r\n                </tr>\r\n              </thead>\r\n              <tbody>\r\n                <tr ng-repeat=\"table in addm.tablearr\">\r\n                  <td><input type=\"text\" class=\"form-control\"\r\n                  ng-model=\"table.k\"\r\n                  ></td>\r\n                  <td><input type=\"text\" class=\"form-control\"\r\n                  ng-model=\"table.v\"\r\n                  ></td>\r\n                  <!-- <td><input type=\"text\" class=\"form-control\"\r\n                  ng-model=\"table.describe\"\r\n                  ></td> -->\r\n                  <td class=\"text-center\">\r\n                    <button type=\"button\" \r\n                    class=\"btn btn-danger\"\r\n                    ng-click=\"deltr($index)\"\r\n                    >删除</button>\r\n                  </td>\r\n                </tr>\r\n              </tbody>\r\n            </table>\r\n          </div>\r\n\r\n      </div>\r\n      <div class=\" col-md-2\">\r\n        <button type=\"button\" class=\"btn btn-default btn-block btn-primary\" \r\n        ng-click=\"add()\"\r\n        >\r\n         添加 <span class=\"glyphicon glyphicon-plus-sign\" ></span> \r\n        </button>\r\n     \r\n      </div>\r\n     </div>\r\n  </div>\r\n\r\n  <br>\r\n<br>\r\n<br>\r\n\r\n</div>\r\n\r\n"
+	module.exports = "<div class=\"col-md-8 col-md-offset-2\">\n\n<div class=\"panel panel-default\">\n\n  <div class=\"panel-body\">\n\n  \t<div ng-repeat='obj in objs' class=\"row\">\n\n      <div ng-switch on='$index' class=\"col-md-12\">\n        <div ng-switch-when='0' ng-show=\"obj.length > 0\">\n          <Strong>接口名称</Strong><hr>\n        </div>\n        <div ng-switch-when='1' ng-show=\"obj.length > 0\">\n          <br><Strong>接口介绍</Strong><hr>\n        </div>\n        <div ng-switch-when='2' ng-show=\"obj.length > 0\">\n          <br><Strong>接口调用请求说明</Strong><hr>\n        </div>\n        <div ng-switch-when='3' ng-show=\"obj.length > 0\">\n          <br><Strong>参数说明</Strong><hr>\n        </div>\n        <div ng-switch-when='4' ng-show=\"obj.length > 0\">\n          <br><Strong>返回说明</Strong><hr>\n        </div>\n        <div ng-switch-when='5' ng-show=\"obj.length > 0\">\n          <br><Strong>注意事项</Strong><hr>\n        </div>\n      </div>\n\n  \t\t<div ng-repeat='o in obj'>\n\n        <div ng-show=\"o.display_type==1\">\n          <!-- 正常状态 -->\n          <div ng-show=\"o.state==0\">\n            <div class=\"col-xs-11\">\n              <p>{{o.text}}</p>\n            </div>\n            <div class=\"col-xs-1\">\n              <button type=\"button\" \n                class=\"btn btn-xs btn-info\"\n                ng-click=\"edit($parent.$index, $index)\"\n              >\n                <span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\n              </button>\n              <button type=\"button\" \n                class=\"btn btn-xs btn-danger\"\n                ng-click=\"delete($parent.$index, $index)\"\n                ng-show=\"$parent.$index !== 0\"\n              >\n                <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\n              </button>\n            </div>\n          </div>\n\n          <!-- 编辑状态 -->\n          <div ng-show=\"o.state==1\">\n            <div class=\"col-xs-11\">\n              <textarea class=\"form-control\" rows=\"3\" \n              ng-model=\"objs[$parent.$index][$index].text\">{{o.text}}</textarea>\n            </div>\n            <div class=\"col-xs-1 text-center\">\n              <button type=\"button\" \n                class=\"btn btn-xs btn-info\"\n                ng-click=\"ok($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n              </button>\n              <input class=\"form-control\" \n                ng-model=\"o.asort\"\n                value=\"o.asort\" \n              >\n            </div>\n          </div>\n\n        </div>\n\n\n        <div ng-show=\"o.display_type==2\">\n\n          <!-- 正常状态 -->\n          <div ng-show=\"o.state==0\">\n            <div class=\"col-xs-11\">\n              <pre>{{o.text}}</pre>\n            </div>\n            <div class=\"col-xs-1\">\n              <button type=\"button\" \n                class=\"btn btn-xs btn-info\"\n                ng-click=\"edit($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\n              </button>\n              <button type=\"button\" \n                class=\"btn btn-xs btn-danger\"\n                ng-click=\"delete($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\n              </button>\n            </div>\n          </div>\n\n          <!-- 编辑状态 -->\n          <div ng-show=\"o.state==1\">\n            <div class=\"col-xs-11\">\n              <textarea class=\"form-control\" rows=\"3\" \n              ng-model=\"objs[$parent.$index][$index].text\">{{o.text}}</textarea>\n            </div>\n            <div class=\"col-xs-1\">\n              <button type=\"button\" \n                class=\"btn btn-xs btn-info\"\n                ng-click=\"ok($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n              </button>\n              <input class=\"form-control\" \n                ng-model=\"o.asort\"\n                value=\"o.asort\" \n              >\n            </div>\n          </div>\n\n          \n        </div>\n\n\n\n        <div ng-show=\"o.display_type==0\">\n\n          <!-- 正常状态 -->\n          <div ng-show=\"o.state==0\">\n            <div class=\"col-xs-11\">\n              <table class=\"table table-bordered \">\n                <thead>\n                  <tr>\n                    <th class=\"col-md-4\">参数</th>\n                    <th class=\"col-md-8\">描述</th>\n                  </tr>\n                </thead>\n                <tbody>\n                  <tr ng-repeat=\"para in o.display_arr\">    \n                    <td>{{para.k}}</td>\n                    <td>{{para.v}}</td>\n                  </tr>\n                </tbody>\n              </table>\n            </div>\n            <div class=\"col-xs-1\">\n              <button type=\"button\" \n                class=\"btn btn-xs btn-info\"\n                ng-click=\"edit($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\n              </button>\n              <button type=\"button\" \n                class=\"btn btn-xs btn-danger\"\n                ng-click=\"delete($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\n              </button>\n            </div>\n          </div>\n\n\n\n\n          <!-- 编辑状态 -->\n          <div ng-show=\"o.state==1\">\n            <div class=\"col-xs-11\">\n              <table class=\"table table-bordered \">\n                <thead>\n                  <tr>\n                    <th class=\"col-md-3\">参数</th>\n                    <th class=\"col-md-7\">描述</th>\n                    <th class=\"text-center col-md-2\">\n                    <button type=\"button\" \n                    class=\"btn btn-success\"\n                    ng-click=\"addtr1($parent.$index, $index)\"\n                    >新增</button>\n                  </th>\n                  </tr>\n                </thead>\n                <tbody>\n                  <tr ng-repeat=\"para in o.display_arr\"> \n                    <td><input type=\"text\" class=\"form-control\"\n                    ng-model=\"para.k\" value=\"para.k\" \n                    ></td>\n                    <td><input type=\"text\" class=\"form-control\"\n                    ng-model=\"para.v\" value=\"para.v\"\n                    ></td>\n                    <td class=\"text-center\">\n                      <button type=\"button\" \n                      class=\"btn btn-danger\"\n                      ng-click=\"deltr1($parent.$parent.$index, $parent.$index, $index)\"\n                      >删除</button>\n                    </td>   \n                    <!-- <td>{{para.k}}</td>\n                    <td>{{para.v}}</td> -->\n                  </tr>\n                </tbody>\n              </table>\n            </div>\n            <div class=\"col-xs-1\">\n              <button type=\"button\" \n                class=\"btn btn-xs btn-info\"\n                ng-click=\"ok($parent.$index, $index)\"\n              >      \n                <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n              </button>\n              <input class=\"form-control\" \n                ng-model=\"o.asort\"\n                value=\"o.asort\" \n              >\n            </div>\n          </div>\n\n\n\n        </div>\n\n\n\n  \t\t</div>\n\n  \t</div>\n\n  </div>\n\n\n</div>\n\n\n\n\n  <div class=\"panel panel-default\">\n    <div class=\"panel-body form-horizontal\">\n      <div class=\" col-md-10\">\n          <div class=\"\">\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"text_type\" value=\"1\" ng-model=\"addm.text_type\"> 接口介绍\n            </label>\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"text_type\" value=\"2\" ng-model=\"addm.text_type\"> 接口调用请求说明\n            </label>\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"text_type\" value=\"3\" ng-model=\"addm.text_type\"> 参数说明\n            </label>\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"text_type\" value=\"4\" ng-model=\"addm.text_type\"> 返回说明\n            </label>\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"text_type\" value=\"5\" ng-model=\"addm.text_type\"> 注意事项\n            </label>\n          </div>\n          <hr>\n          <div class=\"\">\n            \n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"display_type\" value=\"1\" ng-model=\"addm.display_type\"> 文本\n            </label>\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"display_type\" value=\"2\" ng-model=\"addm.display_type\"> 代码\n            </label>\n            <label class=\"radio-inline\">\n              <input type=\"radio\" name=\"display_type\" value=\"0\" ng-model=\"addm.display_type\"> 表格\n            </label>\n          </div>\n          <hr>\n          <div ng-show=\"addm.display_type != 0\">\n            <textarea class=\"form-control\" rows=\"3\" ng-model=\"addm.text\"></textarea>\n          </div>\n          <div ng-show=\"addm.display_type == 0\">\n            <table class=\"table table-bordered\">\n              <thead>\n                <tr>\n                  <th class=\"text-center col-md-3\">参数</th>\n                  <!-- <th class=\"text-center col-md-2\">是否必须</th> -->\n                  <th class=\"text-center col-md-7\">说明</th>\n                  <th class=\"text-center col-md-2\">\n                    <button type=\"button\" \n                    class=\"btn btn-success\"\n                    ng-click=\"addtr()\"\n                    >新增</button>\n                  </th>\n                </tr>\n              </thead>\n              <tbody>\n                <tr ng-repeat=\"table in addm.tablearr\">\n                  <td><input type=\"text\" class=\"form-control\"\n                  ng-model=\"table.k\"\n                  ></td>\n                  <td><input type=\"text\" class=\"form-control\"\n                  ng-model=\"table.v\"\n                  ></td>\n                  <!-- <td><input type=\"text\" class=\"form-control\"\n                  ng-model=\"table.describe\"\n                  ></td> -->\n                  <td class=\"text-center\">\n                    <button type=\"button\" \n                    class=\"btn btn-danger\"\n                    ng-click=\"deltr($index)\"\n                    >删除</button>\n                  </td>\n                </tr>\n              </tbody>\n            </table>\n          </div>\n\n      </div>\n      <div class=\" col-md-2\">\n        <button type=\"button\" class=\"btn btn-default btn-block btn-primary\" \n        ng-click=\"add()\"\n        >\n         添加 <span class=\"glyphicon glyphicon-plus-sign\" ></span> \n        </button>\n     \n      </div>\n     </div>\n  </div>\n\n  <br>\n<br>\n<br>\n\n</div>\n\n"
 
 /***/ },
-/* 63 */
+/* 69 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-md-3\">\r\n\t<div class=\"list-group\">\r\n\t  <a \r\n\t  ng-repeat=\"obj in objs\"\r\n\t  class=\"list-group-item\"\r\n\t  ui-sref=\".info({api_id : obj.api_id})\"\r\n\t  >{{obj.text}}</a>\r\n\t</div>\r\n\t<br><br><br>\r\n</div>\r\n\r\n\r\n\r\n<div class=\"col-md-9\">\r\n\r\n\t<div data-ui-view=\"\"></div>\r\n\r\n</div>\r\n"
+	module.exports = "<div class=\"col-md-3\">\n\t<div class=\"list-group\">\n\t  <a \n\t  ng-repeat=\"obj in objs\"\n\t  class=\"list-group-item\"\n\t  ui-sref=\".info({api_id : obj.api_id})\"\n\t  >{{obj.text}}</a>\n\t</div>\n\t<br><br><br>\n</div>\n\n\n\n<div class=\"col-md-9\">\n\n\t<div data-ui-view=\"\"></div>\n\n</div>\n"
 
 /***/ },
-/* 64 */
+/* 70 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"panel panel-info\">\r\n  <div class=\"panel-heading\">\r\n  \t{{name}}\r\n\t<button type=\"button\" \r\n\t\tclass=\"btn btn-xs btn-info pull-right\"\r\n\t\tng-click=\"edit()\"\r\n\t\thas-permission='docedit' \r\n\t>\r\n\t\t<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\r\n\t</button>\r\n  </div>\r\n  <div class=\"panel-body\">\r\n\r\n  \t<div ng-repeat='obj in objs'>\r\n\r\n\t  \t<div ng-switch on='$index'>\r\n\t        <div ng-switch-when='1' ng-show=\"obj.length > 0\">\r\n\t          <Strong>接口介绍</Strong><hr>\r\n\t        </div>\r\n\t        <div ng-switch-when='2' ng-show=\"obj.length > 0\">\r\n\t          <br><Strong>接口调用请求说明</Strong><hr>\r\n\t        </div>\r\n\t        <div ng-switch-when='3' ng-show=\"obj.length > 0\">\r\n\t          <br><Strong>参数说明</Strong><hr>\r\n\t        </div>\r\n\t        <div ng-switch-when='4' ng-show=\"obj.length > 0\">\r\n\t          <br><Strong>返回说明</Strong><hr>\r\n\t        </div>\r\n\t        <div ng-switch-when='5' ng-show=\"obj.length > 0\">\r\n\t          <br><Strong>注意事项</Strong><hr>\r\n\t        </div>\r\n\t      </div>\r\n  \t\t\r\n  \t\t<div ng-repeat='o in obj' >\r\n  \t\t\r\n  \t\t\t<p ng-show=\"o.display_type==1 && o.text_type != 0\" >{{o.text}}</p>\r\n\r\n  \t\t\t<pre ng-show=\"o.display_type==2\">{{o.text}}</pre>\r\n\r\n  \t\t\t<div ng-show=\"o.display_type==0\">\r\n  \t\t\t\t\r\n  \t\t\t\t<table class=\"table table-bordered\">\r\n\t\t\t      <thead>\r\n\t\t\t        <tr>\r\n\t\t\t          <th class=\"col-md-4\">参数</th>\r\n\t\t\t          <th class=\"col-md-8\">描述</th>\r\n\t\t\t        </tr>\r\n\t\t\t      </thead>\r\n\t\t\t      <tbody>\r\n\t\t\t        <tr ng-repeat=\"para in o.display_arr\">    \r\n\t\t\t          <td>{{para.k}}</td>\r\n\t\t\t          <td>{{para.v}}</td>\r\n\t\t\t        </tr>\r\n\t\t\t      </tbody>\r\n\t\t\t    </table>\r\n\r\n  \t\t\t</div>\r\n\r\n  \t\t</div>\r\n\r\n  \t</div>\r\n\r\n  </div>\r\n</div>"
+	module.exports = "<div class=\"panel panel-info\">\n  <div class=\"panel-heading\">\n  \t{{name}}\n\t<button type=\"button\" \n\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\tng-click=\"edit()\"\n\t\thas-permission='docedit' \n\t>\n\t\t<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\n\t</button>\n  </div>\n  <div class=\"panel-body\">\n\n  \t<div ng-repeat='obj in objs'>\n\n\t  \t<div ng-switch on='$index'>\n\t        <div ng-switch-when='1' ng-show=\"obj.length > 0\">\n\t          <Strong>接口介绍</Strong><hr>\n\t        </div>\n\t        <div ng-switch-when='2' ng-show=\"obj.length > 0\">\n\t          <br><Strong>接口调用请求说明</Strong><hr>\n\t        </div>\n\t        <div ng-switch-when='3' ng-show=\"obj.length > 0\">\n\t          <br><Strong>参数说明</Strong><hr>\n\t        </div>\n\t        <div ng-switch-when='4' ng-show=\"obj.length > 0\">\n\t          <br><Strong>返回说明</Strong><hr>\n\t        </div>\n\t        <div ng-switch-when='5' ng-show=\"obj.length > 0\">\n\t          <br><Strong>注意事项</Strong><hr>\n\t        </div>\n\t      </div>\n  \t\t\n  \t\t<div ng-repeat='o in obj' >\n  \t\t\n  \t\t\t<p ng-show=\"o.display_type==1 && o.text_type != 0\" >{{o.text}}</p>\n\n  \t\t\t<pre ng-show=\"o.display_type==2\">{{o.text}}</pre>\n\n  \t\t\t<div ng-show=\"o.display_type==0\">\n  \t\t\t\t\n  \t\t\t\t<table class=\"table table-bordered\">\n\t\t\t      <thead>\n\t\t\t        <tr>\n\t\t\t          <th class=\"col-md-4\">参数</th>\n\t\t\t          <th class=\"col-md-8\">描述</th>\n\t\t\t        </tr>\n\t\t\t      </thead>\n\t\t\t      <tbody>\n\t\t\t        <tr ng-repeat=\"para in o.display_arr\">    \n\t\t\t          <td>{{para.k}}</td>\n\t\t\t          <td>{{para.v}}</td>\n\t\t\t        </tr>\n\t\t\t      </tbody>\n\t\t\t    </table>\n\n  \t\t\t</div>\n\n  \t\t</div>\n\n  \t</div>\n\n  </div>\n</div>"
 
 /***/ },
-/* 65 */
+/* 71 */
 /***/ function(module, exports) {
 
 	/**
@@ -56388,7 +59966,7 @@
 	module.exports = service;
 
 /***/ },
-/* 66 */
+/* 72 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, insert, $state, group){
@@ -56448,7 +60026,7 @@
 	};
 
 /***/ },
-/* 67 */
+/* 73 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, api, insert, update, del){
@@ -56654,7 +60232,7 @@
 	};
 
 /***/ },
-/* 68 */
+/* 74 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, group){
@@ -56678,7 +60256,7 @@
 
 
 /***/ },
-/* 69 */
+/* 75 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, api, $state){
@@ -56768,7 +60346,7 @@
 
 
 /***/ },
-/* 70 */
+/* 76 */
 /***/ function(module, exports) {
 
 	module.exports =  angular.module('permission', [])
@@ -56866,7 +60444,7 @@
 	  }]);
 
 /***/ },
-/* 71 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56876,23 +60454,23 @@
 
 	var App = angular.module('ticketdeviceorder', []);
 
-	App.config(__webpack_require__(72));
-	App.factory('ticketdeviceorderservice', __webpack_require__(79));
+	App.config(__webpack_require__(78));
+	App.factory('ticketdeviceorderservice', __webpack_require__(85));
 
-	App.controller('refundticket',__webpack_require__(80));
-	App.controller('deviceorder',__webpack_require__(81));
-	App.controller('selfcount',__webpack_require__(82));
-	App.controller('teamcount',__webpack_require__(83));
-	App.controller('teamreserve',__webpack_require__(84));
-	App.controller('againprint',__webpack_require__(85));
+	App.controller('refundticket',__webpack_require__(86));
+	App.controller('deviceorder',__webpack_require__(87));
+	App.controller('selfcount',__webpack_require__(88));
+	App.controller('teamcount',__webpack_require__(89));
+	App.controller('teamreserve',__webpack_require__(90));
+	App.controller('againprint',__webpack_require__(91));
 
-	__webpack_require__(86);
-	__webpack_require__(88);
+	__webpack_require__(92);
+	__webpack_require__(94);
 
 	module.exports = App;
 
 /***/ },
-/* 72 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -56908,21 +60486,21 @@
 	        url: '/refundticket',
 	        title: 'refundticket',
 	        controller : 'refundticket',
-	        template: __webpack_require__(73)
+	        template: __webpack_require__(79)
 	      })
 
 		.state('app.deviceorder', {
 	        url: '/deviceorder',
 	        title: 'deviceorder',
 	        controller : 'deviceorder',
-	        template: __webpack_require__(74)
+	        template: __webpack_require__(80)
 	      })
 
 		.state('app.deviceorder.selfcount', {
 	        url: '/selfcount/:view',
 	        title: 'selfcount',
 	        controller : 'selfcount',
-	        template: __webpack_require__(75),
+	        template: __webpack_require__(81),
 	        resolve:{
 	        	destorytotalbytypelist : function(ticketdeviceorderservice){
 	        		return ticketdeviceorderservice.destorytotalbytypelist();
@@ -56934,7 +60512,7 @@
 	        url: '/teamcount/:view_code',
 	        title: 'teamcount',
 	        controller : 'teamcount',
-	        template: __webpack_require__(76),
+	        template: __webpack_require__(82),
 	        resolve:{
 	        	grouptotalbytpyelist : function(ticketdeviceorderservice){
 	        		return ticketdeviceorderservice.grouptotalbytpyelist();
@@ -56946,7 +60524,7 @@
 	        url: '/teamreserve/:view_code',
 	        title: 'teamreserve',
 	        controller : 'teamreserve',
-	        template: __webpack_require__(77),
+	        template: __webpack_require__(83),
 	        resolve:{
 	        	grouptotaltodaylist : function(ticketdeviceorderservice){
 	        		return ticketdeviceorderservice.grouptotaltodaylist();
@@ -56961,7 +60539,7 @@
 	        url: '/againprint',
 	        title: 'againprint',
 	        controller : 'againprint',
-	        template: __webpack_require__(78),
+	        template: __webpack_require__(84),
 	        resolve:{
 	        	receliptlist : function(ticketdeviceorderservice){
 	        		return ticketdeviceorderservice.receliptlist();
@@ -56980,43 +60558,43 @@
 	module.exports = router;
 
 /***/ },
-/* 73 */
-/***/ function(module, exports) {
-
-	module.exports = "\r\n<div class=\"container-fluid\">\r\n\t<div class=\"col-md-4 col-md-offset-4 mt20\">\r\n\t\t<div class=\"panel panel-success searchform\">\r\n\t\t\t<div class=\"panel-heading\">订单查询</div>\r\n\t\t\t<div class=\"panel-body orderSearch\">\r\n\t\t\t\t<div class=\"input-group\">\r\n\t\t\t\t\t<span class=\"input-group-addon\" >身份证号</span>\r\n\t\t\t\t  \t<input type=\"text\" class=\"form-control\" id=\"cardno\" name=\"cardno\" >\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class=\"input-group mt10\">\r\n\t\t\t\t\t<span class=\"input-group-addon\" >电话号码</span>\r\n\t\t\t\t  \t<input type=\"text\" class=\"form-control\" id=\"mobile\" name=\"mobile\" >\r\n\t\t\t\t</div>\r\n\t\t\t\t<button type=\"button\" id=\"orderSearchBtn\" class=\"btn btn-info btn-block mt10 search\">搜索订单</button>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\t\r\n\t<table class=\"table table-bordered \">\r\n\t\t<tr>\r\n\t\t\t<td>订单名称</td>\r\n\t\t\t<td>身份证号</td>\r\n\t\t\t<td>手机</td>\r\n\t\t\t<td>游客姓名</td>\r\n\t\t\t<td>购买时间</td>\r\n\t\t\t<td>购买数量</td>\r\n\t\t\t<td>使用数量</td>\r\n\t\t\t<td>退票数量</td>\r\n\t\t\t<td>操作</td>\r\n\t\t</tr>\r\n\t\t<tbody class=\"retList\">\r\n\t\t\t<tr>\r\n\t\t\t\t<td>1</td>\r\n\t\t\t\t<td>1</td>\r\n\t\t\t\t<td>1</td>\r\n\t\t\t\t<td></td>\r\n\t\t\t\t<td></td>\r\n\t\t\t\t<td></td>\r\n\t\t\t\t<td></td>\r\n\t\t\t\t<td></td>\r\n\t\t\t\t<td class=\"num\">\r\n\t\t    \t\t<input type=\"number\" class=\"kuang\" max=\"2\" value=\"0\" min=\"0\">\r\n\t\t    \t\t<button type=\"button\" class=\"btn btn-success\" ng-click=\"black('1')\">退票</button>\r\n\t\t\t\t</td>\r\n\t\t\t</tr>\r\n\t\t\t<tr>\r\n\t\t\t\t<td>1</td>\r\n\t\t\t\t<td>2</td>\r\n\t\t\t\t<td>3</td>\r\n\t\t\t\t<td></td>\r\n\t\t\t\t<td></td>\r\n\t\t\t\t<td></td>\r\n\t\t\t\t<td></td>\r\n\t\t\t\t<td></td>\r\n\t\t\t\t<td class=\"num\">\r\n\t\t    \t\t<input type=\"number\" class=\"kuang\" max=\"2\" value=\"0\" min=\"0\">\r\n\t\t    \t\t<button type=\"button\" class=\"btn btn-success\" ng-click=\"black('2')\">退票</button>\r\n\t\t\t\t</td>\r\n\t\t\t</tr>\r\n\t\t</tbody>\r\n\t</table><!-- retList -->\r\n\t\t\r\n</div>\t<!-- /container-fluid -->"
-
-/***/ },
-/* 74 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-md-2\">\r\n\t<div class=\"list-group\">\r\n\t\t<a class=\"list-group-item return\" ui-sref=\"\" ng-click=\"return()\">返回</a>\r\n\t</div>\r\n\t<div class=\"list-group main\">\r\n\t  <a class=\"list-group-item tab\" ui-sref=\".selfcount({view:'0099'})\">自驾<br>统计</a>\r\n\t  <a class=\"list-group-item tab mt10\" ui-sref=\".teamcount({view_code:'0099'})\">团队<br>统计</a>\r\n\t  <a class=\"list-group-item tab mt10\" ui-sref=\".teamreserve({view_code:'0099'})\">团队<br>预定</a>\r\n\t  <a class=\"list-group-item tab mt10\" ui-sref=\".againprint()\">重新<br>打印</a>\r\n\t</div>\r\n\t\r\n</div>\r\n\r\n<div class=\"col-md-10\">\r\n<h1 class=\"text-center\">XXX测试智慧景区检票系统</h1>\r\n\t<div data-ui-view=\"\">\r\n\t\t<h2 class=\"text-center\">欢迎使用票机订单功能</h2>\r\n\t</div>\r\n</div>"
-
-/***/ },
-/* 75 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"panel-body\">\r\n\t  <div class=\"form-group\">\r\n\t    <div class=\"col-sm-9\">\r\n\t      <input type=\"text\" class=\"form-control\" ng-model=\"device\" placeholder=\"输入设备码\">\r\n\t    </div>\r\n\t    <div class=\"col-sm-3\">\r\n\t    \t<button type=\"button\" \r\n\t    \tclass=\"btn btn-default btn-block\"\r\n\t    \tng-click=\"submit()\">确定</button>\r\n\t    </div>\r\n\t  </div>\r\n</div>\r\n<div class=\"panel-body\">\r\n\t  <div class=\"form-group\">\r\n\t\t<div ng-repeat=\"obj in objs\" style=\"font-size:24px;\">\r\n\t\t\t<div class=\"\">\r\n\t\t\t\t<div class=\"col-sm-9\">{{obj.type_name}}</div>\r\n\t\t\t\t<div class=\"col-sm-3\">{{obj.count}}张</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n\r\n\r\n"
-
-/***/ },
-/* 76 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"panel-body\">\r\n\t<div class=\"form-group\" ng-repeat=\"obj in objs\" style=\"font-size:24px;\">\r\n\t\t<div class=\"col-sm-9\">{{obj.type_name}}</div>\r\n\t\t<div class=\"col-sm-3\">{{obj.sum}}张</div>\r\n\t</div>\r\n</div>\r\n"
-
-/***/ },
-/* 77 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"panel-body\">\r\n\t<div class=\"list-group\" style=\"cursor:pointer;\">\r\n\t\t<a class=\"list-group-item col-md-6 text-center\" ng-click=\"today()\">今日预订</a>\r\n\t\t<a class=\"list-group-item col-md-6 text-center\" ng-click=\"toma()\">明日预订</a>\r\n\t</div>\r\n</div>\r\n<div class=\"panel-body\">\r\n\t<div class=\"form-group\" ng-repeat=\"obj in objs\" style=\"font-size:18px;\">\r\n\t\t<p>\r\n\t\t\t{{obj.type_name}}&nbsp;&nbsp;&nbsp;&nbsp;预订：{{obj.book_count}}人<br>\r\n\t\t\t{{obj.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{obj.vehicle_number}}&nbsp;&nbsp;&nbsp;&nbsp;最后修改：{{obj.update_time}}<br>\r\n\t\t\t备注：{{obj.remark}}\r\n\t\t</p>\r\n\t</div>\r\n</div>"
-
-/***/ },
-/* 78 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"panel-body\">\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<div class=\"col-xs-10\">\r\n\t      <input type=\"text\" class=\"form-control\" ng-model=\"device\" placeholder=\"输入设备码\">\r\n\t    </div>\r\n\t\t<div class=\"col-xs-10 mt10\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" ng-model=\"type\" placeholder=\"请输入票码或身份证\">\r\n\t\t</div>\r\n\t\t<div class=\"col-xs-2 mt10\">\r\n\t\t\t<button type=\"button\" class=\"btn btn-primary btn-block\" ng-click=\"query()\">查询</button>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n\r\n<div class=\"panel-body\">\r\n\t<div  ng-repeat=\"obj in objs\" style=\"font-size:18px;\">\r\n\t\t<div class=\"col-xs-10\" >\r\n\t\t\t<p>\r\n\t\t\t\t{{obj.tkt_name}}<br>\r\n\t\t\t\t{{obj.num}}张&nbsp;&nbsp;&nbsp;&nbsp;{{obj.update_time}}\r\n\t\t\t</p>\r\n\t\t</div>\r\n\t\t<div class=\"col-xs-2\">\r\n\t\t\t<button type=\"button\" class=\"btn btn-info\" ng-click=\"detail(obj.id)\">详情</button>\r\n\t\t</div>\r\n\t</div>\r\n</div>"
-
-/***/ },
 /* 79 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"container-fluid\">\n\t<div class=\"col-md-4 col-md-offset-4 mt20\">\n\t\t<div class=\"panel panel-success searchform\">\n\t\t\t<div class=\"panel-heading\">订单查询</div>\n\t\t\t<div class=\"panel-body orderSearch\">\n\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t<span class=\"input-group-addon\" >身份证号</span>\n\t\t\t\t  \t<input type=\"text\" class=\"form-control\" id=\"cardno\" name=\"cardno\" >\n\t\t\t\t</div>\n\t\t\t\t<div class=\"input-group mt10\">\n\t\t\t\t\t<span class=\"input-group-addon\" >电话号码</span>\n\t\t\t\t  \t<input type=\"text\" class=\"form-control\" id=\"mobile\" name=\"mobile\" >\n\t\t\t\t</div>\n\t\t\t\t<button type=\"button\" id=\"orderSearchBtn\" class=\"btn btn-info btn-block mt10 search\">搜索订单</button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t\n\t<table class=\"table table-bordered \">\n\t\t<tr>\n\t\t\t<td>订单名称</td>\n\t\t\t<td>身份证号</td>\n\t\t\t<td>手机</td>\n\t\t\t<td>游客姓名</td>\n\t\t\t<td>购买时间</td>\n\t\t\t<td>购买数量</td>\n\t\t\t<td>使用数量</td>\n\t\t\t<td>退票数量</td>\n\t\t\t<td>操作</td>\n\t\t</tr>\n\t\t<tbody class=\"retList\">\n\t\t\t<tr>\n\t\t\t\t<td>1</td>\n\t\t\t\t<td>1</td>\n\t\t\t\t<td>1</td>\n\t\t\t\t<td></td>\n\t\t\t\t<td></td>\n\t\t\t\t<td></td>\n\t\t\t\t<td></td>\n\t\t\t\t<td></td>\n\t\t\t\t<td class=\"num\">\n\t\t    \t\t<input type=\"number\" class=\"kuang\" max=\"2\" value=\"0\" min=\"0\">\n\t\t    \t\t<button type=\"button\" class=\"btn btn-success\" ng-click=\"black('1')\">退票</button>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td>1</td>\n\t\t\t\t<td>2</td>\n\t\t\t\t<td>3</td>\n\t\t\t\t<td></td>\n\t\t\t\t<td></td>\n\t\t\t\t<td></td>\n\t\t\t\t<td></td>\n\t\t\t\t<td></td>\n\t\t\t\t<td class=\"num\">\n\t\t    \t\t<input type=\"number\" class=\"kuang\" max=\"2\" value=\"0\" min=\"0\">\n\t\t    \t\t<button type=\"button\" class=\"btn btn-success\" ng-click=\"black('2')\">退票</button>\n\t\t\t\t</td>\n\t\t\t</tr>\n\t\t</tbody>\n\t</table><!-- retList -->\n\t\t\n</div>\t<!-- /container-fluid -->"
+
+/***/ },
+/* 80 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-md-2\">\n\t<div class=\"list-group\">\n\t\t<a class=\"list-group-item return\" ui-sref=\"\" ng-click=\"return()\">返回</a>\n\t</div>\n\t<div class=\"list-group main\">\n\t  <a class=\"list-group-item tab\" ui-sref=\".selfcount({view:'0099'})\">自驾<br>统计</a>\n\t  <a class=\"list-group-item tab mt10\" ui-sref=\".teamcount({view_code:'0099'})\">团队<br>统计</a>\n\t  <a class=\"list-group-item tab mt10\" ui-sref=\".teamreserve({view_code:'0099'})\">团队<br>预定</a>\n\t  <a class=\"list-group-item tab mt10\" ui-sref=\".againprint()\">重新<br>打印</a>\n\t</div>\n\t\n</div>\n\n<div class=\"col-md-10\">\n<h1 class=\"text-center\">XXX测试智慧景区检票系统</h1>\n\t<div data-ui-view=\"\">\n\t\t<h2 class=\"text-center\">欢迎使用票机订单功能</h2>\n\t</div>\n</div>"
+
+/***/ },
+/* 81 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"panel-body\">\n\t  <div class=\"form-group\">\n\t    <div class=\"col-sm-9\">\n\t      <input type=\"text\" class=\"form-control\" ng-model=\"device\" placeholder=\"输入设备码\">\n\t    </div>\n\t    <div class=\"col-sm-3\">\n\t    \t<button type=\"button\" \n\t    \tclass=\"btn btn-default btn-block\"\n\t    \tng-click=\"submit()\">确定</button>\n\t    </div>\n\t  </div>\n</div>\n<div class=\"panel-body\">\n\t  <div class=\"form-group\">\n\t\t<div ng-repeat=\"obj in objs\" style=\"font-size:24px;\">\n\t\t\t<div class=\"\">\n\t\t\t\t<div class=\"col-sm-9\">{{obj.type_name}}</div>\n\t\t\t\t<div class=\"col-sm-3\">{{obj.count}}张</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n\n\n"
+
+/***/ },
+/* 82 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"panel-body\">\n\t<div class=\"form-group\" ng-repeat=\"obj in objs\" style=\"font-size:24px;\">\n\t\t<div class=\"col-sm-9\">{{obj.type_name}}</div>\n\t\t<div class=\"col-sm-3\">{{obj.sum}}张</div>\n\t</div>\n</div>\n"
+
+/***/ },
+/* 83 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"panel-body\">\n\t<div class=\"list-group\" style=\"cursor:pointer;\">\n\t\t<a class=\"list-group-item col-md-6 text-center\" ng-click=\"today()\">今日预订</a>\n\t\t<a class=\"list-group-item col-md-6 text-center\" ng-click=\"toma()\">明日预订</a>\n\t</div>\n</div>\n<div class=\"panel-body\">\n\t<div class=\"form-group\" ng-repeat=\"obj in objs\" style=\"font-size:18px;\">\n\t\t<p>\n\t\t\t{{obj.type_name}}&nbsp;&nbsp;&nbsp;&nbsp;预订：{{obj.book_count}}人<br>\n\t\t\t{{obj.name}}&nbsp;&nbsp;&nbsp;&nbsp;{{obj.vehicle_number}}&nbsp;&nbsp;&nbsp;&nbsp;最后修改：{{obj.update_time}}<br>\n\t\t\t备注：{{obj.remark}}\n\t\t</p>\n\t</div>\n</div>"
+
+/***/ },
+/* 84 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"panel-body\">\n\n\t<div class=\"form-group\">\n\t\t<div class=\"col-xs-10\">\n\t      <input type=\"text\" class=\"form-control\" ng-model=\"device\" placeholder=\"输入设备码\">\n\t    </div>\n\t\t<div class=\"col-xs-10 mt10\">\n\t\t\t<input type=\"text\" class=\"form-control\" ng-model=\"type\" placeholder=\"请输入票码或身份证\">\n\t\t</div>\n\t\t<div class=\"col-xs-2 mt10\">\n\t\t\t<button type=\"button\" class=\"btn btn-primary btn-block\" ng-click=\"query()\">查询</button>\n\t\t</div>\n\t</div>\n</div>\n\n<div class=\"panel-body\">\n\t<div  ng-repeat=\"obj in objs\" style=\"font-size:18px;\">\n\t\t<div class=\"col-xs-10\" >\n\t\t\t<p>\n\t\t\t\t{{obj.tkt_name}}<br>\n\t\t\t\t{{obj.num}}张&nbsp;&nbsp;&nbsp;&nbsp;{{obj.update_time}}\n\t\t\t</p>\n\t\t</div>\n\t\t<div class=\"col-xs-2\">\n\t\t\t<button type=\"button\" class=\"btn btn-info\" ng-click=\"detail(obj.id)\">详情</button>\n\t\t</div>\n\t</div>\n</div>"
+
+/***/ },
+/* 85 */
 /***/ function(module, exports) {
 
 	/**
@@ -57074,7 +60652,7 @@
 	module.exports = service;
 
 /***/ },
-/* 80 */
+/* 86 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope){
@@ -57086,7 +60664,7 @@
 	};
 
 /***/ },
-/* 81 */
+/* 87 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope){
@@ -57098,7 +60676,7 @@
 	};
 
 /***/ },
-/* 82 */
+/* 88 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, destorytotalbytypelist){
@@ -57118,7 +60696,7 @@
 	};
 
 /***/ },
-/* 83 */
+/* 89 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, grouptotalbytpyelist){
@@ -57135,7 +60713,7 @@
 	};
 
 /***/ },
-/* 84 */
+/* 90 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, grouptotaltodaylist, grouptotaltomlist){
@@ -57174,7 +60752,7 @@
 	};
 
 /***/ },
-/* 85 */
+/* 91 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, receliptlist, receliptinfo, receliptprint){
@@ -57224,13 +60802,13 @@
 	};
 
 /***/ },
-/* 86 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(87);
+	var content = __webpack_require__(93);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(21)(content, {});
@@ -57250,7 +60828,7 @@
 	}
 
 /***/ },
-/* 87 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(20)();
@@ -57264,13 +60842,13 @@
 
 
 /***/ },
-/* 88 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(89);
+	var content = __webpack_require__(95);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(21)(content, {});
@@ -57290,7 +60868,7 @@
 	}
 
 /***/ },
-/* 89 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(20)();
@@ -57298,13 +60876,13 @@
 
 
 	// module
-	exports.push([module.id, "/*.tab{width:100px;height: 100px; font-size: 20px;text-align: center;cursor: pointer;}\r\n.main{margin-top: 40px;}\r\n.return{width:100px; text-align: center;font-size: 20px;cursor: pointer;}\r\na:link {color: #666666;}*/", ""]);
+	exports.push([module.id, "/*.tab{width:100px;height: 100px; font-size: 20px;text-align: center;cursor: pointer;}\n.main{margin-top: 40px;}\n.return{width:100px; text-align: center;font-size: 20px;cursor: pointer;}\na:link {color: #666666;}*/", ""]);
 
 	// exports
 
 
 /***/ },
-/* 90 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57314,8 +60892,8 @@
 
 	var App = angular.module('deposit', []);
 
-	App.config(__webpack_require__(91));
-	App.factory('depositservice', __webpack_require__(93));
+	App.config(__webpack_require__(97));
+	App.factory('depositservice', __webpack_require__(99));
 
 	// App.controller('name',require('./controllers/name'));
 	// App.controller('doccreate',require('./controllers/module'));
@@ -57326,7 +60904,7 @@
 	module.exports = App;
 
 /***/ },
-/* 91 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57341,7 +60919,7 @@
 	 	  .state('app.platformdeposit', {
 	        url: '/platformdeposit',
 	        //controller : 'platformdeposit',
-	        template: __webpack_require__(92)
+	        template: __webpack_require__(98)
 	        // ,
 	        // resolve:{
 	        // 	insert : function(docservice){
@@ -57359,13 +60937,13 @@
 	module.exports = router;
 
 /***/ },
-/* 92 */
+/* 98 */
 /***/ function(module, exports) {
 
 	module.exports = "platformdeposit"
 
 /***/ },
-/* 93 */
+/* 99 */
 /***/ function(module, exports) {
 
 	/**
@@ -57393,7 +60971,7 @@
 	module.exports = service;
 
 /***/ },
-/* 94 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57403,31 +60981,31 @@
 
 	var App = angular.module('product', []);
 
-	App.config(__webpack_require__(95));
-	App.factory('productservice', __webpack_require__(105));
+	App.config(__webpack_require__(101));
+	App.factory('productservice', __webpack_require__(111));
 
-	App.controller('tkttype',__webpack_require__(106));
-	App.controller('tkttypecreate',__webpack_require__(107));
-	App.controller('tkttypeedit',__webpack_require__(108));
-	App.controller('tkttypeattr',__webpack_require__(109));
-	App.controller('tkttypeattrcreate',__webpack_require__(110));
-	App.controller('tkttypeattredit',__webpack_require__(111));
-	App.controller('tktgoods',__webpack_require__(112));
-	App.controller('tktgoodscreate',__webpack_require__(113));
-	App.controller('tktgoodsupdate',__webpack_require__(114));
-	App.controller('tktsale',__webpack_require__(115));
-	App.controller('tktsalecreate',__webpack_require__(116));
-	App.controller('tktsaleupdate',__webpack_require__(117));
-	App.controller('salecategory',__webpack_require__(118));
+	App.controller('tkttype',__webpack_require__(112));
+	App.controller('tkttypecreate',__webpack_require__(113));
+	App.controller('tkttypeedit',__webpack_require__(114));
+	App.controller('tkttypeattr',__webpack_require__(115));
+	App.controller('tkttypeattrcreate',__webpack_require__(116));
+	App.controller('tkttypeattredit',__webpack_require__(117));
+	App.controller('tktgoods',__webpack_require__(118));
+	App.controller('tktgoodscreate',__webpack_require__(119));
+	App.controller('tktgoodsupdate',__webpack_require__(120));
+	App.controller('tktsale',__webpack_require__(121));
+	App.controller('tktsalecreate',__webpack_require__(122));
+	App.controller('tktsaleupdate',__webpack_require__(123));
+	App.controller('salecategory',__webpack_require__(124));
 
-	App.controller('salecategorycreate',__webpack_require__(120));
+	App.controller('salecategorycreate',__webpack_require__(126));
 
 
 
 	module.exports = App;
 
 /***/ },
-/* 95 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -57442,7 +61020,7 @@
 	 	  .state('app.tkttype', {
 	        url: '/tkttype/:placeid',
 	        controller : 'tkttype',
-	        template: __webpack_require__(96),
+	        template: __webpack_require__(102),
 	        resolve:{
 	            viewlist : function(productservice){
 	                return productservice.viewlist;
@@ -57459,7 +61037,7 @@
 	      .state('app.tkttypecreate', {
 	        url: '/tkttypecreate/:placeid',
 	        controller : 'tkttypecreate',
-	        template: __webpack_require__(97),
+	        template: __webpack_require__(103),
 	        resolve:{
 	            viewlist : function(viewservice){
 	                return viewservice.slist;
@@ -57479,7 +61057,7 @@
 	      .state('app.edittkttype', {
 	        url: '/tkttypeedit/:id',
 	        controller : 'tkttypeedit',
-	        template: __webpack_require__(97),
+	        template: __webpack_require__(103),
 	        resolve:{
 	            tktinfo : function(productservice){
 	                return productservice.tktinfo();
@@ -57499,7 +61077,7 @@
 	      .state('app.tkttypeattr', {
 	        url: '/tkttypeattr',
 	        controller : 'tkttypeattr',
-	        template: __webpack_require__(98),
+	        template: __webpack_require__(104),
 	        resolve:{
 	            attrlist : function(productservice){
 	                return productservice.attrlist();
@@ -57510,7 +61088,7 @@
 	      .state('app.tkttypeattrcreate', {
 	        url: '/tkttypeattrcreate',
 	        controller : 'tkttypeattrcreate',
-	        template: __webpack_require__(99),
+	        template: __webpack_require__(105),
 	        resolve:{
 	            attrcreate : function(productservice){
 	                return productservice.attrcreate();
@@ -57521,7 +61099,7 @@
 	      .state('app.tkttypeattredit', {
 	        url: '/tkttypeattredit/:type_attr',
 	        controller : 'tkttypeattredit',
-	        template: __webpack_require__(99),
+	        template: __webpack_require__(105),
 	        resolve:{
 	            attrinfo : function(productservice){
 	                return productservice.attrinfo();
@@ -57535,7 +61113,7 @@
 	      .state('app.tktgoods', {
 	        url: '/goodslist',
 	        controller : 'tktgoods',
-	        template: __webpack_require__(100),
+	        template: __webpack_require__(106),
 	        resolve:{
 	            goodslist : function(productservice){
 	                return productservice.goodslist();
@@ -57555,7 +61133,7 @@
 	      .state('app.creategoods', {
 	        url: '/goods',
 	        controller : 'tktgoodscreate',
-	        template: __webpack_require__(101),
+	        template: __webpack_require__(107),
 	        resolve:{
 	            goodscreate : function(productservice){
 	                return productservice.goodscreate();
@@ -57575,7 +61153,7 @@
 	      .state('app.editgoods', {
 	        url: '/goods/:id',
 	        controller : 'tktgoodsupdate',
-	        template: __webpack_require__(101),
+	        template: __webpack_require__(107),
 	        resolve:{
 	            goodsupdate : function(productservice){
 	                return productservice.goodsupdate();
@@ -57607,7 +61185,7 @@
 		.state('app.tktsale', {
 	        url: '/salelist',
 	        controller : 'tktsale',
-	        template: __webpack_require__(102),
+	        template: __webpack_require__(108),
 	        resolve:{
 	            salelist : function(productservice){
 	                return productservice.salelist();
@@ -57628,7 +61206,7 @@
 		.state('app.createsale', {
 	        url: '/sale',
 	        controller : 'tktsalecreate',
-	        template: __webpack_require__(103),
+	        template: __webpack_require__(109),
 	        resolve:{
 	            viewlist : function(productservice){
 	                return productservice.viewlist;
@@ -57645,7 +61223,7 @@
 		.state('app.editsale', {
 	        url: '/sale/:id',
 	        controller : 'tktsaleupdate',
-	        template: __webpack_require__(103),
+	        template: __webpack_require__(109),
 	        resolve:{
 	        	viewlist : function(productservice){
 	                return productservice.viewlist;
@@ -57704,7 +61282,7 @@
 	    .state('app.salecategory', {
 	        url: '/salecategory',
 	        controller : 'salecategory',
-	        template: __webpack_require__(104),
+	        template: __webpack_require__(110),
 	        resolve:{
 	            salecategorylist : function(productservice){
 	                return productservice.salecategorylist();
@@ -57729,61 +61307,61 @@
 	module.exports = router;
 
 /***/ },
-/* 96 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-10\">\r\n                <label>景区</label>&nbsp;&nbsp;\r\n                <select class=\"form-control\" ng-model=\"searchform.place_code\" \r\n                  ng-options=\"view.code as view.name for view in viewarr\"\r\n                >\r\n                  <option value=\"\"> --全部-- </option>\r\n                </select>\r\n                <!-- &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <label>关键字</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.keyword\" >\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <label>状态</label>&nbsp;&nbsp;\r\n                <select class=\"form-control\" ng-model=\"searchform.state\" >\r\n                  <option value=\"\"> --全部-- </option>\r\n                  <option value=\"1\"> 启用 </option>\r\n                  <option value=\"0\"> 停用 </option>\r\n                </select> -->\r\n                 &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n            <div class=\"col-sm-2 text-right\">\r\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">发布新票种</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n<div class=\"panel panel-info\" ng-repeat=\"tkttype in objs track by $index\" >\r\n  <!-- Default panel contents -->\r\n  <div class=\"panel-heading\">{{tkttype.viewname}}</div>\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-3 text-center\">票种名称</th>\r\n        <th class=\"col-md-1 text-center\">票种编号</th>\r\n        <th class=\"col-md-1 text-center\">允许消票</th>\r\n        <th class=\"col-md-1 text-center\">票种状态</th>\r\n        <th class=\"col-md-3 text-center\">预定详情</th>\r\n        <th class=\"col-md-2 text-center\">操作</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in tkttype.ticketarr\">\r\n        <td class=\"\">{{obj.name}}</td>\r\n        <td class=\"text-center\">{{obj.code}}</td>\r\n        <td class=\"text-center\">{{obj.used_state}}</td>\r\n        <td class=\"text-center\">{{obj.state}}</td>\r\n        <td class=\"text-center\">{{obj.book_info}}</td>\r\n        <td class=\"text-center\">\r\n\t\t      <a ng-show=\"obj.state=='1'\" ng-click=\"start(obj.id)\" class=\"btn btn-primary btn-xs\">下架</a>\r\n          <a ng-show=\"obj.state=='0'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">上架</a>\r\n          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\r\n          <a ng-show=\"obj.used_state=='1'\" ng-click=\"usedstart(obj.id)\" class=\"btn btn-primary btn-xs\">允许消票</a>\r\n          <a ng-show=\"obj.used_state=='0'\" ng-click=\"usedstop(obj.id)\" class=\"btn btn-danger btn-xs\">禁止消票</a>\r\n          <a ng-click=\"auth(obj.code)\" class=\"btn btn-warning btn-xs\">消票权限</a>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  \r\n</div>\r\n</div>"
-
-/***/ },
-/* 97 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\r\n\t\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">票种名称</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入票种名称\"\r\n\t\t\tng-model=\"objt.name\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n<!-- \t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">票种编号</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入票种编号\"\r\n\t\t\tng-model=\"objt.code\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div> -->\r\n\r\n\t<div class=\"form-group\" ng-show=\"placeid === ''\">\r\n\t\t<label class=\"col-xs-2 control-label\">所属景区</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<select class=\"form-control\" ng-model=\"objt.place_code\" \r\n              ng-options=\"view.code as view.name for view in viewarr\"\r\n            >\r\n            </select>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\" ng-show=\"placeid !== ''\">\r\n\t\t<label class=\"col-xs-2 control-label\">所属景区</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<p class=\"form-control-static\">{{objt.placename}} [{{objt.placecode}}]</p>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t    <label class=\"col-sm-2 control-label\">有效时间</label>\r\n\t    <div class=\"col-sm-10\">\r\n\r\n\t\t    <p class=\"input-group col-sm-3 pull-left\">\r\n\t          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n\t          <span class=\"input-group-btn\">\r\n\t            <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n\t          </span>\r\n\t        </p>\r\n\t        <p class=\"form-control-static pull-left\"> &nbsp;&nbsp;-&nbsp;&nbsp; </p>\r\n\t        <p class=\"input-group col-sm-3 pull-left\">\r\n\t          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n\t          <span class=\"input-group-btn\">\r\n\t            <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n\t          </span>\r\n\t        </p>\r\n\r\n\t    </div>\r\n\t  </div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">允许消票</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"used_state\" value=\"0\"\r\n\t\t\t  ng-model=\"objt.used_state\"\r\n\t\t\t  > 允许\r\n\t\t\t</label>\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"used_state\" value=\"1\"\r\n\t\t\t  ng-model=\"objt.used_state\"\r\n\t\t\t  > 不允许\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">票种状态</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"0\"\r\n\t\t\t  ng-model=\"objt.state\"\r\n\t\t\t  > 不可用\r\n\t\t\t</label>\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"1\"\r\n\t\t\t  ng-model=\"objt.state\"\r\n\t\t\t  > 可用\r\n\t\t\t</label>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">预订说明</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<textarea class=\"form-control\" rows=\"3\"\r\n\t\t\tng-model=\"objt.book_info\"\r\n\t\t\t></textarea>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<button \r\n    type=\"button\" \r\n    class=\"btn btn-primary btn-lg btn-block\" \r\n    ng-click=\"gogo()\"\r\n    >\r\n    提交\r\n    </button>\r\n\r\n\r\n</div>"
-
-/***/ },
-/* 98 */
-/***/ function(module, exports) {
-
-	module.exports = "\r\n<div class=\"col-sm-12 text-right mb10\">\r\n    <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建属性</button>\r\n</div>\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-5 text-center\">属性编号</th>\r\n        <th class=\"col-md-5 text-center\">属性名称</th>\r\n        <th class=\"col-md-2 text-center\">操作</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.ticket_attr_id}}</td>\r\n        <td class=\"text-center\">{{obj.type_attr_name}}</td>\r\n        <td class=\"text-center\">\r\n          <a ng-click=\"edit(obj.ticket_attr_id)\" class=\"btn btn-success btn-xs\">编辑</a>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>"
-
-/***/ },
-/* 99 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\r\n\t\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">属性编号</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入属性编号\"\r\n\t\t\tng-model=\"objt.type_attr\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">属性名称</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入属性名称\"\r\n\t\t\tng-model=\"objt.type_attr_name\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t\r\n\r\n\t<button \r\n    type=\"button\" \r\n    class=\"btn btn-primary btn-lg btn-block\" \r\n    ng-click=\"gogo()\"\r\n    >\r\n    提交\r\n    </button>\r\n\r\n\r\n</div>"
-
-/***/ },
-/* 100 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-10\">\r\n                <label>商品名称</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\" >\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <label>景区编号</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_code\" >\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n            <div class=\"col-sm-2 text-right\">\r\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建商品</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\r\n  <!-- Default panel contents -->\r\n  <div class=\"panel-heading\">{{tkttype.viewname}} ({{tkttype.viewcode}})</div>\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-7 text-center\">商品名称</th>\r\n        <th class=\"col-md-1 text-center\">商品编号</th>\r\n        <th class=\"col-md-1 text-center\">成本价</th>\r\n        <th class=\"col-md-1 text-center\">票种状态</th>\r\n        <th class=\"col-md-2 text-center\">操作</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in tkttype.ticketarr\">\r\n        <td class=\"\">[{{obj.type_attr_name}}] {{obj.name}}</td>\r\n        <td class=\"text-center\">{{obj.code}}</td>\r\n        <td class=\"text-center\">{{obj.cost_price * 0.01 | currency : '￥'}}</td>\r\n        <td class=\"text-center\">{{obj.state_name}}</td>\r\n        <td class=\"text-center\">\r\n          <a ng-show=\"obj.state=='1'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">下架</a>\r\n          <a ng-show=\"obj.state=='0' || obj.state=='2'\" ng-click=\"start(obj.id)\" class=\"btn btn-danger btn-xs\">上架</a>\r\n          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\r\n          <a ng-show=\"obj.used_state=='1'\" ng-click=\"usedstart(obj.id)\" class=\"btn btn-primary btn-xs\">允许消票</a>\r\n          <a ng-show=\"obj.used_state=='0'\" ng-click=\"usedstop(obj.id)\" class=\"btn btn-danger btn-xs\">禁止消票</a>\r\n          <!-- <a ng-click=\"auth(obj.code)\" class=\"btn btn-warning btn-xs\">消票权限</a> -->\r\n          <!-- <a uib-popover=\"{{obj.book_info}}\" popover-title=\"预订需知\" type=\"button\" class=\"btn btn-default btn-xs\" uib-popover=\"On the left\">预订需知</a> -->\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  \r\n</div>\r\n\r\n  \r\n\r\n</div>"
-
-/***/ },
-/* 101 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-xs-10 col-xs-offset-1\" >\r\n\t<div class=\"panel panel-default form-horizontal\">\r\n\t\t<div class=\"panel-heading\">\r\n\t\t\t基本信息\r\n\t\t\t<button type=\"button\" \r\n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\r\n\t\t\t\tng-click=\"goodsgo()\"\r\n\t\t\t>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r\n\t\t\t</button>\r\n\r\n\t\t</div>\r\n\t\t<div class=\"panel-body\">\r\n\t\t\t<div class=\"container-fluid\">\r\n\t\t\t\t<!-- 编辑状态 -->\r\n\t\t\t\t<!-- <div ng-show=\"goodsobjstate === 1\"> -->\r\n\t\t\t\t\t<div class=\"col-xs-10\" >\r\n\r\n\t\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">商品名称</label>\r\n\t\t\t\t\t\t\t<div class=\"col-xs-2\">\r\n\t\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"goodsobj.attr\" \r\n\t\t\t\t\t              ng-options=\"attr.ticket_attr_id as attr.type_attr_name for attr in tktarr\"\r\n\t\t\t\t\t              ng-disabled=\"goodsobj.id != ''\"\r\n\t\t\t\t\t            >\r\n\t\t\t\t\t            </select>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t<div class=\"col-xs-8\">\r\n\t\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入商品名称\"\r\n\t\t\t\t\t\t\t\tng-model=\"goodsobj.name\"\r\n\t\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">所属景区</label>\r\n\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"goodsobj.place_code\" \r\n\t\t\t\t\t              ng-options=\"view.code as view.name for view in viewarr\"\r\n\t\t\t\t\t              ng-disabled=\"goodsobj.id != ''\"\r\n\t\t\t\t\t            >\r\n\t\t\t\t\t            </select>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">成本价格</label>\r\n\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t<div class=\"input-group\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"input-group-addon\">¥</span>\r\n\t\t\t\t\t\t\t\t\t<input type=\"number\" class=\"form-control\" placeholder=\"请输入成本价格\" min='0'\r\n\t\t\t\t\t\t\t\t\tng-model=\"goodsobj.cost_price\"\r\n\t\t\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\t<!-- <div class=\"form-group\">\r\n\t\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">商品分类</label>\r\n\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"goodsobj.goods_category\t\">\r\n\t\t\t\t\t\t\t\t\t<option value=\"1\">分类一</option>\r\n\t\t\t\t\t\t\t\t\t<option value=\"2\">分类二</option>\r\n\t\t\t\t\t\t\t\t\t<option value=\"3\">分类三</option>\r\n\t\t\t\t\t            </select>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div> -->\r\n\r\n\t\t\t\t\t\t<!-- <div class=\"form-group\">\r\n\t\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">商品属性</label>\r\n\t\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t\t<div class=\"input-group\">\r\n\t\t\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"goodsobj.attr\" \r\n\t\t\t\t\t\t              ng-options=\"tktattr.ticket_attr_id as tktattr.type_attr_name for tktattr in tktarr\"\r\n\t\t\t\t\t\t            >\r\n\t\t\t\t\t\t            </select>\r\n\t\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div> -->\r\n\r\n\r\n\t\t\t\t\t</div>\t\t\t\r\n\r\n\r\n\r\n\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\r\n\t</div>\r\n</div>\r\n\r\n<div class=\"col-xs-10 col-xs-offset-1\" ng-show=\"goodsobj.id !== undefined\">\r\n\t<div class=\"panel panel-default form-horizontal\">\r\n\t\t<div class=\"panel-heading\">\r\n\t\t\t商品包含票种信息\r\n\t\t</div>\r\n\t\t<div class=\"panel-body\">\r\n\t\t\t<div class=\"container-fluid\">\r\n\t\t\t\t<div class=\"col-xs-10\" >\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">添加票种</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-5\">\r\n\r\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"tkttypeobj.ticket_type\" \r\n\t\t\t\t              ng-options=\"type.code as type.name for type in typearr\"\r\n\t\t\t\t            >\r\n\t\t\t\t            </select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<!-- <div class=\"col-xs-3\">\r\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"tkttypeobj.ticket_attr\" \r\n\t\t\t\t              ng-options=\"tktattr.ticket_attr_id as tktattr.type_attr_name for tktattr in tktarr\"\r\n\t\t\t\t            >\r\n\t\t\t\t            </select>\r\n\t\t\t\t\t\t</div> -->\r\n\t\t\t\t\t\t<div class=\"col-xs-2\">\r\n\t\t\t\t\t\t\t<a ng-click=\"add()\" class=\"btn btn-success btn-sm\">添加</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<table class=\"table table-bordered\">\r\n\t\t\t\t\t    <thead>\r\n\t\t\t\t\t      <tr>\r\n\t\t\t\t\t        <th class=\"col-md-6 text-center\">票种类型</th>\r\n\t\t\t\t\t        <th class=\"col-md-4 text-center\">票种属性</th>\r\n\t\t\t\t\t        <th class=\"col-md-2 text-center\">操作</th>\r\n\t\t\t\t\t      </tr>\r\n\t\t\t\t\t    </thead>\r\n\t\t\t\t\t    <tbody>\r\n\t\t\t\t\t      <tr ng-repeat=\"obj in objs\">\r\n\t\t\t\t\t        <td class=\"text-center\">{{obj.ticket_type_name}}</td>\r\n\t\t\t\t\t        <td class=\"text-center\">{{obj.ticket_attr_name}}</td>\r\n\t\t\t\t\t        <td class=\"text-center\">\r\n\t\t\t\t\t          <a ng-click=\"del(obj.id)\" class=\"btn btn-warning btn-xs\">删除</a>\r\n\t\t\t\t\t        </td>\r\n\t\t\t\t\t      </tr>\r\n\t\t\t\t\t    </tbody>\r\n\t\t\t\t\t</table>\r\n\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n"
-
-/***/ },
 /* 102 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-10\">\r\n                <label>销售品名称</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\" >\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <label>景区编号</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_code\" >\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n            <div class=\"col-sm-2 text-right\">\r\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建销售品</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\r\n  <!-- Default panel contents -->\r\n  <div class=\"panel-heading\">{{tkttype.viewname}} ({{tkttype.viewcode}})</div>\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-3 text-center\">销售品名称</th>\r\n        <th class=\"col-md-1 text-center\">销售品编号</th>\r\n        <th class=\"col-md-2 text-center\">销售品分类</th>\r\n        <th class=\"col-md-1 text-center\">销售品状态</th>\r\n        <th class=\"col-md-1 text-center\">市场价</th>\r\n        <th class=\"col-md-1 text-center\">指导价</th>\r\n        <th class=\"col-md-1 text-center\">分销商成本</th>\r\n        <th class=\"col-md-2 text-center\">操作</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in tkttype.salearr\">\r\n        <td class=\"\">{{obj.name}}</td>\r\n        <td class=\"text-center\">{{obj.code}}</td>\r\n        <td class=\"text-center\">{{obj.sale_category_name}}</td>\r\n        <td class=\"text-center\">{{obj.state_name}}</td>\r\n        <td class=\"text-center\">{{obj.market_price * 0.01 | currency : '￥'}}</td>\r\n        <td class=\"text-center\">{{obj.guide_price * 0.01 | currency : '￥'}}</td>\r\n        <td class=\"text-center\">{{obj.cost_price * 0.01 | currency : '￥'}}</td>\r\n        <td class=\"text-center\">\r\n          <a ng-show=\"obj.state=='1'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">下架</a>\r\n          <a ng-show=\"obj.state=='0' || obj.state=='2'\" ng-click=\"start(obj.id)\" class=\"btn btn-danger btn-xs\">上架</a>\r\n          <a ng-click=\"edit(obj.id)\" ng-show=\"obj.state=='0'\" class=\"btn btn-success btn-xs\">编辑</a>\r\n          <a ng-show=\"obj.used_state=='1'\" ng-click=\"usedstart(obj.id)\" class=\"btn btn-primary btn-xs\">允许消票</a>\r\n          <a ng-show=\"obj.used_state=='0'\" ng-click=\"usedstop(obj.id)\" class=\"btn btn-danger btn-xs\">禁止消票</a>\r\n          <a ng-click=\"info(obj.id)\" class=\"btn btn-warning btn-xs\">详情</a>\r\n          <!-- <a uib-popover=\"{{obj.book_info}}\" popover-title=\"预订需知\" type=\"button\" class=\"btn btn-default btn-xs\" uib-popover=\"On the left\">预订需知</a> -->\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  \r\n</div>\r\n  \r\n\r\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>景区</label>&nbsp;&nbsp;\n                <select class=\"form-control\" ng-model=\"searchform.place_code\" \n                  ng-options=\"view.code as view.name for view in viewarr\"\n                >\n                  <option value=\"\"> --全部-- </option>\n                </select>\n                <!-- &nbsp;&nbsp;&nbsp;&nbsp;\n                <label>关键字</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.keyword\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <label>状态</label>&nbsp;&nbsp;\n                <select class=\"form-control\" ng-model=\"searchform.state\" >\n                  <option value=\"\"> --全部-- </option>\n                  <option value=\"1\"> 启用 </option>\n                  <option value=\"0\"> 停用 </option>\n                </select> -->\n                 &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">发布新票种</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n<div class=\"panel panel-info\" ng-repeat=\"tkttype in objs track by $index\" >\n  <!-- Default panel contents -->\n  <div class=\"panel-heading\">{{tkttype.viewname}}</div>\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-3 text-center\">票种名称</th>\n        <th class=\"col-md-1 text-center\">票种编号</th>\n        <th class=\"col-md-1 text-center\">允许消票</th>\n        <th class=\"col-md-1 text-center\">票种状态</th>\n        <th class=\"col-md-3 text-center\">预定详情</th>\n        <th class=\"col-md-2 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in tkttype.ticketarr\">\n        <td class=\"\">{{obj.name}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">{{obj.used_state}}</td>\n        <td class=\"text-center\">{{obj.state}}</td>\n        <td class=\"text-center\">{{obj.book_info}}</td>\n        <td class=\"text-center\">\n\t\t      <a ng-show=\"obj.state=='1'\" ng-click=\"start(obj.id)\" class=\"btn btn-primary btn-xs\">下架</a>\n          <a ng-show=\"obj.state=='0'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">上架</a>\n          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\n          <a ng-show=\"obj.used_state=='1'\" ng-click=\"usedstart(obj.id)\" class=\"btn btn-primary btn-xs\">允许消票</a>\n          <a ng-show=\"obj.used_state=='0'\" ng-click=\"usedstop(obj.id)\" class=\"btn btn-danger btn-xs\">禁止消票</a>\n          <a ng-click=\"auth(obj.code)\" class=\"btn btn-warning btn-xs\">消票权限</a>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n  \n</div>\n</div>"
 
 /***/ },
 /* 103 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-xs-12 \" >\r\n\t<div class=\"panel panel-default form-horizontal\">\r\n\t\t<div class=\"panel-heading\">\r\n\t\t\t基本信息\r\n\t\t\t<button type=\"button\" \r\n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\r\n\t\t\t\tng-click=\"salego()\"\r\n\t\t\t>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r\n\t\t\t</button>\r\n\t\t</div>\r\n\t\t<div class=\"panel-body\">\r\n\t\t\t<div class=\"container-fluid\">\r\n\t\t\t\t\r\n\t\t\t\t<div class=\"col-xs-12 col-md-8\" >\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">销售品名称</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-8\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入销售品名称\" ng-disabled=\"saleobj.id != ''\"\r\n\t\t\t\t\t\t\tng-model=\"saleobj.name\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t\r\n\t\t\t\t\t<!-- <div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">所属景区</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"saleobj.place_code\" \r\n\t\t\t\t              ng-options=\"view.code as view.name for view in viewarr\"\r\n\t\t\t\t            >\r\n\t\t\t\t            </select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div> -->\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">市场价格</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-8\">\r\n\t\t\t\t\t\t\t<div class=\"input-group\">\r\n\t\t\t\t\t\t\t\t<span class=\"input-group-addon\">¥</span>\r\n\t\t\t\t\t\t\t\t<input type=\"number\" class=\"form-control\" placeholder=\"请输入市场价格\" min='0'\r\n\t\t\t\t\t\t\t\tng-model=\"saleobj.market_price\"\r\n\t\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">居游价格</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-8\">\r\n\t\t\t\t\t\t\t<div class=\"input-group\">\r\n\t\t\t\t\t\t\t\t<span class=\"input-group-addon\">¥</span>\r\n\t\t\t\t\t\t\t\t<input type=\"number\" class=\"form-control\" placeholder=\"请输入居游价格\" min='0'\r\n\t\t\t\t\t\t\t\tng-model=\"saleobj.guide_price\"\r\n\t\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">分销商成本价格</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-8\">\r\n\t\t\t\t\t\t\t<div class=\"input-group\">\r\n\t\t\t\t\t\t\t\t<span class=\"input-group-addon\">¥</span>\r\n\t\t\t\t\t\t\t\t<input type=\"number\" class=\"form-control\" placeholder=\"请输入分销商成本价格\" min='0'\r\n\t\t\t\t\t\t\t\tng-model=\"saleobj.cost_price\"\r\n\t\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\" >\r\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">销售品分类</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-8\" >\r\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"saleobj.sale_category\" ng-disabled=\"saleobj.id != ''\"\r\n\t\t\t\t              ng-options=\"type1.value as type1.label for type1 in typearr\"\r\n\t\t\t\t            >\r\n\t\t\t\t            </select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">短信模板编号</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-8\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入短信模板编号\"\r\n\t\t\t\t\t\t\tng-model=\"saleobj.sms_template_id\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">短信追加内容</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-8\">\r\n\t\t\t\t\t\t\t<textarea class=\"form-control\" rows=\"3\"\r\n\t\t\t\t\t\t\tng-model=\"saleobj.sms_diy\"\r\n\t\t\t\t\t\t\t></textarea>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t    <label class=\"col-xs-4 control-label\">短信发送类型</label>\r\n\t\t\t\t\t    <div class=\"col-xs-8\">\r\n\t\t\t\t\t    \t<label class=\"radio-inline\">\r\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"sms_type\" value=\"1\"\r\n\t\t\t\t\t\t\t  ng-model=\"saleobj.sms_type\"\r\n\t\t\t\t\t\t\t  > 发送短信\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t<label class=\"radio-inline\">\r\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"sms_type\" value=\"0\"\r\n\t\t\t\t\t\t\t  ng-model=\"saleobj.sms_type\"\r\n\t\t\t\t\t\t\t  > 不发短信\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t    </div>\r\n\t\t\t\t  \t</div>\r\n\r\n\t\t\t\t  \t<div class=\"form-group\">\r\n\t\t\t\t\t    <label class=\"col-xs-4 control-label\">系统确认</label>\r\n\t\t\t\t\t    <div class=\"col-xs-8\">\r\n\t\t\t\t\t    \t<label class=\"radio-inline\">\r\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"sys_affirm_type\" value=\"0\"\r\n\t\t\t\t\t\t\t  ng-model=\"saleobj.sys_affirm_type\"\r\n\t\t\t\t\t\t\t  > 需要确认\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t<label class=\"radio-inline\">\r\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"sys_affirm_type\" value=\"1\"\r\n\t\t\t\t\t\t\t  ng-model=\"saleobj.sys_affirm_type\"\r\n\t\t\t\t\t\t\t  > 无需确认\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t    </div>\r\n\t\t\t\t  \t</div>\r\n\r\n\t\t\t\t  \t<div class=\"form-group\">\r\n\t\t\t\t\t    <label class=\"col-xs-4 control-label\">支付类型</label>\r\n\t\t\t\t\t    <div class=\"col-xs-8\">\r\n\t\t\t\t\t    \t<label class=\"radio-inline\">\r\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"pay_type\" value=\"0\"\r\n\t\t\t\t\t\t\t  ng-model=\"saleobj.pay_type\"\r\n\t\t\t\t\t\t\t  > 需要支付\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t<label class=\"radio-inline\">\r\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"pay_type\" value=\"1\"\r\n\t\t\t\t\t\t\t  ng-model=\"saleobj.pay_type\"\r\n\t\t\t\t\t\t\t  > 无需支付\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t    </div>\r\n\t\t\t\t  \t</div>\r\n\r\n\t\t\t\t  \t<div class=\"form-group\">\r\n\t\t\t\t\t    <label class=\"col-xs-4 control-label\">库存类型</label>\r\n\t\t\t\t\t    <div class=\"col-xs-8\">\r\n\t\t\t\t\t    \t<label class=\"radio-inline\">\r\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"stock_type\" value=\"0\"\r\n\t\t\t\t\t\t\t  ng-model=\"saleobj.stock_type\"\r\n\t\t\t\t\t\t\t  > 不启用\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t<label class=\"radio-inline\">\r\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"stock_type\" value=\"1\"\r\n\t\t\t\t\t\t\t  ng-model=\"saleobj.stock_type\"\r\n\t\t\t\t\t\t\t  > 启用\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t    </div>\r\n\t\t\t\t  \t</div>\r\n\r\n\t\t\t\t  \t<div class=\"form-group\">\r\n\t\t\t\t\t    <label class=\"col-xs-4 control-label\">销售目标</label>\r\n\t\t\t\t\t    <div class=\"col-xs-8\">\r\n\t\t\t\t\t    \t<label class=\"radio-inline\">\r\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"sale_target_type\" value=\"0\"\r\n\t\t\t\t\t\t\t  ng-model=\"saleobj.sale_target_type\"\r\n\t\t\t\t\t\t\t  > 公开销售\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t\t\t<label class=\"radio-inline\">\r\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"sale_target_type\" value=\"1\"\r\n\t\t\t\t\t\t\t  ng-model=\"saleobj.sale_target_type\"\r\n\t\t\t\t\t\t\t  > 独立授权销售\r\n\t\t\t\t\t\t\t</label>\r\n\t\t\t\t\t    </div>\r\n\t\t\t\t  \t</div>\r\n\r\n\t\t\t\t  \t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">销售品简介</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-8\">\r\n\t\t\t\t\t\t\t<!-- <textarea class=\"form-control\" rows=\"3\"\r\n\t\t\t\t\t\t\tng-model=\"saleobj.detail\"\r\n\t\t\t\t\t\t\t></textarea> -->\r\n\t\t\t\t\t\t\t<div text-angular ng-model=\"saleobj.detail\"></div>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\r\n\t\t\t\t</div>\r\n\r\n\t\t\t\t<div class=\"col-xs-12 col-md-4\">\r\n\t\t\t\t\t<label class=\"control-label\">销售品图片</label>\r\n\t\t\t\t\t<img ng-src=\"{{saleobj.top_pic}}\" width=\"150\" height=\"150\" ng-model=\"saleobj.top_pic\">\r\n\t\t\t\t\t<input type=\"file\" nv-file-select uploader=\"uploader1\" /><br/>\r\n\t\t\t\t\t<ul class=\"list-group\">\r\n\t\t\t\t\t    <li class=\"list-group-item\" ng-repeat=\"item in uploader1.queue\">\r\n\t\t\t\t\t        文件名: <span ng-bind=\"item.file.name\"></span>\r\n\t\t\t\t\t        <button type=\"button\" class=\"btn btn-default btn-xs\"  ng-click=\"item.upload()\"><span class=\"glyphicon glyphicon-upload\"></span> 上传</button>\r\n\t\t\t\t\t        <div class=\"progress mt10\">\r\n\t\t\t\t\t            <div class=\"progress-bar\" role=\"progressbar\" ng-style=\"{ 'width': uploader1.progress + '%' }\"></div>\r\n\t\t\t\t\t        </div>\r\n\t\t\t\t\t    </li>\r\n\t\t\t\t\t</ul>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n\r\n\r\n<div class=\"col-xs-10 col-xs-offset-1\" ng-show=\"saleobj.id\" >\r\n\t<div class=\"panel panel-default form-horizontal\">\r\n\t\t<div class=\"panel-heading\">\r\n\t\t\t详情信息\r\n\t\t</div>\r\n\t\t<div class=\"panel-body\">\r\n\t\t\t<div class=\"container-fluid\">\r\n\t\t\t\t<div class=\"col-xs-12\" >\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">添加商品</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-4\">\r\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"goodsobj.place_code\" ng-change=\"change(goodsobj.place_code)\" \r\n\t\t\t\t              ng-options=\"view.code as view.name for view in viewarr\"\r\n\t\t\t\t            >\r\n\t\t\t\t            </select>\r\n\t\t\t\t        </div>\r\n\t\t\t\t        <div class=\"col-xs-4\">\r\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"goodsobj.goods_code\" \r\n\t\t\t\t              ng-options=\"goods.code as goods.name for goods in goodsarr\"\r\n\t\t\t\t            >\r\n\t\t\t\t            </select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"col-xs-2\">\r\n\t\t\t\t\t\t\t<a ng-click=\"add()\" class=\"btn btn-success btn-sm\"\r\n\t\t\t\t\t\t\t>添加</a>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<table class=\"table table-bordered\">\r\n\t\t\t\t\t    <thead>\r\n\t\t\t\t\t      <tr>\r\n\t\t\t\t\t        <th class=\"col-md-6 text-center\">商品名称</th>\r\n\t\t\t\t\t        <th class=\"col-md-2 text-center\">操作</th>\r\n\t\t\t\t\t      </tr>\r\n\t\t\t\t\t    </thead>\r\n\t\t\t\t\t    <tbody>\r\n\t\t\t\t\t      <tr ng-repeat=\"obj in objs\">\r\n\t\t\t\t\t        <td class=\"text-center\">{{obj.goods_name}}</td>\r\n\t\t\t\t\t        <td class=\"text-center\">\r\n\t\t\t\t\t          <a ng-click=\"del(obj.id)\" \r\n\t\t\t\t\t          class=\"btn btn-warning btn-xs\">删除</a>\r\n\t\t\t\t\t        </td>\r\n\t\t\t\t\t      </tr>\r\n\t\t\t\t\t    </tbody>\r\n\t\t\t\t  \t</table>\r\n\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n\r\n\r\n\r\n\r\n<div class=\"col-xs-10 col-xs-offset-1\" ng-show=\"funobj.hasOwnProperty('govsubsidy')\">\r\n\t<div class=\"panel panel-default form-horizontal\">\r\n\t\t<div class=\"panel-heading\">\r\n\t\t\t旅游局补贴\r\n\t\t\t<button type=\"button\" \r\n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\r\n\t\t\t\tng-show=\"!funobj.govsubsidy.has\"\r\n\t\t\t\tng-click=\"govcreate()\"\r\n\t\t\t>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r\n\t\t\t</button>\r\n\r\n\t\t\t<button type=\"button\" \r\n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\r\n\t\t\t\tng-show=\"funobj.govsubsidy.has\"\r\n\t\t\t\tng-click=\"govupdate()\"\r\n\t\t\t>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r\n\t\t\t</button>\r\n\t\t</div>\r\n\t\t<div class=\"panel-body\">\r\n\t\t\t<div class=\"container-fluid\">\r\n\t\t\t\t\r\n\t\t\t\t<div class=\"col-xs-10\" >\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">补贴金额</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"\r\n\t\t\t\t\t\t\tng-model=\"govobj.govsubsidy_price\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n\r\n\r\n\r\n<div class=\"col-xs-10 col-xs-offset-1\" ng-show=\"funobj.hasOwnProperty('juyousubsidy')\">\r\n\t<div class=\"panel panel-default form-horizontal\">\r\n\t\t<div class=\"panel-heading\">\r\n\t\t\t居游补贴\r\n\t\t\t<button type=\"button\" \r\n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\r\n\t\t\t\tng-show=\"!funobj.juyousubsidy.has\"\r\n\t\t\t\tng-click=\"juyoucreate()\"\r\n\t\t\t>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r\n\t\t\t</button>\r\n\r\n\t\t\t<button type=\"button\" \r\n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\r\n\t\t\t\tng-show=\"funobj.juyousubsidy.has\"\r\n\t\t\t\tng-click=\"juyouupdate()\"\r\n\t\t\t>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r\n\t\t\t</button>\r\n\t\t</div>\r\n\t\t<div class=\"panel-body\">\r\n\t\t\t<div class=\"container-fluid\">\r\n\t\t\t\t\r\n\t\t\t\t<div class=\"col-xs-10\" >\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">补贴金额</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"\r\n\t\t\t\t\t\t\tng-model=\"juyouobj.juyousubsidy_price\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n<div class=\"col-xs-10 col-xs-offset-1\" ng-show=\"funobj.hasOwnProperty('juyousubsidy')\">\r\n\t<div class=\"panel panel-default form-horizontal\">\r\n\t\t<div class=\"panel-heading\">\r\n\t\t\t用户限制数量\r\n\t\t\t<button type=\"button\" \r\n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\r\n\t\t\t\tng-show=\"!funobj.juyousubsidy.has\"\r\n\t\t\t\tng-click=\"juyoucreate()\"\r\n\t\t\t>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r\n\t\t\t</button>\r\n\r\n\t\t\t<button type=\"button\" \r\n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\r\n\t\t\t\tng-show=\"funobj.juyousubsidy.has\"\r\n\t\t\t\tng-click=\"juyouupdate()\"\r\n\t\t\t>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r\n\t\t\t</button>\r\n\t\t</div>\r\n\t\t<div class=\"panel-body\">\r\n\t\t\t<div class=\"container-fluid\">\r\n\t\t\t\t\r\n\t\t\t\t<div class=\"col-xs-10\" >\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">补贴金额</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"\r\n\t\t\t\t\t\t\tng-model=\"juyouobj.juyousubsidy_price\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n</div>\r\n"
+	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\n\t\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">票种名称</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入票种名称\"\n\t\t\tng-model=\"objt.name\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n<!-- \t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">票种编号</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入票种编号\"\n\t\t\tng-model=\"objt.code\"\n\t\t\t>\n\t\t</div>\n\t</div> -->\n\n\t<div class=\"form-group\" ng-show=\"placeid === ''\">\n\t\t<label class=\"col-xs-2 control-label\">所属景区</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<select class=\"form-control\" ng-model=\"objt.place_code\" \n              ng-options=\"view.code as view.name for view in viewarr\"\n            >\n            </select>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\" ng-show=\"placeid !== ''\">\n\t\t<label class=\"col-xs-2 control-label\">所属景区</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<p class=\"form-control-static\">{{objt.placename}} [{{objt.placecode}}]</p>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t    <label class=\"col-sm-2 control-label\">有效时间</label>\n\t    <div class=\"col-sm-10\">\n\n\t\t    <p class=\"input-group col-sm-3 pull-left\">\n\t          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t          <span class=\"input-group-btn\">\n\t            <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t          </span>\n\t        </p>\n\t        <p class=\"form-control-static pull-left\"> &nbsp;&nbsp;-&nbsp;&nbsp; </p>\n\t        <p class=\"input-group col-sm-3 pull-left\">\n\t          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t          <span class=\"input-group-btn\">\n\t            <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t          </span>\n\t        </p>\n\n\t    </div>\n\t  </div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">允许消票</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"used_state\" value=\"0\"\n\t\t\t  ng-model=\"objt.used_state\"\n\t\t\t  > 允许\n\t\t\t</label>\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"used_state\" value=\"1\"\n\t\t\t  ng-model=\"objt.used_state\"\n\t\t\t  > 不允许\n\t\t\t</label>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">票种状态</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"0\"\n\t\t\t  ng-model=\"objt.state\"\n\t\t\t  > 不可用\n\t\t\t</label>\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"1\"\n\t\t\t  ng-model=\"objt.state\"\n\t\t\t  > 可用\n\t\t\t</label>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">预订说明</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<textarea class=\"form-control\" rows=\"3\"\n\t\t\tng-model=\"objt.book_info\"\n\t\t\t></textarea>\n\t\t</div>\n\t</div>\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"gogo()\"\n    >\n    提交\n    </button>\n\n\n</div>"
 
 /***/ },
 /* 104 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12 \">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-10\">\r\n              \r\n            </div>\r\n            <div class=\"col-sm-2 text-right\">\r\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-2 text-center\">销售品类别编号</th>\r\n        <th class=\"col-md-3 text-center\">销售品类别名称</th>\r\n        <th class=\"col-md-2 text-center\">功能编号</th>\r\n        <th class=\"col-md-3 text-center\">功能名称</th>\r\n        <th class=\"col-md-2 text-center\">操作</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.sale_category_code}}</td>\r\n        <td class=\"text-center\">{{obj.sale_category_name}}</td>\r\n        <td class=\"text-center\">{{obj.sub_table_code}}</td>\r\n        <td class=\"text-center\">{{obj.sub_table_name}}</td>\r\n        <td class=\"text-center\">\r\n          \r\n          <a ng-click=\"del(obj)\" class=\"btn btn-danger btn-xs\">删除</a>\r\n\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n\r\n  \r\n\r\n</div>"
+	module.exports = "\n<div class=\"col-sm-12 text-right mb10\">\n    <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建属性</button>\n</div>\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-5 text-center\">属性编号</th>\n        <th class=\"col-md-5 text-center\">属性名称</th>\n        <th class=\"col-md-2 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.ticket_attr_id}}</td>\n        <td class=\"text-center\">{{obj.type_attr_name}}</td>\n        <td class=\"text-center\">\n          <a ng-click=\"edit(obj.ticket_attr_id)\" class=\"btn btn-success btn-xs\">编辑</a>\n        </td>\n      </tr>\n    </tbody>\n  </table>"
 
 /***/ },
 /* 105 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\n\t\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">属性编号</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入属性编号\"\n\t\t\tng-model=\"objt.type_attr\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">属性名称</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入属性名称\"\n\t\t\tng-model=\"objt.type_attr_name\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"gogo()\"\n    >\n    提交\n    </button>\n\n\n</div>"
+
+/***/ },
+/* 106 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>商品名称</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <label>景区编号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_code\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建商品</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\n  <!-- Default panel contents -->\n  <div class=\"panel-heading\">{{tkttype.viewname}} ({{tkttype.viewcode}})</div>\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-7 text-center\">商品名称</th>\n        <th class=\"col-md-1 text-center\">商品编号</th>\n        <th class=\"col-md-1 text-center\">成本价</th>\n        <th class=\"col-md-1 text-center\">票种状态</th>\n        <th class=\"col-md-2 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in tkttype.ticketarr\">\n        <td class=\"\">[{{obj.type_attr_name}}] {{obj.name}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">{{obj.cost_price * 0.01 | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.state_name}}</td>\n        <td class=\"text-center\">\n          <a ng-show=\"obj.state=='1'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">下架</a>\n          <a ng-show=\"obj.state=='0' || obj.state=='2'\" ng-click=\"start(obj.id)\" class=\"btn btn-danger btn-xs\">上架</a>\n          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\n          <a ng-show=\"obj.used_state=='1'\" ng-click=\"usedstart(obj.id)\" class=\"btn btn-primary btn-xs\">允许消票</a>\n          <a ng-show=\"obj.used_state=='0'\" ng-click=\"usedstop(obj.id)\" class=\"btn btn-danger btn-xs\">禁止消票</a>\n          <!-- <a ng-click=\"auth(obj.code)\" class=\"btn btn-warning btn-xs\">消票权限</a> -->\n          <!-- <a uib-popover=\"{{obj.book_info}}\" popover-title=\"预订需知\" type=\"button\" class=\"btn btn-default btn-xs\" uib-popover=\"On the left\">预订需知</a> -->\n        </td>\n      </tr>\n    </tbody>\n  </table>\n  \n</div>\n\n  \n\n</div>"
+
+/***/ },
+/* 107 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-xs-10 col-xs-offset-1\" >\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t基本信息\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\t\t\tng-click=\"goodsgo()\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t\t<div class=\"container-fluid\">\n\t\t\t\t<!-- 编辑状态 -->\n\t\t\t\t<!-- <div ng-show=\"goodsobjstate === 1\"> -->\n\t\t\t\t\t<div class=\"col-xs-10\" >\n\n\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">商品名称</label>\n\t\t\t\t\t\t\t<div class=\"col-xs-2\">\n\t\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"goodsobj.attr\" \n\t\t\t\t\t              ng-options=\"attr.ticket_attr_id as attr.type_attr_name for attr in tktarr\"\n\t\t\t\t\t              ng-disabled=\"goodsobj.id != ''\"\n\t\t\t\t\t            >\n\t\t\t\t\t            </select>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-xs-8\">\n\t\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入商品名称\"\n\t\t\t\t\t\t\t\tng-model=\"goodsobj.name\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">所属景区</label>\n\t\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"goodsobj.place_code\" \n\t\t\t\t\t              ng-options=\"view.code as view.name for view in viewarr\"\n\t\t\t\t\t              ng-disabled=\"goodsobj.id != ''\"\n\t\t\t\t\t            >\n\t\t\t\t\t            </select>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">成本价格</label>\n\t\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\t\t\t\t<span class=\"input-group-addon\">¥</span>\n\t\t\t\t\t\t\t\t\t<input type=\"number\" class=\"form-control\" placeholder=\"请输入成本价格\" min='0'\n\t\t\t\t\t\t\t\t\tng-model=\"goodsobj.cost_price\"\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\n\t\t\t\t\t\t<!-- <div class=\"form-group\">\n\t\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">商品分类</label>\n\t\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"goodsobj.goods_category\t\">\n\t\t\t\t\t\t\t\t\t<option value=\"1\">分类一</option>\n\t\t\t\t\t\t\t\t\t<option value=\"2\">分类二</option>\n\t\t\t\t\t\t\t\t\t<option value=\"3\">分类三</option>\n\t\t\t\t\t            </select>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div> -->\n\n\t\t\t\t\t\t<!-- <div class=\"form-group\">\n\t\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">商品属性</label>\n\t\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"goodsobj.attr\" \n\t\t\t\t\t\t              ng-options=\"tktattr.ticket_attr_id as tktattr.type_attr_name for tktattr in tktarr\"\n\t\t\t\t\t\t            >\n\t\t\t\t\t\t            </select>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div> -->\n\n\n\t\t\t\t\t</div>\t\t\t\n\n\n\n\n\t\t\t</div>\n\t\t</div>\n\n\n\t</div>\n</div>\n\n<div class=\"col-xs-10 col-xs-offset-1\" ng-show=\"goodsobj.id !== undefined\">\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t商品包含票种信息\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t\t<div class=\"container-fluid\">\n\t\t\t\t<div class=\"col-xs-10\" >\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">添加票种</label>\n\t\t\t\t\t\t<div class=\"col-xs-5\">\n\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"tkttypeobj.ticket_type\" \n\t\t\t\t              ng-options=\"type.code as type.name for type in typearr\"\n\t\t\t\t            >\n\t\t\t\t            </select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<!-- <div class=\"col-xs-3\">\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"tkttypeobj.ticket_attr\" \n\t\t\t\t              ng-options=\"tktattr.ticket_attr_id as tktattr.type_attr_name for tktattr in tktarr\"\n\t\t\t\t            >\n\t\t\t\t            </select>\n\t\t\t\t\t\t</div> -->\n\t\t\t\t\t\t<div class=\"col-xs-2\">\n\t\t\t\t\t\t\t<a ng-click=\"add()\" class=\"btn btn-success btn-sm\">添加</a>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<table class=\"table table-bordered\">\n\t\t\t\t\t    <thead>\n\t\t\t\t\t      <tr>\n\t\t\t\t\t        <th class=\"col-md-6 text-center\">票种类型</th>\n\t\t\t\t\t        <th class=\"col-md-4 text-center\">票种属性</th>\n\t\t\t\t\t        <th class=\"col-md-2 text-center\">操作</th>\n\t\t\t\t\t      </tr>\n\t\t\t\t\t    </thead>\n\t\t\t\t\t    <tbody>\n\t\t\t\t\t      <tr ng-repeat=\"obj in objs\">\n\t\t\t\t\t        <td class=\"text-center\">{{obj.ticket_type_name}}</td>\n\t\t\t\t\t        <td class=\"text-center\">{{obj.ticket_attr_name}}</td>\n\t\t\t\t\t        <td class=\"text-center\">\n\t\t\t\t\t          <a ng-click=\"del(obj.id)\" class=\"btn btn-warning btn-xs\">删除</a>\n\t\t\t\t\t        </td>\n\t\t\t\t\t      </tr>\n\t\t\t\t\t    </tbody>\n\t\t\t\t\t</table>\n\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n"
+
+/***/ },
+/* 108 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>销售品名称</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <label>景区编号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_code\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建销售品</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\n  <!-- Default panel contents -->\n  <div class=\"panel-heading\">{{tkttype.viewname}} ({{tkttype.viewcode}})</div>\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-3 text-center\">销售品名称</th>\n        <th class=\"col-md-1 text-center\">销售品编号</th>\n        <th class=\"col-md-2 text-center\">销售品分类</th>\n        <th class=\"col-md-1 text-center\">销售品状态</th>\n        <th class=\"col-md-1 text-center\">市场价</th>\n        <th class=\"col-md-1 text-center\">指导价</th>\n        <th class=\"col-md-1 text-center\">分销商成本</th>\n        <th class=\"col-md-2 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in tkttype.salearr\">\n        <td class=\"\">{{obj.name}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">{{obj.sale_category_name}}</td>\n        <td class=\"text-center\">{{obj.state_name}}</td>\n        <td class=\"text-center\">{{obj.market_price * 0.01 | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.guide_price * 0.01 | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.cost_price * 0.01 | currency : '￥'}}</td>\n        <td class=\"text-center\">\n          <a ng-show=\"obj.state=='1'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">下架</a>\n          <a ng-show=\"obj.state=='0' || obj.state=='2'\" ng-click=\"start(obj.id)\" class=\"btn btn-danger btn-xs\">上架</a>\n          <a ng-click=\"edit(obj.id)\" ng-show=\"obj.state=='0'\" class=\"btn btn-success btn-xs\">编辑</a>\n          <a ng-show=\"obj.used_state=='1'\" ng-click=\"usedstart(obj.id)\" class=\"btn btn-primary btn-xs\">允许消票</a>\n          <a ng-show=\"obj.used_state=='0'\" ng-click=\"usedstop(obj.id)\" class=\"btn btn-danger btn-xs\">禁止消票</a>\n          <a ng-click=\"info(obj.id)\" class=\"btn btn-warning btn-xs\">详情</a>\n          <!-- <a uib-popover=\"{{obj.book_info}}\" popover-title=\"预订需知\" type=\"button\" class=\"btn btn-default btn-xs\" uib-popover=\"On the left\">预订需知</a> -->\n        </td>\n      </tr>\n    </tbody>\n  </table>\n  \n</div>\n  \n\n</div>"
+
+/***/ },
+/* 109 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-xs-12 \" >\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t基本信息\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\t\t\tng-click=\"salego()\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t\t<div class=\"container-fluid\">\n\t\t\t\t\n\t\t\t\t<div class=\"col-xs-12 col-md-8\" >\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">销售品名称</label>\n\t\t\t\t\t\t<div class=\"col-xs-8\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入销售品名称\" ng-disabled=\"saleobj.id != ''\"\n\t\t\t\t\t\t\tng-model=\"saleobj.name\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t\n\t\t\t\t\t<!-- <div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">所属景区</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"saleobj.place_code\" \n\t\t\t\t              ng-options=\"view.code as view.name for view in viewarr\"\n\t\t\t\t            >\n\t\t\t\t            </select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div> -->\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">市场价格</label>\n\t\t\t\t\t\t<div class=\"col-xs-8\">\n\t\t\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\t\t\t<span class=\"input-group-addon\">¥</span>\n\t\t\t\t\t\t\t\t<input type=\"number\" class=\"form-control\" placeholder=\"请输入市场价格\" min='0'\n\t\t\t\t\t\t\t\tng-model=\"saleobj.market_price\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">居游价格</label>\n\t\t\t\t\t\t<div class=\"col-xs-8\">\n\t\t\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\t\t\t<span class=\"input-group-addon\">¥</span>\n\t\t\t\t\t\t\t\t<input type=\"number\" class=\"form-control\" placeholder=\"请输入居游价格\" min='0'\n\t\t\t\t\t\t\t\tng-model=\"saleobj.guide_price\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">分销商成本价格</label>\n\t\t\t\t\t\t<div class=\"col-xs-8\">\n\t\t\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\t\t\t<span class=\"input-group-addon\">¥</span>\n\t\t\t\t\t\t\t\t<input type=\"number\" class=\"form-control\" placeholder=\"请输入分销商成本价格\" min='0'\n\t\t\t\t\t\t\t\tng-model=\"saleobj.cost_price\"\n\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\" >\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">销售品分类</label>\n\t\t\t\t\t\t<div class=\"col-xs-8\" >\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"saleobj.sale_category\" ng-disabled=\"saleobj.id != ''\"\n\t\t\t\t              ng-options=\"type1.value as type1.label for type1 in typearr\"\n\t\t\t\t            >\n\t\t\t\t            </select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">短信模板编号</label>\n\t\t\t\t\t\t<div class=\"col-xs-8\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入短信模板编号\"\n\t\t\t\t\t\t\tng-model=\"saleobj.sms_template_id\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">短信追加内容</label>\n\t\t\t\t\t\t<div class=\"col-xs-8\">\n\t\t\t\t\t\t\t<textarea class=\"form-control\" rows=\"3\"\n\t\t\t\t\t\t\tng-model=\"saleobj.sms_diy\"\n\t\t\t\t\t\t\t></textarea>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t    <label class=\"col-xs-4 control-label\">短信发送类型</label>\n\t\t\t\t\t    <div class=\"col-xs-8\">\n\t\t\t\t\t    \t<label class=\"radio-inline\">\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"sms_type\" value=\"1\"\n\t\t\t\t\t\t\t  ng-model=\"saleobj.sms_type\"\n\t\t\t\t\t\t\t  > 发送短信\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t<label class=\"radio-inline\">\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"sms_type\" value=\"0\"\n\t\t\t\t\t\t\t  ng-model=\"saleobj.sms_type\"\n\t\t\t\t\t\t\t  > 不发短信\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t    </div>\n\t\t\t\t  \t</div>\n\n\t\t\t\t  \t<div class=\"form-group\">\n\t\t\t\t\t    <label class=\"col-xs-4 control-label\">系统确认</label>\n\t\t\t\t\t    <div class=\"col-xs-8\">\n\t\t\t\t\t    \t<label class=\"radio-inline\">\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"sys_affirm_type\" value=\"0\"\n\t\t\t\t\t\t\t  ng-model=\"saleobj.sys_affirm_type\"\n\t\t\t\t\t\t\t  > 需要确认\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t<label class=\"radio-inline\">\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"sys_affirm_type\" value=\"1\"\n\t\t\t\t\t\t\t  ng-model=\"saleobj.sys_affirm_type\"\n\t\t\t\t\t\t\t  > 无需确认\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t    </div>\n\t\t\t\t  \t</div>\n\n\t\t\t\t  \t<div class=\"form-group\">\n\t\t\t\t\t    <label class=\"col-xs-4 control-label\">支付类型</label>\n\t\t\t\t\t    <div class=\"col-xs-8\">\n\t\t\t\t\t    \t<label class=\"radio-inline\">\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"pay_type\" value=\"0\"\n\t\t\t\t\t\t\t  ng-model=\"saleobj.pay_type\"\n\t\t\t\t\t\t\t  > 需要支付\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t<label class=\"radio-inline\">\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"pay_type\" value=\"1\"\n\t\t\t\t\t\t\t  ng-model=\"saleobj.pay_type\"\n\t\t\t\t\t\t\t  > 无需支付\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t    </div>\n\t\t\t\t  \t</div>\n\n\t\t\t\t  \t<div class=\"form-group\">\n\t\t\t\t\t    <label class=\"col-xs-4 control-label\">库存类型</label>\n\t\t\t\t\t    <div class=\"col-xs-8\">\n\t\t\t\t\t    \t<label class=\"radio-inline\">\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"stock_type\" value=\"0\"\n\t\t\t\t\t\t\t  ng-model=\"saleobj.stock_type\"\n\t\t\t\t\t\t\t  > 不启用\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t<label class=\"radio-inline\">\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"stock_type\" value=\"1\"\n\t\t\t\t\t\t\t  ng-model=\"saleobj.stock_type\"\n\t\t\t\t\t\t\t  > 启用\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t    </div>\n\t\t\t\t  \t</div>\n\n\t\t\t\t  \t<div class=\"form-group\">\n\t\t\t\t\t    <label class=\"col-xs-4 control-label\">销售目标</label>\n\t\t\t\t\t    <div class=\"col-xs-8\">\n\t\t\t\t\t    \t<label class=\"radio-inline\">\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"sale_target_type\" value=\"0\"\n\t\t\t\t\t\t\t  ng-model=\"saleobj.sale_target_type\"\n\t\t\t\t\t\t\t  > 公开销售\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t\t\t<label class=\"radio-inline\">\n\t\t\t\t\t\t\t  <input type=\"radio\" name=\"sale_target_type\" value=\"1\"\n\t\t\t\t\t\t\t  ng-model=\"saleobj.sale_target_type\"\n\t\t\t\t\t\t\t  > 独立授权销售\n\t\t\t\t\t\t\t</label>\n\t\t\t\t\t    </div>\n\t\t\t\t  \t</div>\n\n\t\t\t\t  \t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-4 control-label\">销售品简介</label>\n\t\t\t\t\t\t<div class=\"col-xs-8\">\n\t\t\t\t\t\t\t<!-- <textarea class=\"form-control\" rows=\"3\"\n\t\t\t\t\t\t\tng-model=\"saleobj.detail\"\n\t\t\t\t\t\t\t></textarea> -->\n\t\t\t\t\t\t\t<div text-angular ng-model=\"saleobj.detail\"></div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"col-xs-12 col-md-4\">\n\t\t\t\t\t<label class=\"control-label\">销售品图片</label>\n\t\t\t\t\t<img ng-src=\"{{saleobj.top_pic}}\" width=\"150\" height=\"150\" ng-model=\"saleobj.top_pic\">\n\t\t\t\t\t<input type=\"file\" nv-file-select uploader=\"uploader1\" /><br/>\n\t\t\t\t\t<ul class=\"list-group\">\n\t\t\t\t\t    <li class=\"list-group-item\" ng-repeat=\"item in uploader1.queue\">\n\t\t\t\t\t        文件名: <span ng-bind=\"item.file.name\"></span>\n\t\t\t\t\t        <button type=\"button\" class=\"btn btn-default btn-xs\"  ng-click=\"item.upload()\"><span class=\"glyphicon glyphicon-upload\"></span> 上传</button>\n\t\t\t\t\t        <div class=\"progress mt10\">\n\t\t\t\t\t            <div class=\"progress-bar\" role=\"progressbar\" ng-style=\"{ 'width': uploader1.progress + '%' }\"></div>\n\t\t\t\t\t        </div>\n\t\t\t\t\t    </li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n\n\n<div class=\"col-xs-10 col-xs-offset-1\" ng-show=\"saleobj.id\" >\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t详情信息\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t\t<div class=\"container-fluid\">\n\t\t\t\t<div class=\"col-xs-12\" >\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">添加商品</label>\n\t\t\t\t\t\t<div class=\"col-xs-4\">\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"goodsobj.place_code\" ng-change=\"change(goodsobj.place_code)\" \n\t\t\t\t              ng-options=\"view.code as view.name for view in viewarr\"\n\t\t\t\t            >\n\t\t\t\t            </select>\n\t\t\t\t        </div>\n\t\t\t\t        <div class=\"col-xs-4\">\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"goodsobj.goods_code\" \n\t\t\t\t              ng-options=\"goods.code as goods.name for goods in goodsarr\"\n\t\t\t\t            >\n\t\t\t\t            </select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"col-xs-2\">\n\t\t\t\t\t\t\t<a ng-click=\"add()\" class=\"btn btn-success btn-sm\"\n\t\t\t\t\t\t\t>添加</a>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<table class=\"table table-bordered\">\n\t\t\t\t\t    <thead>\n\t\t\t\t\t      <tr>\n\t\t\t\t\t        <th class=\"col-md-6 text-center\">商品名称</th>\n\t\t\t\t\t        <th class=\"col-md-2 text-center\">操作</th>\n\t\t\t\t\t      </tr>\n\t\t\t\t\t    </thead>\n\t\t\t\t\t    <tbody>\n\t\t\t\t\t      <tr ng-repeat=\"obj in objs\">\n\t\t\t\t\t        <td class=\"text-center\">{{obj.goods_name}}</td>\n\t\t\t\t\t        <td class=\"text-center\">\n\t\t\t\t\t          <a ng-click=\"del(obj.id)\" \n\t\t\t\t\t          class=\"btn btn-warning btn-xs\">删除</a>\n\t\t\t\t\t        </td>\n\t\t\t\t\t      </tr>\n\t\t\t\t\t    </tbody>\n\t\t\t\t  \t</table>\n\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n\n\n\n\n<div class=\"col-xs-10 col-xs-offset-1\" ng-show=\"funobj.hasOwnProperty('govsubsidy')\">\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t旅游局补贴\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\t\t\tng-show=\"!funobj.govsubsidy.has\"\n\t\t\t\tng-click=\"govcreate()\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\t\t\tng-show=\"funobj.govsubsidy.has\"\n\t\t\t\tng-click=\"govupdate()\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t\t<div class=\"container-fluid\">\n\t\t\t\t\n\t\t\t\t<div class=\"col-xs-10\" >\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">补贴金额</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"\n\t\t\t\t\t\t\tng-model=\"govobj.govsubsidy_price\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n\n\n\n<div class=\"col-xs-10 col-xs-offset-1\" ng-show=\"funobj.hasOwnProperty('juyousubsidy')\">\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t居游补贴\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\t\t\tng-show=\"!funobj.juyousubsidy.has\"\n\t\t\t\tng-click=\"juyoucreate()\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\t\t\tng-show=\"funobj.juyousubsidy.has\"\n\t\t\t\tng-click=\"juyouupdate()\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t\t<div class=\"container-fluid\">\n\t\t\t\t\n\t\t\t\t<div class=\"col-xs-10\" >\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">补贴金额</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"\n\t\t\t\t\t\t\tng-model=\"juyouobj.juyousubsidy_price\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n\n\n\n\n\n<div class=\"col-xs-10 col-xs-offset-1\" ng-show=\"funobj.hasOwnProperty('juyousubsidy')\">\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t用户限制数量\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\t\t\tng-show=\"!funobj.juyousubsidy.has\"\n\t\t\t\tng-click=\"juyoucreate()\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\t\t\tng-show=\"funobj.juyousubsidy.has\"\n\t\t\t\tng-click=\"juyouupdate()\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t\t<div class=\"container-fluid\">\n\t\t\t\t\n\t\t\t\t<div class=\"col-xs-10\" >\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">补贴金额</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"\n\t\t\t\t\t\t\tng-model=\"juyouobj.juyousubsidy_price\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n"
+
+/***/ },
+/* 110 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-sm-12 \">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n              \n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-2 text-center\">销售品类别编号</th>\n        <th class=\"col-md-3 text-center\">销售品类别名称</th>\n        <th class=\"col-md-2 text-center\">功能编号</th>\n        <th class=\"col-md-3 text-center\">功能名称</th>\n        <th class=\"col-md-2 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.sale_category_code}}</td>\n        <td class=\"text-center\">{{obj.sale_category_name}}</td>\n        <td class=\"text-center\">{{obj.sub_table_code}}</td>\n        <td class=\"text-center\">{{obj.sub_table_name}}</td>\n        <td class=\"text-center\">\n          \n          <a ng-click=\"del(obj)\" class=\"btn btn-danger btn-xs\">删除</a>\n\n        </td>\n      </tr>\n    </tbody>\n  </table>\n\n\n  \n\n</div>"
+
+/***/ },
+/* 111 */
 /***/ function(module, exports) {
 
 	/**
@@ -58110,7 +61688,7 @@
 	module.exports = service;
 
 /***/ },
-/* 106 */
+/* 112 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktupdate){
@@ -58252,7 +61830,7 @@
 
 
 /***/ },
-/* 107 */
+/* 113 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams, placeinfo, $state){
@@ -58371,7 +61949,7 @@
 
 
 /***/ },
-/* 108 */
+/* 114 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, viewlist, tktinfo, tktupdate, placeinfo){
@@ -58455,7 +62033,7 @@
 
 
 /***/ },
-/* 109 */
+/* 115 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, attrlist){
@@ -58495,7 +62073,7 @@
 
 
 /***/ },
-/* 110 */
+/* 116 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, attrcreate){
@@ -58537,7 +62115,7 @@
 
 
 /***/ },
-/* 111 */
+/* 117 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, attrinfo, attrupdate){
@@ -58583,7 +62161,7 @@
 
 
 /***/ },
-/* 112 */
+/* 118 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, goodslist, goodsupdate, goodsup, goodsdown){
@@ -58678,7 +62256,7 @@
 	};
 
 /***/ },
-/* 113 */
+/* 119 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, goodscreate, viewlist, typelist, attrlistsel){
@@ -58741,7 +62319,7 @@
 	};
 
 /***/ },
-/* 114 */
+/* 120 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist, typelist, attrlistsel, goodsdetailcreate, goodsdetaillist, goodsdetaildelete){
@@ -58912,7 +62490,7 @@
 	};
 
 /***/ },
-/* 115 */
+/* 121 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, saledown, saleupdate){
@@ -59082,7 +62660,7 @@
 	};
 
 /***/ },
-/* 116 */
+/* 122 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, FileUploader){
@@ -59174,7 +62752,7 @@
 	};
 
 /***/ },
-/* 117 */
+/* 123 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, goodlist, 
@@ -59537,7 +63115,7 @@
 	};
 
 /***/ },
-/* 118 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function($scope, salecategorylist, $uibModal, 
@@ -59569,7 +63147,7 @@
 	        //alert(device_code);
 
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(119),
+	          template: __webpack_require__(125),
 	          controller: 'salecategorycreate',
 	          resolve: {
 	            dictbytypelist : function(){
@@ -59614,13 +63192,13 @@
 	};
 
 /***/ },
-/* 119 */
+/* 125 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n<div class=\"modal-header\">\r\n    <h4 class=\"modal-title\">销售品功能</h4>\r\n</div>\r\n<div class=\"modal-body\">\r\n\r\n<div class=\"container-fluid\">\r\n    \r\n    <div class=\"form-group\" >\r\n        <label class=\"col-xs-4 control-label\">销售品分类</label>\r\n        <div class=\"col-xs-8\" >\r\n            <select class=\"form-control\" ng-model=\"obj.sale_category_code\" \r\n              ng-options=\"type1.value as type1.label for type1 in typearr\"\r\n            >\r\n            </select>\r\n        </div>\r\n    </div>\r\n\r\n\r\n   \r\n    <div class=\"form-group\" >\r\n        <label class=\"col-xs-4 control-label\">功能</label>\r\n        <div class=\"col-xs-8\" >\r\n            <select class=\"form-control\" ng-model=\"obj.sub_table_code\" \r\n              ng-options=\"type2.value as type2.label for type2 in salesubarr\"\r\n            >\r\n            </select>\r\n        </div>\r\n    </div>\r\n\r\n    \r\n</div>\r\n</div>\r\n<div class=\"modal-footer\">\r\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"gogo()\">OK</button>\r\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\r\n</div>\r\n"
+	module.exports = "\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">销售品功能</h4>\n</div>\n<div class=\"modal-body\">\n\n<div class=\"container-fluid\">\n    \n    <div class=\"form-group\" >\n        <label class=\"col-xs-4 control-label\">销售品分类</label>\n        <div class=\"col-xs-8\" >\n            <select class=\"form-control\" ng-model=\"obj.sale_category_code\" \n              ng-options=\"type1.value as type1.label for type1 in typearr\"\n            >\n            </select>\n        </div>\n    </div>\n\n\n   \n    <div class=\"form-group\" >\n        <label class=\"col-xs-4 control-label\">功能</label>\n        <div class=\"col-xs-8\" >\n            <select class=\"form-control\" ng-model=\"obj.sub_table_code\" \n              ng-options=\"type2.value as type2.label for type2 in salesubarr\"\n            >\n            </select>\n        </div>\n    </div>\n\n    \n</div>\n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"gogo()\">OK</button>\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n"
 
 /***/ },
-/* 120 */
+/* 126 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, dictbytypelist, salecategoryinsert, $uibModalInstance){
@@ -59678,7 +63256,7 @@
 	};
 
 /***/ },
-/* 121 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59688,19 +63266,19 @@
 
 	var App = angular.module('view', []);
 
-	App.config(__webpack_require__(122));
-	App.factory('viewservice', __webpack_require__(125));
+	App.config(__webpack_require__(128));
+	App.factory('viewservice', __webpack_require__(131));
 
-	App.controller('viewlist',__webpack_require__(126));
-	App.controller('viewedit',__webpack_require__(127));
-	App.controller('viewcreate',__webpack_require__(128));
+	App.controller('viewlist',__webpack_require__(132));
+	App.controller('viewedit',__webpack_require__(133));
+	App.controller('viewcreate',__webpack_require__(134));
 	// App.controller('info',require('./controllers/info'));
 
 
 	module.exports = App;
 
 /***/ },
-/* 122 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -59715,7 +63293,7 @@
 	 	  .state('app.viewlist', {
 	        url: '/viewlist',
 	        controller : 'viewlist',
-	        template: __webpack_require__(123),
+	        template: __webpack_require__(129),
 	        resolve:{
 	            viewupdate : function(viewservice){
 	                return viewservice.update();
@@ -59729,7 +63307,7 @@
 	      .state('app.createview', {
 	        url: '/view',
 	        controller : 'viewcreate',
-	        template: __webpack_require__(124),
+	        template: __webpack_require__(130),
 	        resolve:{
 	            placecreate : function(placeservice){
 	                return placeservice.create();
@@ -59747,7 +63325,7 @@
 	      .state('app.editview', {
 	        url: '/view/:placeid',
 	        controller : 'viewedit',
-	        template: __webpack_require__(124),
+	        template: __webpack_require__(130),
 	        resolve:{
 	            placeinfo : function(placeservice){
 	                return placeservice.info();
@@ -59775,19 +63353,19 @@
 	module.exports = router;
 
 /***/ },
-/* 123 */
+/* 129 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-10\">\r\n                <label>景区名称</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\" >\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <label>景区编号</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" >\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n            <div class=\"col-sm-2 text-right\">\r\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建景区</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-5 text-center\">景区名称</th>\r\n        <th class=\"col-md-1 text-center\">景区编号</th>\r\n        <th class=\"col-md-1 text-center\">星级</th>\r\n        <th class=\"col-md-2 text-center\">排序</th>\r\n        <th class=\"col-md-3 text-center\">操作</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"\">{{obj.name}}</td>\r\n        <td class=\"text-center\">{{obj.code}}</td>\r\n        <td class=\"text-center\">{{obj.star}}</td>\r\n        <td class=\"form-horizontal \">\r\n          <div class=\"col-sm-6\">\r\n            <input class=\"form-control input-sm\" \r\n            style=\"height:22px;\" \r\n            type=\"text\" \r\n            value=\"{{obj.asort}}\" \r\n            ng-model=\"obj.asort\">\r\n          </div>\r\n          <a ng-click=\"asort(obj.id, obj.asort)\" class=\"btn btn-info btn-xs\">gogo</a> \r\n        </td>\r\n        <td class=\"text-center\">\r\n          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\r\n          <a ng-click=\"type(obj.code)\" class=\"btn btn-danger btn-xs\">票种管理</a>\r\n          <a ng-click=\"device(obj.code)\" class=\"btn btn-primary btn-xs\">配置设备</a>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n\r\n  <div class=\"text-right\">\r\n\r\n    <uib-pagination \r\n      total-items=\"bigTotalItems\" \r\n      ng-model=\"bigCurrentPage\" \r\n      max-size=\"maxSize\" \r\n      class=\"pagination-sm\" \r\n      boundary-links=\"true\" \r\n      ng-change=\"load()\"\r\n      items-per-page=\"itemsPerPage\"\r\n      previous-text=\"上一页\"\r\n      next-text=\"下一页\"\r\n      first-text=\"首页\"\r\n      last-text=\"末页\"\r\n      rotate=\"false\">\r\n    </uib-pagination>\r\n\r\n  </div>\r\n  \r\n\r\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>景区名称</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <label>景区编号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建景区</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-5 text-center\">景区名称</th>\n        <th class=\"col-md-1 text-center\">景区编号</th>\n        <th class=\"col-md-1 text-center\">星级</th>\n        <th class=\"col-md-2 text-center\">排序</th>\n        <th class=\"col-md-3 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"\">{{obj.name}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">{{obj.star}}</td>\n        <td class=\"form-horizontal \">\n          <div class=\"col-sm-6\">\n            <input class=\"form-control input-sm\" \n            style=\"height:22px;\" \n            type=\"text\" \n            value=\"{{obj.asort}}\" \n            ng-model=\"obj.asort\">\n          </div>\n          <a ng-click=\"asort(obj.id, obj.asort)\" class=\"btn btn-info btn-xs\">gogo</a> \n        </td>\n        <td class=\"text-center\">\n          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\n          <a ng-click=\"type(obj.code)\" class=\"btn btn-danger btn-xs\">票种管理</a>\n          <a ng-click=\"device(obj.code)\" class=\"btn btn-primary btn-xs\">配置设备</a>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
 
 /***/ },
-/* 124 */
+/* 130 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-xs-10 col-xs-offset-1\" >\r\n\r\n\t<div class=\"panel panel-default form-horizontal\">\r\n\t\t<div class=\"panel-heading\">\r\n\t\t\t基本信息\r\n\t\t\t<button type=\"button\" \r\n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\r\n\t\t\t\tng-click=\"placego()\"\r\n\t\t\t\tng-show=\"placeobjstate === 1\"\r\n\t\t\t>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r\n\t\t\t</button>\r\n\r\n\t\t\t<button type=\"button\" \r\n\t\t\t\tclass=\"btn btn-xs btn-success pull-right\"\r\n\t\t\t\tng-click=\"placeedit()\"\r\n\t\t\t\tng-show=\"placeobjstate === 0\"\r\n\t\t\t>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\r\n\t\t\t</button>\r\n\t\t</div>\r\n\t\t<div class=\"panel-body\">\r\n\t\t<div class=\"container-fluid\">\r\n\t\t\t<!-- 编辑状态 -->\r\n\t\t\t<div ng-show=\"placeobjstate === 1\">\r\n\t\t\t\t<div class=\"col-xs-8\" >\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">名称</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入名称\"\r\n\t\t\t\t\t\t\tng-model=\"placeobj.name\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">地址</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"placeobj.address\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">简介</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<textarea class=\"form-control\" rows=\"4\"\r\n\t\t\t\t\t\t\tng-model=\"placeobj.content\"\r\n\t\t\t\t\t\t\t></textarea>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">营业时间</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"placeobj.open_time\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">省</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"placeobj.province\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<!-- <div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">市</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"placeobj.city\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div> -->\r\n\t\t\t\t\t<div class=\"form-group\" >\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">市</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\" >\r\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"placeobj.city\" \r\n\t\t\t\t              ng-options=\"city.CODE as city.NAME for city in cityarr\"\r\n\t\t\t\t            >\r\n\t\t\t\t            </select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">区</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"placeobj.area\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">经度</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-4\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"\r\n\t\t\t\t\t\t\tng-model=\"placeobj.longitude\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">纬度</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-4\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"\r\n\t\t\t\t\t\t\tng-model=\"placeobj.latitude\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\r\n\t\t\t\t<div class=\"col-xs-4\">\r\n\r\n\t\t\t\t\t<label class=\"control-label\">logo</label>\r\n\t\t\t\t\t<img ng-src=\"{{placeobj.logo}}\" width=\"150\" height=\"150\" ng-model=\"placeobj.logo\">\r\n\t\t\t\t\t<input type=\"file\" nv-file-select uploader=\"uploader1\" /><br/>\r\n\t\t\t\t\t<ul class=\"list-group\">\r\n\t\t\t\t\t    <li class=\"list-group-item\" ng-repeat=\"item in uploader1.queue\">\r\n\t\t\t\t\t        文件名: <span ng-bind=\"item.file.name\"></span>\r\n\t\t\t\t\t        <button type=\"button\" class=\"btn btn-default btn-xs\"  ng-click=\"item.upload()\"><span class=\"glyphicon glyphicon-upload\"></span> 上传</button>\r\n\t\t\t\t\t        <div class=\"progress mt10\">\r\n\t\t\t\t\t            <div class=\"progress-bar\" role=\"progressbar\" ng-style=\"{ 'width': uploader1.progress + '%' }\"></div>\r\n\t\t\t\t\t        </div>\r\n\t\t\t\t\t    </li>\r\n\t\t\t\t\t</ul>\r\n\r\n\t\t\t\t\t<label class=\"control-label\">景区顶图</label>\r\n\t\t\t\t\t<img ng-src=\"{{placeobj.img}}\" width=\"100%\" height=\"200\" ng-model=\"placeobj.img\">\r\n\t\t\t\t\t<input type=\"file\" nv-file-select uploader=\"uploader2\" /><br/>\r\n\t\t\t\t\t<ul class=\"list-group\">\r\n\t\t\t\t\t    <li class=\"list-group-item\" ng-repeat=\"item in uploader2.queue\">\r\n\t\t\t\t\t        文件名: <span ng-bind=\"item.file.name\"></span>\r\n\t\t\t\t\t        <button type=\"button\" class=\"btn btn-default btn-xs\"  ng-click=\"item.upload()\"><span class=\"glyphicon glyphicon-upload\"></span> 上传</button>\r\n\t\t\t\t\t        <div class=\"progress mt10\">\r\n\t\t\t\t\t            <div class=\"progress-bar\" role=\"progressbar\" ng-style=\"{ 'width': uploader2.progress + '%' }\"></div>\r\n\t\t\t\t\t        </div>\r\n\t\t\t\t\t    </li>\r\n\t\t\t\t\t</ul>\r\n\r\n\t\t\t\t</div>\r\n\r\n\t\t\t</div>\r\n\r\n\r\n\t\t\t<!-- 展示状态 -->\r\n\t\t\t<div ng-show=\"placeobjstate === 0\">\r\n\t\t\t\t<div class=\"col-xs-8\" >\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">名称</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.name}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">地址</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.address}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">简介</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.content}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">营业时间</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.open_time}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">省</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.province}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">市</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.cityname}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">区</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-10\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.area}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">经度</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-4\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.longitude}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">纬度</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-4\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.latitude}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\r\n\t\t\t\t<div class=\"col-xs-4\">\r\n\r\n\t\t\t\t\t<label class=\"control-label\">logo</label>\r\n\t\t\t\t\t<img ng-src=\"{{placeobj.logo}}\" width=\"150\" height=\"150\" ng-model=\"placeobj.logo\">\r\n\t\t\t\t\t<!-- <p class=\"form-control-static\">{{placeobj.logo}}</p><br> -->\r\n\t\t\t\t\t<br><br>\r\n\t\t\t\t\t<label class=\"control-label\">景区顶图</label>\r\n\t\t\t\t\t<img ng-src=\"{{placeobj.img}}\" width=\"100%\" height=\"200\" ng-model=\"placeobj.img\">\r\n\t\t\t\t\t<!-- <p class=\"form-control-static\">{{placeobj.img}}</p><br> -->\r\n\r\n\t\t\t\t</div>\r\n\r\n\t\t\t</div>\r\n\r\n\t\t</div>\r\n\t\t</div>\r\n\r\n\t</div>\r\n\r\n\r\n</div>\r\n\r\n\r\n\r\n\r\n\r\n\r\n<div class=\"col-xs-10 col-xs-offset-1\"\r\n\tng-show=\"placeobj.id != ''\"\r\n >\r\n\r\n\t<div class=\"panel panel-default form-horizontal\">\r\n\t\t<div class=\"panel-heading\">\r\n\t\t\t景区信息\r\n\t\t\t<button type=\"button\" \r\n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\r\n\t\t\t\tng-click=\"viewgo()\"\r\n\t\t\t\tng-show=\"viewobjstate === 1\"\r\n\t\t\t>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\r\n\t\t\t</button>\r\n\r\n\t\t\t<button type=\"button\" \r\n\t\t\t\tclass=\"btn btn-xs btn-success pull-right\"\r\n\t\t\t\tng-click=\"viewedit()\"\r\n\t\t\t\tng-show=\"viewobjstate === 0\"\r\n\t\t\t>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\r\n\t\t\t</button>\r\n\t\t\t\r\n\t\t</div>\r\n\t\t<div class=\"panel-body\">\r\n\t\t<div class=\"container-fluid\">\r\n\t\t\t<!-- 编辑状态 -->\r\n\t\t\t<div ng-show=\"viewobjstate === 1\">\r\n\t\t\t\t<div class=\"col-xs-6\">\r\n\t\t\t\t\t\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">主题</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<!-- <select class=\"form-control\" ng-model=\"viewobj.theme\" \r\n\t\t\t\t              ng-options=\"view.code as view.name for view in viewarr\"\r\n\t\t\t\t            >\r\n\t\t\t\t            </select> -->\r\n\t\t\t\t            <input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"viewobj.theme\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">子名称</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"viewobj.subname\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">开放日期</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"viewobj.open_date\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">服务承诺</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<textarea class=\"form-control\" rows=\"3\"\r\n\t\t\t\t\t\t\tng-model=\"viewobj.promise\"\r\n\t\t\t\t\t\t\t></textarea>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">预订须知</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<textarea class=\"form-control\" rows=\"3\"\r\n\t\t\t\t\t\t\tng-model=\"viewobj.book_info\"\r\n\t\t\t\t\t\t\t></textarea>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">星级</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"viewobj.star\" >\r\n\t\t\t\t\t\t\t\t<option value=\"1\">1</option>\r\n\t\t\t\t\t\t\t\t<option value=\"2\">2</option>\r\n\t\t\t\t\t\t\t\t<option value=\"3\">3</option>\r\n\t\t\t\t\t\t\t\t<option value=\"4\">4</option>\r\n\t\t\t\t\t\t\t\t<option value=\"5\">5</option>\r\n\t\t\t\t            </select>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\r\n\t\t\t\t<div class=\"col-xs-6\">\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">好评</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"viewobj.ev_good\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">一般评价</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"viewobj.ev_general\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">差评</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"viewobj.ev_bad\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">全景地址</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"viewobj.view720_url\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">电子杂志</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"viewobj.ebook_url\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">优惠政策</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"viewobj.fav_policy\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">提前时间(小时）</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"viewobj.bef_hour\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">排序</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\t\t\tng-model=\"viewobj.asort\"\r\n\t\t\t\t\t\t\t>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\r\n\r\n\t\t\t<!-- 展示状态 -->\r\n\t\t\t<div ng-show=\"viewobjstate === 0\">\r\n\t\t\t\t<div class=\"col-xs-6\">\r\n\t\t\t\t\t\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">主题</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<!-- <select class=\"form-control\" ng-model=\"viewobj.theme\" \r\n\t\t\t\t              ng-options=\"view.code as view.name for view in viewarr\"\r\n\t\t\t\t            >\r\n\t\t\t\t            </select> -->\r\n\t\t\t\t            <p class=\"form-control-static\">{{viewobj.theme}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">子名称</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.subname}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">开放日期</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.open_date}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">服务承诺</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.promise}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">预订须知</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.book_info}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">星级</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.star}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\r\n\t\t\t\t<div class=\"col-xs-6\">\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">好评</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.ev_good}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">一般评价</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.ev_general}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">差评</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.ev_bad}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">全景地址</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.view720_url}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">电子杂志</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.ebook_url}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">优惠政策</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.fav_policy}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">提前时间(小时）</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.bef_hour}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t\t<div class=\"form-group\">\r\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">排序</label>\r\n\t\t\t\t\t\t<div class=\"col-xs-9\">\r\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.asort}}</p>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\r\n\r\n\t\t</div>\r\n\r\n\t\t</div>\r\n\t</div>\r\n\r\n\r\n</div>"
+	module.exports = "<div class=\"col-xs-10 col-xs-offset-1\" >\n\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t基本信息\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\t\t\tng-click=\"placego()\"\n\t\t\t\tng-show=\"placeobjstate === 1\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-success pull-right\"\n\t\t\t\tng-click=\"placeedit()\"\n\t\t\t\tng-show=\"placeobjstate === 0\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t<div class=\"container-fluid\">\n\t\t\t<!-- 编辑状态 -->\n\t\t\t<div ng-show=\"placeobjstate === 1\">\n\t\t\t\t<div class=\"col-xs-8\" >\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">名称</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入名称\"\n\t\t\t\t\t\t\tng-model=\"placeobj.name\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">地址</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"placeobj.address\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">简介</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<textarea class=\"form-control\" rows=\"4\"\n\t\t\t\t\t\t\tng-model=\"placeobj.content\"\n\t\t\t\t\t\t\t></textarea>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">营业时间</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"placeobj.open_time\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">省</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"placeobj.province\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<!-- <div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">市</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"placeobj.city\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div> -->\n\t\t\t\t\t<div class=\"form-group\" >\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">市</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\" >\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"placeobj.city\" \n\t\t\t\t              ng-options=\"city.CODE as city.NAME for city in cityarr\"\n\t\t\t\t            >\n\t\t\t\t            </select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">区</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"placeobj.area\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">经度</label>\n\t\t\t\t\t\t<div class=\"col-xs-4\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"\n\t\t\t\t\t\t\tng-model=\"placeobj.longitude\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">纬度</label>\n\t\t\t\t\t\t<div class=\"col-xs-4\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"\n\t\t\t\t\t\t\tng-model=\"placeobj.latitude\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"col-xs-4\">\n\n\t\t\t\t\t<label class=\"control-label\">logo</label>\n\t\t\t\t\t<img ng-src=\"{{placeobj.logo}}\" width=\"150\" height=\"150\" ng-model=\"placeobj.logo\">\n\t\t\t\t\t<input type=\"file\" nv-file-select uploader=\"uploader1\" /><br/>\n\t\t\t\t\t<ul class=\"list-group\">\n\t\t\t\t\t    <li class=\"list-group-item\" ng-repeat=\"item in uploader1.queue\">\n\t\t\t\t\t        文件名: <span ng-bind=\"item.file.name\"></span>\n\t\t\t\t\t        <button type=\"button\" class=\"btn btn-default btn-xs\"  ng-click=\"item.upload()\"><span class=\"glyphicon glyphicon-upload\"></span> 上传</button>\n\t\t\t\t\t        <div class=\"progress mt10\">\n\t\t\t\t\t            <div class=\"progress-bar\" role=\"progressbar\" ng-style=\"{ 'width': uploader1.progress + '%' }\"></div>\n\t\t\t\t\t        </div>\n\t\t\t\t\t    </li>\n\t\t\t\t\t</ul>\n\n\t\t\t\t\t<label class=\"control-label\">景区顶图</label>\n\t\t\t\t\t<img ng-src=\"{{placeobj.img}}\" width=\"100%\" height=\"200\" ng-model=\"placeobj.img\">\n\t\t\t\t\t<input type=\"file\" nv-file-select uploader=\"uploader2\" /><br/>\n\t\t\t\t\t<ul class=\"list-group\">\n\t\t\t\t\t    <li class=\"list-group-item\" ng-repeat=\"item in uploader2.queue\">\n\t\t\t\t\t        文件名: <span ng-bind=\"item.file.name\"></span>\n\t\t\t\t\t        <button type=\"button\" class=\"btn btn-default btn-xs\"  ng-click=\"item.upload()\"><span class=\"glyphicon glyphicon-upload\"></span> 上传</button>\n\t\t\t\t\t        <div class=\"progress mt10\">\n\t\t\t\t\t            <div class=\"progress-bar\" role=\"progressbar\" ng-style=\"{ 'width': uploader2.progress + '%' }\"></div>\n\t\t\t\t\t        </div>\n\t\t\t\t\t    </li>\n\t\t\t\t\t</ul>\n\n\t\t\t\t</div>\n\n\t\t\t</div>\n\n\n\t\t\t<!-- 展示状态 -->\n\t\t\t<div ng-show=\"placeobjstate === 0\">\n\t\t\t\t<div class=\"col-xs-8\" >\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">名称</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.name}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">地址</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.address}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">简介</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.content}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">营业时间</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.open_time}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">省</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.province}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">市</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.cityname}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">区</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.area}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">经度</label>\n\t\t\t\t\t\t<div class=\"col-xs-4\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.longitude}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">纬度</label>\n\t\t\t\t\t\t<div class=\"col-xs-4\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.latitude}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"col-xs-4\">\n\n\t\t\t\t\t<label class=\"control-label\">logo</label>\n\t\t\t\t\t<img ng-src=\"{{placeobj.logo}}\" width=\"150\" height=\"150\" ng-model=\"placeobj.logo\">\n\t\t\t\t\t<!-- <p class=\"form-control-static\">{{placeobj.logo}}</p><br> -->\n\t\t\t\t\t<br><br>\n\t\t\t\t\t<label class=\"control-label\">景区顶图</label>\n\t\t\t\t\t<img ng-src=\"{{placeobj.img}}\" width=\"100%\" height=\"200\" ng-model=\"placeobj.img\">\n\t\t\t\t\t<!-- <p class=\"form-control-static\">{{placeobj.img}}</p><br> -->\n\n\t\t\t\t</div>\n\n\t\t\t</div>\n\n\t\t</div>\n\t\t</div>\n\n\t</div>\n\n\n</div>\n\n\n\n\n\n\n<div class=\"col-xs-10 col-xs-offset-1\"\n\tng-show=\"placeobj.id != ''\"\n >\n\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t景区信息\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\t\t\tng-click=\"viewgo()\"\n\t\t\t\tng-show=\"viewobjstate === 1\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-success pull-right\"\n\t\t\t\tng-click=\"viewedit()\"\n\t\t\t\tng-show=\"viewobjstate === 0\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\t\t\t\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t<div class=\"container-fluid\">\n\t\t\t<!-- 编辑状态 -->\n\t\t\t<div ng-show=\"viewobjstate === 1\">\n\t\t\t\t<div class=\"col-xs-6\">\n\t\t\t\t\t\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">主题</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<!-- <select class=\"form-control\" ng-model=\"viewobj.theme\" \n\t\t\t\t              ng-options=\"view.code as view.name for view in viewarr\"\n\t\t\t\t            >\n\t\t\t\t            </select> -->\n\t\t\t\t            <input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.theme\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">子名称</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.subname\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">开放日期</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.open_date\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">服务承诺</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<textarea class=\"form-control\" rows=\"3\"\n\t\t\t\t\t\t\tng-model=\"viewobj.promise\"\n\t\t\t\t\t\t\t></textarea>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">预订须知</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<textarea class=\"form-control\" rows=\"3\"\n\t\t\t\t\t\t\tng-model=\"viewobj.book_info\"\n\t\t\t\t\t\t\t></textarea>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">星级</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"viewobj.star\" >\n\t\t\t\t\t\t\t\t<option value=\"1\">1</option>\n\t\t\t\t\t\t\t\t<option value=\"2\">2</option>\n\t\t\t\t\t\t\t\t<option value=\"3\">3</option>\n\t\t\t\t\t\t\t\t<option value=\"4\">4</option>\n\t\t\t\t\t\t\t\t<option value=\"5\">5</option>\n\t\t\t\t            </select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"col-xs-6\">\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">好评</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.ev_good\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">一般评价</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.ev_general\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">差评</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.ev_bad\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">全景地址</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.view720_url\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">电子杂志</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.ebook_url\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">优惠政策</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.fav_policy\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">提前时间(小时）</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.bef_hour\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">排序</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.asort\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\t\t\t</div>\n\n\n\n\t\t\t<!-- 展示状态 -->\n\t\t\t<div ng-show=\"viewobjstate === 0\">\n\t\t\t\t<div class=\"col-xs-6\">\n\t\t\t\t\t\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">主题</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<!-- <select class=\"form-control\" ng-model=\"viewobj.theme\" \n\t\t\t\t              ng-options=\"view.code as view.name for view in viewarr\"\n\t\t\t\t            >\n\t\t\t\t            </select> -->\n\t\t\t\t            <p class=\"form-control-static\">{{viewobj.theme}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">子名称</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.subname}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">开放日期</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.open_date}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">服务承诺</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.promise}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">预订须知</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.book_info}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">星级</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.star}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"col-xs-6\">\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">好评</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.ev_good}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">一般评价</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.ev_general}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">差评</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.ev_bad}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">全景地址</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.view720_url}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">电子杂志</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.ebook_url}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">优惠政策</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.fav_policy}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">提前时间(小时）</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.bef_hour}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">排序</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.asort}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\t\t\t</div>\n\n\n\t\t</div>\n\n\t\t</div>\n\t</div>\n\n\n</div>"
 
 /***/ },
-/* 125 */
+/* 131 */
 /***/ function(module, exports) {
 
 	/**
@@ -59852,7 +63430,7 @@
 	module.exports = service;
 
 /***/ },
-/* 126 */
+/* 132 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE){
@@ -59946,7 +63524,7 @@
 	};
 
 /***/ },
-/* 127 */
+/* 133 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, FileUploader, placeinfo, placeupdate, viewinfo, viewupdate, city){
@@ -60108,7 +63686,7 @@
 	};
 
 /***/ },
-/* 128 */
+/* 134 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, placecreate, viewcreate, FileUploader, city){
@@ -60244,7 +63822,7 @@
 	};
 
 /***/ },
-/* 129 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60254,8 +63832,8 @@
 
 	var App = angular.module('place', []);
 
-	App.config(__webpack_require__(130));
-	App.factory('placeservice', __webpack_require__(131));
+	App.config(__webpack_require__(136));
+	App.factory('placeservice', __webpack_require__(137));
 
 	//App.controller('createplace',require('./controllers/createplace'));
 	// App.controller('doccreate',require('./controllers/module'));
@@ -60266,7 +63844,7 @@
 	module.exports = App;
 
 /***/ },
-/* 130 */
+/* 136 */
 /***/ function(module, exports) {
 
 	/**
@@ -60305,7 +63883,7 @@
 	module.exports = router;
 
 /***/ },
-/* 131 */
+/* 137 */
 /***/ function(module, exports) {
 
 	/**
@@ -60339,7 +63917,7 @@
 	module.exports = service;
 
 /***/ },
-/* 132 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60349,19 +63927,19 @@
 
 	var App = angular.module('account', []);
 
-	App.config(__webpack_require__(133));
-	App.factory('accountservice', __webpack_require__(136));
+	App.config(__webpack_require__(139));
+	App.factory('accountservice', __webpack_require__(142));
 
-	App.controller('account',__webpack_require__(137));
-	App.controller('createaccount',__webpack_require__(140));
-	App.controller('changepassword',__webpack_require__(141));
-	App.controller('editaccount',__webpack_require__(142));
+	App.controller('account',__webpack_require__(143));
+	App.controller('createaccount',__webpack_require__(146));
+	App.controller('changepassword',__webpack_require__(147));
+	App.controller('editaccount',__webpack_require__(148));
 
 
 	module.exports = App;
 
 /***/ },
-/* 133 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60376,7 +63954,7 @@
 	 	  .state('app.account', {
 	        url: '/account',
 	        controller : 'account',
-	        template: __webpack_require__(134),
+	        template: __webpack_require__(140),
 	        resolve:{
 	            mechanism : function(accountservice){
 	                return accountservice.mechanism();
@@ -60400,7 +63978,7 @@
 	      .state('app.changepassword', {
 	        url: '/changepassword',
 	        controller : 'changepassword',
-	        template: __webpack_require__(135),
+	        template: __webpack_require__(141),
 	        resolve:{
 	            changepassword : function(accountservice){
 	                return accountservice.changepassword();
@@ -60437,19 +64015,19 @@
 	module.exports = router;
 
 /***/ },
-/* 134 */
+/* 140 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- Nested node template -->\r\n<script type=\"text/ng-template\" id=\"nodes_renderer.html\">\r\n  <div ui-tree-handle class=\"tree-node tree-node-content\"\r\n  \tng-click=\"getit(this)\"\r\n  >\r\n    <a class=\"btn btn-success btn-xs\" ng-if=\"node.nodes && node.nodes.length > 0\" \r\n    data-nodrag ng-click=\"toggle(this)\">\r\n    <span class=\"glyphicon\"\r\n        ng-class=\"{\r\n          'glyphicon-chevron-right': collapsed,\r\n          'glyphicon-chevron-down': !collapsed\r\n        }\"></span></a>\r\n    {{node.name}}\r\n    <!-- <a class=\"pull-right btn btn-danger btn-xs\" data-nodrag ng-click=\"remove(this)\"><span\r\n        class=\"glyphicon glyphicon-remove\"></span></a>\r\n    <a class=\"pull-right btn btn-primary btn-xs\" data-nodrag ng-click=\"newSubItem(this)\" style=\"margin-right: 8px;\"><span\r\n        class=\"glyphicon glyphicon-plus\"></span></a> -->\r\n  </div>\r\n  <ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\">\r\n    <li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'nodes_renderer.html'\">\r\n    </li>\r\n  </ol>\r\n</script>\r\n\r\n<div class=\"row\">\r\n  <div class=\"col-sm-4\">\r\n    <div ui-tree id=\"tree-root\" data-nodrop-enabled=\"true\" data-drag-enabled=\"false\">\r\n      <ol ui-tree-nodes ng-model=\"data\">\r\n        <li ng-repeat=\"node in data\" ui-tree-node ng-include=\"'nodes_renderer.html'\"></li>\r\n      </ol>\r\n    </div>\r\n\r\n  </div>\r\n\r\n  <div class=\"col-sm-8\" ng-show=\"officeid != ''\">\r\n    \r\n    <!-- <pre class=\"code\">{{ data | json }}</pre> -->\r\n\r\n    <!-- <pre class=\"code\">{{ show | json }}</pre> -->\r\n\r\n\t<div class=\"panel panel-default\" >\r\n\t\t<div class=\"panel-body\">\r\n\t\t\t<div class=\"form-group form-inline\">\r\n\t\t\t\t<div class=\"col-sm-11\">\r\n\t\t\t\t\t<!-- <input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\tng-model=\"searchform.name\"\r\n\t\t\t\t\tplaceholder=\"登录名\"\r\n\t\t\t\t\t>\r\n\t\t\t\t\t<input type=\"text\" class=\"form-control\" \r\n\t\t\t\t\tng-model=\"searchform.code\"\r\n\t\t\t\t\tplaceholder=\"姓名\"\r\n\t\t\t\t\t > -->\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-default\" ng-click=\"create()\">创建新用户</button>\r\n\t\t\t\t</div>\r\n\t\t\t\t<!-- <div class=\"col-sm-1 text-right\">\r\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-info\" ng-click=\"create()\">创建</button>\r\n\t\t\t\t</div> -->\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div><!-- searchArea -->\r\n\r\n      <table class=\"table table-bordered\">\r\n\t    <thead>\r\n\t      <tr>\r\n\t        <th class=\"col-md-3 text-center\">登录名</th>\r\n\t        <th class=\"col-md-3 text-center\">姓名</th>\r\n\t        <th class=\"col-md-3 text-center\">电话</th>\r\n\t        <th class=\"col-md-3 text-center\">操作</th>\r\n\t      </tr>\r\n\t    </thead>\r\n\t    <tbody>\r\n\t      <tr ng-repeat=\"obj in objs\">\r\n\t        <td class=\"text-center\">{{obj.loginName}}</td>\r\n\t        <td class=\"text-center\">{{obj.name}}</td>\r\n\t        <td class=\"text-center\">{{obj.mobile}}</td>\r\n\t        <td class=\"text-center\">\r\n\t          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\r\n\t        </td>\r\n\t      </tr>\r\n\t    </tbody>\r\n\t  </table>\r\n\r\n\t<div class=\"text-right\">\r\n\r\n\t    <uib-pagination \r\n\t      total-items=\"bigTotalItems\" \r\n\t      ng-model=\"bigCurrentPage\" \r\n\t      max-size=\"maxSize\" \r\n\t      class=\"pagination-sm\" \r\n\t      boundary-links=\"true\" \r\n\t      ng-change=\"load()\"\r\n\t      items-per-page=\"itemsPerPage\"\r\n\t      previous-text=\"上一页\"\r\n\t      next-text=\"下一页\"\r\n\t      first-text=\"首页\"\r\n\t      last-text=\"末页\"\r\n\t      rotate=\"false\">\r\n\t    </uib-pagination>\r\n\r\n  </div>\r\n\r\n\r\n  </div>\r\n</div>\r\n"
+	module.exports = "<!-- Nested node template -->\n<script type=\"text/ng-template\" id=\"nodes_renderer.html\">\n  <div ui-tree-handle class=\"tree-node tree-node-content\"\n  \tng-click=\"getit(this)\"\n  >\n    <a class=\"btn btn-success btn-xs\" ng-if=\"node.nodes && node.nodes.length > 0\" \n    data-nodrag ng-click=\"toggle(this)\">\n    <span class=\"glyphicon\"\n        ng-class=\"{\n          'glyphicon-chevron-right': collapsed,\n          'glyphicon-chevron-down': !collapsed\n        }\"></span></a>\n    {{node.name}}\n    <!-- <a class=\"pull-right btn btn-danger btn-xs\" data-nodrag ng-click=\"remove(this)\"><span\n        class=\"glyphicon glyphicon-remove\"></span></a>\n    <a class=\"pull-right btn btn-primary btn-xs\" data-nodrag ng-click=\"newSubItem(this)\" style=\"margin-right: 8px;\"><span\n        class=\"glyphicon glyphicon-plus\"></span></a> -->\n  </div>\n  <ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\">\n    <li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'nodes_renderer.html'\">\n    </li>\n  </ol>\n</script>\n\n<div class=\"row\">\n  <div class=\"col-sm-4\">\n    <div ui-tree id=\"tree-root\" data-nodrop-enabled=\"true\" data-drag-enabled=\"false\">\n      <ol ui-tree-nodes ng-model=\"data\">\n        <li ng-repeat=\"node in data\" ui-tree-node ng-include=\"'nodes_renderer.html'\"></li>\n      </ol>\n    </div>\n\n  </div>\n\n  <div class=\"col-sm-8\" ng-show=\"officeid != ''\">\n    \n    <!-- <pre class=\"code\">{{ data | json }}</pre> -->\n\n    <!-- <pre class=\"code\">{{ show | json }}</pre> -->\n\n\t<div class=\"panel panel-default\" >\n\t\t<div class=\"panel-body\">\n\t\t\t<div class=\"form-group form-inline\">\n\t\t\t\t<div class=\"col-sm-11\">\n\t\t\t\t\t<!-- <input type=\"text\" class=\"form-control\" \n\t\t\t\t\tng-model=\"searchform.name\"\n\t\t\t\t\tplaceholder=\"登录名\"\n\t\t\t\t\t>\n\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\tng-model=\"searchform.code\"\n\t\t\t\t\tplaceholder=\"姓名\"\n\t\t\t\t\t > -->\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-default\" ng-click=\"create()\">创建新用户</button>\n\t\t\t\t</div>\n\t\t\t\t<!-- <div class=\"col-sm-1 text-right\">\n\t\t\t\t\t<button type=\"button\" class=\"btn btn-info\" ng-click=\"create()\">创建</button>\n\t\t\t\t</div> -->\n\t\t\t</div>\n\t\t</div>\n\t</div><!-- searchArea -->\n\n      <table class=\"table table-bordered\">\n\t    <thead>\n\t      <tr>\n\t        <th class=\"col-md-3 text-center\">登录名</th>\n\t        <th class=\"col-md-3 text-center\">姓名</th>\n\t        <th class=\"col-md-3 text-center\">电话</th>\n\t        <th class=\"col-md-3 text-center\">操作</th>\n\t      </tr>\n\t    </thead>\n\t    <tbody>\n\t      <tr ng-repeat=\"obj in objs\">\n\t        <td class=\"text-center\">{{obj.loginName}}</td>\n\t        <td class=\"text-center\">{{obj.name}}</td>\n\t        <td class=\"text-center\">{{obj.mobile}}</td>\n\t        <td class=\"text-center\">\n\t          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\n\t        </td>\n\t      </tr>\n\t    </tbody>\n\t  </table>\n\n\t<div class=\"text-right\">\n\n\t    <uib-pagination \n\t      total-items=\"bigTotalItems\" \n\t      ng-model=\"bigCurrentPage\" \n\t      max-size=\"maxSize\" \n\t      class=\"pagination-sm\" \n\t      boundary-links=\"true\" \n\t      ng-change=\"load()\"\n\t      items-per-page=\"itemsPerPage\"\n\t      previous-text=\"上一页\"\n\t      next-text=\"下一页\"\n\t      first-text=\"首页\"\n\t      last-text=\"末页\"\n\t      rotate=\"false\">\n\t    </uib-pagination>\n\n  </div>\n\n\n  </div>\n</div>\n"
 
 /***/ },
-/* 135 */
+/* 141 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n\r\n<div class=\" col-md-6  col-md-offset-3 mt10\">\r\n<div class=\"panel panel-success\">\r\n\t<div class=\"panel-heading  \">修改密码</div>\r\n\r\n\t<div class=\"panel-body\">\r\n\t\t<form class=\"form-horizontal\">\r\n\r\n\t\t  <div class=\"form-group mt10 input-lg\">\r\n\t\t    <div class=\"col-sm-3 control-label\">旧密码</div>\r\n\t\t    <div class=\"col-sm-9\">\r\n\t\t      <input type=\"password\" class=\"form-control\" ng-model=\"obj.oldPassword\" placeholder=\"输入旧密码\">\r\n\t\t    </div>\r\n\t\t  </div>\r\n\r\n\t\t  <div class=\"form-group mt10 input-lg\">\r\n\t\t    <div class=\"col-sm-3 control-label\">新密码</div>\r\n\t\t    <div class=\"col-sm-9\">\r\n\t\t      <input type=\"password\" class=\"form-control\" ng-model=\"obj.newPassword\" placeholder=\"输入新密码\">\r\n\t\t    </div>\r\n\t\t  </div>\r\n\r\n\t\t  <div class=\"form-group mt10 input-lg\" >\r\n\t\t    <div class=\"col-sm-3 control-label\">确认新密码</div>\r\n\t\t    <div class=\"col-sm-9\">\r\n\t\t      <input type=\"password\" class=\"form-control\" ng-model=\"obj.newPassword2\" placeholder=\"确认新密码\">\r\n\t\t    </div>\r\n\t\t  </div>\r\n\r\n\t\t  <div class=\"form-group input-lg\">\r\n\r\n\t\t    <div class=\"col-sm-12\">\r\n\t\t    \t<button type=\"button\" \r\n\t\t    \tclass=\"btn btn-success btn-block\"\r\n\t\t    \tng-click=\"gogo()\">确定</button>\r\n\t\t    </div>\r\n\t\t  </div>\r\n\r\n\t\t  <div class=\"alert alert-warning\" role=\"alert\">初始密码'000000'</div>\r\n\t\t  \r\n\t\t</form>\r\n\t</div>\r\n</div>\r\n</div>\r\n\r\n\r\n"
+	module.exports = "\n\n<div class=\" col-md-6  col-md-offset-3 mt10\">\n<div class=\"panel panel-success\">\n\t<div class=\"panel-heading  \">修改密码</div>\n\n\t<div class=\"panel-body\">\n\t\t<form class=\"form-horizontal\">\n\n\t\t  <div class=\"form-group mt10 input-lg\">\n\t\t    <div class=\"col-sm-3 control-label\">旧密码</div>\n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"password\" class=\"form-control\" ng-model=\"obj.oldPassword\" placeholder=\"输入旧密码\">\n\t\t    </div>\n\t\t  </div>\n\n\t\t  <div class=\"form-group mt10 input-lg\">\n\t\t    <div class=\"col-sm-3 control-label\">新密码</div>\n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"password\" class=\"form-control\" ng-model=\"obj.newPassword\" placeholder=\"输入新密码\">\n\t\t    </div>\n\t\t  </div>\n\n\t\t  <div class=\"form-group mt10 input-lg\" >\n\t\t    <div class=\"col-sm-3 control-label\">确认新密码</div>\n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"password\" class=\"form-control\" ng-model=\"obj.newPassword2\" placeholder=\"确认新密码\">\n\t\t    </div>\n\t\t  </div>\n\n\t\t  <div class=\"form-group input-lg\">\n\n\t\t    <div class=\"col-sm-12\">\n\t\t    \t<button type=\"button\" \n\t\t    \tclass=\"btn btn-success btn-block\"\n\t\t    \tng-click=\"gogo()\">确定</button>\n\t\t    </div>\n\t\t  </div>\n\n\t\t  <div class=\"alert alert-warning\" role=\"alert\">初始密码'000000'</div>\n\t\t  \n\t\t</form>\n\t</div>\n</div>\n</div>\n\n\n"
 
 /***/ },
-/* 136 */
+/* 142 */
 /***/ function(module, exports) {
 
 	/**
@@ -60502,7 +64080,7 @@
 	module.exports = service;
 
 /***/ },
-/* 137 */
+/* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function($scope, $state, mechanism, $uibModal, create, list, role, ITEMS_PERPAGE, info){
@@ -60597,7 +64175,7 @@
 	    function createmodal()
 	    {
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(138),
+	          template: __webpack_require__(144),
 	          controller: 'createaccount',
 	          resolve: {
 	            code : function(){
@@ -60633,7 +64211,7 @@
 	    function editmodal(id){
 
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(139),
+	          template: __webpack_require__(145),
 	          controller: 'editaccount',
 	          resolve: {
 	            id : function(){
@@ -60673,19 +64251,19 @@
 	};
 
 /***/ },
-/* 138 */
+/* 144 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n<div class=\"modal-header\">\r\n    <h4 class=\"modal-title\">用户信息</h4>\r\n</div>\r\n<div class=\"modal-body\">\r\n\r\n    <div class=\"container-fluid\">\r\n        \r\n        <form class=\"col-xs-11 col-xs-offset-1 form-horizontal\" >\r\n    \r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">登录名</label>\r\n                <div class=\"col-xs-6 form-horizontal\">\r\n                    <span class=\"col-sm-4 control-label\" \r\n                    style=\"padding-left: 0px; padding-right: 0px;\" \r\n                    >{{company.code}} + </span>\r\n                    <div class=\"col-sm-8\" style=\"padding-left: 0px;\" >\r\n                      <input type=\"text\" \r\n                        class=\"form-control\" placeholder=\"必填\"\r\n                        ng-model=\"obj.loginName\" \r\n                        >\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">密码</label>\r\n                <div class=\"col-xs-6\">\r\n                    <p class=\"form-control-static text-danger\">默认'000000'请尽快修改</p>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">姓名</label>\r\n                <div class=\"col-xs-6\">\r\n                    <input type=\"text\" \r\n                    class=\"form-control\" placeholder=\"必填\"\r\n                    ng-model=\"obj.name\"\r\n                    >\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">电话</label>\r\n                <div class=\"col-xs-6\">\r\n                    <input type=\"text\" class=\"form-control\"\r\n                    ng-model=\"obj.phone\"\r\n                    >\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">备注</label>\r\n                <div class=\"col-xs-6\">\r\n                    <input type=\"text\" class=\"form-control\"\r\n                    ng-model=\"obj.remarks\"\r\n                    >\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">角色</label>\r\n                <div class=\"col-xs-6 \">\r\n                    <div class=\"checkbox\" ng-repeat=\"obj in objs\">\r\n                      <label>\r\n                        <input type=\"checkbox\" name=\"role\" value=\"{{obj.id}}\"\r\n                        ng-click=\"selection($event,obj)\"\r\n                        >\r\n                        {{obj.name}}\r\n                      </label>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n        </form>\r\n\r\n    </div>\r\n    \r\n</div>\r\n<div class=\"modal-footer\">\r\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\r\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\r\n</div>\r\n"
+	module.exports = "\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">用户信息</h4>\n</div>\n<div class=\"modal-body\">\n\n    <div class=\"container-fluid\">\n        \n        <form class=\"col-xs-11 col-xs-offset-1 form-horizontal\" >\n    \n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">登录名</label>\n                <div class=\"col-xs-6 form-horizontal\">\n                    <span class=\"col-sm-4 control-label\" \n                    style=\"padding-left: 0px; padding-right: 0px;\" \n                    >{{company.code}} + </span>\n                    <div class=\"col-sm-8\" style=\"padding-left: 0px;\" >\n                      <input type=\"text\" \n                        class=\"form-control\" placeholder=\"必填\"\n                        ng-model=\"obj.loginName\" \n                        >\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">密码</label>\n                <div class=\"col-xs-6\">\n                    <p class=\"form-control-static text-danger\">默认'000000'请尽快修改</p>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">姓名</label>\n                <div class=\"col-xs-6\">\n                    <input type=\"text\" \n                    class=\"form-control\" placeholder=\"必填\"\n                    ng-model=\"obj.name\"\n                    >\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">电话</label>\n                <div class=\"col-xs-6\">\n                    <input type=\"text\" class=\"form-control\"\n                    ng-model=\"obj.phone\"\n                    >\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">备注</label>\n                <div class=\"col-xs-6\">\n                    <input type=\"text\" class=\"form-control\"\n                    ng-model=\"obj.remarks\"\n                    >\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">角色</label>\n                <div class=\"col-xs-6 \">\n                    <div class=\"checkbox\" ng-repeat=\"obj in objs\">\n                      <label>\n                        <input type=\"checkbox\" name=\"role\" value=\"{{obj.id}}\"\n                        ng-click=\"selection($event,obj)\"\n                        >\n                        {{obj.name}}\n                      </label>\n                    </div>\n                </div>\n            </div>\n\n        </form>\n\n    </div>\n    \n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n"
 
 /***/ },
-/* 139 */
+/* 145 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n<div class=\"modal-header\">\r\n    <h4 class=\"modal-title\">用户信息</h4>\r\n</div>\r\n<div class=\"modal-body\">\r\n\r\n    <div class=\"container-fluid\">\r\n        \r\n        <form class=\"col-xs-11 col-xs-offset-1 form-horizontal\" >\r\n    \r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">登录名</label>\r\n                <div class=\"col-xs-6 form-horizontal\">\r\n                    <p class=\"form-control-static\">{{obj.loginName}}</p>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">姓名</label>\r\n                <div class=\"col-xs-6\">\r\n                    <input type=\"text\" \r\n                    class=\"form-control\" placeholder=\"必填\"\r\n                    ng-model=\"obj.name\"\r\n                    >\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">电话</label>\r\n                <div class=\"col-xs-6\">\r\n                    <input type=\"text\" class=\"form-control\"\r\n                    ng-model=\"obj.phone\"\r\n                    >\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">备注</label>\r\n                <div class=\"col-xs-6\">\r\n                    <input type=\"text\" class=\"form-control\"\r\n                    ng-model=\"obj.remarks\"\r\n                    >\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">角色</label>\r\n                <div class=\"col-xs-6 \">\r\n                    <div class=\"checkbox\" ng-repeat=\"roleobj in objs\">\r\n                      <label>\r\n                        <input type=\"checkbox\" name=\"role\" value=\"{{roleobj.id}}\"\r\n                        ng-click=\"selection($event,roleobj)\"\r\n                        ng-checked=\"roleobj.iselected == 1\"\r\n                        >\r\n                        {{roleobj.name}}\r\n                      </label>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n        </form>\r\n\r\n    </div>\r\n    \r\n</div>\r\n<div class=\"modal-footer\">\r\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\r\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\r\n</div>\r\n"
+	module.exports = "\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">用户信息</h4>\n</div>\n<div class=\"modal-body\">\n\n    <div class=\"container-fluid\">\n        \n        <form class=\"col-xs-11 col-xs-offset-1 form-horizontal\" >\n    \n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">登录名</label>\n                <div class=\"col-xs-6 form-horizontal\">\n                    <p class=\"form-control-static\">{{obj.loginName}}</p>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">姓名</label>\n                <div class=\"col-xs-6\">\n                    <input type=\"text\" \n                    class=\"form-control\" placeholder=\"必填\"\n                    ng-model=\"obj.name\"\n                    >\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">电话</label>\n                <div class=\"col-xs-6\">\n                    <input type=\"text\" class=\"form-control\"\n                    ng-model=\"obj.phone\"\n                    >\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">备注</label>\n                <div class=\"col-xs-6\">\n                    <input type=\"text\" class=\"form-control\"\n                    ng-model=\"obj.remarks\"\n                    >\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">角色</label>\n                <div class=\"col-xs-6 \">\n                    <div class=\"checkbox\" ng-repeat=\"roleobj in objs\">\n                      <label>\n                        <input type=\"checkbox\" name=\"role\" value=\"{{roleobj.id}}\"\n                        ng-click=\"selection($event,roleobj)\"\n                        ng-checked=\"roleobj.iselected == 1\"\n                        >\n                        {{roleobj.name}}\n                      </label>\n                    </div>\n                </div>\n            </div>\n\n        </form>\n\n    </div>\n    \n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n"
 
 /***/ },
-/* 140 */
+/* 146 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $uibModalInstance, create, code, officeid, officename, role){
@@ -60782,7 +64360,7 @@
 	};
 
 /***/ },
-/* 141 */
+/* 147 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, changepassword){
@@ -60811,7 +64389,7 @@
 	};
 
 /***/ },
-/* 142 */
+/* 148 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $uibModalInstance, id, role, info, create, officeid, officename){
@@ -60920,7 +64498,7 @@
 	};
 
 /***/ },
-/* 143 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60930,10 +64508,10 @@
 
 	var App = angular.module('member', []);
 
-	App.config(__webpack_require__(144));
-	App.factory('memberservice', __webpack_require__(146));
+	App.config(__webpack_require__(150));
+	App.factory('memberservice', __webpack_require__(152));
 
-	App.controller('unicomuser',__webpack_require__(147));
+	App.controller('unicomuser',__webpack_require__(153));
 	// App.controller('doccreate',require('./controllers/module'));
 	// App.controller('doc',require('./controllers/doc'));
 	// App.controller('info',require('./controllers/info'));
@@ -60942,7 +64520,7 @@
 	module.exports = App;
 
 /***/ },
-/* 144 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -60957,7 +64535,7 @@
 	 	  .state('app.juyoumember', {
 	        url: '/unicomuser',
 	        controller : 'unicomuser',
-	        template: __webpack_require__(145),
+	        template: __webpack_require__(151),
 	        resolve:{
 	            userinfo : function(memberservice){
 	                return memberservice.userinfo();
@@ -60981,13 +64559,13 @@
 	module.exports = router;
 
 /***/ },
-/* 145 */
+/* 151 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n                <label>手机号</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" >\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                <label>\r\n                  <input type=\"checkbox\" ng-model=\"usedate\" \r\n                    ng-true-value=\"1\" ng-false-value=\"0\"\r\n                  >\r\n                  查询时间</label>&nbsp;&nbsp;\r\n\r\n                <div class=\"input-group\">\r\n                <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n                    <span class=\"input-group-btn\">\r\n                      <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                    </span>\r\n                </div>\r\n                      &nbsp;&nbsp;到&nbsp;&nbsp;            \r\n                <div class=\"input-group\">\r\n                <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n                    <span class=\"input-group-btn\">\r\n                      <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                    </span>\r\n                </span>\r\n                </div>\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-4 text-center\">查询手机号</th>\r\n        <th class=\"col-md-4 text-center\">查询时间</th>\r\n        <th class=\"col-md-4 text-center\">查询结果</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.mobile}}</td>\r\n        <td class=\"text-center\">{{obj.date}}</td>\r\n        <td class=\"text-center\">{{msg[obj.status]}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  \r\n\r\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>手机号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n\n                <label>\n                  <input type=\"checkbox\" ng-model=\"usedate\" \n                    ng-true-value=\"1\" ng-false-value=\"0\"\n                  >\n                  查询时间</label>&nbsp;&nbsp;\n\n                <div class=\"input-group\">\n                <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                    <span class=\"input-group-btn\">\n                      <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                    </span>\n                </div>\n                      &nbsp;&nbsp;到&nbsp;&nbsp;            \n                <div class=\"input-group\">\n                <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                    <span class=\"input-group-btn\">\n                      <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                    </span>\n                </span>\n                </div>\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-4 text-center\">查询手机号</th>\n        <th class=\"col-md-4 text-center\">查询时间</th>\n        <th class=\"col-md-4 text-center\">查询结果</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.mobile}}</td>\n        <td class=\"text-center\">{{obj.date}}</td>\n        <td class=\"text-center\">{{msg[obj.status]}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
 
 /***/ },
-/* 146 */
+/* 152 */
 /***/ function(module, exports) {
 
 	/**
@@ -61014,7 +64592,7 @@
 	module.exports = service;
 
 /***/ },
-/* 147 */
+/* 153 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, userinfo, getDate){
@@ -61072,7 +64650,7 @@
 	};
 
 /***/ },
-/* 148 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61082,15 +64660,15 @@
 
 	var App = angular.module('sale', []);
 
-	App.config(__webpack_require__(149));
-	App.factory('sellingservice', __webpack_require__(154));
+	App.config(__webpack_require__(155));
+	App.factory('sellingservice', __webpack_require__(160));
 
-	App.controller('selling',__webpack_require__(155));
-	App.controller('sellinggroup',__webpack_require__(156));
-	App.controller('sellinggroupcreate',__webpack_require__(157));
-	App.controller('sellinggroupupdate',__webpack_require__(159));
-	App.controller('sellingdetail',__webpack_require__(160));
-	App.controller('saledetail',__webpack_require__(161));
+	App.controller('selling',__webpack_require__(161));
+	App.controller('sellinggroup',__webpack_require__(162));
+	App.controller('sellinggroupcreate',__webpack_require__(163));
+	App.controller('sellinggroupupdate',__webpack_require__(165));
+	App.controller('sellingdetail',__webpack_require__(166));
+	App.controller('saledetail',__webpack_require__(167));
 	// App.controller('doccreate',require('./controllers/module'));
 	// App.controller('doc',require('./controllers/doc'));
 	// App.controller('info',require('./controllers/info'));
@@ -61099,7 +64677,7 @@
 	module.exports = App;
 
 /***/ },
-/* 149 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -61114,7 +64692,7 @@
 	 	  .state('app.selling', {
 	        url: '/selling/:type',
 	        controller : 'selling',
-	        template: __webpack_require__(150),
+	        template: __webpack_require__(156),
 	        resolve:{
 	            namelist : function(sellingservice){
 	                return sellingservice.namelist();
@@ -61141,7 +64719,7 @@
 	      .state('app.sellinggroup', {
 	        url: '/sellinggroup/:type',
 	        controller : 'sellinggroup',
-	        template: __webpack_require__(151),
+	        template: __webpack_require__(157),
 	        resolve:{
 	            grouplist : function(sellingservice){
 	                return sellingservice.grouplist();
@@ -61163,7 +64741,7 @@
 	      .state('app.createsellinggroup', {
 	        url: '/createsellinggroup',
 	        controller : 'sellinggroupcreate',
-	        template: __webpack_require__(152),
+	        template: __webpack_require__(158),
 	        resolve:{
 	            groupsalelist : function(sellingservice){
 	                return sellingservice.groupsalelist;
@@ -61186,7 +64764,7 @@
 	      .state('app.editsellinggroup', {
 	        url: '/editsellinggroup/:code',
 	        controller : 'sellinggroupupdate',
-	        template: __webpack_require__(152),
+	        template: __webpack_require__(158),
 	        resolve:{
 	            groupsalelist : function(sellingservice){
 	                return sellingservice.groupsalelist;
@@ -61209,7 +64787,7 @@
 	      .state('app.sellingdetail', {
 	        url: '/sellingdetail/:code',
 	        controller : 'sellingdetail',
-	        template: __webpack_require__(153),
+	        template: __webpack_require__(159),
 	        resolve:{
 	            groupdetail : function(sellingservice){
 	                return sellingservice.groupdetail();
@@ -61224,31 +64802,31 @@
 	module.exports = router;
 
 /***/ },
-/* 150 */
+/* 156 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- Nested node template -->\r\n<script type=\"text/ng-template\" id=\"nodes_renderer.html\">\r\n  <div ui-tree-handle class=\"tree-node tree-node-content\"\r\n    ng-click=\"getit(this)\" \r\n    ng-class=\"{'unavailable': node.unavailable, 'selected' : obj.id != undefined && node.id != undefined && obj.id == node.id} \"\r\n    ng-show=\"visible(this)\"\r\n  >\r\n    <a class=\"btn btn-success btn-xs\" ng-if=\"node.nodes && node.nodes.length > 0\" \r\n    data-nodrag ng-click=\"toggle(this)\" >\r\n    <span class=\"glyphicon\"\r\n        ng-class=\"{\r\n          'glyphicon-chevron-right': collapsed,\r\n          'glyphicon-chevron-down': !collapsed\r\n        }\"></span></a>&nbsp;\r\n    {{node.name}}\r\n    <p class=\"text-right\" style=\"margin-top: 5px;margin-bottom: 0px;\">\r\n      \r\n      <small ng-show=\"node.guide_price != undefined\">\r\n        成本价{{node.cost_price * 0.01 | currency : '¥'}} \r\n      </small>\r\n      <small ng-show=\"node.guide_price != undefined\">\r\n        指导价{{node.guide_price * 0.01 | currency : '¥'}} \r\n      </small>\r\n      <small ng-show=\"node.market_price != undefined\">\r\n        门市价{{node.market_price * 0.01 | currency : '¥'}}\r\n      </small>\r\n      <small ng-show=\"node.govsubsidy_price != undefined && node.govsubsidy_price != -1\">\r\n        政府补贴{{node.govsubsidy_price * 0.01 | currency : '¥'}} \r\n      </small>\r\n    </p>\r\n\r\n  </div>\r\n  <ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\" >\r\n    <li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'nodes_renderer.html'\"\r\n      >\r\n    </li>\r\n  </ol>\r\n</script>\r\n\r\n\r\n<!-- Nested node template -->\r\n<!-- <script type=\"text/ng-template\" id=\"nodes_renderer.html\">\r\n  <div ui-tree-handle class=\"tree-node tree-node-content\">\r\n    <a class=\"btn btn-success btn-xs\" data-nodrag ng-click=\"toggle(this)\">\r\n      <span class=\"glyphicon\"\r\n            ng-class=\"{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}\">\r\n      </span>\r\n    </a>\r\n    {{node.name}}\r\n    <a class=\"pull-right btn btn-danger btn-xs\" data-nodrag ng-click=\"remove(this)\"><span\r\n        class=\"glyphicon glyphicon-remove\"></span></a>\r\n    <a class=\"pull-right btn btn-primary btn-xs\" data-nodrag ng-click=\"newSubItem(this)\" style=\"margin-right: 8px;\"><span\r\n        class=\"glyphicon glyphicon-plus\"></span></a>\r\n  </div>\r\n  <ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\">\r\n    <li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'nodes_renderer.html'\" ng-show=\"visible(node)\">\r\n    </li>\r\n  </ol>\r\n</script> -->\r\n\r\n\r\n\r\n<div class=\"col-sm-12\" ng-show=\"sale_category == 'F11'\">\r\n<div class=\"panel panel-default\">\r\n  <div class=\"panel-body\">\r\n      <div class=\"form-group form-inline\">\r\n          <div class=\"col-sm-4\">\r\n              <label>电话</label>&nbsp;&nbsp;\r\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" >\r\n              &nbsp;&nbsp;&nbsp;&nbsp;\r\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"search()\">立即搜索</button>\r\n          </div>\r\n          <div class=\"col-sm-8\" >\r\n              <p class=\"bg-info\" style=\"padding: 10px;\">\r\n                &nbsp;{{userinfo}}\r\n              </p>\r\n          </div>\r\n      </div>\r\n  </div>\r\n</div><!-- searchArea -->\r\n</div>\r\n\r\n\r\n\r\n<div class=\"row\">\r\n\r\n  <div class=\"col-sm-5\" style=\"height:550px; overflow: auto; \">\r\n    <div class=\"row form-horizontal\">\r\n      <label class=\"col-xs-3 control-label text-right\">景区搜索</label>\r\n      <div class=\"col-xs-9\">\r\n        <input type=\"text\" class=\"form-control\" \r\n          ng-model=\"query\" ng-change=\"findNodes()\">\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div ui-tree id=\"tree-root\" data-nodrop-enabled=\"true\" \r\n    data-drag-enabled=\"false\" >\r\n      <ol ui-tree-nodes ng-model=\"data\">\r\n        <li ng-repeat=\"node in data\" ui-tree-node ng-include=\"'nodes_renderer.html'\"\r\n          ng-show=\"visible(node)\"\r\n        ></li>\r\n      </ol>\r\n    </div>\r\n\r\n    <!-- <div ui-tree id=\"tree-root\">\r\n      <ol ui-tree-nodes=\"\" ng-model=\"data\">\r\n        <li ng-repeat=\"node in data\" ui-tree-node ng-include=\"'nodes_renderer.html'\" ng-show=\"visible(node)\"></li>\r\n      </ol>\r\n    </div> -->\r\n\r\n\r\n  </div>\r\n\r\n  <div class=\"row col-sm-7\" ng-show=\"show == true\">\r\n\r\n    <div class=\"panel panel-success \" >\r\n    <div class=\"panel-heading \">{{obj.name}} \r\n    <!-- (需要提前 <span class=\"bhour\"></span> 小时购票)--></div> \r\n    <div class=\"panel-body addTicketForm\">\r\n      <div class=\"input-group\">\r\n        <span class=\"input-group-addon\" >身份证号</span>\r\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.cardno\" \r\n          ng-disabled=\"sale_category == 'F11'\">\r\n      </div>\r\n      <div class=\"input-group mt20\">\r\n        <span class=\"input-group-addon\" >游客姓名</span>\r\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.name\" \r\n          ng-disabled=\"sale_category == 'F11'\">\r\n      </div>\r\n      <div class=\"input-group mt20\">\r\n        <span class=\"input-group-addon\" >联系电话</span>\r\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.mobile\" \r\n          ng-disabled=\"sale_category == 'F11'\">\r\n      </div>\r\n      <div class=\"input-group num mt20\">\r\n        <span class=\"input-group-addon\">购票数量</span>\r\n          <button type=\"button\" class=\"btn btn-default jian \"\r\n          ng-click=\"jian()\"\r\n          >-</button>\r\n          <input  type=\"text\"   class=\"kuang\" ng-model=\"order.num\" >\r\n          <button type=\"button\" class=\"btn btn-default jia\"\r\n          ng-click=\"jia()\"\r\n          >+</button>\r\n      </div>\r\n      <div class=\"input-group mt20\">\r\n        <span class=\"input-group-addon\">备注信息</span>\r\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.note\" >\r\n      </div>\r\n      <button type=\"button\" class=\"btn btn-info btn-block mt20\" \r\n        ng-click=\"gogo()\" ng-disabled=\"!btnstate\"\r\n      >确认购票</button>\r\n    </div>\r\n  </div>\r\n\r\n  \r\n  <div class=\"panel panel-success\">\r\n      <div class=\"panel-heading\">预定需知</div>\r\n      <div class=\"panel-body tinfo\">\r\n        <p ng-bind-html=\"obj.detail | trustHtml\"></p>\r\n      </div>\r\n  </div>\r\n\r\n  </div>\r\n</div>"
+	module.exports = "<!-- Nested node template -->\n<script type=\"text/ng-template\" id=\"nodes_renderer.html\">\n  <div ui-tree-handle class=\"tree-node tree-node-content\"\n    ng-click=\"getit(this)\" \n    ng-class=\"{'unavailable': node.unavailable, 'selected' : obj.id != undefined && node.id != undefined && obj.id == node.id} \"\n    ng-show=\"visible(this)\"\n  >\n    <a class=\"btn btn-success btn-xs\" ng-if=\"node.nodes && node.nodes.length > 0\" \n    data-nodrag ng-click=\"toggle(this)\" >\n    <span class=\"glyphicon\"\n        ng-class=\"{\n          'glyphicon-chevron-right': collapsed,\n          'glyphicon-chevron-down': !collapsed\n        }\"></span></a>&nbsp;\n    {{node.name}}\n    <p class=\"text-right\" style=\"margin-top: 5px;margin-bottom: 0px;\">\n      \n      <small ng-show=\"node.guide_price != undefined\">\n        成本价{{node.cost_price * 0.01 | currency : '¥'}} \n      </small>\n      <small ng-show=\"node.guide_price != undefined\">\n        指导价{{node.guide_price * 0.01 | currency : '¥'}} \n      </small>\n      <small ng-show=\"node.market_price != undefined\">\n        门市价{{node.market_price * 0.01 | currency : '¥'}}\n      </small>\n      <small ng-show=\"node.govsubsidy_price != undefined && node.govsubsidy_price != -1\">\n        政府补贴{{node.govsubsidy_price * 0.01 | currency : '¥'}} \n      </small>\n    </p>\n\n  </div>\n  <ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\" >\n    <li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'nodes_renderer.html'\"\n      >\n    </li>\n  </ol>\n</script>\n\n\n<!-- Nested node template -->\n<!-- <script type=\"text/ng-template\" id=\"nodes_renderer.html\">\n  <div ui-tree-handle class=\"tree-node tree-node-content\">\n    <a class=\"btn btn-success btn-xs\" data-nodrag ng-click=\"toggle(this)\">\n      <span class=\"glyphicon\"\n            ng-class=\"{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}\">\n      </span>\n    </a>\n    {{node.name}}\n    <a class=\"pull-right btn btn-danger btn-xs\" data-nodrag ng-click=\"remove(this)\"><span\n        class=\"glyphicon glyphicon-remove\"></span></a>\n    <a class=\"pull-right btn btn-primary btn-xs\" data-nodrag ng-click=\"newSubItem(this)\" style=\"margin-right: 8px;\"><span\n        class=\"glyphicon glyphicon-plus\"></span></a>\n  </div>\n  <ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\">\n    <li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'nodes_renderer.html'\" ng-show=\"visible(node)\">\n    </li>\n  </ol>\n</script> -->\n\n\n\n<div class=\"col-sm-12\" ng-show=\"sale_category == 'F11'\">\n<div class=\"panel panel-default\">\n  <div class=\"panel-body\">\n      <div class=\"form-group form-inline\">\n          <div class=\"col-sm-4\">\n              <label>电话</label>&nbsp;&nbsp;\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" >\n              &nbsp;&nbsp;&nbsp;&nbsp;\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"search()\">立即搜索</button>\n          </div>\n          <div class=\"col-sm-8\" >\n              <p class=\"bg-info\" style=\"padding: 10px;\">\n                &nbsp;{{userinfo}}\n              </p>\n          </div>\n      </div>\n  </div>\n</div><!-- searchArea -->\n</div>\n\n\n\n<div class=\"row\">\n\n  <div class=\"col-sm-5\" style=\"height:550px; overflow: auto; \">\n    <div class=\"row form-horizontal\">\n      <label class=\"col-xs-3 control-label text-right\">景区搜索</label>\n      <div class=\"col-xs-9\">\n        <input type=\"text\" class=\"form-control\" \n          ng-model=\"query\" ng-change=\"findNodes()\">\n      </div>\n    </div>\n\n\n    <div ui-tree id=\"tree-root\" data-nodrop-enabled=\"true\" \n    data-drag-enabled=\"false\" >\n      <ol ui-tree-nodes ng-model=\"data\">\n        <li ng-repeat=\"node in data\" ui-tree-node ng-include=\"'nodes_renderer.html'\"\n          ng-show=\"visible(node)\"\n        ></li>\n      </ol>\n    </div>\n\n    <!-- <div ui-tree id=\"tree-root\">\n      <ol ui-tree-nodes=\"\" ng-model=\"data\">\n        <li ng-repeat=\"node in data\" ui-tree-node ng-include=\"'nodes_renderer.html'\" ng-show=\"visible(node)\"></li>\n      </ol>\n    </div> -->\n\n\n  </div>\n\n  <div class=\"row col-sm-7\" ng-show=\"show == true\">\n\n    <div class=\"panel panel-success \" >\n    <div class=\"panel-heading \">{{obj.name}} \n    <!-- (需要提前 <span class=\"bhour\"></span> 小时购票)--></div> \n    <div class=\"panel-body addTicketForm\">\n      <div class=\"input-group\">\n        <span class=\"input-group-addon\" >身份证号</span>\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.cardno\" \n          ng-disabled=\"sale_category == 'F11'\">\n      </div>\n      <div class=\"input-group mt20\">\n        <span class=\"input-group-addon\" >游客姓名</span>\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.name\" \n          ng-disabled=\"sale_category == 'F11'\">\n      </div>\n      <div class=\"input-group mt20\">\n        <span class=\"input-group-addon\" >联系电话</span>\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.mobile\" \n          ng-disabled=\"sale_category == 'F11'\">\n      </div>\n      <div class=\"input-group num mt20\">\n        <span class=\"input-group-addon\">购票数量</span>\n          <button type=\"button\" class=\"btn btn-default jian \"\n          ng-click=\"jian()\"\n          >-</button>\n          <input  type=\"text\"   class=\"kuang\" ng-model=\"order.num\" >\n          <button type=\"button\" class=\"btn btn-default jia\"\n          ng-click=\"jia()\"\n          >+</button>\n      </div>\n      <div class=\"input-group mt20\">\n        <span class=\"input-group-addon\">备注信息</span>\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.note\" >\n      </div>\n      <button type=\"button\" class=\"btn btn-info btn-block mt20\" \n        ng-click=\"gogo()\" ng-disabled=\"!btnstate\"\n      >确认购票</button>\n    </div>\n  </div>\n\n  \n  <div class=\"panel panel-success\">\n      <div class=\"panel-heading\">预定需知</div>\n      <div class=\"panel-body tinfo\">\n        <p ng-bind-html=\"obj.detail | trustHtml\"></p>\n      </div>\n  </div>\n\n  </div>\n</div>"
 
 /***/ },
-/* 151 */
+/* 157 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n\r\n\t<div class=\"panel panel-default\">\r\n\t    <div class=\"panel-body\">\r\n\t        <div class=\"form-group form-inline\">\r\n\t            <div class=\"col-sm-10\">\r\n\t                <label>出游时间</label>&nbsp;&nbsp;\r\n\t                <div class=\"input-group\">\r\n\t                \t<input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n\t                    <span class=\"input-group-btn\">\r\n\t                      <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n\t                    </span>\r\n\t                </div>\r\n\t                &nbsp;&nbsp;&nbsp;&nbsp;\r\n\t                <label>导游姓名</label>&nbsp;&nbsp;\r\n\t                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_name\" >\r\n\t                &nbsp;&nbsp;&nbsp;&nbsp;\r\n\t                <label>导游电话</label>&nbsp;&nbsp;\r\n\t                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_mobile\" >\r\n\t                &nbsp;&nbsp;&nbsp;&nbsp;\r\n\t                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n\t            </div>\r\n\t            <div class=\"col-sm-2 text-right\">\r\n\t                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建团订单</button>\r\n\t            </div>\r\n\t        </div>\r\n\t    </div>\r\n\t</div> <!--searchArea -->\r\n\t\t\r\n\t <!--<table class=\"table table-bordered text-center\">\r\n\t    <thead>\r\n\t      <tr>\r\n\t        <th class=\"text-center\">预订人数</th>\r\n\t\t\t<th class=\"text-center\">实际人数</th>\r\n\t\t\t<th class=\"text-center col-md-1\">出游时间</th>\r\n\t\t\t<th class=\"text-center col-md-2\">预订团票</th>\r\n\t\t\t<th class=\"text-center\">导游姓名</th>\r\n\t\t\t<th class=\"text-center\">导游电话</th>\r\n\t\t\t<th class=\"text-center\">导游车牌号</th>\r\n\t\t\t<th class=\"text-center col-md-2\">备注信息</th>\r\n\t\t\t<th class=\"text-center col-md-1\">最后操作时间</th>\r\n\t\t\t<th class=\"text-center col-md-1\">最后操作人</th>\r\n\t\t\t<th class=\"text-center col-md-2\">操作</th>\r\n\t      </tr>\r\n\t    </thead>\r\n\t    <tbody>\r\n\t      <tr ng-repeat=\"obj in objs\">\r\n\t        <td class=\"text-center\">{{obj.book_count}}</td>\r\n\t        <td class=\"text-center\">{{obj.actual_count}}</td>\r\n\t        <td class=\"text-center\">{{obj.arrival_date}}</td>\r\n\t        <td class=\"\">{{obj.order_name}}</td>\r\n\t        <td class=\"text-center\">{{obj.guide_name}}</td>\r\n\t        <td class=\"text-center\">{{obj.guide_mobile}}</td>\r\n\t        <td class=\"text-center\">{{obj.vehicle_number}}</td>\r\n\t        <td class=\"text-center\">{{obj.remark}}</td>\r\n\t        <td class=\"text-center\">{{obj.update_time}}</td>\r\n\t        <td class=\"text-center\">{{obj.update_by}}</td>\r\n\t\t\t<td class=\"text-center\">\r\n\t\t\t\t<a ng-click=\"edit(obj.code)\" class=\"btn btn-success btn-sm\">编辑</a>\r\n\t\t        <a ng-click=\"del(obj.code)\" class=\"btn btn-danger btn-sm\">删除</a>\r\n\t\t        <a ng-click=\"detail(obj.code)\" class=\"btn btn-info btn-sm\">详情</a>\r\n\t        </td>\r\n\t      </tr>\r\n\t    </tbody>\r\n\t  </table>-->\r\n\r\n\t  <table class=\"table table-bordered\">\r\n\t    <thead>\r\n\t      <tr>\r\n\t        <th class=\"col-md-2 text-center\">出游信息</th>\r\n\t        <th class=\"text-center\">预定团票</th>\r\n\t        <th class=\"col-md-2 text-center\">导游信息</th>\r\n\t        <th class=\"col-md-2 text-center\">备注</th>\r\n\t        <th class=\"col-md-1 text-center\">最后操作时间</th>\r\n\t        <th class=\"col-md-1 text-center\">最后操作人</th>\r\n\t        <th class=\"col-md-2 text-center\">操作</th>\r\n\t      </tr>\r\n\t    </thead>\r\n\t    <tbody>\r\n\t      <tr ng-repeat=\"obj in objs\">\r\n\t        <td class=\"text-center\">[{{obj.book_count}}人][{{obj.actual_count}}人][{{obj.arrival_date}}]</td>\r\n\t        <td class=\"\">{{obj.order_name}}</td>\r\n\t        <td class=\"text-center\">[{{obj.guide_name}}][{{obj.guide_mobile}}][{{obj.vehicle_number}}]</td>\r\n\t        <td class=\"text-center\">{{obj.remark}}</td>\r\n\t        <td class=\"text-center\">{{obj.update_time}}</td>\r\n\t        <td class=\"text-center\">{{obj.update_by}}</td>\r\n\t\t\t<td class=\"text-center\">\r\n\t\t\t\t<a ng-click=\"edit(obj.code)\" class=\"btn btn-success btn-sm\">编辑</a>\r\n\t\t        <a ng-click=\"del(obj.code)\" class=\"btn btn-danger btn-sm\">删除</a>\r\n\t\t        <a ng-click=\"detail(obj.code)\" class=\"btn btn-info btn-sm\">详情</a>\r\n\t        </td>\r\n\t      </tr>\r\n\t    </tbody>\r\n\t  </table>\r\n\r\n\t  <div class=\"text-right\">\r\n\r\n\t    <uib-pagination \r\n\t      total-items=\"bigTotalItems\" \r\n\t      ng-model=\"bigCurrentPage\" \r\n\t      max-size=\"maxSize\" \r\n\t      class=\"pagination-sm\" \r\n\t      boundary-links=\"true\" \r\n\t      ng-change=\"load()\"\r\n\t      items-per-page=\"itemsPerPage\"\r\n\t      previous-text=\"上一页\"\r\n\t      next-text=\"下一页\"\r\n\t      first-text=\"首页\"\r\n\t      last-text=\"末页\"\r\n\t      rotate=\"false\">\r\n\t    </uib-pagination>\r\n\r\n\t  </div>\r\n  \r\n</div>\r\n"
+	module.exports = "<div class=\"col-sm-12\">\n\n\t<div class=\"panel panel-default\">\n\t    <div class=\"panel-body\">\n\t        <div class=\"form-group form-inline\">\n\t            <div class=\"col-sm-10\">\n\t                <label>出游时间</label>&nbsp;&nbsp;\n\t                <div class=\"input-group\">\n\t                \t<input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t                    <span class=\"input-group-btn\">\n\t                      <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t                    </span>\n\t                </div>\n\t                &nbsp;&nbsp;&nbsp;&nbsp;\n\t                <label>导游姓名</label>&nbsp;&nbsp;\n\t                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_name\" >\n\t                &nbsp;&nbsp;&nbsp;&nbsp;\n\t                <label>导游电话</label>&nbsp;&nbsp;\n\t                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_mobile\" >\n\t                &nbsp;&nbsp;&nbsp;&nbsp;\n\t                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n\t            </div>\n\t            <div class=\"col-sm-2 text-right\">\n\t                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建团订单</button>\n\t            </div>\n\t        </div>\n\t    </div>\n\t</div> <!--searchArea -->\n\t\t\n\t <!--<table class=\"table table-bordered text-center\">\n\t    <thead>\n\t      <tr>\n\t        <th class=\"text-center\">预订人数</th>\n\t\t\t<th class=\"text-center\">实际人数</th>\n\t\t\t<th class=\"text-center col-md-1\">出游时间</th>\n\t\t\t<th class=\"text-center col-md-2\">预订团票</th>\n\t\t\t<th class=\"text-center\">导游姓名</th>\n\t\t\t<th class=\"text-center\">导游电话</th>\n\t\t\t<th class=\"text-center\">导游车牌号</th>\n\t\t\t<th class=\"text-center col-md-2\">备注信息</th>\n\t\t\t<th class=\"text-center col-md-1\">最后操作时间</th>\n\t\t\t<th class=\"text-center col-md-1\">最后操作人</th>\n\t\t\t<th class=\"text-center col-md-2\">操作</th>\n\t      </tr>\n\t    </thead>\n\t    <tbody>\n\t      <tr ng-repeat=\"obj in objs\">\n\t        <td class=\"text-center\">{{obj.book_count}}</td>\n\t        <td class=\"text-center\">{{obj.actual_count}}</td>\n\t        <td class=\"text-center\">{{obj.arrival_date}}</td>\n\t        <td class=\"\">{{obj.order_name}}</td>\n\t        <td class=\"text-center\">{{obj.guide_name}}</td>\n\t        <td class=\"text-center\">{{obj.guide_mobile}}</td>\n\t        <td class=\"text-center\">{{obj.vehicle_number}}</td>\n\t        <td class=\"text-center\">{{obj.remark}}</td>\n\t        <td class=\"text-center\">{{obj.update_time}}</td>\n\t        <td class=\"text-center\">{{obj.update_by}}</td>\n\t\t\t<td class=\"text-center\">\n\t\t\t\t<a ng-click=\"edit(obj.code)\" class=\"btn btn-success btn-sm\">编辑</a>\n\t\t        <a ng-click=\"del(obj.code)\" class=\"btn btn-danger btn-sm\">删除</a>\n\t\t        <a ng-click=\"detail(obj.code)\" class=\"btn btn-info btn-sm\">详情</a>\n\t        </td>\n\t      </tr>\n\t    </tbody>\n\t  </table>-->\n\n\t  <table class=\"table table-bordered\">\n\t    <thead>\n\t      <tr>\n\t        <th class=\"col-md-2 text-center\">出游信息</th>\n\t        <th class=\"text-center\">预定团票</th>\n\t        <th class=\"col-md-2 text-center\">导游信息</th>\n\t        <th class=\"col-md-2 text-center\">备注</th>\n\t        <th class=\"col-md-1 text-center\">最后操作时间</th>\n\t        <th class=\"col-md-1 text-center\">最后操作人</th>\n\t        <th class=\"col-md-2 text-center\">操作</th>\n\t      </tr>\n\t    </thead>\n\t    <tbody>\n\t      <tr ng-repeat=\"obj in objs\">\n\t        <td class=\"text-center\">[{{obj.book_count}}人][{{obj.actual_count}}人][{{obj.arrival_date}}]</td>\n\t        <td class=\"\">{{obj.order_name}}</td>\n\t        <td class=\"text-center\">[{{obj.guide_name}}][{{obj.guide_mobile}}][{{obj.vehicle_number}}]</td>\n\t        <td class=\"text-center\">{{obj.remark}}</td>\n\t        <td class=\"text-center\">{{obj.update_time}}</td>\n\t        <td class=\"text-center\">{{obj.update_by}}</td>\n\t\t\t<td class=\"text-center\">\n\t\t\t\t<a ng-click=\"edit(obj.code)\" class=\"btn btn-success btn-sm\">编辑</a>\n\t\t        <a ng-click=\"del(obj.code)\" class=\"btn btn-danger btn-sm\">删除</a>\n\t\t        <a ng-click=\"detail(obj.code)\" class=\"btn btn-info btn-sm\">详情</a>\n\t        </td>\n\t      </tr>\n\t    </tbody>\n\t  </table>\n\n\t  <div class=\"text-right\">\n\n\t    <uib-pagination \n\t      total-items=\"bigTotalItems\" \n\t      ng-model=\"bigCurrentPage\" \n\t      max-size=\"maxSize\" \n\t      class=\"pagination-sm\" \n\t      boundary-links=\"true\" \n\t      ng-change=\"load()\"\n\t      items-per-page=\"itemsPerPage\"\n\t      previous-text=\"上一页\"\n\t      next-text=\"下一页\"\n\t      first-text=\"首页\"\n\t      last-text=\"末页\"\n\t      rotate=\"false\">\n\t    </uib-pagination>\n\n\t  </div>\n  \n</div>\n"
 
 /***/ },
-/* 152 */
+/* 158 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\r\n\t\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">出游人数</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入出游人数\"\r\n\t\t\tng-model=\"groupobj.book_count\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div ng-show=\"groupobjstate === 1\">\r\n\t\t<div class=\"form-group\">\r\n\t\t    <label class=\"col-xs-2 control-label\">出游时间</label>\r\n\t\t    <div class=\"col-xs-10\">\r\n\r\n\t\t\t    <p class=\"input-group col-xs-3 pull-left\">\r\n\t\t          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n\t\t          <span class=\"input-group-btn\">\r\n\t\t            <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n\t\t          </span>\r\n\t\t        </p>\r\n\r\n\t\t    </div>\r\n\t\t  </div>\r\n\r\n\t\t<div class=\"form-group\">\r\n\t\t\t<label class=\"col-xs-2 control-label\">预定团票</label>\r\n\t\t\t<div class=\"col-xs-5\">\r\n\t\t\t\t<select class=\"form-control\" ng-model=\"groupobj.sale_code\" \r\n\t              ng-options=\"sale.code as sale.name for sale in salearr\"\r\n\t            >\r\n\t            </select>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"col-xs-1\" style=\"margin-left:-5px;\">\r\n\t\t\t\t<a ng-click=\"detail()\" class=\"btn btn-info btn-sm\">团票简介</a>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div ng-show=\"groupobjstate === 0\">\r\n\t\t<div class=\"form-group\">\r\n\t\t    <label class=\"col-xs-2 control-label\">出游时间</label>\r\n\t\t    <div class=\"col-xs-10\">\r\n\t\t\t\t<p class=\"form-control-static\">{{groupobj.arrival_date}}</p>\r\n\t\t\t</div>\r\n\t\t  </div>\r\n\r\n\t\t<div class=\"form-group\">\r\n\t\t\t<label class=\"col-xs-2 control-label\">预定团票</label>\r\n\t\t    <div class=\"col-xs-10\">\r\n\t\t\t\t<p class=\"form-control-static\">{{groupobj.order_name}}</p>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">导游姓名</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入导游姓名\"\r\n\t\t\tng-model=\"groupobj.guide_name\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">导游电话</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入导游电话\"\r\n\t\t\tng-model=\"groupobj.guide_mobile\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">车牌号</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入车牌号\"\r\n\t\t\tng-model=\"groupobj.vehicle_number\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">备注</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<textarea class=\"form-control\" rows=\"3\"\r\n\t\t\tng-model=\"groupobj.remark\"\r\n\t\t\t></textarea>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<button \r\n    type=\"button\" \r\n    class=\"btn btn-primary btn-lg btn-block\" \r\n    ng-click=\"gogo()\"\r\n    >\r\n    提交\r\n    </button>\r\n\r\n\r\n</div>"
+	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\n\t\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">出游人数</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入出游人数\"\n\t\t\tng-model=\"groupobj.book_count\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div ng-show=\"groupobjstate === 1\">\n\t\t<div class=\"form-group\">\n\t\t    <label class=\"col-xs-2 control-label\">出游时间</label>\n\t\t    <div class=\"col-xs-10\">\n\n\t\t\t    <p class=\"input-group col-xs-3 pull-left\">\n\t\t          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t\t          <span class=\"input-group-btn\">\n\t\t            <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t\t          </span>\n\t\t        </p>\n\n\t\t    </div>\n\t\t  </div>\n\n\t\t<div class=\"form-group\">\n\t\t\t<label class=\"col-xs-2 control-label\">预定团票</label>\n\t\t\t<div class=\"col-xs-5\">\n\t\t\t\t<select class=\"form-control\" ng-model=\"groupobj.sale_code\" \n\t              ng-options=\"sale.code as sale.name for sale in salearr\"\n\t            >\n\t            </select>\n\t\t\t</div>\n\t\t\t<div class=\"col-xs-1\" style=\"margin-left:-5px;\">\n\t\t\t\t<a ng-click=\"detail()\" class=\"btn btn-info btn-sm\">团票简介</a>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t<div ng-show=\"groupobjstate === 0\">\n\t\t<div class=\"form-group\">\n\t\t    <label class=\"col-xs-2 control-label\">出游时间</label>\n\t\t    <div class=\"col-xs-10\">\n\t\t\t\t<p class=\"form-control-static\">{{groupobj.arrival_date}}</p>\n\t\t\t</div>\n\t\t  </div>\n\n\t\t<div class=\"form-group\">\n\t\t\t<label class=\"col-xs-2 control-label\">预定团票</label>\n\t\t    <div class=\"col-xs-10\">\n\t\t\t\t<p class=\"form-control-static\">{{groupobj.order_name}}</p>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">导游姓名</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入导游姓名\"\n\t\t\tng-model=\"groupobj.guide_name\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">导游电话</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入导游电话\"\n\t\t\tng-model=\"groupobj.guide_mobile\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">车牌号</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入车牌号\"\n\t\t\tng-model=\"groupobj.vehicle_number\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">备注</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<textarea class=\"form-control\" rows=\"3\"\n\t\t\tng-model=\"groupobj.remark\"\n\t\t\t></textarea>\n\t\t</div>\n\t</div>\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"gogo()\"\n    >\n    提交\n    </button>\n\n\n</div>"
 
 /***/ },
-/* 153 */
+/* 159 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-xs-12\" >\r\n\t<div class=\"panel panel-default form-horizontal\">\r\n\t\t<div class=\"panel-heading\">\r\n\t\t\t订单操作记录\r\n\t\t</div>\r\n\t\t<div class=\"panel-body\">\r\n\t\t\t<div class=\"container-fluid\">\r\n\t            <table class=\"table table-bordered text-center\">\r\n\t\t\t\t    <thead>\r\n\t\t\t\t      <tr>\r\n\t\t\t\t        <th class=\"text-center\">预订人数</th>\r\n\t\t\t\t\t\t<th class=\"text-center\">导游姓名</th>\r\n\t\t\t\t\t\t<th class=\"text-center\">导游电话</th>\r\n\t\t\t\t\t\t<th class=\"text-center\">导游车牌号</th>\r\n\t\t\t\t\t\t<th class=\"text-center col-md-2\">备注信息</th>\r\n\t\t\t\t\t\t<th class=\"text-center col-md-1\">最后操作时间</th>\r\n\t\t\t\t\t\t<th class=\"text-center col-md-1\">最后操作人</th>\r\n\t\t\t\t      </tr>\r\n\t\t\t\t    </thead>\r\n\t\t\t\t    <tbody>\r\n\t\t\t\t      <tr ng-repeat=\"obj in objs\">\r\n\t\t\t\t        <td class=\"text-center\">{{obj.book_count}}</td>\r\n\t\t\t\t        <td class=\"text-center\">{{obj.guide_name}}</td>\r\n\t\t\t\t        <td class=\"text-center\">{{obj.guide_mobile}}</td>\r\n\t\t\t\t        <td class=\"text-center\">{{obj.vehicle_number}}</td>\r\n\t\t\t\t        <td class=\"text-center\">{{obj.remark}}</td>\r\n\t\t\t\t        <td class=\"text-center\">{{obj.update_time}}</td>\r\n\t\t\t\t        <td class=\"text-center\">{{obj.update_by}}</td>\r\n\t\t\t\t      </tr>\r\n\t\t\t\t    </tbody>\r\n\t\t\t    </table>\r\n\t\t    </div>\r\n\t    </div>\r\n    </div>\r\n</div>"
+	module.exports = "<div class=\"col-xs-12\" >\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t订单操作记录\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t\t<div class=\"container-fluid\">\n\t            <table class=\"table table-bordered text-center\">\n\t\t\t\t    <thead>\n\t\t\t\t      <tr>\n\t\t\t\t        <th class=\"text-center\">预订人数</th>\n\t\t\t\t\t\t<th class=\"text-center\">导游姓名</th>\n\t\t\t\t\t\t<th class=\"text-center\">导游电话</th>\n\t\t\t\t\t\t<th class=\"text-center\">导游车牌号</th>\n\t\t\t\t\t\t<th class=\"text-center col-md-2\">备注信息</th>\n\t\t\t\t\t\t<th class=\"text-center col-md-1\">最后操作时间</th>\n\t\t\t\t\t\t<th class=\"text-center col-md-1\">最后操作人</th>\n\t\t\t\t      </tr>\n\t\t\t\t    </thead>\n\t\t\t\t    <tbody>\n\t\t\t\t      <tr ng-repeat=\"obj in objs\">\n\t\t\t\t        <td class=\"text-center\">{{obj.book_count}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.guide_name}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.guide_mobile}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.vehicle_number}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.remark}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.update_time}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.update_by}}</td>\n\t\t\t\t      </tr>\n\t\t\t\t    </tbody>\n\t\t\t    </table>\n\t\t    </div>\n\t    </div>\n    </div>\n</div>"
 
 /***/ },
-/* 154 */
+/* 160 */
 /***/ function(module, exports) {
 
 	/**
@@ -61342,7 +64920,7 @@
 	module.exports = service;
 
 /***/ },
-/* 155 */
+/* 161 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, namelist, info, 
@@ -61514,7 +65092,7 @@
 
 	                $scope.show = false;
 
-	                checkgoodsbuy(0);
+	                if($scope.sale_category === 'F11') checkgoodsbuy(0);
 	            }
 	            else
 	            {
@@ -61688,7 +65266,7 @@
 	};
 
 /***/ },
-/* 156 */
+/* 162 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, update, groupdetail){
@@ -61780,7 +65358,7 @@
 
 
 /***/ },
-/* 157 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, createOrder, getDate, userinfo){
@@ -61824,7 +65402,7 @@
 	    function detailmodal(code)
 	    {
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(158),
+	          template: __webpack_require__(164),
 	          controller: 'saledetail',
 	          resolve: {
 	            code : function(){
@@ -61900,13 +65478,13 @@
 
 
 /***/ },
-/* 158 */
+/* 164 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n<div class=\"modal-header\">\r\n    <h4 class=\"modal-title\">团票简介</h4>\r\n</div>\r\n<div class=\"modal-body\">\r\n\r\n    <div class=\"container-fluid\">\r\n        \r\n        <form class=\"col-xs-11 col-xs-offset-1 form-horizontal\" >\r\n \r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">市场价</label>\r\n                <div class=\"col-xs-8\">\r\n                    <p class=\"form-control-static\">{{objs.market_price * 0.01  | currency : '￥'}}</p>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">居游价</label>\r\n                <div class=\"col-xs-8\">\r\n                    <p class=\"form-control-static\">{{objs.guide_price * 0.01  | currency : '￥'}}</p>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group\">\r\n                <label class=\"col-xs-2 control-label\">简介</label>\r\n                <div class=\"col-xs-8\">\r\n                    <p class=\"form-control-static\">{{objs.detail}}</p>\r\n                </div>\r\n            </div>\r\n\r\n        </form>\r\n\r\n    </div>\r\n    \r\n</div>\r\n<div class=\"modal-footer\">\r\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\r\n</div>\r\n"
+	module.exports = "\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">团票简介</h4>\n</div>\n<div class=\"modal-body\">\n\n    <div class=\"container-fluid\">\n        \n        <form class=\"col-xs-11 col-xs-offset-1 form-horizontal\" >\n \n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">市场价</label>\n                <div class=\"col-xs-8\">\n                    <p class=\"form-control-static\">{{objs.market_price * 0.01  | currency : '￥'}}</p>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">居游价</label>\n                <div class=\"col-xs-8\">\n                    <p class=\"form-control-static\">{{objs.guide_price * 0.01  | currency : '￥'}}</p>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">简介</label>\n                <div class=\"col-xs-8\">\n                    <p class=\"form-control-static\">{{objs.detail}}</p>\n                </div>\n            </div>\n\n        </form>\n\n    </div>\n    \n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n"
 
 /***/ },
-/* 159 */
+/* 165 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, $state, groupsalelist, groupone, update, updatedetail, userinfo){
@@ -62006,7 +65584,7 @@
 
 
 /***/ },
-/* 160 */
+/* 166 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, groupdetail){
@@ -62033,7 +65611,7 @@
 
 
 /***/ },
-/* 161 */
+/* 167 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $uibModalInstance, groupsale, code){
@@ -62056,7 +65634,7 @@
 
 
 /***/ },
-/* 162 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -62066,22 +65644,22 @@
 
 	var App = angular.module('order', []);
 
-	App.config(__webpack_require__(163));
-	App.factory('orderservice', __webpack_require__(169));
+	App.config(__webpack_require__(169));
+	App.factory('orderservice', __webpack_require__(175));
 
-	App.controller('orderlist',__webpack_require__(170));
-	App.controller('orderbycode',__webpack_require__(172));
-	App.controller('orderticketlist',__webpack_require__(173));
-	App.controller('allorderlist',__webpack_require__(174));
-	App.controller('grouplist',__webpack_require__(175));
-	App.controller('groupalllist',__webpack_require__(176));
-	App.controller('orderinfo',__webpack_require__(177));
+	App.controller('orderlist',__webpack_require__(176));
+	App.controller('orderbycode',__webpack_require__(178));
+	App.controller('orderticketlist',__webpack_require__(179));
+	App.controller('allorderlist',__webpack_require__(180));
+	App.controller('grouplist',__webpack_require__(181));
+	App.controller('groupalllist',__webpack_require__(182));
+	App.controller('orderinfo',__webpack_require__(183));
 
 
 	module.exports = App;
 
 /***/ },
-/* 163 */
+/* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -62096,7 +65674,7 @@
 	 	  .state('app.orderlist', {
 	        url: '/orderlist',
 	        controller : 'orderlist',
-	        template: __webpack_require__(164),
+	        template: __webpack_require__(170),
 	        resolve:{
 	            list : function(orderservice){
 	                return orderservice.list();
@@ -62111,7 +65689,7 @@
 	      .state('app.allorderlist', {
 	        url: '/allorderlist',
 	        controller : 'allorderlist',
-	        template: __webpack_require__(164),
+	        template: __webpack_require__(170),
 	        resolve:{
 	            alllist : function(orderservice){
 	                return orderservice.alllist();
@@ -62127,7 +65705,7 @@
 	      .state('app.orderticketlist', {
 	        url: '/orderticketlist/:code',
 	        controller : 'orderticketlist',
-	        template: __webpack_require__(165),
+	        template: __webpack_require__(171),
 	        resolve:{
 	            ticketlist : function(orderservice){
 	                return orderservice.ticketlist();
@@ -62147,7 +65725,7 @@
 	      .state('app.orderticketlistcode', {
 	        url: '/orderticketlist/:code',
 	        controller : 'orderticketlist',
-	        template: __webpack_require__(166),
+	        template: __webpack_require__(172),
 	        resolve:{
 	            ticketlist : function(orderservice){
 	                return orderservice.ticketlist();
@@ -62163,7 +65741,7 @@
 	      .state('app.orderbycode', {
 	        url: '/orderbycode',
 	        controller : 'orderbycode',
-	        template: __webpack_require__(167),
+	        template: __webpack_require__(173),
 	        resolve:{
 	            // list : function(orderservice){
 	            //     return orderservice.list();
@@ -62178,7 +65756,7 @@
 	      .state('app.grouporderlist', {
 	        url: '/grouporderlist',
 	        controller : 'grouplist',
-	        template: __webpack_require__(168),
+	        template: __webpack_require__(174),
 	        resolve:{
 	            grouplist : function(orderservice){
 	                return orderservice.grouplist();
@@ -62193,7 +65771,7 @@
 	      .state('app.allgrouporderlist', {
 	        url: '/grouporderalllist',
 	        controller : 'groupalllist',
-	        template: __webpack_require__(168),
+	        template: __webpack_require__(174),
 	        resolve:{
 	            groupalllist : function(orderservice){
 	                return orderservice.groupalllist();
@@ -62211,37 +65789,37 @@
 	module.exports = router;
 
 /***/ },
-/* 164 */
+/* 170 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n\r\n                <div class=\"row \">\r\n\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" placeholder=\"订单编号\">\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.keyword\" placeholder=\"订单标题\" \r\n                  >\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.cardno\"  placeholder=\"身份证号\">\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\"\r\n                   placeholder=\"姓名\"\r\n                   >\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"电话\">\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                  \r\n\r\n                </div>\r\n\r\n \r\n                <div class=\"row mt10\">\r\n                  \r\n                  \r\n                  \r\n\r\n                  <label>下单时间</label>&nbsp;&nbsp;\r\n                  <div class=\"input-group\">\r\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n                      <span class=\"input-group-btn\">\r\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                      </span>\r\n                  </div>\r\n                        &nbsp;&nbsp;到&nbsp;&nbsp;            \r\n                  <div class=\"input-group\">\r\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n                      <span class=\"input-group-btn\">\r\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                      </span>\r\n                  </div>\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.company_code\" placeholder=\"机构编号\">\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.login_name\" placeholder=\"登录帐号\">\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                  <button type=\"button\" class=\"btn btn-default search pull-right\" ng-click=\"load()\">立即搜索</button>\r\n\r\n                </div>\r\n\r\n\r\n                \r\n                \r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-3 text-center\">订单名称</th>\r\n        <th class=\"col-md-2 text-center\">订单编号</th>\r\n        <th class=\"col-md-2 text-center\">游客信息</th>\r\n        <th class=\"col-md-1 text-center\">数量</th>\r\n        <th class=\"col-md-1 text-center\">购买时间</th>\r\n        <th class=\"col-md-1 text-center\">出票状态</th>\r\n        <th class=\"col-md-1 text-center\">分销商</th>\r\n        <th class=\"col-md-1 text-center\">操作</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"\">{{obj.title}}</td>\r\n        <td class=\"text-center\"><br>{{obj.code}}</td>\r\n        <td class=\"text-center\">{{obj.name}}<br>{{obj.mobile}}<br>{{obj.cardno}}</td>\r\n        <td class=\"text-center\">购买{{obj.num}}<br>退票{{obj.back}}<br>使用{{obj.used}}</td>\r\n        <td class=\"text-center\">{{obj.create_time}}</td>\r\n        <td class=\"text-center\"><br>{{obj.ticket_state_name}}</td>\r\n        <td class=\"text-center\">{{obj.company_name}}<br>{{obj.company_code}}<br>{{obj.operation_login_name}}</td>\r\n        <th class=\"text-center\">\r\n          <a ng-click=\"ticketlist(obj.code)\" class=\"btn btn-success btn-xs\">票信息</a>\r\n          <br>\r\n          <a ng-click=\"orderinfo(obj)\" class=\"btn btn-info btn-xs\"\r\n          has-permission='orderinfo' \r\n          >订单详情</a>\r\n        </th>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n\r\n  <div class=\"text-right\">\r\n\r\n    <uib-pagination \r\n      total-items=\"bigTotalItems\" \r\n      ng-model=\"bigCurrentPage\" \r\n      max-size=\"maxSize\" \r\n      class=\"pagination-sm\" \r\n      boundary-links=\"true\" \r\n      ng-change=\"load()\"\r\n      items-per-page=\"itemsPerPage\"\r\n      previous-text=\"上一页\"\r\n      next-text=\"下一页\"\r\n      first-text=\"首页\"\r\n      last-text=\"末页\"\r\n      rotate=\"false\">\r\n    </uib-pagination>\r\n\r\n  </div>\r\n  \r\n\r\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n\n                <div class=\"row \">\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" placeholder=\"订单编号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.keyword\" placeholder=\"订单标题\" \n                  >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.cardno\"  placeholder=\"身份证号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\"\n                   placeholder=\"姓名\"\n                   >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"电话\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  \n\n                </div>\n\n \n                <div class=\"row mt10\">\n                  \n                  \n                  \n\n                  <label>下单时间</label>&nbsp;&nbsp;\n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                        &nbsp;&nbsp;到&nbsp;&nbsp;            \n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.company_code\" placeholder=\"机构编号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.login_name\" placeholder=\"登录帐号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <button type=\"button\" class=\"btn btn-default search pull-right\" ng-click=\"load()\">立即搜索</button>\n\n                </div>\n\n\n                \n                \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-3 text-center\">订单名称</th>\n        <th class=\"col-md-2 text-center\">订单编号</th>\n        <th class=\"col-md-2 text-center\">游客信息</th>\n        <th class=\"col-md-1 text-center\">数量</th>\n        <th class=\"col-md-1 text-center\">购买时间</th>\n        <th class=\"col-md-1 text-center\">出票状态</th>\n        <th class=\"col-md-1 text-center\">分销商</th>\n        <th class=\"col-md-1 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"\">{{obj.title}}</td>\n        <td class=\"text-center\"><br>{{obj.code}}</td>\n        <td class=\"text-center\">{{obj.name}}<br>{{obj.mobile}}<br>{{obj.cardno}}</td>\n        <td class=\"text-center\">购买{{obj.num}}<br>退票{{obj.back}}<br>使用{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.create_time}}</td>\n        <td class=\"text-center\"><br>{{obj.ticket_state_name}}</td>\n        <td class=\"text-center\">{{obj.company_name}}<br>{{obj.company_code}}<br>{{obj.operation_login_name}}</td>\n        <th class=\"text-center\">\n          <a ng-click=\"ticketlist(obj.code)\" class=\"btn btn-success btn-xs\">票信息</a>\n          <br>\n          <a ng-click=\"orderinfo(obj)\" class=\"btn btn-info btn-xs\"\n          has-permission='orderinfo' \n          >订单详情</a>\n        </th>\n      </tr>\n    </tbody>\n  </table>\n\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
 
 /***/ },
-/* 165 */
+/* 171 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n\r\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\r\n  <!-- Default panel contents -->\r\n  <div class=\"panel-heading\">{{tkttype.name}} 第 {{tkttype.sequence}} 个\r\n\r\n    <button type=\"button\" \r\n      class=\"btn btn-xs btn-info pull-right\"\r\n      ng-click=\"back(tkttype)\"\r\n    >\r\n      退票\r\n    </button>\r\n  </div>\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-2 text-center\">景区名称</th>\r\n        <th class=\"col-md-4 text-center\">票名称</th>\r\n        <th class=\"col-md-1 text-center\">票号</th>\r\n        <th class=\"col-md-1 text-center\">未使用</th>\r\n        <th class=\"col-md-1 text-center\">未退票</th>\r\n        <th class=\"col-md-1 text-center\">可用</th>\r\n        <th class=\"col-md-2 text-center\">操作时间</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in tkttype.ticketarr\">\r\n        <td class=\"\">{{obj.place_name}}</td>\r\n        <td class=\"\">{{obj.type_name}}</td>\r\n        <td class=\"text-center\">{{obj.code}}</td>\r\n        <td class=\"text-center\">\r\n          <span ng-show=\"{{obj.used == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\r\n          <span ng-show=\"{{obj.used == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\r\n        </td>\r\n        <td class=\"text-center\">\r\n          <span ng-show=\"{{obj.back == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\r\n          <span ng-show=\"{{obj.back == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\r\n        </td>\r\n        <td class=\"text-center\">\r\n          <span ng-show=\"{{obj.state == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\r\n          <span ng-show=\"{{obj.state == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\r\n        </td>\r\n        <td class=\"text-center\">{{obj.otime}}</td>\r\n\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  \r\n</div>\r\n\r\n\r\n</div>\r\n  "
+	module.exports = "<div class=\"col-sm-12\">\n\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\n  <!-- Default panel contents -->\n  <div class=\"panel-heading\">{{tkttype.name}} 第 {{tkttype.sequence}} 个\n\n    <button type=\"button\" \n      class=\"btn btn-xs btn-info pull-right\"\n      ng-click=\"back(tkttype)\"\n    >\n      退票\n    </button>\n  </div>\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-2 text-center\">景区名称</th>\n        <th class=\"col-md-4 text-center\">票名称</th>\n        <th class=\"col-md-1 text-center\">票号</th>\n        <th class=\"col-md-1 text-center\">未使用</th>\n        <th class=\"col-md-1 text-center\">未退票</th>\n        <th class=\"col-md-1 text-center\">可用</th>\n        <th class=\"col-md-2 text-center\">操作时间</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in tkttype.ticketarr\">\n        <td class=\"\">{{obj.place_name}}</td>\n        <td class=\"\">{{obj.type_name}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.used == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.used == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n        </td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.back == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.back == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n        </td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.state == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.state == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n        </td>\n        <td class=\"text-center\">{{obj.otime}}</td>\n\n      </tr>\n    </tbody>\n  </table>\n  \n</div>\n\n\n</div>\n  "
 
 /***/ },
-/* 166 */
+/* 172 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n\r\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\r\n  <!-- Default panel contents -->\r\n  <div class=\"panel-heading\">{{tkttype.name}} {{tkttype.sequence}}\r\n\r\n    <button type=\"button\" \r\n      class=\"btn btn-xs btn-info pull-right\"\r\n      ng-click=\"back()\"\r\n      has-permission='docedit' \r\n    >\r\n      退票\r\n    </button>\r\n  </div>\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-2 text-center\">景区名称</th>\r\n        <th class=\"col-md-4 text-center\">票名称</th>\r\n        <th class=\"col-md-1 text-center\">票号</th>\r\n        <th class=\"col-md-1 text-center\">未使用</th>\r\n        <th class=\"col-md-1 text-center\">未退票</th>\r\n        <th class=\"col-md-1 text-center\">可用</th>\r\n        <th class=\"col-md-2 text-center\">操作时间</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in tkttype.ticketarr\">\r\n        <td class=\"\">{{obj.place_name}}</td>\r\n        <td class=\"\">{{obj.type_name}}</td>\r\n        <td class=\"text-center\">{{obj.code}}</td>\r\n        <td class=\"text-center\">\r\n          <span ng-show=\"{{obj.used == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\r\n          <span ng-show=\"{{obj.used == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\r\n        </td>\r\n        <td class=\"text-center\">\r\n          <span ng-show=\"{{obj.back == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\r\n          <span ng-show=\"{{obj.back == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\r\n\r\n        </td>\r\n        <td class=\"text-center\">\r\n          <span ng-show=\"{{obj.state == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\r\n          <span ng-show=\"{{obj.state == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\r\n\r\n        </td>\r\n        <td class=\"text-center\">{{obj.otime}}</td>\r\n\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  \r\n</div>\r\n\r\n\r\n</div>\r\n  "
+	module.exports = "<div class=\"col-sm-12\">\n\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\n  <!-- Default panel contents -->\n  <div class=\"panel-heading\">{{tkttype.name}} {{tkttype.sequence}}\n\n    <button type=\"button\" \n      class=\"btn btn-xs btn-info pull-right\"\n      ng-click=\"back()\"\n      has-permission='docedit' \n    >\n      退票\n    </button>\n  </div>\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-2 text-center\">景区名称</th>\n        <th class=\"col-md-4 text-center\">票名称</th>\n        <th class=\"col-md-1 text-center\">票号</th>\n        <th class=\"col-md-1 text-center\">未使用</th>\n        <th class=\"col-md-1 text-center\">未退票</th>\n        <th class=\"col-md-1 text-center\">可用</th>\n        <th class=\"col-md-2 text-center\">操作时间</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in tkttype.ticketarr\">\n        <td class=\"\">{{obj.place_name}}</td>\n        <td class=\"\">{{obj.type_name}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.used == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.used == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n        </td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.back == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.back == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n\n        </td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.state == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.state == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n\n        </td>\n        <td class=\"text-center\">{{obj.otime}}</td>\n\n      </tr>\n    </tbody>\n  </table>\n  \n</div>\n\n\n</div>\n  "
 
 /***/ },
-/* 167 */
+/* 173 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n                  <label>订单编号</label>&nbsp;&nbsp;\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" >\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n                  <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  \r\n  \r\n\r\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                  <label>订单编号</label>&nbsp;&nbsp;\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n                  <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  \n  \n\n</div>"
 
 /***/ },
-/* 168 */
+/* 174 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n                <div class=\"row\">\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" placeholder=\"订单编号\">\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                  \r\n\r\n                  <label>出游时间</label>&nbsp;&nbsp;\r\n                  <div class=\"input-group\">\r\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n                      <span class=\"input-group-btn\">\r\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                      </span>\r\n                  </div>\r\n                </div>\r\n                <div class=\"row mt10\">\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.order_name\" placeholder=\"订单标题\" \r\n                  >\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.ticket_code\"  placeholder=\"团票码\">\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_name\"\r\n                   placeholder=\"导游姓名\"\r\n                   >\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_mobile\" placeholder=\"导游电话\">\r\n                  &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n                  \r\n\r\n                  <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n                </div>\r\n                \r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-3 text-center\">订单名称</th>\r\n        <th class=\"col-md-1 text-center\">订单编号</th>\r\n        <th class=\"col-md-2 text-center\">出游信息</th>\r\n        <th class=\"col-md-3 text-center\">导游信息</th>\r\n        <th class=\"col-md-2 text-center\">备注</th>\r\n        <th class=\"col-md-1 text-center\">下单时间</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"\">{{obj.order_name}}</td>\r\n        <td class=\"text-center\">{{obj.code}}</td>\r\n        <td class=\"text-center\">[{{obj.book_count}}人][{{obj.arrival_date}}][{{obj.ticket_code}}]</td>\r\n        <td class=\"text-center\">[{{obj.guide_name}}][{{obj.guide_mobile}}][{{obj.vehicle_number}}]</td>\r\n        <td class=\"text-center\">{{obj.remark}}</td>\r\n        <td class=\"text-center\">{{obj.create_time}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n\r\n  <div class=\"text-right\">\r\n\r\n    <uib-pagination \r\n      total-items=\"bigTotalItems\" \r\n      ng-model=\"bigCurrentPage\" \r\n      max-size=\"maxSize\" \r\n      class=\"pagination-sm\" \r\n      boundary-links=\"true\" \r\n      ng-change=\"load()\"\r\n      items-per-page=\"itemsPerPage\"\r\n      previous-text=\"上一页\"\r\n      next-text=\"下一页\"\r\n      first-text=\"首页\"\r\n      last-text=\"末页\"\r\n      rotate=\"false\">\r\n    </uib-pagination>\r\n\r\n  </div>\r\n  \r\n\r\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <div class=\"row\">\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" placeholder=\"订单编号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  \n\n                  <label>出游时间</label>&nbsp;&nbsp;\n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                </div>\n                <div class=\"row mt10\">\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.order_name\" placeholder=\"订单标题\" \n                  >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.ticket_code\"  placeholder=\"团票码\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_name\"\n                   placeholder=\"导游姓名\"\n                   >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_mobile\" placeholder=\"导游电话\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  \n\n                  <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n                </div>\n                \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-3 text-center\">订单名称</th>\n        <th class=\"col-md-1 text-center\">订单编号</th>\n        <th class=\"col-md-2 text-center\">出游信息</th>\n        <th class=\"col-md-3 text-center\">导游信息</th>\n        <th class=\"col-md-2 text-center\">备注</th>\n        <th class=\"col-md-1 text-center\">下单时间</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"\">{{obj.order_name}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">[{{obj.book_count}}人][{{obj.arrival_date}}][{{obj.ticket_code}}]</td>\n        <td class=\"text-center\">[{{obj.guide_name}}][{{obj.guide_mobile}}][{{obj.vehicle_number}}]</td>\n        <td class=\"text-center\">{{obj.remark}}</td>\n        <td class=\"text-center\">{{obj.create_time}}</td>\n      </tr>\n    </tbody>\n  </table>\n\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
 
 /***/ },
-/* 169 */
+/* 175 */
 /***/ function(module, exports) {
 
 	/**
@@ -62302,7 +65880,7 @@
 	module.exports = service;
 
 /***/ },
-/* 170 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, $uibModal){
@@ -62372,7 +65950,7 @@
 	    $scope.orderinfo = function(obj){
 
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(171),
+	          template: __webpack_require__(177),
 	          controller: 'orderinfo',
 	          size: 'lg',
 	          resolve: {
@@ -62418,13 +65996,13 @@
 	};
 
 /***/ },
-/* 171 */
+/* 177 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n\r\n<div class=\"modal-header\">\r\n    <h4 class=\"modal-title\">订单详情</h4>\r\n</div>\r\n<div class=\"modal-body\">\r\n\r\n    <div class=\"container-fluid form-horizontal \">\r\n        <div class=\"col-xs-6\">\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">订单编号</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.code}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">订单标题</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.title}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">支付金额</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.pay_fee}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">支付状态</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.pay_state}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">支付时间</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.pay_time}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">支付流水号</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.pay_trade_no}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">支付类型</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.payment_type}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">系统确定状态</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.sys_affirm_state}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">订单取消状态</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.cancel_state}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">订单取消时间</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.cancel_time}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">订单取消原因</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.cancel_reason}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">票状态</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.ticket_state}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">出票时间</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.ticket_out_time}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        </div>\r\n\r\n        <div class=\"col-xs-6\">\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">短信发送状态</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.sms_state}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">短信发送时间</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.sms_send_time}}</p>\r\n            </div>\r\n        </div>\r\n        \r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">身份证</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.cardno}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">电话</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.mobile}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">姓名</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.name}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">备注</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.note}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">数量</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.num}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">退票数量</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.back}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">使用数量</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.used}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">创建时间</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.create_time}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">创建时间</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.create_time}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">创建者</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.create_by}}</p>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"form-group\">\r\n            <label class=\"col-xs-6 control-label\">公司</label>\r\n            <div class=\"col-xs-6\">\r\n                <p class=\"form-control-static\">{{obj.company_id}}</p>\r\n            </div>\r\n        </div>\r\n        </div>\r\n\r\n    </div>\r\n</div>\r\n<div class=\"modal-footer\">\r\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\r\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\r\n</div>\r\n\r\n"
+	module.exports = "\n\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">订单详情</h4>\n</div>\n<div class=\"modal-body\">\n\n    <div class=\"container-fluid form-horizontal \">\n        <div class=\"col-xs-6\">\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">订单编号</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.code}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">订单标题</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.title}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">支付金额</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.pay_fee}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">支付状态</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.pay_state}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">支付时间</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.pay_time}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">支付流水号</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.pay_trade_no}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">支付类型</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.payment_type}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">系统确定状态</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.sys_affirm_state}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">订单取消状态</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.cancel_state}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">订单取消时间</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.cancel_time}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">订单取消原因</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.cancel_reason}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">票状态</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.ticket_state}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">出票时间</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.ticket_out_time}}</p>\n            </div>\n        </div>\n\n        </div>\n\n        <div class=\"col-xs-6\">\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">短信发送状态</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.sms_state}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">短信发送时间</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.sms_send_time}}</p>\n            </div>\n        </div>\n        \n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">身份证</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.cardno}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">电话</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.mobile}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">姓名</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.name}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">备注</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.note}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">数量</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.num}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">退票数量</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.back}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">使用数量</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.used}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">创建时间</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.create_time}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">创建时间</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.create_time}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">创建者</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.create_by}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">公司</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.company_id}}</p>\n            </div>\n        </div>\n        </div>\n\n    </div>\n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n\n"
 
 /***/ },
-/* 172 */
+/* 178 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams){
@@ -62439,119 +66017,9 @@
 	};
 
 /***/ },
-/* 173 */
+/* 179 */
 /***/ function(module, exports) {
 
-<<<<<<< HEAD
-	module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, 
-	    viewdestorystatisticlist, govsubsidygoodscodelist){
-
-	    $scope.searchform = {};
-
-	    $scope.total = {
-	        'buy' : 0,
-	        'used' : 0,
-	        'back' : 0,
-	        'total' : 0,
-	        'gov' : 0
-	    };
-
-	    //有效区间
-	    $scope.section = {};
-	    $scope.section.start = {};
-	    $scope.section.start.date = new Date();
-
-	    $scope.section.end = {};
-	    $scope.section.end.date = new Date();
-
-	    $scope.open = function(obj) {
-	        obj.opened = true;
-	    };
-
-	    /* 分页
-	     * ========================================= */
-	    // $scope.maxSize = 5;            //最多显示多少个按钮
-	    // $scope.bigCurrentPage = 1;      //当前页码
-	    // $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
-
-	    $scope.load = function () {
-	        
-	        var para = {
-	            //pageNo:$scope.bigCurrentPage, 
-	            //pageSize:$scope.itemsPerPage,
-	            start_time : getDate($scope.section.start.date) + " 00:00:00",
-	            end_time : getDate($scope.section.end.date) + " 23:59:59"
-	        };
-
-	        para = angular.extend($scope.searchform, para);
-
-	        console.log(para);
-	        
-	        viewdestorystatisticlist.save(para, function(res){
-
-	            console.log(res);
-
-	             $scope.total = {
-	                'buy' : 0,
-	                'used' : 0,
-	                'back' : 0,
-	                'total' : 0,
-	                'gov' : 0
-	            };
-
-	            if(res.errcode === 0)
-	            {
-	                $scope.objs = res.data;
-
-	                govsubsidygoodscodelist.get({}, function(res1){
-
-	                    //console.log(res1);
-	                    if(res1.errcode === 0)
-	                    {
-	                        $scope.subsidy = res1.data;
-	                        //console.log($scope.objs);
-	                        for(var i = 0, j = $scope.objs.length; i < j; i++)
-	                        {
-	                            var tmp = $scope.objs[i]
-	                            $scope.total.buy += tmp.buy;
-	                            $scope.total.used += tmp.used;
-	                            $scope.total.back += tmp.back;
-	                            $scope.total.total += tmp.cost_price * tmp.used;
-	                            tmp.gov = 0;
-	                            for(var m = 0, n = $scope.subsidy.length; m < n; m++)
-	                            {
-	                                if($scope.subsidy[m]['goods_code'] == tmp.goods_code)
-	                                {
-	                                    tmp.gov = $scope.subsidy[m]['govsubsidy_price'];
-	                                    break;
-	                                }
-	                            }
-	                            $scope.total.gov += tmp.gov * tmp.used;
-	                            
-	                        }
-
-	                        console.log($scope.total);
-	                    }
-	                    else
-	                    {
-	                        alert(res1.errmsg);
-	                    }
-	                });
-	                //$scope.bigTotalItems = res.data.totalRecord;
-	            }
-	            else
-	            {
-	                alert(res.errmsg);
-	            }
-
-	        });
-
-	    };
-	    $scope.load();
-
-	    
-
-=======
 	module.exports = function($scope, $state, $stateParams, ticketlist, createBackOrder){
 
 	    var code = $stateParams.code;
@@ -62660,11 +66128,10 @@
 	    };
 
 
->>>>>>> b5dd1078549d59625e1a8e4c98055fa33353e936
 	};
 
 /***/ },
-/* 174 */
+/* 180 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, alllist, ITEMS_PERPAGE, getDate){
@@ -62735,7 +66202,7 @@
 	};
 
 /***/ },
-/* 175 */
+/* 181 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, grouplist, ITEMS_PERPAGE, getDate){
@@ -62791,7 +66258,7 @@
 	};
 
 /***/ },
-/* 176 */
+/* 182 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, groupalllist, ITEMS_PERPAGE, getDate){
@@ -62847,7 +66314,7 @@
 	};
 
 /***/ },
-/* 177 */
+/* 183 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, obj){
@@ -62857,7 +66324,7 @@
 	};
 
 /***/ },
-/* 178 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -62867,19 +66334,19 @@
 
 	var App = angular.module('statistics', []);
 
-	App.config(__webpack_require__(179));
-	App.factory('statisticsservice', __webpack_require__(184));
+	App.config(__webpack_require__(185));
+	App.factory('statisticsservice', __webpack_require__(190));
 
-	App.controller('uselist',__webpack_require__(185));
-	App.controller('statisticsviewlist',__webpack_require__(186));
-	App.controller('statisticssale',__webpack_require__(187));
-	App.controller('statisticscompanylist',__webpack_require__(188));
+	App.controller('uselist',__webpack_require__(191));
+	App.controller('statisticsviewlist',__webpack_require__(192));
+	App.controller('statisticssale',__webpack_require__(193));
+	App.controller('statisticscompanylist',__webpack_require__(194));
 
 
 	module.exports = App;
 
 /***/ },
-/* 179 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -62894,7 +66361,7 @@
 	 	  .state('app.uselist', {
 	        url: '/uselist',
 	        controller : 'uselist',
-	        template: __webpack_require__(180),
+	        template: __webpack_require__(186),
 	        //template: require('../99common/views/table.html'),
 	        resolve:{
 	            destoryDetail : function(statisticsservice){
@@ -62912,7 +66379,7 @@
 	      .state('app.statisticsviewlist', {
 	        url: '/statisticsviewlist',
 	        controller : 'statisticsviewlist',
-	        template: __webpack_require__(181),
+	        template: __webpack_require__(187),
 	        //template: require('../99common/views/table.html'),
 	        resolve:{
 	            viewdestorystatisticlist : function(statisticsservice){
@@ -62933,7 +66400,7 @@
 	      .state('app.statisticssale', {
 	        url: '/statisticssale',
 	        controller : 'statisticssale',
-	        template: __webpack_require__(182),
+	        template: __webpack_require__(188),
 	        resolve:{
 	            orderstatisticslist : function(statisticsservice){
 	                return statisticsservice.orderstatisticslist();
@@ -62950,7 +66417,7 @@
 	      .state('app.statisticscompanylist', {
 	        url: '/statisticscompanylist',
 	        controller : 'statisticscompanylist',
-	        template: __webpack_require__(183),
+	        template: __webpack_require__(189),
 	        resolve:{
 	            orderstatisticscompanylist : function(statisticsservice){
 	                return statisticsservice.orderstatisticscompanylist();
@@ -62970,31 +66437,31 @@
 	module.exports = router;
 
 /***/ },
-/* 180 */
+/* 186 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n                \r\n\r\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_name\" placeholder=\"景区名称\">\r\n                  &nbsp;&nbsp;\r\n            \r\n                  \r\n                  <div class=\"input-group\">\r\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n                      <span class=\"input-group-btn\">\r\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                      </span>\r\n                  </div>\r\n                        &nbsp;&nbsp;到&nbsp;&nbsp;            \r\n                  <div class=\"input-group\">\r\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n                      <span class=\"input-group-btn\">\r\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                      </span>\r\n                  </div>\r\n                  &nbsp;&nbsp;\r\n\r\n                  <label>类别</label>&nbsp;&nbsp;\r\n                  <select class=\"form-control\" ng-model=\"searchform.usetype\">\r\n                    <option value=1> 使用 </option>\r\n                    <option value=2> 退票 </option>\r\n                    <option value=3> 未使用 </option>\r\n                    <option value=999> --全部-- </option>\r\n                  </select>\r\n                  &nbsp;&nbsp;\r\n\r\n                  共 {{bigTotalItems}} 条数据\r\n\r\n                  &nbsp;&nbsp;\r\n\r\n                  <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n\r\n              \r\n              \r\n                \r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-2 text-center\">购票时间</th>\r\n        <th class=\"col-md-2 text-center\">操作时间</th>\r\n        <th class=\"col-md-2 text-center\">景区名称</th>\r\n        <th class=\"col-md-3 text-center\">商品名称</th>\r\n        <th class=\"col-md-1 text-center\">票号</th>\r\n        <th class=\"col-md-1 text-center\">已使用</th>\r\n        <th class=\"col-md-1 text-center\">已退票</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.create_time}}</td>\r\n        <td class=\"text-center\">{{obj.otime}}</td>\r\n        <td class=\"text-center\">{{obj.place_name}}</td>\r\n        <td class=\"text-center\">{{obj.type_name}}</td>\r\n        <td class=\"text-center\">{{obj.code}}</td>\r\n        <td class=\"text-center\">\r\n          <span ng-show=\"{{obj.used == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\r\n          <span ng-show=\"{{obj.used == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\r\n        </td>\r\n        <td class=\"text-center\">\r\n          <span ng-show=\"{{obj.back == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\r\n          <span ng-show=\"{{obj.back == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n\r\n\r\n  <div class=\"text-right\">\r\n\r\n    <uib-pagination \r\n      total-items=\"bigTotalItems\" \r\n      ng-model=\"bigCurrentPage\" \r\n      max-size=\"maxSize\" \r\n      class=\"pagination-sm\" \r\n      boundary-links=\"true\" \r\n      ng-change=\"load()\"\r\n      items-per-page=\"itemsPerPage\"\r\n      previous-text=\"上一页\"\r\n      next-text=\"下一页\"\r\n      first-text=\"首页\"\r\n      last-text=\"末页\"\r\n      rotate=\"false\">\r\n    </uib-pagination>\r\n\r\n  </div>\r\n  \r\n\r\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                \n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_name\" placeholder=\"景区名称\">\n                  &nbsp;&nbsp;\n            \n                  \n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                        &nbsp;&nbsp;到&nbsp;&nbsp;            \n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                  &nbsp;&nbsp;\n\n                  <label>类别</label>&nbsp;&nbsp;\n                  <select class=\"form-control\" ng-model=\"searchform.usetype\">\n                    <option value=1> 使用 </option>\n                    <option value=2> 退票 </option>\n                    <option value=3> 未使用 </option>\n                    <option value=999> --全部-- </option>\n                  </select>\n                  &nbsp;&nbsp;\n\n                  共 {{bigTotalItems}} 条数据\n\n                  &nbsp;&nbsp;\n\n                  <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n\n              \n              \n                \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-2 text-center\">购票时间</th>\n        <th class=\"col-md-2 text-center\">操作时间</th>\n        <th class=\"col-md-2 text-center\">景区名称</th>\n        <th class=\"col-md-3 text-center\">商品名称</th>\n        <th class=\"col-md-1 text-center\">票号</th>\n        <th class=\"col-md-1 text-center\">已使用</th>\n        <th class=\"col-md-1 text-center\">已退票</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.create_time}}</td>\n        <td class=\"text-center\">{{obj.otime}}</td>\n        <td class=\"text-center\">{{obj.place_name}}</td>\n        <td class=\"text-center\">{{obj.type_name}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.used == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.used == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n        </td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.back == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.back == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n\n\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
 
 /***/ },
-/* 181 */
+/* 187 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n\r\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_name\" placeholder=\"景区名称\">\r\n              &nbsp;&nbsp;&nbsp;&nbsp;\r\n\r\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.type_name\" placeholder=\"票种名称\">\r\n              &nbsp;&nbsp;&nbsp;&nbsp;\r\n              \r\n                \r\n              <label>使用时间</label>&nbsp;&nbsp;\r\n              <div class=\"input-group\">\r\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n                  <span class=\"input-group-btn\">\r\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                  </span>\r\n              </div>\r\n                    &nbsp;&nbsp;到&nbsp;&nbsp;            \r\n              <div class=\"input-group\">\r\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n                  <span class=\"input-group-btn\">\r\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                  </span>\r\n              </div>\r\n              &nbsp;&nbsp;\r\n\r\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n              \r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-1 text-center\">时间</th>\r\n        <th class=\"col-md-2 text-center\">景区名称</th>\r\n        <th class=\"col-md-2 text-center\">商品名称</th>\r\n        <!-- <th class=\"col-md-1 text-center\">商品编号</th> -->\r\n        <!-- <th class=\"col-md-2 text-center\">数量</th> -->\r\n        <th class=\"col-md-1 text-center\">购买数量</th>\r\n        <th class=\"col-md-1 text-center\">使用数量</th>\r\n        <th class=\"col-md-1 text-center\">退票数量</th>\r\n        <th class=\"col-md-1 text-center\">政府补贴</th>\r\n        <th class=\"col-md-1 text-center\">单价</th>\r\n        <th class=\"col-md-1 text-center\">居游结算价</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.date}}</td>\r\n        <td class=\"text-center\">{{obj.place_name}}</td>\r\n        <td class=\"\">{{obj.type_name}}<br>商品编号：{{obj.goods_code}}</td>\r\n        <!-- <td class=\"text-center\">{{obj.goods_code}}</td> -->\r\n        <!-- <td class=\"text-center\">\r\n          购买：{{obj.buy}}&nbsp;&nbsp;\r\n          使用：{{obj.used}}&nbsp;&nbsp;\r\n          退票：{{obj.back}}\r\n        </td> -->\r\n        <td class=\"text-center\">{{obj.buy}}</td>\r\n        <td class=\"text-center\">{{obj.used}}</td>\r\n        <td class=\"text-center\">{{obj.back}}</td>\r\n        <td class=\"text-center\">\r\n            {{(subsidy | arrfilter:'goods_code':'govsubsidy_price':obj.goods_code) * 0.01 | currency : '￥'}}\r\n        </td>\r\n        <td class=\"text-center\">{{obj.cost_price  * 0.01 | currency : '￥'}}</td>\r\n        <td class=\"text-center\">{{obj.cost_price * obj.used  * 0.01 | currency : '￥'}}</td>\r\n      </tr>\r\n\r\n      <tr >\r\n        <td class=\"text-center\">总计</td>\r\n        <td class=\"text-center\"></td>\r\n        <td class=\"\"></td>\r\n        <td class=\"text-center\">{{total.buy}}</td>\r\n        <td class=\"text-center\">{{total.used}}</td>\r\n        <td class=\"text-center\">{{total.back}}</td>\r\n        <td class=\"text-center\">{{total.gov * 0.01 | currency : '￥'}}</td>\r\n        <td class=\"text-center\"></td>\r\n        <td class=\"text-center\">{{total.total * 0.01 | currency : '￥'}}</td>\r\n      </tr>\r\n\r\n\r\n    </tbody>\r\n  </table>\r\n\r\n\r\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_name\" placeholder=\"景区名称\">\n              &nbsp;&nbsp;&nbsp;&nbsp;\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.type_name\" placeholder=\"票种名称\">\n              &nbsp;&nbsp;&nbsp;&nbsp;\n              \n                \n              <label>使用时间</label>&nbsp;&nbsp;\n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n                    &nbsp;&nbsp;到&nbsp;&nbsp;            \n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n              &nbsp;&nbsp;\n\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n              \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-1 text-center\">时间</th>\n        <th class=\"col-md-2 text-center\">景区名称</th>\n        <th class=\"col-md-2 text-center\">商品名称</th>\n        <!-- <th class=\"col-md-1 text-center\">商品编号</th> -->\n        <!-- <th class=\"col-md-2 text-center\">数量</th> -->\n        <th class=\"col-md-1 text-center\">购买数量</th>\n        <th class=\"col-md-1 text-center\">使用数量</th>\n        <th class=\"col-md-1 text-center\">退票数量</th>\n        <th class=\"col-md-1 text-center\">政府补贴</th>\n        <th class=\"col-md-1 text-center\">单价</th>\n        <th class=\"col-md-1 text-center\">居游结算价</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.date}}</td>\n        <td class=\"text-center\">{{obj.place_name}}</td>\n        <td class=\"\">{{obj.type_name}}<br>商品编号：{{obj.goods_code}}</td>\n        <!-- <td class=\"text-center\">{{obj.goods_code}}</td> -->\n        <!-- <td class=\"text-center\">\n          购买：{{obj.buy}}&nbsp;&nbsp;\n          使用：{{obj.used}}&nbsp;&nbsp;\n          退票：{{obj.back}}\n        </td> -->\n        <td class=\"text-center\">{{obj.buy}}</td>\n        <td class=\"text-center\">{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.back}}</td>\n        <td class=\"text-center\">\n            {{(subsidy | arrfilter:'goods_code':'govsubsidy_price':obj.goods_code) * 0.01 | currency : '￥'}}\n        </td>\n        <td class=\"text-center\">{{obj.cost_price  * 0.01 | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.cost_price * obj.used  * 0.01 | currency : '￥'}}</td>\n      </tr>\n\n      <tr >\n        <td class=\"text-center\">总计</td>\n        <td class=\"text-center\"></td>\n        <td class=\"\"></td>\n        <td class=\"text-center\">{{total.buy}}</td>\n        <td class=\"text-center\">{{total.used}}</td>\n        <td class=\"text-center\">{{total.back}}</td>\n        <td class=\"text-center\">{{total.gov * 0.01 | currency : '￥'}}</td>\n        <td class=\"text-center\"></td>\n        <td class=\"text-center\">{{total.total * 0.01 | currency : '￥'}}</td>\n      </tr>\n\n\n    </tbody>\n  </table>\n\n\n</div>"
 
 /***/ },
-/* 182 */
+/* 188 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n\r\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.company_code\" placeholder=\"分销商编号\">\r\n              &nbsp;&nbsp;\r\n\r\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.login_name\" placeholder=\"销售账户\">\r\n              &nbsp;&nbsp;\r\n\r\n                \r\n              <label>使用时间</label>&nbsp;&nbsp;\r\n              <div class=\"input-group\">\r\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n                  <span class=\"input-group-btn\">\r\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                  </span>\r\n              </div>\r\n                    &nbsp;&nbsp;到&nbsp;&nbsp;            \r\n              <div class=\"input-group\">\r\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n                  <span class=\"input-group-btn\">\r\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                  </span>\r\n              </div>\r\n              &nbsp;&nbsp;\r\n\r\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n              \r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-1 text-center\">时间</th>\r\n        <th class=\"col-md-2 text-center\">销售品名称</th>\r\n        <th class=\"col-md-1 text-center\">销售品编号</th>\r\n\r\n        <th class=\"col-md-1 text-center\">分销商</th>\r\n        <th class=\"col-md-1 text-center\">销售账户</th>\r\n        <th class=\"col-md-1 text-center\">购买数量</th>\r\n        <th class=\"col-md-1 text-center\">使用数量</th>\r\n        <th class=\"col-md-1 text-center\">退票数量</th>\r\n        <th class=\"col-md-1 text-center\">单价</th>\r\n        <th class=\"col-md-1 text-center\">总计</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.date}}</td>\r\n        <td class=\"\">{{obj.name}}</td>\r\n        <td class=\"text-center\">{{obj.sale_code}}</td>\r\n        <td class=\"text-center\">{{obj.company_name}}<br>{{obj.company_code}}</td>\r\n        <td class=\"text-center\">{{obj.operation_login_name}}</td>\r\n        <td class=\"text-center\">{{obj.buy}}</td>\r\n        <td class=\"text-center\">{{obj.used}}</td>\r\n        <td class=\"text-center\">{{obj.back}}</td>\r\n        <td class=\"text-center\">{{obj.cost_price  * 0.01 | currency : '￥'}}</td>\r\n        <td class=\"text-center\">{{obj.cost_price * (obj.buy - obj.back)  * 0.01 | currency : '￥'}}</td>\r\n      </tr>\r\n      <tr >\r\n        <td class=\"text-center\">总计</td>\r\n        <td class=\"text-center\"></td>\r\n        <td class=\"\"></td>\r\n        <td class=\"text-center\"></td>\r\n        <td class=\"text-center\"></td>\r\n\r\n        <td class=\"text-center\">{{total.buy}}</td>\r\n        <td class=\"text-center\">{{total.used}}</td>\r\n        <td class=\"text-center\">{{total.back}}</td> \r\n        <td class=\"text-center\"></td>\r\n        <td class=\"text-center\">{{total.total * 0.01 | currency : '￥'}}</td>\r\n      </tr>\r\n\r\n    </tbody>\r\n  </table>\r\n\r\n\r\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.company_code\" placeholder=\"分销商编号\">\n              &nbsp;&nbsp;\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.login_name\" placeholder=\"销售账户\">\n              &nbsp;&nbsp;\n\n                \n              <label>使用时间</label>&nbsp;&nbsp;\n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n                    &nbsp;&nbsp;到&nbsp;&nbsp;            \n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n              &nbsp;&nbsp;\n\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n              \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-1 text-center\">时间</th>\n        <th class=\"col-md-2 text-center\">销售品名称</th>\n        <th class=\"col-md-1 text-center\">销售品编号</th>\n\n        <th class=\"col-md-1 text-center\">分销商</th>\n        <th class=\"col-md-1 text-center\">销售账户</th>\n        <th class=\"col-md-1 text-center\">购买数量</th>\n        <th class=\"col-md-1 text-center\">使用数量</th>\n        <th class=\"col-md-1 text-center\">退票数量</th>\n        <th class=\"col-md-1 text-center\">单价</th>\n        <th class=\"col-md-1 text-center\">总计</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.date}}</td>\n        <td class=\"\">{{obj.name}}</td>\n        <td class=\"text-center\">{{obj.sale_code}}</td>\n        <td class=\"text-center\">{{obj.company_name}}<br>{{obj.company_code}}</td>\n        <td class=\"text-center\">{{obj.operation_login_name}}</td>\n        <td class=\"text-center\">{{obj.buy}}</td>\n        <td class=\"text-center\">{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.back}}</td>\n        <td class=\"text-center\">{{obj.cost_price  * 0.01 | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.cost_price * (obj.buy - obj.back)  * 0.01 | currency : '￥'}}</td>\n      </tr>\n      <tr >\n        <td class=\"text-center\">总计</td>\n        <td class=\"text-center\"></td>\n        <td class=\"\"></td>\n        <td class=\"text-center\"></td>\n        <td class=\"text-center\"></td>\n\n        <td class=\"text-center\">{{total.buy}}</td>\n        <td class=\"text-center\">{{total.used}}</td>\n        <td class=\"text-center\">{{total.back}}</td> \n        <td class=\"text-center\"></td>\n        <td class=\"text-center\">{{total.total * 0.01 | currency : '￥'}}</td>\n      </tr>\n\n    </tbody>\n  </table>\n\n\n</div>"
 
 /***/ },
-/* 183 */
+/* 189 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n\r\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.company_code\" placeholder=\"分销商编号\">\r\n              &nbsp;&nbsp;\r\n                \r\n              <label>使用时间</label>&nbsp;&nbsp;\r\n              <div class=\"input-group\">\r\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n                  <span class=\"input-group-btn\">\r\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                  </span>\r\n              </div>\r\n                    &nbsp;&nbsp;到&nbsp;&nbsp;            \r\n              <div class=\"input-group\">\r\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\r\n                  <span class=\"input-group-btn\">\r\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\r\n                  </span>\r\n              </div>\r\n              &nbsp;&nbsp;\r\n\r\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n              \r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-1 text-center\">时间</th>\r\n        <th class=\"col-md-3 text-center\">销售品名称</th>\r\n        <th class=\"col-md-1 text-center\">销售品编号</th>\r\n        <th class=\"col-md-1 text-center\">分销商</th>\r\n        <th class=\"col-md-1 text-center\">购买数量</th>\r\n        <th class=\"col-md-1 text-center\">使用数量</th>\r\n        <th class=\"col-md-1 text-center\">退票数量</th>\r\n        <th class=\"col-md-1 text-center\">单价</th>\r\n        <th class=\"col-md-1 text-center\">总计</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.date}}</td>\r\n        <td class=\"\">{{obj.name}}</td>\r\n        <td class=\"text-center\">{{obj.sale_code}}</td>\r\n        <td class=\"text-center\">{{obj.company_name}}<br>{{obj.company_code}}</td>\r\n        <td class=\"text-center\">{{obj.buy}}</td>\r\n        <td class=\"text-center\">{{obj.used}}</td>\r\n        <td class=\"text-center\">{{obj.back}}</td>\r\n        <td class=\"text-center\">{{obj.cost_price  * 0.01 | currency : '￥'}}</td>\r\n        <td class=\"text-center\">{{obj.cost_price * obj.used  * 0.01 | currency : '￥'}}</td>\r\n      </tr>\r\n      <tr >\r\n        <td class=\"text-center\">总计</td>\r\n        <td class=\"text-center\"></td>\r\n        <td class=\"\"></td>\r\n        <td class=\"text-center\"></td>\r\n\r\n        <td class=\"text-center\">{{total.buy}}</td>\r\n        <td class=\"text-center\">{{total.used}}</td>\r\n        <td class=\"text-center\">{{total.back}}</td> \r\n        <td class=\"text-center\"></td>\r\n        <td class=\"text-center\">{{total.total * 0.01 | currency : '￥'}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n\r\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.company_code\" placeholder=\"分销商编号\">\n              &nbsp;&nbsp;\n                \n              <label>使用时间</label>&nbsp;&nbsp;\n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n                    &nbsp;&nbsp;到&nbsp;&nbsp;            \n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n              &nbsp;&nbsp;\n\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n              \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-1 text-center\">时间</th>\n        <th class=\"col-md-3 text-center\">销售品名称</th>\n        <th class=\"col-md-1 text-center\">销售品编号</th>\n        <th class=\"col-md-1 text-center\">分销商</th>\n        <th class=\"col-md-1 text-center\">购买数量</th>\n        <th class=\"col-md-1 text-center\">使用数量</th>\n        <th class=\"col-md-1 text-center\">退票数量</th>\n        <th class=\"col-md-1 text-center\">单价</th>\n        <th class=\"col-md-1 text-center\">总计</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.date}}</td>\n        <td class=\"\">{{obj.name}}</td>\n        <td class=\"text-center\">{{obj.sale_code}}</td>\n        <td class=\"text-center\">{{obj.company_name}}<br>{{obj.company_code}}</td>\n        <td class=\"text-center\">{{obj.buy}}</td>\n        <td class=\"text-center\">{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.back}}</td>\n        <td class=\"text-center\">{{obj.cost_price  * 0.01 | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.cost_price * (obj.buy - obj.back) * 0.01 | currency : '￥'}}</td>\n      </tr>\n      <tr >\n        <td class=\"text-center\">总计</td>\n        <td class=\"text-center\"></td>\n        <td class=\"\"></td>\n        <td class=\"text-center\"></td>\n\n        <td class=\"text-center\">{{total.buy}}</td>\n        <td class=\"text-center\">{{total.used}}</td>\n        <td class=\"text-center\">{{total.back}}</td> \n        <td class=\"text-center\"></td>\n        <td class=\"text-center\">{{total.total * 0.01 | currency : '￥'}}</td>\n      </tr>\n    </tbody>\n  </table>\n\n\n</div>"
 
 /***/ },
-/* 184 */
+/* 190 */
 /***/ function(module, exports) {
 
 	/**
@@ -63044,7 +66511,7 @@
 	module.exports = service;
 
 /***/ },
-/* 185 */
+/* 191 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, destoryDetail, ITEMS_PERPAGE, getDate){
@@ -63107,7 +66574,7 @@
 	};
 
 /***/ },
-/* 186 */
+/* 192 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, 
@@ -63216,12 +66683,10 @@
 	    };
 	    $scope.load();
 
-	    
-
 	};
 
 /***/ },
-/* 187 */
+/* 193 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE){
@@ -63308,7 +66773,7 @@
 	};
 
 /***/ },
-/* 188 */
+/* 194 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, getDate, orderstatisticscompanylist, ITEMS_PERPAGE){
@@ -63393,7 +66858,7 @@
 	};
 
 /***/ },
-/* 189 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63403,22 +66868,23 @@
 
 	var App = angular.module('custservice', []);
 
-	App.config(__webpack_require__(190));
-	App.factory('custservice', __webpack_require__(198));
+	App.config(__webpack_require__(196));
+	App.factory('custservice', __webpack_require__(205));
 
-	App.controller('userinfo',__webpack_require__(199));
-	App.controller('cardA',__webpack_require__(200));
-	App.controller('cardB',__webpack_require__(201));
-	App.controller('infoticket',__webpack_require__(202));
-	App.controller('edituserinfo',__webpack_require__(203));
-	App.controller('redpackage',__webpack_require__(204));
-	App.controller('userorderlist',__webpack_require__(205));
+	App.controller('userinfo',__webpack_require__(206));
+	App.controller('cardA',__webpack_require__(207));
+	App.controller('cardB',__webpack_require__(208));
+	App.controller('infoticket',__webpack_require__(209));
+	App.controller('edituserinfo',__webpack_require__(210));
+	App.controller('createuserinfo',__webpack_require__(211));
+	App.controller('redpackage',__webpack_require__(212));
+	App.controller('userorderlist',__webpack_require__(213));
 
 
 	module.exports = App;
 
 /***/ },
-/* 190 */
+/* 196 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63433,7 +66899,7 @@
 	 	  .state('app.userinfo', {
 	        url: '/userinfo',
 	        controller : 'userinfo',
-	        template: __webpack_require__(191),
+	        template: __webpack_require__(197),
 	        resolve:{
 	            userinfo : function(custservice){
 	                return custservice.userinfo();
@@ -63447,7 +66913,7 @@
 	      .state('app.edituserinfo', {
 	        url: '/edituserinfo/:mobile',
 	        controller : 'edituserinfo',
-	        template: __webpack_require__(192),
+	        template: __webpack_require__(198),
 	        resolve:{
 	            edituserinfo : function(custservice){
 	                return custservice.edituserinfo();
@@ -63461,10 +66927,21 @@
 	        }
 	      })
 
+	      .state('app.createuserinfo', {
+	        url: '/createuserinfo',
+	        controller : 'createuserinfo',
+	        template: __webpack_require__(199),
+	        resolve:{
+	            createuserinfo : function(custservice){
+	                return custservice.createuserinfo();
+	            }
+	        }
+	      })
+
 	      .state('app.cardA', {
 	        url: '/cardA',
 	        controller : 'cardA',
-	        template: __webpack_require__(193),
+	        template: __webpack_require__(200),
 	        resolve:{
 	            cardA : function(custservice){
 	                return custservice.cardA();
@@ -63475,7 +66952,7 @@
 	      .state('app.cardB', {
 	        url: '/cardB',
 	        controller : 'cardB',
-	        template: __webpack_require__(194),
+	        template: __webpack_require__(201),
 	        resolve:{
 	            cardB : function(custservice){
 	                return custservice.cardB();
@@ -63486,7 +66963,7 @@
 	      .state('app.infoticket', {
 	        url: '/infoticket',
 	        controller : 'infoticket',
-	        template: __webpack_require__(195),
+	        template: __webpack_require__(202),
 	        resolve:{
 	            infoticket : function(custservice){
 	                return custservice.infoticket();
@@ -63497,7 +66974,7 @@
 	      .state('app.redpackage', {
 	        url: '/redpackage',
 	        controller : 'redpackage',
-	        template: __webpack_require__(196),
+	        template: __webpack_require__(203),
 	        resolve:{
 	            redpackage : function(custservice){
 	                return custservice.redpackage();
@@ -63508,7 +66985,7 @@
 	      .state('app.userorderlist', {
 	        url: '/userorderlist',
 	        controller : 'userorderlist',
-	        template: __webpack_require__(197),
+	        template: __webpack_require__(204),
 	        resolve:{
 	            orderlist : function(custservice){
 	                return custservice.orderlist();
@@ -63524,49 +67001,55 @@
 	module.exports = router;
 
 /***/ },
-/* 191 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n                <label>手机号</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\t\r\n        <th class=\"col-md-1 text-center\">用户名</th>\r\n        <th class=\"col-md-1 text-center\">手机号</th>\r\n        <th class=\"col-md-1 text-center\">身份证号</th>\r\n        <th class=\"col-md-2 text-center\">地址</th>\r\n        <th class=\"col-md-2 text-center\">实名制</th>\r\n        <th class=\"col-md-1 text-center\">政府补贴</th>\r\n        <th class=\"col-md-1 text-center\">慧鼎补贴</th>\r\n        <th class=\"col-md-1 text-center\">物理卡号</th>\r\n        <th class=\"col-md-1 text-center\">电子卡号</th>\r\n        <th class=\"col-md-1 text-center\">操作</th>\r\n      </tr>\r\n    </thead>\r\n    <div ng-show=\"userstate === 0\">\r\n\t    <tbody>\r\n\t      <tr>\r\n\t        <td class=\"text-center\">{{obj.username}}</td>\r\n\t        <td class=\"text-center\">{{obj.mobile}}</td>\r\n\t        <td class=\"text-center\">{{obj.papersno}}</td>\r\n\t        <td class=\"\">{{obj.postaddress}}</td>\r\n\t        <td class=\"text-center\">{{obj.state}}&nbsp;&nbsp;&nbsp;<a ng-click=\"clear(obj.mobile)\" class=\"btn btn-info btn-xs\">清空</a></td>\r\n\t        <td class=\"text-center\">{{obj.generalsubsidy | currency : '￥'}}</td>\r\n\t        <td class=\"text-center\">{{obj.hdticketsubsidy | currency : '￥'}}</td>\r\n\t        <td class=\"text-center\">{{obj.phycardno}}</td>\r\n\t        <td class=\"text-center\">{{obj.digitalcardno}}</td>\r\n\t        <td class=\"text-center\">\r\n\t        \t<a ng-click=\"edit(obj.mobile)\" class=\"btn btn-success btn-xs\">编辑</a>\r\n\t        </td>\r\n\t      </tr>\r\n\t    </tbody>\r\n    </div>\r\n  </table>\r\n  \r\n\r\n</div>"
-
-/***/ },
-/* 192 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\r\n\t\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">用户名</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入用户名\"\r\n\t\t\tng-model=\"objt.username\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">地址</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入地址\"\r\n\t\t\tng-model=\"objt.postaddress\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<button \r\n    type=\"button\" \r\n    class=\"btn btn-primary btn-lg btn-block\" \r\n    ng-click=\"gogo()\"\r\n    >\r\n    提交\r\n    </button><br>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">政府补贴</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<div class=\"input-group\">\r\n\t\t\t\t<span class=\"input-group-addon\">¥</span>\r\n\t\t\t\t<input type=\"number\" class=\"form-control\" min='0'\r\n\t\t\t\tng-model=\"objt.generalsubsidy\"\r\n\t\t\t\t>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">慧鼎补贴</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<div class=\"input-group\">\r\n\t\t\t\t<span class=\"input-group-addon\">¥</span>\r\n\t\t\t\t<input type=\"number\" class=\"form-control\" min='0'\r\n\t\t\t\tng-model=\"objt.hdticketsubsidy\"\r\n\t\t\t\t>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t\r\n\r\n\t<button \r\n    type=\"button\" \r\n    class=\"btn btn-primary btn-lg btn-block\" \r\n    ng-click=\"xoxo()\"\r\n    >\r\n    提交\r\n    </button>\r\n\r\n\r\n</div>"
-
-/***/ },
-/* 193 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n                <label>物理卡号</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.cardnum\" placeholder=\"请输入物理卡号\">\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"text-center\">物理卡号</th>\r\n        <th class=\"text-center\">物理卡密</th>\r\n        <th class=\"text-center\">物理卡内号</th>\r\n        <th class=\"text-center\">使用状态</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.cardnum}}</td>\r\n        <td class=\"text-center\">{{obj.cardpass}}</td>\r\n        <td class=\"text-center\">{{obj.phycardinside}}</td>\r\n        <td class=\"text-center\">{{obj.state}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  \r\n\r\n</div>"
-
-/***/ },
-/* 194 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n                <label>电子卡号</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.cardnum\" placeholder=\"请输入电子卡号\">\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"text-center\">电子卡号</th>\r\n        <th class=\"text-center\">电子卡密</th>\r\n        <th class=\"text-center\">电子卡内号</th>\r\n        <th class=\"text-center\">使用状态</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.cardnum}}</td>\r\n        <td class=\"text-center\">{{obj.cardpass}}</td>\r\n        <td class=\"text-center\">{{obj.digitalcardinside}}</td>\r\n        <td class=\"text-center\">{{obj.state}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  \r\n\r\n</div>"
-
-/***/ },
-/* 195 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n                <label>手机号</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-3 text-center\">订单编号</th>\r\n        <th class=\"col-md-5 text-center\">票种名称</th>\r\n        <th class=\"col-md-2 text-center\">使用状态</th>\r\n        <th class=\"col-md-3 text-center\">出票时间</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.order_code}}</td>\r\n        <td class=\"\">{{obj.type_name}}</td>\r\n        <td class=\"text-center\">{{obj.used}}</td>\r\n        <td class=\"text-center\">{{obj.ticket_out_time}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  \r\n\r\n</div>"
-
-/***/ },
-/* 196 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n                <label>红包码</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.giftcode\" placeholder=\"请输入红包码\">\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <label>手机号</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"text-center\">红包码</th>\r\n        <th class=\"text-center\">手机号</th>\r\n        <th class=\"text-center\">发送金额</th>\r\n        <th class=\"text-center\">使用状态</th>\r\n        <th class=\"text-center\">发送时间</th>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.giftcode}}</td>\r\n        <td class=\"text-center\">{{obj.mobile}}</td>\r\n        <td class=\"text-center\">{{obj.money | currency : '￥'}}</td>\r\n        <td class=\"text-center\">{{obj.state}}</td>\r\n        <td class=\"text-center\">{{obj.sendtime}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  \r\n\r\n</div>"
-
-/***/ },
 /* 197 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-12\">\r\n                <label>手机号</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n      \t<th class=\"col-md-1 text-center\">订单编号</th>\r\n        <th class=\"col-md-1 text-center\">用户名</th>\r\n        <th class=\"col-md-1 text-center\">地址</th>\r\n        <th class=\"col-md-1 text-center\">电话</th>\r\n        <th class=\"col-md-1 text-center\">证件号</th>\r\n        <th class=\"col-md-1 text-center\">申请时间</th>\r\n        <th class=\"col-md-1 text-center\">支付状态</th>\r\n        <th class=\"col-md-2 text-center\">支付宝订单号</th>\r\n        <th class=\"col-md-1 text-center\">支付金额</th>\r\n        <th class=\"col-md-1 text-center\">支付时间</th>\r\n        <th class=\"col-md-1 text-center\">儿童套票</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"text-center\">{{obj.systradeno}}</td>\r\n        <td class=\"text-center\">{{obj.username}}</td>\r\n        <td class=\"text-center\">{{obj.address}}</td>\r\n        <td class=\"text-center\">{{obj.mobile}}</td>\r\n        <td class=\"text-center\">{{obj.papersno}}</td>\r\n        <td class=\"text-center\">{{obj.appdatec}}</td>\r\n        <td class=\"text-center\">{{obj.paystatusname}}</td>\r\n        <td class=\"text-center\">{{obj.alitradeno}}</td>\r\n        <td class=\"text-center\">{{obj.fee | currency : '￥'}}</td>\r\n        <td class=\"text-center\">{{obj.paytimec}}</td>\r\n        <td class=\"text-center\">{{obj.ischildname}}</td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n  \r\n\r\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>手机号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">实名认证</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\t\n        <th class=\"col-md-1 text-center\">用户名</th>\n        <th class=\"col-md-1 text-center\">手机号</th>\n        <th class=\"col-md-1 text-center\">身份证号</th>\n        <th class=\"col-md-2 text-center\">地址</th>\n        <th class=\"col-md-2 text-center\">实名制</th>\n        <th class=\"col-md-1 text-center\">政府补贴</th>\n        <th class=\"col-md-1 text-center\">慧鼎补贴</th>\n        <th class=\"col-md-1 text-center\">物理卡号</th>\n        <th class=\"col-md-1 text-center\">电子卡号</th>\n        <th class=\"col-md-1 text-center\">操作</th>\n      </tr>\n    </thead>\n    <div ng-show=\"userstate === 0\">\n\t    <tbody>\n\t      <tr>\n\t        <td class=\"text-center\">{{obj.username}}</td>\n\t        <td class=\"text-center\">{{obj.mobile}}</td>\n\t        <td class=\"text-center\">{{obj.papersno}}</td>\n\t        <td class=\"\">{{obj.postaddress}}</td>\n\t        <td class=\"text-center\">{{obj.state}}&nbsp;&nbsp;&nbsp;<a ng-click=\"clear(obj.mobile)\" class=\"btn btn-info btn-xs\">清空</a></td>\n\t        <td class=\"text-center\">{{obj.generalsubsidy | currency : '￥'}}</td>\n\t        <td class=\"text-center\">{{obj.hdticketsubsidy | currency : '￥'}}</td>\n\t        <td class=\"text-center\">{{obj.phycardno}}</td>\n\t        <td class=\"text-center\">{{obj.digitalcardno}}</td>\n\t        <td class=\"text-center\">\n\t        \t<a ng-click=\"edit(obj.mobile)\" class=\"btn btn-success btn-xs\">编辑</a>\n\t        </td>\n\t      </tr>\n\t    </tbody>\n    </div>\n  </table>\n  \n\n</div>"
 
 /***/ },
 /* 198 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\n\t\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">用户名</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入用户名\"\n\t\t\tng-model=\"objt.username\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">地址</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入地址\"\n\t\t\tng-model=\"objt.postaddress\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"gogo()\"\n    >\n    提交\n    </button><br>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">政府补贴</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<div class=\"input-group\">\n\t\t\t\t<span class=\"input-group-addon\">¥</span>\n\t\t\t\t<input type=\"number\" class=\"form-control\" min='0'\n\t\t\t\tng-model=\"objt.generalsubsidy\"\n\t\t\t\t>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">慧鼎补贴</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<div class=\"input-group\">\n\t\t\t\t<span class=\"input-group-addon\">¥</span>\n\t\t\t\t<input type=\"number\" class=\"form-control\" min='0'\n\t\t\t\tng-model=\"objt.hdticketsubsidy\"\n\t\t\t\t>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"xoxo()\"\n    >\n    提交\n    </button>\n\n\n</div>"
+
+/***/ },
+/* 199 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\n\t\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">用户名</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入用户名\"\n\t\t\tng-model=\"objt.username\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">手机号</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入手机号\"\n\t\t\tng-model=\"objt.mobile\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">证件号</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入证件号\"\n\t\t\tng-model=\"objt.papersno\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">地址</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入地址\"\n\t\t\tng-model=\"objt.postaddress\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"gogo()\"\n    >\n    实名认证\n    </button><br>\n\n\n</div>"
+
+/***/ },
+/* 200 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>物理卡号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.cardnum\" placeholder=\"请输入物理卡号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"text-center\">物理卡号</th>\n        <th class=\"text-center\">物理卡密</th>\n        <th class=\"text-center\">物理卡内号</th>\n        <th class=\"text-center\">使用状态</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.cardnum}}</td>\n        <td class=\"text-center\">{{obj.cardpass}}</td>\n        <td class=\"text-center\">{{obj.phycardinside}}</td>\n        <td class=\"text-center\">{{obj.state}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
+
+/***/ },
+/* 201 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>电子卡号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.cardnum\" placeholder=\"请输入电子卡号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"text-center\">电子卡号</th>\n        <th class=\"text-center\">电子卡密</th>\n        <th class=\"text-center\">电子卡内号</th>\n        <th class=\"text-center\">使用状态</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.cardnum}}</td>\n        <td class=\"text-center\">{{obj.cardpass}}</td>\n        <td class=\"text-center\">{{obj.digitalcardinside}}</td>\n        <td class=\"text-center\">{{obj.state}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
+
+/***/ },
+/* 202 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>手机号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-3 text-center\">订单编号</th>\n        <th class=\"col-md-5 text-center\">票种名称</th>\n        <th class=\"col-md-2 text-center\">使用状态</th>\n        <th class=\"col-md-3 text-center\">出票时间</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.order_code}}</td>\n        <td class=\"\">{{obj.type_name}}</td>\n        <td class=\"text-center\">{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.ticket_out_time}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
+
+/***/ },
+/* 203 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>红包码</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.giftcode\" placeholder=\"请输入红包码\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <label>手机号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"text-center\">红包码</th>\n        <th class=\"text-center\">手机号</th>\n        <th class=\"text-center\">发送金额</th>\n        <th class=\"text-center\">使用状态</th>\n        <th class=\"text-center\">发送时间</th>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.giftcode}}</td>\n        <td class=\"text-center\">{{obj.mobile}}</td>\n        <td class=\"text-center\">{{obj.money/100 | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.state}}</td>\n        <td class=\"text-center\">{{obj.sendtime}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
+
+/***/ },
+/* 204 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>手机号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n      \t<th class=\"col-md-1 text-center\">订单编号</th>\n        <th class=\"col-md-1 text-center\">用户名</th>\n        <th class=\"col-md-1 text-center\">地址</th>\n        <th class=\"col-md-1 text-center\">电话</th>\n        <th class=\"col-md-1 text-center\">证件号</th>\n        <th class=\"col-md-1 text-center\">申请时间</th>\n        <th class=\"col-md-1 text-center\">支付状态</th>\n        <th class=\"col-md-2 text-center\">支付宝订单号</th>\n        <th class=\"col-md-1 text-center\">支付金额</th>\n        <th class=\"col-md-1 text-center\">支付时间</th>\n        <th class=\"col-md-1 text-center\">儿童套票</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.systradeno}}</td>\n        <td class=\"text-center\">{{obj.username}}</td>\n        <td class=\"text-center\">{{obj.address}}</td>\n        <td class=\"text-center\">{{obj.mobile}}</td>\n        <td class=\"text-center\">{{obj.papersno}}</td>\n        <td class=\"text-center\">{{obj.appdatec}}</td>\n        <td class=\"text-center\">{{obj.paystatusname}}</td>\n        <td class=\"text-center\">{{obj.alitradeno}}</td>\n        <td class=\"text-center\">{{obj.fee | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.paytimec}}</td>\n        <td class=\"text-center\">{{obj.ischildname}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
+
+/***/ },
+/* 205 */
 /***/ function(module, exports) {
 
 	/**
@@ -63575,11 +67058,13 @@
 	 */
 	var service = function($resource, BASEURL38985){
 
-	    var userinfo = "/api/ac/uc/userService/getUserInfoByMobile";
+	    var userinfo = BASEURL38985 + "/api/ac/uc/userService/getUserInfoByMobile";
 
-	    var oneuserinfo = "/api/as/uc/jyu/getjyuserinfo";
+	    var oneuserinfo = BASEURL38985 + "/api/as/uc/jyu/getjyuserinfo";
 
-	    var edituserinfo = "/api/ac/uc/userService/updateUserInfoByMobile";
+	    var edituserinfo = BASEURL38985 + "/api/ac/uc/userService/updateUserInfoByMobile";
+
+	    var createuserinfo = "http://weixint.juyouhx.com/api/uc/uc/userService/insertUserAuthKF";
 
 	    var cardA = BASEURL38985 + "/api/as/uc/jyu/getphycardlist";
 
@@ -63593,7 +67078,7 @@
 
 	    var updateUserSubsidy = BASEURL38985 + "/api/ac/uc/userService/updateUserSubsidy";
 
-	    var orderlist = "/api/as/uc/jyu/getOrderListForKList";
+	    var orderlist = BASEURL38985 + "/api/as/uc/jyu/getOrderListForKList";
 	    
 	    return {
 
@@ -63605,6 +67090,9 @@
 	        },
 	        edituserinfo : function(){
 	            return $resource(edituserinfo, {}, {});
+	        },
+	        createuserinfo : function(){
+	            return $resource(createuserinfo, {}, {});
 	        },
 	        cardA : function(){
 	            return $resource(cardA, {}, {});
@@ -63635,10 +67123,9 @@
 	module.exports = service;
 
 /***/ },
-/* 199 */
+/* 206 */
 /***/ function(module, exports) {
 
-<<<<<<< HEAD
 	module.exports = function($scope, $state, userinfo, updateUserAuthInfo){
 
 		$scope.searchform = {};
@@ -63696,69 +67183,16 @@
 			});
 		}
 
-=======
-	module.exports = function($scope, $state, userinfo, updateUserAuthInfo){
+		$scope.create = function(){
 
-		$scope.searchform = {};
-	    //$scope.searchform.mobile = '15840491086';
-	    $scope.load = function () {
-	        
-	        userinfo.save($scope.searchform, function(res){
+			$state.go('app.createuserinfo');
+			
+		};
 
-	         	console.log(res.data);
-
-	         	if(res.errcode !== 0)
-	         	{
-	         		alert("数据获取失败");
-	         		return;
-	         	}
-
-	         	/*if(res.data.phycardno.toString() == 'null'){
-	         		res.data.phycardno = '';
-	         	}
-
-	         	if(res.data.digitalcardno.toString() == 'null'){
-	         		res.data.digitalcardno = '';
-	         	}*/
-
-	         	$scope.obj = res.data;
-
-	        });
-
-	    };
-	    //$scope.load();
-
-	    $scope.edit = function(mobile){
-
-	    	$state.go('app.edituserinfo', {'mobile' : mobile});
-
-	    };
-
-	    $scope.clear = function(mobile){
-	    	var para = {
-	            mobile:mobile
-	        };
-			updateUserAuthInfo.save(para, function(res){
-
-				console.log(res);
-
-				if(res.errcode === 0)
-				{
-					alert("清除实名制成功");
-				}
-				else
-				{
-					alert(res.errmsg);
-				}
-
-			});
-		}
-
->>>>>>> b5dd1078549d59625e1a8e4c98055fa33353e936
 	};
 
 /***/ },
-/* 200 */
+/* 207 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, cardA){
@@ -63786,7 +67220,7 @@
 	};
 
 /***/ },
-/* 201 */
+/* 208 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, cardB){
@@ -63814,7 +67248,7 @@
 	};
 
 /***/ },
-/* 202 */
+/* 209 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, infoticket){
@@ -63843,7 +67277,7 @@
 	};
 
 /***/ },
-/* 203 */
+/* 210 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, edituserinfo, oneuserinfo, updateUserSubsidy){
@@ -63901,7 +67335,37 @@
 
 
 /***/ },
-/* 204 */
+/* 211 */
+/***/ function(module, exports) {
+
+	module.exports = function($scope, createuserinfo){
+
+		$scope.objt = {};
+
+		$scope.gogo = function(){
+			$scope.objt.headphoto = '1';
+			createuserinfo.save($scope.objt, function(res){
+
+				console.log(res);
+
+				if(res.errcode === 1000)
+				{
+					alert("实名认证成功");
+				}
+				else
+				{
+					alert(res.errmsg);
+				}
+
+			});
+		}
+		
+
+	};
+
+
+/***/ },
+/* 212 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, redpackage){
@@ -63929,7 +67393,7 @@
 	};
 
 /***/ },
-/* 205 */
+/* 213 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, orderlist){
@@ -63958,7 +67422,7 @@
 	};
 
 /***/ },
-/* 206 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63968,18 +67432,18 @@
 
 	var App = angular.module('notice', []);
 
-	App.config(__webpack_require__(207));
-	App.factory('noticeservice', __webpack_require__(210));
+	App.config(__webpack_require__(215));
+	App.factory('noticeservice', __webpack_require__(218));
 
-	App.controller('noticelist',__webpack_require__(211));
-	App.controller('noticeedit',__webpack_require__(212));
-	App.controller('noticecreate',__webpack_require__(213));
+	App.controller('noticelist',__webpack_require__(219));
+	App.controller('noticeedit',__webpack_require__(220));
+	App.controller('noticecreate',__webpack_require__(221));
 
 
 	module.exports = App;
 
 /***/ },
-/* 207 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -63994,7 +67458,7 @@
 	 	  .state('app.createnotice', {
 	        url: '/noticelist',
 	        controller : 'noticelist',
-	        template: __webpack_require__(208),
+	        template: __webpack_require__(216),
 	        resolve:{
 	            mylist : function(noticeservice){
 	                return noticeservice.mylist();
@@ -64008,7 +67472,7 @@
 	      .state('app.noticecreate', {
 	        url: '/notice',
 	        controller : 'noticecreate',
-	        template: __webpack_require__(209),
+	        template: __webpack_require__(217),
 	        resolve:{
 	            create : function(noticeservice){
 	                return noticeservice.create();
@@ -64020,7 +67484,7 @@
 	      .state('app.noticeedit', {
 	        url: '/notice/:id',
 	        controller : 'noticeedit',
-	        template: __webpack_require__(209),
+	        template: __webpack_require__(217),
 	        resolve:{
 	            myinfo : function(noticeservice){
 	                return noticeservice.myinfo();
@@ -64039,19 +67503,19 @@
 	module.exports = router;
 
 /***/ },
-/* 208 */
+/* 216 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\r\n<div class=\"panel panel-default\">\r\n    <div class=\"panel-body\">\r\n        <div class=\"form-group form-inline\">\r\n            <div class=\"col-sm-10\">\r\n                <label>公告标题</label>&nbsp;&nbsp;\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.title\" >\r\n                &nbsp;&nbsp;&nbsp;&nbsp;\r\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\r\n            </div>\r\n            <div class=\"col-sm-2 text-right\">\r\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建公告</button>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div><!-- searchArea -->\r\n\r\n\r\n  <table class=\"table table-bordered\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"col-md-4 text-center\">公告标题</th>\r\n        <th class=\"col-md-2 text-center\">公告状态</th>\r\n        <th class=\"col-md-2 text-center\">排序</th>\r\n        <th class=\"col-md-2 text-center\">创建时间</th>\r\n        <th class=\"col-md-2 text-center\">操作</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"obj in objs\">\r\n        <td class=\"\">{{obj.title}}</td>\r\n        <td class=\"text-center\">{{obj.statename}}</td>\r\n        <td class=\"form-horizontal \">\r\n          <div class=\"col-sm-6\">\r\n            <input class=\"form-control input-sm\" \r\n            style=\"height:22px;\" \r\n            type=\"text\" \r\n            value=\"{{obj.asort}}\" \r\n            ng-model=\"obj.asort\">\r\n          </div>\r\n          <a ng-click=\"asort(obj.id, obj.asort)\" class=\"btn btn-info btn-xs\">gogo</a> \r\n        </td>\r\n        <td class=\"text-center\">{{obj.sdate}}</td>\r\n        <td class=\"text-center\">\r\n          <a ng-show=\"obj.state=='1'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">隐藏</a>\r\n          <a ng-show=\"obj.state=='0'\" ng-click=\"start(obj.id)\" class=\"btn btn-danger btn-xs\">显示</a>\r\n          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\r\n        </td>\r\n      </tr>\r\n    </tbody>\r\n  </table>\r\n\r\n\r\n  <div class=\"text-right\">\r\n\r\n    <uib-pagination \r\n      total-items=\"bigTotalItems\" \r\n      ng-model=\"bigCurrentPage\" \r\n      max-size=\"maxSize\" \r\n      class=\"pagination-sm\" \r\n      boundary-links=\"true\" \r\n      ng-change=\"load()\"\r\n      items-per-page=\"itemsPerPage\"\r\n      previous-text=\"上一页\"\r\n      next-text=\"下一页\"\r\n      first-text=\"首页\"\r\n      last-text=\"末页\"\r\n      rotate=\"false\">\r\n    </uib-pagination>\r\n\r\n  </div>\r\n  \r\n\r\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>公告标题</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.title\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建公告</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-4 text-center\">公告标题</th>\n        <th class=\"col-md-2 text-center\">公告状态</th>\n        <th class=\"col-md-2 text-center\">排序</th>\n        <th class=\"col-md-2 text-center\">创建时间</th>\n        <th class=\"col-md-2 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"\">{{obj.title}}</td>\n        <td class=\"text-center\">{{obj.statename}}</td>\n        <td class=\"form-horizontal \">\n          <div class=\"col-sm-6\">\n            <input class=\"form-control input-sm\" \n            style=\"height:22px;\" \n            type=\"text\" \n            value=\"{{obj.asort}}\" \n            ng-model=\"obj.asort\">\n          </div>\n          <a ng-click=\"asort(obj.id, obj.asort)\" class=\"btn btn-info btn-xs\">gogo</a> \n        </td>\n        <td class=\"text-center\">{{obj.sdate}}</td>\n        <td class=\"text-center\">\n          <a ng-show=\"obj.state=='1'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">隐藏</a>\n          <a ng-show=\"obj.state=='0'\" ng-click=\"start(obj.id)\" class=\"btn btn-danger btn-xs\">显示</a>\n          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
 
 /***/ },
-/* 209 */
+/* 217 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\r\n\t\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">公告标题</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\"\r\n\t\t\tng-model=\"objt.title\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">公告内容</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<!--<textarea class=\"form-control\" rows=\"15\"\r\n\t\t\tng-model=\"objt.content\"\r\n\t\t\t></textarea>-->\r\n\t\t\t<div text-angular ng-model=\"objt.content\"></div>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t\t<label class=\"col-xs-2 control-label\">公告排序</label>\r\n\t\t<div class=\"col-xs-6\">\r\n\t\t\t<input type=\"text\" class=\"form-control\"\r\n\t\t\tng-model=\"objt.asort\"\r\n\t\t\t>\r\n\t\t</div>\r\n\t</div>\r\n\r\n\t<div class=\"form-group\">\r\n\t    <label class=\"col-xs-2 control-label\">公告状态</label>\r\n\t    <div class=\"col-xs-10\">\r\n\t    \t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"1\"\r\n\t\t\t  ng-model=\"objt.state\"\r\n\t\t\t  > 显示\r\n\t\t\t</label>\r\n\t\t\t<label class=\"radio-inline\">\r\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"0\"\r\n\t\t\t  ng-model=\"objt.state\"\r\n\t\t\t  > 隐藏\r\n\t\t\t</label>\r\n\t    </div>\r\n  \t</div>\r\n\r\n\t\r\n\r\n\t<button \r\n    type=\"button\" \r\n    class=\"btn btn-primary btn-lg btn-block\" \r\n    ng-click=\"gogo()\"\r\n    >\r\n    提交\r\n    </button>\r\n\r\n\r\n</div>"
+	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\n\t\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">公告标题</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\"\n\t\t\tng-model=\"objt.title\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">公告内容</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<!--<textarea class=\"form-control\" rows=\"15\"\n\t\t\tng-model=\"objt.content\"\n\t\t\t></textarea>-->\n\t\t\t<div text-angular ng-model=\"objt.content\"></div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">公告排序</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\"\n\t\t\tng-model=\"objt.asort\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t    <label class=\"col-xs-2 control-label\">公告状态</label>\n\t    <div class=\"col-xs-10\">\n\t    \t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"1\"\n\t\t\t  ng-model=\"objt.state\"\n\t\t\t  > 显示\n\t\t\t</label>\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"0\"\n\t\t\t  ng-model=\"objt.state\"\n\t\t\t  > 隐藏\n\t\t\t</label>\n\t    </div>\n  \t</div>\n\n\t\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"gogo()\"\n    >\n    提交\n    </button>\n\n\n</div>"
 
 /***/ },
-/* 210 */
+/* 218 */
 /***/ function(module, exports) {
 
 	/**
@@ -64090,7 +67554,7 @@
 	module.exports = service;
 
 /***/ },
-/* 211 */
+/* 219 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, mylist, update, ITEMS_PERPAGE){
@@ -64189,7 +67653,7 @@
 	};
 
 /***/ },
-/* 212 */
+/* 220 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, update, myinfo){
@@ -64233,7 +67697,7 @@
 	};
 
 /***/ },
-/* 213 */
+/* 221 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, create){
@@ -64265,7 +67729,230 @@
 	};
 
 /***/ },
-/* 214 */
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * 子模块入口
+	 * dlq
+	 */
+
+	var App = angular.module('chart', []);
+
+	App.config(__webpack_require__(223));
+	App.factory('chartservice', __webpack_require__(225));
+
+
+	App.controller('salechart',__webpack_require__(226));
+	// App.controller('orderbycode',require('./controllers/orderbycode'));
+	// App.controller('orderticketlist',require('./controllers/orderticketlist'));
+	// App.controller('allorderlist',require('./controllers/allorderlist'));
+	// App.controller('grouplist',require('./controllers/grouplist'));
+	// App.controller('groupalllist',require('./controllers/groupalllist'));
+	// App.controller('orderinfo',require('./controllers/orderinfo'));
+
+
+	module.exports = App;
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * 子模块路由
+	 * dlq
+	 */
+
+	var router = function($urlRouterProvider, $stateProvider){
+
+	 	$stateProvider
+
+	        .state('app.salechart', {
+	            url: '/salechart',
+	            controller : 'salechart',
+	            template: __webpack_require__(224),
+	            resolve:{
+	                orderstatisticslist : function(statisticsservice){
+	                    return statisticsservice.orderstatisticslist();
+	                },
+	                getDate : function(utilservice){
+	                    return utilservice.getDate;
+	                },
+	                dataScope : function(utilservice){
+	                    return utilservice.dataScope;
+	                },
+	                salelist : function(productservice){
+	                    return productservice.salelist();
+	                }
+	            }
+	            
+	          })
+
+	};
+
+	module.exports = router;
+
+/***/ },
+/* 224 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-xs-12\">\n<div class=\"row\">\n\n<div class=\"col-sm-8\">\n<div class=\"panel panel-default\">\n<div class=\"panel-body\">\n<div class=\"form-group form-inline\">\n    <div class=\"col-sm-12\">\n\n    \t<div class=\"row\">\n    \t\t<label>景区</label>&nbsp;&nbsp;\n            <select class=\"form-control\" ng-model=\"searchform.place_code\" \n              ng-options=\"view.viewcode as view.viewname for view in viewarr\"\n              ng-change=\"change(searchform.place_code)\" \n            >\n              <option value=\"\"> --全部-- </option>\n            </select>\n            &nbsp;&nbsp;&nbsp;&nbsp;\n            <label>销售品</label>&nbsp;&nbsp;\n            <select class=\"form-control\" ng-model=\"searchform.sale_code\" \n              ng-options=\"sale.code as sale.name for sale in salearr\"\n              ng-change=\"changesale($index)\" \n            >\n            </select>\n\n    \t</div>\n\n\t\t<div class=\"row mt10\">\n\t\t\t<div class=\"input-group\">\n\t\t\t<input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t\t\t  <span class=\"input-group-btn\">\n\t\t\t    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t\t\t  </span>\n\t\t\t</div>\n\t\t\t    &nbsp;&nbsp;到&nbsp;&nbsp;            \n\t\t\t<div class=\"input-group\">\n\t\t\t<input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t\t\t  <span class=\"input-group-btn\">\n\t\t\t    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t\t\t  </span>\n\t\t\t</div>\n\t\t\t&nbsp;&nbsp;\n\n\t\t\t<button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n\t\t</div>\n      \n    </div>\n</div>\n</div>\n</div><!-- searchArea -->\n\n\n\n<canvas id=\"line\" class=\"chart chart-line\" chart-data=\"line.data\"\n  chart-labels=\"line.labels\" chart-legend=\"true\" chart-series=\"line.series\"\n  chart-click=\"onClick\" >\n</canvas> \n</div>\n\n\n</div>\n</div>"
+
+/***/ },
+/* 225 */
+/***/ function(module, exports) {
+
+	/**
+	 * 子模块service
+	 * dlq
+	 */
+	var service = function($resource, BASEURL38985){
+
+	    return {
+
+	        
+
+	    };
+
+	};
+
+	module.exports = service;
+
+/***/ },
+/* 226 */
+/***/ function(module, exports) {
+
+	module.exports = function($scope, orderstatisticslist, getDate, dataScope, salelist){
+
+		$scope.line = {};
+		$scope.line.labels = [];
+	    //$scope.line.labels = dataScope('2016-05-4', '2016-05-11');//["January", "February", "March", "April", "May", "June", "July"];
+	    $scope.line.series = [];//['畅游卡套票'];
+	    $scope.line.data = [
+	        // [65, 59, 80, 81, 56, 55, 40],
+	        // [28, 48, 40, 19, 86, 27, 90]
+	    ];
+
+	    $scope.searchform = {};
+	    var view = new Object();
+	    $scope.viewarr = [];
+
+	    //有效区间
+	    $scope.section = {};
+	    $scope.section.start = {};
+	    $scope.section.start.date = new Date(new Date().getTime() - 7 * 24 * 3600 * 1000);
+
+	    $scope.section.end = {};
+	    $scope.section.end.date = new Date();
+
+	    $scope.open = function(obj) {
+	        obj.opened = true;
+	    };
+
+	    salelist.get({}, function(res){
+
+	    	console.log(res);
+
+	    	/* 销售品存储结构
+	         * ========================================= */
+	        
+	        //var resview = new Array();
+
+	        if(res.errcode !== 0)
+	        {
+	            alert(res.errmsg);
+	            return;
+	        }
+
+	        //用景区编号作为存储结构的属性，值是数组
+	        for(var i = 0, j = res.data.length; i < j; i++)
+	        {
+	            var tt = res.data[i];
+	            var v = tt.place_code;
+	            var type = tt.sale_category;
+
+	            if(!view.hasOwnProperty(v))
+	            {
+	                view[v] = new Object();
+	                view[v].salearr = new Array();
+	                //view[v].type = new Object();
+	                view[v].viewname = tt.place_name;
+	                view[v].viewcode = tt.place_code;
+	                $scope.viewarr.push(view[v]);
+	            }
+
+	            view[v].salearr.push(tt);
+	        }
+
+	        $scope.searchform.place_code = $scope.viewarr[0].viewcode;
+	        $scope.salearr = $scope.viewarr[0].salearr;
+	        $scope.searchform.sale_code = $scope.salearr[0].code;
+	        
+	    });
+
+	 
+
+	    $scope.change = function(code){
+
+	    	$scope.salearr = view[code].salearr;
+	    	$scope.searchform.sale_code = $scope.salearr[0].code;
+	    };
+
+	    $scope.changesale = function(index){
+
+	    	//alert(index);
+	    };
+
+	    $scope.load = function(){
+
+	    	var start = getDate($scope.section.start.date);
+	    	var end = getDate($scope.section.end.date);
+
+	    	var para = {
+		    	'start_time' : start + " 00:00:00",
+	            'end_time' : end + " 23:59:59",
+		        'sale_code' : $scope.searchform.sale_code
+		    };
+
+		    $scope.line.labels = dataScope(start, end);
+
+		    var labels = {};
+		    for(var i = 0, j = $scope.line.labels.length; i < j; i++)
+			{
+				labels[$scope.line.labels[i]] = 0;
+			}
+			$scope.line.data = [];
+		    orderstatisticslist.save(para, function(res){
+
+		    	if(res.errcode === 0)
+		    	{
+		    		var arr = [];
+		    		for(var i = 0, j = res.data.length; i < j; i++)
+		    		{
+		    			labels[res.data[i].date] = res.data[i].buy;
+		    		}
+		    		angular.forEach(labels, function (value, key) {
+					    //console.log(key + ':' + value);
+					    arr.push(value);
+					});
+		     		$scope.line.data.push(arr);
+		    	}
+		    	else
+		    	{
+		    		alert(res.errmsg);
+		    	}
+
+		    	console.log($scope.line.data);
+
+		    });
+
+	    }
+	    $scope.load();
+
+	};
+
+/***/ },
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -64276,13 +67963,13 @@
 	var App = angular.module('util', []);
 
 
-	App.factory('utilservice', __webpack_require__(215));
+	App.factory('utilservice', __webpack_require__(228));
 
 
 	module.exports = App;
 
 /***/ },
-/* 215 */
+/* 228 */
 /***/ function(module, exports) {
 
 	/**
@@ -64297,7 +67984,9 @@
 	        	if(d === undefined){
 	        		return "";
 	        	}
-	        	return d.getFullYear() + "-" + (d.getMonth()+1) + "-" + d.getDate();
+	        	var month = (d.getMonth()+1).toString();
+	        	//if(month.length == 1) month = '0' + month;
+	        	return d.getFullYear() + "-" + month + "-" + d.getDate();
 	    	},
 
 	    	transData : function(a, idStr, pidStr, chindrenStr){    
@@ -64376,6 +68065,64 @@
 		        return pass;
 				
 			}
+
+			,
+
+			/*************************
+			 * 计算两个日期时间段内所有日期 
+			 * 
+			 * @param value1 
+			 *            开始日期 YYYY-MM-DD 
+			 * @param value2 
+			 *            结束日期 
+			 * return 日期数组 
+			 */  
+			dataScope : function(value1, value2) {  
+			    var getDate1 = function(str) {  
+			        var tempDate = new Date();  
+			        var list = str.split("-");  
+			        tempDate.setFullYear(list[0]);  
+			        tempDate.setMonth(list[1] - 1);  
+			        tempDate.setDate(list[2]);  
+			        return tempDate;  
+			    }  
+			    var date1 = getDate1(value1);  
+			    var date2 = getDate1(value2);  
+			    if (date1 > date2) {  
+			        var tempDate = date1;  
+			        date1 = date2;  
+			        date2 = tempDate;  
+			    }  
+			    date2.setDate(date2.getDate() + 1);  
+			    var dateArr = [];  
+			    
+
+			    while (!(date1.getFullYear() == date2.getFullYear()  
+			            && date1.getMonth() == date2.getMonth() 
+			            && date1.getDate() == date2.getDate())) {  
+
+			         var dayStr =date1.getDate().toString();
+		            if(dayStr.length ==1){  
+		                dayStr="0"+dayStr;  
+		            }  
+
+		            var month = (date1.getMonth() + 1).toString();
+		            if(month.length == 1) month = '0' + month;
+			        dateArr.push(date1.getFullYear() + "-" + 
+			        			month + "-"  
+			                	+ dayStr);  
+			        
+			        /* 
+			         * document.write("<div style='display:block'>" + date1.getFullYear() + 
+			         * "-" + (date1.getMonth() + 1) + "-" + date1.getDate() + "</div>"); 
+			         */  
+			        // document.write(dateArr[i] + "<br>");  
+			        
+			        date1.setDate(date1.getDate() + 1);  
+
+			    }  
+			    return dateArr;  
+			}
 	       
 	    };
 
@@ -64384,19 +68131,19 @@
 	module.exports = service;
 
 /***/ },
-/* 216 */
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//拦截器
 
 	var App = angular.module('intercept', []);
 	//alert('sadsadsadasas');
-	App.factory('httpInjector', __webpack_require__(217));
+	App.factory('httpInjector', __webpack_require__(230));
 
 	module.exports = App;
 
 /***/ },
-/* 217 */
+/* 230 */
 /***/ function(module, exports) {
 
 	module.exports = function($location){
@@ -64417,7 +68164,7 @@
 	};
 
 /***/ },
-/* 218 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -64427,14 +68174,14 @@
 
 	var App = angular.module('test', []);
 
-	App.config(__webpack_require__(219));
+	App.config(__webpack_require__(232));
 
-	App.controller('cccc',__webpack_require__(221));
+	App.controller('cccc',__webpack_require__(234));
 
 	module.exports = App;
 
 /***/ },
-/* 219 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -64449,7 +68196,7 @@
 	 	  .state('app.table', {
 	        url: '/table/:url',
 	        controller : 'cccc',
-	        template: __webpack_require__(220)
+	        template: __webpack_require__(233)
 	      })
 
 	 	  
@@ -64459,13 +68206,13 @@
 	module.exports = router;
 
 /***/ },
-/* 220 */
+/* 233 */
 /***/ function(module, exports) {
 
-	module.exports = "<table class=\"table table-bordered table-hover\">\r\n    <thead>\r\n      <tr>\r\n        <th class=\"text-center col-sm-{{t.length}}\" \r\n        ng-repeat=\"t in obj.title\">{{t.name}}</th>\r\n      </tr>\r\n    </thead>\r\n    <tbody>\r\n      <tr ng-repeat=\"xx in obj.content\">\r\n        <td class=\"text-center\"\r\n        ng-repeat=\"t in obj.title\"\r\n        >{{xx[t.key]}}</td>\r\n      </tr>\r\n    </tbody>\r\n</table>\r\n\r\n\r\n<div class=\"text-right\">\r\n    <pagination items-per-page=\"itemsPerPage\" \r\n                total-items=\"bigTotalItems\" \r\n                ng-model=\"bigCurrentPage\" \r\n                max-size=\"maxSize\" \r\n                class=\"pagination-sm\" \r\n                boundary-links=\"true\" \r\n                rotate=\"false\" \r\n                num-pages=\"numPages\" \r\n                previous-text=\"上一页\"\r\n                next-text=\"下一页\"\r\n                first-text=\"首页\"\r\n                last-text=\"末页\"\r\n                ng-change=\"load()\"></pagination>\r\n</div>"
+	module.exports = "<table class=\"table table-bordered table-hover\">\n    <thead>\n      <tr>\n        <th class=\"text-center col-sm-{{t.length}}\" \n        ng-repeat=\"t in obj.title\">{{t.name}}</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"xx in obj.content\">\n        <td class=\"text-center\"\n        ng-repeat=\"t in obj.title\"\n        >{{xx[t.key]}}</td>\n      </tr>\n    </tbody>\n</table>\n\n\n<div class=\"text-right\">\n    <pagination items-per-page=\"itemsPerPage\" \n                total-items=\"bigTotalItems\" \n                ng-model=\"bigCurrentPage\" \n                max-size=\"maxSize\" \n                class=\"pagination-sm\" \n                boundary-links=\"true\" \n                rotate=\"false\" \n                num-pages=\"numPages\" \n                previous-text=\"上一页\"\n                next-text=\"下一页\"\n                first-text=\"首页\"\n                last-text=\"末页\"\n                ng-change=\"load()\"></pagination>\n</div>"
 
 /***/ },
-/* 221 */
+/* 234 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, $resource, BASEURL38985){
@@ -64730,7 +68477,7 @@
 
 
 /***/ },
-/* 222 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -64740,16 +68487,16 @@
 
 	var App = angular.module('common', []);
 
-	App.config(__webpack_require__(223));
+	App.config(__webpack_require__(236));
 
-	App.factory('commonservice', __webpack_require__(225));
+	App.factory('commonservice', __webpack_require__(238));
 
-	App.controller('appcontroller',__webpack_require__(226));
+	App.controller('appcontroller',__webpack_require__(239));
 
 	module.exports = App;
 
 /***/ },
-/* 223 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -64766,7 +68513,7 @@
 		      url: '/app',
 		      abstract: true,
 		      controller : 'appcontroller',
-		      template : __webpack_require__(224),
+		      template : __webpack_require__(237),
 		      resolve:{
 	        	permission : function(commonservice){
 	        		return commonservice.permission();
@@ -64780,13 +68527,13 @@
 	module.exports = router;
 
 /***/ },
-/* 224 */
+/* 237 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- top navbar-->\r\n<header>\r\n\t<nav class=\"navbar navbar-custom \">\r\n\t  <div class=\"container-fluid\">\r\n\t    <!-- Brand and toggle get grouped for better mobile display -->\r\n\t    <div class=\"navbar-header\">\r\n\t      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\"\r\n\t      ng-click=\"isCollapsed = !isCollapsed\"\r\n\t      >\r\n\t        <span class=\"sr-only\">Toggle navigation</span>\r\n\t        <span class=\"icon-bar\"></span>\r\n\t        <span class=\"icon-bar\"></span>\r\n\t        <span class=\"icon-bar\"></span>\r\n\t      </button>\r\n\t      <a class=\"navbar-brand\" href=\"#/\">\r\n\t      \t{{menuobj.name}}\r\n\t      </a>\r\n\t    </div>\r\n\r\n\t    <!-- Collect the nav links, forms, and other content for toggling -->\r\n\t    <div class=\"collapse navbar-collapse \" \r\n\t    uib-collapse=\"isCollapsed\" id=\"bs-example-navbar-collapse-1\">\r\n\r\n\t      <ul class=\"nav navbar-nav\"  >\r\n\t      \t<li class=\"dropdown\"\r\n\t      \t\tng-repeat=\"menu in menuobj.list\"\r\n\t      \t \tuib-dropdown  >\r\n\t\t      <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\" uib-dropdown-toggle> {{menu.name}} <span class=\"caret\"></span></a>\r\n\t\t      <ul uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\r\n\t\t      \t<li ng-repeat=\"smenu in menu.list\">\r\n\t\t      \t\t<a ui-sref=\"{{smenu.href}}\">{{smenu.name}}</a>\r\n\t\t      \t</li>\r\n\t\t      </ul>\r\n\t\t    </li>\r\n\t        \r\n\t      </ul>\r\n\r\n\t      <ul class=\"nav navbar-nav navbar-right\">\r\n\t        <li>\r\n\t\t        <a href=\"manager/logout\" class=\"btn \" style=\"color: red;\">\r\n\t\t        \t<span class=\"glyphicon glyphicon-off\" aria-hidden=\"true\"></span>\r\n\t\t      \t</a>\r\n\t        </li>\r\n\t      </ul>\r\n\r\n\t      \r\n\r\n\t    </div><!-- /.navbar-collapse -->\r\n\r\n\t  </div><!-- /.container-fluid -->\r\n\t</nav>\r\n</header>\r\n<section>\r\n    <div ui-view=\"\" class=\"content-wrapper\"></div>\r\n</section>\r\n\r\n<!-- Page footer-->\r\n<!-- <footer >\r\n\r\n\t<nav class=\"navbar navbar-default navbar-fixed-bottom\">\r\n\t  <div class=\"container-fluid text-center mt15\">\r\n\t    <span class=\"glyphicon glyphicon-heart\"></span> from 慧鼎商务\r\n\t  </div>\r\n\t</nav>\r\n</footer> -->"
+	module.exports = "<!-- top navbar-->\n<header>\n\t<nav class=\"navbar navbar-custom \">\n\t  <div class=\"container-fluid\">\n\t    <!-- Brand and toggle get grouped for better mobile display -->\n\t    <div class=\"navbar-header\">\n\t      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\"\n\t      ng-click=\"isCollapsed = !isCollapsed\"\n\t      >\n\t        <span class=\"sr-only\">Toggle navigation</span>\n\t        <span class=\"icon-bar\"></span>\n\t        <span class=\"icon-bar\"></span>\n\t        <span class=\"icon-bar\"></span>\n\t      </button>\n\t      <a class=\"navbar-brand\" href=\"#/\">\n\t      \t{{menuobj.name}}\n\t      </a>\n\t    </div>\n\n\t    <!-- Collect the nav links, forms, and other content for toggling -->\n\t    <div class=\"collapse navbar-collapse \" \n\t    uib-collapse=\"isCollapsed\" id=\"bs-example-navbar-collapse-1\">\n\n\t      <ul class=\"nav navbar-nav\"  >\n\t      \t<li class=\"dropdown\"\n\t      \t\tng-repeat=\"menu in menuobj.list\"\n\t      \t \tuib-dropdown  >\n\t\t      <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\" uib-dropdown-toggle> {{menu.name}} <span class=\"caret\"></span></a>\n\t\t      <ul uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n\t\t      \t<li ng-repeat=\"smenu in menu.list\">\n\t\t      \t\t<a ui-sref=\"{{smenu.href}}\">{{smenu.name}}</a>\n\t\t      \t</li>\n\t\t      </ul>\n\t\t    </li>\n\t        \n\t      </ul>\n\n\t      <ul class=\"nav navbar-nav navbar-right\">\n\t        <li>\n\t\t        <a href=\"manager/logout\" class=\"btn \" style=\"color: red;\">\n\t\t        \t<span class=\"glyphicon glyphicon-off\" aria-hidden=\"true\"></span>\n\t\t      \t</a>\n\t        </li>\n\t      </ul>\n\n\t      \n\n\t    </div><!-- /.navbar-collapse -->\n\n\t  </div><!-- /.container-fluid -->\n\t</nav>\n</header>\n<section>\n    <div ui-view=\"\" class=\"content-wrapper\"></div>\n</section>\n\n<!-- Page footer-->\n<!-- <footer >\n\n\t<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n\t  <div class=\"container-fluid text-center mt15\">\n\t    <span class=\"glyphicon glyphicon-heart\"></span> from 慧鼎商务\n\t  </div>\n\t</nav>\n</footer> -->"
 
 /***/ },
-/* 225 */
+/* 238 */
 /***/ function(module, exports) {
 
 	module.exports = function(BASEURL38985, $resource){
@@ -64808,7 +68555,7 @@
 	};
 
 /***/ },
-/* 226 */
+/* 239 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $rootScope){
