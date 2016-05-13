@@ -7,9 +7,15 @@
     chart-labels="line.labels" chart-legend="true" chart-series="line.series"
     chart-click="onClick" >
   </canvas> 
+
+  <canvas id="pie" class="chart chart-pie"
+    chart-data="data" chart-labels="labels">
+  </canvas> 
+
 </div>
 
-<div class="panel panel-default form-horizontal col-xs-4">
+<div class="col-xs-4">
+<div class="panel panel-default form-horizontal ">
 <div class="panel-body">
 <!-- <div class="form-group form-inline "> -->
 <div class="col-xs-12" >
@@ -65,17 +71,35 @@
 
 
     <div class="form-group">
-      <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+      <button type="button" class="btn btn-default btn-block" ng-click="load()">立即搜索</button>
+
     </div>
+
+
       
 </div>
+
+
 <!-- </div> -->
 </div>
+
+  <ul class="list-group">
+    <li class="list-group-item"
+      ng-repeat="obj in objs"
+    >
+      {{obj.name + '-' + obj.sale_category_name}}
+      <a ng-click="del(obj.code)" class="btn pull-right" style="color: red; padding:0px;">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      </a>
+    </li>
+  </ul>
+
 </div><!-- searchArea -->
 
 
 
 
 
+</div>
 </div>
 </div>

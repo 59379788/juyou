@@ -67796,7 +67796,7 @@
 /* 224 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-xs-12\">\n<div class=\"row\">\n\n<div class=\"col-sm-8\">\n<div class=\"panel panel-default\">\n<div class=\"panel-body\">\n<div class=\"form-group form-inline\">\n    <div class=\"col-sm-12\">\n\n    \t<div class=\"row\">\n    \t\t<label>景区</label>&nbsp;&nbsp;\n            <select class=\"form-control\" ng-model=\"searchform.place_code\" \n              ng-options=\"view.viewcode as view.viewname for view in viewarr\"\n              ng-change=\"change(searchform.place_code)\" \n            >\n              <option value=\"\"> --全部-- </option>\n            </select>\n            &nbsp;&nbsp;&nbsp;&nbsp;\n            <label>销售品</label>&nbsp;&nbsp;\n            <select class=\"form-control\" ng-model=\"searchform.sale_code\" \n              ng-options=\"sale.code as sale.name for sale in salearr\"\n              ng-change=\"changesale($index)\" \n            >\n            </select>\n\n    \t</div>\n\n\t\t<div class=\"row mt10\">\n\t\t\t<div class=\"input-group\">\n\t\t\t<input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t\t\t  <span class=\"input-group-btn\">\n\t\t\t    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t\t\t  </span>\n\t\t\t</div>\n\t\t\t    &nbsp;&nbsp;到&nbsp;&nbsp;            \n\t\t\t<div class=\"input-group\">\n\t\t\t<input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t\t\t  <span class=\"input-group-btn\">\n\t\t\t    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t\t\t  </span>\n\t\t\t</div>\n\t\t\t&nbsp;&nbsp;\n\n\t\t\t<button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n\t\t</div>\n      \n    </div>\n</div>\n</div>\n</div><!-- searchArea -->\n\n\n\n<canvas id=\"line\" class=\"chart chart-line\" chart-data=\"line.data\"\n  chart-labels=\"line.labels\" chart-legend=\"true\" chart-series=\"line.series\"\n  chart-click=\"onClick\" >\n</canvas> \n</div>\n\n\n</div>\n</div>"
+	module.exports = "<div class=\"col-xs-12\">\n<div class=\"row\">\n\n<!-- 图表 -->\n<div class=\"col-xs-8\">\n  <canvas id=\"line\" class=\"chart chart-line \" chart-data=\"line.data\"\n    chart-labels=\"line.labels\" chart-legend=\"true\" chart-series=\"line.series\"\n    chart-click=\"onClick\" >\n  </canvas> \n</div>\n\n<div class=\"panel panel-default form-horizontal col-xs-4\">\n<div class=\"panel-body\">\n<!-- <div class=\"form-group form-inline \"> -->\n<div class=\"col-xs-12\" >\n\n    <div class=\"form-group\" >\n      <label class=\"col-xs-2 control-label\">景区</label>\n      <div class=\"col-xs-10\" >\n        <select class=\"form-control\" ng-model=\"searchform.place_code\" \n          ng-options=\"view.viewcode as view.viewname for view in viewarr\"\n          ng-change=\"change(searchform.place_code)\" \n        >\n          <option value=\"\"> --全部-- </option>\n        </select>\n      </div>\n    </div>\n\n    <div class=\"form-group\" >\n      <label class=\"col-xs-2 control-label\">产品</label>\n      <div class=\"col-xs-10\" >\n        <select class=\"form-control\" ng-model=\"searchform.sale\" \n          ng-options=\"(sale.name + '-' +  sale.sale_category_name) for sale in salearr\"\n          ng-change=\"changesale(searchform.sale)\" \n        >\n        </select>\n      </div>\n    </div>\n\n\n    <div class=\"form-group\" >\n      <label class=\"col-xs-2 control-label\">开始</label>\n      <div class=\"col-xs-10\" >\n        <div class=\"input-group\">\n          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n            <span class=\"input-group-btn\">\n              <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n            </span>\n        </div>\n      </div>\n    </div>\n\n\n    <div class=\"form-group\" >\n      <label class=\"col-xs-2 control-label\">结束</label>\n      <div class=\"col-xs-10\" >\n        <div class=\"input-group\">\n          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n            <span class=\"input-group-btn\">\n              <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n            </span>\n        </div>\n      </div>\n    </div>\n\n\n    <div class=\"form-group\">\n      <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n    </div>\n      \n</div>\n<!-- </div> -->\n</div>\n</div><!-- searchArea -->\n\n\n\n\n\n</div>\n</div>"
 
 /***/ },
 /* 225 */
@@ -67834,6 +67834,7 @@
 	    ];
 
 	    $scope.searchform = {};
+	    $scope.searchform.sale = {};
 	    var view = new Object();
 	    $scope.viewarr = [];
 
@@ -67849,9 +67850,11 @@
 	        obj.opened = true;
 	    };
 
+
+	    //填充景区和产品下拉
 	    salelist.get({}, function(res){
 
-	    	console.log(res);
+	    	//console.log(res);
 
 	    	/* 销售品存储结构
 	         * ========================================= */
@@ -67865,12 +67868,12 @@
 	        }
 
 	        //用景区编号作为存储结构的属性，值是数组
-	        for(var i = 0, j = res.data.length; i < j; i++)
+	        for(var i = 1, j = res.data.length; i < j; i++)
 	        {
 	            var tt = res.data[i];
 	            var v = tt.place_code;
+	            if(v === 'ERROR') continue;
 	            var type = tt.sale_category;
-
 	            if(!view.hasOwnProperty(v))
 	            {
 	                view[v] = new Object();
@@ -67886,32 +67889,39 @@
 
 	        $scope.searchform.place_code = $scope.viewarr[0].viewcode;
 	        $scope.salearr = $scope.viewarr[0].salearr;
-	        $scope.searchform.sale_code = $scope.salearr[0].code;
+
+
+	        $scope.searchform.sale = $scope.salearr[0];
+	        console.log($scope.searchform.sale);
+
+	        $scope.load();
 	        
 	    });
-
 	 
 
 	    $scope.change = function(code){
-
 	    	$scope.salearr = view[code].salearr;
-	    	$scope.searchform.sale_code = $scope.salearr[0].code;
+	    	$scope.searchform.sale = $scope.salearr[0];
 	    };
 
-	    $scope.changesale = function(index){
+	    // $scope.changesale = function(obj){
+	    //     console.log(obj);
+	    // };
 
-	    	//alert(index);
-	    };
+
 
 	    $scope.load = function(){
 
 	    	var start = getDate($scope.section.start.date);
 	    	var end = getDate($scope.section.end.date);
 
+	        console.log($scope.searchform.sale);
+
+
 	    	var para = {
 		    	'start_time' : start + " 00:00:00",
 	            'end_time' : end + " 23:59:59",
-		        'sale_code' : $scope.searchform.sale_code
+		        'sale_code' : $scope.searchform.sale.code
 		    };
 
 		    $scope.line.labels = dataScope(start, end);
@@ -67924,30 +67934,33 @@
 			$scope.line.data = [];
 		    orderstatisticslist.save(para, function(res){
 
+	            console.log(res);
+
 		    	if(res.errcode === 0)
 		    	{
 		    		var arr = [];
 		    		for(var i = 0, j = res.data.length; i < j; i++)
 		    		{
-		    			labels[res.data[i].date] = res.data[i].buy;
+		    			labels[res.data[i].date] += res.data[i].buy;
 		    		}
 		    		angular.forEach(labels, function (value, key) {
-					    //console.log(key + ':' + value);
 					    arr.push(value);
 					});
 		     		$scope.line.data.push(arr);
+	                $scope.line.series = [];
+	                $scope.line.series.push($scope.searchform.sale.name);
 		    	}
 		    	else
 		    	{
 		    		alert(res.errmsg);
 		    	}
 
-		    	console.log($scope.line.data);
+		    	//console.log($scope.line.data);
 
 		    });
 
 	    }
-	    $scope.load();
+	    
 
 	};
 
