@@ -1,1 +1,63 @@
-assaddsaadsdasadsadsssad
+<div class="col-xs-10 col-xs-offset-1" >
+<div class="panel panel-default form-horizontal">
+<div class="panel-heading">
+	基本信息
+	<button type="button" 
+		class="btn btn-xs btn-info pull-right"
+		ng-click="gogo()"
+	>
+		<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+	</button>
+
+</div>
+<div class="panel-body">
+	<div class="container-fluid">
+		<div class="col-xs-10" >
+
+			<div class="form-group">
+				<label class="col-xs-2 control-label">旅行社</label>
+				<div class="col-xs-10">
+					<select class="form-control" ng-model="obj.seller_code" 
+		              ng-options="view.CODE as view.NAME for view in taarr"
+		            >
+		            </select>
+				</div>
+			</div>
+
+			
+			<div class="form-group">
+				<label class="col-xs-2 control-label">借款最大限额</label>
+				<div class="col-xs-10">
+					<div class="input-group">
+						<span class="input-group-addon">¥</span>
+						<input type="number" class="form-control" placeholder="请输入借款最大限额" min='0'
+						ng-model="obj.loan_limit_price"
+						>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label class="col-xs-2 control-label">警戒线</label>
+				<div class="col-xs-10">
+					<div class="input-group">
+						<span class="input-group-addon">¥</span>
+						<input type="number" class="form-control" placeholder="请输入警戒线" min='0'
+						ng-model="obj.picket_line"
+						>
+					</div>
+				</div>
+			</div>
+
+
+		</div>			
+
+
+
+
+	</div>
+</div>
+
+
+</div>
+</div>

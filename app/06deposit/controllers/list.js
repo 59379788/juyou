@@ -1,6 +1,20 @@
-module.exports = function($scope, $state, list, ITEMS_PERPAGE){
+module.exports = function($scope, $state, list, ITEMS_PERPAGE, talist,
+ $uibModal, recharge, trackinfo){
 
 	$scope.searchform = {};
+
+    talist().then(function(res) {
+        console.log(res);
+          if(res.errcode === 0)
+          {
+            $scope.taarr = res.data;
+            //$scope.searchform.seller_code=$scope.taarr[0].CODE;
+          }
+          else
+          {
+              alert(res.errmsg);
+          }
+      });
 
 
 	$scope.create = function(){
@@ -41,49 +55,63 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE){
     };
     $scope.load();
 
+    //打开模态框
+    $scope.recharge = function(obj){
 
-  //   $scope.edit = function(id){
+        var modalInstance = $uibModal.open({
+          template: require('../views/recharge.html'),
+          controller: 'recharge',
+          //size: 'lg',
+          resolve: {
+            obj : function(){
+                return obj;
+            },
+            recharge : function(){
+                return recharge;
+            }
+          }
+        });
 
-  //   	$state.go('app.editview', {'placeid' : id});
-
-  //   };
-
-
-  //   $scope.asort = function(id, asort){
-
-  //   	console.log({'place_id' : id, 'asort' : asort});
-  //   	viewupdate.save({'place_id' : id, 'asort' : asort}, function(res){
-
-		// 	console.log(res);
-
-		// 	if(res.errcode === 0)
-		// 	{
-		// 		$scope.load();
-		// 	}
-		// 	else
-		// 	{
-		// 		alert(res.errmsg);
-		// 	}
-
-		// });
-
-  //   };
-
-  //   $scope.type = function(id){
+        modalInstance.result.then(function () {
+          $scope.load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+    }
 
 
-  //   	$state.go('app.tkttype', {'placeid' : id});
 
-  //   };
+    //打开模态框
+    $scope.trackinfo = function(obj){
+
+        var modalInstance = $uibModal.open({
+          template: require('../views/trackinfo.html'),
+          controller: 'trackinfo',
+          //size: 'lg',
+          resolve: {
+            obj : function(){
+                return obj;
+            },
+            trackinfo : function(){
+                return trackinfo;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          //$scope.load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+    }
 
 
-  //   $scope.createtkttype = function(id){
-  //       $state.go('app.tkttypecreate', {'placeid' : id});
-  //   }
+    $scope.info = function(obj){
 
-  //   $scope.device = function(code){
-  //       $state.go('app.devicelist', {'placecode' : code});
-  //   }
+
+
+
+    };
 
     
 };

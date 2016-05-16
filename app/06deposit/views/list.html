@@ -3,16 +3,21 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-10">
-                <label>景区名称</label>&nbsp;&nbsp;
+                <!-- <label>分销商名称</label>&nbsp;&nbsp;
                 <input type="text" class="form-control" ng-model="searchform.name" >
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <label>景区编号</label>&nbsp;&nbsp;
-                <input type="text" class="form-control" ng-model="searchform.code" >
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp; -->
+
+                <label>分销商</label>&nbsp;&nbsp;
+                <select class="form-control" ng-model="searchform.seller_code" 
+                  ng-options="view.CODE as view.NAME for view in taarr"
+                >
+                  <option value=''> -- 全部 -- </option>
+                </select>
+                
                 <button type="button" class="btn btn-default" ng-click="load()">立即搜索</button>
             </div>
             <div class="col-sm-2 text-right">
-                <button type="button" class="btn btn-info new" ng-click="create()">创建景区</button>
+                <button type="button" class="btn btn-info new" ng-click="create()">创建预存</button>
             </div>
         </div>
     </div>
@@ -40,13 +45,14 @@
 
         <td class="text-center">{{obj.total_price | currency : '¥'}}</td>
         <td class="text-center">{{obj.loan_limit_price | currency : '￥'}}</td>
-        <td class="text-center">{{obj.star}}</td>
+        <td class="text-center">{{obj.arrears_time}}</td>
 
 
-        <td class="text-center"></td>
+        <td class="text-center">{{obj.picket_line | currency : '￥'}}</td>
        
         <td class="text-center">
-          <a ng-click="edit(obj.id)" class="btn btn-success btn-xs">编辑</a>
+          <a ng-click="recharge(obj)" class="btn btn-success btn-xs">充值</a>
+          <a ng-click="trackinfo(obj)" class="btn btn-info btn-xs">明细</a>
         </td>
       </tr>
     </tbody>

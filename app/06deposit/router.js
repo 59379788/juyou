@@ -31,9 +31,19 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
          list : function(depositservice){
              return depositservice.list();
+         },
+         talist : function(depositservice){
+             return depositservice.talist;
+         },
+         recharge : function(depositservice){
+             return depositservice.recharge();
+         },
+         trackinfo : function(depositservice){
+             return depositservice.trackinfo();
          }
         }
       })
+
 
       .state('app.createdeposit', {
         url: '/createdeposit',
@@ -42,9 +52,15 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
          create : function(depositservice){
              return depositservice.create();
+         },
+         talist : function(depositservice){
+             return depositservice.talist;
          }
+
         }
       })
+
+
 
 
 };
