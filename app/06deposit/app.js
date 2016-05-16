@@ -12,6 +12,8 @@ App.factory('depositservice', require('./service'));
 // App.controller('doccreate',require('./controllers/module'));
 // App.controller('doc',require('./controllers/doc'));
 // App.controller('info',require('./controllers/info'));
+App.controller('depositlist',require('./controllers/list'));
+App.controller('createdeposit',require('./controllers/list'));
 
 
 module.exports = App;
