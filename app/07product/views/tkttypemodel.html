@@ -97,6 +97,42 @@
 		</div>
 	</div>
 
+
+	<div class="form-group">
+		<label class="col-xs-2 control-label">打印设置</label>
+		<div class="col-xs-6">
+			<table class="table table-bordered">
+		      <thead>
+		        <tr>
+		          <th class="col-xs-2 text-center">#</th>
+		          <th class="col-xs-8 text-center">名称</th>
+		          <th class="col-xs-2 text-center">
+		          	<a ng-click="printadd()" class="btn" style="color: green; padding:0px;">
+				        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				    </a>
+		          </th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		        <tr ng-repeat='obj in objs'>
+		          <td class="text-center "><p class="pt5">{{$index + 1}}</p></td>
+		          <td class="text-center">
+		          	<input type="text" class="form-control" placeholder="请输入打印名称"
+					ng-model="obj.name"
+					>
+		          </td>
+		          <td class="text-center">
+		          	<a ng-click="printdel($index)" class="btn" style="color: red; padding:0px; padding-top: 5px;">
+				        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				    </a>
+		          </td>
+		        </tr>
+		      </tbody>
+		    </table>
+		</div>
+	</div>
+
+
 	<button 
     type="button" 
     class="btn btn-primary btn-lg btn-block" 

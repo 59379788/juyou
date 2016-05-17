@@ -60,6 +60,24 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+      .state('app.trackinfo', {
+        url: '/trackinfo',
+        controller: 'trackinfo',
+        template: require('./views/trackinfo.html'),
+        resolve:{
+         // create : function(depositservice){
+         //     return depositservice.create();
+         // },
+         // talist : function(depositservice){
+         //     return depositservice.talist;
+         // },
+         trackinfo : function(depositservice){
+             return depositservice.trackinfo();
+         }
+
+        }
+      })
+
 
 
 

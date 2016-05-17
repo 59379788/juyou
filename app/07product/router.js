@@ -40,6 +40,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             placeinfo : function(placeservice){
                 return placeservice.info();
+            },
+            makeArr : function(productservice){
+                return productservice.makeArr;
+            },
+            makeStr : function(productservice){
+                return productservice.makeStr;
             }
         }
       })
@@ -60,6 +66,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             placeinfo : function(placeservice){
                 return placeservice.info();
+            },
+            makeArr : function(productservice){
+                return productservice.makeArr;
+            },
+            makeStr : function(productservice){
+                return productservice.makeStr;
             }
         }
       })

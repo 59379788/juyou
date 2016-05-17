@@ -1,1 +1,42 @@
-lkasjlasdjldasjaldksjklasd
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-1 text-center">类型</th>
+        <th class="col-md-2 text-center">金额</th>
+        <th class="col-md-3 text-center">订单编号</th>
+        <th class="col-md-2 text-center">操作时间</th>
+        <th class="col-md-2 text-center">操作机构</th>
+        <th class="col-md-2 text-center">操作帐号</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.type}}</td>
+        <td class="text-center">{{obj.price | currency : '¥'}}</td>
+        <td class="text-center">{{obj.order_code}}</td>
+        <td class="text-center">{{obj.create_time}}</td>
+        <td class="text-center">{{obj.create_company_code}}</td>
+        <td class="text-center">{{obj.create_login_name}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div>

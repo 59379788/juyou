@@ -1,4 +1,5 @@
-module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams, placeinfo, $state){
+module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams, 
+	placeinfo, $state, makeArr, makeStr){
 
 	$scope.placeid = $stateParams.placeid;
 
@@ -26,6 +27,8 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams, pl
 	$scope.open = function(obj) {
 		obj.opened = true;
 	};
+
+	$scope.objs = [];
 	
 
 	if($scope.placeid === '')
@@ -71,7 +74,8 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams, pl
 
 		var para = {
 			'start_date' : getDate($scope.section.start.date),
-			'end_date' : getDate($scope.section.end.date)
+			'end_date' : getDate($scope.section.end.date),
+			'print_setup' : makeStr($scope.objs)
 		}
 
 		para = angular.extend($scope.objt, para);
@@ -110,4 +114,19 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams, pl
 
 		return true;
 	}
+
+
+
+	$scope.printadd = function(){
+		var obj = {
+			'name' : ''
+		};
+		$scope.objs.push(obj);
+	};
+
+	$scope.printdel = function(index){
+		$scope.objs.splice(index,1); 
+	};
+
+
 };

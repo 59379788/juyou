@@ -311,9 +311,32 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         salejuyousubsidyinfo : function(){
             return $resource(salejuyousubsidyinfo, {}, {});
-        }
+        },
         
+        makeArr : function(str){
+            var obj = [];
 
+            if(str === undefined || str.length === 0) return obj;
+
+            var arr = str.split(',');
+            for(var i = 0; i < arr.length; i++)
+            {
+                obj.push({'name' : arr[i]});
+            }
+            return obj;
+        },
+
+        makeStr : function(arr){
+            
+            if(!angular.isArray(arr)) return '';
+
+            var arr1 = [];
+            for(var i = 0; i < arr.length; i++)
+            {
+                arr1.push(arr[i].name);
+            }
+            return arr1.join(',');
+        }
        
     };
 

@@ -41,9 +41,9 @@
     <tbody>
       <tr ng-repeat="obj in objs">
         <td class="">{{obj.seller_name}}</td>
+        <td class="text-center">{{obj.total_price | currency : '¥'}}</td>
         <td class="text-center">{{obj.balance_price | currency : '￥'}}</td>
 
-        <td class="text-center">{{obj.total_price | currency : '¥'}}</td>
         <td class="text-center">{{obj.loan_limit_price | currency : '￥'}}</td>
         <td class="text-center">{{obj.arrears_time}}</td>
 

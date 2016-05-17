@@ -81,28 +81,29 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, talist,
 
 
 
-    //打开模态框
     $scope.trackinfo = function(obj){
 
-        var modalInstance = $uibModal.open({
-          template: require('../views/trackinfo.html'),
-          controller: 'trackinfo',
-          //size: 'lg',
-          resolve: {
-            obj : function(){
-                return obj;
-            },
-            trackinfo : function(){
-                return trackinfo;
-            }
-          }
-        });
+        // var modalInstance = $uibModal.open({
+        //   template: require('../views/trackinfo.html'),
+        //   controller: 'trackinfo',
+        //   size: 'lg',
+        //   resolve: {
+        //     obj : function(){
+        //         return obj;
+        //     },
+        //     trackinfo : function(){
+        //         return trackinfo;
+        //     }
+        //   }
+        // });
 
-        modalInstance.result.then(function () {
-          //$scope.load();
-        }, function () {
-          //$log.info('Modal dismissed at: ' + new Date());
-        });
+        // modalInstance.result.then(function () {
+        //   //$scope.load();
+        // }, function () {
+        //   //$log.info('Modal dismissed at: ' + new Date());
+        // });
+
+        $state.go('app.trackinfo');
     }
 
 
