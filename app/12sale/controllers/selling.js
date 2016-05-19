@@ -314,7 +314,7 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
             var arr = $scope.data[key].nodes;
             for(var i = 0, j = arr.length; i < j; i++){
                 var tmp = arr[i];
-                //console.log(tmp.govsubsidy_price);//222
+                console.log(tmp.govsubsidy_price);//222
                 //console.log(gov);   //0
                 
                 if(tmp.govsubsidy_price === -1 )

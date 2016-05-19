@@ -87,17 +87,6 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, $uibModa
           }
         });
 
-
-        // var modalInstance = $uibModal.open({
-        //   template: require('../views/orderinfo.html'),
-        //   //controller: 'orderinfo',
-        //   resolve: {
-        //     obj : function(){
-        //         return obj;
-        //     }
-        //   }
-        // });
-
         modalInstance.result.then(function () {
           //load();
         }, function () {
