@@ -1,20 +1,18 @@
-module.exports = function($scope, $state, obj, recharge, $uibModalInstance){
-
-    console.log(obj);
+module.exports = function($scope, $state, obj, update, $uibModalInstance){
 
     $scope.obj = {};
+    $scope.obj.loan_limit_price = 0;
+    $scope.obj.picket_line = 0;
+    $scope.obj.prestore_state = 0;
     $scope.obj.company_code = obj.seller_code;
-    $scope.obj.balance_price = 0;
-
+    
     $scope.ok = function () {
         console.log($scope.obj);
-        recharge.save($scope.obj, function(res){
-
+        update.save($scope.obj, function(res){
             console.log(res);
-
             if(res.errcode === 0)
             {
-                alert('充值成功');
+                alert('修改成功');
                 $uibModalInstance.close();
             }
             else
@@ -22,7 +20,6 @@ module.exports = function($scope, $state, obj, recharge, $uibModalInstance){
               alert(res.errmsg);
             }
         });
-        
     };
 
     $scope.cancel = function () {

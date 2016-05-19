@@ -13,6 +13,7 @@ App.controller('depositlist',require('./controllers/list'));
 App.controller('createdeposit',require('./controllers/create'));
 App.controller('recharge',require('./controllers/recharge'));
 App.controller('trackinfo',require('./controllers/trackinfo'));
+App.controller('depositupdate',require('./controllers/update'));
 
 
 module.exports = App;

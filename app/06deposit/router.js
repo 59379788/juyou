@@ -7,23 +7,6 @@ var router = function($urlRouterProvider, $stateProvider){
 
  	$stateProvider
 
- 	  // .state('app.platformdeposit', {
-    //     url: '/platformdeposit',
-    //     //controller : 'platformdeposit',
-    //     template: require('./views/platformdeposit.html')
-    //     // ,
-    //     // resolve:{
-    //     // 	insert : function(docservice){
-    //     // 		return docservice.insert();
-    //     // 	},
-    //     // 	group : function(docservice){
-    //     // 		return docservice.group();
-    //     // 	}
-    //     // }
-    //   })
-
-
-
       .state('app.depositlist', {
         url: '/depositlist',
         controller : 'depositlist',
@@ -40,6 +23,9 @@ var router = function($urlRouterProvider, $stateProvider){
          },
          trackinfo : function(depositservice){
              return depositservice.trackinfo();
+         },
+         update : function(depositservice){
+             return depositservice.update();
          }
         }
       })
@@ -61,7 +47,7 @@ var router = function($urlRouterProvider, $stateProvider){
       })
 
       .state('app.trackinfo', {
-        url: '/trackinfo',
+        url: '/trackinfo/:seller_code',
         controller: 'trackinfo',
         template: require('./views/trackinfo.html'),
         resolve:{
@@ -77,6 +63,19 @@ var router = function($urlRouterProvider, $stateProvider){
 
         }
       })
+
+
+      // .state('app.depositupdate', {
+      //   url: '/depositupdate/:seller_code',
+      //   controller: 'depositupdate',
+      //   template: require('./views/update.html'),
+      //   resolve:{
+      //        update : function(depositservice){
+      //            return depositservice.update();
+      //        }
+
+      //   }
+      // })
 
 
 

@@ -29,13 +29,11 @@
       <tr>
         <th class="col-md-4 text-center">商户编号</th>
         <th class="col-md-1 text-center">总量</th>
-
         <th class="col-md-1 text-center">余额</th>
-        <th class="col-md-2 text-center">信用额度</th>
+        <th class="col-md-1 text-center">信用额度</th>
         <th class="col-md-2 text-center">欠款时间</th>
-
         <th class="col-md-1 text-center">警戒线</th>
-        <th class="col-md-1 text-center">操作</th>
+        <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -43,16 +41,13 @@
         <td class="">{{obj.seller_name}}</td>
         <td class="text-center">{{obj.total_price | currency : '¥'}}</td>
         <td class="text-center">{{obj.balance_price | currency : '￥'}}</td>
-
         <td class="text-center">{{obj.loan_limit_price | currency : '￥'}}</td>
         <td class="text-center">{{obj.arrears_time}}</td>
-
-
         <td class="text-center">{{obj.picket_line | currency : '￥'}}</td>
-       
         <td class="text-center">
           <a ng-click="recharge(obj)" class="btn btn-success btn-xs">充值</a>
           <a ng-click="trackinfo(obj)" class="btn btn-info btn-xs">明细</a>
+          <a ng-click="update(obj)" class="btn btn-danger btn-xs">编辑</a>
         </td>
       </tr>
     </tbody>

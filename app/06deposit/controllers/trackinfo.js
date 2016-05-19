@@ -1,6 +1,6 @@
-module.exports = function($scope, $state, trackinfo, ITEMS_PERPAGE){
+module.exports = function($scope, $state, $stateParams, trackinfo, ITEMS_PERPAGE){
 
-    //console.log({'seller_code' : obj.seller_code});
+    var seller_code = $stateParams.seller_code;
 
     /* 分页
      * ========================================= */
@@ -13,11 +13,9 @@ module.exports = function($scope, $state, trackinfo, ITEMS_PERPAGE){
         var para = {
             'pageNo' : $scope.bigCurrentPage, 
             'pageSize' : $scope.itemsPerPage,
-            'seller_code' : 'L0002'
+            'seller_code' : seller_code
         };
 
-        //para = angular.extend($scope.searchform, para);
-        
         trackinfo.save(para, function(res){
 
             console.log(res);
@@ -36,47 +34,4 @@ module.exports = function($scope, $state, trackinfo, ITEMS_PERPAGE){
     };
     $scope.load();
 
-    // trackinfo.get({'seller_code' : 'L0002'}, function(res){
-
-    //     console.log(res);
-
-    //     if(res.errcode === 0)
-    //     {
-    //         $scope.objs = res.data.results;
-    //     }
-    //     else
-    //     {
-    //         alert(res.errmsg);
-    //     }
-
-    // });
-
-    // $scope.obj = {};
-    // $scope.obj.company_code = obj.seller_code;
-    // $scope.obj.balance_price = 0;
-
-    // $scope.ok = function () {
-    //     console.log($scope.obj);
-    //     recharge.save($scope.obj, function(res){
-
-    //         console.log(res);
-
-    //         if(res.errcode === 0)
-    //         {
-    //             alert('充值成功');
-    //             $uibModalInstance.close();
-    //         }
-    //         else
-    //         {
-    //           alert(res.errmsg);
-    //         }
-
-    //     });
-        
-    // };
-
-    // $scope.cancel = function () {
-    //   $uibModalInstance.dismiss('cancel');
-    // };
-    
 };

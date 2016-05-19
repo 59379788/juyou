@@ -1,5 +1,5 @@
 module.exports = function($scope, $state, list, ITEMS_PERPAGE, talist,
- $uibModal, recharge, trackinfo){
+ $uibModal, recharge, trackinfo, update){
 
 	$scope.searchform = {};
 
@@ -103,7 +103,7 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, talist,
         //   //$log.info('Modal dismissed at: ' + new Date());
         // });
 
-        $state.go('app.trackinfo');
+        $state.go('app.trackinfo', {'seller_code' : obj.seller_code});
     }
 
 
@@ -112,6 +112,32 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, talist,
 
 
 
+    };
+
+
+    $scope.update = function(obj){
+
+      var modalInstance = $uibModal.open({
+          template: require('../views/update.html'),
+          controller: 'depositupdate',
+          //size: 'lg',
+          resolve: {
+            obj : function(){
+                return obj;
+            },
+            update : function(){
+                return update;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          $scope.load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
+      //$state.go('app.depositupdate');
     };
 
     
