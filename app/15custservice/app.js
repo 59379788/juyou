@@ -16,6 +16,8 @@ App.controller('edituserinfo',require('./controllers/edituserinfo'));
 App.controller('createuserinfo',require('./controllers/createuserinfo'));
 App.controller('redpackage',require('./controllers/redpackage'));
 App.controller('userorderlist',require('./controllers/orderlist'));
+App.controller('sendmessage',require('./controllers/sendmessage'));
+
 
 
 module.exports = App;

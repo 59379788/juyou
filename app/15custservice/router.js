@@ -104,7 +104,16 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
-      
+      .state('app.sendmessage', {
+        url: '/sendmessage',
+        controller : 'sendmessage',
+        template: require('./user/sendmessage.html'),
+        resolve:{
+            sendmessage : function(custservice){
+                return custservice.sendmessage();
+            }
+        }
+      })
 
 
 };

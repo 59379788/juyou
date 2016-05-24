@@ -10,7 +10,7 @@ var service = function($resource, BASEURL38985){
 
     var edituserinfo = BASEURL38985 + "/api/ac/uc/userService/updateUserInfoByMobile";
 
-    var createuserinfo = "http://weixint.juyouhx.com/api/uc/uc/userService/insertUserAuthKF";
+    var createuserinfo = BASEURL38985 + "/api/uc/uc/userService/insertUserAuthKF";
 
     var cardA = BASEURL38985 + "/api/as/uc/jyu/getphycardlist";
 
@@ -25,6 +25,8 @@ var service = function($resource, BASEURL38985){
     var updateUserSubsidy = BASEURL38985 + "/api/ac/uc/userService/updateUserSubsidy";
 
     var orderlist = BASEURL38985 + "/api/as/uc/jyu/getOrderListForKList";
+
+    var sendmessage = "http://ts.juyouhx.com/getsms/service/CW0088";
     
     return {
 
@@ -60,6 +62,9 @@ var service = function($resource, BASEURL38985){
         },
         orderlist : function(){
             return $resource(orderlist, {}, {});
+        },
+        sendmessage : function(){
+            return $resource(sendmessage, {}, {});
         }
        
     };
