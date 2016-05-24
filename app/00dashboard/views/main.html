@@ -23,6 +23,16 @@
 		            <td class="col-xs-4 text-center">所属机构</td>
 		            <td class="col-xs-8">{{userobj.company_name}}</td>
 		          </tr>
+		          <tr>
+		            <td class="col-xs-4 text-center">预存余额</td>
+		            <td class="col-xs-8">
+		            	{{userobj.balance_price | currency : '￥'}} &nbsp;&nbsp;
+		            	<button type="button" class="btn btn-success btn-xs"
+		            	ng-show="userobj.balance_price !== undefined"
+		            	ng-click="detail(userobj)"
+		            	>明细</button>
+		            </td>
+		          </tr>
 		        </tbody>
 		    </table>
 		</div>

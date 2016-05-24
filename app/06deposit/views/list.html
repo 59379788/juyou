@@ -7,14 +7,14 @@
                 <input type="text" class="form-control" ng-model="searchform.name" >
                 &nbsp;&nbsp;&nbsp;&nbsp; -->
 
-                <label>分销商</label>&nbsp;&nbsp;
+               <!--  <label>分销商</label>&nbsp;&nbsp;
                 <select class="form-control" ng-model="searchform.seller_code" 
                   ng-options="view.CODE as view.NAME for view in taarr"
                 >
                   <option value=''> -- 全部 -- </option>
                 </select>
                 
-                <button type="button" class="btn btn-default" ng-click="load()">立即搜索</button>
+                <button type="button" class="btn btn-default" ng-click="load()">立即搜索</button> -->
             </div>
             <div class="col-sm-2 text-right">
                 <button type="button" class="btn btn-info new" ng-click="create()">创建预存</button>
@@ -27,12 +27,12 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-4 text-center">商户编号</th>
+        <th class="col-md-7 text-center">商户名称</th>
         <th class="col-md-1 text-center">总量</th>
         <th class="col-md-1 text-center">余额</th>
         <th class="col-md-1 text-center">信用额度</th>
-        <th class="col-md-2 text-center">欠款时间</th>
-        <th class="col-md-1 text-center">警戒线</th>
+       <!--  <th class="col-md-2 text-center">欠款时间</th>
+        <th class="col-md-1 text-center">警戒线</th> -->
         <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
@@ -42,8 +42,8 @@
         <td class="text-center">{{obj.total_price | currency : '¥'}}</td>
         <td class="text-center">{{obj.balance_price | currency : '￥'}}</td>
         <td class="text-center">{{obj.loan_limit_price | currency : '￥'}}</td>
-        <td class="text-center">{{obj.arrears_time}}</td>
-        <td class="text-center">{{obj.picket_line | currency : '￥'}}</td>
+        <!-- <td class="text-center">{{obj.arrears_time}}</td>
+        <td class="text-center">{{obj.picket_line | currency : '￥'}}</td> -->
         <td class="text-center">
           <a ng-click="recharge(obj)" class="btn btn-success btn-xs">充值</a>
           <a ng-click="trackinfo(obj)" class="btn btn-info btn-xs">明细</a>

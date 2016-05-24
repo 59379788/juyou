@@ -1,4 +1,5 @@
-module.exports = function($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticeinfo, userinfo){
+module.exports = function($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticeinfo, 
+    userinfo, getSellerInfoByCode, $state ){
 
     /* 分页
      * ========================================= */
@@ -60,11 +61,29 @@ module.exports = function($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticein
     //用户信息
     userinfo().then(function(res) {
 
-        //console.log(res);
+        console.log(res);
 
         $scope.userobj = res;
 
+        getSellerInfoByCode.get({'company_code' : $scope.userobj.company_code}, function(res){
+            console.log(res);
+            if(res.errcode === 0)
+            {
+                $scope.userobj.balance_price = res.data.balance_price;
+            }
+            else
+            {
+                alert(res.errmsg);
+            }
+        });
+
     });
+
+
+    $scope.detail = function(obj){
+        console.log(obj);
+        $state.go('app.trackinfo', {'seller_code' : obj.company_code});
+    }
 
 
 };

@@ -26,6 +26,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             info : function(accountservice){
                 return accountservice.info();
+            },
+            createmechanism : function(accountservice){
+                return accountservice.createmechanism();
             }
             
         }

@@ -19,6 +19,8 @@ var service = function($resource, BASEURL38985, SYS){
     var changepassword = SYS + '/a/sys/user/ajaxmodifyPwd';
 
     var info = SYS + '/a/sys/user/ajaxform';
+
+    var createmechanism = SYS + 'a/sys/office/save';
     
     return {
 
@@ -39,6 +41,9 @@ var service = function($resource, BASEURL38985, SYS){
         },
         info : function(){
             return $resource(info, {}, {} );
+        },
+        createmechanism : function(){
+            return $resource(createmechanism, {}, {} );
         }
        
     };

@@ -12,15 +12,18 @@ var router = function($urlRouterProvider, $stateProvider){
       controller : 'dashboard',
       template: require('./views/main.html'),
       resolve : {
-       noticelist:  function(dashboardservice){
+         noticelist:  function(dashboardservice){
            return dashboardservice.noticelist();
          },
          noticeinfo:  function(dashboardservice){
            return dashboardservice.noticeinfo();
          },
-        userinfo:  function(dashboardservice){
+         userinfo:  function(dashboardservice){
           return dashboardservice.userinfo;
-        }
+         },
+         getSellerInfoByCode : function(depositservice){
+          return depositservice.getSellerInfoByCode();
+         }
       // controller : 'chart',
       // template: require('./views/chart.html'),
       // resolve : {

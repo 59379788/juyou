@@ -1,4 +1,5 @@
-module.exports = function($scope, $state, mechanism, $uibModal, create, list, role, ITEMS_PERPAGE, info){
+module.exports = function($scope, $state, mechanism, $uibModal, create, 
+    list, role, ITEMS_PERPAGE, info, createmechanism){
 
     $scope.objs = {};
 
@@ -12,7 +13,7 @@ module.exports = function($scope, $state, mechanism, $uibModal, create, list, ro
 
       var dlq = transData(res, 'id', 'pId', 'nodes');  
       $scope.data = dlq;
-
+      console.log($scope.data);
     });
 
     /* 分页
@@ -22,6 +23,8 @@ module.exports = function($scope, $state, mechanism, $uibModal, create, list, ro
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
     
     $scope.load = function (officeid, officename) {
+
+        if(officeid === undefined || officename === undefined) return;
         
         var para = {
             pageNo:$scope.bigCurrentPage, 
@@ -75,15 +78,11 @@ module.exports = function($scope, $state, mechanism, $uibModal, create, list, ro
     };
 
     $scope.create = function(){
-
         createmodal();
-        
     }
 
     $scope.edit = function(obj){
-
         editmodal(obj);
-        
     }
 
     //打开模态框
@@ -161,6 +160,45 @@ module.exports = function($scope, $state, mechanism, $uibModal, create, list, ro
         });
 
     }
+
+
+
+
+    $scope.newSubItem = function (scope, $event) {
+        var nodeData = scope.$modelValue;
+        //console.log(scope.$modelValue);
+
+        var modalInstance = $uibModal.open({
+          template: require('../views/mechanism.html'),
+          controller: 'mechanism',
+          resolve: {
+            obj : function(){
+                return nodeData;
+            },
+            createmechanism : function(){
+                return createmechanism;
+            }
+          }
+        });
+
+        modalInstance.result.then(function (officeid, officename) {
+          
+          $scope.load(officeid, officename);
+
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
+        $event.stopPropagation();
+
+        // if(!nodeData.hasOwnProperty('nodes')) nodeData['nodes'] = [];
+
+        // nodeData.nodes.push({
+        //   id: nodeData.id * 10 + nodeData.nodes.length,
+        //   title: nodeData.title + '.' + (nodeData.nodes.length + 1),
+        //   nodes: []
+        // });
+    };
 
 
 };
