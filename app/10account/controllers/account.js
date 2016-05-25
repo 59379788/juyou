@@ -6,15 +6,26 @@ module.exports = function($scope, $state, mechanism, $uibModal, create,
     $scope.code = '';
     $scope.officeid = '';
 
+    //当前的id
+    $scope.currentid = '';
+
+    $scope.editshow = false;
+
     //机构树
-    mechanism.query({}, function(res){
+    function mechanismtree(){
+        mechanism.query({}, function(res){
 
-      console.log(res);
+          //console.log(res);
 
-      var dlq = transData(res, 'id', 'pId', 'nodes');  
-      $scope.data = dlq;
-      console.log($scope.data);
-    });
+          var dlq = transData(res, 'id', 'pId', 'nodes');  
+          $scope.data = dlq;
+          console.log($scope.data);
+          $scope.currentid = $scope.data[0].id;
+
+          $scope.load($scope.data[0].id, $scope.data[0].name);
+        });
+    }
+    mechanismtree();
 
     /* 分页
      * ========================================= */
@@ -71,10 +82,19 @@ module.exports = function($scope, $state, mechanism, $uibModal, create,
     }
 
     $scope.getit = function(obj){
-      $scope.code = obj.$modelValue.code;
-      $scope.officeid = obj.$modelValue.id;
-      $scope.officename = obj.$modelValue.name;
-      $scope.load($scope.officeid, $scope.officename);
+        console.log(obj.$modelValue);
+        if(obj.$modelValue.id === $scope.currentid)
+        {
+            $scope.editshow = true;
+        }
+        else
+        {
+            $scope.editshow = false;
+        }
+        $scope.code = obj.$modelValue.code;
+        $scope.officeid = obj.$modelValue.id;
+        $scope.officename = obj.$modelValue.name;
+        $scope.load($scope.officeid, $scope.officename);
     };
 
     $scope.create = function(){
@@ -88,6 +108,7 @@ module.exports = function($scope, $state, mechanism, $uibModal, create,
     //打开模态框
     function createmodal()
     {
+        console.log($scope.code);
         var modalInstance = $uibModal.open({
           template: require('../views/createaccount.html'),
           controller: 'createaccount',
@@ -164,40 +185,30 @@ module.exports = function($scope, $state, mechanism, $uibModal, create,
 
 
 
-    $scope.newSubItem = function (scope, $event) {
-        var nodeData = scope.$modelValue;
-        //console.log(scope.$modelValue);
-
+    $scope.createstb = function () {
+        
         var modalInstance = $uibModal.open({
           template: require('../views/mechanism.html'),
           controller: 'mechanism',
           resolve: {
-            obj : function(){
-                return nodeData;
-            },
             createmechanism : function(){
                 return createmechanism;
+            },
+            create : function(){
+                return create;
             }
           }
         });
 
-        modalInstance.result.then(function (officeid, officename) {
+        modalInstance.result.then(function () {
           
-          $scope.load(officeid, officename);
+          //$scope.load(officeid, officename);
+          mechanismtree();
 
         }, function () {
           //$log.info('Modal dismissed at: ' + new Date());
         });
 
-        $event.stopPropagation();
-
-        // if(!nodeData.hasOwnProperty('nodes')) nodeData['nodes'] = [];
-
-        // nodeData.nodes.push({
-        //   id: nodeData.id * 10 + nodeData.nodes.length,
-        //   title: nodeData.title + '.' + (nodeData.nodes.length + 1),
-        //   nodes: []
-        // });
     };
 
 

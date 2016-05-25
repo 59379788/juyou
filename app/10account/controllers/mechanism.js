@@ -1,16 +1,16 @@
-module.exports = function($scope, obj, createmechanism, $uibModalInstance){
-	console.log(obj);
+module.exports = function($scope,  createmechanism, $uibModalInstance, create){
 	$scope.ok = function () {
-        createmechanism.save($scope.name, function(res){
+	console.log($scope.name);
+        createmechanism.save({'name' : $scope.name}, {}, function(res){
             console.log(res);
             if(res.errcode === 0)
             {
-                alert('创建成功');
+                alert(res.errmsg);
                 $uibModalInstance.close();
             }
             else
             {
-              alert(res.errmsg);
+              	alert(res.errmsg);
             }
         });
     };
@@ -18,5 +18,27 @@ module.exports = function($scope, obj, createmechanism, $uibModalInstance){
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
+
+
+
+    // function createaccount()
+    // {
+    // 	var para = {};
+    // 	para.no = $scope.obj.loginName;
+    //     para.loginName = code + $scope.obj.loginName;
+    //     para.newPassword = '000000';
+    //     para.confirmNewPassword = '000000';
+    //     para['company.id'] = officeid;
+    //     para['office.id'] = officeid;
+    //     para.loginFlag = '1';
+
+    //     create.save(para, {}, function(res){
+
+    //         console.log(res);
+
+    //         $uibModalInstance.close(officeid, officename);
+
+    //     });
+    // }
 
 };

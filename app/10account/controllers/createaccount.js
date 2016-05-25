@@ -2,6 +2,8 @@ module.exports = function($scope, $uibModalInstance, create, code, officeid, off
 
     //上级旅行社编号
     $scope.code = code;
+    console.log(code);
+    console.log(officeid);
 
     $scope.company = {};
 
@@ -18,6 +20,8 @@ module.exports = function($scope, $uibModalInstance, create, code, officeid, off
     role.get({}, function(res){
 
         console.log(res);
+
+
 
         $scope.objs = res.allRoles;
         $scope.company = res.company;
@@ -50,15 +54,12 @@ module.exports = function($scope, $uibModalInstance, create, code, officeid, off
         }
 
         $scope.obj.no = $scope.obj.loginName;
-        $scope.obj.loginName = $scope.company.code + $scope.obj.loginName;
+        $scope.obj.loginName = $scope.obj.loginName;
         $scope.obj.newPassword = '000000';
         $scope.obj.confirmNewPassword = '000000';
-        $scope.obj['company.id'] = $scope.company.id;
+        $scope.obj['company.id'] = officeid;
         $scope.obj['office.id'] = officeid;
         $scope.obj.loginFlag = '1';
-        
-
-        
 
         create.save($scope.obj, {}, function(res){
 

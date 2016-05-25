@@ -20,7 +20,7 @@ var service = function($resource, BASEURL38985, SYS){
 
     var info = SYS + '/a/sys/user/ajaxform';
 
-    var createmechanism = SYS + 'a/sys/office/save';
+    var createmechanism = SYS + '/a/sys/office/ajaxsave';
     
     return {
 
