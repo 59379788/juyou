@@ -26,13 +26,20 @@
 
 <div class="row">
   <div class="col-sm-4">
-  	<button type="button" class="btn btn-default" ng-click="createstb()">
-  		创建同业社
-  	</button>
-    <div ui-tree id="tree-root" data-nodrop-enabled="true" data-drag-enabled="false">
-      <ol ui-tree-nodes ng-model="data">
-        <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
-      </ol>
+  	<div class="col-sm-12">
+	  	<button type="button" class="btn btn-default" ng-click="createstb()">
+	  		创建同业社
+	  	</button>
+	  	<button type="button" class="btn btn-default" ng-click="create()">
+	  		创建新用户
+	  	</button>
+  	</div>
+  	<div class="col-sm-12">
+	    <div ui-tree id="tree-root" data-nodrop-enabled="true" data-drag-enabled="false">
+	      <ol ui-tree-nodes ng-model="data">
+	        <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+	      </ol>
+	    </div>
     </div>
 
   </div>
@@ -42,27 +49,6 @@
     <!-- <pre class="code">{{ data | json }}</pre> -->
 
     <!-- <pre class="code">{{ show | json }}</pre> -->
-
-	<div class="panel panel-default" >
-		<div class="panel-body">
-			<div class="form-group form-inline">
-				<div class="col-sm-11">
-					<!-- <input type="text" class="form-control" 
-					ng-model="searchform.name"
-					placeholder="登录名"
-					>
-					<input type="text" class="form-control" 
-					ng-model="searchform.code"
-					placeholder="姓名"
-					 > -->
-					<button type="button" class="btn btn-default" ng-click="create()">创建新用户</button>
-				</div>
-				<!-- <div class="col-sm-1 text-right">
-					<button type="button" class="btn btn-info" ng-click="create()">创建</button>
-				</div> -->
-			</div>
-		</div>
-	</div><!-- searchArea -->
 
       <table class="table table-bordered">
 	    <thead>
@@ -84,6 +70,16 @@
 	          >编辑</a>
 	        </td>
 	      </tr>
+	      <!-- <tr ng-show="objs == undefined">
+	        <td class="text-center"></td>
+	        <td class="text-center"></td>
+	        <td class="text-center"></td>
+	        <td class="text-center">
+	          <a ng-click="default()" class="btn btn-danger btn-xs"
+	          >创建默认帐号</a>
+	        </td>
+	      </tr> -->
+
 	    </tbody>
 	  </table>
 

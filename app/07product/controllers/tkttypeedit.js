@@ -63,7 +63,7 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 
 	$scope.gogo = function(){
 		$scope.objt['print_setup'] = makeStr($scope.objs);
-
+		console.log($scope.objt);
 		tktupdate.save($scope.objt, function(res){
 
 			console.log(res);

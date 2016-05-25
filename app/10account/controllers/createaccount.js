@@ -1,4 +1,5 @@
-module.exports = function($scope, $uibModalInstance, create, code, officeid, officename, role){
+module.exports = function($scope, $uibModalInstance, create, 
+    code, officeid, officename, role){
 
     //上级旅行社编号
     $scope.code = code;
@@ -20,8 +21,6 @@ module.exports = function($scope, $uibModalInstance, create, code, officeid, off
     role.get({}, function(res){
 
         console.log(res);
-
-
 
         $scope.objs = res.allRoles;
         $scope.company = res.company;
@@ -60,7 +59,7 @@ module.exports = function($scope, $uibModalInstance, create, code, officeid, off
         $scope.obj['company.id'] = officeid;
         $scope.obj['office.id'] = officeid;
         $scope.obj.loginFlag = '1';
-
+        console.log($scope.obj);
         create.save($scope.obj, {}, function(res){
 
             console.log(res);

@@ -8,20 +8,21 @@ module.exports = function($scope, $state, mechanism, $uibModal, create,
 
     //当前的id
     $scope.currentid = '';
+    $scope.currentcode = '';
+    $scope.currentname = '';
 
     $scope.editshow = false;
 
     //机构树
     function mechanismtree(){
         mechanism.query({}, function(res){
-
-          //console.log(res);
-
+          console.log(res);
           var dlq = transData(res, 'id', 'pId', 'nodes');  
           $scope.data = dlq;
           console.log($scope.data);
           $scope.currentid = $scope.data[0].id;
-
+          $scope.currentcode = $scope.data[0].code;
+          $scope.currentname = $scope.data[0].name;
           $scope.load($scope.data[0].id, $scope.data[0].name);
         });
     }
@@ -35,7 +36,7 @@ module.exports = function($scope, $state, mechanism, $uibModal, create,
     
     $scope.load = function (officeid, officename) {
 
-        if(officeid === undefined || officename === undefined) return;
+        //if(officeid === undefined || officename === undefined) return;
         
         var para = {
             pageNo:$scope.bigCurrentPage, 
@@ -105,24 +106,23 @@ module.exports = function($scope, $state, mechanism, $uibModal, create,
         editmodal(obj);
     }
 
-    //打开模态框
+    //创建新用户
     function createmodal()
     {
-        console.log($scope.code);
         var modalInstance = $uibModal.open({
           template: require('../views/createaccount.html'),
           controller: 'createaccount',
           resolve: {
             code : function(){
-                return $scope.code;
+                return $scope.currentcode;
             },
             //部门id
             officeid : function(){
-                return $scope.officeid;
+                return $scope.currentid;
             },
             //部门名称
             officename : function(){
-                return $scope.officename;
+                return $scope.currentname;
             },
             role : function(){
                 return role;
