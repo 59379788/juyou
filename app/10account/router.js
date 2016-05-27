@@ -29,6 +29,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             createmechanism : function(accountservice){
                 return accountservice.createmechanism();
+            },
+            createdeposit : function(depositservice){
+                return depositservice.create();
             }
             
         }

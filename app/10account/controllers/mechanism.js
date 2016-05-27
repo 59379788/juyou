@@ -1,12 +1,13 @@
-module.exports = function($scope,  createmechanism, $uibModalInstance, create){
+module.exports = function($scope,  createmechanism, $uibModalInstance, create, createdeposit){
 	$scope.ok = function () {
 	console.log($scope.name);
         createmechanism.save({'name' : $scope.name}, {}, function(res){
             console.log(res);
             if(res.errcode === 0)
             {
-                alert(res.errmsg);
-                $uibModalInstance.close();
+                //alert(res.errmsg);
+                //$uibModalInstance.close();
+                _createdeposit(res.errmsg);
             }
             else
             {
@@ -18,6 +19,31 @@ module.exports = function($scope,  createmechanism, $uibModalInstance, create){
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
+
+
+    function _createdeposit(seller_code){
+    	//Object {loan_limit_price: 0, picket_line: 0, seller_code: "LA00015"}
+    	var para = {
+    		'loan_limit_price' : 0,
+    		'picket_line' : 0,
+    		'seller_code' : seller_code
+    	}
+		createdeposit.save(para, function(res){
+
+			console.log(res);
+			if(res.errcode === 0)
+			{
+				alert('添加成功');
+				$uibModalInstance.close();
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+
+		});
+
+    }
 
 
 

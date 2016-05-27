@@ -5,7 +5,9 @@
 var service = function($resource, BASEURL38985, $q, $http){
 
     //获取全部商户数据
-    var list = BASEURL38985 + '/api/as/tc/bmaccount/sellerInfoList';
+    //var list = BASEURL38985 + '/api/as/tc/bmaccount/sellerInfoList';
+    var list = BASEURL38985 + '/api/ac/tc/ticketBmAccountService/sellerInfoList';
+
 
     //获取商户数据通过code
 	var getSellerInfoByCode = BASEURL38985 + '/api/as/tc/bmaccount/getSellerInfoByCode';

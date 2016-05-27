@@ -1,5 +1,5 @@
 module.exports = function($scope, $state, mechanism, $uibModal, create, 
-    list, role, ITEMS_PERPAGE, info, createmechanism){
+    list, role, ITEMS_PERPAGE, info, createmechanism, createdeposit){
 
     $scope.objs = {};
 
@@ -28,6 +28,11 @@ module.exports = function($scope, $state, mechanism, $uibModal, create,
     }
     mechanismtree();
 
+    role.get({}, function(res){
+        console.log(res);
+        $scope.objs = res.allRoles;
+    });
+
     /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -40,7 +45,8 @@ module.exports = function($scope, $state, mechanism, $uibModal, create,
         
         var para = {
             pageNo:$scope.bigCurrentPage, 
-            pageSize:$scope.itemsPerPage
+            pageSize:$scope.itemsPerPage,
+            'company.id' : $scope.officeid
         };
 
         para = angular.extend({'office.id' : officeid, 'office.name' : officename}, para);
@@ -196,6 +202,9 @@ module.exports = function($scope, $state, mechanism, $uibModal, create,
             },
             create : function(){
                 return create;
+            },
+            createdeposit : function(){
+                return createdeposit;
             }
           }
         });
@@ -210,6 +219,39 @@ module.exports = function($scope, $state, mechanism, $uibModal, create,
         });
 
     };
+
+
+    // $scope.default = function(obj){
+    //     var para = {};
+
+    //     para.no = $scope.code;
+    //     para.loginName = $scope.code;
+    //     para.name = $scope.code;
+    //     para.newPassword = '000000';
+    //     para.confirmNewPassword = '000000';
+    //     para['company.id'] = $scope.officeid;
+    //     para['office.id'] = $scope.officeid;
+    //     para.loginFlag = '1';
+    //     console.log(para);
+    //     create.save(para, {}, function(res){
+
+    //         console.log(res);
+
+    //         if(res.errcode === 0)
+    //         {
+    //             alert('创建成功');
+    //             $scope.load($scope.officeid, $scope.officename);
+    //         }
+    //         else
+    //         {
+    //             alert(res.errmsg);
+    //         }
+
+    //     });
+    // };
+
+
+    
 
 
 };

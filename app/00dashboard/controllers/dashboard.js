@@ -82,7 +82,7 @@ module.exports = function($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticein
 
     $scope.detail = function(obj){
         console.log(obj);
-        $state.go('app.trackinfo', {'seller_code' : obj.company_code});
+        $state.go('app.trackinfo');
     }
 
 

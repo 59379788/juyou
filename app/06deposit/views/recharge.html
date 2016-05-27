@@ -1,7 +1,9 @@
 
 
 <div class="modal-header">
-    <h4 class="modal-title">充值</h4>
+    <h4 class="modal-title text-danger">
+        您的账户余额：{{balance - obj.balance_price | currency : '¥'}}
+    </h4>
 </div>
 <div class="modal-body">
 
@@ -11,7 +13,7 @@
             <div class="form-group">
                 <label class="col-xs-4 control-label">充值金额</label>
                 <div class="col-xs-8">
-                    <input type="text" class="form-control" ng-model="obj.balance_price" >
+                    <input type="number" class="form-control" ng-model="obj.balance_price" >
                 </div>
             </div>
 

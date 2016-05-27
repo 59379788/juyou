@@ -15,8 +15,11 @@ var router = function($urlRouterProvider, $stateProvider){
          list : function(depositservice){
              return depositservice.list();
          },
-         talist : function(depositservice){
-             return depositservice.talist;
+         // list : function(accountservice){
+         //     return accountservice.list();
+         // },
+         mechanism : function(accountservice){
+             return accountservice.mechanism();
          },
          recharge : function(depositservice){
              return depositservice.recharge();
@@ -26,6 +29,13 @@ var router = function($urlRouterProvider, $stateProvider){
          },
          update : function(depositservice){
              return depositservice.update();
+         },
+         getSellerInfoByCode : function(depositservice){
+          return depositservice.getSellerInfoByCode();
+         },
+         transData : function(utilservice)
+         {
+             return utilservice.transData;
          }
         }
       })
