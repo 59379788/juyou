@@ -8,7 +8,7 @@ var router = function($urlRouterProvider, $stateProvider){
  	$stateProvider
 
  	  .state('app.userinfo', {
-        url: '/userinfo',
+        url: '/userinfo/:mobile',
         controller : 'userinfo',
         template: require('./user/userinfo.html'),
         resolve:{

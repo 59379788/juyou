@@ -1,7 +1,25 @@
-module.exports = function($scope, $state, userinfo, updateUserAuthInfo){
+module.exports = function($scope, $state, $stateParams, userinfo, updateUserAuthInfo){
 
 	$scope.searchform = {};
     //$scope.searchform.mobile = '15840491086';
+    $scope.searchform.mobile = $stateParams.mobile;
+    if($stateParams.mobile !== ''){
+    	userinfo.save($scope.searchform, function(res){
+
+	     	console.log(res.data);
+
+	     	if(res.errcode !== 0)
+	     	{
+	     		alert("数据获取失败");
+	     		return;
+	     	}
+
+	     	$scope.obj = res.data;
+
+	    });
+    }
+
+
     $scope.load = function () {
         
         userinfo.save($scope.searchform, function(res){
@@ -13,14 +31,6 @@ module.exports = function($scope, $state, userinfo, updateUserAuthInfo){
          		alert("数据获取失败");
          		return;
          	}
-
-         	/*if(res.data.phycardno.toString() == 'null'){
-         		res.data.phycardno = '';
-         	}
-
-         	if(res.data.digitalcardno.toString() == 'null'){
-         		res.data.digitalcardno = '';
-         	}*/
 
          	$scope.obj = res.data;
 
