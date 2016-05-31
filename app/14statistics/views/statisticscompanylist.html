@@ -54,8 +54,8 @@
         <td class="text-center">{{obj.buy}}</td>
         <td class="text-center">{{obj.used}}</td>
         <td class="text-center">{{obj.back}}</td>
-        <td class="text-center">{{obj.cost_price  * 0.01 | currency : '￥'}}</td>
-        <td class="text-center">{{obj.cost_price * (obj.buy - obj.back) * 0.01 | currency : '￥'}}</td>
+        <td class="text-center">{{obj.unit_price}}</td>
+        <td class="text-center">{{(obj.total_buy - obj.total_back)  * 0.01 | currency : '￥'}}</td>
       </tr>
       <tr >
         <td class="text-center">总计</td>
