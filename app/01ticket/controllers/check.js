@@ -2,10 +2,10 @@ module.exports = function($scope, $uibModal,
 	checkcode, checkcard, checkid, checkgroupcode, useticketbyid, useticketbycode, useticketbycard, useticketbygroupcode){
 
 	//票码
-	$scope.code = "210302198308022412";
+	$scope.code = "";
 
 	//设备号
-	$scope.device = "90010091004";
+	$scope.device = "2055";
 
 	//将要
   	var para = {};
