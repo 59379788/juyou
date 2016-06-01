@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModalInstance, info, para){
+module.exports = function($scope, $uibModalInstance, info, para, func){
 
 	// console.log('-------');
 	// console.log(info);
@@ -7,9 +7,9 @@ module.exports = function($scope, $uibModalInstance, info, para){
 	$scope.objs = info.ticketList;
 
 
-	var fun = para.fun;
+	//var fun = func;
 
-	delete para.fun;
+	//delete para.fun;
 
 	$scope.cancel = function () {
 		$uibModalInstance.dismiss('cancel');
@@ -21,7 +21,7 @@ module.exports = function($scope, $uibModalInstance, info, para){
 
 		console.log(para);
 
-		fun.get(para, function(res){
+		func.get(para, function(res){
 
 			console.log(res);
 

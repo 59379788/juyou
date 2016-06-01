@@ -10,6 +10,8 @@ module.exports = function($scope, $uibModal,
 	//将要
   	var para = {};
 
+  	var func = {};
+
   	//查票方法
 	$scope.check = function(){
 
@@ -20,24 +22,28 @@ module.exports = function($scope, $uibModal,
 		//票码
 		if(len === 8)
 		{
-			para = {"code" : $scope.code, "device" : $scope.device, "fun" : useticketbycode};
+			para = {"code" : $scope.code, "device" : $scope.device};
+			func = useticketbycode;
 			checkcode.get(para, oper);
 		}
 		//身份证
 		else if(len === 18)
 		{
-			para = {"ID" : $scope.code, "device" : $scope.device, "fun" : useticketbyid};
+			para = {"ID" : $scope.code, "device" : $scope.device};
+			func = useticketbyid;
 			checkid.get(para, oper);
 		}
 		//卡号
 		else if(len === 16)
 		{
-			para = {"card" : $scope.code, "device" : $scope.device, "fun" : useticketbycard};
+			para = {"card" : $scope.code, "device" : $scope.device};
+			func = useticketbycard;
 			checkcard.get(para, oper);
 		}
 		else if(len === 7)
 		{
-			para = {"code" : $scope.code, "device" : $scope.device, "fun" : useticketbygroupcode};
+			para = {"code" : $scope.code, "device" : $scope.device};
+			func = useticketbygroupcode
 			checkgroupcode.get(para, oper);
 		}
 		else
@@ -59,6 +65,9 @@ module.exports = function($scope, $uibModal,
 	        },
 	        para : function(){
 	          return para;
+	        },
+	        func : function(){
+	          return func;
 	        }
 	      }
 	    });

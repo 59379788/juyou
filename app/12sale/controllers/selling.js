@@ -322,12 +322,12 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
                     tmp.unavailable = true;
                 }
                 else if(tmp.govsubsidy_price !== -1 
-                && tmp.govsubsidy_price < gov)
+                && tmp.govsubsidy_price <= gov)
                 {
                     tmp.unavailable = false;
                 }
                 else if(tmp.govsubsidy_price !== -1 
-                && tmp.govsubsidy_price >= gov){
+                && tmp.govsubsidy_price > gov){
 
                     tmp.unavailable = true;
                 }

@@ -126,7 +126,7 @@
 
 	//=================[ 常量 ]================================//
 	angular.module('constant', [])
-	  .constant('BASEURL', 'http://115.28.145.50:38986')
+	  .constant('BASEURL', '')
 	  //.constant('BASEURL', 'http://115.28.189.180:38987')
 	  //.constant('BASEURL', 'http://www.juyouhx.com')
 	  .constant('BASEURL38985', '')
@@ -58601,7 +58601,7 @@
 /* 44 */
 /***/ function(module, exports) {
 
-	module.exports = "\n\n<div class=\" col-md-4 \">\n<div class=\"panel panel-default\">\n\t<div class=\"panel-heading text-center \"><h4>测试数据</h4></div>\n\n\t<div class=\"panel-body\">\n\t\t\n\t\t90010091000 不存在 <br>\n\t\t90010091001  设备停用<br>\n\t\t90010091002  设备启用 未启用权限<br>\n\t\t90010091003  设备启用  开启权限  权限中无票种<br>\n\t\t90010091004   设备启用  开启权限  权限包含票种<br>\n\t\t90010091005   铁岭莲花湿地\n\t\t<hr>\n\n\t\t210302198308022412<br>\n\t\t<hr>\n\t\t90067214<br>\n\n\n\t</div>\n</div>\n</div>\n\n\n<div class=\" col-md-8 \">\n<div class=\"panel panel-default\">\n\t<div class=\"panel-heading text-center \"><h4>智慧景区验票系统</h4></div>\n\n\t<div class=\"panel-body\">\n\t\t<form class=\"form-horizontal\">\n\t\t<div class=\"form-group mt10\">\n\t\t    \n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"text\" class=\"form-control\" ng-model=\"device\" placeholder=\"输入设备码\">\n\t\t    </div>\n\n\t\t  </div>\n\n\t\t  <div class=\"form-group\">\n\t\t    \n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"text\" class=\"form-control\" ng-model=\"code\" placeholder=\"输入票码\">\n\t\t    </div>\n\n\t\t    <div class=\"col-sm-3\">\n\t\t    \t<button type=\"button\" \n\t\t    \tclass=\"btn btn-default btn-block\"\n\t\t    \tng-click=\"check()\">确定</button>\n\t\t    </div>\n\t\t  </div>\n\t\t  \n\t\t</form>\n\t</div>\n</div>\n</div>\n"
+	module.exports = "\n\n<!-- <div class=\" col-md-4 \">\n<div class=\"panel panel-default\">\n\t<div class=\"panel-heading text-center \"><h4>测试数据</h4></div>\n\n\t<div class=\"panel-body\">\n\t\t\n\t\t90010091000 不存在 <br>\n\t\t90010091001  设备停用<br>\n\t\t90010091002  设备启用 未启用权限<br>\n\t\t90010091003  设备启用  开启权限  权限中无票种<br>\n\t\t90010091004   设备启用  开启权限  权限包含票种<br>\n\t\t90010091005   铁岭莲花湿地\n\t\t<hr>\n\n\t\t210302198308022412<br>\n\t\t<hr>\n\t\t90067214<br>\n\n\n\t</div>\n</div>\n</div> -->\n\n\n<div class=\" col-md-8 col-md-offset-2\">\n<div class=\"panel panel-default\">\n\t<div class=\"panel-heading text-center \"><h4>智慧景区验票系统</h4></div>\n\n\t<div class=\"panel-body\">\n\t\t<form class=\"form-horizontal\">\n\t\t<div class=\"form-group mt10\">\n\t\t    \n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"text\" class=\"form-control\" ng-model=\"device\" placeholder=\"输入设备码\" ng-readonly=\"true\">\n\t\t    </div>\n\n\t\t  </div>\n\n\t\t  <div class=\"form-group\">\n\t\t    \n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"text\" class=\"form-control\" ng-model=\"code\" placeholder=\"输入票码\">\n\t\t    </div>\n\n\t\t    <div class=\"col-sm-3\">\n\t\t    \t<button type=\"button\" \n\t\t    \tclass=\"btn btn-default btn-block\"\n\t\t    \tng-click=\"check()\">确定</button>\n\t\t    </div>\n\t\t  </div>\n\t\t  \n\t\t</form>\n\t</div>\n</div>\n</div>\n"
 
 /***/ },
 /* 45 */
@@ -58709,13 +58709,15 @@
 		checkcode, checkcard, checkid, checkgroupcode, useticketbyid, useticketbycode, useticketbycard, useticketbygroupcode){
 
 		//票码
-		$scope.code = "210302198308022412";
+		$scope.code = "";
 
 		//设备号
-		$scope.device = "90010091004";
+		$scope.device = "2055";
 
 		//将要
 	  	var para = {};
+
+	  	var func = {};
 
 	  	//查票方法
 		$scope.check = function(){
@@ -58727,24 +58729,28 @@
 			//票码
 			if(len === 8)
 			{
-				para = {"code" : $scope.code, "device" : $scope.device, "fun" : useticketbycode};
+				para = {"code" : $scope.code, "device" : $scope.device};
+				func = useticketbycode;
 				checkcode.get(para, oper);
 			}
 			//身份证
 			else if(len === 18)
 			{
-				para = {"ID" : $scope.code, "device" : $scope.device, "fun" : useticketbyid};
+				para = {"ID" : $scope.code, "device" : $scope.device};
+				func = useticketbyid;
 				checkid.get(para, oper);
 			}
 			//卡号
 			else if(len === 16)
 			{
-				para = {"card" : $scope.code, "device" : $scope.device, "fun" : useticketbycard};
+				para = {"card" : $scope.code, "device" : $scope.device};
+				func = useticketbycard;
 				checkcard.get(para, oper);
 			}
 			else if(len === 7)
 			{
-				para = {"code" : $scope.code, "device" : $scope.device, "fun" : useticketbygroupcode};
+				para = {"code" : $scope.code, "device" : $scope.device};
+				func = useticketbygroupcode
 				checkgroupcode.get(para, oper);
 			}
 			else
@@ -58766,6 +58772,9 @@
 		        },
 		        para : function(){
 		          return para;
+		        },
+		        func : function(){
+		          return func;
 		        }
 		      }
 		    });
@@ -58814,7 +58823,7 @@
 /* 49 */
 /***/ function(module, exports) {
 
-	module.exports = function($scope, $uibModalInstance, info, para){
+	module.exports = function($scope, $uibModalInstance, info, para, func){
 
 		// console.log('-------');
 		// console.log(info);
@@ -58823,9 +58832,9 @@
 		$scope.objs = info.ticketList;
 
 
-		var fun = para.fun;
+		//var fun = func;
 
-		delete para.fun;
+		//delete para.fun;
 
 		$scope.cancel = function () {
 			$uibModalInstance.dismiss('cancel');
@@ -58837,7 +58846,7 @@
 
 			console.log(para);
 
-			fun.get(para, function(res){
+			func.get(para, function(res){
 
 				console.log(res);
 
