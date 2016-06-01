@@ -73,7 +73,7 @@ module.exports = function($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticein
             }
             else
             {
-                alert(res.errmsg);
+                //alert(res.errmsg);
             }
         });
 
