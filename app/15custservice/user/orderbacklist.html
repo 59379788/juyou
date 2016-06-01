@@ -17,21 +17,19 @@
     <thead>
       <tr>
         <th class="text-center col-md-2">订单编号</th>
-        <th class="text-center col-md-1">订单序号</th>
+        <th class="text-center col-md-2">支付金额</th>
         <th class="text-center col-md-2">创建时间</th>
         <th class="text-center col-md-2">退款状态</th>
-        <th class="text-center col-md-2">退款金额</th>
         <th class="text-center col-md-2">退款时间</th>
-        <th class="text-center col-md-1">操作</th>
+        <th class="text-center col-md-2">操作</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
         <td class="text-center">{{obj.order_code}}</td>
-        <td class="text-center">{{obj.sequence}}</td>
+        <td class="text-center">{{obj.back_price | currency : '￥'}}</td>
         <td class="text-center">{{obj.create_time}}</td>
         <td class="text-center">{{obj.back_statename}}</td>
-        <td class="text-center">{{obj.back_price | currency : '￥'}}</td>
         <td class="text-center">{{obj.update_time}}</td>
         <td class="text-center">
         	<a ng-show="obj.back_state=='0'" ng-click="back(obj.id)" class="btn btn-success btn-xs">退款</a>
