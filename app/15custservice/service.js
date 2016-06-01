@@ -27,6 +27,10 @@ var service = function($resource, BASEURL38985){
     var orderlist = BASEURL38985 + "/api/as/uc/jyu/getOrderListForKList";
 
     var sendmessage = "http://ts.juyouhx.com/getsms/service/CW0088";
+
+    var orderbacklist = BASEURL38985 + "/api/as/tc/ticketorderback/orderbacklist";
+
+    var orderback = BASEURL38985 + "/api/as/tc/ticketorderback/autoBackFeeForYC";
     
     return {
 
@@ -65,6 +69,12 @@ var service = function($resource, BASEURL38985){
         },
         sendmessage : function(){
             return $resource(sendmessage, {}, {});
+        },
+        orderbacklist : function(){
+            return $resource(orderbacklist, {}, {});
+        },
+        orderback : function(){
+            return $resource(orderback, {}, {});
         }
        
     };
