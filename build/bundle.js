@@ -112,14 +112,14 @@
 	__webpack_require__(179);
 	__webpack_require__(195);
 	__webpack_require__(206);
-	__webpack_require__(227);
-	__webpack_require__(235);
+	__webpack_require__(229);
+	__webpack_require__(237);
 
 
-	__webpack_require__(240);
-	__webpack_require__(242);   //拦截器
-	__webpack_require__(244);
-	__webpack_require__(248);
+	__webpack_require__(242);
+	__webpack_require__(244);   //拦截器
+	__webpack_require__(246);
+	__webpack_require__(250);
 
 	//=================[ 子模块加载 ]===========================//
 
@@ -58316,7 +58316,7 @@
 	            }
 	            else
 	            {
-	                alert(res.errmsg);
+	                //alert(res.errmsg);
 	            }
 	        });
 
@@ -65977,12 +65977,12 @@
 	                    tmp.unavailable = true;
 	                }
 	                else if(tmp.govsubsidy_price !== -1 
-	                && tmp.govsubsidy_price < gov)
+	                && tmp.govsubsidy_price <= gov)
 	                {
 	                    tmp.unavailable = false;
 	                }
 	                else if(tmp.govsubsidy_price !== -1 
-	                && tmp.govsubsidy_price >= gov){
+	                && tmp.govsubsidy_price > gov){
 
 	                    tmp.unavailable = true;
 	                }
@@ -67588,17 +67588,18 @@
 	var App = angular.module('custservice', []);
 
 	App.config(__webpack_require__(207));
-	App.factory('custservice', __webpack_require__(217));
+	App.factory('custservice', __webpack_require__(218));
 
-	App.controller('userinfo',__webpack_require__(218));
-	App.controller('cardA',__webpack_require__(219));
-	App.controller('cardB',__webpack_require__(220));
-	App.controller('infoticket',__webpack_require__(221));
-	App.controller('edituserinfo',__webpack_require__(222));
-	App.controller('createuserinfo',__webpack_require__(223));
-	App.controller('redpackage',__webpack_require__(224));
-	App.controller('userorderlist',__webpack_require__(225));
-	App.controller('sendmessage',__webpack_require__(226));
+	App.controller('userinfo',__webpack_require__(219));
+	App.controller('cardA',__webpack_require__(220));
+	App.controller('cardB',__webpack_require__(221));
+	App.controller('infoticket',__webpack_require__(222));
+	App.controller('edituserinfo',__webpack_require__(223));
+	App.controller('createuserinfo',__webpack_require__(224));
+	App.controller('redpackage',__webpack_require__(225));
+	App.controller('userorderlist',__webpack_require__(226));
+	App.controller('sendmessage',__webpack_require__(227));
+	App.controller('orderbacklist',__webpack_require__(228));
 
 
 
@@ -67725,6 +67726,20 @@
 	        }
 	      })
 
+	      .state('app.orderback', {
+	        url: '/orderbacklist',
+	        controller : 'orderbacklist',
+	        template: __webpack_require__(217),
+	        resolve:{
+	            orderbacklist : function(custservice){
+	                return custservice.orderbacklist();
+	            },
+	            orderback : function(custservice){
+	                return custservice.orderback();
+	            }
+	        }
+	      })
+
 
 	};
 
@@ -67788,6 +67803,12 @@
 /* 217 */
 /***/ function(module, exports) {
 
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>订单编号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.order_code\" placeholder=\"请输入订单编号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"text-center col-md-2\">订单编号</th>\n        <th class=\"text-center col-md-2\">支付金额</th>\n        <th class=\"text-center col-md-2\">创建时间</th>\n        <th class=\"text-center col-md-2\">退款状态</th>\n        <th class=\"text-center col-md-2\">退款时间</th>\n        <th class=\"text-center col-md-2\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.order_code}}</td>\n        <td class=\"text-center\">{{obj.back_price | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.create_time}}</td>\n        <td class=\"text-center\">{{obj.back_statename}}</td>\n        <td class=\"text-center\">{{obj.update_time}}</td>\n        <td class=\"text-center\">\n        \t<a ng-show=\"obj.back_state=='0'\" ng-click=\"back(obj.id)\" class=\"btn btn-success btn-xs\">退款</a>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
+
+/***/ },
+/* 218 */
+/***/ function(module, exports) {
+
 	/**
 	 * 子模块service
 	 * djp
@@ -67817,6 +67838,10 @@
 	    var orderlist = BASEURL38985 + "/api/as/uc/jyu/getOrderListForKList";
 
 	    var sendmessage = "http://ts.juyouhx.com/getsms/service/CW0088";
+
+	    var orderbacklist = BASEURL38985 + "/api/as/tc/ticketorderback/orderbacklist";
+
+	    var orderback = BASEURL38985 + "/api/as/tc/ticketorderback/autoBackFeeForYC";
 	    
 	    return {
 
@@ -67855,6 +67880,12 @@
 	        },
 	        sendmessage : function(){
 	            return $resource(sendmessage, {}, {});
+	        },
+	        orderbacklist : function(){
+	            return $resource(orderbacklist, {}, {});
+	        },
+	        orderback : function(){
+	            return $resource(orderback, {}, {});
 	        }
 	       
 	    };
@@ -67864,7 +67895,7 @@
 	module.exports = service;
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, userinfo, updateUserAuthInfo){
@@ -67943,7 +67974,7 @@
 	};
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, cardA){
@@ -67971,7 +68002,7 @@
 	};
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, cardB){
@@ -67999,7 +68030,7 @@
 	};
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, infoticket){
@@ -68028,7 +68059,7 @@
 	};
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, edituserinfo, oneuserinfo, updateUserSubsidy){
@@ -68086,7 +68117,7 @@
 
 
 /***/ },
-/* 223 */
+/* 224 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, createuserinfo){
@@ -68116,7 +68147,7 @@
 
 
 /***/ },
-/* 224 */
+/* 225 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, redpackage){
@@ -68144,7 +68175,7 @@
 	};
 
 /***/ },
-/* 225 */
+/* 226 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, orderlist){
@@ -68173,7 +68204,7 @@
 	};
 
 /***/ },
-/* 226 */
+/* 227 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, sendmessage){
@@ -68218,7 +68249,70 @@
 	};
 
 /***/ },
-/* 227 */
+/* 228 */
+/***/ function(module, exports) {
+
+	module.exports = function($scope, $state, orderbacklist, orderback, ITEMS_PERPAGE){
+
+		$scope.searchform = {};
+
+		/* 分页
+	     * ========================================= */
+	    $scope.maxSize = 10;            //最多显示多少个按钮
+	    $scope.bigCurrentPage = 1;      //当前页码
+	    $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+	    
+	    $scope.load = function () {
+
+	    	var para = {
+	            pageNo:$scope.bigCurrentPage, 
+	            pageSize:$scope.itemsPerPage,
+	            order_code:$scope.searchform.order_code
+	        };
+	        
+	        orderbacklist.save(para, function(res){
+
+	         	console.log(res);
+
+	         	if(res.errcode !== 0)
+	         	{
+	         		alert("数据获取失败");
+	         		return;
+	         	}
+
+	         	$scope.objs = res.data.results;
+	            $scope.bigTotalItems = res.data.totalRecord;
+
+	        });
+
+	    };
+	    $scope.load();
+
+	    $scope.back = function(id){
+	    	var para = {
+	            id:id
+	        };
+			orderback.save(para, function(res){
+
+				console.log(res);
+
+				if(res.errcode === 0)
+				{
+					alert("退款成功");
+					$scope.load();
+				}
+				else
+				{
+					alert(res.errmsg);
+				}
+
+			});
+		}
+
+	};
+
+/***/ },
+/* 229 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -68228,18 +68322,18 @@
 
 	var App = angular.module('notice', []);
 
-	App.config(__webpack_require__(228));
-	App.factory('noticeservice', __webpack_require__(231));
+	App.config(__webpack_require__(230));
+	App.factory('noticeservice', __webpack_require__(233));
 
-	App.controller('noticelist',__webpack_require__(232));
-	App.controller('noticeedit',__webpack_require__(233));
-	App.controller('noticecreate',__webpack_require__(234));
+	App.controller('noticelist',__webpack_require__(234));
+	App.controller('noticeedit',__webpack_require__(235));
+	App.controller('noticecreate',__webpack_require__(236));
 
 
 	module.exports = App;
 
 /***/ },
-/* 228 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -68254,7 +68348,7 @@
 	 	  .state('app.createnotice', {
 	        url: '/noticelist',
 	        controller : 'noticelist',
-	        template: __webpack_require__(229),
+	        template: __webpack_require__(231),
 	        resolve:{
 	            mylist : function(noticeservice){
 	                return noticeservice.mylist();
@@ -68268,7 +68362,7 @@
 	      .state('app.noticecreate', {
 	        url: '/notice',
 	        controller : 'noticecreate',
-	        template: __webpack_require__(230),
+	        template: __webpack_require__(232),
 	        resolve:{
 	            create : function(noticeservice){
 	                return noticeservice.create();
@@ -68280,7 +68374,7 @@
 	      .state('app.noticeedit', {
 	        url: '/notice/:id',
 	        controller : 'noticeedit',
-	        template: __webpack_require__(230),
+	        template: __webpack_require__(232),
 	        resolve:{
 	            myinfo : function(noticeservice){
 	                return noticeservice.myinfo();
@@ -68299,19 +68393,19 @@
 	module.exports = router;
 
 /***/ },
-/* 229 */
+/* 231 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>公告标题</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.title\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建公告</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-4 text-center\">公告标题</th>\n        <th class=\"col-md-2 text-center\">公告状态</th>\n        <th class=\"col-md-2 text-center\">排序</th>\n        <th class=\"col-md-2 text-center\">创建时间</th>\n        <th class=\"col-md-2 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"\">{{obj.title}}</td>\n        <td class=\"text-center\">{{obj.statename}}</td>\n        <td class=\"form-horizontal \">\n          <div class=\"col-sm-6\">\n            <input class=\"form-control input-sm\" \n            style=\"height:22px;\" \n            type=\"text\" \n            value=\"{{obj.asort}}\" \n            ng-model=\"obj.asort\">\n          </div>\n          <a ng-click=\"asort(obj.id, obj.asort)\" class=\"btn btn-info btn-xs\">gogo</a> \n        </td>\n        <td class=\"text-center\">{{obj.sdate}}</td>\n        <td class=\"text-center\">\n          <a ng-show=\"obj.state=='1'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">隐藏</a>\n          <a ng-show=\"obj.state=='0'\" ng-click=\"start(obj.id)\" class=\"btn btn-danger btn-xs\">显示</a>\n          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
 
 /***/ },
-/* 230 */
+/* 232 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\n\t\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">公告标题</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\"\n\t\t\tng-model=\"objt.title\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">公告内容</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<!--<textarea class=\"form-control\" rows=\"15\"\n\t\t\tng-model=\"objt.content\"\n\t\t\t></textarea>-->\n\t\t\t<div text-angular ng-model=\"objt.content\"></div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">公告排序</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\"\n\t\t\tng-model=\"objt.asort\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t    <label class=\"col-xs-2 control-label\">公告状态</label>\n\t    <div class=\"col-xs-10\">\n\t    \t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"1\"\n\t\t\t  ng-model=\"objt.state\"\n\t\t\t  > 显示\n\t\t\t</label>\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"0\"\n\t\t\t  ng-model=\"objt.state\"\n\t\t\t  > 隐藏\n\t\t\t</label>\n\t    </div>\n  \t</div>\n\n\t\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"gogo()\"\n    >\n    提交\n    </button>\n\n\n</div>"
 
 /***/ },
-/* 231 */
+/* 233 */
 /***/ function(module, exports) {
 
 	/**
@@ -68350,7 +68444,7 @@
 	module.exports = service;
 
 /***/ },
-/* 232 */
+/* 234 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, mylist, update, ITEMS_PERPAGE){
@@ -68449,7 +68543,7 @@
 	};
 
 /***/ },
-/* 233 */
+/* 235 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, update, myinfo){
@@ -68493,7 +68587,7 @@
 	};
 
 /***/ },
-/* 234 */
+/* 236 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, create){
@@ -68525,7 +68619,7 @@
 	};
 
 /***/ },
-/* 235 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -68535,11 +68629,11 @@
 
 	var App = angular.module('chart', []);
 
-	App.config(__webpack_require__(236));
-	App.factory('chartservice', __webpack_require__(238));
+	App.config(__webpack_require__(238));
+	App.factory('chartservice', __webpack_require__(240));
 
 
-	App.controller('salechart',__webpack_require__(239));
+	App.controller('salechart',__webpack_require__(241));
 	// App.controller('orderbycode',require('./controllers/orderbycode'));
 	// App.controller('orderticketlist',require('./controllers/orderticketlist'));
 	// App.controller('allorderlist',require('./controllers/allorderlist'));
@@ -68551,7 +68645,7 @@
 	module.exports = App;
 
 /***/ },
-/* 236 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -68566,7 +68660,7 @@
 	        .state('app.salechart', {
 	            url: '/salechart',
 	            controller : 'salechart',
-	            template: __webpack_require__(237),
+	            template: __webpack_require__(239),
 	            resolve:{
 	                orderstatisticslist : function(statisticsservice){
 	                    return statisticsservice.orderstatisticslist();
@@ -68589,13 +68683,13 @@
 	module.exports = router;
 
 /***/ },
-/* 237 */
+/* 239 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-xs-12\">\n<div class=\"row\">\n\n<!-- 图表 -->\n<div class=\"col-xs-8\">\n  <canvas id=\"line\" class=\"chart chart-line \" chart-data=\"line.data\"\n    chart-labels=\"line.labels\" chart-legend=\"true\" chart-series=\"line.series\"\n    chart-click=\"onClick\" >\n  </canvas> \n\n  <canvas id=\"pie\" class=\"chart chart-pie\"\n    chart-data=\"data\" chart-labels=\"labels\">\n  </canvas> \n\n</div>\n\n<div class=\"col-xs-4\">\n<div class=\"panel panel-default form-horizontal \">\n<div class=\"panel-body\">\n<!-- <div class=\"form-group form-inline \"> -->\n<div class=\"col-xs-12\" >\n\n    <div class=\"form-group\" >\n      <label class=\"col-xs-2 control-label\">景区</label>\n      <div class=\"col-xs-10\" >\n        <select class=\"form-control\" ng-model=\"searchform.place_code\" \n          ng-options=\"view.viewcode as view.viewname for view in viewarr\"\n          ng-change=\"change(searchform.place_code)\" \n        >\n          <option value=\"\"> --全部-- </option>\n        </select>\n      </div>\n    </div>\n\n    <div class=\"form-group\" >\n      <label class=\"col-xs-2 control-label\">产品</label>\n      <div class=\"col-xs-10\" >\n        <select class=\"form-control\" ng-model=\"searchform.sale\" \n          ng-options=\"(sale.name + '-' +  sale.sale_category_name) for sale in salearr\"\n          ng-change=\"changesale(searchform.sale)\" \n        >\n        </select>\n      </div>\n    </div>\n\n\n    <div class=\"form-group\" >\n      <label class=\"col-xs-2 control-label\">开始</label>\n      <div class=\"col-xs-10\" >\n        <div class=\"input-group\">\n          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n            <span class=\"input-group-btn\">\n              <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n            </span>\n        </div>\n      </div>\n    </div>\n\n\n    <div class=\"form-group\" >\n      <label class=\"col-xs-2 control-label\">结束</label>\n      <div class=\"col-xs-10\" >\n        <div class=\"input-group\">\n          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n            <span class=\"input-group-btn\">\n              <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n            </span>\n        </div>\n      </div>\n    </div>\n\n\n    <div class=\"form-group\">\n      <button type=\"button\" class=\"btn btn-default btn-block\" ng-click=\"load()\">立即搜索</button>\n\n    </div>\n\n\n      \n</div>\n\n\n<!-- </div> -->\n</div>\n\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\"\n      ng-repeat=\"obj in objs\"\n    >\n      {{obj.name + '-' + obj.sale_category_name}}\n      <a ng-click=\"del(obj.code)\" class=\"btn pull-right\" style=\"color: red; padding:0px;\">\n        <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\n      </a>\n    </li>\n  </ul>\n\n</div><!-- searchArea -->\n\n\n\n\n\n</div>\n</div>\n</div>"
 
 /***/ },
-/* 238 */
+/* 240 */
 /***/ function(module, exports) {
 
 	/**
@@ -68615,7 +68709,7 @@
 	module.exports = service;
 
 /***/ },
-/* 239 */
+/* 241 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, orderstatisticslist, getDate, dataScope, salelist){
@@ -68773,7 +68867,7 @@
 	};
 
 /***/ },
-/* 240 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -68784,13 +68878,13 @@
 	var App = angular.module('util', []);
 
 
-	App.factory('utilservice', __webpack_require__(241));
+	App.factory('utilservice', __webpack_require__(243));
 
 
 	module.exports = App;
 
 /***/ },
-/* 241 */
+/* 243 */
 /***/ function(module, exports) {
 
 	/**
@@ -68952,19 +69046,19 @@
 	module.exports = service;
 
 /***/ },
-/* 242 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//拦截器
 
 	var App = angular.module('intercept', []);
 	//alert('sadsadsadasas');
-	App.factory('httpInjector', __webpack_require__(243));
+	App.factory('httpInjector', __webpack_require__(245));
 
 	module.exports = App;
 
 /***/ },
-/* 243 */
+/* 245 */
 /***/ function(module, exports) {
 
 	module.exports = function($location){
@@ -68985,7 +69079,7 @@
 	};
 
 /***/ },
-/* 244 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -68995,14 +69089,14 @@
 
 	var App = angular.module('test', []);
 
-	App.config(__webpack_require__(245));
+	App.config(__webpack_require__(247));
 
-	App.controller('cccc',__webpack_require__(247));
+	App.controller('cccc',__webpack_require__(249));
 
 	module.exports = App;
 
 /***/ },
-/* 245 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -69017,7 +69111,7 @@
 	 	  .state('app.table', {
 	        url: '/table/:url',
 	        controller : 'cccc',
-	        template: __webpack_require__(246)
+	        template: __webpack_require__(248)
 	      })
 
 	 	  
@@ -69027,13 +69121,13 @@
 	module.exports = router;
 
 /***/ },
-/* 246 */
+/* 248 */
 /***/ function(module, exports) {
 
 	module.exports = "<table class=\"table table-bordered table-hover\">\n    <thead>\n      <tr>\n        <th class=\"text-center col-sm-{{t.length}}\" \n        ng-repeat=\"t in obj.title\">{{t.name}}</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"xx in obj.content\">\n        <td class=\"text-center\"\n        ng-repeat=\"t in obj.title\"\n        >{{xx[t.key]}}</td>\n      </tr>\n    </tbody>\n</table>\n\n\n<div class=\"text-right\">\n    <pagination items-per-page=\"itemsPerPage\" \n                total-items=\"bigTotalItems\" \n                ng-model=\"bigCurrentPage\" \n                max-size=\"maxSize\" \n                class=\"pagination-sm\" \n                boundary-links=\"true\" \n                rotate=\"false\" \n                num-pages=\"numPages\" \n                previous-text=\"上一页\"\n                next-text=\"下一页\"\n                first-text=\"首页\"\n                last-text=\"末页\"\n                ng-change=\"load()\"></pagination>\n</div>"
 
 /***/ },
-/* 247 */
+/* 249 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, $resource, BASEURL38985){
@@ -69298,7 +69392,7 @@
 
 
 /***/ },
-/* 248 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -69308,16 +69402,16 @@
 
 	var App = angular.module('common', []);
 
-	App.config(__webpack_require__(249));
+	App.config(__webpack_require__(251));
 
-	App.factory('commonservice', __webpack_require__(251));
+	App.factory('commonservice', __webpack_require__(253));
 
-	App.controller('appcontroller',__webpack_require__(252));
+	App.controller('appcontroller',__webpack_require__(254));
 
 	module.exports = App;
 
 /***/ },
-/* 249 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -69334,7 +69428,7 @@
 		      url: '/app',
 		      abstract: true,
 		      controller : 'appcontroller',
-		      template : __webpack_require__(250),
+		      template : __webpack_require__(252),
 		      resolve:{
 	        	permission : function(commonservice){
 	        		return commonservice.permission();
@@ -69348,13 +69442,13 @@
 	module.exports = router;
 
 /***/ },
-/* 250 */
+/* 252 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- top navbar-->\n<header>\n\t<nav class=\"navbar navbar-custom \">\n\t  <div class=\"container-fluid\">\n\t    <!-- Brand and toggle get grouped for better mobile display -->\n\t    <div class=\"navbar-header\">\n\t      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\"\n\t      ng-click=\"isCollapsed = !isCollapsed\"\n\t      >\n\t        <span class=\"sr-only\">Toggle navigation</span>\n\t        <span class=\"icon-bar\"></span>\n\t        <span class=\"icon-bar\"></span>\n\t        <span class=\"icon-bar\"></span>\n\t      </button>\n\t      <a class=\"navbar-brand\" href=\"#/\">\n\t      \t{{menuobj.name}}\n\t      </a>\n\t    </div>\n\n\t    <!-- Collect the nav links, forms, and other content for toggling -->\n\t    <div class=\"collapse navbar-collapse \" \n\t    uib-collapse=\"isCollapsed\" id=\"bs-example-navbar-collapse-1\">\n\n\t      <ul class=\"nav navbar-nav\"  >\n\t      \t<li class=\"dropdown\"\n\t      \t\tng-repeat=\"menu in menuobj.list\"\n\t      \t \tuib-dropdown  >\n\t\t      <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\" uib-dropdown-toggle> {{menu.name}} <span class=\"caret\"></span></a>\n\t\t      <ul uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n\t\t      \t<li ng-repeat=\"smenu in menu.list\">\n\t\t      \t\t<a ui-sref=\"{{smenu.href}}\">{{smenu.name}}</a>\n\t\t      \t</li>\n\t\t      </ul>\n\t\t    </li>\n\t        \n\t      </ul>\n\n\t      <ul class=\"nav navbar-nav navbar-right\">\n\t        <li>\n\t\t        <a href=\"manager/logout\" class=\"btn \" style=\"color: red;\">\n\t\t        \t<span class=\"glyphicon glyphicon-off\" aria-hidden=\"true\"></span>\n\t\t      \t</a>\n\t        </li>\n\t      </ul>\n\n\t      \n\n\t    </div><!-- /.navbar-collapse -->\n\n\t  </div><!-- /.container-fluid -->\n\t</nav>\n</header>\n<section>\n    <div ui-view=\"\" class=\"content-wrapper\"></div>\n</section>\n\n<!-- Page footer-->\n<!-- <footer >\n\n\t<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n\t  <div class=\"container-fluid text-center mt15\">\n\t    <span class=\"glyphicon glyphicon-heart\"></span> from 慧鼎商务\n\t  </div>\n\t</nav>\n</footer> -->"
 
 /***/ },
-/* 251 */
+/* 253 */
 /***/ function(module, exports) {
 
 	module.exports = function(BASEURL38985, $resource){
@@ -69376,7 +69470,7 @@
 	};
 
 /***/ },
-/* 252 */
+/* 254 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $rootScope){

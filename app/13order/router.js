@@ -17,6 +17,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getDate : function(utilservice){
                 return utilservice.getDate;
+            },
+            ticketlist : function(orderservice){
+                return orderservice.ticketlist();
+            },
+            createBackOrder : function(orderservice){
+                return orderservice.createBackOrder();
             }
         }
         

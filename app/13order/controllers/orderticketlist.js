@@ -1,6 +1,6 @@
-module.exports = function($scope, $state, $stateParams, ticketlist, createBackOrder){
+module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj){
 
-    var code = $stateParams.code;
+    var code = obj.code;
 
     $scope.load = function () {
         ticketlist.get({'order_code' : code}, function(res){
@@ -103,6 +103,11 @@ module.exports = function($scope, $state, $stateParams, ticketlist, createBackOr
         
 
 
+    };
+
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
     };
 
 
