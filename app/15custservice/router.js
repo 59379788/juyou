@@ -115,6 +115,20 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+      .state('app.orderback', {
+        url: '/orderbacklist',
+        controller : 'orderbacklist',
+        template: require('./user/orderbacklist.html'),
+        resolve:{
+            orderbacklist : function(custservice){
+                return custservice.orderbacklist();
+            },
+            orderback : function(custservice){
+                return custservice.orderback();
+            }
+        }
+      })
+
 
 };
 

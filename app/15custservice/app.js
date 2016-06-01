@@ -17,6 +17,7 @@ App.controller('createuserinfo',require('./controllers/createuserinfo'));
 App.controller('redpackage',require('./controllers/redpackage'));
 App.controller('userorderlist',require('./controllers/orderlist'));
 App.controller('sendmessage',require('./controllers/sendmessage'));
+App.controller('orderbacklist',require('./controllers/orderbacklist'));
 
 
 
