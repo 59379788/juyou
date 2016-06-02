@@ -1,12 +1,14 @@
-module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, goodlist, 
+module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupdate, goodlist, 
 	saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, FileUploader,
 	salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
-	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo){
+	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, what){
 	
 	//销售品对象
-	$scope.saleobj = {};
+	$scope.saleobj = {};	
 	//商品列表对象
 	$scope.goodsobj = {};
+
+	$scope.what = what;
 
 	//功能模块对象
 	$scope.funobj = {};
@@ -49,7 +51,7 @@ module.exports = function($scope, $stateParams, viewlist, saleinfo, saleupdate, 
         }
     });
 
-	saleinfo.get({'id' : $stateParams.id}, function(res){
+	saleinfo.get({'id' : id}, function(res){
 		console.log(res);
 
 		if(res.errcode === 0)

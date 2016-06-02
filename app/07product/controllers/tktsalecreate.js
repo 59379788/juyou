@@ -1,4 +1,9 @@
-module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, FileUploader){
+module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, FileUploader, $uibModal,
+	saleinfo, saleupdate, goodlist, 
+    saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, FileUploader,
+    salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
+    salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo
+	){
 
 	$scope.saleobj = {};
 	$scope.saleobj.id = '';
@@ -75,7 +80,69 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 
 			if(res.errcode === 0)
 			{
-				$state.go('app.editsale', {'id' : res.data.uuid});	
+				//$state.go('app.editsale', {'id' : res.data.uuid});
+				var modalInstance = $uibModal.open({
+		          template: require('../views/tktsalemodel.html'),
+		          controller: 'tktsaleupdate',
+		          size: 'lg',
+		          resolve: {
+		            id : function(){
+		                return res.data.uuid;
+		            },
+		            what : function(){
+		                return 'edit';
+		            },
+		            viewlist : function(){
+		                return viewlist;
+		            },
+		            saleinfo : function(){
+		                return saleinfo;
+		            },
+		            saleupdate : function(){
+		                return saleupdate;
+		            },
+		            goodlist : function(){
+		                return goodlist;
+		            },
+		            saledetailcreate : function(){
+		                return saledetailcreate;
+		            },
+		            saledetaillist : function(){
+		                return saledetaillist;
+		            },
+		            saledetaildelete : function(){
+		                return saledetaildelete;
+		            },
+		            //政府补贴
+		            salegovsubsidycreate : function(){
+		                return salegovsubsidycreate;
+		            },
+		            salegovsubsidyupdate : function(){
+		                return salegovsubsidyupdate;
+		            },
+		            salegovsubsidyinfo : function(){
+		                return salegovsubsidyinfo;
+		            },
+		            //居游补贴
+		            salejuyousubsidycreate : function(){
+		                return salejuyousubsidycreate;
+		            },
+		            salejuyousubsidyupdate : function(){
+		                return salejuyousubsidyupdate;
+		            },
+		            salejuyousubsidyinfo : function(){
+		                return salejuyousubsidyinfo;
+		            },
+		            //销售品类型查询功能模块
+		            salecategorylist : function(){
+		                return salecategorylist;
+		            },
+		            dictbytypelist : function(){
+		                return dictbytypelist;
+		            }
+		          }
+		        });
+
 			}
 			else
 			{

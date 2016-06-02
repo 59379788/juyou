@@ -66411,6 +66411,12 @@
 	            },
 	            getDate : function(utilservice){
 	                return utilservice.getDate;
+	            },
+	            ticketlist : function(orderservice){
+	                return orderservice.ticketlist();
+	            },
+	            createBackOrder : function(orderservice){
+	                return orderservice.createBackOrder();
 	            }
 	        }
 	        
@@ -66522,13 +66528,13 @@
 /* 181 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n\n                <div class=\"row \">\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" placeholder=\"订单编号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.keyword\" placeholder=\"订单标题\" \n                  >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.cardno\"  placeholder=\"身份证号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\"\n                   placeholder=\"姓名\"\n                   >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"电话\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  \n\n                </div>\n\n \n                <div class=\"row mt10\">\n                  \n                  \n                  \n\n                  <label>下单时间</label>&nbsp;&nbsp;\n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                        &nbsp;&nbsp;到&nbsp;&nbsp;            \n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.company_code\" placeholder=\"机构编号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.login_name\" placeholder=\"登录帐号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <button type=\"button\" class=\"btn btn-default search pull-right\" ng-click=\"load()\">立即搜索</button>\n\n                </div>\n\n\n                \n                \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-3 text-center\">订单名称</th>\n        <th class=\"col-md-2 text-center\">订单编号</th>\n        <th class=\"col-md-2 text-center\">游客信息</th>\n        <th class=\"col-md-1 text-center\">数量</th>\n        <th class=\"col-md-1 text-center\">购买时间</th>\n        <th class=\"col-md-1 text-center\">出票状态</th>\n        <th class=\"col-md-1 text-center\">分销商</th>\n        <th class=\"col-md-1 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"\">{{obj.title}}</td>\n        <td class=\"text-center\"><br>{{obj.code}}</td>\n        <td class=\"text-center\">{{obj.name}}<br>{{obj.mobile}}<br>{{obj.cardno}}</td>\n        <td class=\"text-center\">购买{{obj.num}}<br>退票{{obj.back}}<br>使用{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.create_time}}</td>\n        <td class=\"text-center\"><br>{{obj.ticket_state_name}}</td>\n        <td class=\"text-center\">{{obj.company_name}}<br>{{obj.company_code}}<br>{{obj.operation_login_name}}</td>\n        <th class=\"text-center\">\n          <a ng-click=\"ticketlist(obj.code)\" class=\"btn btn-success btn-xs\">票信息</a>\n          <br>\n          <a ng-click=\"orderinfo(obj)\" class=\"btn btn-info btn-xs\"\n          has-permission='orderinfo' \n          >订单详情</a>\n        </th>\n      </tr>\n    </tbody>\n  </table>\n\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n\n                <div class=\"row \">\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" placeholder=\"订单编号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.keyword\" placeholder=\"订单标题\" \n                  >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.cardno\"  placeholder=\"身份证号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\"\n                   placeholder=\"姓名\"\n                   >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"电话\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  \n\n                </div>\n\n \n                <div class=\"row mt10\">\n                  \n                  \n                  \n\n                  <label>下单时间</label>&nbsp;&nbsp;\n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                        &nbsp;&nbsp;到&nbsp;&nbsp;            \n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.company_code\" placeholder=\"机构编号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.login_name\" placeholder=\"登录帐号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <button type=\"button\" class=\"btn btn-default search pull-right\" ng-click=\"load()\">立即搜索</button>\n\n                </div>\n\n\n                \n                \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-3 text-center\">订单名称</th>\n        <th class=\"col-md-2 text-center\">订单编号</th>\n        <th class=\"col-md-2 text-center\">游客信息</th>\n        <th class=\"col-md-1 text-center\">数量</th>\n        <th class=\"col-md-1 text-center\">购买时间</th>\n        <th class=\"col-md-1 text-center\">出票状态</th>\n        <th class=\"col-md-1 text-center\">分销商</th>\n        <th class=\"col-md-1 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"\">{{obj.title}}</td>\n        <td class=\"text-center\"><br>{{obj.code}}</td>\n        <td class=\"text-center\">{{obj.name}}<br>{{obj.mobile}}<br>{{obj.cardno}}</td>\n        <td class=\"text-center\">购买{{obj.num}}<br>退票{{obj.back}}<br>使用{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.create_time}}</td>\n        <td class=\"text-center\"><br>{{obj.ticket_state_name}}</td>\n        <td class=\"text-center\">{{obj.company_name}}<br>{{obj.company_code}}<br>{{obj.operation_login_name}}</td>\n        <th class=\"text-center\">\n          <a ng-click=\"ticketlist(obj)\" class=\"btn btn-success btn-xs\">票信息</a>\n          <br>\n          <a ng-click=\"orderinfo(obj)\" class=\"btn btn-info btn-xs\"\n          has-permission='orderinfo' \n          >订单详情</a>\n        </th>\n      </tr>\n    </tbody>\n  </table>\n\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
 
 /***/ },
 /* 182 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\n\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\n  <!-- Default panel contents -->\n  <div class=\"panel-heading\">{{tkttype.name}} 第 {{tkttype.sequence}} 个\n\n    <button type=\"button\" \n      class=\"btn btn-xs btn-info pull-right\"\n      ng-click=\"back(tkttype)\"\n    >\n      退票\n    </button>\n  </div>\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-2 text-center\">景区名称</th>\n        <th class=\"col-md-4 text-center\">票名称</th>\n        <th class=\"col-md-1 text-center\">票号</th>\n        <th class=\"col-md-1 text-center\">未使用</th>\n        <th class=\"col-md-1 text-center\">未退票</th>\n        <th class=\"col-md-1 text-center\">可用</th>\n        <th class=\"col-md-2 text-center\">操作时间</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in tkttype.ticketarr\">\n        <td class=\"\">{{obj.place_name}}</td>\n        <td class=\"\">{{obj.type_name}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.used == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.used == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n        </td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.back == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.back == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n        </td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.state == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.state == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n        </td>\n        <td class=\"text-center\">{{obj.otime}}</td>\n\n      </tr>\n    </tbody>\n  </table>\n  \n</div>\n\n\n</div>\n  "
+	module.exports = "\n\n\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">票信息</h4>\n</div>\n<div class=\"modal-body\">\n\n    <div class=\"container-fluid form-horizontal \">\n        \n      <div class=\"col-sm-12\">\n\n        <div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\n          <!-- Default panel contents -->\n          <div class=\"panel-heading\">{{tkttype.name}} 第 {{tkttype.sequence}} 个\n\n            <button type=\"button\" \n              class=\"btn btn-xs btn-info pull-right\"\n              ng-click=\"back(tkttype)\"\n            >\n              退票\n            </button>\n          </div>\n\n          <table class=\"table table-bordered\">\n            <thead>\n              <tr>\n                <th class=\"col-md-2 text-center\">景区名称</th>\n                <th class=\"col-md-4 text-center\">票名称</th>\n                <th class=\"col-md-1 text-center\">票号</th>\n                <th class=\"col-md-1 text-center\">未使用</th>\n                <th class=\"col-md-1 text-center\">未退票</th>\n                <th class=\"col-md-1 text-center\">可用</th>\n                <th class=\"col-md-2 text-center\">操作时间</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr ng-repeat=\"obj in tkttype.ticketarr\">\n                <td class=\"\">{{obj.place_name}}</td>\n                <td class=\"\">{{obj.type_name}}</td>\n                <td class=\"text-center\">{{obj.code}}</td>\n                <td class=\"text-center\">\n                  <span ng-show=\"{{obj.used == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n                  <span ng-show=\"{{obj.used == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n                </td>\n                <td class=\"text-center\">\n                  <span ng-show=\"{{obj.back == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n                  <span ng-show=\"{{obj.back == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n                </td>\n                <td class=\"text-center\">\n                  <span ng-show=\"{{obj.state == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n                  <span ng-show=\"{{obj.state == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n                </td>\n                <td class=\"text-center\">{{obj.otime}}</td>\n\n              </tr>\n            </tbody>\n          </table>\n          \n        </div>\n\n\n        </div>\n    </div>\n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n\n\n\n\n\n\n\n  "
 
 /***/ },
 /* 183 */
@@ -66613,7 +66619,8 @@
 /* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, $uibModal){
+	module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, 
+	    $uibModal, ticketlist, createBackOrder){
 	    
 	    $scope.searchform = {};
 
@@ -66671,9 +66678,45 @@
 	    $scope.load();
 
 
-	    $scope.ticketlist = function(code){
+	    $scope.ticketlist = function(obj){
 
-	        $state.go('app.orderticketlist', {'code' : code});
+	        //$state.go('app.orderticketlist', {'code' : code});
+
+	        var modalInstance = $uibModal.open({
+	          template: __webpack_require__(182),
+	          controller: 'orderticketlist',
+	          size: 'lg',
+	          resolve: {
+	            obj : function(){
+	                return obj;
+	            },
+	            ticketlist : function(){
+	                return ticketlist;
+	            },
+	            createBackOrder : function(){
+	                return createBackOrder;
+	            }
+	            // device_code : function(){
+	            //     return device_code;
+	            // },
+	            // typelist : function(){
+	            //     return typelist;
+	            // },
+	            // add : function(){
+	            //     return add;
+	            // },
+	            // del : function(){
+	            //     return del;
+	            // }
+	          }
+	        });
+
+	        modalInstance.result.then(function () {
+	          //load();
+	        }, function () {
+	          //$log.info('Modal dismissed at: ' + new Date());
+	        });
+
 	    };
 
 	    //打开模态框
@@ -66739,9 +66782,9 @@
 /* 190 */
 /***/ function(module, exports) {
 
-	module.exports = function($scope, $state, $stateParams, ticketlist, createBackOrder){
+	module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj){
 
-	    var code = $stateParams.code;
+	    var code = obj.code;
 
 	    $scope.load = function () {
 	        ticketlist.get({'order_code' : code}, function(res){
@@ -66844,6 +66887,11 @@
 	        
 
 
+	    };
+
+
+	    $scope.cancel = function () {
+	        $uibModalInstance.dismiss('cancel');
 	    };
 
 

@@ -75,18 +75,6 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
             createBackOrder : function(){
                 return createBackOrder;
             }
-            // device_code : function(){
-            //     return device_code;
-            // },
-            // typelist : function(){
-            //     return typelist;
-            // },
-            // add : function(){
-            //     return add;
-            // },
-            // del : function(){
-            //     return del;
-            // }
           }
         });
 

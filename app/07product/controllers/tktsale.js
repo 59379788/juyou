@@ -1,11 +1,92 @@
-module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, saledown, saleupdate){
+module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $window,
+    saledown, saleupdate, $uibModal, viewlist, salecreate, saleinfo, saleupdate, goodlist, 
+    saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, FileUploader,
+    salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
+    salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo){
+
+    $scope.tabs = [
+    { title:'Dynamic Title 1', content:'Dynamic content 1' },
+    { title:'Dynamic Title 2', content:'Dynamic content 2', active: true }
+  ];
+
+  $scope.alertMe = function() {
+    setTimeout(function() {
+      $window.alert('You\'ve selected the alert tab!');
+    });
+  };
+
+  $scope.model = {
+    name: 'Tabs'
+  };
 
 	$scope.searchform = {};
 
-
 	$scope.create = function(){
 
-		$state.go('app.createsale');
+		var modalInstance = $uibModal.open({
+          template: require('../views/tktsalemodel.html'),
+          controller: 'tktsalecreate',
+          size: 'lg',
+          resolve: {
+            salecreate : function(){
+                return salecreate;
+            },
+            viewlist : function(){
+                return viewlist;
+            },
+            saleinfo : function(){
+                return saleinfo;
+            },
+            saleupdate : function(){
+                return saleupdate;
+            },
+            goodlist : function(){
+                return goodlist;
+            },
+            saledetailcreate : function(){
+                return saledetailcreate;
+            },
+            saledetaillist : function(){
+                return saledetaillist;
+            },
+            saledetaildelete : function(){
+                return saledetaildelete;
+            },
+            //政府补贴
+            salegovsubsidycreate : function(){
+                return salegovsubsidycreate;
+            },
+            salegovsubsidyupdate : function(){
+                return salegovsubsidyupdate;
+            },
+            salegovsubsidyinfo : function(){
+                return salegovsubsidyinfo;
+            },
+            //居游补贴
+            salejuyousubsidycreate : function(){
+                return salejuyousubsidycreate;
+            },
+            salejuyousubsidyupdate : function(){
+                return salejuyousubsidyupdate;
+            },
+            salejuyousubsidyinfo : function(){
+                return salejuyousubsidyinfo;
+            },
+            //销售品类型查询功能模块
+            salecategorylist : function(){
+                return salecategorylist;
+            },
+            dictbytypelist : function(){
+                return dictbytypelist;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          //load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
 		
 	};
 
@@ -30,30 +111,52 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, saled
             {
                 var tt = res.data[i];
                 var v = tt.place_code;
-                var type = tt.sale_category;
+                var sale_category = tt.sale_category;
+                var state = tt.state;
 
+                //第一层
                 if(!view.hasOwnProperty(v))
                 {
                     view[v] = new Object();
-                    view[v].salearr = new Array();
-                    //view[v].type = new Object();
                     view[v].viewname = tt.place_name;
                     view[v].viewcode = tt.place_code;
                 }
 
+                //第二层（state，上架，下架，草稿）
+                if(!view[v].hasOwnProperty('state'))
+                {
+                    view[v]['state'] = new Object();
+                }
+                if(!view[v]['state'].hasOwnProperty(state))
+                {
+                    view[v]['state'][state] = new Object();
+                    view[v]['state'][state].title = tt.state_name;
+                    if(tt.state == 1)
+                    {
+                        view[v]['state'][state].active = true;
+                    }
+                    else
+                    {
+                        view[v]['state'][state].active = false;
+                    }
+                }
 
-                // if(!view[v].type.hasOwnProperty(type))
-                // {
-                //     view[v].type[type] = new Object();
+                //第三层（sale_category,旅游局补贴－app，旅游局补贴－分销)
+                if(!view[v]['state'][state].hasOwnProperty('category'))
+                {
+                    view[v]['state'][state]['category'] = new Object();
+                }
+                if(!view[v]['state'][state]['category'].hasOwnProperty(sale_category))
+                {
+                    view[v]['state'][state]['category'][sale_category] = new Object();
+                    view[v]['state'][state]['category'][sale_category].salearr = new Array();
+                    view[v]['state'][state]['category'][sale_category].title = tt.sale_category_name;
+                }
 
-
-                // }
-
-
-                //for(var j = 0 i < )
-
-                view[v].salearr.push(tt);
+                view[v]['state'][state]['category'][sale_category].salearr.push(tt);
             }
+
+            console.log(view);
 
             for(var key in view)
             {
@@ -73,38 +176,6 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, saled
     };
     $scope.load();
 
-	/* 分页
-     * ========================================= */
-    // $scope.maxSize = 5;            //最多显示多少个按钮
-    // $scope.bigCurrentPage = 1;      //当前页码
-    // $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
-    
-    // $scope.load = function () {
-        
-    //     var para = {
-    //         pageNo:$scope.bigCurrentPage, 
-    //         pageSize:$scope.itemsPerPage
-    //     };
-
-    //     para = angular.extend($scope.searchform, para);
-        
-    //     salelist.save(para, function(res){
-
-    //      	console.log(res);
-
-    //      	if(res.errcode !== 0)
-    //      	{
-    //      		alert("数据获取失败");
-    //      		return;
-    //      	}
-
-    //      	$scope.objs = res.data.results;
-    //         $scope.bigTotalItems = res.data.totalRecord;
-
-    //     });
-
-    // };
-    // $scope.load();
 
     $scope.start = function(id) {
 		saleup.get({'id' : id}, function(res){
@@ -131,7 +202,75 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, saled
 
     $scope.edit = function(id){
 
-    	$state.go('app.editsale', {'id' : id});
+    	//$state.go('app.editsale', {'id' : id});
+
+        var modalInstance = $uibModal.open({
+          template: require('../views/tktsalemodel.html'),
+          controller: 'tktsaleupdate',
+          size: 'lg',
+          resolve: {
+            id : function(){
+                return id;
+            },
+            what : function(){
+                return 'edit';
+            },
+            viewlist : function(){
+                return viewlist;
+            },
+            saleinfo : function(){
+                return saleinfo;
+            },
+            saleupdate : function(){
+                return saleupdate;
+            },
+            goodlist : function(){
+                return goodlist;
+            },
+            saledetailcreate : function(){
+                return saledetailcreate;
+            },
+            saledetaillist : function(){
+                return saledetaillist;
+            },
+            saledetaildelete : function(){
+                return saledetaildelete;
+            },
+            //政府补贴
+            salegovsubsidycreate : function(){
+                return salegovsubsidycreate;
+            },
+            salegovsubsidyupdate : function(){
+                return salegovsubsidyupdate;
+            },
+            salegovsubsidyinfo : function(){
+                return salegovsubsidyinfo;
+            },
+            //居游补贴
+            salejuyousubsidycreate : function(){
+                return salejuyousubsidycreate;
+            },
+            salejuyousubsidyupdate : function(){
+                return salejuyousubsidyupdate;
+            },
+            salejuyousubsidyinfo : function(){
+                return salejuyousubsidyinfo;
+            },
+            //销售品类型查询功能模块
+            salecategorylist : function(){
+                return salecategorylist;
+            },
+            dictbytypelist : function(){
+                return dictbytypelist;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          //load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
 
     };
 
@@ -158,7 +297,76 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, saled
 
     $scope.info = function(id){
 
-        $state.go('app.editsale', {'id' : id, 'type' : 'info'});
+        //$state.go('app.editsale', {'id' : id, 'type' : 'info'});
+
+        var modalInstance = $uibModal.open({
+          template: require('../views/tktsalemodel.html'),
+          controller: 'tktsaleupdate',
+          size: 'lg',
+          resolve: {
+            id : function(){
+                return id;
+            },
+            what : function(){
+                return 'info';
+            },
+            viewlist : function(){
+                return viewlist;
+            },
+            saleinfo : function(){
+                return saleinfo;
+            },
+            saleupdate : function(){
+                return saleupdate;
+            },
+            goodlist : function(){
+                return goodlist;
+            },
+            saledetailcreate : function(){
+                return saledetailcreate;
+            },
+            saledetaillist : function(){
+                return saledetaillist;
+            },
+            saledetaildelete : function(){
+                return saledetaildelete;
+            },
+            //政府补贴
+            salegovsubsidycreate : function(){
+                return salegovsubsidycreate;
+            },
+            salegovsubsidyupdate : function(){
+                return salegovsubsidyupdate;
+            },
+            salegovsubsidyinfo : function(){
+                return salegovsubsidyinfo;
+            },
+            //居游补贴
+            salejuyousubsidycreate : function(){
+                return salejuyousubsidycreate;
+            },
+            salejuyousubsidyupdate : function(){
+                return salejuyousubsidyupdate;
+            },
+            salejuyousubsidyinfo : function(){
+                return salejuyousubsidyinfo;
+            },
+            //销售品类型查询功能模块
+            salecategorylist : function(){
+                return salecategorylist;
+            },
+            dictbytypelist : function(){
+                return dictbytypelist;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          //load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
     };
 
 

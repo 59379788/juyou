@@ -189,6 +189,12 @@ var router = function($urlRouterProvider, $stateProvider){
         controller : 'tktsale',
         template: require('./views/tktsale.html'),
         resolve:{
+            salecreate : function(productservice){
+                return productservice.salecreate();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
+            },
             salelist : function(productservice){
                 return productservice.salelist();
             },
@@ -200,6 +206,54 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             saledown : function(productservice){
                 return productservice.saledown();
+            },
+            viewlist : function(productservice){
+                return productservice.viewlist;
+            },
+            saleinfo : function(productservice){
+                return productservice.saleinfo();
+            },
+            saleupdate : function(productservice){
+                return productservice.saleupdate();
+            },
+            goodlist : function(productservice){
+                return productservice.goodlist();
+            },
+            saledetailcreate : function(productservice){
+                return productservice.saledetailcreate();
+            },
+            saledetaillist : function(productservice){
+                return productservice.saledetaillist();
+            },
+            saledetaildelete : function(productservice){
+                return productservice.saledetaildelete();
+            },
+            //政府补贴
+            salegovsubsidycreate : function(productservice){
+                return productservice.salegovsubsidycreate();
+            },
+            salegovsubsidyupdate : function(productservice){
+                return productservice.salegovsubsidyupdate();
+            },
+            salegovsubsidyinfo : function(productservice){
+                return productservice.salegovsubsidyinfo();
+            },
+            //居游补贴
+            salejuyousubsidycreate : function(productservice){
+                return productservice.salejuyousubsidycreate();
+            },
+            salejuyousubsidyupdate : function(productservice){
+                return productservice.salejuyousubsidyupdate();
+            },
+            salejuyousubsidyinfo : function(productservice){
+                return productservice.salejuyousubsidyinfo();
+            },
+            //销售品类型查询功能模块
+            salecategorylist : function(productservice){
+                return productservice.salecategorylist();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
             }
             
         }
@@ -215,6 +269,66 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             salecreate : function(productservice){
                 return productservice.salecreate();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
+            },
+            salelist : function(productservice){
+                return productservice.salelist();
+            },
+            saleupdate : function(productservice){
+                return productservice.saleupdate();
+            },
+            saleup : function(productservice){
+                return productservice.saleup();
+            },
+            saledown : function(productservice){
+                return productservice.saledown();
+            },
+            viewlist : function(productservice){
+                return productservice.viewlist;
+            },
+            saleinfo : function(productservice){
+                return productservice.saleinfo();
+            },
+            saleupdate : function(productservice){
+                return productservice.saleupdate();
+            },
+            goodlist : function(productservice){
+                return productservice.goodlist();
+            },
+            saledetailcreate : function(productservice){
+                return productservice.saledetailcreate();
+            },
+            saledetaillist : function(productservice){
+                return productservice.saledetaillist();
+            },
+            saledetaildelete : function(productservice){
+                return productservice.saledetaildelete();
+            },
+            //政府补贴
+            salegovsubsidycreate : function(productservice){
+                return productservice.salegovsubsidycreate();
+            },
+            salegovsubsidyupdate : function(productservice){
+                return productservice.salegovsubsidyupdate();
+            },
+            salegovsubsidyinfo : function(productservice){
+                return productservice.salegovsubsidyinfo();
+            },
+            //居游补贴
+            salejuyousubsidycreate : function(productservice){
+                return productservice.salejuyousubsidycreate();
+            },
+            salejuyousubsidyupdate : function(productservice){
+                return productservice.salejuyousubsidyupdate();
+            },
+            salejuyousubsidyinfo : function(productservice){
+                return productservice.salejuyousubsidyinfo();
+            },
+            //销售品类型查询功能模块
+            salecategorylist : function(productservice){
+                return productservice.salecategorylist();
             },
             dictbytypelist : function(productservice){
                 return productservice.dictbytypelist;
