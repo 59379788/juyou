@@ -2,7 +2,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     saledown, saleupdate, $uibModal, viewlist, salecreate, saleinfo, saleupdate, goodlist, 
     saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, FileUploader,
     salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
-    salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo){
+    salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, talist,
+    sellerList, tstcreate, tststart, tststop
+    ){
 
 	$scope.searchform = {};
 
@@ -359,15 +361,30 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     };
 
 
-    $scope.distribution = function(id){
+    $scope.distribution = function(code){
 
         var modalInstance = $uibModal.open({
-          template: require('../views/tktsalemodel.html'),
-          controller: 'tktsaleupdate',
-          size: 'lg',
+          template: require('../views/distribution.html'),
+          controller: 'distribution',
+          //size: 'lg',
           resolve: {
-            id : function(){
-                return id;
+            code : function(){
+                return code;
+            },
+            talist : function(){
+                return talist;
+            },
+            sellerList : function(){
+                return sellerList;
+            },
+            tstcreate : function(){
+                return tstcreate;
+            },
+            tststart : function(){
+                return tststart;
+            },
+            tststop : function(){
+                return tststop;
             }
           }
         });

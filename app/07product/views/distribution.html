@@ -1,0 +1,38 @@
+
+<div class="modal-header">
+    <h4 class="modal-title">分配经销商</h4>
+</div>
+<div class="modal-body">
+    <div class="container-fluid form-horizontal ">
+    	<div class="form-group" >
+			<label class="col-xs-4 control-label">经销商</label>
+			<div class="col-xs-6" >
+				<select class="form-control" ng-model="obj.seller_code" 
+	              ng-options="view.CODE as view.NAME for view in taarr"
+	            >
+	            </select>
+			</div>
+			<button class="btn btn-success col-xs-2" type="button" ng-click="create()">添加</button>
+		</div>	
+
+
+		<ul class="list-group">
+		  <li class="list-group-item"
+		  	ng-repeat="seller in sellers"
+		  	ng-class="{true: 'list-group-item-success', false: 'list-group-item-danger'}[seller.state == 0]"
+		  >	
+		  	{{seller.company_name}}
+		  	<a ng-click="stop(seller.seller_code)" class="btn pull-right" style="color: red; padding:0px;" ng-show="seller.state == 0">
+	        	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	      	</a>
+	      	<a ng-click="start(seller.seller_code)" class="btn pull-right" style="color: green; padding:0px;" ng-show="seller.state == 1">
+	        	<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+	      	</a>
+		  </li>
+		</ul>
+
+	</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+</div>

@@ -139,6 +139,15 @@ var service = function($resource, BASEURL38985, $q, $http){
     var salejuyousubsidyupdate = BASEURL38985 + '/api/as/tc/salejuyousubsidy/update';
     //居游补贴详情
     var salejuyousubsidyinfo = BASEURL38985 + '/api/as/tc/salejuyousubsidy/info';
+    
+    //经销商列表
+    var sellerList = BASEURL38985 + '/api/as/tc/ticketsaletarget/sellerList';
+    //创建点买
+    var tstcreate = BASEURL38985 + '/api/as/tc/ticketsaletarget/create';
+    //可以销售
+    var tststart = BASEURL38985 + '/api/as/tc/ticketsaletarget/updateStart';
+    //禁止销售
+    var tststop = BASEURL38985 + '/api/as/tc/ticketsaletarget/updateStop';
 
     
     return {
@@ -336,6 +345,20 @@ var service = function($resource, BASEURL38985, $q, $http){
                 arr1.push(arr[i].name);
             }
             return arr1.join(',');
+        },
+
+
+        sellerList : function(){
+            return $resource(sellerList, {}, {});
+        },
+        tstcreate : function(){
+            return $resource(tstcreate, {}, {});
+        },
+        tststart : function(){
+            return $resource(tststart, {}, {});
+        },
+        tststop : function(){
+            return $resource(tststop, {}, {});
         }
        
     };

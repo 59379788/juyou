@@ -257,6 +257,18 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             talist : function(depositservice){
                 return depositservice.talist;
+            },
+            sellerList : function(productservice){
+                return productservice.sellerList();
+            },
+            tstcreate : function(productservice){
+                return productservice.tstcreate();
+            },
+            tststart : function(productservice){
+                return productservice.tststart();
+            },
+            tststop : function(productservice){
+                return productservice.tststop();
             }
             
         }

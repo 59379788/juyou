@@ -23,6 +23,7 @@ App.controller('tktsaleupdate',require('./controllers/tktsaleupdate'));
 App.controller('salecategory',require('./controllers/salecategory'));
 
 App.controller('salecategorycreate',require('./controllers/salecategorycreate'));
+App.controller('distribution',require('./controllers/distribution'));
 
 
 

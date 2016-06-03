@@ -61702,6 +61702,9 @@
 	            },
 	            dictbytypelist : function(productservice){
 	                return productservice.dictbytypelist;
+	            },
+	            talist : function(depositservice){
+	                return depositservice.talist;
 	            }
 	            
 	        }
@@ -61910,7 +61913,7 @@
 /* 117 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>销售品名称</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <label>景区编号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_code\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建销售品</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\n  <!-- Default panel contents -->\n  <div class=\"panel-heading\">{{tkttype.viewname}} ({{tkttype.viewcode}})</div>\n\n  <div class=\"panel-body\">\n    <uib-tabset >\n\n      <uib-tab index=\"$index\" ng-repeat=\"state in tkttype.state\"\n      heading=\"{{state.title}}\"  active=\"true\"\n      >\n\n        <uib-tabset \n        >\n\n        <uib-tab index=\"$index\" ng-repeat=\"category in state.category\"\n        heading=\"{{category.title}}\" \n        \n        >\n\n        <table class=\"table table-bordered \">\n          <thead>\n            <tr>\n              <th class=\"col-md-2 text-center\">销售品名称</th>\n              <th class=\"col-md-1 text-center\">销售品编号</th>\n              <th class=\"col-md-2 text-center\">销售品分类</th>\n              <th class=\"col-md-1 text-center\">销售品状态</th>\n              <th class=\"col-md-1 text-center\">市场价</th>\n              <th class=\"col-md-1 text-center\">指导价</th>\n              <th class=\"col-md-1 text-center\">分销商成本</th>\n              <th class=\"col-md-1 text-center\">排序</th>\n              <th class=\"col-md-2 text-center\">操作</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr ng-repeat=\"obj in category.salearr\">\n              <td class=\"\">{{obj.name}}</td>\n              <td class=\"text-center\">{{obj.code}}</td>\n              <td class=\"text-center\">{{obj.sale_category_name}}</td>\n              <td class=\"text-center\">{{obj.state_name}}</td>\n              <td class=\"text-center\">{{obj.market_price * 0.01 | currency : '￥'}}</td>\n              <td class=\"text-center\">{{obj.guide_price * 0.01 | currency : '￥'}}</td>\n              <td class=\"text-center\">{{obj.cost_price * 0.01 | currency : '￥'}}</td>\n              <td class=\"text-center\">\n                <input class=\"input-sm\" \n                  style=\"height:22px; width:50px; border:1px solid;\" \n                  type=\"text\" \n                  value=\"{{obj.asort}}\" \n                  ng-model=\"obj.asort\">\n                <a ng-click=\"asort(obj.id, obj.asort)\" class=\"btn btn-info btn-xs\">go</a> \n              </td>\n              <td class=\"text-center\">\n                <a ng-show=\"obj.state=='1'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">下架</a>\n                <a ng-show=\"obj.state=='0' || obj.state=='2'\" ng-click=\"start(obj.id)\" class=\"btn btn-danger btn-xs\">上架</a>\n                <a ng-click=\"edit(obj.id)\" ng-show=\"obj.state=='0' || obj.state == '2'\" class=\"btn btn-success btn-xs\">编辑</a>\n                <a ng-show=\"obj.used_state=='1'\" ng-click=\"usedstart(obj.id)\" class=\"btn btn-primary btn-xs\">允许消票</a>\n                <a ng-show=\"obj.used_state=='0'\" ng-click=\"usedstop(obj.id)\" class=\"btn btn-danger btn-xs\">禁止消票</a>\n                <a ng-click=\"info(obj.id)\" ng-show=\"obj.state == '1'\" class=\"btn btn-warning btn-xs\">详情</a>\n                  \n                <!-- <a uib-popover=\"{{obj.book_info}}\" popover-title=\"预订需知\" type=\"button\" class=\"btn btn-default btn-xs\" uib-popover=\"On the left\">预订需知</a> -->\n              </td>\n            </tr>\n          </tbody>\n        </table>\n\n        </uib-tab>\n     \n      \n        </uib-tabset>\n\n\n      </uib-tab>\n     \n      \n    </uib-tabset>\n  </div>\n\n  \n  \n</div>\n  \n\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>销售品名称</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <label>景区编号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_code\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建销售品</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\n  <!-- Default panel contents -->\n  <div class=\"panel-heading\">{{tkttype.viewname}} ({{tkttype.viewcode}})</div>\n\n  <div class=\"panel-body\">\n    <uib-tabset >\n\n      <uib-tab index=\"$index\" ng-repeat=\"state in tkttype.state\"\n      heading=\"{{state.title}}\"  active=\"true\"\n      >\n\n        <uib-tabset \n        >\n\n        <uib-tab index=\"$index\" ng-repeat=\"category in state.category\"\n        heading=\"{{category.title}}\" \n        \n        >\n\n        <table class=\"table table-bordered \">\n          <thead>\n            <tr>\n              <th class=\"col-md-2 text-center\">销售品名称</th>\n              <th class=\"col-md-1 text-center\">销售品编号</th>\n              <th class=\"col-md-2 text-center\">销售品分类</th>\n              <th class=\"col-md-1 text-center\">销售品状态</th>\n              <th class=\"col-md-1 text-center\">市场价</th>\n              <th class=\"col-md-1 text-center\">指导价</th>\n              <th class=\"col-md-1 text-center\">分销商成本</th>\n              <th class=\"col-md-1 text-center\">排序</th>\n              <th class=\"col-md-2 text-center\">操作</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr ng-repeat=\"obj in category.salearr\">\n              <td class=\"\">{{obj.name}}</td>\n              <td class=\"text-center\">{{obj.code}}</td>\n              <td class=\"text-center\">{{obj.sale_category_name}}</td>\n              <td class=\"text-center\">{{obj.state_name}}</td>\n              <td class=\"text-center\">{{obj.market_price * 0.01 | currency : '￥'}}</td>\n              <td class=\"text-center\">{{obj.guide_price * 0.01 | currency : '￥'}}</td>\n              <td class=\"text-center\">{{obj.cost_price * 0.01 | currency : '￥'}}</td>\n              <td class=\"text-center\">\n                <input class=\"input-sm\" \n                  style=\"height:22px; width:50px; border:1px solid;\" \n                  type=\"text\" \n                  value=\"{{obj.asort}}\" \n                  ng-model=\"obj.asort\">\n                <a ng-click=\"asort(obj.id, obj.asort)\" class=\"btn btn-info btn-xs\">go</a> \n              </td>\n              <td class=\"text-center\">\n                <a ng-show=\"obj.state=='1'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">下架</a>\n                <a ng-show=\"obj.state=='0' || obj.state=='2'\" ng-click=\"start(obj.id)\" class=\"btn btn-danger btn-xs\">上架</a>\n                <a ng-click=\"edit(obj.id)\" ng-show=\"obj.state=='0' || obj.state == '2'\" class=\"btn btn-success btn-xs\">编辑</a>\n                <a ng-show=\"obj.used_state=='1'\" ng-click=\"usedstart(obj.id)\" class=\"btn btn-primary btn-xs\">允许消票</a>\n                <a ng-show=\"obj.used_state=='0'\" ng-click=\"usedstop(obj.id)\" class=\"btn btn-danger btn-xs\">禁止消票</a>\n                <a ng-click=\"info(obj.id)\" ng-show=\"obj.state == '1'\" class=\"btn btn-warning btn-xs\">详情</a>\n                <!-- <a ng-click=\"distribution(obj.id)\" class=\"btn btn-default btn-xs\">分配经销商</a> -->\n                  \n                <!-- <a uib-popover=\"{{obj.book_info}}\" popover-title=\"预订需知\" type=\"button\" class=\"btn btn-default btn-xs\" uib-popover=\"On the left\">预订需知</a> -->\n              </td>\n            </tr>\n          </tbody>\n        </table>\n\n        </uib-tab>\n     \n      \n        </uib-tabset>\n\n\n      </uib-tab>\n     \n      \n    </uib-tabset>\n  </div>\n\n  \n  \n</div>\n  \n\n</div>"
 
 /***/ },
 /* 118 */
@@ -63159,21 +63162,6 @@
 	    salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
 	    salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo){
 
-	    $scope.tabs = [
-	    { title:'Dynamic Title 1', content:'Dynamic content 1' },
-	    { title:'Dynamic Title 2', content:'Dynamic content 2', active: true }
-	  ];
-
-	  $scope.alertMe = function() {
-	    setTimeout(function() {
-	      $window.alert('You\'ve selected the alert tab!');
-	    });
-	  };
-
-	  $scope.model = {
-	    name: 'Tabs'
-	  };
-
 		$scope.searchform = {};
 
 		$scope.create = function(){
@@ -63253,6 +63241,8 @@
 	            var view = new Object();
 	            var resview = new Array();
 
+	            var viewindex = new Array();
+
 	            console.log(res);
 
 	            if(res.errcode !== 0)
@@ -63275,6 +63265,7 @@
 	                    view[v] = new Object();
 	                    view[v].viewname = tt.place_name;
 	                    view[v].viewcode = tt.place_code;
+	                    viewindex.push(v);
 	                }
 
 	                //第二层（state，上架，下架，草稿）
@@ -63422,8 +63413,9 @@
 	        });
 
 	        modalInstance.result.then(function () {
-	          //load();
+	          //$scope.load();
 	        }, function () {
+	            $scope.load();
 	          //$log.info('Modal dismissed at: ' + new Date());
 	        });
 
@@ -63512,6 +63504,28 @@
 	            },
 	            dictbytypelist : function(){
 	                return dictbytypelist;
+	            }
+	          }
+	        });
+
+	        modalInstance.result.then(function () {
+	          //load();
+	        }, function () {
+	          //$log.info('Modal dismissed at: ' + new Date());
+	        });
+
+	    };
+
+
+	    $scope.distribution = function(id){
+
+	        var modalInstance = $uibModal.open({
+	          template: __webpack_require__(118),
+	          controller: 'tktsaleupdate',
+	          size: 'lg',
+	          resolve: {
+	            id : function(){
+	                return id;
 	            }
 	          }
 	        });
