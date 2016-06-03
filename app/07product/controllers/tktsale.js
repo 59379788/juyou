@@ -4,21 +4,6 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
     salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo){
 
-    $scope.tabs = [
-    { title:'Dynamic Title 1', content:'Dynamic content 1' },
-    { title:'Dynamic Title 2', content:'Dynamic content 2', active: true }
-  ];
-
-  $scope.alertMe = function() {
-    setTimeout(function() {
-      $window.alert('You\'ve selected the alert tab!');
-    });
-  };
-
-  $scope.model = {
-    name: 'Tabs'
-  };
-
 	$scope.searchform = {};
 
 	$scope.create = function(){
@@ -98,6 +83,8 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             var view = new Object();
             var resview = new Array();
 
+            var viewindex = new Array();
+
             console.log(res);
 
             if(res.errcode !== 0)
@@ -120,6 +107,7 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
                     view[v] = new Object();
                     view[v].viewname = tt.place_name;
                     view[v].viewcode = tt.place_code;
+                    viewindex.push(v);
                 }
 
                 //第二层（state，上架，下架，草稿）
@@ -267,8 +255,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
         });
 
         modalInstance.result.then(function () {
-          //load();
+          //$scope.load();
         }, function () {
+            $scope.load();
           //$log.info('Modal dismissed at: ' + new Date());
         });
 
@@ -357,6 +346,28 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             dictbytypelist : function(){
                 return dictbytypelist;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          //load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
+    };
+
+
+    $scope.distribution = function(id){
+
+        var modalInstance = $uibModal.open({
+          template: require('../views/tktsalemodel.html'),
+          controller: 'tktsaleupdate',
+          size: 'lg',
+          resolve: {
+            id : function(){
+                return id;
             }
           }
         });

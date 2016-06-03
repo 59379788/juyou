@@ -76,6 +76,7 @@
                 <a ng-show="obj.used_state=='1'" ng-click="usedstart(obj.id)" class="btn btn-primary btn-xs">允许消票</a>
                 <a ng-show="obj.used_state=='0'" ng-click="usedstop(obj.id)" class="btn btn-danger btn-xs">禁止消票</a>
                 <a ng-click="info(obj.id)" ng-show="obj.state == '1'" class="btn btn-warning btn-xs">详情</a>
+                <a ng-click="distribution(obj.id)" class="btn btn-default btn-xs">分配经销商</a>
                   
                 <!-- <a uib-popover="{{obj.book_info}}" popover-title="预订需知" type="button" class="btn btn-default btn-xs" uib-popover="On the left">预订需知</a> -->
               </td>

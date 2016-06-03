@@ -254,6 +254,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             dictbytypelist : function(productservice){
                 return productservice.dictbytypelist;
+            },
+            talist : function(depositservice){
+                return depositservice.talist;
             }
             
         }
