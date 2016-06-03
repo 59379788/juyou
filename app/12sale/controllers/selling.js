@@ -57,7 +57,11 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
             o.market_price = tmp.market_price;
             o.govsubsidy_price = tmp.govsubsidy_price;
             o.cost_price = tmp.cost_price;
-            if($scope.sale_category === 'F11') o.unavailable = true;
+            if($scope.sale_category === 'F11'
+            || $scope.sale_category === 'F15')
+            {
+                o.unavailable = true;
+            }
 
             if(!r.hasOwnProperty(tmp.place_code))
             {
@@ -140,7 +144,8 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
 
         var fun = createorder;
 
-        if($scope.sale_category === 'F11')
+        if($scope.sale_category === 'F11'
+        || $scope.sale_category === 'F14')
         {
             fun = createSubsidyOrder;
         }
@@ -167,7 +172,11 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
 
                 $scope.show = false;
 
-                if($scope.sale_category === 'F11') checkgoodsbuy(0);
+                if($scope.sale_category === 'F11'
+                || $scope.sale_category === 'F15') 
+                {
+                    checkgoodsbuy(0);
+                }
             }
             else
             {
@@ -282,7 +291,16 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
                 ' , 身份证 : ' + res.data.papersno + 
                 ' , 可用政府补贴 : ' + res.data.generalsubsidy * 0.01 + '元';
 
-                checkgoodsbuy(res.data.generalsubsidy);
+                //政府补贴票
+                if($scope.sale_category === 'F11')
+                {
+                    checkgoodsbuy(res.data.generalsubsidy);
+                }
+                //礼品票
+                else if($scope.sale_category === 'F15')
+                {
+                    checkgift();
+                }
 
                 $scope.order.name = res.data.username;
                 $scope.order.cardno = res.data.papersno;
@@ -337,5 +355,16 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
     }
 
     // --------------- 卖补贴商品 --------------------------- //
+
+
+    function checkgift()
+    {
+        angular.forEach($scope.data, function (value, key) {
+            var arr = $scope.data[key].nodes;
+            for(var i = 0, j = arr.length; i < j; i++){
+                arr[i].unavailable = false;
+            }
+        });
+    }
 
 };

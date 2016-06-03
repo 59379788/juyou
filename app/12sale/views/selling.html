@@ -60,7 +60,7 @@
 
 
 
-<div class="col-sm-12" ng-show="sale_category == 'F11' || sale_category == 'F14'">
+<div class="col-sm-12" ng-show="sale_category == 'F11' || sale_category == 'F15'">
 <div class="panel panel-default">
   <div class="panel-body">
       <div class="form-group form-inline">
@@ -121,17 +121,17 @@
       <div class="input-group">
         <span class="input-group-addon" >身份证号</span>
           <input type="text" class="form-control" ng-model="order.cardno" 
-          ng-disabled="sale_category == 'F11'">
+          ng-disabled="sale_category == 'F11' || sale_category == 'F15'">
       </div>
       <div class="input-group mt20">
         <span class="input-group-addon" >游客姓名</span>
           <input type="text" class="form-control" ng-model="order.name" 
-          ng-disabled="sale_category == 'F11'">
+          ng-disabled="sale_category == 'F11' || sale_category == 'F15'">
       </div>
       <div class="input-group mt20">
         <span class="input-group-addon" >联系电话</span>
           <input type="text" class="form-control" ng-model="order.mobile" 
-          ng-disabled="sale_category == 'F11'">
+          ng-disabled="sale_category == 'F11' || sale_category == 'F15'">
       </div>
       <div class="input-group num mt20">
         <span class="input-group-addon">购票数量</span>
