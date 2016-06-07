@@ -114,6 +114,32 @@ var router = function($urlRouterProvider, $stateProvider){
         
       })
 
+      .state('app.infosellinggroup', {
+        url: '/infosellinggroup/:code',
+        controller : 'sellinggroupinfo',
+        template: require('./views/sellinggroupinfo.html'),
+        resolve:{
+        	
+        }
+      })
+
+      .state('app.signupsellinggroup', {
+        url: '/signupsellinggroup/:code',
+        controller : 'sellinggroupsignup',
+        template: require('./views/sellinggroupsignup.html'),
+        resolve:{
+        	goodlist : function(sellingservice){
+                return sellingservice.goodlist();
+            },
+            getattrbycode : function(sellingservice){
+                return sellingservice.getattrbycode();
+            },
+            usersubsibyquery : function(sellingservice){
+                return sellingservice.usersubsibyquery();
+            }
+        }
+      })
+
 
 };
 

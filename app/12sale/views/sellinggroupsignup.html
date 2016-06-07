@@ -1,0 +1,71 @@
+
+<div class="col-xs-10 col-xs-offset-1">
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			报名信息
+			<button type="button" 
+				class="btn btn-xs btn-info pull-right"
+				ng-click="salego()" style="margin-left:10px;"
+			>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+			<button type="button" 
+				class="btn btn-xs btn-warning pull-right"
+				ng-click="detail(obj.code)"
+			>添加
+			</button>
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				<div class="col-xs-8" >
+
+					<div class="form-group">
+						<label class="col-xs-2 control-label">游客1</label>
+						<label class="col-xs-2 control-label">姓名</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入姓名"
+							ng-model="signobj.name"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-4 control-label">手机号</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入手机号"
+							ng-model="signobj.mobile"
+							ng-blur="blur()"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-4 control-label">身份证号</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入身份证号"
+							ng-model="signobj.cardno"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-4 control-label">商品名称</label>
+						<div class="col-xs-6">
+							<select class="form-control" ng-model="signobj.sale_code" 
+				              ng-options="good.goods_code as good.goods_name for good in goodarr"
+				              ng-change="change(signobj.sale_code)"
+				            >
+				            </select>
+						</div>
+						<div class="col-xs-2">
+							<h4><span class="label label-warning">商品价格：{{cost_price | currency : '￥'}}</span></h4>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+</div>

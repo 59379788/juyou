@@ -53,6 +53,7 @@ module.exports = function($scope, $state, goodslist, goodsupdate, goodsup, goods
             // console.log("------------");
 
             $scope.objs = restkt;
+            console.log($scope.objs);
 
         });
 

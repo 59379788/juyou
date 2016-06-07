@@ -28,6 +28,12 @@ var service = function($resource, BASEURL38985, $q, $http){
 
     var userinfo = BASEURL38985 + "/api/as/info";
 
+    var usersubsibyquery = BASEURL38985 + "/api/ac/uc/userService/getUserInfoByMobile";
+
+    var goodlist = BASEURL38985 + "/api/as/tc/grouporder/goodlist";
+
+    var getattrbycode = BASEURL38985 + "/api/as/tc/grouporder/getattrbycode";
+
 
     
     return {
@@ -68,6 +74,15 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         groupone : function(){
             return $resource(groupone, {}, {});
+        },
+        usersubsibyquery : function(){
+            return $resource(usersubsibyquery, {}, {});
+        },
+        goodlist : function(){
+            return $resource(goodlist, {}, {});
+        },
+        getattrbycode : function(){
+            return $resource(getattrbycode, {}, {});
         },
         userinfo : function(){
           var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  

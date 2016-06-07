@@ -80,7 +80,13 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, upd
         $state.go('app.sellingdetail', {'code' : code});
     }
 
+    $scope.info = function (code) {
+    	$state.go('app.infosellinggroup', {'code' : code});
+    };
 
+    $scope.signup = function (code) {
+    	$state.go('app.signupsellinggroup', {'code' : code});
+    };
 
 
 };
