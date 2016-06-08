@@ -119,7 +119,12 @@ var router = function($urlRouterProvider, $stateProvider){
         controller : 'sellinggroupinfo',
         template: require('./views/sellinggroupinfo.html'),
         resolve:{
-        	
+        	infolist : function(sellingservice){
+                return sellingservice.infolist();
+            },
+            cancleGroup : function(sellingservice){
+                return sellingservice.cancleGroup();
+            }
         }
       })
 
@@ -136,6 +141,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             usersubsibyquery : function(sellingservice){
                 return sellingservice.usersubsibyquery();
+            },
+            signup : function(sellingservice){
+                return sellingservice.signup();
             }
         }
       })

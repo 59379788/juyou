@@ -42,7 +42,7 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, upd
 
             if(res.errcode === 0)
             {
-                $scope.objs = res.data.results;
+                $scope.objs = res.data.results;console.log($scope.objs);
                 $scope.bigTotalItems = res.data.totalRecord;
             }
             else

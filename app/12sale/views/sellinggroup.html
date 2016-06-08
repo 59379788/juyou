@@ -30,13 +30,13 @@
 	  <table class="table table-bordered">
 	    <thead>
 	      <tr>
-	        <th class="col-md-2 text-center">出游信息</th>
-	        <th class="text-center">预定团票</th>
+	        <th class="col-md-1 text-center">出游信息</th>
+	        <th class="col-md-2 text-center">预定团票</th>
 	        <th class="col-md-2 text-center">导游信息</th>
 	        <th class="col-md-2 text-center">备注</th>
 	        <th class="col-md-1 text-center">最后操作时间</th>
 	        <th class="col-md-1 text-center">最后操作人</th>
-	        <th class="text-center">操作</th>
+	        <th class="col-md-3 text-center">操作</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -48,11 +48,13 @@
 	        <td class="text-center">{{obj.update_time}}</td>
 	        <td class="text-center">{{obj.update_by}}</td>
 			<td class="text-center">
-				<a ng-click="signup(obj.code)" class="btn btn-warning btn-sm">报名</a>
-				<a ng-click="info(obj.code)" class="btn btn-primary btn-sm">明细</a>
-				<a ng-click="edit(obj.code)" class="btn btn-success btn-sm">编辑</a>
-				<a ng-click="detail(obj.code)" class="btn btn-info btn-sm">详情</a>
-		        <a ng-click="del(obj.code)" class="btn btn-danger btn-sm">删除</a>
+				<div ng-show="obj.state=='0' && obj.xx=='0'">
+					<a ng-click="signup(obj.code)" class="btn btn-warning btn-sm">报名</a>
+					<a ng-click="info(obj.code)" class="btn btn-primary btn-sm">明细</a>
+					<a ng-click="edit(obj.code)" class="btn btn-success btn-sm">编辑</a>
+					<a ng-click="detail(obj.code)" class="btn btn-info btn-sm">详情</a>
+			        <a ng-click="del(obj.code)" class="btn btn-danger btn-sm">删除</a>
+		        </div>
 	        </td>
 	      </tr>
 	    </tbody>

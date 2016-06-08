@@ -55,12 +55,6 @@ module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, c
     //保存
 	$scope.gogo = function(){
 
-		if($scope.groupobj.book_count === undefined || $scope.groupobj.book_count == '')
-		{
-			alert('出游人数不能为空');
-			return;
-		}
-
 		if($scope.section.start.date === undefined || $scope.section.start.date == '')
 		{
 			alert('出游时间不能为空');

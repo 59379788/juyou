@@ -38,12 +38,6 @@ module.exports = function($scope, $stateParams, $state, groupsalelist, groupone,
     //保存
 	$scope.gogo = function(){
 
-		if($scope.groupobj.book_count === undefined || $scope.groupobj.book_count == '')
-		{
-			alert('出游人数不能为空');
-			return;
-		}
-
 		if($scope.groupobj.guide_name === undefined || $scope.groupobj.guide_name == '')
 		{
 			alert('导游姓名不能为空');

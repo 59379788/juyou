@@ -1,90 +1,40 @@
 
-<!--<div class="col-xs-10 col-xs-offset-1" >
-	<div class="panel panel-default form-horizontal">
-		<div class="panel-heading">
-			游客信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<span class="label label-warning">团票限用补贴：￥30</span>&nbsp;&nbsp;&nbsp;&nbsp;
-			<span class="label label-danger">成本单价：￥100</span>&nbsp;&nbsp;&nbsp;&nbsp;
-			<span class="label label-danger">成本总价：￥2000</span>&nbsp;&nbsp;&nbsp;&nbsp;
-			<span class="label label-danger">使用补贴总额：￥300</span>
-			<button type="button" 
-				class="btn btn-xs btn-info pull-right"
-				ng-click="gogo()"
-			>
-				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-			</button>
-
-		</div>
-		<div class="panel-body">
-			<div class="container-fluid">
-				<div class="col-xs-10" >
-
-					<div class="form-group" ng-repeat="obj in objs">
-						<label class="col-xs-2 control-label">游客{{$index + 1}}</label>
-						<div class="col-xs-2">
-							<input type="text" class="form-control" placeholder="请输入姓名"
-							ng-model="obj.name"
-							>
-						</div>
-						<div class="col-xs-4">
-							<input type="text" class="form-control" placeholder="请输入电话"
-							ng-model="obj.mobile" ng-change="querysubsidy(obj.mobile)"
-							>
-						</div>
-						<div class="col-xs-2">
-							<h4><span class="label label-info">剩余补贴：{{obj.subsiby}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-						</div>
-					</div>	
-
-				</div>
-			</div>
-		</div>
-	</div>
-</div>-->
-
 <div class="col-xs-10 col-xs-offset-1">
 	<div class="panel panel-default form-horizontal">
 		<div class="panel-heading">
-			游客信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<span class="label label-info">团票限用补贴：{{govsubsidy_price * 0.01  | currency : '￥'}}</span>
+			游客信息
 		</div>
 		<div class="panel-body">
 			<div class="container-fluid">
-				<div class="col-xs-10" >
-
-					<div class="form-group">
-						<label class="col-xs-2 control-label">添加游客</label>
-						<div class="col-xs-4">
-							<input type="text" class="form-control" placeholder="请输入姓名"
-							ng-model="groupobj.name"
-							>
-						</div>
-						<div class="col-xs-4">
-							<input type="text" class="form-control" placeholder="请输入电话"
-							ng-model="groupobj.mobile" ng-change="querysubsidy(obj.mobile)"
-							>
-						</div>
-						<div class="col-xs-2">
-							<a ng-click="add()" class="btn btn-success btn-sm">添加</a>
-						</div>
-					</div>
+				<div class="col-xs-12" style="margin-bottom:10px;margin-top:-20px;">
+					<h3><span class="label label-info">正价人数：{{zhengjiars}}人</span>&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="label label-info">补贴人数：{{butiers}}人</span>&nbsp;&nbsp;&nbsp;&nbsp;
+					<span class="label label-info">总价：{{all_price * 0.01  | currency : '￥'}}</span></h3>
+				</div>
+				<div class="col-xs-12" >
 
 					<table class="table table-bordered">
 					    <thead>
 					      <tr>
-					        <th class="col-md-3 text-center">游客姓名</th>
-					        <th class="col-md-3 text-center">游客电话</th>
-					        <th class="col-md-3 text-center">使用补贴</th>
-					        <th class="col-md-3 text-center">操作</th>
+					      	<th class="col-md-1 text-center">批次</th>
+					      	<th class="col-md-3 text-center">商品名称</th>
+					        <th class="col-md-1 text-center">游客姓名</th>
+					        <th class="col-md-2 text-center">游客电话</th>
+					        <th class="col-md-2 text-center">使用补贴</th>
+					        <th class="col-md-2 text-center">支付金额</th>
+					        <th class="col-md-1 text-center">操作</th>
 					      </tr>
 					    </thead>
 					    <tbody>
 					      <tr ng-repeat="obj in objs">
+					      	<td class="text-center">{{obj.batches}}</td>
+					      	<td class="text-center">{{obj.goods_name}}</td>
 					        <td class="text-center">{{obj.name}}</td>
 					        <td class="text-center">{{obj.mobile}}</td>
 					        <td class="text-center">{{obj.usedsubsidy * 0.01  | currency : '￥'}}</td>
+					        <td class="text-center">{{obj.pay_price * 0.01  | currency : '￥'}}</td>
 					        <td class="text-center">
-					          <a ng-click="del(obj.id)" class="btn btn-warning btn-xs">退团</a>
+					          <a ng-click="back(obj.id)" class="btn btn-warning btn-xs">退订</a>
 					        </td>
 					      </tr>
 					    </tbody>
