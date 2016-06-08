@@ -126,12 +126,18 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 
 
 	//提交
+	var reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
 	$scope.go = function(){
 
 		if($scope.signobj.mobile === undefined || $scope.signobj.mobile == '')
 		{
 			alert('请输入手机号');
 			$scope.signobj.goods_code = $scope.goodarr[0].goods_code;
+			return;
+		}
+		if(!reg.test($scope.signobj.mobile))
+		{
+			alert('手机号码错误');
 			return;
 		}
 

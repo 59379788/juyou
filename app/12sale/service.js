@@ -28,7 +28,7 @@ var service = function($resource, BASEURL38985, $q, $http){
 
     var userinfo = BASEURL38985 + "/api/as/info";
 
-    var usersubsibyquery = BASEURL38985 + "/api/ac/uc/userService/getUserInfoByMobile";
+    var usersubsibyquery = BASEURL38985 + "/api/ac/uc/userService/getUserInfoByMobileP";
 
     var goodlist = BASEURL38985 + "/api/as/tc/grouporder/goodlist";
 
