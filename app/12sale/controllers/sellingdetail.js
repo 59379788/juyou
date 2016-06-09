@@ -1,13 +1,14 @@
-module.exports = function($scope, $state, $stateParams, groupdetail){
+module.exports = function($scope, $uibModalInstance, code, groupdetail){
 
 	$scope.objs = {};
 	
-	groupdetail.get({'code' : $stateParams.code}, function(res){
+	groupdetail.get({'code' : code}, function(res){
         if(res.errcode === 0)
 		{
 			if(res.data.length === 0){
 				alert("暂无操作记录");
-				$state.go('app.sellinggroup');
+				$uibModalInstance.close();
+				//$state.go('app.sellinggroup');
 			}
 			$scope.objs = res.data;console.log($scope.objs);
 		}
@@ -17,5 +18,9 @@ module.exports = function($scope, $state, $stateParams, groupdetail){
 		}
 
     });
+
+    $scope.cancel = function () {
+		$uibModalInstance.close();
+	};
 
 };

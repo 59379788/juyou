@@ -1,4 +1,15 @@
-module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, update, groupdetail){
+module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, 
+    getDate, update, groupdetail,
+    $uibModal, 
+    //报名
+    goodlist, getattrbycode, usersubsibyquery, signup,
+    //报名详情
+    infolist, cancleGroup,
+    //编辑
+    groupsalelist, groupone, updatedetail, userinfo,
+    //新建
+    groupsale, createOrder
+    ){
 
    	$scope.searchform = {};
 
@@ -15,7 +26,37 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, upd
 
 	$scope.create = function(id){
 
-    	$state.go('app.createsellinggroup');
+        var modalInstance = $uibModal.open({
+          template: require('../views/sellinggroupmodel.html'),
+          controller: 'sellinggroupcreate',
+          size: 'lg',
+          resolve: {
+            groupsale : function(){
+                return groupsale;
+            },
+            createOrder : function(){
+                return createOrder;
+            },
+            groupsalelist : function(){
+                return groupsalelist;
+            },
+            getDate : function(){
+                return getDate;
+            },
+            userinfo : function(){
+                return userinfo;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+            //$scope.load();
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
+    	//$state.go('app.createsellinggroup');
 
     };
 
@@ -78,19 +119,130 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, upd
     };
 
     $scope.edit = function (code) {
-    	$state.go('app.editsellinggroup', {'code' : code});
+        var modalInstance = $uibModal.open({
+          template: require('../views/sellinggroupmodel.html'),
+          controller: 'sellinggroupupdate',
+          size: 'lg',
+          resolve: {
+            code : function(){
+                return code;
+            },
+            groupsalelist : function(){
+                return groupsalelist;
+            },
+            groupone : function(){
+                return groupone;
+            },
+            update : function(){
+                return update;
+            },
+            updatedetail : function(){
+                return updatedetail;
+            },
+            userinfo : function(){
+                return userinfo;
+            }
+            
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+            //$scope.load();
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
+    	//$state.go('app.editsellinggroup', {'code' : code});
     };
 
     $scope.detail = function(code){
-        $state.go('app.sellingdetail', {'code' : code});
+        var modalInstance = $uibModal.open({
+          template: require('../views/sellingdetail.html'),
+          controller: 'sellingdetail',
+          size: 'lg',
+          resolve: {
+            code : function(){
+                return code;
+            },
+            groupdetail : function(){
+                return groupdetail;
+            }
+            
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+            //$scope.load();
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
+        //$state.go('app.sellingdetail', {'code' : code});
     }
 
     $scope.info = function (code) {
-    	$state.go('app.infosellinggroup', {'code' : code});
+        var modalInstance = $uibModal.open({
+          template: require('../views/sellinggroupinfo.html'),
+          controller: 'sellinggroupinfo',
+          size: 'lg',
+          resolve: {
+            code : function(){
+                return code;
+            },
+            infolist : function(){
+                return infolist;
+            },
+            cancleGroup : function(){
+                return cancleGroup;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+            //$scope.load();
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
+
+    	//$state.go('app.infosellinggroup', {'code' : code});
     };
 
     $scope.signup = function (code) {
-    	$state.go('app.signupsellinggroup', {'code' : code});
+        var modalInstance = $uibModal.open({
+          template: require('../views/sellinggroupsignup.html'),
+          controller: 'sellinggroupsignup',
+          size: 'lg',
+          resolve: {
+            code : function(){
+                return code;
+            },
+            goodlist : function(){
+                return goodlist;
+            },
+            getattrbycode : function(){
+                return getattrbycode;
+            },
+            usersubsibyquery : function(){
+                return usersubsibyquery;
+            },
+            signup : function(){
+                return signup;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+            //$scope.load();
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
+    	//$state.go('app.signupsellinggroup', {'code' : code});
     };
 
 

@@ -1,17 +1,16 @@
+<div class="panel panel-default form-horizontal">
+	<div class="panel-heading">
+		报名信息
 
-<div class="col-xs-12">
-	<div class="panel panel-default form-horizontal">
-		<div class="panel-heading">
-			报名信息
-
-			<button type="button" 
-				class="btn btn-xs btn-info pull-right"
-				ng-click="go()"
-			>
-				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-			</button>
-		</div>
-		<div class="panel-body">
+		<button type="button" 
+			class="btn btn-xs btn-info pull-right"
+			ng-click="go()"
+		>
+			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+		</button>
+	</div>
+	<div class="panel-body">
+		<div class="container-fluid">
 
 			<div class="col-xs-4">
 			    <div class="input-group">
@@ -36,110 +35,70 @@
 				  </div>
 			</div>
 
+			<table class="table table-bordered">
+		      <thead>
+		        <tr>
+		          <th class="text-center col-xs-2">电话</th>
+		          <th class="text-center col-xs-1">姓名</th>
+		          <th class="text-center col-xs-3">身份证</th>
+		          <th class="text-center col-xs-2">票种</th>
+		          <th class="text-center col-xs-1">价格</th>
+		          <th class="text-center col-xs-1">用户补贴余额</th>
+		          <th class="text-center col-xs-1">本次使用</th>
+		          <th class="text-center col-xs-1">操作</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		        <tr ng-repeat="obj in objs">
+		          <td>
+		          	<input type="text" class="form-control" placeholder="请输入电话"
+					ng-model="obj.mobile" ng-blur="blur($index)"
+					>
+				  </td>
+		          <td>
+		          	<input type="text" class="form-control" placeholder="姓名"
+					ng-model="obj.name" ng-disabled="obj.disabled"
+					>
+				  </td>
+				  <td>
+		          	<input type="text" class="form-control" placeholder="请输入身份证"
+					ng-model="obj.cardno" ng-disabled="obj.disabled"
+					>
+				  </td>
+				  <td>
+		          	<select class="form-control" ng-model="obj.goods_code" 
+		              ng-options="good.goods_code as good.goods_name for good in goodarr"
+		              ng-change="change(obj)"
+		            >
+		            </select>
+				  </td>
+				  <td class="text-center">
+		          	<p style="line-height: 32px;">
+		          		{{obj.pay_price * 0.01 | currency : '￥'}}
+		          	</p>
+				  </td>
+				  <td class="text-center">
+		          	<p style="line-height: 32px;">
+		          		{{obj.subsidy * 0.01 | currency : '￥'}}
+		          	</p>
+				  </td>
+				  <td class="text-center">
+		          	<p style="line-height: 32px;">
+		          		{{obj.usesubsidy * 0.01 | currency : '￥'}}
+		          	</p>
+				  </td>
+				  <td class="text-center">
+		          	<a ng-click="del($index)" class="btn" style="color: red; padding:0px; padding-top: 5px;">
+				        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+				    </a>
+				  </td>
+		        </tr>
+		        
+		      </tbody>
+		    </table>
+
+
 		</div>
-
-		<table class="table table-bordered">
-	      <thead>
-	        <tr>
-	          <th class="text-center col-xs-2">电话</th>
-	          <th class="text-center col-xs-1">姓名</th>
-	          <th class="text-center col-xs-3">身份证</th>
-	          <th class="text-center col-xs-2">票种</th>
-	          <th class="text-center col-xs-1">价格</th>
-	          <th class="text-center col-xs-1">用户补贴余额</th>
-	          <th class="text-center col-xs-1">本次使用</th>
-	          <th class="text-center col-xs-1">操作</th>
-	        </tr>
-	      </thead>
-	      <tbody>
-	        <tr ng-repeat="obj in objs">
-	          <td>
-	          	<input type="text" class="form-control" placeholder="请输入电话"
-				ng-model="obj.mobile" ng-blur="blur($index)"
-				>
-			  </td>
-	          <td>
-	          	<input type="text" class="form-control" placeholder="姓名"
-				ng-model="obj.name" ng-disabled="obj.disabled"
-				>
-			  </td>
-			  <td>
-	          	<input type="text" class="form-control" placeholder="请输入身份证"
-				ng-model="obj.cardno" ng-disabled="obj.disabled"
-				>
-			  </td>
-			  <td>
-	          	<select class="form-control" ng-model="obj.goods_code" 
-	              ng-options="good.goods_code as good.goods_name for good in goodarr"
-	              ng-change="change(obj)"
-	            >
-	            </select>
-			  </td>
-			  <td class="text-center">
-	          	<p style="line-height: 32px;">
-	          		{{obj.pay_price * 0.01 | currency : '￥'}}
-	          	</p>
-			  </td>
-			  <td class="text-center">
-	          	<p style="line-height: 32px;">
-	          		{{obj.subsidy * 0.01 | currency : '￥'}}
-	          	</p>
-			  </td>
-			  <td class="text-center">
-	          	<p style="line-height: 32px;">
-	          		{{obj.usesubsidy * 0.01 | currency : '￥'}}
-	          	</p>
-			  </td>
-			  <td class="text-center">
-	          	<a ng-click="del($index)" class="btn" style="color: red; padding:0px; padding-top: 5px;">
-			        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-			    </a>
-			  </td>
-	        </tr>
-	        
-	      </tbody>
-	    </table>
-					<!--<div ng-repeat="signobj in objs">-->
-						<!-- <div class="col-md-11" style="margin-top:10px; padding:0px;">
-							<div class="col-xs-1">
-								<label class="control-label">游客{{$index+1}}</label>
-							</div>
-							<div class="col-xs-2">
-								<input type="text" class="form-control" placeholder="请输入姓名"
-								ng-model="signobj.name"
-								>
-							</div>
-							<div class="col-xs-2">
-								<input type="text" class="form-control" placeholder="请输入手机号"
-								ng-model="signobj.mobile"
-								ng-blur="blur()"
-								>
-							</div>
-							<div class="col-xs-2">
-								<input type="text" class="form-control" placeholder="请输入身份证号"
-								ng-model="signobj.cardno"
-								>
-							</div>
-							<div class="col-xs-3">
-								<select class="form-control" ng-model="signobj.goods_code" 
-					              ng-options="good.goods_code as good.goods_name for good in goodarr"
-					              ng-change="change(signobj.goods_code)"
-					            >
-					            </select>
-							</div>
-							<div class="col-xs-2">
-								<h4><span class="label label-warning">单价：{{cost_price | currency : '￥'}}</span></h4>
-							</div>
-						</div> -->
-			<!--<div class="col-xs-1" style="padding:0px;">
-				<h4><button type="button" 
-					class="btn btn-xs btn-info pull-right"
-					ng-click="add(obj.code)"
-				>
-					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-				</button></h4>
-			</div>-->
-
-		<!-- </div> -->
 	</div>
 </div>
+

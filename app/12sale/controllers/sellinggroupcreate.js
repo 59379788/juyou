@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, createOrder, getDate, userinfo){
+module.exports = function($scope, $state, $uibModal, $uibModalInstance, groupsalelist, groupsale, createOrder, getDate, userinfo){
 
 	$scope.groupobj = {};
 	$scope.section = {};
@@ -93,7 +93,9 @@ module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, c
 
 			if(res.errcode === 0)
 			{
-				$state.go('app.sellinggroup');
+				//$state.go('app.sellinggroup');
+				alert('创建成功');
+				$uibModalInstance.close();
 			}
 			else
 			{

@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, groupsalelist, groupone, update, updatedetail, userinfo){
+module.exports = function($scope, $state, $uibModalInstance, code, groupsalelist, groupone, update, updatedetail, userinfo){
 
 	$scope.groupobj = {};
 	$scope.groupobjstate = 0;
@@ -22,7 +22,7 @@ module.exports = function($scope, $stateParams, $state, groupsalelist, groupone,
 		name = res.name;
     });
 
-    groupone.get({'code' : $stateParams.code}, function(res){
+    groupone.get({'code' : code}, function(res){
 		console.log(res.data);
         if(res.errcode === 0)
 		{
@@ -56,7 +56,7 @@ module.exports = function($scope, $stateParams, $state, groupsalelist, groupone,
 			return;
 		}
 
-		$scope.groupobj.code = $stateParams.code;
+		$scope.groupobj.code = code;
 		$scope.groupobj.username = name;
 		$scope.groupobj.plan_count = $scope.groupobj.plan_count;
 		update.save($scope.groupobj, function(res){
@@ -67,7 +67,9 @@ module.exports = function($scope, $stateParams, $state, groupsalelist, groupone,
 
 					if(res.errcode === 0)
 					{
-						$state.go('app.sellinggroup');
+						alert('保存成功');
+						$uibModalInstance.close();
+						//$state.go('app.sellinggroup');
 					}
 					else
 					{

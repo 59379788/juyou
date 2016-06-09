@@ -50,6 +50,46 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             groupdetail : function(sellingservice){
                 return sellingservice.groupdetail();
+            },
+            //报名
+            goodlist : function(sellingservice){
+                return sellingservice.goodlist();
+            },
+            getattrbycode : function(sellingservice){
+                return sellingservice.getattrbycode();
+            },
+            usersubsibyquery : function(sellingservice){
+                return sellingservice.usersubsibyquery();
+            },
+            signup : function(sellingservice){
+                return sellingservice.signup();
+            },
+            //报名详情
+            infolist : function(sellingservice){
+                return sellingservice.infolist();
+            },
+            cancleGroup : function(sellingservice){
+                return sellingservice.cancleGroup();
+            },
+            //编辑
+            groupsalelist : function(sellingservice){
+                return sellingservice.groupsalelist;
+            },
+            groupone : function(sellingservice){
+                return sellingservice.groupone();
+            },
+            updatedetail : function(sellingservice){
+                return sellingservice.updatedetail();
+            },
+            userinfo : function(sellingservice){
+                return sellingservice.userinfo;
+            },
+            //新建
+            groupsale : function(sellingservice){
+                return sellingservice.groupsale();
+            },
+            createOrder : function(sellingservice){
+                return sellingservice.createOrder();
             }
         }
         

@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, goodlist, getattrbycode, usersubsibyquery, signup){
+module.exports = function($scope, $state, code, goodlist, getattrbycode, usersubsibyquery, signup, $uibModalInstance){
 
 	$scope.num = 1;
 
@@ -54,7 +54,7 @@ module.exports = function($scope, $stateParams, $state, goodlist, getattrbycode,
 	};
 
 	//商品列表
-	goodlist.get({'code' : $stateParams.code}, function(res){
+	goodlist.get({'code' : code}, function(res){
 		console.log(res);
 		if(res.errcode === 0)
 		{
@@ -131,7 +131,7 @@ module.exports = function($scope, $stateParams, $state, goodlist, getattrbycode,
 
 		var para = {
 			'infolist' : $scope.objs,
-			'order_code' : $stateParams.code,
+			'order_code' : code,
 			'sale_code' : sale_code,
 			'all_price' : $scope.totalprice
 		};
@@ -143,7 +143,8 @@ module.exports = function($scope, $stateParams, $state, goodlist, getattrbycode,
 	        if(res.errcode === 0)
 	        {
 	            alert("提交成功");
-	            $state.go('app.infosellinggroup', {'code' : $stateParams.code});
+	            $uibModalInstance.close();
+	            //$state.go('app.infosellinggroup', {'code' : code});
 	        }
 	        else
 	        {
@@ -295,7 +296,7 @@ module.exports = function($scope, $stateParams, $state, goodlist, getattrbycode,
 
 	//初始化查询商品下拉列表
 	$scope.load = function(){
-	    goodlist.get({'code' : $stateParams.code}, function(res){
+	    goodlist.get({'code' : code}, function(res){
 			console.log(res);
 			if(res.errcode === 0)
 			{
@@ -428,7 +429,7 @@ module.exports = function($scope, $stateParams, $state, goodlist, getattrbycode,
 
 		var map = {};
 		map['infolist'] = list_map;
-		map['order_code'] = $stateParams.code;
+		map['order_code'] = code;
 		map['sale_code'] = sale_code;
 		map['all_price'] = pay_price * 100;
         console.log(map);

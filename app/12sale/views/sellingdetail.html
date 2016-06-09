@@ -1,37 +1,36 @@
-<div class="col-xs-12" >
-	<div class="panel panel-default form-horizontal">
-		<div class="panel-heading">
-			订单操作记录
-		</div>
-		<div class="panel-body">
-			<div class="container-fluid">
-	            <table class="table table-bordered text-center">
-				    <thead>
-				      <tr>
-				      	<th class="text-center col-md-1">计划人数</th>
-				        <th class="text-center col-md-1">报名人数</th>
-						<th class="text-center col-md-1">导游姓名</th>
-						<th class="text-center col-md-1">导游电话</th>
-						<th class="text-center col-md-1">导游车牌号</th>
-						<th class="text-center col-md-3">备注信息</th>
-						<th class="text-center col-md-3">最后操作时间</th>
-						<th class="text-center col-md-1">最后操作人</th>
-				      </tr>
-				    </thead>
-				    <tbody>
-				      <tr ng-repeat="obj in objs">
-				      	<td class="text-center">{{obj.plan_count}}</td>
-				        <td class="text-center">{{obj.book_count}}</td>
-				        <td class="text-center">{{obj.guide_name}}</td>
-				        <td class="text-center">{{obj.guide_mobile}}</td>
-				        <td class="text-center">{{obj.vehicle_number}}</td>
-				        <td class="text-center">{{obj.remark}}</td>
-				        <td class="text-center">{{obj.update_time}}</td>
-				        <td class="text-center">{{obj.update_by}}</td>
-				      </tr>
-				    </tbody>
-			    </table>
-		    </div>
-	    </div>
-    </div>
+
+<div class="modal-header">
+    <h4 class="modal-title">订单操作记录</h4>
+</div>
+<div class="modal-body">
+    <table class="table table-bordered text-center">
+	    <thead>
+	      <tr>
+	      	<th class="text-center col-md-1">计划人数</th>
+	        <th class="text-center col-md-1">报名人数</th>
+			<th class="text-center col-md-1">导游姓名</th>
+			<th class="text-center col-md-1">导游电话</th>
+			<th class="text-center col-md-1">导游车牌号</th>
+			<th class="text-center col-md-3">备注信息</th>
+			<th class="text-center col-md-3">最后操作时间</th>
+			<th class="text-center col-md-1">最后操作人</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr ng-repeat="obj in objs">
+	      	<td class="text-center">{{obj.plan_count}}</td>
+	        <td class="text-center">{{obj.book_count}}</td>
+	        <td class="text-center">{{obj.guide_name}}</td>
+	        <td class="text-center">{{obj.guide_mobile}}</td>
+	        <td class="text-center">{{obj.vehicle_number}}</td>
+	        <td class="text-center">{{obj.remark}}</td>
+	        <td class="text-center">{{obj.update_time}}</td>
+	        <td class="text-center">{{obj.update_by}}</td>
+	      </tr>
+	    </tbody>
+    </table>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
 </div>

@@ -1,7 +1,7 @@
-module.exports = function($scope, $stateParams, $state, infolist, cancleGroup){
+module.exports = function($scope, $stateParams, $state, code, infolist, cancleGroup, $uibModalInstance){
 
 	$scope.load = function(){
-		infolist.get({'code' : $stateParams.code}, function(res){
+		infolist.get({'code' : code}, function(res){
 			console.log(res);
 			if(res.errcode === 0)
 			{
@@ -52,8 +52,12 @@ module.exports = function($scope, $stateParams, $state, infolist, cancleGroup){
 	}
 	
 
+	$scope.cancel = function () {
+		$uibModalInstance.close();
+	};
+
 	$scope.signup = function(){
 
-		$state.go('app.signupsellinggroup', {'code' : $stateParams.code});
+		$state.go('app.signupsellinggroup', {'code' : code});
 	};
 };
