@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, infolist, cancleGroup){
+module.exports = function($scope, $stateParams, $state, infolist, cancleGroup){
 
 	$scope.load = function(){
 		infolist.get({'code' : $stateParams.code}, function(res){
@@ -52,5 +52,8 @@ module.exports = function($scope, $stateParams, infolist, cancleGroup){
 	}
 	
 
+	$scope.signup = function(){
 
+		$state.go('app.signupsellinggroup', {'code' : $stateParams.code});
+	};
 };

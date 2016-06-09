@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersubsibyquery, signup){
+module.exports = function($scope, $stateParams, $state, goodlist, getattrbycode, usersubsibyquery, signup){
 
 	$scope.num = 1;
 
@@ -44,7 +44,9 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 				'mobile' : '',
 				'cardno' : '',
 				'goods_code' : '',
-				'pay_price' : 0,
+				'pay_price' : 0,	//实际支付价格
+				'subsidy' : 0,		//补贴余额
+				'usesubsidy' : 0,	//本次使用补贴
 				'disabled' : false
 			};
 			$scope.objs.push(obj);
@@ -64,6 +66,7 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 				if(i === 0) sale_code = tmp.sale_code;
 				if(tmp.type_attr === '98')
 				{
+					//补贴额
 					goodssubsidy = tmp.govsubsidy_price;
 					goodscodegov = tmp.goods_code;
 					paypricegov = tmp.cost_price - tmp.govsubsidy_price;
@@ -103,6 +106,29 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 
 	//gogogogoogogo
 	$scope.go = function(){
+
+		//检查infolist
+		var msg = '';
+		for(var i = 0; i < $scope.objs.length; i++)
+		{
+			var tmp = $scope.objs[i];
+			if(tmp.goods_code === '')
+			{
+				$scope.objs.splice(i, 1);
+				i--;
+				continue;
+			}
+
+			msg += '电话:' + tmp.mobile + ',姓名:' + tmp.name + ',身份证:' + tmp.cardno + '\r\n';
+		}
+
+		msg = '报名信息确认\r\n' + msg + '\r\n\r\n总计' + $scope.totalprice * 0.01 + '元'; 
+
+		if(!confirm(msg))
+		{
+			return;
+		}
+
 		var para = {
 			'infolist' : $scope.objs,
 			'order_code' : $stateParams.code,
@@ -117,7 +143,7 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 	        if(res.errcode === 0)
 	        {
 	            alert("提交成功");
-	            //$scope.load();
+	            $state.go('app.infosellinggroup', {'code' : $stateParams.code});
 	        }
 	        else
 	        {
@@ -142,6 +168,7 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 						obj.disabled = false;
 						obj.name = '';
 						obj.cardno = '';
+						obj.subsidy = 0;
 					}
 				}
 				else
@@ -149,6 +176,7 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 					obj.name = res.data.username;
 					obj.cardno = res.data.papersno;
 					obj.disabled = true;
+					obj.subsidy = res.data.generalsubsidy;
 					allsubsidy[obj.mobile] = res.data.generalsubsidy;
 				}
 				
@@ -180,10 +208,7 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 			{
 				obj.goods_code = goodscode;
 				obj.pay_price = payprice;
-			}
-			else
-			{
-
+				obj.usesubsidy = 0;
 			}
 		}
 		else
@@ -192,12 +217,43 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 			{
 				obj.goods_code = goodscodegov;
 				obj.pay_price = paypricegov;
+				obj.usesubsidy = goodssubsidy;
 			}
 			//不可以用补贴
 			else
 			{
 				obj.goods_code = goodscode;
 				obj.pay_price = payprice;
+				obj.usesubsidy = 0;
+			}
+		}
+
+		//手动改变下来，修改价格
+		if(what == 1)
+		{
+			for(var i = 0, j = $scope.goodarr.length; i < j; i++)
+			{
+				var tt = $scope.goodarr[i];
+				// console.log(tt);
+				// console.log(tt.goods_code);
+				// console.log(obj.goods_code);
+
+				if(tt.goods_code == obj.goods_code)
+				{
+					if(tt.type_attr === '98')
+					{
+						obj.pay_price = tt.cost_price - tt.govsubsidy_price;
+						obj.usesubsidy = tt.govsubsidy_price;
+					}
+					else
+					{
+						obj.pay_price = tt.cost_price;
+						obj.usesubsidy = '0';
+					}
+
+					//console.log(obj);
+					break;
+				}
 			}
 		}
 
@@ -208,9 +264,11 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 	function calctotalprice(){
 
 		$scope.totalprice = 0;
+		console.log($scope.objs);
 		for(var i = 0, j = $scope.objs.length; i < j; i++)
 		{
 			var tmp = $scope.objs[i];
+			if(tmp.goods_code == '') continue;
 			$scope.totalprice += parseInt(goods[tmp.goods_code]);
 
 		}

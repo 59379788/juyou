@@ -28,8 +28,8 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, upd
 
     	var para = {
             pageNo:$scope.bigCurrentPage, 
-            pageSize:$scope.itemsPerPage,
-            arrival_date : getDate($scope.section.start.date)
+            pageSize:$scope.itemsPerPage
+           // arrival_date : getDate($scope.section.start.date)
         };
         
         para = angular.extend($scope.searchform, para);

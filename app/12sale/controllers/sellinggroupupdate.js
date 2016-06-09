@@ -58,6 +58,7 @@ module.exports = function($scope, $stateParams, $state, groupsalelist, groupone,
 
 		$scope.groupobj.code = $stateParams.code;
 		$scope.groupobj.username = name;
+		$scope.groupobj.plan_count = $scope.groupobj.plan_count;
 		update.save($scope.groupobj, function(res){
 
 			if(res.errcode === 0)

@@ -42,9 +42,12 @@
 	      <thead>
 	        <tr>
 	          <th class="text-center col-xs-2">电话</th>
-	          <th class="text-center col-xs-2">姓名</th>
+	          <th class="text-center col-xs-1">姓名</th>
 	          <th class="text-center col-xs-3">身份证</th>
-	          <th class="text-center col-xs-4">票种</th>
+	          <th class="text-center col-xs-2">票种</th>
+	          <th class="text-center col-xs-1">价格</th>
+	          <th class="text-center col-xs-1">用户补贴余额</th>
+	          <th class="text-center col-xs-1">本次使用</th>
 	          <th class="text-center col-xs-1">操作</th>
 	        </tr>
 	      </thead>
@@ -56,7 +59,7 @@
 				>
 			  </td>
 	          <td>
-	          	<input type="text" class="form-control" placeholder="请输入姓名"
+	          	<input type="text" class="form-control" placeholder="姓名"
 				ng-model="obj.name" ng-disabled="obj.disabled"
 				>
 			  </td>
@@ -71,6 +74,21 @@
 	              ng-change="change(obj)"
 	            >
 	            </select>
+			  </td>
+			  <td class="text-center">
+	          	<p style="line-height: 32px;">
+	          		{{obj.pay_price * 0.01 | currency : '￥'}}
+	          	</p>
+			  </td>
+			  <td class="text-center">
+	          	<p style="line-height: 32px;">
+	          		{{obj.subsidy * 0.01 | currency : '￥'}}
+	          	</p>
+			  </td>
+			  <td class="text-center">
+	          	<p style="line-height: 32px;">
+	          		{{obj.usesubsidy * 0.01 | currency : '￥'}}
+	          	</p>
 			  </td>
 			  <td class="text-center">
 	          	<a ng-click="del($index)" class="btn" style="color: red; padding:0px; padding-top: 5px;">
