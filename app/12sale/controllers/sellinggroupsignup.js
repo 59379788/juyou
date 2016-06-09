@@ -81,7 +81,7 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 	//手动选择商品
 	$scope.change = function(obj){
 
-		choosegoods(obj);
+		choosegoods(obj, 1);
 	};
 
 	//获取补贴信息
@@ -112,9 +112,10 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 	}
 
 	//根据游客政府补贴选择商品，
+	//what : 1,手动选择商品
 	//有补贴可以选择非补贴商品
 	//无补贴不可以选择补贴商品
-	function choosegoods(obj, what){
+	function choosegoods(obxj, what){
 		//游客电话
 		var mobile = obj.mobile;
 		//游客补贴
@@ -123,7 +124,7 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 		console.log(subsidy);
 		console.log(goodssubsidy);
 		//可以用补贴
-		if(subsidy >= goodssubsidy)
+		if(subsidy >= goodssubsidy && what != 1)
 		{
 			obj.goods_code = goodscodegov;
 		}
