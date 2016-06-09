@@ -21,6 +21,11 @@ body { /*padding-bottom: 70px;*/ }
 
 .pt5{padding-top: 5px;}
 
+
+.modal-lg {
+    width: 1200px;
+}
+
 /*.btn {
     margin-right: 8px;
 }*/

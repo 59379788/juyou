@@ -1,5 +1,5 @@
 module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, 
-    $uibModal, ticketlist, createBackOrder, updateSmsState){
+    $uibModal, ticketlist, createBackOrder, resend){
     
     $scope.searchform = {};
 
