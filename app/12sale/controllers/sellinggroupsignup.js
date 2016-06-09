@@ -135,20 +135,25 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 			console.log(res);
 			if(res.errcode === 0)
 			{
-				obj.name = res.data.username;
-				obj.cardno = res.data.papersno;
-				obj.disabled = true;
-				allsubsidy[obj.mobile] = res.data.generalsubsidy;
-			}
-			else
-			{
-				if(obj.disabled)
+				if(res.data.isexis === '0')
 				{
-					obj.disabled = false;
-					obj.name = '';
-					obj.cardno = '';
+					if(obj.disabled)
+					{
+						obj.disabled = false;
+						obj.name = '';
+						obj.cardno = '';
+					}
 				}
+				else
+				{
+					obj.name = res.data.username;
+					obj.cardno = res.data.papersno;
+					obj.disabled = true;
+					allsubsidy[obj.mobile] = res.data.generalsubsidy;
+				}
+				
 			}
+			
 			choosegoods(obj);
 
 		});

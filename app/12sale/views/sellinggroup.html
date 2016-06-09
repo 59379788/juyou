@@ -30,20 +30,29 @@
 	  <table class="table table-bordered">
 	    <thead>
 	      <tr>
-	        <th class="col-md-1 text-center">出游信息</th>
+	        <th class="col-md-2 text-center">出游信息</th>
 	        <th class="col-md-2 text-center">预定团票</th>
 	        <th class="col-md-2 text-center">导游信息</th>
 	        <th class="col-md-2 text-center">备注</th>
 	        <th class="col-md-1 text-center">最后操作时间</th>
 	        <th class="col-md-1 text-center">最后操作人</th>
-	        <th class="col-md-3 text-center">操作</th>
+	        <th class="col-md-2 text-center">操作</th>
 	      </tr>
 	    </thead>
 	    <tbody>
 	      <tr ng-repeat="obj in objs">
-	        <td class="text-center">[{{obj.book_count}}人][{{obj.actual_count}}人][{{obj.arrival_date}}]</td>
+	        <td class="text-center">
+	        	计划人数：[{{obj.plan_count}}人]<br>
+	        	报名人数：[{{obj.book_count}}人]<br>
+	        	实际人数：[{{obj.actual_count}}人]<br>
+	        	到达时间：[{{obj.arrival_date}}]
+	        </td>
 	        <td class="">{{obj.order_name}}</td>
-	        <td class="text-center">[{{obj.guide_name}}][{{obj.guide_mobile}}][{{obj.vehicle_number}}]</td>
+	        <td class="text-center">
+	        	[{{obj.guide_name}}]<br>
+	        	[{{obj.guide_mobile}}]<br>
+	        	[{{obj.vehicle_number}}]
+	        </td>
 	        <td class="text-center">{{obj.remark}}</td>
 	        <td class="text-center">{{obj.update_time}}</td>
 	        <td class="text-center">{{obj.update_by}}</td>

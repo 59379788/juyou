@@ -24,8 +24,8 @@ var router = function($urlRouterProvider, $stateProvider){
             createBackOrder : function(orderservice){
                 return orderservice.createBackOrder();
             },
-            updateSmsState : function(orderservice){
-                return orderservice.updateSmsState();
+            resend : function(orderservice){
+                return orderservice.resend();
             }
 
         }

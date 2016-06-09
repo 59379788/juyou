@@ -20,7 +20,7 @@ var service = function($resource, BASEURL38985){
 
     var createBackOrder = BASEURL38985 + '/api/ac/tc/ticketOrderService/createBackOrder';
 
-    var updateSmsState = BASEURL38985 + '/api/as/tc/ticketorder/updateSmsState';
+    var resend = BASEURL38985 + '/api/as/tc/ticketorder/resend';
 
     return {
 
@@ -48,8 +48,8 @@ var service = function($resource, BASEURL38985){
         createBackOrder : function(){
             return $resource(createBackOrder, {}, {});
         },
-        updateSmsState : function(){
-            return $resource(updateSmsState, {}, {});
+        resend : function(){
+            return $resource(resend, {}, {});
         }
 
     };
