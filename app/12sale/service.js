@@ -38,7 +38,7 @@ var service = function($resource, BASEURL38985, $q, $http){
 
     var signup = BASEURL38985 + "/api/ac/tc/ticketGroupOrderService/createOrderInfo";
     
-    var cancleGroup = BASEURL38985 + "/api/ac/tc/ticketGroupOrderService/cancleGroup";
+    var cancleGroup = BASEURL38985 + "/api/ac/tc/ticketGroupOrderService/updateCancleGroup";
 
 
     

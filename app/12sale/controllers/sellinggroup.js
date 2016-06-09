@@ -2,6 +2,8 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, upd
 
    	$scope.searchform = {};
 
+    $scope.usedate = '0';
+
 	$scope.section = {};
 	$scope.section.start = {};
 	$scope.section.start.date = new Date();
@@ -29,10 +31,13 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, upd
     	var para = {
             pageNo:$scope.bigCurrentPage, 
             pageSize:$scope.itemsPerPage
-           // arrival_date : getDate($scope.section.start.date)
         };
+        if($scope.usedate == '1')
+        {
+            para['arrival_date'] = getDate($scope.section.start.date);
+        }
         
-        para = angular.extend($scope.searchform, para);
+        para = angular.extend(para, $scope.searchform);
 
         console.log(para);
         
