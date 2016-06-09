@@ -1,5 +1,5 @@
 module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, 
-    $uibModal, ticketlist, createBackOrder){
+    $uibModal, ticketlist, createBackOrder, updateSmsState){
     
     $scope.searchform = {};
 
@@ -120,6 +120,19 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
     }
 
 
-   
+    $scope.resend = function(obj){
+        var code = obj.code;
+        updateSmsState.save({'code' : code}, function(res){
+            console.log(res);
+            if(res.errcode === 0)
+            {
+                alert('发送成功');
+            }
+            else
+            {
+                alert(res.errmsg);
+            }
+        });
+    }
 
 };

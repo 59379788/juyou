@@ -5,17 +5,28 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 	//人员数组
 	$scope.objs = [];
 
+	//销售品编号
+	var sale_code = '';
+
 	//人员补贴（key：电话，value：补贴额)
 	var allsubsidy = {};
 
 	//商品可用补贴额
 	var goodssubsidy = 0;
 
+	//商品信息（key：编号，value：价格)
+	var goods = {};
+
 	//普通商品编号
 	var goodscode = '';
+	var payprice = '0';
 
 	//政府补贴商品编号
 	var goodscodegov = '';
+	var paypricegov = '0';
+
+	//总价
+	$scope.totalprice = 0;
 
 	//添加人员
 	$scope.add = function(){
@@ -32,7 +43,8 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 				'name' : '',
 				'mobile' : '',
 				'cardno' : '',
-				'goodsid' : '',
+				'goods_code' : '',
+				'pay_price' : 0,
 				'disabled' : false
 			};
 			$scope.objs.push(obj);
@@ -49,16 +61,21 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 			for(var i = 0; i < res.data.length; i++)
 			{
 				var tmp = res.data[i];
-				console.log(tmp);
+				if(i === 0) sale_code = tmp.sale_code;
 				if(tmp.type_attr === '98')
 				{
 					goodssubsidy = tmp.govsubsidy_price;
 					goodscodegov = tmp.goods_code;
+					paypricegov = tmp.cost_price - tmp.govsubsidy_price;
+					goods[goodscodegov] = paypricegov;
 				}
 				else
 				{
 					goodscode = tmp.goods_code;
+					payprice = tmp.cost_price;
+					goods[goodscode] = payprice;
 				}
+
 			}
 			console.log($scope.goodarr);
 		}
@@ -76,12 +93,38 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 	//删除信息
 	$scope.del = function(index){
 		$scope.objs.splice(index,1); 
+		calctotalprice();
 	};
 
 	//手动选择商品
 	$scope.change = function(obj){
-
 		choosegoods(obj, 1);
+	};
+
+	//gogogogoogogo
+	$scope.go = function(){
+		var para = {
+			'infolist' : $scope.objs,
+			'order_code' : $stateParams.code,
+			'sale_code' : sale_code,
+			'all_price' : $scope.totalprice
+		};
+
+		console.log(para);
+		signup.save(para, function(res){
+			console.log(res);
+
+	        if(res.errcode === 0)
+	        {
+	            alert("提交成功");
+	            //$scope.load();
+	        }
+	        else
+	        {
+	            alert(res.errmsg);
+	        }
+
+	    });
 	};
 
 	//获取补贴信息
@@ -115,7 +158,7 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 	//what : 1,手动选择商品
 	//有补贴可以选择非补贴商品
 	//无补贴不可以选择补贴商品
-	function choosegoods(obxj, what){
+	function choosegoods(obj, what){
 		//游客电话
 		var mobile = obj.mobile;
 		//游客补贴
@@ -123,15 +166,48 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 
 		console.log(subsidy);
 		console.log(goodssubsidy);
-		//可以用补贴
-		if(subsidy >= goodssubsidy && what != 1)
+		console.log(what);
+
+		//手动
+		if(what == 1)
 		{
-			obj.goods_code = goodscodegov;
+			if(subsidy < goodssubsidy)
+			{
+				obj.goods_code = goodscode;
+				obj.pay_price = payprice;
+			}
+			else
+			{
+
+			}
 		}
-		//不可以用补贴
 		else
 		{
-			obj.goods_code = goodscode;
+			if(subsidy >= goodssubsidy)
+			{
+				obj.goods_code = goodscodegov;
+				obj.pay_price = paypricegov;
+			}
+			//不可以用补贴
+			else
+			{
+				obj.goods_code = goodscode;
+				obj.pay_price = payprice;
+			}
+		}
+
+		calctotalprice();
+	}
+
+	//计算总价
+	function calctotalprice(){
+
+		$scope.totalprice = 0;
+		for(var i = 0, j = $scope.objs.length; i < j; i++)
+		{
+			var tmp = $scope.objs[i];
+			$scope.totalprice += parseInt(goods[tmp.goods_code]);
+
 		}
 
 	}
