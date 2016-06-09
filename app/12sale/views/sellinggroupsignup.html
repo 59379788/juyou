@@ -1,0 +1,62 @@
+
+<div class="col-xs-10 col-xs-offset-1">
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			报名信息
+			<button type="button" 
+				class="btn btn-xs btn-info pull-right"
+				ng-click="go()"
+			>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+		</div>
+		<div class="panel-body">
+
+			<div class="col-md-11"  style="padding:0px;">
+					<!--<div ng-repeat="signobj in objs">-->
+					<div>
+						<div class="col-md-11" style="margin-top:10px; padding:0px;">
+							<div class="col-xs-1">
+								<label class="control-label">游客{{$index+1}}</label>
+							</div>
+							<div class="col-xs-2">
+								<input type="text" class="form-control" placeholder="请输入姓名"
+								ng-model="signobj.name"
+								>
+							</div>
+							<div class="col-xs-2">
+								<input type="text" class="form-control" placeholder="请输入手机号"
+								ng-model="signobj.mobile"
+								ng-blur="blur()"
+								>
+							</div>
+							<div class="col-xs-2">
+								<input type="text" class="form-control" placeholder="请输入身份证号"
+								ng-model="signobj.cardno"
+								>
+							</div>
+							<div class="col-xs-3">
+								<select class="form-control" ng-model="signobj.goods_code" 
+					              ng-options="good.goods_code as good.goods_name for good in goodarr"
+					              ng-change="change(signobj.goods_code)"
+					            >
+					            </select>
+							</div>
+							<div class="col-xs-2">
+								<h4><span class="label label-warning">单价：{{cost_price | currency : '￥'}}</span></h4>
+							</div>
+						</div>
+					</div>
+			</div>
+			<!--<div class="col-xs-1" style="padding:0px;">
+				<h4><button type="button" 
+					class="btn btn-xs btn-info pull-right"
+					ng-click="add(obj.code)"
+				>
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</button></h4>
+			</div>-->
+
+		</div>
+	</div>
+</div>
