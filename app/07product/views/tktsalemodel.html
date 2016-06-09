@@ -205,6 +205,17 @@
 				  	</div>
 
 				  	<div class="form-group">
+					    <label class="col-xs-3 control-label">生效时间</label>
+					    <div class="col-xs-5">
+					    	<select class="form-control" 
+					    	  ng-model="saleobj.take_effect_type" 
+				              ng-options="take_effect_type.value as take_effect_type.name for take_effect_type in take_effect_typearr"
+				            >
+				            </select>
+					    </div>
+				  	</div>
+
+				  	<div class="form-group">
 						<label class="col-xs-3 control-label">销售品简介</label>
 						<div class="col-xs-9">
 							<!-- <textarea class="form-control" rows="3"

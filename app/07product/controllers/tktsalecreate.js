@@ -7,6 +7,24 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 
 	$scope.saleobj = {};
 	$scope.saleobj.id = '';
+	$scope.saleobj.take_effect_type = 0;
+
+	$scope.take_effect_typearr = [
+		{'name' : '次日','value' : -1},
+		{'name' : '即时','value' : 0},
+		{'name' : '1小时之后','value' : 1},
+		{'name' : '2小时之后','value' : 2},
+		{'name' : '3小时之后','value' : 3},
+		{'name' : '4小时之后','value' : 4},
+		{'name' : '5小时之后','value' : 5},
+		{'name' : '6小时之后','value' : 6},
+		{'name' : '7小时之后','value' : 7},
+		{'name' : '8小时之后','value' : 8},
+		{'name' : '9小时之后','value' : 9},
+		{'name' : '10小时之后','value' : 10},
+		{'name' : '11小时之后','value' : 11},
+		{'name' : '12小时之后','value' : 12}
+	];
 
 	//初始化值
 	$scope.saleobj.sms_type = '1';
