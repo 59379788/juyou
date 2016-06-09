@@ -127,6 +127,7 @@ module.exports = function($scope, $stateParams, goodlist, getattrbycode, usersub
 		{
 			obj.goods_code = goodscodegov;
 		}
+		//不可以用补贴
 		else
 		{
 			obj.goods_code = goodscode;
