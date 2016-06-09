@@ -104,22 +104,22 @@
 	__webpack_require__(77);
 	__webpack_require__(96);
 	__webpack_require__(109);
-	__webpack_require__(136);
-	__webpack_require__(144);
-	__webpack_require__(147);
-	__webpack_require__(160);
-	__webpack_require__(165);
-	__webpack_require__(179);
-	__webpack_require__(195);
-	__webpack_require__(206);
-	__webpack_require__(229);
-	__webpack_require__(237);
+	__webpack_require__(138);
+	__webpack_require__(146);
+	__webpack_require__(149);
+	__webpack_require__(162);
+	__webpack_require__(167);
+	__webpack_require__(181);
+	__webpack_require__(197);
+	__webpack_require__(208);
+	__webpack_require__(231);
+	__webpack_require__(239);
 
 
-	__webpack_require__(242);
-	__webpack_require__(244);   //拦截器
-	__webpack_require__(246);
-	__webpack_require__(250);
+	__webpack_require__(244);
+	__webpack_require__(246);   //拦截器
+	__webpack_require__(248);
+	__webpack_require__(252);
 
 	//=================[ 子模块加载 ]===========================//
 
@@ -61432,11 +61432,12 @@
 	App.controller('tktgoodscreate',__webpack_require__(128));
 	App.controller('tktgoodsupdate',__webpack_require__(129));
 	App.controller('tktsale',__webpack_require__(130));
-	App.controller('tktsalecreate',__webpack_require__(131));
-	App.controller('tktsaleupdate',__webpack_require__(132));
-	App.controller('salecategory',__webpack_require__(133));
+	App.controller('tktsalecreate',__webpack_require__(132));
+	App.controller('tktsaleupdate',__webpack_require__(133));
+	App.controller('salecategory',__webpack_require__(134));
 
-	App.controller('salecategorycreate',__webpack_require__(135));
+	App.controller('salecategorycreate',__webpack_require__(136));
+	App.controller('distribution',__webpack_require__(137));
 
 
 
@@ -61705,6 +61706,18 @@
 	            },
 	            talist : function(depositservice){
 	                return depositservice.talist;
+	            },
+	            sellerList : function(productservice){
+	                return productservice.sellerList();
+	            },
+	            tstcreate : function(productservice){
+	                return productservice.tstcreate();
+	            },
+	            tststart : function(productservice){
+	                return productservice.tststart();
+	            },
+	            tststop : function(productservice){
+	                return productservice.tststop();
 	            }
 	            
 	        }
@@ -61913,7 +61926,7 @@
 /* 117 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>销售品名称</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <label>景区编号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_code\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建销售品</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\n  <!-- Default panel contents -->\n  <div class=\"panel-heading\">{{tkttype.viewname}} ({{tkttype.viewcode}})</div>\n\n  <div class=\"panel-body\">\n    <uib-tabset >\n\n      <uib-tab index=\"$index\" ng-repeat=\"state in tkttype.state\"\n      heading=\"{{state.title}}\"  active=\"true\"\n      >\n\n        <uib-tabset \n        >\n\n        <uib-tab index=\"$index\" ng-repeat=\"category in state.category\"\n        heading=\"{{category.title}}\" \n        \n        >\n\n        <table class=\"table table-bordered \">\n          <thead>\n            <tr>\n              <th class=\"col-md-2 text-center\">销售品名称</th>\n              <th class=\"col-md-1 text-center\">销售品编号</th>\n              <th class=\"col-md-2 text-center\">销售品分类</th>\n              <th class=\"col-md-1 text-center\">销售品状态</th>\n              <th class=\"col-md-1 text-center\">市场价</th>\n              <th class=\"col-md-1 text-center\">指导价</th>\n              <th class=\"col-md-1 text-center\">分销商成本</th>\n              <th class=\"col-md-1 text-center\">排序</th>\n              <th class=\"col-md-2 text-center\">操作</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr ng-repeat=\"obj in category.salearr\">\n              <td class=\"\">{{obj.name}}</td>\n              <td class=\"text-center\">{{obj.code}}</td>\n              <td class=\"text-center\">{{obj.sale_category_name}}</td>\n              <td class=\"text-center\">{{obj.state_name}}</td>\n              <td class=\"text-center\">{{obj.market_price * 0.01 | currency : '￥'}}</td>\n              <td class=\"text-center\">{{obj.guide_price * 0.01 | currency : '￥'}}</td>\n              <td class=\"text-center\">{{obj.cost_price * 0.01 | currency : '￥'}}</td>\n              <td class=\"text-center\">\n                <input class=\"input-sm\" \n                  style=\"height:22px; width:50px; border:1px solid;\" \n                  type=\"text\" \n                  value=\"{{obj.asort}}\" \n                  ng-model=\"obj.asort\">\n                <a ng-click=\"asort(obj.id, obj.asort)\" class=\"btn btn-info btn-xs\">go</a> \n              </td>\n              <td class=\"text-center\">\n                <a ng-show=\"obj.state=='1'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">下架</a>\n                <a ng-show=\"obj.state=='0' || obj.state=='2'\" ng-click=\"start(obj.id)\" class=\"btn btn-danger btn-xs\">上架</a>\n                <a ng-click=\"edit(obj.id)\" ng-show=\"obj.state=='0' || obj.state == '2'\" class=\"btn btn-success btn-xs\">编辑</a>\n                <a ng-show=\"obj.used_state=='1'\" ng-click=\"usedstart(obj.id)\" class=\"btn btn-primary btn-xs\">允许消票</a>\n                <a ng-show=\"obj.used_state=='0'\" ng-click=\"usedstop(obj.id)\" class=\"btn btn-danger btn-xs\">禁止消票</a>\n                <a ng-click=\"info(obj.id)\" ng-show=\"obj.state == '1'\" class=\"btn btn-warning btn-xs\">详情</a>\n                <!-- <a ng-click=\"distribution(obj.id)\" class=\"btn btn-default btn-xs\">分配经销商</a> -->\n                  \n                <!-- <a uib-popover=\"{{obj.book_info}}\" popover-title=\"预订需知\" type=\"button\" class=\"btn btn-default btn-xs\" uib-popover=\"On the left\">预订需知</a> -->\n              </td>\n            </tr>\n          </tbody>\n        </table>\n\n        </uib-tab>\n     \n      \n        </uib-tabset>\n\n\n      </uib-tab>\n     \n      \n    </uib-tabset>\n  </div>\n\n  \n  \n</div>\n  \n\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>销售品名称</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <label>景区编号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_code\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建销售品</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\n  <!-- Default panel contents -->\n  <div class=\"panel-heading\">{{tkttype.viewname}} ({{tkttype.viewcode}})</div>\n\n  <div class=\"panel-body\">\n    <uib-tabset >\n\n      <uib-tab index=\"$index\" ng-repeat=\"state in tkttype.state\"\n      heading=\"{{state.title}}\"  active=\"true\"\n      >\n\n        <uib-tabset \n        >\n\n        <uib-tab index=\"$index\" ng-repeat=\"category in state.category\"\n        heading=\"{{category.title}}\" \n        \n        >\n\n        <table class=\"table table-bordered \">\n          <thead>\n            <tr>\n              <th class=\"col-md-2 text-center\">销售品名称</th>\n              <th class=\"col-md-1 text-center\">销售品编号</th>\n              <th class=\"col-md-2 text-center\">销售品分类</th>\n              <th class=\"col-md-1 text-center\">销售品状态</th>\n              <th class=\"col-md-1 text-center\">市场价</th>\n              <th class=\"col-md-1 text-center\">指导价</th>\n              <th class=\"col-md-1 text-center\">分销商成本</th>\n              <th class=\"col-md-1 text-center\">排序</th>\n              <th class=\"col-md-2 text-center\">操作</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr ng-repeat=\"obj in category.salearr\">\n              <td class=\"\">{{obj.name}}</td>\n              <td class=\"text-center\">{{obj.code}}</td>\n              <td class=\"text-center\">{{obj.sale_category_name}}</td>\n              <td class=\"text-center\">{{obj.state_name}}</td>\n              <td class=\"text-center\">{{obj.market_price * 0.01 | currency : '￥'}}</td>\n              <td class=\"text-center\">{{obj.guide_price * 0.01 | currency : '￥'}}</td>\n              <td class=\"text-center\">{{obj.cost_price * 0.01 | currency : '￥'}}</td>\n              <td class=\"text-center\">\n                <input class=\"input-sm\" \n                  style=\"height:22px; width:50px; border:1px solid;\" \n                  type=\"text\" \n                  value=\"{{obj.asort}}\" \n                  ng-model=\"obj.asort\">\n                <a ng-click=\"asort(obj.id, obj.asort)\" class=\"btn btn-info btn-xs\">go</a> \n              </td>\n              <td class=\"text-center\">\n                <a ng-show=\"obj.state=='1'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">下架</a>\n                <a ng-show=\"obj.state=='0' || obj.state=='2'\" ng-click=\"start(obj.id)\" class=\"btn btn-danger btn-xs\">上架</a>\n                <a ng-click=\"edit(obj.id)\" ng-show=\"obj.state=='0' || obj.state == '2'\" class=\"btn btn-success btn-xs\">编辑</a>\n                <a ng-show=\"obj.used_state=='1'\" ng-click=\"usedstart(obj.id)\" class=\"btn btn-primary btn-xs\">允许消票</a>\n                <a ng-show=\"obj.used_state=='0'\" ng-click=\"usedstop(obj.id)\" class=\"btn btn-danger btn-xs\">禁止消票</a>\n                <a ng-click=\"info(obj.id)\" ng-show=\"obj.state == '1'\" class=\"btn btn-warning btn-xs\">详情</a>\n                <a ng-click=\"distribution(obj.code)\" class=\"btn btn-default btn-xs\"\n                ng-show=\"obj.sale_target_type == 1\"\n                >分配经销商</a>\n                  \n                <!-- <a uib-popover=\"{{obj.book_info}}\" popover-title=\"预订需知\" type=\"button\" class=\"btn btn-default btn-xs\" uib-popover=\"On the left\">预订需知</a> -->\n              </td>\n            </tr>\n          </tbody>\n        </table>\n\n        </uib-tab>\n     \n      \n        </uib-tabset>\n\n\n      </uib-tab>\n     \n      \n    </uib-tabset>\n  </div>\n\n  \n  \n</div>\n  \n\n</div>"
 
 /***/ },
 /* 118 */
@@ -62072,6 +62085,15 @@
 	    var salejuyousubsidyupdate = BASEURL38985 + '/api/as/tc/salejuyousubsidy/update';
 	    //居游补贴详情
 	    var salejuyousubsidyinfo = BASEURL38985 + '/api/as/tc/salejuyousubsidy/info';
+	    
+	    //经销商列表
+	    var sellerList = BASEURL38985 + '/api/as/tc/ticketsaletarget/sellerList';
+	    //创建点买
+	    var tstcreate = BASEURL38985 + '/api/as/tc/ticketsaletarget/create';
+	    //可以销售
+	    var tststart = BASEURL38985 + '/api/as/tc/ticketsaletarget/updateStart';
+	    //禁止销售
+	    var tststop = BASEURL38985 + '/api/as/tc/ticketsaletarget/updateStop';
 
 	    
 	    return {
@@ -62269,6 +62291,20 @@
 	                arr1.push(arr[i].name);
 	            }
 	            return arr1.join(',');
+	        },
+
+
+	        sellerList : function(){
+	            return $resource(sellerList, {}, {});
+	        },
+	        tstcreate : function(){
+	            return $resource(tstcreate, {}, {});
+	        },
+	        tststart : function(){
+	            return $resource(tststart, {}, {});
+	        },
+	        tststop : function(){
+	            return $resource(tststop, {}, {});
 	        }
 	       
 	    };
@@ -63160,7 +63196,9 @@
 	    saledown, saleupdate, $uibModal, viewlist, salecreate, saleinfo, saleupdate, goodlist, 
 	    saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, FileUploader,
 	    salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
-	    salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo){
+	    salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, talist,
+	    sellerList, tstcreate, tststart, tststop
+	    ){
 
 		$scope.searchform = {};
 
@@ -63517,15 +63555,30 @@
 	    };
 
 
-	    $scope.distribution = function(id){
+	    $scope.distribution = function(code){
 
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(118),
-	          controller: 'tktsaleupdate',
-	          size: 'lg',
+	          template: __webpack_require__(131),
+	          controller: 'distribution',
+	          //size: 'lg',
 	          resolve: {
-	            id : function(){
-	                return id;
+	            code : function(){
+	                return code;
+	            },
+	            talist : function(){
+	                return talist;
+	            },
+	            sellerList : function(){
+	                return sellerList;
+	            },
+	            tstcreate : function(){
+	                return tstcreate;
+	            },
+	            tststart : function(){
+	                return tststart;
+	            },
+	            tststop : function(){
+	                return tststop;
 	            }
 	          }
 	        });
@@ -63543,6 +63596,12 @@
 
 /***/ },
 /* 131 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">分配经销商</h4>\n</div>\n<div class=\"modal-body\">\n    <div class=\"container-fluid form-horizontal \">\n    \t<div class=\"form-group\" >\n\t\t\t<label class=\"col-xs-4 control-label\">经销商</label>\n\t\t\t<div class=\"col-xs-6\" >\n\t\t\t\t<select class=\"form-control\" ng-model=\"obj.seller_code\" \n\t              ng-options=\"view.CODE as view.NAME for view in taarr\"\n\t            >\n\t            </select>\n\t\t\t</div>\n\t\t\t<button class=\"btn btn-success col-xs-2\" type=\"button\" ng-click=\"create()\">添加</button>\n\t\t</div>\t\n\n\n\t\t<ul class=\"list-group\">\n\t\t  <li class=\"list-group-item\"\n\t\t  \tng-repeat=\"seller in sellers\"\n\t\t  \tng-class=\"{true: 'list-group-item-success', false: 'list-group-item-danger'}[seller.state == 0]\"\n\t\t  >\t\n\t\t  \t{{seller.company_name}}\n\t\t  \t<a ng-click=\"stop(seller.seller_code)\" class=\"btn pull-right\" style=\"color: red; padding:0px;\" ng-show=\"seller.state == 0\">\n\t        \t<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\n\t      \t</a>\n\t      \t<a ng-click=\"start(seller.seller_code)\" class=\"btn pull-right\" style=\"color: green; padding:0px;\" ng-show=\"seller.state == 1\">\n\t        \t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n\t      \t</a>\n\t\t  </li>\n\t\t</ul>\n\n\t</div>\n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>"
+
+/***/ },
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, FileUploader, $uibModal,
@@ -63701,7 +63760,7 @@
 	};
 
 /***/ },
-/* 132 */
+/* 133 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupdate, goodlist, 
@@ -64066,7 +64125,7 @@
 	};
 
 /***/ },
-/* 133 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function($scope, salecategorylist, $uibModal, 
@@ -64098,7 +64157,7 @@
 	        //alert(device_code);
 
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(134),
+	          template: __webpack_require__(135),
 	          controller: 'salecategorycreate',
 	          resolve: {
 	            dictbytypelist : function(){
@@ -64143,13 +64202,13 @@
 	};
 
 /***/ },
-/* 134 */
+/* 135 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">销售品功能</h4>\n</div>\n<div class=\"modal-body\">\n\n<div class=\"container-fluid\">\n    \n    <div class=\"form-group\" >\n        <label class=\"col-xs-4 control-label\">销售品分类</label>\n        <div class=\"col-xs-8\" >\n            <select class=\"form-control\" ng-model=\"obj.sale_category_code\" \n              ng-options=\"type1.value as type1.label for type1 in typearr\"\n            >\n            </select>\n        </div>\n    </div>\n\n\n   \n    <div class=\"form-group\" >\n        <label class=\"col-xs-4 control-label\">功能</label>\n        <div class=\"col-xs-8\" >\n            <select class=\"form-control\" ng-model=\"obj.sub_table_code\" \n              ng-options=\"type2.value as type2.label for type2 in salesubarr\"\n            >\n            </select>\n        </div>\n    </div>\n\n    \n</div>\n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"gogo()\">OK</button>\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n"
 
 /***/ },
-/* 135 */
+/* 136 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, dictbytypelist, salecategoryinsert, $uibModalInstance){
@@ -64207,7 +64266,87 @@
 	};
 
 /***/ },
-/* 136 */
+/* 137 */
+/***/ function(module, exports) {
+
+	module.exports = function($scope, talist, sellerList, code, tstcreate, tststart, tststop){
+
+		$scope.obj = {};
+
+		talist().then(function(res) {
+		    console.log(res);
+			if(res.errcode === 0)
+			{
+				$scope.taarr = res.data;
+				$scope.obj.seller_code=$scope.taarr[0].CODE;
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+		});
+
+		function load(){
+			sellerList.get({'sale_code' : code}, function(res){
+
+				console.log(res);
+				if(res.errcode === 0)
+				{
+					$scope.sellers = res.data;
+				}
+				else
+				{
+					alert(res.errmsg);
+				}
+
+			});
+		}
+		load();
+
+		$scope.create = function(){
+			tstcreate.save({'sale_code' : code, 'company_code' : $scope.obj.seller_code}, function(res){
+				if(res.errcode === 0)
+				{
+					load();
+				}
+				else
+				{
+					alert(res.errmsg);
+				}
+
+			});
+		};
+
+		$scope.start = function(sellercode){
+			tststart.save({'sale_code' : code, 'company_code' : sellercode}, function(res){
+				if(res.errcode === 0)
+				{
+					load();
+				}
+				else
+				{
+					alert(res.errmsg);
+				}
+			});
+		};
+
+		$scope.stop = function(sellercode){
+			tststop.save({'sale_code' : code, 'company_code' : sellercode}, function(res){
+				if(res.errcode === 0)
+				{
+					load();
+				}
+				else
+				{
+					alert(res.errmsg);
+				}
+			});
+		};
+		
+	};
+
+/***/ },
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -64217,19 +64356,19 @@
 
 	var App = angular.module('view', []);
 
-	App.config(__webpack_require__(137));
-	App.factory('viewservice', __webpack_require__(140));
+	App.config(__webpack_require__(139));
+	App.factory('viewservice', __webpack_require__(142));
 
-	App.controller('viewlist',__webpack_require__(141));
-	App.controller('viewedit',__webpack_require__(142));
-	App.controller('viewcreate',__webpack_require__(143));
+	App.controller('viewlist',__webpack_require__(143));
+	App.controller('viewedit',__webpack_require__(144));
+	App.controller('viewcreate',__webpack_require__(145));
 	// App.controller('info',require('./controllers/info'));
 
 
 	module.exports = App;
 
 /***/ },
-/* 137 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -64244,7 +64383,7 @@
 	 	  .state('app.viewlist', {
 	        url: '/viewlist',
 	        controller : 'viewlist',
-	        template: __webpack_require__(138),
+	        template: __webpack_require__(140),
 	        resolve:{
 	            viewupdate : function(viewservice){
 	                return viewservice.update();
@@ -64258,7 +64397,7 @@
 	      .state('app.createview', {
 	        url: '/view',
 	        controller : 'viewcreate',
-	        template: __webpack_require__(139),
+	        template: __webpack_require__(141),
 	        resolve:{
 	            placecreate : function(placeservice){
 	                return placeservice.create();
@@ -64276,7 +64415,7 @@
 	      .state('app.editview', {
 	        url: '/view/:placeid',
 	        controller : 'viewedit',
-	        template: __webpack_require__(139),
+	        template: __webpack_require__(141),
 	        resolve:{
 	            placeinfo : function(placeservice){
 	                return placeservice.info();
@@ -64304,19 +64443,19 @@
 	module.exports = router;
 
 /***/ },
-/* 138 */
+/* 140 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>景区名称</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <label>景区编号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建景区</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-5 text-center\">景区名称</th>\n        <th class=\"col-md-1 text-center\">景区编号</th>\n        <th class=\"col-md-1 text-center\">星级</th>\n        <th class=\"col-md-2 text-center\">排序</th>\n        <th class=\"col-md-3 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"\">{{obj.name}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">{{obj.star}}</td>\n        <td class=\"form-horizontal \">\n          <div class=\"col-sm-6\">\n            <input class=\"form-control input-sm\" \n            style=\"height:22px;\" \n            type=\"text\" \n            value=\"{{obj.asort}}\" \n            ng-model=\"obj.asort\">\n          </div>\n          <a ng-click=\"asort(obj.id, obj.asort)\" class=\"btn btn-info btn-xs\">gogo</a> \n        </td>\n        <td class=\"text-center\">\n          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\n          <a ng-click=\"type(obj.code)\" class=\"btn btn-danger btn-xs\">票种管理</a>\n          <a ng-click=\"device(obj.code)\" class=\"btn btn-primary btn-xs\">配置设备</a>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
 
 /***/ },
-/* 139 */
+/* 141 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-xs-10 col-xs-offset-1\" >\n\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t基本信息\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\t\t\tng-click=\"placego()\"\n\t\t\t\tng-show=\"placeobjstate === 1\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-success pull-right\"\n\t\t\t\tng-click=\"placeedit()\"\n\t\t\t\tng-show=\"placeobjstate === 0\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t<div class=\"container-fluid\">\n\t\t\t<!-- 编辑状态 -->\n\t\t\t<div ng-show=\"placeobjstate === 1\">\n\t\t\t\t<div class=\"col-xs-8\" >\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">名称</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入名称\"\n\t\t\t\t\t\t\tng-model=\"placeobj.name\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">地址</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"placeobj.address\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">简介</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<textarea class=\"form-control\" rows=\"4\"\n\t\t\t\t\t\t\tng-model=\"placeobj.content\"\n\t\t\t\t\t\t\t></textarea>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">营业时间</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"placeobj.open_time\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">省</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"placeobj.province\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<!-- <div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">市</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"placeobj.city\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div> -->\n\t\t\t\t\t<div class=\"form-group\" >\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">市</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\" >\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"placeobj.city\" \n\t\t\t\t              ng-options=\"city.CODE as city.NAME for city in cityarr\"\n\t\t\t\t            >\n\t\t\t\t            </select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">区</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"placeobj.area\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">经度</label>\n\t\t\t\t\t\t<div class=\"col-xs-4\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"\n\t\t\t\t\t\t\tng-model=\"placeobj.longitude\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">纬度</label>\n\t\t\t\t\t\t<div class=\"col-xs-4\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\"\n\t\t\t\t\t\t\tng-model=\"placeobj.latitude\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"col-xs-4\">\n\n\t\t\t\t\t<label class=\"control-label\">logo</label>\n\t\t\t\t\t<img ng-src=\"{{placeobj.logo}}\" width=\"150\" height=\"150\" ng-model=\"placeobj.logo\">\n\t\t\t\t\t<input type=\"file\" nv-file-select uploader=\"uploader1\" /><br/>\n\t\t\t\t\t<ul class=\"list-group\">\n\t\t\t\t\t    <li class=\"list-group-item\" ng-repeat=\"item in uploader1.queue\">\n\t\t\t\t\t        文件名: <span ng-bind=\"item.file.name\"></span>\n\t\t\t\t\t        <button type=\"button\" class=\"btn btn-default btn-xs\"  ng-click=\"item.upload()\"><span class=\"glyphicon glyphicon-upload\"></span> 上传</button>\n\t\t\t\t\t        <div class=\"progress mt10\">\n\t\t\t\t\t            <div class=\"progress-bar\" role=\"progressbar\" ng-style=\"{ 'width': uploader1.progress + '%' }\"></div>\n\t\t\t\t\t        </div>\n\t\t\t\t\t    </li>\n\t\t\t\t\t</ul>\n\n\t\t\t\t\t<label class=\"control-label\">景区顶图</label>\n\t\t\t\t\t<img ng-src=\"{{placeobj.img}}\" width=\"100%\" height=\"200\" ng-model=\"placeobj.img\">\n\t\t\t\t\t<input type=\"file\" nv-file-select uploader=\"uploader2\" /><br/>\n\t\t\t\t\t<ul class=\"list-group\">\n\t\t\t\t\t    <li class=\"list-group-item\" ng-repeat=\"item in uploader2.queue\">\n\t\t\t\t\t        文件名: <span ng-bind=\"item.file.name\"></span>\n\t\t\t\t\t        <button type=\"button\" class=\"btn btn-default btn-xs\"  ng-click=\"item.upload()\"><span class=\"glyphicon glyphicon-upload\"></span> 上传</button>\n\t\t\t\t\t        <div class=\"progress mt10\">\n\t\t\t\t\t            <div class=\"progress-bar\" role=\"progressbar\" ng-style=\"{ 'width': uploader2.progress + '%' }\"></div>\n\t\t\t\t\t        </div>\n\t\t\t\t\t    </li>\n\t\t\t\t\t</ul>\n\n\t\t\t\t</div>\n\n\t\t\t</div>\n\n\n\t\t\t<!-- 展示状态 -->\n\t\t\t<div ng-show=\"placeobjstate === 0\">\n\t\t\t\t<div class=\"col-xs-8\" >\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">名称</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.name}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">地址</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.address}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">简介</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.content}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">营业时间</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.open_time}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">省</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.province}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">市</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.cityname}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">区</label>\n\t\t\t\t\t\t<div class=\"col-xs-10\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.area}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">经度</label>\n\t\t\t\t\t\t<div class=\"col-xs-4\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.longitude}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<label class=\"col-xs-2 control-label\">纬度</label>\n\t\t\t\t\t\t<div class=\"col-xs-4\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{placeobj.latitude}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"col-xs-4\">\n\n\t\t\t\t\t<label class=\"control-label\">logo</label>\n\t\t\t\t\t<img ng-src=\"{{placeobj.logo}}\" width=\"150\" height=\"150\" ng-model=\"placeobj.logo\">\n\t\t\t\t\t<!-- <p class=\"form-control-static\">{{placeobj.logo}}</p><br> -->\n\t\t\t\t\t<br><br>\n\t\t\t\t\t<label class=\"control-label\">景区顶图</label>\n\t\t\t\t\t<img ng-src=\"{{placeobj.img}}\" width=\"100%\" height=\"200\" ng-model=\"placeobj.img\">\n\t\t\t\t\t<!-- <p class=\"form-control-static\">{{placeobj.img}}</p><br> -->\n\n\t\t\t\t</div>\n\n\t\t\t</div>\n\n\t\t</div>\n\t\t</div>\n\n\t</div>\n\n\n</div>\n\n\n\n\n\n\n<div class=\"col-xs-10 col-xs-offset-1\"\n\tng-show=\"placeobj.id != ''\"\n >\n\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t景区信息\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-info pull-right\"\n\t\t\t\tng-click=\"viewgo()\"\n\t\t\t\tng-show=\"viewobjstate === 1\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\n\t\t\t<button type=\"button\" \n\t\t\t\tclass=\"btn btn-xs btn-success pull-right\"\n\t\t\t\tng-click=\"viewedit()\"\n\t\t\t\tng-show=\"viewobjstate === 0\"\n\t\t\t>\n\t\t\t\t<span class=\"glyphicon glyphicon-edit\" aria-hidden=\"true\"></span>\n\t\t\t</button>\n\t\t\t\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t<div class=\"container-fluid\">\n\t\t\t<!-- 编辑状态 -->\n\t\t\t<div ng-show=\"viewobjstate === 1\">\n\t\t\t\t<div class=\"col-xs-6\">\n\t\t\t\t\t\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">主题</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<!-- <select class=\"form-control\" ng-model=\"viewobj.theme\" \n\t\t\t\t              ng-options=\"view.code as view.name for view in viewarr\"\n\t\t\t\t            >\n\t\t\t\t            </select> -->\n\t\t\t\t            <input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.theme\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">子名称</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.subname\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">开放日期</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.open_date\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">服务承诺</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<textarea class=\"form-control\" rows=\"3\"\n\t\t\t\t\t\t\tng-model=\"viewobj.promise\"\n\t\t\t\t\t\t\t></textarea>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">预订须知</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<textarea class=\"form-control\" rows=\"3\"\n\t\t\t\t\t\t\tng-model=\"viewobj.book_info\"\n\t\t\t\t\t\t\t></textarea>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">星级</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<select class=\"form-control\" ng-model=\"viewobj.star\" >\n\t\t\t\t\t\t\t\t<option value=\"1\">1</option>\n\t\t\t\t\t\t\t\t<option value=\"2\">2</option>\n\t\t\t\t\t\t\t\t<option value=\"3\">3</option>\n\t\t\t\t\t\t\t\t<option value=\"4\">4</option>\n\t\t\t\t\t\t\t\t<option value=\"5\">5</option>\n\t\t\t\t            </select>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"col-xs-6\">\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">好评</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.ev_good\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">一般评价</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.ev_general\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">差评</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.ev_bad\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">全景地址</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.view720_url\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">电子杂志</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.ebook_url\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">优惠政策</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.fav_policy\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">提前时间(小时）</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.bef_hour\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">排序</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" \n\t\t\t\t\t\t\tng-model=\"viewobj.asort\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\t\t\t</div>\n\n\n\n\t\t\t<!-- 展示状态 -->\n\t\t\t<div ng-show=\"viewobjstate === 0\">\n\t\t\t\t<div class=\"col-xs-6\">\n\t\t\t\t\t\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">主题</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<!-- <select class=\"form-control\" ng-model=\"viewobj.theme\" \n\t\t\t\t              ng-options=\"view.code as view.name for view in viewarr\"\n\t\t\t\t            >\n\t\t\t\t            </select> -->\n\t\t\t\t            <p class=\"form-control-static\">{{viewobj.theme}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">子名称</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.subname}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">开放日期</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.open_date}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">服务承诺</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.promise}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">预订须知</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.book_info}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">星级</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.star}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"col-xs-6\">\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">好评</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.ev_good}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">一般评价</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.ev_general}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">差评</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.ev_bad}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">全景地址</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.view720_url}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">电子杂志</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.ebook_url}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">优惠政策</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.fav_policy}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">提前时间(小时）</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.bef_hour}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t<label class=\"col-xs-3 control-label\">排序</label>\n\t\t\t\t\t\t<div class=\"col-xs-9\">\n\t\t\t\t\t\t\t<p class=\"form-control-static\">{{viewobj.asort}}</p>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\n\t\t\t\t</div>\n\t\t\t</div>\n\n\n\t\t</div>\n\n\t\t</div>\n\t</div>\n\n\n</div>"
 
 /***/ },
-/* 140 */
+/* 142 */
 /***/ function(module, exports) {
 
 	/**
@@ -64381,7 +64520,7 @@
 	module.exports = service;
 
 /***/ },
-/* 141 */
+/* 143 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE){
@@ -64475,7 +64614,7 @@
 	};
 
 /***/ },
-/* 142 */
+/* 144 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, FileUploader, placeinfo, placeupdate, viewinfo, viewupdate, city){
@@ -64637,7 +64776,7 @@
 	};
 
 /***/ },
-/* 143 */
+/* 145 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, placecreate, viewcreate, FileUploader, city){
@@ -64773,7 +64912,7 @@
 	};
 
 /***/ },
-/* 144 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -64783,8 +64922,8 @@
 
 	var App = angular.module('place', []);
 
-	App.config(__webpack_require__(145));
-	App.factory('placeservice', __webpack_require__(146));
+	App.config(__webpack_require__(147));
+	App.factory('placeservice', __webpack_require__(148));
 
 	//App.controller('createplace',require('./controllers/createplace'));
 	// App.controller('doccreate',require('./controllers/module'));
@@ -64795,7 +64934,7 @@
 	module.exports = App;
 
 /***/ },
-/* 145 */
+/* 147 */
 /***/ function(module, exports) {
 
 	/**
@@ -64834,7 +64973,7 @@
 	module.exports = router;
 
 /***/ },
-/* 146 */
+/* 148 */
 /***/ function(module, exports) {
 
 	/**
@@ -64868,7 +65007,7 @@
 	module.exports = service;
 
 /***/ },
-/* 147 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -64878,20 +65017,20 @@
 
 	var App = angular.module('account', []);
 
-	App.config(__webpack_require__(148));
-	App.factory('accountservice', __webpack_require__(151));
+	App.config(__webpack_require__(150));
+	App.factory('accountservice', __webpack_require__(153));
 
-	App.controller('account',__webpack_require__(152));
-	App.controller('createaccount',__webpack_require__(156));
-	App.controller('changepassword',__webpack_require__(157));
-	App.controller('editaccount',__webpack_require__(158));
-	App.controller('mechanism',__webpack_require__(159));
+	App.controller('account',__webpack_require__(154));
+	App.controller('createaccount',__webpack_require__(158));
+	App.controller('changepassword',__webpack_require__(159));
+	App.controller('editaccount',__webpack_require__(160));
+	App.controller('mechanism',__webpack_require__(161));
 
 
 	module.exports = App;
 
 /***/ },
-/* 148 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -64906,7 +65045,7 @@
 	 	  .state('app.account', {
 	        url: '/account',
 	        controller : 'account',
-	        template: __webpack_require__(149),
+	        template: __webpack_require__(151),
 	        resolve:{
 	            mechanism : function(accountservice){
 	                return accountservice.mechanism();
@@ -64936,7 +65075,7 @@
 	      .state('app.changepassword', {
 	        url: '/changepassword',
 	        controller : 'changepassword',
-	        template: __webpack_require__(150),
+	        template: __webpack_require__(152),
 	        resolve:{
 	            changepassword : function(accountservice){
 	                return accountservice.changepassword();
@@ -64973,19 +65112,19 @@
 	module.exports = router;
 
 /***/ },
-/* 149 */
+/* 151 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- Nested node template -->\n<script type=\"text/ng-template\" id=\"nodes_renderer.html\">\n  <div ui-tree-handle class=\"tree-node tree-node-content\"\n  \tng-click=\"getit(this)\"\n  >\n    <a class=\"btn btn-success btn-xs\" ng-if=\"node.nodes && node.nodes.length > 0\" \n    data-nodrag ng-click=\"toggle(this)\">\n    <span class=\"glyphicon\"\n        ng-class=\"{\n          'glyphicon-chevron-right': collapsed,\n          'glyphicon-chevron-down': !collapsed\n        }\"></span></a>\n    {{node.name}} （{{node.code}}）\n    <!-- <a class=\"pull-right btn btn-danger btn-xs\" data-nodrag ng-click=\"remove(this)\"><span\n        class=\"glyphicon glyphicon-remove\"></span></a> -->\n    <!-- <a class=\"pull-right btn btn-primary btn-xs\" data-nodrag \n    ng-click=\"newSubItem(this,$event)\" style=\"margin-right: 8px;\">\n    \t<span class=\"glyphicon glyphicon-plus\"></span>\n    </a> -->\n  </div>\n  <ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\">\n    <li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'nodes_renderer.html'\">\n    </li>\n  </ol>\n</script>\n\n<div class=\"row\">\n  <div class=\"col-sm-4\">\n  \t<div class=\"col-sm-12\">\n\t  \t<button type=\"button\" class=\"btn btn-default\" ng-click=\"createstb()\">\n\t  \t\t创建同业社\n\t  \t</button>\n\t  \t<button type=\"button\" class=\"btn btn-default\" ng-click=\"create()\">\n\t  \t\t创建新用户\n\t  \t</button>\n  \t</div>\n  \t<div class=\"col-sm-12\">\n\t    <div ui-tree id=\"tree-root\" data-nodrop-enabled=\"true\" data-drag-enabled=\"false\">\n\t      <ol ui-tree-nodes ng-model=\"data\">\n\t        <li ng-repeat=\"node in data\" ui-tree-node ng-include=\"'nodes_renderer.html'\"></li>\n\t      </ol>\n\t    </div>\n    </div>\n\n  </div>\n\n  <div class=\"col-sm-8\" ng-show=\"officeid != ''\">\n    \n    <!-- <pre class=\"code\">{{ data | json }}</pre> -->\n\n    <!-- <pre class=\"code\">{{ show | json }}</pre> -->\n\n      <table class=\"table table-bordered\">\n\t    <thead>\n\t      <tr>\n\t        <th class=\"col-md-3 text-center\">登录名</th>\n\t        <th class=\"col-md-3 text-center\">姓名</th>\n\t        <th class=\"col-md-3 text-center\">电话</th>\n\t        <th class=\"col-md-3 text-center\">操作</th>\n\t      </tr>\n\t    </thead>\n\t    <tbody>\n\t      <tr ng-repeat=\"obj in objs\">\n\t        <td class=\"text-center\">{{obj.loginName}}</td>\n\t        <td class=\"text-center\">{{obj.name}}</td>\n\t        <td class=\"text-center\">{{obj.mobile}}</td>\n\t        <td class=\"text-center\">\n\t          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\"\n\t          \tng-show=\"editshow == true\"\n\t          >编辑</a>\n\t        </td>\n\t      </tr>\n\t      <!-- <tr ng-show=\"objs == undefined\">\n\t        <td class=\"text-center\"></td>\n\t        <td class=\"text-center\"></td>\n\t        <td class=\"text-center\"></td>\n\t        <td class=\"text-center\">\n\t          <a ng-click=\"default()\" class=\"btn btn-danger btn-xs\"\n\t          >创建默认帐号</a>\n\t        </td>\n\t      </tr> -->\n\n\t    </tbody>\n\t  </table>\n\n\t<div class=\"text-right\">\n\n\t    <uib-pagination \n\t      total-items=\"bigTotalItems\" \n\t      ng-model=\"bigCurrentPage\" \n\t      max-size=\"maxSize\" \n\t      class=\"pagination-sm\" \n\t      boundary-links=\"true\" \n\t      ng-change=\"load()\"\n\t      items-per-page=\"itemsPerPage\"\n\t      previous-text=\"上一页\"\n\t      next-text=\"下一页\"\n\t      first-text=\"首页\"\n\t      last-text=\"末页\"\n\t      rotate=\"false\">\n\t    </uib-pagination>\n\n  </div>\n\n\n  </div>\n</div>\n"
 
 /***/ },
-/* 150 */
+/* 152 */
 /***/ function(module, exports) {
 
 	module.exports = "\n\n<div class=\" col-md-6  col-md-offset-3 mt10\">\n<div class=\"panel panel-success\">\n\t<div class=\"panel-heading  \">修改密码</div>\n\n\t<div class=\"panel-body\">\n\t\t<form class=\"form-horizontal\">\n\n\t\t  <div class=\"form-group mt10 input-lg\">\n\t\t    <div class=\"col-sm-3 control-label\">旧密码</div>\n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"password\" class=\"form-control\" ng-model=\"obj.oldPassword\" placeholder=\"输入旧密码\">\n\t\t    </div>\n\t\t  </div>\n\n\t\t  <div class=\"form-group mt10 input-lg\">\n\t\t    <div class=\"col-sm-3 control-label\">新密码</div>\n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"password\" class=\"form-control\" ng-model=\"obj.newPassword\" placeholder=\"输入新密码\">\n\t\t    </div>\n\t\t  </div>\n\n\t\t  <div class=\"form-group mt10 input-lg\" >\n\t\t    <div class=\"col-sm-3 control-label\">确认新密码</div>\n\t\t    <div class=\"col-sm-9\">\n\t\t      <input type=\"password\" class=\"form-control\" ng-model=\"obj.newPassword2\" placeholder=\"确认新密码\">\n\t\t    </div>\n\t\t  </div>\n\n\t\t  <div class=\"form-group input-lg\">\n\n\t\t    <div class=\"col-sm-12\">\n\t\t    \t<button type=\"button\" \n\t\t    \tclass=\"btn btn-success btn-block\"\n\t\t    \tng-click=\"gogo()\">确定</button>\n\t\t    </div>\n\t\t  </div>\n\n\t\t  <div class=\"alert alert-warning\" role=\"alert\">初始密码'000000'</div>\n\t\t  \n\t\t</form>\n\t</div>\n</div>\n</div>\n\n\n"
 
 /***/ },
-/* 151 */
+/* 153 */
 /***/ function(module, exports) {
 
 	/**
@@ -65043,7 +65182,7 @@
 	module.exports = service;
 
 /***/ },
-/* 152 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function($scope, $state, mechanism, $uibModal, create, 
@@ -65164,7 +65303,7 @@
 	    function createmodal()
 	    {
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(153),
+	          template: __webpack_require__(155),
 	          controller: 'createaccount',
 	          resolve: {
 	            code : function(){
@@ -65200,7 +65339,7 @@
 	    function editmodal(id){
 
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(154),
+	          template: __webpack_require__(156),
 	          controller: 'editaccount',
 	          resolve: {
 	            id : function(){
@@ -65242,7 +65381,7 @@
 	    $scope.createstb = function () {
 	        
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(155),
+	          template: __webpack_require__(157),
 	          controller: 'mechanism',
 	          resolve: {
 	            createmechanism : function(){
@@ -65305,25 +65444,25 @@
 	};
 
 /***/ },
-/* 153 */
+/* 155 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">用户信息</h4>\n</div>\n<div class=\"modal-body\">\n\n    <div class=\"container-fluid\">\n        \n        <form class=\"col-xs-11 col-xs-offset-1 form-horizontal\" >\n    \n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">登录名</label>\n                <div class=\"col-xs-6 form-horizontal\">\n                    <span class=\"col-sm-5 control-label\" \n                    style=\"padding-left: 0px; padding-right: 2px;\" \n                    >{{code}} + </span>\n                    <div class=\"col-sm-7\" style=\"padding-left: 2px;\" >\n                      <input type=\"text\" \n                        class=\"form-control\" placeholder=\"必填\"\n                        ng-model=\"obj.loginName\" \n                        >\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">密码</label>\n                <div class=\"col-xs-6\">\n                    <p class=\"form-control-static text-danger\">默认'000000'请尽快修改</p>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">姓名</label>\n                <div class=\"col-xs-6\">\n                    <input type=\"text\" \n                    class=\"form-control\" placeholder=\"必填\"\n                    ng-model=\"obj.name\"\n                    >\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">电话</label>\n                <div class=\"col-xs-6\">\n                    <input type=\"text\" class=\"form-control\"\n                    ng-model=\"obj.phone\"\n                    >\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">备注</label>\n                <div class=\"col-xs-6\">\n                    <input type=\"text\" class=\"form-control\"\n                    ng-model=\"obj.remarks\"\n                    >\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">角色</label>\n                <div class=\"col-xs-6 \">\n                    <div class=\"checkbox\" ng-repeat=\"obj in objs\">\n                      <label>\n                        <input type=\"checkbox\" name=\"role\" value=\"{{obj.id}}\"\n                        ng-click=\"selection($event,obj)\"\n                        >\n                        {{obj.name}}\n                      </label>\n                    </div>\n                </div>\n            </div>\n\n        </form>\n\n    </div>\n    \n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n"
 
 /***/ },
-/* 154 */
+/* 156 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">用户信息</h4>\n</div>\n<div class=\"modal-body\">\n\n    <div class=\"container-fluid\">\n        \n        <form class=\"col-xs-11 col-xs-offset-1 form-horizontal\" >\n    \n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">登录名</label>\n                <div class=\"col-xs-6 form-horizontal\">\n                    <p class=\"form-control-static\">{{obj.loginName}}</p>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">姓名</label>\n                <div class=\"col-xs-6\">\n                    <input type=\"text\" \n                    class=\"form-control\" placeholder=\"必填\"\n                    ng-model=\"obj.name\"\n                    >\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">电话</label>\n                <div class=\"col-xs-6\">\n                    <input type=\"text\" class=\"form-control\"\n                    ng-model=\"obj.phone\"\n                    >\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">备注</label>\n                <div class=\"col-xs-6\">\n                    <input type=\"text\" class=\"form-control\"\n                    ng-model=\"obj.remarks\"\n                    >\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">角色</label>\n                <div class=\"col-xs-6 \">\n                    <div class=\"checkbox\" ng-repeat=\"roleobj in objs\">\n                      <label>\n                        <input type=\"checkbox\" name=\"role\" value=\"{{roleobj.id}}\"\n                        ng-click=\"selection($event,roleobj)\"\n                        ng-checked=\"roleobj.iselected == 1\"\n                        >\n                        {{roleobj.name}}\n                      </label>\n                    </div>\n                </div>\n            </div>\n\n        </form>\n\n    </div>\n    \n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n"
 
 /***/ },
-/* 155 */
+/* 157 */
 /***/ function(module, exports) {
 
 	module.exports = "\n\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">机构名称</h4>\n</div>\n<div class=\"modal-body\">\n\n    <div class=\"container-fluid form-horizontal \">\n        <div class=\"col-xs-12\">\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-3 control-label\">旅行社名称</label>\n                <div class=\"col-xs-9\">\n                    <input type=\"text\" class=\"form-control\" ng-model=\"name\" >\n                </div>\n            </div>\n\n        </div>\n\n    </div>\n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n\n"
 
 /***/ },
-/* 156 */
+/* 158 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $uibModalInstance, create, 
@@ -65420,7 +65559,7 @@
 	};
 
 /***/ },
-/* 157 */
+/* 159 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, changepassword){
@@ -65449,7 +65588,7 @@
 	};
 
 /***/ },
-/* 158 */
+/* 160 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $uibModalInstance, id, role, info, create, officeid, officename){
@@ -65558,7 +65697,7 @@
 	};
 
 /***/ },
-/* 159 */
+/* 161 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope,  createmechanism, $uibModalInstance, create, createdeposit){
@@ -65633,7 +65772,7 @@
 	};
 
 /***/ },
-/* 160 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -65643,10 +65782,10 @@
 
 	var App = angular.module('member', []);
 
-	App.config(__webpack_require__(161));
-	App.factory('memberservice', __webpack_require__(163));
+	App.config(__webpack_require__(163));
+	App.factory('memberservice', __webpack_require__(165));
 
-	App.controller('unicomuser',__webpack_require__(164));
+	App.controller('unicomuser',__webpack_require__(166));
 	// App.controller('doccreate',require('./controllers/module'));
 	// App.controller('doc',require('./controllers/doc'));
 	// App.controller('info',require('./controllers/info'));
@@ -65655,7 +65794,7 @@
 	module.exports = App;
 
 /***/ },
-/* 161 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -65670,7 +65809,7 @@
 	 	  .state('app.juyoumember', {
 	        url: '/unicomuser',
 	        controller : 'unicomuser',
-	        template: __webpack_require__(162),
+	        template: __webpack_require__(164),
 	        resolve:{
 	            userinfo : function(memberservice){
 	                return memberservice.userinfo();
@@ -65694,13 +65833,13 @@
 	module.exports = router;
 
 /***/ },
-/* 162 */
+/* 164 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>手机号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n\n                <label>\n                  <input type=\"checkbox\" ng-model=\"usedate\" \n                    ng-true-value=\"1\" ng-false-value=\"0\"\n                  >\n                  查询时间</label>&nbsp;&nbsp;\n\n                <div class=\"input-group\">\n                <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                    <span class=\"input-group-btn\">\n                      <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                    </span>\n                </div>\n                      &nbsp;&nbsp;到&nbsp;&nbsp;            \n                <div class=\"input-group\">\n                <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                    <span class=\"input-group-btn\">\n                      <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                    </span>\n                </span>\n                </div>\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-4 text-center\">查询手机号</th>\n        <th class=\"col-md-4 text-center\">查询时间</th>\n        <th class=\"col-md-4 text-center\">查询结果</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.mobile}}</td>\n        <td class=\"text-center\">{{obj.date}}</td>\n        <td class=\"text-center\">{{msg[obj.status]}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
 
 /***/ },
-/* 163 */
+/* 165 */
 /***/ function(module, exports) {
 
 	/**
@@ -65727,7 +65866,7 @@
 	module.exports = service;
 
 /***/ },
-/* 164 */
+/* 166 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, userinfo, getDate){
@@ -65785,7 +65924,7 @@
 	};
 
 /***/ },
-/* 165 */
+/* 167 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -65795,15 +65934,15 @@
 
 	var App = angular.module('sale', []);
 
-	App.config(__webpack_require__(166));
-	App.factory('sellingservice', __webpack_require__(171));
+	App.config(__webpack_require__(168));
+	App.factory('sellingservice', __webpack_require__(173));
 
-	App.controller('selling',__webpack_require__(172));
-	App.controller('sellinggroup',__webpack_require__(173));
-	App.controller('sellinggroupcreate',__webpack_require__(174));
-	App.controller('sellinggroupupdate',__webpack_require__(176));
-	App.controller('sellingdetail',__webpack_require__(177));
-	App.controller('saledetail',__webpack_require__(178));
+	App.controller('selling',__webpack_require__(174));
+	App.controller('sellinggroup',__webpack_require__(175));
+	App.controller('sellinggroupcreate',__webpack_require__(176));
+	App.controller('sellinggroupupdate',__webpack_require__(178));
+	App.controller('sellingdetail',__webpack_require__(179));
+	App.controller('saledetail',__webpack_require__(180));
 	// App.controller('doccreate',require('./controllers/module'));
 	// App.controller('doc',require('./controllers/doc'));
 	// App.controller('info',require('./controllers/info'));
@@ -65812,7 +65951,7 @@
 	module.exports = App;
 
 /***/ },
-/* 166 */
+/* 168 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -65827,7 +65966,7 @@
 	 	  .state('app.selling', {
 	        url: '/selling/:type',
 	        controller : 'selling',
-	        template: __webpack_require__(167),
+	        template: __webpack_require__(169),
 	        resolve:{
 	            namelist : function(sellingservice){
 	                return sellingservice.namelist();
@@ -65854,7 +65993,7 @@
 	      .state('app.sellinggroup', {
 	        url: '/sellinggroup/:type',
 	        controller : 'sellinggroup',
-	        template: __webpack_require__(168),
+	        template: __webpack_require__(170),
 	        resolve:{
 	            grouplist : function(sellingservice){
 	                return sellingservice.grouplist();
@@ -65876,7 +66015,7 @@
 	      .state('app.createsellinggroup', {
 	        url: '/createsellinggroup',
 	        controller : 'sellinggroupcreate',
-	        template: __webpack_require__(169),
+	        template: __webpack_require__(171),
 	        resolve:{
 	            groupsalelist : function(sellingservice){
 	                return sellingservice.groupsalelist;
@@ -65899,7 +66038,7 @@
 	      .state('app.editsellinggroup', {
 	        url: '/editsellinggroup/:code',
 	        controller : 'sellinggroupupdate',
-	        template: __webpack_require__(169),
+	        template: __webpack_require__(171),
 	        resolve:{
 	            groupsalelist : function(sellingservice){
 	                return sellingservice.groupsalelist;
@@ -65922,7 +66061,7 @@
 	      .state('app.sellingdetail', {
 	        url: '/sellingdetail/:code',
 	        controller : 'sellingdetail',
-	        template: __webpack_require__(170),
+	        template: __webpack_require__(172),
 	        resolve:{
 	            groupdetail : function(sellingservice){
 	                return sellingservice.groupdetail();
@@ -65937,31 +66076,31 @@
 	module.exports = router;
 
 /***/ },
-/* 167 */
-/***/ function(module, exports) {
-
-	module.exports = "<!-- Nested node template -->\n<script type=\"text/ng-template\" id=\"nodes_renderer.html\">\n  <div ui-tree-handle class=\"tree-node tree-node-content\"\n    ng-click=\"getit(this)\" \n    ng-class=\"{'unavailable': node.unavailable, 'selected' : obj.id != undefined && node.id != undefined && obj.id == node.id} \"\n    ng-show=\"visible(this)\"\n  >\n    <a class=\"btn btn-success btn-xs\" ng-if=\"node.nodes && node.nodes.length > 0\" \n    data-nodrag ng-click=\"toggle(this)\" >\n    <span class=\"glyphicon\"\n        ng-class=\"{\n          'glyphicon-chevron-right': collapsed,\n          'glyphicon-chevron-down': !collapsed\n        }\"></span></a>&nbsp;\n    {{node.name}}\n    <p class=\"text-right\" style=\"margin-top: 5px;margin-bottom: 0px;\">\n      \n      <small ng-show=\"node.guide_price != undefined\">\n        成本价{{node.cost_price * 0.01 | currency : '¥'}} \n      </small>\n      <small ng-show=\"node.guide_price != undefined\">\n        指导价{{node.guide_price * 0.01 | currency : '¥'}} \n      </small>\n      <small ng-show=\"node.market_price != undefined\">\n        门市价{{node.market_price * 0.01 | currency : '¥'}}\n      </small>\n      <small ng-show=\"node.govsubsidy_price != undefined && node.govsubsidy_price != -1\">\n        政府补贴{{node.govsubsidy_price * 0.01 | currency : '¥'}} \n      </small>\n    </p>\n\n  </div>\n  <ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\" >\n    <li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'nodes_renderer.html'\"\n      >\n    </li>\n  </ol>\n</script>\n\n\n<!-- Nested node template -->\n<!-- <script type=\"text/ng-template\" id=\"nodes_renderer.html\">\n  <div ui-tree-handle class=\"tree-node tree-node-content\">\n    <a class=\"btn btn-success btn-xs\" data-nodrag ng-click=\"toggle(this)\">\n      <span class=\"glyphicon\"\n            ng-class=\"{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}\">\n      </span>\n    </a>\n    {{node.name}}\n    <a class=\"pull-right btn btn-danger btn-xs\" data-nodrag ng-click=\"remove(this)\"><span\n        class=\"glyphicon glyphicon-remove\"></span></a>\n    <a class=\"pull-right btn btn-primary btn-xs\" data-nodrag ng-click=\"newSubItem(this)\" style=\"margin-right: 8px;\"><span\n        class=\"glyphicon glyphicon-plus\"></span></a>\n  </div>\n  <ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\">\n    <li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'nodes_renderer.html'\" ng-show=\"visible(node)\">\n    </li>\n  </ol>\n</script> -->\n\n\n\n<div class=\"col-sm-12\" ng-show=\"sale_category == 'F11' || sale_category == 'F14'\">\n<div class=\"panel panel-default\">\n  <div class=\"panel-body\">\n      <div class=\"form-group form-inline\">\n          <div class=\"col-sm-4\">\n              <label>电话</label>&nbsp;&nbsp;\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" >\n              &nbsp;&nbsp;&nbsp;&nbsp;\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"search()\">立即搜索</button>\n          </div>\n          <div class=\"col-sm-8\" >\n              <p class=\"bg-info\" style=\"padding: 10px;\">\n                &nbsp;{{userinfo}}\n              </p>\n          </div>\n      </div>\n  </div>\n</div><!-- searchArea -->\n</div>\n\n\n\n<div class=\"row\">\n\n  <div class=\"col-sm-5\" style=\"height:550px; overflow: auto; \">\n    <div class=\"row form-horizontal\">\n      <label class=\"col-xs-3 control-label text-right\">景区搜索</label>\n      <div class=\"col-xs-9\">\n        <input type=\"text\" class=\"form-control\" \n          ng-model=\"query\" ng-change=\"findNodes()\">\n      </div>\n    </div>\n\n\n    <div ui-tree id=\"tree-root\" data-nodrop-enabled=\"true\" \n    data-drag-enabled=\"false\" >\n      <ol ui-tree-nodes ng-model=\"data\">\n        <li ng-repeat=\"node in data\" ui-tree-node ng-include=\"'nodes_renderer.html'\"\n          ng-show=\"visible(node)\"\n        ></li>\n      </ol>\n    </div>\n\n    <!-- <div ui-tree id=\"tree-root\">\n      <ol ui-tree-nodes=\"\" ng-model=\"data\">\n        <li ng-repeat=\"node in data\" ui-tree-node ng-include=\"'nodes_renderer.html'\" ng-show=\"visible(node)\"></li>\n      </ol>\n    </div> -->\n\n\n  </div>\n\n  <div class=\"row col-sm-7\" ng-show=\"show == true\">\n\n    <div class=\"panel panel-success \" >\n    <div class=\"panel-heading \">{{obj.name}} \n    <!-- (需要提前 <span class=\"bhour\"></span> 小时购票)--></div> \n    <div class=\"panel-body addTicketForm\">\n      <div class=\"input-group\">\n        <span class=\"input-group-addon\" >身份证号</span>\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.cardno\" \n          ng-disabled=\"sale_category == 'F11'\">\n      </div>\n      <div class=\"input-group mt20\">\n        <span class=\"input-group-addon\" >游客姓名</span>\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.name\" \n          ng-disabled=\"sale_category == 'F11'\">\n      </div>\n      <div class=\"input-group mt20\">\n        <span class=\"input-group-addon\" >联系电话</span>\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.mobile\" \n          ng-disabled=\"sale_category == 'F11'\">\n      </div>\n      <div class=\"input-group num mt20\">\n        <span class=\"input-group-addon\">购票数量</span>\n          <button type=\"button\" class=\"btn btn-default jian \"\n          ng-click=\"jian()\"\n          >-</button>\n          <input  type=\"text\"   class=\"kuang\" ng-model=\"order.num\" >\n          <button type=\"button\" class=\"btn btn-default jia\"\n          ng-click=\"jia()\"\n          >+</button>\n      </div>\n      <div class=\"input-group mt20\">\n        <span class=\"input-group-addon\">备注信息</span>\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.note\" >\n      </div>\n      <button type=\"button\" class=\"btn btn-info btn-block mt20\" \n        ng-click=\"gogo()\" ng-disabled=\"!btnstate\"\n      >确认购票</button>\n    </div>\n  </div>\n\n  \n  <div class=\"panel panel-success\">\n      <div class=\"panel-heading\">预定需知</div>\n      <div class=\"panel-body tinfo\">\n        <p ng-bind-html=\"obj.detail | trustHtml\"></p>\n      </div>\n  </div>\n\n  </div>\n</div>"
-
-/***/ },
-/* 168 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-sm-12\">\n\n\t<div class=\"panel panel-default\">\n\t    <div class=\"panel-body\">\n\t        <div class=\"form-group form-inline\">\n\t            <div class=\"col-sm-10\">\n\t                <label>出游时间</label>&nbsp;&nbsp;\n\t                <div class=\"input-group\">\n\t                \t<input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t                    <span class=\"input-group-btn\">\n\t                      <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t                    </span>\n\t                </div>\n\t                &nbsp;&nbsp;&nbsp;&nbsp;\n\t                <label>导游姓名</label>&nbsp;&nbsp;\n\t                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_name\" >\n\t                &nbsp;&nbsp;&nbsp;&nbsp;\n\t                <label>导游电话</label>&nbsp;&nbsp;\n\t                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_mobile\" >\n\t                &nbsp;&nbsp;&nbsp;&nbsp;\n\t                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n\t            </div>\n\t            <div class=\"col-sm-2 text-right\">\n\t                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建团订单</button>\n\t            </div>\n\t        </div>\n\t    </div>\n\t</div> <!--searchArea -->\n\t\t\n\t <!--<table class=\"table table-bordered text-center\">\n\t    <thead>\n\t      <tr>\n\t        <th class=\"text-center\">预订人数</th>\n\t\t\t<th class=\"text-center\">实际人数</th>\n\t\t\t<th class=\"text-center col-md-1\">出游时间</th>\n\t\t\t<th class=\"text-center col-md-2\">预订团票</th>\n\t\t\t<th class=\"text-center\">导游姓名</th>\n\t\t\t<th class=\"text-center\">导游电话</th>\n\t\t\t<th class=\"text-center\">导游车牌号</th>\n\t\t\t<th class=\"text-center col-md-2\">备注信息</th>\n\t\t\t<th class=\"text-center col-md-1\">最后操作时间</th>\n\t\t\t<th class=\"text-center col-md-1\">最后操作人</th>\n\t\t\t<th class=\"text-center col-md-2\">操作</th>\n\t      </tr>\n\t    </thead>\n\t    <tbody>\n\t      <tr ng-repeat=\"obj in objs\">\n\t        <td class=\"text-center\">{{obj.book_count}}</td>\n\t        <td class=\"text-center\">{{obj.actual_count}}</td>\n\t        <td class=\"text-center\">{{obj.arrival_date}}</td>\n\t        <td class=\"\">{{obj.order_name}}</td>\n\t        <td class=\"text-center\">{{obj.guide_name}}</td>\n\t        <td class=\"text-center\">{{obj.guide_mobile}}</td>\n\t        <td class=\"text-center\">{{obj.vehicle_number}}</td>\n\t        <td class=\"text-center\">{{obj.remark}}</td>\n\t        <td class=\"text-center\">{{obj.update_time}}</td>\n\t        <td class=\"text-center\">{{obj.update_by}}</td>\n\t\t\t<td class=\"text-center\">\n\t\t\t\t<a ng-click=\"edit(obj.code)\" class=\"btn btn-success btn-sm\">编辑</a>\n\t\t        <a ng-click=\"del(obj.code)\" class=\"btn btn-danger btn-sm\">删除</a>\n\t\t        <a ng-click=\"detail(obj.code)\" class=\"btn btn-info btn-sm\">详情</a>\n\t        </td>\n\t      </tr>\n\t    </tbody>\n\t  </table>-->\n\n\t  <table class=\"table table-bordered\">\n\t    <thead>\n\t      <tr>\n\t        <th class=\"col-md-2 text-center\">出游信息</th>\n\t        <th class=\"text-center\">预定团票</th>\n\t        <th class=\"col-md-2 text-center\">导游信息</th>\n\t        <th class=\"col-md-2 text-center\">备注</th>\n\t        <th class=\"col-md-1 text-center\">最后操作时间</th>\n\t        <th class=\"col-md-1 text-center\">最后操作人</th>\n\t        <th class=\"col-md-2 text-center\">操作</th>\n\t      </tr>\n\t    </thead>\n\t    <tbody>\n\t      <tr ng-repeat=\"obj in objs\">\n\t        <td class=\"text-center\">[{{obj.book_count}}人][{{obj.actual_count}}人][{{obj.arrival_date}}]</td>\n\t        <td class=\"\">{{obj.order_name}}</td>\n\t        <td class=\"text-center\">[{{obj.guide_name}}][{{obj.guide_mobile}}][{{obj.vehicle_number}}]</td>\n\t        <td class=\"text-center\">{{obj.remark}}</td>\n\t        <td class=\"text-center\">{{obj.update_time}}</td>\n\t        <td class=\"text-center\">{{obj.update_by}}</td>\n\t\t\t<td class=\"text-center\">\n\t\t\t\t<a ng-click=\"edit(obj.code)\" class=\"btn btn-success btn-sm\">编辑</a>\n\t\t        <a ng-click=\"del(obj.code)\" class=\"btn btn-danger btn-sm\">删除</a>\n\t\t        <a ng-click=\"detail(obj.code)\" class=\"btn btn-info btn-sm\">详情</a>\n\t        </td>\n\t      </tr>\n\t    </tbody>\n\t  </table>\n\n\t  <div class=\"text-right\">\n\n\t    <uib-pagination \n\t      total-items=\"bigTotalItems\" \n\t      ng-model=\"bigCurrentPage\" \n\t      max-size=\"maxSize\" \n\t      class=\"pagination-sm\" \n\t      boundary-links=\"true\" \n\t      ng-change=\"load()\"\n\t      items-per-page=\"itemsPerPage\"\n\t      previous-text=\"上一页\"\n\t      next-text=\"下一页\"\n\t      first-text=\"首页\"\n\t      last-text=\"末页\"\n\t      rotate=\"false\">\n\t    </uib-pagination>\n\n\t  </div>\n  \n</div>\n"
-
-/***/ },
 /* 169 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\n\t\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">出游人数</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入出游人数\"\n\t\t\tng-model=\"groupobj.book_count\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div ng-show=\"groupobjstate === 1\">\n\t\t<div class=\"form-group\">\n\t\t    <label class=\"col-xs-2 control-label\">出游时间</label>\n\t\t    <div class=\"col-xs-10\">\n\n\t\t\t    <p class=\"input-group col-xs-3 pull-left\">\n\t\t          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t\t          <span class=\"input-group-btn\">\n\t\t            <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t\t          </span>\n\t\t        </p>\n\n\t\t    </div>\n\t\t  </div>\n\n\t\t<div class=\"form-group\">\n\t\t\t<label class=\"col-xs-2 control-label\">预定团票</label>\n\t\t\t<div class=\"col-xs-5\">\n\t\t\t\t<select class=\"form-control\" ng-model=\"groupobj.sale_code\" \n\t              ng-options=\"sale.code as sale.name for sale in salearr\"\n\t            >\n\t            </select>\n\t\t\t</div>\n\t\t\t<div class=\"col-xs-1\" style=\"margin-left:-5px;\">\n\t\t\t\t<a ng-click=\"detail()\" class=\"btn btn-info btn-sm\">团票简介</a>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t<div ng-show=\"groupobjstate === 0\">\n\t\t<div class=\"form-group\">\n\t\t    <label class=\"col-xs-2 control-label\">出游时间</label>\n\t\t    <div class=\"col-xs-10\">\n\t\t\t\t<p class=\"form-control-static\">{{groupobj.arrival_date}}</p>\n\t\t\t</div>\n\t\t  </div>\n\n\t\t<div class=\"form-group\">\n\t\t\t<label class=\"col-xs-2 control-label\">预定团票</label>\n\t\t    <div class=\"col-xs-10\">\n\t\t\t\t<p class=\"form-control-static\">{{groupobj.order_name}}</p>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">导游姓名</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入导游姓名\"\n\t\t\tng-model=\"groupobj.guide_name\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">导游电话</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入导游电话\"\n\t\t\tng-model=\"groupobj.guide_mobile\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">车牌号</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入车牌号\"\n\t\t\tng-model=\"groupobj.vehicle_number\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">备注</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<textarea class=\"form-control\" rows=\"3\"\n\t\t\tng-model=\"groupobj.remark\"\n\t\t\t></textarea>\n\t\t</div>\n\t</div>\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"gogo()\"\n    >\n    提交\n    </button>\n\n\n</div>"
+	module.exports = "<!-- Nested node template -->\n<script type=\"text/ng-template\" id=\"nodes_renderer.html\">\n  <div ui-tree-handle class=\"tree-node tree-node-content\"\n    ng-click=\"getit(this)\" \n    ng-class=\"{'unavailable': node.unavailable, 'selected' : obj.id != undefined && node.id != undefined && obj.id == node.id} \"\n    ng-show=\"visible(this)\"\n  >\n    <a class=\"btn btn-success btn-xs\" ng-if=\"node.nodes && node.nodes.length > 0\" \n    data-nodrag ng-click=\"toggle(this)\" >\n    <span class=\"glyphicon\"\n        ng-class=\"{\n          'glyphicon-chevron-right': collapsed,\n          'glyphicon-chevron-down': !collapsed\n        }\"></span></a>&nbsp;\n    {{node.name}}\n    <p class=\"text-right\" style=\"margin-top: 5px;margin-bottom: 0px;\">\n      \n      <small ng-show=\"node.guide_price != undefined\">\n        成本价{{node.cost_price * 0.01 | currency : '¥'}} \n      </small>\n      <small ng-show=\"node.guide_price != undefined\">\n        指导价{{node.guide_price * 0.01 | currency : '¥'}} \n      </small>\n      <small ng-show=\"node.market_price != undefined\">\n        门市价{{node.market_price * 0.01 | currency : '¥'}}\n      </small>\n      <small ng-show=\"node.govsubsidy_price != undefined && node.govsubsidy_price != -1\">\n        政府补贴{{node.govsubsidy_price * 0.01 | currency : '¥'}} \n      </small>\n    </p>\n\n  </div>\n  <ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\" >\n    <li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'nodes_renderer.html'\"\n      >\n    </li>\n  </ol>\n</script>\n\n\n<!-- Nested node template -->\n<!-- <script type=\"text/ng-template\" id=\"nodes_renderer.html\">\n  <div ui-tree-handle class=\"tree-node tree-node-content\">\n    <a class=\"btn btn-success btn-xs\" data-nodrag ng-click=\"toggle(this)\">\n      <span class=\"glyphicon\"\n            ng-class=\"{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}\">\n      </span>\n    </a>\n    {{node.name}}\n    <a class=\"pull-right btn btn-danger btn-xs\" data-nodrag ng-click=\"remove(this)\"><span\n        class=\"glyphicon glyphicon-remove\"></span></a>\n    <a class=\"pull-right btn btn-primary btn-xs\" data-nodrag ng-click=\"newSubItem(this)\" style=\"margin-right: 8px;\"><span\n        class=\"glyphicon glyphicon-plus\"></span></a>\n  </div>\n  <ol ui-tree-nodes=\"\" ng-model=\"node.nodes\" ng-class=\"{hidden: collapsed}\">\n    <li ng-repeat=\"node in node.nodes\" ui-tree-node ng-include=\"'nodes_renderer.html'\" ng-show=\"visible(node)\">\n    </li>\n  </ol>\n</script> -->\n\n\n\n<div class=\"col-sm-12\" ng-show=\"sale_category == 'F11' || sale_category == 'F15'\">\n<div class=\"panel panel-default\">\n  <div class=\"panel-body\">\n      <div class=\"form-group form-inline\">\n          <div class=\"col-sm-4\">\n              <label>电话</label>&nbsp;&nbsp;\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" >\n              &nbsp;&nbsp;&nbsp;&nbsp;\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"search()\">立即搜索</button>\n          </div>\n          <div class=\"col-sm-8\" >\n              <p class=\"bg-info\" style=\"padding: 10px;\">\n                &nbsp;{{userinfo}}\n              </p>\n          </div>\n      </div>\n  </div>\n</div><!-- searchArea -->\n</div>\n\n\n\n<div class=\"row\">\n\n  <div class=\"col-sm-5\" style=\"height:550px; overflow: auto; \">\n    <div class=\"row form-horizontal\">\n      <label class=\"col-xs-3 control-label text-right\">景区搜索</label>\n      <div class=\"col-xs-9\">\n        <input type=\"text\" class=\"form-control\" \n          ng-model=\"query\" ng-change=\"findNodes()\">\n      </div>\n    </div>\n\n\n    <div ui-tree id=\"tree-root\" data-nodrop-enabled=\"true\" \n    data-drag-enabled=\"false\" >\n      <ol ui-tree-nodes ng-model=\"data\">\n        <li ng-repeat=\"node in data\" ui-tree-node ng-include=\"'nodes_renderer.html'\"\n          ng-show=\"visible(node)\"\n        ></li>\n      </ol>\n    </div>\n\n    <!-- <div ui-tree id=\"tree-root\">\n      <ol ui-tree-nodes=\"\" ng-model=\"data\">\n        <li ng-repeat=\"node in data\" ui-tree-node ng-include=\"'nodes_renderer.html'\" ng-show=\"visible(node)\"></li>\n      </ol>\n    </div> -->\n\n\n  </div>\n\n  <div class=\"row col-sm-7\" ng-show=\"show == true\">\n\n    <div class=\"panel panel-success \" >\n    <div class=\"panel-heading \">{{obj.name}} \n    <!-- (需要提前 <span class=\"bhour\"></span> 小时购票)--></div> \n    <div class=\"panel-body addTicketForm\">\n      <div class=\"input-group\">\n        <span class=\"input-group-addon\" >身份证号</span>\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.cardno\" \n          ng-disabled=\"sale_category == 'F11' || sale_category == 'F15'\">\n      </div>\n      <div class=\"input-group mt20\">\n        <span class=\"input-group-addon\" >游客姓名</span>\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.name\" \n          ng-disabled=\"sale_category == 'F11' || sale_category == 'F15'\">\n      </div>\n      <div class=\"input-group mt20\">\n        <span class=\"input-group-addon\" >联系电话</span>\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.mobile\" \n          ng-disabled=\"sale_category == 'F11' || sale_category == 'F15'\">\n      </div>\n      <div class=\"input-group num mt20\">\n        <span class=\"input-group-addon\">购票数量</span>\n          <button type=\"button\" class=\"btn btn-default jian \"\n          ng-click=\"jian()\"\n          >-</button>\n          <input  type=\"text\"   class=\"kuang\" ng-model=\"order.num\" >\n          <button type=\"button\" class=\"btn btn-default jia\"\n          ng-click=\"jia()\"\n          >+</button>\n      </div>\n      <div class=\"input-group mt20\">\n        <span class=\"input-group-addon\">备注信息</span>\n          <input type=\"text\" class=\"form-control\" ng-model=\"order.note\" >\n      </div>\n      <button type=\"button\" class=\"btn btn-info btn-block mt20\" \n        ng-click=\"gogo()\" ng-disabled=\"!btnstate\"\n      >确认购票</button>\n    </div>\n  </div>\n\n  \n  <div class=\"panel panel-success\">\n      <div class=\"panel-heading\">预定需知</div>\n      <div class=\"panel-body tinfo\">\n        <p ng-bind-html=\"obj.detail | trustHtml\"></p>\n      </div>\n  </div>\n\n  </div>\n</div>"
 
 /***/ },
 /* 170 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"col-xs-12\" >\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t订单操作记录\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t\t<div class=\"container-fluid\">\n\t            <table class=\"table table-bordered text-center\">\n\t\t\t\t    <thead>\n\t\t\t\t      <tr>\n\t\t\t\t        <th class=\"text-center\">预订人数</th>\n\t\t\t\t\t\t<th class=\"text-center\">导游姓名</th>\n\t\t\t\t\t\t<th class=\"text-center\">导游电话</th>\n\t\t\t\t\t\t<th class=\"text-center\">导游车牌号</th>\n\t\t\t\t\t\t<th class=\"text-center col-md-2\">备注信息</th>\n\t\t\t\t\t\t<th class=\"text-center col-md-1\">最后操作时间</th>\n\t\t\t\t\t\t<th class=\"text-center col-md-1\">最后操作人</th>\n\t\t\t\t      </tr>\n\t\t\t\t    </thead>\n\t\t\t\t    <tbody>\n\t\t\t\t      <tr ng-repeat=\"obj in objs\">\n\t\t\t\t        <td class=\"text-center\">{{obj.book_count}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.guide_name}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.guide_mobile}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.vehicle_number}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.remark}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.update_time}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.update_by}}</td>\n\t\t\t\t      </tr>\n\t\t\t\t    </tbody>\n\t\t\t    </table>\n\t\t    </div>\n\t    </div>\n    </div>\n</div>"
+	module.exports = "<div class=\"col-sm-12\">\n\n\t<div class=\"panel panel-default\">\n\t    <div class=\"panel-body\">\n\t        <div class=\"form-group form-inline\">\n\t            <div class=\"col-sm-10\">\n\t                <label>出游时间</label>&nbsp;&nbsp;\n\t                <div class=\"input-group\">\n\t                \t<input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t                    <span class=\"input-group-btn\">\n\t                      <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t                    </span>\n\t                </div>\n\t                &nbsp;&nbsp;&nbsp;&nbsp;\n\t                <label>导游姓名</label>&nbsp;&nbsp;\n\t                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_name\" >\n\t                &nbsp;&nbsp;&nbsp;&nbsp;\n\t                <label>导游电话</label>&nbsp;&nbsp;\n\t                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_mobile\" >\n\t                &nbsp;&nbsp;&nbsp;&nbsp;\n\t                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n\t            </div>\n\t            <div class=\"col-sm-2 text-right\">\n\t                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建团订单</button>\n\t            </div>\n\t        </div>\n\t    </div>\n\t</div> <!--searchArea -->\n\t\t\n\t <!--<table class=\"table table-bordered text-center\">\n\t    <thead>\n\t      <tr>\n\t        <th class=\"text-center\">预订人数</th>\n\t\t\t<th class=\"text-center\">实际人数</th>\n\t\t\t<th class=\"text-center col-md-1\">出游时间</th>\n\t\t\t<th class=\"text-center col-md-2\">预订团票</th>\n\t\t\t<th class=\"text-center\">导游姓名</th>\n\t\t\t<th class=\"text-center\">导游电话</th>\n\t\t\t<th class=\"text-center\">导游车牌号</th>\n\t\t\t<th class=\"text-center col-md-2\">备注信息</th>\n\t\t\t<th class=\"text-center col-md-1\">最后操作时间</th>\n\t\t\t<th class=\"text-center col-md-1\">最后操作人</th>\n\t\t\t<th class=\"text-center col-md-2\">操作</th>\n\t      </tr>\n\t    </thead>\n\t    <tbody>\n\t      <tr ng-repeat=\"obj in objs\">\n\t        <td class=\"text-center\">{{obj.book_count}}</td>\n\t        <td class=\"text-center\">{{obj.actual_count}}</td>\n\t        <td class=\"text-center\">{{obj.arrival_date}}</td>\n\t        <td class=\"\">{{obj.order_name}}</td>\n\t        <td class=\"text-center\">{{obj.guide_name}}</td>\n\t        <td class=\"text-center\">{{obj.guide_mobile}}</td>\n\t        <td class=\"text-center\">{{obj.vehicle_number}}</td>\n\t        <td class=\"text-center\">{{obj.remark}}</td>\n\t        <td class=\"text-center\">{{obj.update_time}}</td>\n\t        <td class=\"text-center\">{{obj.update_by}}</td>\n\t\t\t<td class=\"text-center\">\n\t\t\t\t<a ng-click=\"edit(obj.code)\" class=\"btn btn-success btn-sm\">编辑</a>\n\t\t        <a ng-click=\"del(obj.code)\" class=\"btn btn-danger btn-sm\">删除</a>\n\t\t        <a ng-click=\"detail(obj.code)\" class=\"btn btn-info btn-sm\">详情</a>\n\t        </td>\n\t      </tr>\n\t    </tbody>\n\t  </table>-->\n\n\t  <table class=\"table table-bordered\">\n\t    <thead>\n\t      <tr>\n\t        <th class=\"col-md-2 text-center\">出游信息</th>\n\t        <th class=\"text-center\">预定团票</th>\n\t        <th class=\"col-md-2 text-center\">导游信息</th>\n\t        <th class=\"col-md-2 text-center\">备注</th>\n\t        <th class=\"col-md-1 text-center\">最后操作时间</th>\n\t        <th class=\"col-md-1 text-center\">最后操作人</th>\n\t        <th class=\"col-md-2 text-center\">操作</th>\n\t      </tr>\n\t    </thead>\n\t    <tbody>\n\t      <tr ng-repeat=\"obj in objs\">\n\t        <td class=\"text-center\">[{{obj.book_count}}人][{{obj.actual_count}}人][{{obj.arrival_date}}]</td>\n\t        <td class=\"\">{{obj.order_name}}</td>\n\t        <td class=\"text-center\">[{{obj.guide_name}}][{{obj.guide_mobile}}][{{obj.vehicle_number}}]</td>\n\t        <td class=\"text-center\">{{obj.remark}}</td>\n\t        <td class=\"text-center\">{{obj.update_time}}</td>\n\t        <td class=\"text-center\">{{obj.update_by}}</td>\n\t\t\t<td class=\"text-center\">\n\t\t\t\t<a ng-click=\"edit(obj.code)\" class=\"btn btn-success btn-sm\">编辑</a>\n\t\t        <a ng-click=\"del(obj.code)\" class=\"btn btn-danger btn-sm\">删除</a>\n\t\t        <a ng-click=\"detail(obj.code)\" class=\"btn btn-info btn-sm\">详情</a>\n\t        </td>\n\t      </tr>\n\t    </tbody>\n\t  </table>\n\n\t  <div class=\"text-right\">\n\n\t    <uib-pagination \n\t      total-items=\"bigTotalItems\" \n\t      ng-model=\"bigCurrentPage\" \n\t      max-size=\"maxSize\" \n\t      class=\"pagination-sm\" \n\t      boundary-links=\"true\" \n\t      ng-change=\"load()\"\n\t      items-per-page=\"itemsPerPage\"\n\t      previous-text=\"上一页\"\n\t      next-text=\"下一页\"\n\t      first-text=\"首页\"\n\t      last-text=\"末页\"\n\t      rotate=\"false\">\n\t    </uib-pagination>\n\n\t  </div>\n  \n</div>\n"
 
 /***/ },
 /* 171 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\n\t\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">出游人数</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入出游人数\"\n\t\t\tng-model=\"groupobj.book_count\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div ng-show=\"groupobjstate === 1\">\n\t\t<div class=\"form-group\">\n\t\t    <label class=\"col-xs-2 control-label\">出游时间</label>\n\t\t    <div class=\"col-xs-10\">\n\n\t\t\t    <p class=\"input-group col-xs-3 pull-left\">\n\t\t          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n\t\t          <span class=\"input-group-btn\">\n\t\t            <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n\t\t          </span>\n\t\t        </p>\n\n\t\t    </div>\n\t\t  </div>\n\n\t\t<div class=\"form-group\">\n\t\t\t<label class=\"col-xs-2 control-label\">预定团票</label>\n\t\t\t<div class=\"col-xs-5\">\n\t\t\t\t<select class=\"form-control\" ng-model=\"groupobj.sale_code\" \n\t              ng-options=\"sale.code as sale.name for sale in salearr\"\n\t            >\n\t            </select>\n\t\t\t</div>\n\t\t\t<div class=\"col-xs-1\" style=\"margin-left:-5px;\">\n\t\t\t\t<a ng-click=\"detail()\" class=\"btn btn-info btn-sm\">团票简介</a>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t<div ng-show=\"groupobjstate === 0\">\n\t\t<div class=\"form-group\">\n\t\t    <label class=\"col-xs-2 control-label\">出游时间</label>\n\t\t    <div class=\"col-xs-10\">\n\t\t\t\t<p class=\"form-control-static\">{{groupobj.arrival_date}}</p>\n\t\t\t</div>\n\t\t  </div>\n\n\t\t<div class=\"form-group\">\n\t\t\t<label class=\"col-xs-2 control-label\">预定团票</label>\n\t\t    <div class=\"col-xs-10\">\n\t\t\t\t<p class=\"form-control-static\">{{groupobj.order_name}}</p>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">导游姓名</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入导游姓名\"\n\t\t\tng-model=\"groupobj.guide_name\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">导游电话</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入导游电话\"\n\t\t\tng-model=\"groupobj.guide_mobile\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">车牌号</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入车牌号\"\n\t\t\tng-model=\"groupobj.vehicle_number\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">备注</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<textarea class=\"form-control\" rows=\"3\"\n\t\t\tng-model=\"groupobj.remark\"\n\t\t\t></textarea>\n\t\t</div>\n\t</div>\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"gogo()\"\n    >\n    提交\n    </button>\n\n\n</div>"
+
+/***/ },
+/* 172 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"col-xs-12\" >\n\t<div class=\"panel panel-default form-horizontal\">\n\t\t<div class=\"panel-heading\">\n\t\t\t订单操作记录\n\t\t</div>\n\t\t<div class=\"panel-body\">\n\t\t\t<div class=\"container-fluid\">\n\t            <table class=\"table table-bordered text-center\">\n\t\t\t\t    <thead>\n\t\t\t\t      <tr>\n\t\t\t\t        <th class=\"text-center\">预订人数</th>\n\t\t\t\t\t\t<th class=\"text-center\">导游姓名</th>\n\t\t\t\t\t\t<th class=\"text-center\">导游电话</th>\n\t\t\t\t\t\t<th class=\"text-center\">导游车牌号</th>\n\t\t\t\t\t\t<th class=\"text-center col-md-2\">备注信息</th>\n\t\t\t\t\t\t<th class=\"text-center col-md-1\">最后操作时间</th>\n\t\t\t\t\t\t<th class=\"text-center col-md-1\">最后操作人</th>\n\t\t\t\t      </tr>\n\t\t\t\t    </thead>\n\t\t\t\t    <tbody>\n\t\t\t\t      <tr ng-repeat=\"obj in objs\">\n\t\t\t\t        <td class=\"text-center\">{{obj.book_count}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.guide_name}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.guide_mobile}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.vehicle_number}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.remark}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.update_time}}</td>\n\t\t\t\t        <td class=\"text-center\">{{obj.update_by}}</td>\n\t\t\t\t      </tr>\n\t\t\t\t    </tbody>\n\t\t\t    </table>\n\t\t    </div>\n\t    </div>\n    </div>\n</div>"
+
+/***/ },
+/* 173 */
 /***/ function(module, exports) {
 
 	/**
@@ -66055,7 +66194,7 @@
 	module.exports = service;
 
 /***/ },
-/* 172 */
+/* 174 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, namelist, info, 
@@ -66117,7 +66256,11 @@
 	            o.market_price = tmp.market_price;
 	            o.govsubsidy_price = tmp.govsubsidy_price;
 	            o.cost_price = tmp.cost_price;
-	            if($scope.sale_category === 'F11') o.unavailable = true;
+	            if($scope.sale_category === 'F11'
+	            || $scope.sale_category === 'F15')
+	            {
+	                o.unavailable = true;
+	            }
 
 	            if(!r.hasOwnProperty(tmp.place_code))
 	            {
@@ -66200,7 +66343,8 @@
 
 	        var fun = createorder;
 
-	        if($scope.sale_category === 'F11')
+	        if($scope.sale_category === 'F11'
+	        || $scope.sale_category === 'F14')
 	        {
 	            fun = createSubsidyOrder;
 	        }
@@ -66227,7 +66371,11 @@
 
 	                $scope.show = false;
 
-	                if($scope.sale_category === 'F11') checkgoodsbuy(0);
+	                if($scope.sale_category === 'F11'
+	                || $scope.sale_category === 'F15') 
+	                {
+	                    checkgoodsbuy(0);
+	                }
 	            }
 	            else
 	            {
@@ -66342,7 +66490,16 @@
 	                ' , 身份证 : ' + res.data.papersno + 
 	                ' , 可用政府补贴 : ' + res.data.generalsubsidy * 0.01 + '元';
 
-	                checkgoodsbuy(res.data.generalsubsidy);
+	                //政府补贴票
+	                if($scope.sale_category === 'F11')
+	                {
+	                    checkgoodsbuy(res.data.generalsubsidy);
+	                }
+	                //礼品票
+	                else if($scope.sale_category === 'F15')
+	                {
+	                    checkgift();
+	                }
 
 	                $scope.order.name = res.data.username;
 	                $scope.order.cardno = res.data.papersno;
@@ -66398,10 +66555,21 @@
 
 	    // --------------- 卖补贴商品 --------------------------- //
 
+
+	    function checkgift()
+	    {
+	        angular.forEach($scope.data, function (value, key) {
+	            var arr = $scope.data[key].nodes;
+	            for(var i = 0, j = arr.length; i < j; i++){
+	                arr[i].unavailable = false;
+	            }
+	        });
+	    }
+
 	};
 
 /***/ },
-/* 173 */
+/* 175 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, getDate, update, groupdetail){
@@ -66493,7 +66661,7 @@
 
 
 /***/ },
-/* 174 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function($scope, $state, $uibModal, groupsalelist, groupsale, createOrder, getDate, userinfo){
@@ -66537,7 +66705,7 @@
 	    function detailmodal(code)
 	    {
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(175),
+	          template: __webpack_require__(177),
 	          controller: 'saledetail',
 	          resolve: {
 	            code : function(){
@@ -66613,13 +66781,13 @@
 
 
 /***/ },
-/* 175 */
+/* 177 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">团票简介</h4>\n</div>\n<div class=\"modal-body\">\n\n    <div class=\"container-fluid\">\n        \n        <form class=\"col-xs-11 col-xs-offset-1 form-horizontal\" >\n \n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">市场价</label>\n                <div class=\"col-xs-8\">\n                    <p class=\"form-control-static\">{{objs.market_price * 0.01  | currency : '￥'}}</p>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">居游价</label>\n                <div class=\"col-xs-8\">\n                    <p class=\"form-control-static\">{{objs.guide_price * 0.01  | currency : '￥'}}</p>\n                </div>\n            </div>\n\n            <div class=\"form-group\">\n                <label class=\"col-xs-2 control-label\">简介</label>\n                <div class=\"col-xs-8\">\n                    <p class=\"form-control-static\">{{objs.detail}}</p>\n                </div>\n            </div>\n\n        </form>\n\n    </div>\n    \n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n"
 
 /***/ },
-/* 176 */
+/* 178 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, $state, groupsalelist, groupone, update, updatedetail, userinfo){
@@ -66719,7 +66887,7 @@
 
 
 /***/ },
-/* 177 */
+/* 179 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, groupdetail){
@@ -66746,7 +66914,7 @@
 
 
 /***/ },
-/* 178 */
+/* 180 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $uibModalInstance, groupsale, code){
@@ -66769,7 +66937,7 @@
 
 
 /***/ },
-/* 179 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -66779,22 +66947,22 @@
 
 	var App = angular.module('order', []);
 
-	App.config(__webpack_require__(180));
-	App.factory('orderservice', __webpack_require__(186));
+	App.config(__webpack_require__(182));
+	App.factory('orderservice', __webpack_require__(188));
 
-	App.controller('orderlist',__webpack_require__(187));
-	App.controller('orderbycode',__webpack_require__(189));
-	App.controller('orderticketlist',__webpack_require__(190));
-	App.controller('allorderlist',__webpack_require__(191));
-	App.controller('grouplist',__webpack_require__(192));
-	App.controller('groupalllist',__webpack_require__(193));
-	App.controller('orderinfo',__webpack_require__(194));
+	App.controller('orderlist',__webpack_require__(189));
+	App.controller('orderbycode',__webpack_require__(191));
+	App.controller('orderticketlist',__webpack_require__(192));
+	App.controller('allorderlist',__webpack_require__(193));
+	App.controller('grouplist',__webpack_require__(194));
+	App.controller('groupalllist',__webpack_require__(195));
+	App.controller('orderinfo',__webpack_require__(196));
 
 
 	module.exports = App;
 
 /***/ },
-/* 180 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -66809,7 +66977,7 @@
 	 	  .state('app.orderlist', {
 	        url: '/orderlist',
 	        controller : 'orderlist',
-	        template: __webpack_require__(181),
+	        template: __webpack_require__(183),
 	        resolve:{
 	            list : function(orderservice){
 	                return orderservice.list();
@@ -66830,7 +66998,7 @@
 	      .state('app.allorderlist', {
 	        url: '/allorderlist',
 	        controller : 'allorderlist',
-	        template: __webpack_require__(181),
+	        template: __webpack_require__(183),
 	        resolve:{
 	            alllist : function(orderservice){
 	                return orderservice.alllist();
@@ -66846,7 +67014,7 @@
 	      .state('app.orderticketlist', {
 	        url: '/orderticketlist/:code',
 	        controller : 'orderticketlist',
-	        template: __webpack_require__(182),
+	        template: __webpack_require__(184),
 	        resolve:{
 	            ticketlist : function(orderservice){
 	                return orderservice.ticketlist();
@@ -66866,7 +67034,7 @@
 	      .state('app.orderticketlistcode', {
 	        url: '/orderticketlist/:code',
 	        controller : 'orderticketlist',
-	        template: __webpack_require__(183),
+	        template: __webpack_require__(185),
 	        resolve:{
 	            ticketlist : function(orderservice){
 	                return orderservice.ticketlist();
@@ -66882,7 +67050,7 @@
 	      .state('app.orderbycode', {
 	        url: '/orderbycode',
 	        controller : 'orderbycode',
-	        template: __webpack_require__(184),
+	        template: __webpack_require__(186),
 	        resolve:{
 	            // list : function(orderservice){
 	            //     return orderservice.list();
@@ -66897,7 +67065,7 @@
 	      .state('app.grouporderlist', {
 	        url: '/grouporderlist',
 	        controller : 'grouplist',
-	        template: __webpack_require__(185),
+	        template: __webpack_require__(187),
 	        resolve:{
 	            grouplist : function(orderservice){
 	                return orderservice.grouplist();
@@ -66912,7 +67080,7 @@
 	      .state('app.allgrouporderlist', {
 	        url: '/grouporderalllist',
 	        controller : 'groupalllist',
-	        template: __webpack_require__(185),
+	        template: __webpack_require__(187),
 	        resolve:{
 	            groupalllist : function(orderservice){
 	                return orderservice.groupalllist();
@@ -66930,37 +67098,37 @@
 	module.exports = router;
 
 /***/ },
-/* 181 */
+/* 183 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n\n                <div class=\"row \">\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" placeholder=\"订单编号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.keyword\" placeholder=\"订单标题\" \n                  >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.cardno\"  placeholder=\"身份证号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.name\"\n                   placeholder=\"姓名\"\n                   >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"电话\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  \n\n                </div>\n\n \n                <div class=\"row mt10\">\n                  \n                  \n                  \n\n                  <label>下单时间</label>&nbsp;&nbsp;\n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                        &nbsp;&nbsp;到&nbsp;&nbsp;            \n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.company_code\" placeholder=\"机构编号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.login_name\" placeholder=\"登录帐号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <button type=\"button\" class=\"btn btn-default search pull-right\" ng-click=\"load()\">立即搜索</button>\n\n                </div>\n\n\n                \n                \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-3 text-center\">订单名称</th>\n        <th class=\"col-md-2 text-center\">订单编号</th>\n        <th class=\"col-md-2 text-center\">游客信息</th>\n        <th class=\"col-md-1 text-center\">数量</th>\n        <th class=\"col-md-1 text-center\">购买时间</th>\n        <th class=\"col-md-1 text-center\">出票状态</th>\n        <th class=\"col-md-1 text-center\">分销商</th>\n        <th class=\"col-md-1 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"\">{{obj.title}}</td>\n        <td class=\"text-center\"><br>{{obj.code}}</td>\n        <td class=\"text-center\">{{obj.name}}<br>{{obj.mobile}}<br>{{obj.cardno}}</td>\n        <td class=\"text-center\">购买{{obj.num}}<br>退票{{obj.back}}<br>使用{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.create_time}}</td>\n        <td class=\"text-center\"><br>{{obj.ticket_state_name}}</td>\n        <td class=\"text-center\">{{obj.company_name}}<br>{{obj.company_code}}<br>{{obj.operation_login_name}}</td>\n        <th class=\"text-center\">\n          <a ng-click=\"ticketlist(obj)\" class=\"btn btn-success btn-xs\">票信息</a>\n          <br>\n          <a ng-click=\"orderinfo(obj)\" class=\"btn btn-info btn-xs\"\n          has-permission='orderinfo' \n          >订单详情</a>\n        </th>\n      </tr>\n    </tbody>\n  </table>\n\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
 
 /***/ },
-/* 182 */
+/* 184 */
 /***/ function(module, exports) {
 
 	module.exports = "\n\n\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">票信息</h4>\n</div>\n<div class=\"modal-body\">\n\n    <div class=\"container-fluid form-horizontal \">\n        \n      <div class=\"col-sm-12\">\n\n        <div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\n          <!-- Default panel contents -->\n          <div class=\"panel-heading\">{{tkttype.name}} 第 {{tkttype.sequence}} 个\n\n            <button type=\"button\" \n              class=\"btn btn-xs btn-info pull-right\"\n              ng-click=\"back(tkttype)\"\n            >\n              退票\n            </button>\n          </div>\n\n          <table class=\"table table-bordered\">\n            <thead>\n              <tr>\n                <th class=\"col-md-2 text-center\">景区名称</th>\n                <th class=\"col-md-4 text-center\">票名称</th>\n                <th class=\"col-md-1 text-center\">票号</th>\n                <th class=\"col-md-1 text-center\">未使用</th>\n                <th class=\"col-md-1 text-center\">未退票</th>\n                <th class=\"col-md-1 text-center\">可用</th>\n                <th class=\"col-md-2 text-center\">操作时间</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr ng-repeat=\"obj in tkttype.ticketarr\">\n                <td class=\"\">{{obj.place_name}}</td>\n                <td class=\"\">{{obj.type_name}}</td>\n                <td class=\"text-center\">{{obj.code}}</td>\n                <td class=\"text-center\">\n                  <span ng-show=\"{{obj.used == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n                  <span ng-show=\"{{obj.used == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n                </td>\n                <td class=\"text-center\">\n                  <span ng-show=\"{{obj.back == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n                  <span ng-show=\"{{obj.back == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n                </td>\n                <td class=\"text-center\">\n                  <span ng-show=\"{{obj.state == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n                  <span ng-show=\"{{obj.state == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n                </td>\n                <td class=\"text-center\">{{obj.otime}}</td>\n\n              </tr>\n            </tbody>\n          </table>\n          \n        </div>\n\n\n        </div>\n    </div>\n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n\n\n\n\n\n\n\n  "
 
 /***/ },
-/* 183 */
+/* 185 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n\n<div class=\"panel panel-danger\" ng-repeat=\"tkttype in objs track by $index\" >\n  <!-- Default panel contents -->\n  <div class=\"panel-heading\">{{tkttype.name}} {{tkttype.sequence}}\n\n    <button type=\"button\" \n      class=\"btn btn-xs btn-info pull-right\"\n      ng-click=\"back()\"\n      has-permission='docedit' \n    >\n      退票\n    </button>\n  </div>\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-2 text-center\">景区名称</th>\n        <th class=\"col-md-4 text-center\">票名称</th>\n        <th class=\"col-md-1 text-center\">票号</th>\n        <th class=\"col-md-1 text-center\">未使用</th>\n        <th class=\"col-md-1 text-center\">未退票</th>\n        <th class=\"col-md-1 text-center\">可用</th>\n        <th class=\"col-md-2 text-center\">操作时间</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in tkttype.ticketarr\">\n        <td class=\"\">{{obj.place_name}}</td>\n        <td class=\"\">{{obj.type_name}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.used == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.used == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n        </td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.back == '0'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.back == '1'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n\n        </td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.state == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.state == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n\n        </td>\n        <td class=\"text-center\">{{obj.otime}}</td>\n\n      </tr>\n    </tbody>\n  </table>\n  \n</div>\n\n\n</div>\n  "
 
 /***/ },
-/* 184 */
+/* 186 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                  <label>订单编号</label>&nbsp;&nbsp;\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n                  <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  \n  \n\n</div>"
 
 /***/ },
-/* 185 */
+/* 187 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <div class=\"row\">\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.code\" placeholder=\"订单编号\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  \n\n                  <label>出游时间</label>&nbsp;&nbsp;\n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                </div>\n                <div class=\"row mt10\">\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.order_name\" placeholder=\"订单标题\" \n                  >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.ticket_code\"  placeholder=\"团票码\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_name\"\n                   placeholder=\"导游姓名\"\n                   >\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.guide_mobile\" placeholder=\"导游电话\">\n                  &nbsp;&nbsp;&nbsp;&nbsp;\n\n                  \n\n                  <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n                </div>\n                \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-3 text-center\">订单名称</th>\n        <th class=\"col-md-1 text-center\">订单编号</th>\n        <th class=\"col-md-2 text-center\">出游信息</th>\n        <th class=\"col-md-3 text-center\">导游信息</th>\n        <th class=\"col-md-2 text-center\">备注</th>\n        <th class=\"col-md-1 text-center\">下单时间</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"\">{{obj.order_name}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">[{{obj.book_count}}人][{{obj.arrival_date}}][{{obj.ticket_code}}]</td>\n        <td class=\"text-center\">[{{obj.guide_name}}][{{obj.guide_mobile}}][{{obj.vehicle_number}}]</td>\n        <td class=\"text-center\">{{obj.remark}}</td>\n        <td class=\"text-center\">{{obj.create_time}}</td>\n      </tr>\n    </tbody>\n  </table>\n\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
 
 /***/ },
-/* 186 */
+/* 188 */
 /***/ function(module, exports) {
 
 	/**
@@ -67021,7 +67189,7 @@
 	module.exports = service;
 
 /***/ },
-/* 187 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, 
@@ -67088,7 +67256,7 @@
 	        //$state.go('app.orderticketlist', {'code' : code});
 
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(182),
+	          template: __webpack_require__(184),
 	          controller: 'orderticketlist',
 	          size: 'lg',
 	          resolve: {
@@ -67116,7 +67284,7 @@
 	    $scope.orderinfo = function(obj){
 
 	        var modalInstance = $uibModal.open({
-	          template: __webpack_require__(188),
+	          template: __webpack_require__(190),
 	          controller: 'orderinfo',
 	          size: 'lg',
 	          resolve: {
@@ -67151,13 +67319,13 @@
 	};
 
 /***/ },
-/* 188 */
+/* 190 */
 /***/ function(module, exports) {
 
 	module.exports = "\n\n<div class=\"modal-header\">\n    <h4 class=\"modal-title\">订单详情</h4>\n</div>\n<div class=\"modal-body\">\n\n    <div class=\"container-fluid form-horizontal \">\n        <div class=\"col-xs-6\">\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">订单编号</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.code}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">订单标题</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.title}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">支付金额</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.pay_fee}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">支付状态</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.pay_state}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">支付时间</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.pay_time}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">支付流水号</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.pay_trade_no}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">支付类型</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.payment_type}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">系统确定状态</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.sys_affirm_state}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">订单取消状态</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.cancel_state}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">订单取消时间</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.cancel_time}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">订单取消原因</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.cancel_reason}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">票状态</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.ticket_state}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">出票时间</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.ticket_out_time}}</p>\n            </div>\n        </div>\n\n        </div>\n\n        <div class=\"col-xs-6\">\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">短信发送状态</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.sms_state}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">短信发送时间</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.sms_send_time}}</p>\n            </div>\n        </div>\n        \n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">身份证</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.cardno}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">电话</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.mobile}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">姓名</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.name}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">备注</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.note}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">数量</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.num}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">退票数量</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.back}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">使用数量</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.used}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">创建时间</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.create_time}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">创建时间</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.create_time}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">创建者</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.create_by}}</p>\n            </div>\n        </div>\n\n        <div class=\"form-group\">\n            <label class=\"col-xs-6 control-label\">公司</label>\n            <div class=\"col-xs-6\">\n                <p class=\"form-control-static\">{{obj.company_id}}</p>\n            </div>\n        </div>\n        </div>\n\n    </div>\n</div>\n<div class=\"modal-footer\">\n    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"ok()\">OK</button>\n    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"cancel()\">返回</button>\n</div>\n\n"
 
 /***/ },
-/* 189 */
+/* 191 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams){
@@ -67172,7 +67340,7 @@
 	};
 
 /***/ },
-/* 190 */
+/* 192 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj){
@@ -67291,7 +67459,7 @@
 	};
 
 /***/ },
-/* 191 */
+/* 193 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, alllist, ITEMS_PERPAGE, getDate){
@@ -67362,7 +67530,7 @@
 	};
 
 /***/ },
-/* 192 */
+/* 194 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, grouplist, ITEMS_PERPAGE, getDate){
@@ -67418,7 +67586,7 @@
 	};
 
 /***/ },
-/* 193 */
+/* 195 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, groupalllist, ITEMS_PERPAGE, getDate){
@@ -67474,7 +67642,7 @@
 	};
 
 /***/ },
-/* 194 */
+/* 196 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, obj){
@@ -67484,7 +67652,7 @@
 	};
 
 /***/ },
-/* 195 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -67494,19 +67662,19 @@
 
 	var App = angular.module('statistics', []);
 
-	App.config(__webpack_require__(196));
-	App.factory('statisticsservice', __webpack_require__(201));
+	App.config(__webpack_require__(198));
+	App.factory('statisticsservice', __webpack_require__(203));
 
-	App.controller('uselist',__webpack_require__(202));
-	App.controller('statisticsviewlist',__webpack_require__(203));
-	App.controller('statisticssale',__webpack_require__(204));
-	App.controller('statisticscompanylist',__webpack_require__(205));
+	App.controller('uselist',__webpack_require__(204));
+	App.controller('statisticsviewlist',__webpack_require__(205));
+	App.controller('statisticssale',__webpack_require__(206));
+	App.controller('statisticscompanylist',__webpack_require__(207));
 
 
 	module.exports = App;
 
 /***/ },
-/* 196 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -67521,7 +67689,7 @@
 	 	  .state('app.uselist', {
 	        url: '/uselist',
 	        controller : 'uselist',
-	        template: __webpack_require__(197),
+	        template: __webpack_require__(199),
 	        //template: require('../99common/views/table.html'),
 	        resolve:{
 	            destoryDetail : function(statisticsservice){
@@ -67539,7 +67707,7 @@
 	      .state('app.statisticsviewlist', {
 	        url: '/statisticsviewlist',
 	        controller : 'statisticsviewlist',
-	        template: __webpack_require__(198),
+	        template: __webpack_require__(200),
 	        //template: require('../99common/views/table.html'),
 	        resolve:{
 	            viewdestorystatisticlist : function(statisticsservice){
@@ -67560,7 +67728,7 @@
 	      .state('app.statisticssale', {
 	        url: '/statisticssale',
 	        controller : 'statisticssale',
-	        template: __webpack_require__(199),
+	        template: __webpack_require__(201),
 	        resolve:{
 	            orderstatisticslist : function(statisticsservice){
 	                return statisticsservice.orderstatisticslist();
@@ -67577,7 +67745,7 @@
 	      .state('app.statisticscompanylist', {
 	        url: '/statisticscompanylist',
 	        controller : 'statisticscompanylist',
-	        template: __webpack_require__(200),
+	        template: __webpack_require__(202),
 	        resolve:{
 	            orderstatisticscompanylist : function(statisticsservice){
 	                return statisticsservice.orderstatisticscompanylist();
@@ -67597,31 +67765,31 @@
 	module.exports = router;
 
 /***/ },
-/* 197 */
+/* 199 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                \n\n                  <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_name\" placeholder=\"景区名称\">\n                  &nbsp;&nbsp;\n            \n                  \n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                        &nbsp;&nbsp;到&nbsp;&nbsp;            \n                  <div class=\"input-group\">\n                  <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                      <span class=\"input-group-btn\">\n                        <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                      </span>\n                  </div>\n                  &nbsp;&nbsp;\n\n                  <label>类别</label>&nbsp;&nbsp;\n                  <select class=\"form-control\" ng-model=\"searchform.usetype\">\n                    <option value=1> 使用 </option>\n                    <option value=2> 退票 </option>\n                    <option value=3> 未使用 </option>\n                    <option value=999> --全部-- </option>\n                  </select>\n                  &nbsp;&nbsp;\n\n                  共 {{bigTotalItems}} 条数据\n\n                  &nbsp;&nbsp;\n\n                  <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n\n              \n              \n                \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-2 text-center\">购票时间</th>\n        <th class=\"col-md-2 text-center\">操作时间</th>\n        <th class=\"col-md-2 text-center\">景区名称</th>\n        <th class=\"col-md-3 text-center\">商品名称</th>\n        <th class=\"col-md-1 text-center\">票号</th>\n        <th class=\"col-md-1 text-center\">已使用</th>\n        <th class=\"col-md-1 text-center\">已退票</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.create_time}}</td>\n        <td class=\"text-center\">{{obj.otime}}</td>\n        <td class=\"text-center\">{{obj.place_name}}</td>\n        <td class=\"text-center\">{{obj.type_name}}</td>\n        <td class=\"text-center\">{{obj.code}}</td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.used == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.used == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n        </td>\n        <td class=\"text-center\">\n          <span ng-show=\"{{obj.back == '1'}}\" class=\"glyphicon glyphicon-ok text-success\" aria-hidden=\"true\"></span>\n          <span ng-show=\"{{obj.back == '0'}}\" class=\"glyphicon glyphicon-remove text-danger\" aria-hidden=\"true\"></span>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n\n\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
 
 /***/ },
-/* 198 */
+/* 200 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.place_name\" placeholder=\"景区名称\">\n              &nbsp;&nbsp;&nbsp;&nbsp;\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.type_name\" placeholder=\"票种名称\">\n              &nbsp;&nbsp;&nbsp;&nbsp;\n              \n                \n              <label>使用时间</label>&nbsp;&nbsp;\n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n                    &nbsp;&nbsp;到&nbsp;&nbsp;            \n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n              &nbsp;&nbsp;\n\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n              \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-1 text-center\">时间</th>\n        <th class=\"col-md-2 text-center\">景区名称</th>\n        <th class=\"col-md-2 text-center\">商品名称</th>\n        <!-- <th class=\"col-md-1 text-center\">商品编号</th> -->\n        <!-- <th class=\"col-md-2 text-center\">数量</th> -->\n        <th class=\"col-md-1 text-center\">购买数量</th>\n        <th class=\"col-md-1 text-center\">使用数量</th>\n        <th class=\"col-md-1 text-center\">退票数量</th>\n        <th class=\"col-md-1 text-center\">政府补贴</th>\n        <th class=\"col-md-1 text-center\">单价</th>\n        <th class=\"col-md-1 text-center\">居游结算价</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.date}}</td>\n        <td class=\"text-center\">{{obj.place_name}}</td>\n        <td class=\"\">{{obj.type_name}}<br>商品编号：{{obj.goods_code}}</td>\n        <!-- <td class=\"text-center\">{{obj.goods_code}}</td> -->\n        <!-- <td class=\"text-center\">\n          购买：{{obj.buy}}&nbsp;&nbsp;\n          使用：{{obj.used}}&nbsp;&nbsp;\n          退票：{{obj.back}}\n        </td> -->\n        <td class=\"text-center\">{{obj.buy}}</td>\n        <td class=\"text-center\">{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.back}}</td>\n        <td class=\"text-center\">\n            {{(subsidy | arrfilter:'goods_code':'govsubsidy_price':obj.goods_code) * 0.01 | currency : '￥'}}\n        </td>\n        <td class=\"text-center\">{{obj.cost_price  * 0.01 | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.cost_price * obj.used  * 0.01 | currency : '￥'}}</td>\n      </tr>\n\n      <tr >\n        <td class=\"text-center\">总计</td>\n        <td class=\"text-center\"></td>\n        <td class=\"\"></td>\n        <td class=\"text-center\">{{total.buy}}</td>\n        <td class=\"text-center\">{{total.used}}</td>\n        <td class=\"text-center\">{{total.back}}</td>\n        <td class=\"text-center\">{{total.gov * 0.01 | currency : '￥'}}</td>\n        <td class=\"text-center\"></td>\n        <td class=\"text-center\">{{total.total * 0.01 | currency : '￥'}}</td>\n      </tr>\n\n\n    </tbody>\n  </table>\n\n\n</div>"
 
 /***/ },
-/* 199 */
+/* 201 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.company_code\" placeholder=\"分销商编号\">\n              &nbsp;&nbsp;\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.login_name\" placeholder=\"销售账户\">\n              &nbsp;&nbsp;\n\n                \n              <label>使用时间</label>&nbsp;&nbsp;\n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n                    &nbsp;&nbsp;到&nbsp;&nbsp;            \n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n              &nbsp;&nbsp;\n\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n              \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-1 text-center\">时间</th>\n        <th class=\"col-md-2 text-center\">销售品名称</th>\n        <th class=\"col-md-1 text-center\">销售品编号</th>\n\n        <th class=\"col-md-1 text-center\">分销商</th>\n        <th class=\"col-md-1 text-center\">销售账户</th>\n        <th class=\"col-md-1 text-center\">购买数量</th>\n        <th class=\"col-md-1 text-center\">使用数量</th>\n        <th class=\"col-md-1 text-center\">退票数量</th>\n        <th class=\"col-md-1 text-center\">单价</th>\n        <th class=\"col-md-1 text-center\">总计</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.date}}</td>\n        <td class=\"\">{{obj.name}}</td>\n        <td class=\"text-center\">{{obj.sale_code}}</td>\n        <td class=\"text-center\">{{obj.company_name}}<br>{{obj.company_code}}</td>\n        <td class=\"text-center\">{{obj.operation_login_name}}</td>\n        <td class=\"text-center\">{{obj.buy}}</td>\n        <td class=\"text-center\">{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.back}}</td>\n        <td class=\"text-center\">{{obj.unit_price}}</td>\n        <td class=\"text-center\">{{(obj.total_buy - obj.total_back)  * 0.01 | currency : '￥'}}</td>\n      </tr>\n      <tr >\n        <td class=\"text-center\">总计</td>\n        <td class=\"text-center\"></td>\n        <td class=\"\"></td>\n        <td class=\"text-center\"></td>\n        <td class=\"text-center\"></td>\n\n        <td class=\"text-center\">{{total.buy}}</td>\n        <td class=\"text-center\">{{total.used}}</td>\n        <td class=\"text-center\">{{total.back}}</td> \n        <td class=\"text-center\"></td>\n        <td class=\"text-center\">{{total.total * 0.01 | currency : '￥'}}</td>\n      </tr>\n\n    </tbody>\n  </table>\n\n\n</div>"
 
 /***/ },
-/* 200 */
+/* 202 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n\n              <input type=\"text\" class=\"form-control\" ng-model=\"searchform.company_code\" placeholder=\"分销商编号\">\n              &nbsp;&nbsp;\n                \n              <label>使用时间</label>&nbsp;&nbsp;\n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n                    &nbsp;&nbsp;到&nbsp;&nbsp;            \n              <div class=\"input-group\">\n              <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n                  <span class=\"input-group-btn\">\n                    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n                  </span>\n              </div>\n              &nbsp;&nbsp;\n\n              <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n              \n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-1 text-center\">时间</th>\n        <th class=\"col-md-3 text-center\">销售品名称</th>\n        <th class=\"col-md-1 text-center\">销售品编号</th>\n        <th class=\"col-md-1 text-center\">分销商</th>\n        <th class=\"col-md-1 text-center\">购买数量</th>\n        <th class=\"col-md-1 text-center\">使用数量</th>\n        <th class=\"col-md-1 text-center\">退票数量</th>\n        <th class=\"col-md-1 text-center\">单价</th>\n        <th class=\"col-md-1 text-center\">总计</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.date}}</td>\n        <td class=\"\">{{obj.name}}</td>\n        <td class=\"text-center\">{{obj.sale_code}}</td>\n        <td class=\"text-center\">{{obj.company_name}}<br>{{obj.company_code}}</td>\n        <td class=\"text-center\">{{obj.buy}}</td>\n        <td class=\"text-center\">{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.back}}</td>\n        <td class=\"text-center\">{{obj.unit_price}}</td>\n        <td class=\"text-center\">{{(obj.total_buy - obj.total_back)  * 0.01 | currency : '￥'}}</td>\n      </tr>\n      <tr >\n        <td class=\"text-center\">总计</td>\n        <td class=\"text-center\"></td>\n        <td class=\"\"></td>\n        <td class=\"text-center\"></td>\n\n        <td class=\"text-center\">{{total.buy}}</td>\n        <td class=\"text-center\">{{total.used}}</td>\n        <td class=\"text-center\">{{total.back}}</td> \n        <td class=\"text-center\"></td>\n        <td class=\"text-center\">{{total.total * 0.01 | currency : '￥'}}</td>\n      </tr>\n    </tbody>\n  </table>\n\n\n</div>"
 
 /***/ },
-/* 201 */
+/* 203 */
 /***/ function(module, exports) {
 
 	/**
@@ -67671,7 +67839,7 @@
 	module.exports = service;
 
 /***/ },
-/* 202 */
+/* 204 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, destoryDetail, ITEMS_PERPAGE, getDate){
@@ -67734,7 +67902,7 @@
 	};
 
 /***/ },
-/* 203 */
+/* 205 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, 
@@ -67846,7 +68014,7 @@
 	};
 
 /***/ },
-/* 204 */
+/* 206 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE){
@@ -67933,7 +68101,7 @@
 	};
 
 /***/ },
-/* 205 */
+/* 207 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, getDate, orderstatisticscompanylist, ITEMS_PERPAGE){
@@ -68018,7 +68186,7 @@
 	};
 
 /***/ },
-/* 206 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -68028,26 +68196,26 @@
 
 	var App = angular.module('custservice', []);
 
-	App.config(__webpack_require__(207));
-	App.factory('custservice', __webpack_require__(218));
+	App.config(__webpack_require__(209));
+	App.factory('custservice', __webpack_require__(220));
 
-	App.controller('userinfo',__webpack_require__(219));
-	App.controller('cardA',__webpack_require__(220));
-	App.controller('cardB',__webpack_require__(221));
-	App.controller('infoticket',__webpack_require__(222));
-	App.controller('edituserinfo',__webpack_require__(223));
-	App.controller('createuserinfo',__webpack_require__(224));
-	App.controller('redpackage',__webpack_require__(225));
-	App.controller('userorderlist',__webpack_require__(226));
-	App.controller('sendmessage',__webpack_require__(227));
-	App.controller('orderbacklist',__webpack_require__(228));
+	App.controller('userinfo',__webpack_require__(221));
+	App.controller('cardA',__webpack_require__(222));
+	App.controller('cardB',__webpack_require__(223));
+	App.controller('infoticket',__webpack_require__(224));
+	App.controller('edituserinfo',__webpack_require__(225));
+	App.controller('createuserinfo',__webpack_require__(226));
+	App.controller('redpackage',__webpack_require__(227));
+	App.controller('userorderlist',__webpack_require__(228));
+	App.controller('sendmessage',__webpack_require__(229));
+	App.controller('orderbacklist',__webpack_require__(230));
 
 
 
 	module.exports = App;
 
 /***/ },
-/* 207 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -68062,7 +68230,7 @@
 	 	  .state('app.userinfo', {
 	        url: '/userinfo/:mobile',
 	        controller : 'userinfo',
-	        template: __webpack_require__(208),
+	        template: __webpack_require__(210),
 	        resolve:{
 	            userinfo : function(custservice){
 	                return custservice.userinfo();
@@ -68076,7 +68244,7 @@
 	      .state('app.edituserinfo', {
 	        url: '/edituserinfo/:mobile',
 	        controller : 'edituserinfo',
-	        template: __webpack_require__(209),
+	        template: __webpack_require__(211),
 	        resolve:{
 	            edituserinfo : function(custservice){
 	                return custservice.edituserinfo();
@@ -68093,7 +68261,7 @@
 	      .state('app.createuserinfo', {
 	        url: '/createuserinfo',
 	        controller : 'createuserinfo',
-	        template: __webpack_require__(210),
+	        template: __webpack_require__(212),
 	        resolve:{
 	            createuserinfo : function(custservice){
 	                return custservice.createuserinfo();
@@ -68104,7 +68272,7 @@
 	      .state('app.cardA', {
 	        url: '/cardA',
 	        controller : 'cardA',
-	        template: __webpack_require__(211),
+	        template: __webpack_require__(213),
 	        resolve:{
 	            cardA : function(custservice){
 	                return custservice.cardA();
@@ -68115,7 +68283,7 @@
 	      .state('app.cardB', {
 	        url: '/cardB',
 	        controller : 'cardB',
-	        template: __webpack_require__(212),
+	        template: __webpack_require__(214),
 	        resolve:{
 	            cardB : function(custservice){
 	                return custservice.cardB();
@@ -68126,7 +68294,7 @@
 	      .state('app.infoticket', {
 	        url: '/infoticket',
 	        controller : 'infoticket',
-	        template: __webpack_require__(213),
+	        template: __webpack_require__(215),
 	        resolve:{
 	            infoticket : function(custservice){
 	                return custservice.infoticket();
@@ -68137,7 +68305,7 @@
 	      .state('app.redpackage', {
 	        url: '/redpackage',
 	        controller : 'redpackage',
-	        template: __webpack_require__(214),
+	        template: __webpack_require__(216),
 	        resolve:{
 	            redpackage : function(custservice){
 	                return custservice.redpackage();
@@ -68148,7 +68316,7 @@
 	      .state('app.userorderlist', {
 	        url: '/userorderlist',
 	        controller : 'userorderlist',
-	        template: __webpack_require__(215),
+	        template: __webpack_require__(217),
 	        resolve:{
 	            orderlist : function(custservice){
 	                return custservice.orderlist();
@@ -68159,7 +68327,7 @@
 	      .state('app.sendmessage', {
 	        url: '/sendmessage',
 	        controller : 'sendmessage',
-	        template: __webpack_require__(216),
+	        template: __webpack_require__(218),
 	        resolve:{
 	            sendmessage : function(custservice){
 	                return custservice.sendmessage();
@@ -68170,7 +68338,7 @@
 	      .state('app.orderback', {
 	        url: '/orderbacklist',
 	        controller : 'orderbacklist',
-	        template: __webpack_require__(217),
+	        template: __webpack_require__(219),
 	        resolve:{
 	            orderbacklist : function(custservice){
 	                return custservice.orderbacklist();
@@ -68187,67 +68355,67 @@
 	module.exports = router;
 
 /***/ },
-/* 208 */
+/* 210 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>手机号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">实名认证</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\t\n        <th class=\"col-md-1 text-center\">用户名</th>\n        <th class=\"col-md-1 text-center\">手机号</th>\n        <th class=\"col-md-1 text-center\">身份证号</th>\n        <th class=\"col-md-2 text-center\">地址</th>\n        <th class=\"col-md-2 text-center\">实名制</th>\n        <th class=\"col-md-1 text-center\">政府补贴</th>\n        <th class=\"col-md-1 text-center\">慧鼎补贴</th>\n        <th class=\"col-md-1 text-center\">物理卡号</th>\n        <th class=\"col-md-1 text-center\">电子卡号</th>\n        <th class=\"col-md-1 text-center\">操作</th>\n      </tr>\n    </thead>\n    <div ng-show=\"userstate === 0\">\n\t    <tbody>\n\t      <tr>\n\t        <td class=\"text-center\">{{obj.username}}</td>\n\t        <td class=\"text-center\">{{obj.mobile}}</td>\n\t        <td class=\"text-center\">{{obj.papersno}}</td>\n\t        <td class=\"\">{{obj.postaddress}}</td>\n\t        <td class=\"text-center\">{{obj.state}}&nbsp;&nbsp;&nbsp;<a ng-click=\"clear(obj.mobile)\" class=\"btn btn-info btn-xs\">清空</a></td>\n\t        <td class=\"text-center\">{{obj.generalsubsidy | currency : '￥'}}</td>\n\t        <td class=\"text-center\">{{obj.hdticketsubsidy | currency : '￥'}}</td>\n\t        <td class=\"text-center\">{{obj.phycardno}}</td>\n\t        <td class=\"text-center\">{{obj.digitalcardno}}</td>\n\t        <td class=\"text-center\">\n\t        \t<a ng-click=\"edit(obj.mobile)\" class=\"btn btn-success btn-xs\">编辑</a>\n\t        </td>\n\t      </tr>\n\t    </tbody>\n    </div>\n  </table>\n  \n\n</div>"
 
 /***/ },
-/* 209 */
+/* 211 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\n\t\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">用户名</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入用户名\"\n\t\t\tng-model=\"objt.username\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">地址</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入地址\"\n\t\t\tng-model=\"objt.postaddress\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"gogo()\"\n    >\n    提交\n    </button><br>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">政府补贴</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<div class=\"input-group\">\n\t\t\t\t<span class=\"input-group-addon\">¥</span>\n\t\t\t\t<input type=\"number\" class=\"form-control\" min='0'\n\t\t\t\tng-model=\"objt.generalsubsidy\"\n\t\t\t\t>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">慧鼎补贴</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<div class=\"input-group\">\n\t\t\t\t<span class=\"input-group-addon\">¥</span>\n\t\t\t\t<input type=\"number\" class=\"form-control\" min='0'\n\t\t\t\tng-model=\"objt.hdticketsubsidy\"\n\t\t\t\t>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n\t\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"xoxo()\"\n    >\n    提交\n    </button>\n\n\n</div>"
 
 /***/ },
-/* 210 */
+/* 212 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\n\t\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">用户名</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入用户名\"\n\t\t\tng-model=\"objt.username\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">手机号</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入手机号\"\n\t\t\tng-model=\"objt.mobile\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">证件号</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入证件号\"\n\t\t\tng-model=\"objt.papersno\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">地址</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入地址\"\n\t\t\tng-model=\"objt.postaddress\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"gogo()\"\n    >\n    实名认证\n    </button><br>\n\n\n</div>"
 
 /***/ },
-/* 211 */
+/* 213 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>物理卡号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.cardnum\" placeholder=\"请输入物理卡号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"text-center\">物理卡号</th>\n        <th class=\"text-center\">物理卡密</th>\n        <th class=\"text-center\">物理卡内号</th>\n        <th class=\"text-center\">使用状态</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.cardnum}}</td>\n        <td class=\"text-center\">{{obj.cardpass}}</td>\n        <td class=\"text-center\">{{obj.phycardinside}}</td>\n        <td class=\"text-center\">{{obj.state}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
 
 /***/ },
-/* 212 */
+/* 214 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>电子卡号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.cardnum\" placeholder=\"请输入电子卡号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"text-center\">电子卡号</th>\n        <th class=\"text-center\">电子卡密</th>\n        <th class=\"text-center\">电子卡内号</th>\n        <th class=\"text-center\">使用状态</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.cardnum}}</td>\n        <td class=\"text-center\">{{obj.cardpass}}</td>\n        <td class=\"text-center\">{{obj.digitalcardinside}}</td>\n        <td class=\"text-center\">{{obj.state}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
 
 /***/ },
-/* 213 */
+/* 215 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>手机号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-3 text-center\">订单编号</th>\n        <th class=\"col-md-5 text-center\">票种名称</th>\n        <th class=\"col-md-2 text-center\">使用状态</th>\n        <th class=\"col-md-3 text-center\">出票时间</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.order_code}}</td>\n        <td class=\"\">{{obj.type_name}}</td>\n        <td class=\"text-center\">{{obj.used}}</td>\n        <td class=\"text-center\">{{obj.ticket_out_time}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
 
 /***/ },
-/* 214 */
+/* 216 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>红包码</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.giftcode\" placeholder=\"请输入红包码\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <label>手机号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"text-center\">红包码</th>\n        <th class=\"text-center\">手机号</th>\n        <th class=\"text-center\">发送金额</th>\n        <th class=\"text-center\">使用状态</th>\n        <th class=\"text-center\">发送时间</th>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.giftcode}}</td>\n        <td class=\"text-center\">{{obj.mobile}}</td>\n        <td class=\"text-center\">{{obj.money/100 | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.state}}</td>\n        <td class=\"text-center\">{{obj.sendtime}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
 
 /***/ },
-/* 215 */
+/* 217 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>手机号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n      \t<th class=\"col-md-1 text-center\">订单编号</th>\n        <th class=\"col-md-1 text-center\">用户名</th>\n        <th class=\"col-md-1 text-center\">地址</th>\n        <th class=\"col-md-1 text-center\">电话</th>\n        <th class=\"col-md-1 text-center\">证件号</th>\n        <th class=\"col-md-1 text-center\">申请时间</th>\n        <th class=\"col-md-1 text-center\">支付状态</th>\n        <th class=\"col-md-2 text-center\">支付宝订单号</th>\n        <th class=\"col-md-1 text-center\">支付金额</th>\n        <th class=\"col-md-1 text-center\">支付时间</th>\n        <th class=\"col-md-1 text-center\">儿童套票</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.systradeno}}</td>\n        <td class=\"text-center\">{{obj.username}}</td>\n        <td class=\"text-center\">{{obj.address}}</td>\n        <td class=\"text-center\">{{obj.mobile}}</td>\n        <td class=\"text-center\">{{obj.papersno}}</td>\n        <td class=\"text-center\">{{obj.appdatec}}</td>\n        <td class=\"text-center\">{{obj.paystatusname}}</td>\n        <td class=\"text-center\">{{obj.alitradeno}}</td>\n        <td class=\"text-center\">{{obj.fee | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.paytimec}}</td>\n        <td class=\"text-center\">{{obj.ischildname}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
 
 /***/ },
-/* 216 */
+/* 218 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>手机号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.mobile\" placeholder=\"请输入手机号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-1 text-center\">手机号</th>\n        <th class=\"col-md-1 text-center\">业务代码</th>\n        <th class=\"col-md-6 text-center\">短信内容</th>\n        <th class=\"col-md-2 text-center\">创建日期</th>\n        <th class=\"col-md-1 text-center\">是否有效</th>\n        <th class=\"col-md-1 text-center\">发送状态</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.mobile}}</td>\n        <td class=\"text-center\">{{obj.busCode}}</td>\n        <td class=\"text-center\">{{obj.messages}}</td>\n        <td class=\"text-center\">{{obj.createdate}}</td>\n        <td class=\"text-center\">{{obj.status}}</td>\n        <td class=\"text-center\">{{obj.sendStatus}}</td>\n      </tr>\n    </tbody>\n  </table>\n  \n\n</div>"
 
 /***/ },
-/* 217 */
+/* 219 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-12\">\n                <label>订单编号</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.order_code\" placeholder=\"请输入订单编号\">\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"text-center col-md-2\">订单编号</th>\n        <th class=\"text-center col-md-1\">订单序号</th>\n        <th class=\"text-center col-md-1\">支付金额</th>\n        <th class=\"text-center col-md-1\">支付类型</th>\n        <th class=\"text-center col-md-2\">创建时间</th>\n        <th class=\"text-center col-md-1\">所属机构</th>\n        <th class=\"text-center col-md-1\">退款状态</th>\n        <th class=\"text-center col-md-2\">退款时间</th>\n        <th class=\"text-center col-md-1\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"text-center\">{{obj.order_code}}</td>\n        <td class=\"text-center\">{{obj.sequence}}</td>\n        <td class=\"text-center\">{{obj.back_price/100 | currency : '￥'}}</td>\n        <td class=\"text-center\">{{obj.payment_type}}</td>\n        <td class=\"text-center\">{{obj.create_time}}</td>\n        <td class=\"text-center\">{{obj.ta_code}}</td>\n        <td class=\"text-center\">{{obj.back_statename}}</td>\n        <td class=\"text-center\">{{obj.update_time}}</td>\n        <td class=\"text-center\">\n        \t<a ng-show=\"obj.back_state=='0'\" ng-click=\"back(obj.id)\" class=\"btn btn-success btn-xs\">退款</a>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
 
 /***/ },
-/* 218 */
+/* 220 */
 /***/ function(module, exports) {
 
 	/**
@@ -68336,7 +68504,7 @@
 	module.exports = service;
 
 /***/ },
-/* 219 */
+/* 221 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, userinfo, updateUserAuthInfo){
@@ -68415,7 +68583,7 @@
 	};
 
 /***/ },
-/* 220 */
+/* 222 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, cardA){
@@ -68443,7 +68611,7 @@
 	};
 
 /***/ },
-/* 221 */
+/* 223 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, cardB){
@@ -68471,7 +68639,7 @@
 	};
 
 /***/ },
-/* 222 */
+/* 224 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, infoticket){
@@ -68500,7 +68668,7 @@
 	};
 
 /***/ },
-/* 223 */
+/* 225 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, edituserinfo, oneuserinfo, updateUserSubsidy){
@@ -68558,7 +68726,7 @@
 
 
 /***/ },
-/* 224 */
+/* 226 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, createuserinfo){
@@ -68588,7 +68756,7 @@
 
 
 /***/ },
-/* 225 */
+/* 227 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, redpackage){
@@ -68616,7 +68784,7 @@
 	};
 
 /***/ },
-/* 226 */
+/* 228 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, orderlist){
@@ -68645,7 +68813,7 @@
 	};
 
 /***/ },
-/* 227 */
+/* 229 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, sendmessage){
@@ -68690,7 +68858,7 @@
 	};
 
 /***/ },
-/* 228 */
+/* 230 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, orderbacklist, orderback, ITEMS_PERPAGE){
@@ -68753,7 +68921,7 @@
 	};
 
 /***/ },
-/* 229 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -68763,18 +68931,18 @@
 
 	var App = angular.module('notice', []);
 
-	App.config(__webpack_require__(230));
-	App.factory('noticeservice', __webpack_require__(233));
+	App.config(__webpack_require__(232));
+	App.factory('noticeservice', __webpack_require__(235));
 
-	App.controller('noticelist',__webpack_require__(234));
-	App.controller('noticeedit',__webpack_require__(235));
-	App.controller('noticecreate',__webpack_require__(236));
+	App.controller('noticelist',__webpack_require__(236));
+	App.controller('noticeedit',__webpack_require__(237));
+	App.controller('noticecreate',__webpack_require__(238));
 
 
 	module.exports = App;
 
 /***/ },
-/* 230 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -68789,7 +68957,7 @@
 	 	  .state('app.createnotice', {
 	        url: '/noticelist',
 	        controller : 'noticelist',
-	        template: __webpack_require__(231),
+	        template: __webpack_require__(233),
 	        resolve:{
 	            mylist : function(noticeservice){
 	                return noticeservice.mylist();
@@ -68803,7 +68971,7 @@
 	      .state('app.noticecreate', {
 	        url: '/notice',
 	        controller : 'noticecreate',
-	        template: __webpack_require__(232),
+	        template: __webpack_require__(234),
 	        resolve:{
 	            create : function(noticeservice){
 	                return noticeservice.create();
@@ -68815,7 +68983,7 @@
 	      .state('app.noticeedit', {
 	        url: '/notice/:id',
 	        controller : 'noticeedit',
-	        template: __webpack_require__(232),
+	        template: __webpack_require__(234),
 	        resolve:{
 	            myinfo : function(noticeservice){
 	                return noticeservice.myinfo();
@@ -68834,19 +69002,19 @@
 	module.exports = router;
 
 /***/ },
-/* 231 */
+/* 233 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-12\">\n<div class=\"panel panel-default\">\n    <div class=\"panel-body\">\n        <div class=\"form-group form-inline\">\n            <div class=\"col-sm-10\">\n                <label>公告标题</label>&nbsp;&nbsp;\n                <input type=\"text\" class=\"form-control\" ng-model=\"searchform.title\" >\n                &nbsp;&nbsp;&nbsp;&nbsp;\n                <button type=\"button\" class=\"btn btn-default search\" ng-click=\"load()\">立即搜索</button>\n            </div>\n            <div class=\"col-sm-2 text-right\">\n                <button type=\"button\" class=\"btn btn-info new\" ng-click=\"create()\">创建公告</button>\n            </div>\n        </div>\n    </div>\n</div><!-- searchArea -->\n\n\n  <table class=\"table table-bordered\">\n    <thead>\n      <tr>\n        <th class=\"col-md-4 text-center\">公告标题</th>\n        <th class=\"col-md-2 text-center\">公告状态</th>\n        <th class=\"col-md-2 text-center\">排序</th>\n        <th class=\"col-md-2 text-center\">创建时间</th>\n        <th class=\"col-md-2 text-center\">操作</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"obj in objs\">\n        <td class=\"\">{{obj.title}}</td>\n        <td class=\"text-center\">{{obj.statename}}</td>\n        <td class=\"form-horizontal \">\n          <div class=\"col-sm-6\">\n            <input class=\"form-control input-sm\" \n            style=\"height:22px;\" \n            type=\"text\" \n            value=\"{{obj.asort}}\" \n            ng-model=\"obj.asort\">\n          </div>\n          <a ng-click=\"asort(obj.id, obj.asort)\" class=\"btn btn-info btn-xs\">gogo</a> \n        </td>\n        <td class=\"text-center\">{{obj.sdate}}</td>\n        <td class=\"text-center\">\n          <a ng-show=\"obj.state=='1'\" ng-click=\"stop(obj.id)\" class=\"btn btn-primary btn-xs\">隐藏</a>\n          <a ng-show=\"obj.state=='0'\" ng-click=\"start(obj.id)\" class=\"btn btn-danger btn-xs\">显示</a>\n          <a ng-click=\"edit(obj.id)\" class=\"btn btn-success btn-xs\">编辑</a>\n        </td>\n      </tr>\n    </tbody>\n  </table>\n\n\n  <div class=\"text-right\">\n\n    <uib-pagination \n      total-items=\"bigTotalItems\" \n      ng-model=\"bigCurrentPage\" \n      max-size=\"maxSize\" \n      class=\"pagination-sm\" \n      boundary-links=\"true\" \n      ng-change=\"load()\"\n      items-per-page=\"itemsPerPage\"\n      previous-text=\"上一页\"\n      next-text=\"下一页\"\n      first-text=\"首页\"\n      last-text=\"末页\"\n      rotate=\"false\">\n    </uib-pagination>\n\n  </div>\n  \n\n</div>"
 
 /***/ },
-/* 232 */
+/* 234 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-xs-10 col-xs-offset-1 form-horizontal\" >\n\t\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">公告标题</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\"\n\t\t\tng-model=\"objt.title\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">公告内容</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<!--<textarea class=\"form-control\" rows=\"15\"\n\t\t\tng-model=\"objt.content\"\n\t\t\t></textarea>-->\n\t\t\t<div text-angular ng-model=\"objt.content\"></div>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t\t<label class=\"col-xs-2 control-label\">公告排序</label>\n\t\t<div class=\"col-xs-6\">\n\t\t\t<input type=\"text\" class=\"form-control\"\n\t\t\tng-model=\"objt.asort\"\n\t\t\t>\n\t\t</div>\n\t</div>\n\n\t<div class=\"form-group\">\n\t    <label class=\"col-xs-2 control-label\">公告状态</label>\n\t    <div class=\"col-xs-10\">\n\t    \t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"1\"\n\t\t\t  ng-model=\"objt.state\"\n\t\t\t  > 显示\n\t\t\t</label>\n\t\t\t<label class=\"radio-inline\">\n\t\t\t  <input type=\"radio\" name=\"state\" value=\"0\"\n\t\t\t  ng-model=\"objt.state\"\n\t\t\t  > 隐藏\n\t\t\t</label>\n\t    </div>\n  \t</div>\n\n\t\n\n\t<button \n    type=\"button\" \n    class=\"btn btn-primary btn-lg btn-block\" \n    ng-click=\"gogo()\"\n    >\n    提交\n    </button>\n\n\n</div>"
 
 /***/ },
-/* 233 */
+/* 235 */
 /***/ function(module, exports) {
 
 	/**
@@ -68885,7 +69053,7 @@
 	module.exports = service;
 
 /***/ },
-/* 234 */
+/* 236 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, mylist, update, ITEMS_PERPAGE){
@@ -68984,7 +69152,7 @@
 	};
 
 /***/ },
-/* 235 */
+/* 237 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, $stateParams, update, myinfo){
@@ -69028,7 +69196,7 @@
 	};
 
 /***/ },
-/* 236 */
+/* 238 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $state, create){
@@ -69060,7 +69228,7 @@
 	};
 
 /***/ },
-/* 237 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -69070,11 +69238,11 @@
 
 	var App = angular.module('chart', []);
 
-	App.config(__webpack_require__(238));
-	App.factory('chartservice', __webpack_require__(240));
+	App.config(__webpack_require__(240));
+	App.factory('chartservice', __webpack_require__(242));
 
 
-	App.controller('salechart',__webpack_require__(241));
+	App.controller('salechart',__webpack_require__(243));
 	// App.controller('orderbycode',require('./controllers/orderbycode'));
 	// App.controller('orderticketlist',require('./controllers/orderticketlist'));
 	// App.controller('allorderlist',require('./controllers/allorderlist'));
@@ -69086,7 +69254,7 @@
 	module.exports = App;
 
 /***/ },
-/* 238 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -69101,7 +69269,7 @@
 	        .state('app.salechart', {
 	            url: '/salechart',
 	            controller : 'salechart',
-	            template: __webpack_require__(239),
+	            template: __webpack_require__(241),
 	            resolve:{
 	                orderstatisticslist : function(statisticsservice){
 	                    return statisticsservice.orderstatisticslist();
@@ -69124,13 +69292,13 @@
 	module.exports = router;
 
 /***/ },
-/* 239 */
+/* 241 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-xs-12\">\n<div class=\"row\">\n\n<!-- 图表 -->\n<div class=\"col-xs-8\">\n  <canvas id=\"line\" class=\"chart chart-line \" chart-data=\"line.data\"\n    chart-labels=\"line.labels\" chart-legend=\"true\" chart-series=\"line.series\"\n    chart-click=\"onClick\" >\n  </canvas> \n\n  <canvas id=\"pie\" class=\"chart chart-pie\"\n    chart-data=\"data\" chart-labels=\"labels\">\n  </canvas> \n\n</div>\n\n<div class=\"col-xs-4\">\n<div class=\"panel panel-default form-horizontal \">\n<div class=\"panel-body\">\n<!-- <div class=\"form-group form-inline \"> -->\n<div class=\"col-xs-12\" >\n\n    <div class=\"form-group\" >\n      <label class=\"col-xs-2 control-label\">景区</label>\n      <div class=\"col-xs-10\" >\n        <select class=\"form-control\" ng-model=\"searchform.place_code\" \n          ng-options=\"view.viewcode as view.viewname for view in viewarr\"\n          ng-change=\"change(searchform.place_code)\" \n        >\n          <option value=\"\"> --全部-- </option>\n        </select>\n      </div>\n    </div>\n\n    <div class=\"form-group\" >\n      <label class=\"col-xs-2 control-label\">产品</label>\n      <div class=\"col-xs-10\" >\n        <select class=\"form-control\" ng-model=\"searchform.sale\" \n          ng-options=\"(sale.name + '-' +  sale.sale_category_name) for sale in salearr\"\n          ng-change=\"changesale(searchform.sale)\" \n        >\n        </select>\n      </div>\n    </div>\n\n\n    <div class=\"form-group\" >\n      <label class=\"col-xs-2 control-label\">开始</label>\n      <div class=\"col-xs-10\" >\n        <div class=\"input-group\">\n          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.start.date\" is-open=\"section.start.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n            <span class=\"input-group-btn\">\n              <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.start)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n            </span>\n        </div>\n      </div>\n    </div>\n\n\n    <div class=\"form-group\" >\n      <label class=\"col-xs-2 control-label\">结束</label>\n      <div class=\"col-xs-10\" >\n        <div class=\"input-group\">\n          <input type=\"text\" class=\"form-control\" uib-datepicker-popup=\"yyyy-MM-dd\" ng-model=\"section.end.date\" is-open=\"section.end.opened\" ng-required=\"true\" close-text=\"Close\" readonly/>\n            <span class=\"input-group-btn\">\n              <button type=\"button\" class=\"btn btn-default\" ng-click=\"open(section.end)\"><i class=\"glyphicon glyphicon-calendar\"></i></button>\n            </span>\n        </div>\n      </div>\n    </div>\n\n\n    <div class=\"form-group\">\n      <button type=\"button\" class=\"btn btn-default btn-block\" ng-click=\"load()\">立即搜索</button>\n\n    </div>\n\n\n      \n</div>\n\n\n<!-- </div> -->\n</div>\n\n  <ul class=\"list-group\">\n    <li class=\"list-group-item\"\n      ng-repeat=\"obj in objs\"\n    >\n      {{obj.name + '-' + obj.sale_category_name}}\n      <a ng-click=\"del(obj.code)\" class=\"btn pull-right\" style=\"color: red; padding:0px;\">\n        <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>\n      </a>\n    </li>\n  </ul>\n\n</div><!-- searchArea -->\n\n\n\n\n\n</div>\n</div>\n</div>"
 
 /***/ },
-/* 240 */
+/* 242 */
 /***/ function(module, exports) {
 
 	/**
@@ -69150,7 +69318,7 @@
 	module.exports = service;
 
 /***/ },
-/* 241 */
+/* 243 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, orderstatisticslist, getDate, dataScope, salelist){
@@ -69308,7 +69476,7 @@
 	};
 
 /***/ },
-/* 242 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -69319,13 +69487,13 @@
 	var App = angular.module('util', []);
 
 
-	App.factory('utilservice', __webpack_require__(243));
+	App.factory('utilservice', __webpack_require__(245));
 
 
 	module.exports = App;
 
 /***/ },
-/* 243 */
+/* 245 */
 /***/ function(module, exports) {
 
 	/**
@@ -69487,19 +69655,19 @@
 	module.exports = service;
 
 /***/ },
-/* 244 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//拦截器
 
 	var App = angular.module('intercept', []);
 	//alert('sadsadsadasas');
-	App.factory('httpInjector', __webpack_require__(245));
+	App.factory('httpInjector', __webpack_require__(247));
 
 	module.exports = App;
 
 /***/ },
-/* 245 */
+/* 247 */
 /***/ function(module, exports) {
 
 	module.exports = function($location){
@@ -69520,7 +69688,7 @@
 	};
 
 /***/ },
-/* 246 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -69530,14 +69698,14 @@
 
 	var App = angular.module('test', []);
 
-	App.config(__webpack_require__(247));
+	App.config(__webpack_require__(249));
 
-	App.controller('cccc',__webpack_require__(249));
+	App.controller('cccc',__webpack_require__(251));
 
 	module.exports = App;
 
 /***/ },
-/* 247 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -69552,7 +69720,7 @@
 	 	  .state('app.table', {
 	        url: '/table/:url',
 	        controller : 'cccc',
-	        template: __webpack_require__(248)
+	        template: __webpack_require__(250)
 	      })
 
 	 	  
@@ -69562,13 +69730,13 @@
 	module.exports = router;
 
 /***/ },
-/* 248 */
+/* 250 */
 /***/ function(module, exports) {
 
 	module.exports = "<table class=\"table table-bordered table-hover\">\n    <thead>\n      <tr>\n        <th class=\"text-center col-sm-{{t.length}}\" \n        ng-repeat=\"t in obj.title\">{{t.name}}</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr ng-repeat=\"xx in obj.content\">\n        <td class=\"text-center\"\n        ng-repeat=\"t in obj.title\"\n        >{{xx[t.key]}}</td>\n      </tr>\n    </tbody>\n</table>\n\n\n<div class=\"text-right\">\n    <pagination items-per-page=\"itemsPerPage\" \n                total-items=\"bigTotalItems\" \n                ng-model=\"bigCurrentPage\" \n                max-size=\"maxSize\" \n                class=\"pagination-sm\" \n                boundary-links=\"true\" \n                rotate=\"false\" \n                num-pages=\"numPages\" \n                previous-text=\"上一页\"\n                next-text=\"下一页\"\n                first-text=\"首页\"\n                last-text=\"末页\"\n                ng-change=\"load()\"></pagination>\n</div>"
 
 /***/ },
-/* 249 */
+/* 251 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $stateParams, $resource, BASEURL38985){
@@ -69833,7 +70001,7 @@
 
 
 /***/ },
-/* 250 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -69843,16 +70011,16 @@
 
 	var App = angular.module('common', []);
 
-	App.config(__webpack_require__(251));
+	App.config(__webpack_require__(253));
 
-	App.factory('commonservice', __webpack_require__(253));
+	App.factory('commonservice', __webpack_require__(255));
 
-	App.controller('appcontroller',__webpack_require__(254));
+	App.controller('appcontroller',__webpack_require__(256));
 
 	module.exports = App;
 
 /***/ },
-/* 251 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -69869,7 +70037,7 @@
 		      url: '/app',
 		      abstract: true,
 		      controller : 'appcontroller',
-		      template : __webpack_require__(252),
+		      template : __webpack_require__(254),
 		      resolve:{
 	        	permission : function(commonservice){
 	        		return commonservice.permission();
@@ -69883,13 +70051,13 @@
 	module.exports = router;
 
 /***/ },
-/* 252 */
+/* 254 */
 /***/ function(module, exports) {
 
 	module.exports = "<!-- top navbar-->\n<header>\n\t<nav class=\"navbar navbar-custom \">\n\t  <div class=\"container-fluid\">\n\t    <!-- Brand and toggle get grouped for better mobile display -->\n\t    <div class=\"navbar-header\">\n\t      <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\"\n\t      ng-click=\"isCollapsed = !isCollapsed\"\n\t      >\n\t        <span class=\"sr-only\">Toggle navigation</span>\n\t        <span class=\"icon-bar\"></span>\n\t        <span class=\"icon-bar\"></span>\n\t        <span class=\"icon-bar\"></span>\n\t      </button>\n\t      <a class=\"navbar-brand\" href=\"#/\">\n\t      \t{{menuobj.name}}\n\t      </a>\n\t    </div>\n\n\t    <!-- Collect the nav links, forms, and other content for toggling -->\n\t    <div class=\"collapse navbar-collapse \" \n\t    uib-collapse=\"isCollapsed\" id=\"bs-example-navbar-collapse-1\">\n\n\t      <ul class=\"nav navbar-nav\"  >\n\t      \t<li class=\"dropdown\"\n\t      \t\tng-repeat=\"menu in menuobj.list\"\n\t      \t \tuib-dropdown  >\n\t\t      <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\" uib-dropdown-toggle> {{menu.name}} <span class=\"caret\"></span></a>\n\t\t      <ul uib-dropdown-menu role=\"menu\" aria-labelledby=\"single-button\">\n\t\t      \t<li ng-repeat=\"smenu in menu.list\">\n\t\t      \t\t<a ui-sref=\"{{smenu.href}}\">{{smenu.name}}</a>\n\t\t      \t</li>\n\t\t      </ul>\n\t\t    </li>\n\t        \n\t      </ul>\n\n\t      <ul class=\"nav navbar-nav navbar-right\">\n\t        <li>\n\t\t        <a href=\"manager/logout\" class=\"btn \" style=\"color: red;\">\n\t\t        \t<span class=\"glyphicon glyphicon-off\" aria-hidden=\"true\"></span>\n\t\t      \t</a>\n\t        </li>\n\t      </ul>\n\n\t      \n\n\t    </div><!-- /.navbar-collapse -->\n\n\t  </div><!-- /.container-fluid -->\n\t</nav>\n</header>\n<section>\n    <div ui-view=\"\" class=\"content-wrapper\"></div>\n</section>\n\n<!-- Page footer-->\n<!-- <footer >\n\n\t<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n\t  <div class=\"container-fluid text-center mt15\">\n\t    <span class=\"glyphicon glyphicon-heart\"></span> from 慧鼎商务\n\t  </div>\n\t</nav>\n</footer> -->"
 
 /***/ },
-/* 253 */
+/* 255 */
 /***/ function(module, exports) {
 
 	module.exports = function(BASEURL38985, $resource){
@@ -69911,7 +70079,7 @@
 	};
 
 /***/ },
-/* 254 */
+/* 256 */
 /***/ function(module, exports) {
 
 	module.exports = function($scope, $rootScope){
