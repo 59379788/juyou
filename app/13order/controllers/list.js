@@ -122,7 +122,7 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
 
     $scope.resend = function(obj){
         var code = obj.code;
-        updateSmsState.save({'code' : code}, function(res){
+        resend.save({'code' : code}, function(res){
             console.log(res);
             if(res.errcode === 0)
             {
