@@ -58,9 +58,8 @@ module.exports = function($scope, getDate, orderstatisticscompanylist, ITEMS_PER
                     $scope.total.buy += parseInt(res.data[i].buy);
                     $scope.total.used += parseInt(res.data[i].used);
                     $scope.total.back += parseInt(res.data[i].back);
-                    $scope.total.total += parseInt(res.data[i].cost_price) * parseInt(res.data[i].buy - res.data[i].back);
+                    $scope.total.total += parseInt(res.data[i].total_buy - res.data[i].total_back);
                 }
-
                 $scope.objs = res.data;
                 //$scope.bigTotalItems = res.data.totalRecord;
             }
