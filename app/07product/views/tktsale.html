@@ -26,14 +26,14 @@
   <div class="panel-body">
     <uib-tabset >
 
-      <uib-tab index="$index" ng-repeat="state in tkttype.state"
-      heading="{{state.title}}"  active="true"
+      <uib-tab index="$index" ng-repeat="state in tkttype.state track by $index"
+      heading="{{state.title}}" 
       >
-
+        <div >
         <uib-tabset 
         >
 
-        <uib-tab index="$index" ng-repeat="category in state.category"
+        <uib-tab index="$index" ng-repeat="category in state.category  track by $index"
         heading="{{category.title}}" 
         
         >
@@ -90,7 +90,7 @@
      
       
         </uib-tabset>
-
+        </div>
 
       </uib-tab>
      

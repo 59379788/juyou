@@ -43,7 +43,7 @@ module.exports = function($scope, $uibModal,
 		else if(len === 7)
 		{
 			para = {"code" : $scope.code, "device" : $scope.device};
-			func = useticketbygroupcode
+			func = useticketbygroupcode;
 			checkgroupcode.get(para, oper);
 		}
 		else

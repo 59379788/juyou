@@ -58750,7 +58750,7 @@
 			else if(len === 7)
 			{
 				para = {"code" : $scope.code, "device" : $scope.device};
-				func = useticketbygroupcode
+				func = useticketbygroupcode;
 				checkgroupcode.get(para, oper);
 			}
 			else
@@ -68167,7 +68167,7 @@
 
 	    $scope.resend = function(obj){
 	        var code = obj.code;
-	        updateSmsState.save({'code' : code}, function(res){
+	        resend.save({'code' : code}, function(res){
 	            console.log(res);
 	            if(res.errcode === 0)
 	            {
