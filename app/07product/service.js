@@ -152,7 +152,7 @@ var service = function($resource, BASEURL38985, $q, $http){
 
     //系统确认项接口
     //创建系统确认
-    var affirmcrearte = BASEURL38985 + '/api/as/tc/salesysaffirm/create';
+    var affirmcreate = BASEURL38985 + '/api/as/tc/salesysaffirm/create';
     //查询
     var affirminfo = BASEURL38985 + '/api/as/tc/salesysaffirm/info';
     //更新
@@ -368,8 +368,8 @@ var service = function($resource, BASEURL38985, $q, $http){
         tststop : function(){
             return $resource(tststop, {}, {});
         },
-        affirmcrearte : function(){
-            return $resource(affirmcrearte, {}, {});
+        affirmcreate : function(){
+            return $resource(affirmcreate, {}, {});
         },
         affirminfo : function(){
             return $resource(affirminfo, {}, {});

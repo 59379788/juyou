@@ -272,8 +272,8 @@ var router = function($urlRouterProvider, $stateProvider){
             },
 
             //系统确认模块
-            affirmcrearte : function(productservice){
-                return productservice.affirmcrearte();
+            affirmcreate : function(productservice){
+                return productservice.affirmcreate();
             },
             affirminfo : function(productservice){
                 return productservice.affirminfo();

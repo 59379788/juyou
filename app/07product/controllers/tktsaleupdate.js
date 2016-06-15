@@ -3,9 +3,9 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
 	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, what,
 	//系统确认模块
-    affirmcrearte, affirminfo, affirmupdate
+    affirmcreate, affirminfo, affirmupdate
     ){
-	
+
 	//销售品对象
 	$scope.saleobj = {};	
 	//商品列表对象
@@ -67,6 +67,18 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
         if(res.errcode === 0)
         {
         	$scope.typearr = res.data;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
+    //自营
+    dictbytypelist({'type' : 'ticket_sale_belong'}).then(function(res) {
+    	console.log(res);
+        if(res.errcode === 0)
+        {
+        	$scope.sale_belongarr = res.data;
         }
         else
         {
@@ -429,7 +441,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			'sysaffirm_target_goods_code' : $scope.affirm.sysaffirm_target_goods_code
 		};
 		console.log(para);
-		affirmcrearte.save(para, function(res){
+		affirmcreate.save(para, function(res){
 			console.log(res);
 			if(res.errcode === 0)
 			{

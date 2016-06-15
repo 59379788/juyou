@@ -2,7 +2,9 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 	saleinfo, saleupdate, goodlist, 
     saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, FileUploader,
     salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
-    salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo
+    salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo,
+    //系统确认模块
+    affirmcreate, affirminfo, affirmupdate
 	){
 
 	$scope.saleobj = {};
@@ -72,6 +74,20 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
         {
         	$scope.typearr = res.data;
         	$scope.saleobj.sale_category=$scope.typearr[0].value;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
+
+    //自营
+    dictbytypelist({'type' : 'ticket_sale_belong'}).then(function(res) {
+    	console.log(res);
+        if(res.errcode === 0)
+        {
+        	$scope.sale_belongarr = res.data;
+        	$scope.saleobj.sale_belong=$scope.sale_belongarr[0].value;
         }
         else
         {
@@ -157,6 +173,16 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 		            },
 		            dictbytypelist : function(){
 		                return dictbytypelist;
+		            },
+		            //系统确认模块
+		            affirmcreate : function(){
+		                return affirmcreate;
+		            },
+		            affirminfo : function(){
+		                return affirminfo;
+		            }, 
+		            affirmupdate : function(){
+		                return affirmupdate;
 		            }
 		          }
 		        });

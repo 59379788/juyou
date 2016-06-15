@@ -5,7 +5,7 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, talist,
     sellerList, tstcreate, tststart, tststop,
     //系统确认模块
-    affirmcrearte, affirminfo, affirmupdate
+    affirmcreate, affirminfo, affirmupdate
     ){
 
 	$scope.searchform = {};
@@ -67,6 +67,16 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             dictbytypelist : function(){
                 return dictbytypelist;
+            },
+            //系统确认模块
+            affirmcreate : function(){
+                return affirmcreate;
+            },
+            affirminfo : function(){
+                return affirminfo;
+            }, 
+            affirmupdate : function(){
+                return affirmupdate;
             }
           }
         });
@@ -256,8 +266,8 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
                 return dictbytypelist;
             },
             //系统确认模块
-            affirmcrearte : function(){
-                return affirmcrearte;
+            affirmcreate : function(){
+                return affirmcreate;
             },
             affirminfo : function(){
                 return affirminfo;
@@ -360,6 +370,16 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             dictbytypelist : function(){
                 return dictbytypelist;
+            },
+            //系统确认模块
+            affirmcreate : function(){
+                return affirmcreate;
+            },
+            affirminfo : function(){
+                return affirminfo;
+            }, 
+            affirmupdate : function(){
+                return affirmupdate;
             }
           }
         });
