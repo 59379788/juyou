@@ -149,6 +149,14 @@ var service = function($resource, BASEURL38985, $q, $http){
     //禁止销售
     var tststop = BASEURL38985 + '/api/as/tc/ticketsaletarget/updateStop';
 
+
+    //系统确认项接口
+    //创建系统确认
+    var affirmcrearte = BASEURL38985 + '/api/as/tc/salesysaffirm/create';
+    //查询
+    var affirminfo = BASEURL38985 + '/api/as/tc/salesysaffirm/info';
+    //更新
+    var affirmupdate = BASEURL38985 + '/api/as/tc/salesysaffirm/update';
     
     return {
 
@@ -359,6 +367,15 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         tststop : function(){
             return $resource(tststop, {}, {});
+        },
+        affirmcrearte : function(){
+            return $resource(affirmcrearte, {}, {});
+        },
+        affirminfo : function(){
+            return $resource(affirminfo, {}, {});
+        },
+        affirmupdate : function(){
+            return $resource(affirmupdate, {}, {});
         }
        
     };

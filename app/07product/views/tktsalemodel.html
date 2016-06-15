@@ -392,10 +392,64 @@
 </div>
 
 
+<div class="col-xs-12 " ng-show="saleobj.id && saleobj.sys_affirm_type == 0">
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			系统确认详情
+			<button type="button" 
+				class="btn btn-xs btn-info pull-right"
+				ng-show="!affirm.has"
+				ng-click="affirmcreate()"
+			>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+
+			<button type="button" 
+				class="btn btn-xs btn-info pull-right"
+				ng-show="affirm.has"
+				ng-click="affirmupdate()"
+			>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				
+			<div class="col-xs-10" >
+				<div class="form-group">
+					<label class="col-xs-2 control-label">确认项</label>
+					<div class="col-xs-10">
+						<select class="form-control" 
+						ng-model="affirm.sysaffirm_target_code" 
+						ng-options="ticket_sys_affirm.value as ticket_sys_affirm.label for ticket_sys_affirm in ticket_sys_affirmarr"
+			            >
+			            </select>
+					</div>
+				</div>
+			</div>
+
+			<!-- 红海滩廊道需要的内容 -->
+			<div class="col-xs-10" ng-show="affirm.sysaffirm_target_code == 'langdao'">
+				<div class="form-group">
+					<label class="col-xs-2 control-label">商品id</label>
+					<div class="col-xs-10">
+						<input type="text" class="form-control"
+						ng-model="affirm.sysaffirm_target_goods_code"
+						>
+					</div>
+				</div>
+			</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
 
 
 
-<div class="col-xs-12 " ng-show="funobj.hasOwnProperty('juyousubsidy')">
+
+
+<!-- <div class="col-xs-12 " ng-show="funobj.hasOwnProperty('juyousubsidy')">
 	<div class="panel panel-default form-horizontal">
 		<div class="panel-heading">
 			用户限制数量
@@ -432,7 +486,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 
 </div>
 </div>

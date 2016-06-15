@@ -3,7 +3,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, FileUploader,
     salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
     salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, talist,
-    sellerList, tstcreate, tststart, tststop
+    sellerList, tstcreate, tststart, tststop,
+    //系统确认模块
+    affirmcrearte, affirminfo, affirmupdate
     ){
 
 	$scope.searchform = {};
@@ -252,6 +254,16 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             dictbytypelist : function(){
                 return dictbytypelist;
+            },
+            //系统确认模块
+            affirmcrearte : function(){
+                return affirmcrearte;
+            },
+            affirminfo : function(){
+                return affirminfo;
+            }, 
+            affirmupdate : function(){
+                return affirmupdate;
             }
           }
         });

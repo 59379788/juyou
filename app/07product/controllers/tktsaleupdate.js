@@ -1,7 +1,10 @@
 module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupdate, goodlist, 
 	saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, FileUploader,
 	salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
-	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, what){
+	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, what,
+	//系统确认模块
+    affirmcrearte, affirminfo, affirmupdate
+    ){
 	
 	//销售品对象
 	$scope.saleobj = {};	
@@ -29,6 +32,9 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 
 	//功能模块对象
 	$scope.funobj = {};
+
+	//系统确认项模块对象
+	$scope.affirm = {};
 
 	//基本信息 景区下拉
 	viewlist().then(function(res) {
@@ -86,6 +92,9 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 
 			//获取功能模块
 			getfun($scope.saleobj.sale_category, $scope.saleobj.code);
+
+			//系统确认模块
+			getaffirm($scope.saleobj.code);
 		}
 		else
 		{
@@ -366,6 +375,90 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			{
 				alert('ok');
 				getfun($scope.saleobj.sale_category, $scope.saleobj.code);
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+		});
+	}
+
+
+
+	//系统确认项 affirm
+	
+
+
+	dictbytypelist({'type' : 'ticket_sys_affirm'}).then(function(res) {
+    	console.log(res);
+        if(res.errcode === 0)
+        {
+        	$scope.ticket_sys_affirmarr = res.data;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
+
+    function getaffirm(code){
+		//console.log({'sysaffirm_sale_code' : code});
+		affirminfo.get({'sysaffirm_sale_code' : code}, function(res){
+			if(res.errcode === 10003)
+			{
+				$scope.affirm['has'] = false;
+			}
+			else
+			{
+				$scope.affirm = res.data;
+				$scope.affirm['has'] = true;
+			}
+
+		});
+	}
+	
+	$scope.affirmcreate = function(){
+		if($scope.affirm.sysaffirm_target_code == undefined)
+		{
+			alert('请选择对象');
+			return;
+		}
+		var para = {
+			'sysaffirm_sale_code' : $scope.saleobj.code,
+			'sysaffirm_target_code' : $scope.affirm.sysaffirm_target_code,
+			'sysaffirm_target_goods_code' : $scope.affirm.sysaffirm_target_goods_code
+		};
+		console.log(para);
+		affirmcrearte.save(para, function(res){
+			console.log(res);
+			if(res.errcode === 0)
+			{
+				alert('ok');
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+		});
+	}
+
+	$scope.affirmupdate = function(){
+		if($scope.affirm.sysaffirm_target_code == undefined)
+		{
+			alert('请选择对象');
+			return;
+		}
+		var para = {
+			'sysaffirm_sale_code' : $scope.saleobj.code,
+			'sysaffirm_target_code' : $scope.affirm.sysaffirm_target_code,
+			'sysaffirm_target_goods_code' : $scope.affirm.sysaffirm_target_goods_code
+		};
+		console.log(para);
+		affirmupdate.save(para, function(res){
+			console.log(res);
+			if(res.errcode === 0)
+			{
+				alert('ok');
 			}
 			else
 			{

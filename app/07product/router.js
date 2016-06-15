@@ -269,6 +269,17 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             tststop : function(productservice){
                 return productservice.tststop();
+            },
+
+            //系统确认模块
+            affirmcrearte : function(productservice){
+                return productservice.affirmcrearte();
+            },
+            affirminfo : function(productservice){
+                return productservice.affirminfo();
+            },
+            affirmupdate : function(productservice){
+                return productservice.affirmupdate();
             }
             
         }
