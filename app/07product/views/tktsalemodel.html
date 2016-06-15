@@ -144,7 +144,7 @@
 					    <label class="col-xs-3 control-label">产品所属</label>
 					    <div class="col-xs-9" >
 							<select class="form-control" ng-model="saleobj.sale_belong" 
-							  ng-disabled="saleobj.id != ''"
+							  ng-disabled="saleobj.state != 0 && saleobj.id != ''"
 				              ng-options="sale_belong.value as sale_belong.label for sale_belong in sale_belongarr"
 				            >
 				            </select>
