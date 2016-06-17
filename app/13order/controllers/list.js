@@ -1,5 +1,6 @@
 module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, 
-    $uibModal, ticketlist, createBackOrder, resend){
+    $uibModal, ticketlist, createBackOrder, resend, getRedCorridorOrderList,
+    getRedCorridorResentMsg){
     
     $scope.searchform = {};
 
@@ -74,6 +75,10 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
             },
             createBackOrder : function(){
                 return createBackOrder;
+            },
+            //红海滩
+            getRedCorridorOrderList : function(){
+                return getRedCorridorOrderList;
             }
           }
         });
@@ -121,8 +126,20 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
 
 
     $scope.resend = function(obj){
+        var fun;
+
+        if(obj.sale_belong === 'juyou')
+        {
+            fun = resend;
+        }
+        else
+        {
+            fun = getRedCorridorResentMsg;
+        }
+
         var code = obj.code;
-        resend.save({'code' : code}, function(res){
+        console.log({'code' : code});
+        fun.save({'code' : code}, function(res){
             console.log(res);
             if(res.errcode === 0)
             {

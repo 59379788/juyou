@@ -1,16 +1,34 @@
-module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj){
+module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj, getRedCorridorOrderList){
 
     var code = obj.code;
 
+    var fun;
+    var viewname = '';
+
+    if(obj.sale_belong === 'juyou')
+    {
+        fun = ticketlist;
+    }
+    else
+    {
+        if(obj.sale_belong === 'langdao') viewname = '红海滩廊道';
+        fun = getRedCorridorOrderList;
+    }
+
+    console.log(obj);
+    console.log(code);
+
     $scope.load = function () {
-        ticketlist.get({'order_code' : code}, function(res){
+        fun.get({'order_code' : code}, function(res){
+
+            console.log(res);
 
             /* 门票存储结构
              * ========================================= */
             var tkt = new Object();
             var restkt = new Array();
 
-            console.log(res);
+            //console.log(res);
 
             if(res.errcode !== 0)
             {
@@ -18,10 +36,22 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
                 return;
             }
 
-            //用景区编号作为存储结构的属性，值是数组
-            for(var i = 0, j = res.data.length; i < j; i++)
+            var arr = [];
+            if(obj.sale_belong === 'juyou')
             {
-                var tt = res.data[i];
+                arr = res.data;
+            }
+            else
+            {
+                arr = change(res.data);
+            }
+
+            console.log(arr);
+
+            //用景区编号作为存储结构的属性，值是数组
+            for(var i = 0, j = arr.length; i < j; i++)
+            {
+                var tt = arr[i];
                 var v = tt.sequence;
 
                 if(!tkt.hasOwnProperty(v))
@@ -66,7 +96,6 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
             }
         }
 
-
         if(!flag)
         {
             alert('销售品中有已经使用的商品。');
@@ -78,7 +107,6 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
         var para = {
             'order_code' : code,
             'sequence' : obj.sequence
-
         };
 
         if (!confirm("确定要退 " + obj.name + ' 中的第 ' + obj.sequence + ' 个吗？')) {
@@ -100,15 +128,45 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
             }
 
         });
-        
-
-
     };
 
 
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };
+
+
+
+    function change(obj)
+    {
+        var arr = [];
+
+        var msg = ' (总人数' + obj.inCount + 
+                  ', 已使用人数' + obj.usedCount +
+                  ', 退票人数' + obj.backCount + ') ';
+
+
+        var newobj = {
+            'back' : obj.backCount,
+            'code' : obj.credence,
+            'goods_code' : obj.goodsId,
+            //'id':
+            'order_code' : obj.orderId,
+            'order_name' : obj.goodsName  + msg,
+            //'otime' : otime,
+            // 'place_code' :
+            'place_name' : viewname,
+            'sequence' : 1,
+            'state' : '1',
+            // 'type' :
+            // 'type_attr' :
+            'type_name' : obj.goodsName,
+            'used' : obj.usedCount
+        };
+
+        arr.push(newobj);
+        return arr;
+    }
 
 
 };

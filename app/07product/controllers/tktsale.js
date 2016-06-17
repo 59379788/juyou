@@ -8,6 +8,15 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     affirmcreate, affirminfo, affirmupdate
     ){
 
+
+    for(var i = 0; i < 10; i++)
+    {
+
+    }
+
+    alert(i);
+    
+
 	$scope.searchform = {};
 
 	$scope.create = function(){

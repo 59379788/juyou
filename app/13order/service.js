@@ -22,6 +22,14 @@ var service = function($resource, BASEURL38985){
 
     var resend = BASEURL38985 + '/api/as/tc/ticketorder/resend';
 
+
+
+    //外部订单信息
+    //Red 廊道
+    var getRedCorridorOrderList = BASEURL38985 + '/api/ac/tc/ticketRedCorridorService/getRedCorridorOrderList';
+    //重发短信
+    var getRedCorridorResentMsg = BASEURL38985 + '/api/ac/tc/ticketRedCorridorService/getRedCorridorResentMsg';
+
     return {
 
         createorder : function(){
@@ -50,6 +58,12 @@ var service = function($resource, BASEURL38985){
         },
         resend : function(){
             return $resource(resend, {}, {});
+        },
+        getRedCorridorOrderList : function(){
+            return $resource(getRedCorridorOrderList, {}, {});
+        },
+        getRedCorridorResentMsg : function(){
+            return $resource(getRedCorridorResentMsg, {}, {});
         }
 
     };
