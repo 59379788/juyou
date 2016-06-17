@@ -12,6 +12,7 @@ App.controller('uselist',require('./controllers/uselist'));
 App.controller('statisticsviewlist',require('./controllers/viewlist'));
 App.controller('statisticssale',require('./controllers/statisticssale'));
 App.controller('statisticscompanylist',require('./controllers/statisticscompanylist'));
+App.controller('statisticsgrouplist',require('./controllers/statisticsgrouplist'));
 
 
 module.exports = App;

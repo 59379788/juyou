@@ -1,0 +1,67 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+
+              <input type="text" class="form-control" ng-model="searchform.seller_code" placeholder="分销商编号">
+              &nbsp;&nbsp;
+                
+              <label>出游时间</label>&nbsp;&nbsp;
+              <div class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+              </div>
+                    &nbsp;&nbsp;到&nbsp;&nbsp;            
+              <div class="input-group">
+              <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+              </div>
+              &nbsp;&nbsp;
+
+              <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+              
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center">出游时间</th>
+        <th class="text-center">团票名称</th>
+        <th class="text-center">分销商</th>
+        <th class="text-center">报名人数</th>
+        <th class="text-center">单价</th>
+        <th class="text-center">总计</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.arrival_date}}</td>
+        <td class="">{{obj.order_name}}</td>
+        <td class="text-center">{{obj.seller_code}}<br>{{obj.seller_name}}</td>
+        <td class="text-center">{{obj.book_count}}</td>
+        <td class="text-center">{{obj.cost_price * 0.01 | currency : '￥'}}</td>
+        <td class="text-center">{{obj.book_count * obj.cost_price * 0.01 | currency : '￥'}}</td>
+      </tr>
+      <tr >
+        <td class="text-center">总计</td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+
+        <td class="text-center">{{total.book_count}}</td>
+        <td class="text-center"></td>
+        <td class="text-center">{{total.total * 0.01 | currency : '￥'}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>

@@ -64,7 +64,7 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate,
                     if(res1.errcode === 0)
                     {
                         $scope.subsidy = res1.data;
-                        //console.log($scope.objs);
+                        console.log($scope.objs);
                         for(var i = 0, j = $scope.objs.length; i < j; i++)
                         {
                             var tmp = $scope.objs[i]
