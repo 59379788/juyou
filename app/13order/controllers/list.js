@@ -1,6 +1,6 @@
 module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, 
     $uibModal, ticketlist, createBackOrder, resend, getRedCorridorOrderList,
-    getRedCorridorResentMsg){
+    getRedCorridorResentMsg, orderbacklist){
     
     $scope.searchform = {};
 
@@ -79,6 +79,10 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
             //红海滩
             getRedCorridorOrderList : function(){
                 return getRedCorridorOrderList;
+            },
+            //退票历史
+            orderbacklist : function(){
+                return orderbacklist;
             }
           }
         });

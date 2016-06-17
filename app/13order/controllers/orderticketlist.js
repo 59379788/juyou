@@ -1,4 +1,5 @@
-module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj, getRedCorridorOrderList, $uibModal){
+module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj, 
+    getRedCorridorOrderList, $uibModal, orderbacklist){
 
     var code = obj.code;
 
@@ -79,19 +80,40 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
 
         });
 
+
+        //退票历史
+        orderbacklist.get({'order_code' : code, 'pageSize':999}, function(res){
+
+            console.log(res);
+            if(res.errcode === 0)
+            {
+                $scope.backarr = res.data.results;
+            }
+            else
+            {
+                alert(res.errmsg);
+            }
+
+        });
+
     };
     $scope.load();
 
 
-    $scope.back = function(obj){
+    
+
+
+    $scope.back = function(obj1){
+
+        console.log(obj1);
 
         if(obj.sale_belong === 'juyou')
         {
-            juyouback(obj);
+            juyouback(obj1);
         }
         else
         {
-            getbacknum(obj);
+            getbacknum(obj1);
         }
     };
 
@@ -112,7 +134,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
 
 
         var newobj = {
-            'back' : obj.backCount,
+            //'back' : obj.backCount,
             'code' : obj.credence,
             'goods_code' : obj.goodsId,
             //'id':
@@ -122,11 +144,11 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
             // 'place_code' :
             'place_name' : viewname,
             'sequence' : 1,
-            'state' : '1',
+            //'state' : '1',
             // 'type' :
             // 'type_attr' :
             'type_name' : obj.goodsName,
-            'used' : obj.usedCount,
+            //'used' : obj.usedCount,
             'inCount' : obj.inCount 
         };
 

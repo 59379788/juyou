@@ -1,4 +1,4 @@
-module.exports = function($scope, code, obj, createBackOrder){
+module.exports = function($scope, code, obj, createBackOrder, $uibModalInstance){
 
 	console.log(obj);
 	console.log(code);
@@ -14,7 +14,6 @@ module.exports = function($scope, code, obj, createBackOrder){
 	$scope.num = 0;
 
 	console.log(ticket);
-
 	
 	//退票按钮
     $scope.ok = function () {
@@ -40,7 +39,7 @@ module.exports = function($scope, code, obj, createBackOrder){
 	        console.log(res);
 	        if(res.errcode === 0)
 	        {
-	            alert('退票成功');
+	            alert('退票申请已提交，等待系统确认。');
 	            $uibModalInstance.close();
 	        }
 	        else

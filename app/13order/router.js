@@ -32,6 +32,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getRedCorridorResentMsg : function(orderservice){
                 return orderservice.getRedCorridorResentMsg();
+            },
+            orderbacklist : function(orderservice){
+                return orderservice.orderbacklist();
             }
 
         }

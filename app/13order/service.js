@@ -22,7 +22,8 @@ var service = function($resource, BASEURL38985){
 
     var resend = BASEURL38985 + '/api/as/tc/ticketorder/resend';
 
-
+    //退票历史
+    var orderbacklist = BASEURL38985 + '/api/as/tc/ticketorderback/orderbacklist';
 
     //外部订单信息
     //Red 廊道
@@ -64,6 +65,9 @@ var service = function($resource, BASEURL38985){
         },
         getRedCorridorResentMsg : function(){
             return $resource(getRedCorridorResentMsg, {}, {});
+        },
+        orderbacklist : function(){
+            return $resource(orderbacklist, {}, {});
         }
 
     };
