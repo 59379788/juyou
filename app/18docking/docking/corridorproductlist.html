@@ -1,0 +1,56 @@
+<div class="col-sm-12">
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center">产品编号</th>
+        <th class="text-center">产品名称</th>
+        <th class="text-center">seo描述</th>
+        <th class="text-center">购买开始日期</th>
+        <th class="text-center">购买截止日期</th>
+        <th class="text-center">门市价</th>
+        <th class="text-center">建议零售价</th>
+        <th class="text-center">结算价</th>
+        <th class="text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs.Product">
+      <td class="text-center">{{obj.Id}}</td>
+        <td class="">{{obj.Name}}</td>
+        <td class="text-center">{{obj.Description}}</td>
+        <td class="text-center">{{obj.ActDate}}</td>
+        <td class="text-center">{{obj.RequireDate}}</td>
+        <td class="text-center">{{obj.SalesPrice | currency : '￥'}}</td>
+        <td class="text-center">{{obj.RetailPrice | currency : '￥'}}</td>
+        <td class="text-center">{{obj.SettlementPrice | currency : '￥'}}</td>
+        <td class="text-center">
+          <a ng-click="detail(obj.Id)" class="btn btn-success btn-xs">详情</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div>
+  
+
+</div>
