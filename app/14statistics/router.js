@@ -78,6 +78,21 @@ var router = function($urlRouterProvider, $stateProvider){
         
       })
 
+      .state('app.statisticsgrouplist', {
+        url: '/statisticsgrouplist',
+        controller : 'statisticsgrouplist',
+        template: require('./views/statisticsgrouplist.html'),
+        resolve:{
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            },
+            groupcountlist : function(statisticsservice){
+                return statisticsservice.groupcountlist();
+            }
+        }
+        
+      })
+
       
 
 

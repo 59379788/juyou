@@ -16,6 +16,8 @@ var service = function($resource, BASEURL38985){
 
     var govsubsidygoodscodelist = BASEURL38985 + '/api/as/tc/salegovsubsidy/govsubsidygoodscodelist';
 
+    var groupcountlist = BASEURL38985 + '/api/as/tc/grouporder/groupcountlist';
+
 
     return {
         uselist : function(){
@@ -35,6 +37,9 @@ var service = function($resource, BASEURL38985){
         },
         govsubsidygoodscodelist : function(){
             return $resource(govsubsidygoodscodelist, {}, {});
+        },
+        groupcountlist : function(){
+            return $resource(groupcountlist, {}, {});
         }
     };
 
