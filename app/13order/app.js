@@ -15,6 +15,7 @@ App.controller('allorderlist',require('./controllers/allorderlist'));
 App.controller('grouplist',require('./controllers/grouplist'));
 App.controller('groupalllist',require('./controllers/groupalllist'));
 App.controller('orderinfo',require('./controllers/orderinfo'));
+App.controller('backnum',require('./controllers/backnum'));
 
 
 module.exports = App;

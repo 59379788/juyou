@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj, getRedCorridorOrderList){
+module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj, getRedCorridorOrderList, $uibModal){
 
     var code = obj.code;
 
@@ -85,49 +85,14 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
 
     $scope.back = function(obj){
 
-        var flag = true;
-        console.log(obj);
-        for(var i = 0; i < obj.ticketarr.length; i++)
+        if(obj.sale_belong === 'juyou')
         {
-            var tmp = obj.ticketarr[i];
-            if(tmp.state !== '1')
-            {
-                flag = false;
-            }
+            juyouback(obj);
         }
-
-        if(!flag)
+        else
         {
-            alert('销售品中有已经使用的商品。');
-            return;
+            getbacknum(obj);
         }
-
-        console.log(obj);
-
-        var para = {
-            'order_code' : code,
-            'sequence' : obj.sequence
-        };
-
-        if (!confirm("确定要退 " + obj.name + ' 中的第 ' + obj.sequence + ' 个吗？')) {
-            return false;
-        }
-
-        createBackOrder.save(para, function(res){
-
-            console.log(res);
-
-            if(res.errcode === 0)
-            {
-                alert('退票成功');
-                $scope.load();
-            }
-            else
-            {
-                alert(res.errmsg);
-            }
-
-        });
     };
 
 
@@ -161,11 +126,88 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
             // 'type' :
             // 'type_attr' :
             'type_name' : obj.goodsName,
-            'used' : obj.usedCount
+            'used' : obj.usedCount,
+            'inCount' : obj.inCount 
         };
 
         arr.push(newobj);
         return arr;
+    }
+
+    //居游退票
+    function juyouback(obj)
+    {
+        var flag = true;
+        console.log(obj);
+        for(var i = 0; i < obj.ticketarr.length; i++)
+        {
+            var tmp = obj.ticketarr[i];
+            if(tmp.state !== '1')
+            {
+                flag = false;
+            }
+        }
+
+        if(!flag)
+        {
+            alert('销售品中有已经使用的商品。');
+            return;
+        }
+
+        console.log(obj);
+
+        var para = {
+            'order_code' : code,
+            'sequence' : obj.sequence
+        };
+
+
+        if (!confirm("确定要退 " + obj.name + ' 中的第 ' + obj.sequence + ' 个吗？')) {
+            return false;
+        }
+
+        createBackOrder.save(para, function(res){
+
+            console.log(res);
+
+            if(res.errcode === 0)
+            {
+                alert('退票成功');
+                $scope.load();
+            }
+            else
+            {
+                alert(res.errmsg);
+            }
+
+        });
+    }
+
+    //其他退票需要确认数量
+    function getbacknum(obj)
+    {
+        var modalInstance = $uibModal.open({
+          template: require('../views/backnum.html'),
+          controller: 'backnum',
+          //size: 'lg',
+          resolve: {
+            code : function(){
+                return code;
+            },
+            obj : function(){
+                return obj;
+            },
+            createBackOrder : function(){
+                return createBackOrder;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
     }
 
 
