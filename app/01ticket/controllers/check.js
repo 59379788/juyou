@@ -1,11 +1,28 @@
 module.exports = function($scope, $uibModal,
-	checkcode, checkcard, checkid, checkgroupcode, useticketbyid, useticketbycode, useticketbycard, useticketbygroupcode){
+	checkcode, checkcard, checkid, checkgroupcode, useticketbyid, useticketbycode, 
+	useticketbycard, useticketbygroupcode, devicenamelist){
 
 	//票码
 	$scope.code = "";
 
 	//设备号
-	$scope.device = "2055";
+	$scope.device = "";
+
+
+	devicenamelist.get({}, function(res){
+
+		console.log(res);
+		if(res.errcode === 0)
+		{
+			$scope.devicearr = res.data;
+		}
+		else
+		{
+			alert(res.errmsg);
+		}
+
+
+	});
 
 	//将要
   	var para = {};

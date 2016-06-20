@@ -54,7 +54,11 @@ var router = function($urlRouterProvider, $stateProvider){
 	        },
 	        useticketbygroupcode : function(ticketservice){
 	        	return ticketservice.useticketbygroupcode();
+	        },
+	        devicenamelist : function(deviceservice){
+	        	return deviceservice.devicenamelist();
 	        }
+	        
         }
       })
 

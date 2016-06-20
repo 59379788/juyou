@@ -32,9 +32,16 @@
 		<form class="form-horizontal">
 		<div class="form-group mt10">
 		    
-		    <div class="col-sm-9">
+		    <!-- <div class="col-sm-9">
 		      <input type="text" class="form-control" ng-model="device" placeholder="输入设备码" ng-readonly="true">
-		    </div>
+		    </div> -->
+
+		    <div class="col-sm-9">
+			    <select class="form-control" ng-model="device" 
+	              ng-options="device.code as device.name for device in devicearr"
+	            >
+	            </select>
+            </div>
 
 		  </div>
 

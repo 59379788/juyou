@@ -24,6 +24,9 @@ var service = function($resource, BASEURL){
 
    	var login = url + "/queryService/login";
 
+
+    
+
    	
     
     return {
@@ -53,7 +56,7 @@ var service = function($resource, BASEURL){
         	return $resource(useticketbygroupcode, {}, {});
         },
         login : function(){
-        	return $resource(login, {}, {});
+            return $resource(login, {}, {});
         }
       
     };

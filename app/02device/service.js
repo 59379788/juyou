@@ -46,6 +46,8 @@ module.exports = function($resource, BASEURL38985, $q, $http){
 
     //票种设置-权限详情编辑节日删除
     var viewfestivaldel = BASEURL38985 + '/api/as/tc/viewfestival/delete';
+
+    var devicenamelist = BASEURL38985 + '/api/as/tc/device/devicenamelist';
     
 
     return {
@@ -123,6 +125,9 @@ module.exports = function($resource, BASEURL38985, $q, $http){
         },
         viewfestivaldel : function(){
             return $resource(viewfestivaldel, {}, {});
+        },
+        devicenamelist : function(){
+            return $resource(devicenamelist, {}, {});
         }
       
     };
