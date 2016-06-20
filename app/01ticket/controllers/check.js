@@ -15,6 +15,7 @@ module.exports = function($scope, $uibModal,
 		if(res.errcode === 0)
 		{
 			$scope.devicearr = res.data;
+			$scope.device = res.data[0].code;
 		}
 		else
 		{
