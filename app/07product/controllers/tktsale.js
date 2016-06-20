@@ -7,14 +7,6 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     //系统确认模块
     affirmcreate, affirminfo, affirmupdate
     ){
-
-
-    for(var i = 0; i < 10; i++)
-    {
-
-    }
-
-    alert(i);
     
 
 	$scope.searchform = {};
