@@ -18,6 +18,12 @@ module.exports = function($scope, code, obj, createBackOrder, $uibModalInstance)
 	//退票按钮
     $scope.ok = function () {
 
+    	if($scope.num <= 0)
+    	{
+    		alert('请输入正确数量');
+    		return;
+    	}
+
     	if($scope.num > ticket.inCount - ticket.used - ticket.back)
     	{
     		alert('退票数量大于可退数量');
