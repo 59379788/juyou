@@ -18,7 +18,8 @@ module.exports = function($scope, code, obj, createBackOrder, $uibModalInstance)
 	//退票按钮
     $scope.ok = function () {
 
-    	if($scope.num <= 0)
+    	var backnum = parseInt($scope.num);
+    	if(backnum <= 0)
     	{
     		alert('请输入正确数量');
     		return;
@@ -41,7 +42,7 @@ module.exports = function($scope, code, obj, createBackOrder, $uibModalInstance)
 	    };
 
 
-	    if (!confirm("确定要退 " + ticket.order_name + ' 中 ' + $scope.num + ' 张吗？')) {
+	    if (!confirm("确定要退 " + ticket.order_name + ' 中 ' + backnum + ' 张吗？')) {
 	        return false;
 	    }
 

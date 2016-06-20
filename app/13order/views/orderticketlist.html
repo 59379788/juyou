@@ -72,7 +72,8 @@
               <tr>
                 <th class="col-md-2 text-center">申请时间</th>
                 <th class="col-md-2 text-center">确认时间</th>
-                <th class="col-md-2 text-center">退票状态</th>
+                <th class="col-md-1 text-center">退款状态</th>
+                <th class="col-md-1 text-center">退票状态</th>
                 <th class="col-md-2 text-center">退票数量</th>
                 <th class="col-md-2 text-center">退票金额</th>
                 <th class="col-md-2 text-center">退票机构</th>
@@ -83,6 +84,7 @@
                 <td class="text-center">{{back.create_time}}</td>
                 <td class="text-center">{{back.update_time}}</td>
                 <td class="text-center">{{back.back_statename}}</td>
+                <td class="text-center">{{back.ticket_statename}}</td>
                 <td class="text-center">{{back.back_count}}</td>
                 <td class="text-center">{{back.back_price * 0.01 | currency : '¥'}}</td>
                 <td class="text-center">{{back.ta_code}}</td>
