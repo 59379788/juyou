@@ -18,7 +18,14 @@ module.exports = function($scope, code, obj, createBackOrder, $uibModalInstance)
 	//退票按钮
     $scope.ok = function () {
 
+    	if(!angular.isNumber($scope.num))
+    	{
+    		alert('请输入数字');
+    		return;
+    	}
+
     	var backnum = parseInt($scope.num);
+
     	if(backnum <= 0)
     	{
     		alert('请输入正确数量');
