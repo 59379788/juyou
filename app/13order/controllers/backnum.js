@@ -24,6 +24,10 @@ module.exports = function($scope, code, obj, createBackOrder, $uibModalInstance)
     		return;
     	}
 
+    	// alert($scope.num);
+    	// alert(ticket.inCount);
+    	// alert(ticket.used1);
+    	// alert(ticket.back1);
     	if($scope.num > ticket.inCount - ticket.used - ticket.back)
     	{
     		alert('退票数量大于可退数量');
