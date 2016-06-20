@@ -9,16 +9,14 @@
     <div class="form-group" >
         <label class="col-xs-3 control-label">商品详情</label>
         <div class="col-xs-7" >
-            <p class="form-control-static">{{obj.Details}}</p>
+            <p class="form-control-static" ng-bind-html="obj.Details | trustHtml"></p>
         </div>
     </div>
-
-
-   
+    
     <div class="form-group" >
         <label class="col-xs-3 control-label">注意事项</label>
         <div class="col-xs-7" >
-            <p class="form-control-static">{{obj.Attention}}</p>
+            <p class="form-control-static" ng-bind-html="obj.Attention | trustHtml"></p>
         </div>
     </div>
 
