@@ -280,6 +280,11 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             affirmupdate : function(productservice){
                 return productservice.affirmupdate();
+            },
+
+            //短信模版列表
+            smstmplist : function(productservice){
+                return productservice.smstmplist();
             }
             
         }

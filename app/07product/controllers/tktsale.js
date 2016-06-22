@@ -5,7 +5,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, talist,
     sellerList, tstcreate, tststart, tststop,
     //系统确认模块
-    affirmcreate, affirminfo, affirmupdate
+    affirmcreate, affirminfo, affirmupdate,
+    //短信模版
+    smstmplist
     ){
     
 
@@ -78,6 +80,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             }, 
             affirmupdate : function(){
                 return affirmupdate;
+            },
+            smstmplist : function(){
+                return smstmplist;
             }
           }
         });
@@ -275,6 +280,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             }, 
             affirmupdate : function(){
                 return affirmupdate;
+            },
+            smstmplist : function(){
+                return smstmplist;
             }
           }
         });
@@ -381,6 +389,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             }, 
             affirmupdate : function(){
                 return affirmupdate;
+            },
+            smstmplist : function(){
+                return smstmplist;
             }
           }
         });

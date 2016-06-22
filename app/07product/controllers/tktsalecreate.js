@@ -4,7 +4,8 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
     salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
     salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo,
     //系统确认模块
-    affirmcreate, affirminfo, affirmupdate
+    affirmcreate, affirminfo, affirmupdate,
+    smstmplist
 	){
 
 	$scope.saleobj = {};
@@ -95,7 +96,38 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
         }
     });
 
-    
+    smstmplist.get({}, function(res){
+    	console.log(res);
+    	if(res.errcode === 0)
+        {
+        	$scope.smsarr = res.data;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    })
+
+    $scope.changesms = function(obj){
+    	var smsid = obj.sms_template_id;
+    	if(smsid == null) 
+    	{
+    		obj.sms_diy = '';
+    	}
+    	else
+    	{
+    		for(var i = 0, j = $scope.smsarr.length; i < j; i++)
+    		{
+    			var tmp = $scope.smsarr[i];
+    			if(tmp.sms_template_id == smsid)
+    			{
+    				obj.sms_diy = tmp.sms_diy;
+    				break;
+    			}
+    		}
+    	}
+
+    };
 
     //基本信息 保存
 	$scope.salego = function(){
@@ -183,6 +215,9 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 		            }, 
 		            affirmupdate : function(){
 		                return affirmupdate;
+		            },
+		            smstmplist : function(){
+		            	return smstmplist;
 		            }
 		          }
 		        });

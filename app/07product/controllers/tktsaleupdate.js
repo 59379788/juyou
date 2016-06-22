@@ -3,7 +3,8 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
 	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, what,
 	//系统确认模块
-    affirmcreate, affirminfo, affirmupdate
+    affirmcreate, affirminfo, affirmupdate,
+    smstmplist
     ){
 
 	//销售品对象
@@ -85,6 +86,39 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
             alert(res.errmsg);
         }
     });
+
+    smstmplist.get({}, function(res){
+    	console.log(res);
+    	if(res.errcode === 0)
+        {
+        	$scope.smsarr = res.data;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    })
+
+    $scope.changesms = function(obj){
+    	var smsid = obj.sms_template_id;
+    	if(smsid == null) 
+    	{
+    		obj.sms_diy = '';
+    	}
+    	else
+    	{
+    		for(var i = 0, j = $scope.smsarr.length; i < j; i++)
+    		{
+    			var tmp = $scope.smsarr[i];
+    			if(tmp.sms_template_id == smsid)
+    			{
+    				obj.sms_diy = tmp.sms_diy;
+    				break;
+    			}
+    		}
+    	}
+
+    };
 
 	saleinfo.get({'id' : id}, function(res){
 		console.log(res);

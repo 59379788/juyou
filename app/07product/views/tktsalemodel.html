@@ -91,9 +91,15 @@
 					<div class="form-group">
 						<label class="col-xs-3 control-label">短信模板编号</label>
 						<div class="col-xs-9">
-							<input type="text" class="form-control" placeholder="请输入短信模板编号"
+							<!-- <input type="text" class="form-control" placeholder="请输入短信模板编号"
 							ng-model="saleobj.sms_template_id"
-							>
+							> -->
+							<select class="form-control" ng-model="saleobj.sms_template_id" 
+							ng-change="changesms(saleobj)"
+				              ng-options="sms.sms_template_id as sms.sms_template_id for sms in smsarr"
+				            >
+				            	<option value="">  -- 空 --  </option>
+				            </select>
 						</div>
 					</div>
 

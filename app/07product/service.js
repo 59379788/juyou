@@ -157,6 +157,11 @@ var service = function($resource, BASEURL38985, $q, $http){
     var affirminfo = BASEURL38985 + '/api/as/tc/salesysaffirm/info';
     //更新
     var affirmupdate = BASEURL38985 + '/api/as/tc/salesysaffirm/update';
+
+
+
+    //短信模版
+    var smstmplist = BASEURL38985 + '/api/as/tc/salesmstemplate/list';
     
     return {
 
@@ -376,6 +381,9 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         affirmupdate : function(){
             return $resource(affirmupdate, {}, {});
+        },
+        smstmplist : function(){
+            return $resource(smstmplist, {}, {});
         }
        
     };
