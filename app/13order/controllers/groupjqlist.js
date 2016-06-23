@@ -74,4 +74,8 @@ module.exports = function($scope, grouporderlist, ITEMS_PERPAGE, $uibModal, getD
     	//$state.go('app.infosellinggroup', {'code' : code});
     };
 
+    $scope.print = function () {
+    	window.print();
+    }
+
 };
