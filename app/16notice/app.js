@@ -11,6 +11,7 @@ App.factory('noticeservice', require('./service'));
 App.controller('noticelist',require('./controllers/noticelist'));
 App.controller('noticeedit',require('./controllers/noticeedit'));
 App.controller('noticecreate',require('./controllers/noticecreate'));
+App.controller('messagetempletlist',require('./controllers/messagetempletlist'));
 
 
 module.exports = App;

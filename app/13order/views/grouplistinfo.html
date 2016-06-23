@@ -1,0 +1,29 @@
+
+	<div class="modal-header">
+	    <h4 class="modal-title">游客信息</h4>
+	</div>
+	<div class="modal-body">
+		<table class="table table-bordered">
+		    <thead>
+		      <tr>
+		      	<th class="col-md-1 text-center">序号</th>
+		      	<th class="col-md-3 text-center">商品名称</th>
+		        <th class="col-md-1 text-center">姓名</th>
+		        <th class="col-md-2 text-center">电话</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr ng-repeat="obj in objs">
+		      	<td class="text-center">{{$index+1}}</td>
+		      	<td class="text-center">{{obj.goods_name}}</td>
+		        <td class="text-center">{{obj.name}}</td>
+		        <td class="text-center">{{obj.mobile}}</td>
+		      </tr>
+		    </tbody>
+		</table>
+
+	</div>
+	<div class="modal-footer">
+	    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+	</div>
+

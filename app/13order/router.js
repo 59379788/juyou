@@ -118,6 +118,10 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getDate : function(utilservice){
                 return utilservice.getDate;
+            },
+            //报名详情
+            infolist : function(sellingservice){
+                return sellingservice.infolist();
             }
         }
         

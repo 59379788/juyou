@@ -47,7 +47,14 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
-      
+      .state('app.messagetemplet', {
+        url: '/messagetempletlist',
+        controller : 'messagetempletlist',
+        template: require('./notice/messagetempletlist.html'),
+        resolve:{
+        	
+        }
+      })
 
 
 };

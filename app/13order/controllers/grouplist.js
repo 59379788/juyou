@@ -1,4 +1,4 @@
-module.exports = function($scope, grouplist, ITEMS_PERPAGE, getDate){
+module.exports = function($scope, grouplist, ITEMS_PERPAGE, $uibModal, getDate, infolist){
 
     $scope.searchform = {};
 
@@ -47,5 +47,31 @@ module.exports = function($scope, grouplist, ITEMS_PERPAGE, getDate){
 
     };
     $scope.load();
+
+    $scope.info = function (code) {
+        var modalInstance = $uibModal.open({
+          template: require('../views/grouplistinfo.html'),
+          controller: 'grouplistinfo',
+          size: 'xs',
+          resolve: {
+            code : function(){
+                return code;
+            },
+            infolist : function(){
+                return infolist;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+            //$scope.load();
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
+
+    	//$state.go('app.infosellinggroup', {'code' : code});
+    };
 
 };
