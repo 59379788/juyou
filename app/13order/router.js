@@ -127,6 +127,25 @@ var router = function($urlRouterProvider, $stateProvider){
         
       })
 
+      .state('app.grouporderjqlist', {
+        url: '/grouporderjqlist',
+        controller : 'groupjqlist',
+        template: require('./views/grouplist.html'),
+        resolve:{
+            grouporderlist : function(orderservice){
+                return orderservice.grouporderlist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            },
+            //报名详情
+            infolist : function(sellingservice){
+                return sellingservice.infolist();
+            }
+        }
+        
+      })
+
       .state('app.allgrouporderlist', {
         url: '/grouporderalllist',
         controller : 'groupalllist',
