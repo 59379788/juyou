@@ -3,7 +3,7 @@ module.exports = function($scope, $state, $uibModal, $uibModalInstance, groupsal
 	$scope.groupobj = {};
 	$scope.section = {};
 	$scope.section.start = {};
-	$scope.section.start.date = new Date();
+	$scope.section.start.date = new Date((new Date()/1000+86400)*1000);
 	$scope.groupobjstate = 1;
 
 	var name;
