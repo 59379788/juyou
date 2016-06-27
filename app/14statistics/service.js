@@ -18,6 +18,8 @@ var service = function($resource, BASEURL38985){
 
     var groupcountlist = BASEURL38985 + '/api/as/tc/grouporder/groupcountlist';
 
+    var groupcountjqlist = BASEURL38985 + '/api/as/tc/grouporder/groupcountjqlist';
+
 
     return {
         uselist : function(){
@@ -40,6 +42,9 @@ var service = function($resource, BASEURL38985){
         },
         groupcountlist : function(){
             return $resource(groupcountlist, {}, {});
+        },
+        groupcountjqlist : function(){
+            return $resource(groupcountjqlist, {}, {});
         }
     };
 
