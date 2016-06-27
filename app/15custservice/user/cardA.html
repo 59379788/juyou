@@ -20,6 +20,7 @@
         <th class="text-center">物理卡密</th>
         <th class="text-center">物理卡内号</th>
         <th class="text-center">使用状态</th>
+        <th class="text-center">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -28,6 +29,9 @@
         <td class="text-center">{{obj.cardpass}}</td>
         <td class="text-center">{{obj.phycardinside}}</td>
         <td class="text-center">{{obj.state}}</td>
+        <td class="text-center">
+        	<a ng-click="edit(obj.cardnum)" class="btn btn-success btn-xs">修改卡密</a>
+        </td>
       </tr>
     </tbody>
   </table>

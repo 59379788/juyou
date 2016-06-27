@@ -1,4 +1,4 @@
-module.exports = function($scope, cardA){
+module.exports = function($scope, $uibModal, cardA, updateCardPass){
 
 	$scope.searchform = {};
     
@@ -16,6 +16,30 @@ module.exports = function($scope, cardA){
 
          	$scope.objs = res.data;
 
+        });
+
+    };
+
+    $scope.edit = function(cardnum){
+
+        var modalInstance = $uibModal.open({
+          template: require('../user/editcardA.html'),
+          controller: 'editcardA',
+          size: 'xs',
+          resolve: {
+            cardnum : function(){
+                return cardnum;
+            },
+            updateCardPass : function(){
+                return updateCardPass;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+            
         });
 
     };

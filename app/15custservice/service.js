@@ -31,6 +31,8 @@ var service = function($resource, BASEURL38985){
     var orderbacklist = BASEURL38985 + "/api/as/tc/ticketorderback/orderbacklist";
 
     var orderback = BASEURL38985 + "/api/as/tc/ticketorderback/autoBackFeeForYC";
+
+    var updateCardPass = BASEURL38985 + "/api/as/uc/jyu/updateCardPass";
     
     return {
 
@@ -75,6 +77,9 @@ var service = function($resource, BASEURL38985){
         },
         orderback : function(){
             return $resource(orderback, {}, {});
+        },
+        updateCardPass : function(){
+            return $resource(updateCardPass, {}, {});
         }
        
     };

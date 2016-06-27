@@ -10,6 +10,7 @@ App.factory('custservice', require('./service'));
 
 App.controller('userinfo',require('./controllers/userinfo'));
 App.controller('cardA',require('./controllers/cardA'));
+App.controller('editcardA',require('./controllers/editcardA'));
 App.controller('cardB',require('./controllers/cardB'));
 App.controller('infoticket',require('./controllers/infoticket'));
 App.controller('edituserinfo',require('./controllers/edituserinfo'));

@@ -56,6 +56,12 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
             cardA : function(custservice){
                 return custservice.cardA();
+            },
+            orderback : function(custservice){
+                return custservice.orderback();
+            },
+            updateCardPass : function(custservice){
+                return custservice.updateCardPass();
             }
         }
       })
