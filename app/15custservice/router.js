@@ -135,6 +135,17 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+      .state('app.carduserinfo', {
+        url: '/carduserinfo',
+        controller : 'carduserinfo',
+        template: require('./user/carduserinfo.html'),
+        resolve:{
+            carduserinfo : function(custservice){
+                return custservice.carduserinfo();
+            }
+        }
+      })
+
 
 };
 

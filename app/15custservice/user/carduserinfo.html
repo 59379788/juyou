@@ -1,0 +1,36 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                <label>物理卡号</label>&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="searchform.cardnum" placeholder="请输入物理卡号">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center">物理卡号</th>
+        <th class="text-center">姓名</th>
+        <th class="text-center">电话</th>
+        <th class="text-center">卡类别</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="text-center">{{obj.phycardno}}</td>
+        <td class="text-center">{{obj.username}}</td>
+        <td class="text-center">{{obj.mobile}}</td>
+        <td class="text-center">{{obj.ischild}}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+
+</div>
