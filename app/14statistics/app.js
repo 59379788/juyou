@@ -14,6 +14,7 @@ App.controller('statisticssale',require('./controllers/statisticssale'));
 App.controller('statisticscompanylist',require('./controllers/statisticscompanylist'));
 App.controller('statisticsgrouplist',require('./controllers/statisticsgrouplist'));
 App.controller('statisticsgroupjqlist',require('./controllers/statisticsgroupjqlist'));
+App.controller('useddetail',require('./controllers/useddetail'));
 
 
 module.exports = App;

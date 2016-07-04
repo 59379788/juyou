@@ -1,5 +1,5 @@
-module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, 
-    viewdestorystatisticlist, govsubsidygoodscodelist){
+module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal,
+     viewdestorystatisticlist, govsubsidygoodscodelist, useddetaillist){
 
     $scope.searchform = {};
 
@@ -103,5 +103,34 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate,
 
     };
     $scope.load();
+
+    $scope.detail = function (view) {
+        var modalInstance = $uibModal.open({
+          template: require('../views/useddetail.html'),
+          controller: 'useddetail',
+          size: 'lg',
+          resolve: {
+            view : function(){
+                return view;
+            },
+            start_time : function(){
+                return getDate($scope.section.start.date) + " 00:00:00";
+            },
+            end_time : function(){
+                return getDate($scope.section.end.date) + " 23:59:59";
+            },
+            useddetaillist : function(){
+                return useddetaillist;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+            
+        });
+    };
+
 
 };

@@ -39,6 +39,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             govsubsidygoodscodelist : function(statisticsservice){
                 return statisticsservice.govsubsidygoodscodelist();
+            },
+            useddetaillist : function(statisticsservice){
+                return statisticsservice.useddetaillist();
             }
         }
         

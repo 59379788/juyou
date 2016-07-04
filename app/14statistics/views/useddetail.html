@@ -1,0 +1,58 @@
+
+	<div class="modal-header">
+	    <h4 class="modal-title">使用详情</h4>
+	</div>
+	<div class="modal-body">
+		<table class="table table-bordered">
+		    <thead>
+		      <tr>
+		        <th class="col-md-3 text-center">景区名称</th>
+		        <th class="col-md-3 text-center">商品名称</th>
+		        <th class="col-md-2 text-center">分销商</th>
+		        <th class="col-md-1 text-center">购票时间</th>
+		        <th class="col-md-1 text-center">操作时间</th>
+		        <th class="col-md-1 text-center">票号</th>
+		        <th class="col-md-1 text-center">已使用</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr ng-repeat="obj in objs">
+		        <td class="text-center">{{obj.place_name}}</td>
+		        <td class="text-center">{{obj.type_name}}</td>
+		        <td class="text-center">{{obj.seller_name}}<br>{{obj.seller_code}}</td>
+		        <td class="text-center">{{obj.create_time}}</td>
+		        <td class="text-center">{{obj.otime}}</td>
+		        <td class="text-center">{{obj.code}}</td>
+		        <td class="text-center">
+		          <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+		        </td>
+		      </tr>
+		    </tbody>
+		  </table>
+
+		  <div class="text-right">
+
+		    <uib-pagination 
+		      total-items="bigTotalItems" 
+		      ng-model="bigCurrentPage" 
+		      max-size="maxSize" 
+		      class="pagination-sm" 
+		      boundary-links="true" 
+		      ng-change="load()"
+		      items-per-page="itemsPerPage"
+		      previous-text="上一页"
+		      next-text="下一页"
+		      first-text="首页"
+		      last-text="末页"
+		      rotate="false">
+		    </uib-pagination>
+
+		  </div>
+
+
+	</div>
+	<div class="modal-footer">
+	    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+	</div>
+
+

@@ -39,7 +39,7 @@
     <thead>
       <tr>
         <th class="col-md-1 text-center">时间</th>
-        <th class="col-md-2 text-center">景区名称</th>
+        <th class="col-md-1 text-center">景区名称</th>
         <th class="col-md-2 text-center">商品名称</th>
         <!-- <th class="col-md-1 text-center">商品编号</th> -->
         <!-- <th class="col-md-2 text-center">数量</th> -->
@@ -49,6 +49,7 @@
         <th class="col-md-1 text-center">政府补贴</th>
         <th class="col-md-1 text-center">单价</th>
         <th class="col-md-1 text-center">居游结算价</th>
+        <th class="col-md-1 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -70,6 +71,9 @@
         </td>
         <td class="text-center">{{obj.cost_price  * 0.01 | currency : '￥'}}</td>
         <td class="text-center">{{obj.cost_price * obj.used  * 0.01 | currency : '￥'}}</td>
+        <td class="text-center">
+        	<a ng-click="detail(obj.view)" class="btn btn-success btn-sm">使用详情</a>
+        </td>
       </tr>
 
       <tr >
@@ -82,6 +86,7 @@
         <td class="text-center">{{total.gov * 0.01 | currency : '￥'}}</td>
         <td class="text-center"></td>
         <td class="text-center">{{total.total * 0.01 | currency : '￥'}}</td>
+        <td class="text-center"></td>
       </tr>
 
 
