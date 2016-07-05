@@ -22,6 +22,8 @@ var service = function($resource, BASEURL38985){
 
     var useddetaillist = BASEURL38985 + '/api/as/tc/ticket2/useddetaillist';
 
+    var grouplxslist = BASEURL38985 + '/api/as/tc/ticket2/grouplxslist';
+
 
     return {
         uselist : function(){
@@ -50,6 +52,9 @@ var service = function($resource, BASEURL38985){
         },
         useddetaillist : function(){
             return $resource(useddetaillist, {}, {});
+        },
+        grouplxslist : function(){
+            return $resource(grouplxslist, {}, {});
         }
     };
 

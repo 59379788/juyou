@@ -42,6 +42,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             useddetaillist : function(statisticsservice){
                 return statisticsservice.useddetaillist();
+            },
+            grouplxslist : function(statisticsservice){
+                return statisticsservice.grouplxslist();
             }
         }
         

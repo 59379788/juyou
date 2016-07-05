@@ -1,5 +1,5 @@
 module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal,
-     viewdestorystatisticlist, govsubsidygoodscodelist, useddetaillist){
+     viewdestorystatisticlist, govsubsidygoodscodelist, useddetaillist, grouplxslist){
 
     $scope.searchform = {};
 
@@ -121,6 +121,9 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal,
             },
             useddetaillist : function(){
                 return useddetaillist;
+            },
+            grouplxslist : function(){
+                return grouplxslist;
             }
           }
         });

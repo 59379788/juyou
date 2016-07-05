@@ -1,8 +1,15 @@
 
 	<div class="modal-header">
-	    <h4 class="modal-title">使用详情</h4>
+	    <h4 class="modal-title">使用统计及详情</h4>
 	</div>
 	<div class="modal-body">
+
+		<div class="bg-info mb20 fl" style="padding:10px;">
+			<div class="fl" ng-repeat="objcount in objscount">
+				{{objcount.seller_name}}：{{objcount.count}}人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</div>
+		</div>
+
 		<table class="table table-bordered">
 		    <thead>
 		      <tr>

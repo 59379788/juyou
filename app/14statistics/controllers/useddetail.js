@@ -1,4 +1,4 @@
-module.exports = function($scope, view, start_time, end_time, useddetaillist, $uibModalInstance, ITEMS_PERPAGE){
+module.exports = function($scope, view, start_time, end_time, useddetaillist, grouplxslist, $uibModalInstance, ITEMS_PERPAGE){
 
 	/* 分页
      * ========================================= */
@@ -6,14 +6,15 @@ module.exports = function($scope, view, start_time, end_time, useddetaillist, $u
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
 
-    $scope.load = function () {
-		var para = {
+    var para = {
 			pageNo:$scope.bigCurrentPage, 
 	        pageSize:$scope.itemsPerPage,
 			view : view,
 			start_time : start_time,
 			end_time : end_time
 		};
+
+    $scope.load = function () {
 
 		useddetaillist.save(para, function(res){
 			console.log(res);
@@ -30,6 +31,19 @@ module.exports = function($scope, view, start_time, end_time, useddetaillist, $u
 		});
 	}
 	$scope.load();
+
+	grouplxslist.save(para, function(res){
+		console.log(res);
+		if(res.errcode === 0)
+		{
+			$scope.objscount = res.data;
+			
+		}
+		else
+		{
+			alert(res.errmsg);
+		}
+	});
 	
 
 	$scope.cancel = function () {
