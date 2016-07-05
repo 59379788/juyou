@@ -35,6 +35,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             orderbacklist : function(orderservice){
                 return orderservice.orderbacklist();
+            },
+            relay : function(orderservice){
+                return orderservice.relay();
             }
 
         }

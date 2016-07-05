@@ -24,6 +24,8 @@ var service = function($resource, BASEURL38985){
 
     var resend = BASEURL38985 + '/api/as/tc/ticketorder/resend';
 
+    var relay = BASEURL38985 + '/api/as/tc/ticketorder/relay';
+
     //退票历史
     var orderbacklist = BASEURL38985 + '/api/as/tc/ticketorderback/orderbacklist';
 
@@ -73,6 +75,9 @@ var service = function($resource, BASEURL38985){
         },
         orderbacklist : function(){
             return $resource(orderbacklist, {}, {});
+        },
+        relay : function(){
+            return $resource(relay, {}, {});
         }
 
     };

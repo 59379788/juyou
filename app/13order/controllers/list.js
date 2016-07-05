@@ -1,6 +1,6 @@
 module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, 
     $uibModal, ticketlist, createBackOrder, resend, getRedCorridorOrderList,
-    getRedCorridorResentMsg, orderbacklist){
+    getRedCorridorResentMsg, orderbacklist, relay){
     
     $scope.searchform = {};
 
@@ -155,5 +155,35 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
             }
         });
     }
+
+    $scope.relay = function(obj){
+        
+    	var modalInstance = $uibModal.open({
+          template: require('../views/relaymessage.html'),
+          controller: 'relaymessage',
+          size: 'xs',
+          resolve: {
+            code : function(){
+                return obj.code;
+            },
+            relay : function(){
+                return relay;
+            },
+            getRedCorridorResentMsg : function(){
+                return getRedCorridorResentMsg;
+            },
+            sale_belong : function(){
+                return obj.sale_belong;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+            
+        });
+    }
+
 
 };

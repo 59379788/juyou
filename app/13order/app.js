@@ -18,6 +18,7 @@ App.controller('grouplistinfo',require('./controllers/grouplistinfo'));
 App.controller('groupalllist',require('./controllers/groupalllist'));
 App.controller('orderinfo',require('./controllers/orderinfo'));
 App.controller('backnum',require('./controllers/backnum'));
+App.controller('relaymessage',require('./controllers/relaymessage'));
 
 
 module.exports = App;
