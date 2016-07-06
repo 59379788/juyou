@@ -104,7 +104,7 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal,
     };
     $scope.load();
 
-    $scope.detail = function (view) {
+    $scope.detail = function (view, goods_code) {
         var modalInstance = $uibModal.open({
           template: require('../views/useddetail.html'),
           controller: 'useddetail',
@@ -112,6 +112,9 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal,
           resolve: {
             view : function(){
                 return view;
+            },
+            goods_code : function(){
+                return goods_code;
             },
             start_time : function(){
                 return getDate($scope.section.start.date) + " 00:00:00";

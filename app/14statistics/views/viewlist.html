@@ -72,7 +72,7 @@
         <td class="text-center">{{obj.cost_price  * 0.01 | currency : '￥'}}</td>
         <td class="text-center">{{obj.cost_price * obj.used  * 0.01 | currency : '￥'}}</td>
         <td class="text-center">
-        	<a ng-click="detail(obj.view)" ng-hide="obj.used == 0" class="btn btn-success btn-sm">使用详情</a>
+        	<a ng-click="detail(obj.view, obj.goods_code)" ng-hide="obj.used == 0" class="btn btn-success btn-sm">使用详情</a>
         </td>
       </tr>
 

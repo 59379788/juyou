@@ -1,4 +1,4 @@
-module.exports = function($scope, view, start_time, end_time, useddetaillist, grouplxslist, $uibModalInstance, ITEMS_PERPAGE){
+module.exports = function($scope, view, start_time, end_time, useddetaillist, grouplxslist, $uibModalInstance, ITEMS_PERPAGE, goods_code){
 
 	/* 分页
      * ========================================= */
@@ -14,6 +14,7 @@ module.exports = function($scope, view, start_time, end_time, useddetaillist, gr
 			pageNo:$scope.bigCurrentPage, 
 	        pageSize:$scope.itemsPerPage,
 			view : view,
+			goods_code : goods_code,
 			start_time : start_time,
 			end_time : end_time
 		};
@@ -36,12 +37,12 @@ module.exports = function($scope, view, start_time, end_time, useddetaillist, gr
 
 	var paracount = {
 			view : view,
+			goods_code : goods_code,
 			start_time : start_time,
 			end_time : end_time
 		};
-
-	grouplxslist.save(paracount, function(res){
-		console.log(res);
+		
+	grouplxslist.get(paracount, function(res){
 		if(res.errcode === 0)
 		{
 			$scope.objscount = res.data;
