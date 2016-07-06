@@ -6,15 +6,17 @@ module.exports = function($scope, view, start_time, end_time, useddetaillist, gr
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
 
-    var para = {
+    
+
+    $scope.load = function () {
+
+    	var para = {
 			pageNo:$scope.bigCurrentPage, 
 	        pageSize:$scope.itemsPerPage,
 			view : view,
 			start_time : start_time,
 			end_time : end_time
 		};
-
-    $scope.load = function () {
 
 		useddetaillist.save(para, function(res){
 			console.log(res);
@@ -32,7 +34,13 @@ module.exports = function($scope, view, start_time, end_time, useddetaillist, gr
 	}
 	$scope.load();
 
-	grouplxslist.save(para, function(res){
+	var paracount = {
+			view : view,
+			start_time : start_time,
+			end_time : end_time
+		};
+
+	grouplxslist.save(paracount, function(res){
 		console.log(res);
 		if(res.errcode === 0)
 		{
