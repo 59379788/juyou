@@ -6,8 +6,13 @@
 
               <input type="text" class="form-control" ng-model="searchform.company_code" placeholder="分销商编号">
               &nbsp;&nbsp;
-                
+
+
               <label>使用时间</label>&nbsp;&nbsp;
+              <select class="form-control" ng-model="searchform.seltype">
+              	<option value="0">小数据（周）</option>
+              	<option value="1">大数据（月）</option>
+        	  </select>&nbsp;&nbsp;
               <div class="input-group">
               <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
                   <span class="input-group-btn">

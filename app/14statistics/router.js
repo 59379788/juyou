@@ -60,6 +60,9 @@ var router = function($urlRouterProvider, $stateProvider){
             orderstatisticslist : function(statisticsservice){
                 return statisticsservice.orderstatisticslist();
             },
+            orderstatisticshistorylist : function(statisticsservice){
+                return statisticsservice.orderstatisticshistorylist();
+            },
             getDate : function(utilservice){
                 return utilservice.getDate;
             }
@@ -76,6 +79,9 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
             orderstatisticscompanylist : function(statisticsservice){
                 return statisticsservice.orderstatisticscompanylist();
+            },
+            orderstatisticscompanyhistorylist : function(statisticsservice){
+                return statisticsservice.orderstatisticscompanyhistorylist();
             },
             getDate : function(utilservice){
                 return utilservice.getDate;

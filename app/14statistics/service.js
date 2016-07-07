@@ -24,6 +24,12 @@ var service = function($resource, BASEURL38985){
 
     var grouplxslist = BASEURL38985 + '/api/as/tc/ticket2/grouplxslist';
 
+    var grouplxslist = BASEURL38985 + '/api/as/tc/ticket2/grouplxslist';
+    //销售统计 月查询
+    var orderstatisticscompanyhistorylist = BASEURL38985 + '/api/as/tc/ticketorder/orderstatisticscompanyhistorylist';
+	//同业销售统计 月查询
+    var orderstatisticshistorylist = BASEURL38985 + '/api/as/tc/ticketorder/orderstatisticshistorylist';
+
 
     return {
         uselist : function(){
@@ -55,6 +61,12 @@ var service = function($resource, BASEURL38985){
         },
         grouplxslist : function(){
             return $resource(grouplxslist, {}, {});
+        },
+        orderstatisticscompanyhistorylist : function(){
+            return $resource(orderstatisticscompanyhistorylist, {}, {});
+        },
+        orderstatisticshistorylist : function(){
+            return $resource(orderstatisticshistorylist, {}, {});
         }
     };
 

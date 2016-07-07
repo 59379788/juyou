@@ -1,6 +1,8 @@
-module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE){
+module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE, orderstatisticshistorylist){
 
     $scope.searchform = {};
+
+    $scope.searchform.seltype = '0';
 
     $scope.total = {
         'buy' : 0,
@@ -28,6 +30,14 @@ module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE){
     // $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
 
     $scope.load = function () {
+
+    	var fun;
+
+    	if($scope.searchform.seltype == 0){
+    		fun = orderstatisticslist;
+    	}else{
+    		fun = orderstatisticshistorylist;
+    	}
         
         var para = {
             //pageNo:$scope.bigCurrentPage, 
@@ -40,7 +50,7 @@ module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE){
 
         console.log(para);
         
-        orderstatisticslist.save(para, function(res){
+        fun.save(para, function(res){
 
             console.log(res);
 
