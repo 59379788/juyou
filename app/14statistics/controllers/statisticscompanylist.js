@@ -32,19 +32,21 @@ module.exports = function($scope, getDate, orderstatisticscompanylist, ITEMS_PER
     $scope.load = function () {
 
     	var fun;
+    	var para;
 
     	if($scope.searchform.seltype == 0){
     		fun = orderstatisticscompanylist;
+    		para = {
+	            start_time : getDate($scope.section.start.date) + " 00:00:00",
+	            end_time : getDate($scope.section.end.date) + " 23:59:59"
+	        };
     	}else{
     		fun = orderstatisticscompanyhistorylist;
+    		para = {
+	            start_time : getDate($scope.section.start.date),
+	            end_time : getDate($scope.section.end.date)
+	        };
     	}
-        
-        var para = {
-            //pageNo:$scope.bigCurrentPage, 
-            //pageSize:$scope.itemsPerPage,
-            start_time : getDate($scope.section.start.date) + " 00:00:00",
-            end_time : getDate($scope.section.end.date) + " 23:59:59"
-        };
 
         para = angular.extend($scope.searchform, para);
 
@@ -108,6 +110,13 @@ module.exports = function($scope, getDate, orderstatisticscompanylist, ITEMS_PER
 				$scope.section.end.date = new Date();
 			}
     	}
+
+    }
+
+    $scope.changetype = function() {
+
+    	$scope.section.start.date = new Date();
+   		$scope.section.end.date = new Date();
 
     }
     

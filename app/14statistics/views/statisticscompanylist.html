@@ -9,7 +9,7 @@
 
 
               <label>使用时间</label>&nbsp;&nbsp;
-              <select class="form-control" ng-model="searchform.seltype">
+              <select class="form-control" ng-model="searchform.seltype" ng-change="changetype()">
               	<option value="0">实时查询</option>
               	<option value="1">历史查询</option>
         	  </select>&nbsp;&nbsp;

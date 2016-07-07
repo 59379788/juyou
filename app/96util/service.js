@@ -11,8 +11,10 @@ var service = function(){
         		return "";
         	}
         	var month = (d.getMonth()+1).toString();
-        	//if(month.length == 1) month = '0' + month;
-        	return d.getFullYear() + "-" + month + "-" + d.getDate();
+        	var day = d.getDate().toString();
+        	if(month.length == 1) month = '0' + month;
+        	if(day.length == 1) day = '0' + day;
+        	return d.getFullYear() + "-" + month + "-" + day;
     	},
 
     	//计算俩日期之间天数
