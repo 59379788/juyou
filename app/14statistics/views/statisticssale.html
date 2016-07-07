@@ -13,18 +13,18 @@
                 
               <label>使用时间</label>&nbsp;&nbsp;
               <select class="form-control" ng-model="searchform.seltype">
-              	<option value="0">小数据（周）</option>
-              	<option value="1">大数据（月）</option>
+              	<option value="0">实时查询</option>
+              	<option value="1">历史查询</option>
         	  </select>&nbsp;&nbsp;
               <div class="input-group">
-              <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+              <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close"  ng-change="changestart()" readonly/>
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
                   </span>
               </div>
                     &nbsp;&nbsp;到&nbsp;&nbsp;            
               <div class="input-group">
-              <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+              <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" ng-change="changeend()" readonly/>
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
                   </span>

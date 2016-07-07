@@ -1,4 +1,4 @@
-module.exports = function($scope, getDate, orderstatisticscompanylist, ITEMS_PERPAGE, orderstatisticscompanyhistorylist){
+module.exports = function($scope, getDate, orderstatisticscompanylist, ITEMS_PERPAGE, orderstatisticscompanyhistorylist, DateDiff){
 
     $scope.searchform = {};
 
@@ -83,7 +83,33 @@ module.exports = function($scope, getDate, orderstatisticscompanylist, ITEMS_PER
     };
     $scope.load();
 
-    
+    $scope.changestart = function() {
+
+    	var iDays;
+    	
+    	if($scope.searchform.seltype == 0){
+			iDays = DateDiff(getDate($scope.section.start.date), getDate($scope.section.end.date));
+			if(iDays > 7){
+				alert("不能选择超过一周的日期哦\n如有需求请选择历史查询");
+				$scope.section.start.date = new Date();
+			}
+    	}
+
+    }
+
+    $scope.changeend = function() {
+
+    	var iDays;
+    	
+    	if($scope.searchform.seltype == 0){
+			iDays = DateDiff(getDate($scope.section.start.date), getDate($scope.section.end.date));
+			if(iDays > 7){
+				alert("不能选择超过一周的日期哦\n如有需求请选择历史查询");
+				$scope.section.end.date = new Date();
+			}
+    	}
+
+    }
     
 
 };

@@ -65,6 +65,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getDate : function(utilservice){
                 return utilservice.getDate;
+            },
+            DateDiff : function(utilservice){
+                return utilservice.DateDiff;
             }
         }
         
@@ -85,6 +88,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getDate : function(utilservice){
                 return utilservice.getDate;
+            },
+            DateDiff : function(utilservice){
+                return utilservice.DateDiff;
             }
         }
         
