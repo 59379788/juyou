@@ -33,8 +33,16 @@ module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE, o
 
     	var fun;
     	var para;
+    	var iDays;
 
     	if($scope.searchform.seltype == 0){
+    		iDays = DateDiff(getDate($scope.section.start.date), getDate($scope.section.end.date));
+			if(iDays > 14){
+				alert("不能选择超过两周的日期哦\n如有需求请选择历史查询");
+				return;
+				//$scope.section.start.date = new Date();
+				//$scope.section.end.date = new Date();
+			}
     		fun = orderstatisticslist;
     		para = {
 	            start_time : getDate($scope.section.start.date) + " 00:00:00",
@@ -65,8 +73,12 @@ module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE, o
 
             if(res.errcode === 0)
             {
+        		$scope.objs = res.data;
                 for(var i = 0, j = res.data.length; i < j; i++)
                 {
+            		if($scope.searchform.seltype == 1){
+            			$scope.objs[i].name = res.data[i].sale_name;
+            		}
                     $scope.total.buy += parseInt(res.data[i].buy);
                     $scope.total.used += parseInt(res.data[i].used);
                     $scope.total.back += parseInt(res.data[i].back);
@@ -75,7 +87,7 @@ module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE, o
 
                 console.log($scope.total);
 
-                $scope.objs = res.data;
+                //$scope.objs = res.data;
                 //$scope.bigTotalItems = res.data.totalRecord;
             }
             else
@@ -88,7 +100,7 @@ module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE, o
     };
     $scope.load();
 
-    $scope.changestart = function() {
+    /*$scope.changestart = function() {
 
     	var iDays;
     	
@@ -114,14 +126,14 @@ module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE, o
 			}
     	}
 
-    }
+    }*/
 
-    $scope.changetype = function() {
+    /*$scope.changetype = function() {
 
     	$scope.section.start.date = new Date();
    		$scope.section.end.date = new Date();
 
-    }
+    }*/
  
     
 
