@@ -36,17 +36,14 @@ module.exports = function($scope, $stateParams, $state, code, delsignup,
 
 	$scope.back = function(id){
 
-		var list_map = new Array();
-        /*var mapone = {};
-        mapone['id'] = id;*/
-        list_map.push(id);
-        //list_map.push(name);
+		var list = [];
+		var list_map = {
+			'id' : id,
+			'name' : name
+		};
+        list.push(list_map);
 
-		var map = {};
-		map['cancleList'] = list_map;
-		//console.log(map);return;
-
-	    cancleGroup.save(map, function(res){
+	    cancleGroup.save({'cancleList' : list}, function(res){
 
 	        if(res.errcode === 0)
 	        {
