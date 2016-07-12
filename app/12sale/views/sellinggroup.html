@@ -19,6 +19,13 @@
 	                &nbsp;&nbsp;&nbsp;&nbsp;
 	                <input type="text" class="form-control" ng-model="searchform.guide_mobile" placeholder="导游电话">
 	                &nbsp;&nbsp;&nbsp;&nbsp;
+	                <select class="form-control" ng-model="searchform.orderstate">
+	                    <option value="0">全部订单</option>
+	                    <option value="1">已出票订单</option>
+	                    <option value="2">待交款订单</option>
+	                    <option value="3">已删除订单</option>
+	                </select>
+                 	 &nbsp;&nbsp;&nbsp;&nbsp;
 	                <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
 	            </div>
 	            <div class="col-sm-2 text-right">
@@ -66,12 +73,19 @@
 	        </td>
 	       <!--  <td class="text-center">{{obj.update_by}}</td> -->
 			<td class="text-center">
-				<div ng-show="obj.state=='0' && obj.xx=='0'">
-					<a ng-click="signup(obj.code)" class="btn btn-warning btn-sm">报名</a>
-					<a ng-click="edit(obj.code)" class="btn btn-success btn-sm">编辑</a>
+				<div ng-show="obj.del_flg=='0'">
+					<div ng-show="obj.state=='0' && obj.xx=='0'">
+						<a ng-click="signup(obj)" class="btn btn-warning btn-sm">预订</a>
+						<a ng-click="edit(obj)" class="btn btn-success btn-sm">编辑</a>
+			        </div>
+			        <a ng-click="outticket(obj.code)" ng-show="obj.outstate=='0'" class="btn btn-primary btn-sm">出票确认</a>
+			        <a ng-click="detail(obj.code)" class="btn btn-info btn-sm">查询纪录</a>
+			        <a ng-click="info(obj)" class="btn btn-warning btn-sm">修改订单</a>
+			        <a ng-click="del(obj.code)" ng-show="obj.outstate=='0'" class="btn btn-danger btn-sm">删除订单</a>
 		        </div>
-		        <a ng-click="info(obj.code)" class="btn btn-primary btn-sm">报名详情</a>
-		        <a ng-click="detail(obj.code)" class="btn btn-info btn-sm">修改纪录</a>
+		        <div ng-show="obj.del_flg=='1'">
+			        <a ng-click="recovery(obj.code)" class="btn btn-warning btn-sm">恢复订单</a>
+		        </div>
 	        </td>
 	      </tr>
 	    </tbody>

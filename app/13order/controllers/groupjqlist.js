@@ -22,7 +22,9 @@ module.exports = function($scope, grouporderlist, ITEMS_PERPAGE, $uibModal, getD
     	var para = {
             pageNo:$scope.bigCurrentPage, 
             pageSize:$scope.itemsPerPage,
-            arrival_date : getDate($scope.section.start.date)
+            arrival_date : getDate($scope.section.start.date),
+            del_flg : 0,
+            outstate : 1
         };
         
         para = angular.extend($scope.searchform, para);

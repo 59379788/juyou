@@ -40,6 +40,12 @@ var service = function($resource, BASEURL38985, $q, $http){
     
     var cancleGroup = BASEURL38985 + "/api/ac/tc/ticketGroupOrderService/updateCancleGroup";
 
+    var backlist = BASEURL38985 + '/api/as/tc/grouporder/backlist';
+
+    var outTicketConfirmation = BASEURL38985 + '/api/ac/tc/ticketGroupOrderService/outTicketConfirmation';
+
+    var delsignup = BASEURL38985 + '/api/ac/tc/ticketGroupOrderService/delsignup';
+
 
     
     return {
@@ -110,7 +116,16 @@ var service = function($resource, BASEURL38985, $q, $http){
           });  
           return deferred.promise;   // 返回承诺，这里并不是最终数据，而是访问最终数据的API  
         //return $resource(createinsuranceapi, {}, {});
-  		}
+  		},
+  		backlist : function(){
+            return $resource(backlist, {}, {});
+        },
+  		outTicketConfirmation : function(){
+            return $resource(outTicketConfirmation, {}, {});
+        },
+        delsignup : function(){
+            return $resource(delsignup, {}, {});
+        }
        
     };
 

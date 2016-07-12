@@ -1,16 +1,23 @@
-module.exports = function($scope, $uibModalInstance, code, groupdetail){
+module.exports = function($scope, $uibModalInstance, code, groupdetail, backlist){
 
 	$scope.objs = {};
 	
 	groupdetail.get({'code' : code}, function(res){
         if(res.errcode === 0)
 		{
-			if(res.data.length === 0){
-				alert("暂无操作记录");
-				$uibModalInstance.close();
-				//$state.go('app.sellinggroup');
-			}
-			$scope.objs = res.data;console.log($scope.objs);
+			$scope.objs = res.data;
+		}
+		else
+		{
+			alert(res.errmsg);
+		}
+
+    });
+
+    backlist.get({'code' : code}, function(res){
+        if(res.errcode === 0)
+		{
+			$scope.objsback = res.data;
 		}
 		else
 		{

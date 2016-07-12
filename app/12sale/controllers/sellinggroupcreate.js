@@ -105,6 +105,10 @@ module.exports = function($scope, $state, $uibModal, $uibModalInstance, groupsal
 		});
 	};
 
+	$scope.cancel = function(){
 
+		$uibModalInstance.close();
+		
+	}
 
 };

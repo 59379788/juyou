@@ -1,4 +1,5 @@
-module.exports = function($scope, $state, $uibModalInstance, code, groupsalelist, groupone, update, updatedetail, userinfo){
+module.exports = function($scope, $state, $uibModalInstance, code, outstate,
+	groupsalelist, groupone, update, updatedetail, userinfo){
 
 	$scope.groupobj = {};
 	$scope.groupobjstate = 0;
@@ -63,20 +64,26 @@ module.exports = function($scope, $state, $uibModalInstance, code, groupsalelist
 
 			if(res.errcode === 0)
 			{
-				updatedetail.save($scope.groupobj, function(res){
+				if(outstate == '1'){
+					updatedetail.save($scope.groupobj, function(res){
 
-					if(res.errcode === 0)
-					{
-						alert('保存成功');
-						$uibModalInstance.close();
-						//$state.go('app.sellinggroup');
-					}
-					else
-					{
-						alert(res.errmsg);
-					}
+						if(res.errcode === 0)
+						{
+							alert('保存成功');
+							$uibModalInstance.close();
+							//$state.go('app.sellinggroup');
+						}
+						else
+						{
+							alert(res.errmsg);
+						}
 
-				});
+					});
+				}else{
+					alert('保存成功');
+					$uibModalInstance.close();
+				}
+				
 			}
 			else
 			{
@@ -86,6 +93,10 @@ module.exports = function($scope, $state, $uibModalInstance, code, groupsalelist
 		});
 	};
 
+	$scope.cancel = function(){
 
+		$uibModalInstance.close();
+		
+	}
 
 };

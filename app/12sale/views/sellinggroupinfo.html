@@ -17,17 +17,19 @@
 		<table class="table table-bordered">
 		    <thead>
 		      <tr>
+		      	<th class="col-md-1 text-center">序号</th>
 		      	<th class="col-md-1 text-center">批次</th>
 		      	<th class="col-md-3 text-center">商品名称</th>
-		        <th class="col-md-1 text-center">姓名</th>
+		        <th class="col-md-2 text-center">姓名</th>
 		        <th class="col-md-2 text-center">电话</th>
-		        <th class="col-md-2 text-center">使用补贴</th>
-		        <th class="col-md-2 text-center">支付金额</th>
+		        <th class="col-md-1 text-center">使用补贴</th>
+		        <th class="col-md-1 text-center">支付金额</th>
 		        <th class="col-md-1 text-center">操作</th>
 		      </tr>
 		    </thead>
 		    <tbody>
 		      <tr ng-repeat="obj in objs">
+		     	<td class="text-center">{{$index+1}}</td>
 		      	<td class="text-center">第{{obj.batches}}批</td>
 		      	<td class="text-center">{{obj.goods_name}}</td>
 		        <td class="text-center">{{obj.name}}</td>
@@ -35,9 +37,12 @@
 		        <td class="text-center">{{obj.usedsubsidy * 0.01  | currency : '￥'}}</td>
 		        <td class="text-center">{{obj.pay_price * 0.01  | currency : '￥'}}</td>
 		        <td class="text-center">
-		        	<!--<div ng-show="obj.backstate=='0'">-->
+		        	<div ng-hide="outstate=='0'">
 		          		<a ng-click="back(obj.id)" class="btn btn-warning btn-xs">退订</a>
-	          		<!--</div>-->
+	          		</div>
+	          		<div ng-hide="outstate=='1'">
+		          		<a ng-click="del(obj.id)" class="btn btn-danger btn-xs">删除</a>
+	          		</div>
 		        </td>
 		      </tr>
 		    </tbody>

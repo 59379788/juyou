@@ -31,6 +31,38 @@
     </table>
 </div>
 
+<div class="modal-header">
+    <h4 class="modal-title">退订记录</h4>
+</div>
+<div class="modal-body">
+    <table class="table table-bordered text-center">
+	    <thead>
+	      <tr>
+	      	<th class="text-center col-md-1">序号</th>
+	      	<th class="text-center col-md-3">商品名称</th>
+	        <th class="text-center col-md-1">姓名</th>
+	        <th class="text-center col-md-1">电话</th>
+	        <th class="text-center col-md-1">使用补贴</th>
+	        <th class="text-center col-md-1">支付金额</th>
+	        <th class="text-center col-md-2">退订时间</th>
+	        <th class="text-center col-md-2">退订人</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr ng-repeat="objback in objsback">
+	      	<td class="text-center">{{$index+1}}</td>
+	      	<td class="text-center">{{objback.goods_name}}</td>
+	        <td class="text-center">{{objback.name}}</td>
+	        <td class="text-center">{{objback.mobile}}</td>
+	        <td class="text-center">{{objback.usedsubsidy * 0.01  | currency : '￥'}}</td>
+	        <td class="text-center">{{objback.pay_price * 0.01  | currency : '￥'}}</td>
+	      	<td class="text-center">{{objback.backtime}}</td>
+	      	<td class="text-center">{{objback.back_option_name}}</td>
+	      </tr>
+	    </tbody>
+    </table>
+</div>
+
 <div class="modal-footer">
     <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
 </div>

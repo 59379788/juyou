@@ -51,6 +51,9 @@ var router = function($urlRouterProvider, $stateProvider){
             groupdetail : function(sellingservice){
                 return sellingservice.groupdetail();
             },
+            backlist : function(sellingservice){
+                return sellingservice.backlist();
+            },
             //报名
             goodlist : function(sellingservice){
                 return sellingservice.goodlist();
@@ -71,6 +74,9 @@ var router = function($urlRouterProvider, $stateProvider){
             cancleGroup : function(sellingservice){
                 return sellingservice.cancleGroup();
             },
+            delsignup : function(sellingservice){
+                return sellingservice.delsignup();
+            },
             //编辑
             groupsalelist : function(sellingservice){
                 return sellingservice.groupsalelist;
@@ -90,6 +96,10 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             createOrder : function(sellingservice){
                 return sellingservice.createOrder();
+            },
+            //出票确认
+            outTicketConfirmation : function(sellingservice){
+                return sellingservice.outTicketConfirmation();
             }
         }
         

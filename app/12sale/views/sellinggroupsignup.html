@@ -1,13 +1,6 @@
 <div class="panel panel-default form-horizontal">
 	<div class="panel-heading">
-		报名信息
-
-		<button type="button" 
-			class="btn btn-xs btn-info pull-right"
-			ng-click="go()"
-		>
-			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-		</button>
+		预订信息
 	</div>
 	<div class="panel-body">
 		<div class="container-fluid">
@@ -52,7 +45,7 @@
 		        <tr ng-repeat="obj in objs">
 		          <td>
 		          	<input type="text" class="form-control" placeholder="请输入电话"
-					ng-model="obj.mobile" ng-blur="blur($index)"
+					ng-model="obj.mobile" ng-blur="blur($index)" ng-change="changemobile($index)"
 					>
 				  </td>
 		          <td>
@@ -100,5 +93,10 @@
 
 		</div>
 	</div>
+	<div class="modal-footer">
+	    <button class="btn btn-primary" type="button" ng-click="go()">提交</button>
+	    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+	</div>
 </div>
+
 

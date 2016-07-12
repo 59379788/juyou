@@ -1,4 +1,5 @@
-module.exports = function($scope, $state, code, goodlist, getattrbycode, usersubsibyquery, signup, $uibModalInstance){
+module.exports = function($scope, $state, code, plan_count, goodlist, infolist,
+	getattrbycode, usersubsibyquery, signup, $uibModalInstance){
 
 	$scope.num = 1;
 
@@ -37,23 +38,12 @@ module.exports = function($scope, $state, code, goodlist, getattrbycode, usersub
 			return;
 		}
 
-		for(var i = 0; i < num; i++)
-		{
-			var obj = {
-				'name' : '',
-				'mobile' : '',
-				'cardno' : '',
-				'goods_code' : '',
-				'pay_price' : 0,	//实际支付价格
-				'subsidy' : 0,		//补贴余额
-				'usesubsidy' : 0,	//本次使用补贴
-				'disabled' : false
-			};
-			$scope.objs.push(obj);
-		}
+		row(num);
 	};
 
-	//商品列表
+	
+
+	//初始化 商品列表
 	goodlist.get({'code' : code}, function(res){
 		console.log(res);
 		if(res.errcode === 0)
@@ -87,6 +77,46 @@ module.exports = function($scope, $state, code, goodlist, getattrbycode, usersub
 			alert(res.errmsg);
 		}
 	});
+
+	//初始化 获取预定信息
+	infolist.get({'code' : code}, function(res){
+		console.log(res);
+		if(res.errcode === 0)
+		{
+			var tmp = res.data;
+			
+			if(tmp == ""){
+				row(plan_count);
+				return;
+			}
+			if(tmp.length < plan_count){
+				row(plan_count - tmp.length);
+			}
+		}
+		else
+		{
+			alert(res.errmsg);
+		}
+	});
+
+	function initusersubsibyquery(obj){
+		var subsidy = 0;
+		usersubsibyquery.get({'mobile' : obj.mobile}, function(res){
+			if(res.errcode === 0)
+			{
+				if(res.data.isexis === '0')
+				{
+					obj.subsidy = 0;
+				}
+				else
+				{
+					obj.subsidy = res.data.generalsubsidy;
+				}	
+			}
+		});
+		return subsidy;
+
+	}
 
 	//电话失去焦点
 	$scope.blur = function(index){
@@ -270,12 +300,47 @@ module.exports = function($scope, $state, code, goodlist, getattrbycode, usersub
 		{
 			var tmp = $scope.objs[i];
 			if(tmp.goods_code == '') continue;
-			$scope.totalprice += parseInt(goods[tmp.goods_code]);
+			if(tmp.mobile!=''){
+				$scope.totalprice += parseInt(goods[tmp.goods_code]);
+			}
+			
 
 		}
 
 	}
 
+	$scope.cancel = function(){
 
-	return;
+		$uibModalInstance.close();
+		
+	}
+
+	//添加一行
+	function row(num){
+		for(var i = 0; i < num; i++)
+		{
+			var obj = {
+				'name' : '',
+				'mobile' : '',
+				'cardno' : '',
+				'goods_code' : $scope.goodarr[0].goods_code,
+				'pay_price' : goods[$scope.goodarr[0].goods_code],	//实际支付价格
+				'subsidy' : 0,		//补贴余额
+				'usesubsidy' : 0,	//本次使用补贴
+				'disabled' : false
+			};
+			$scope.objs.push(obj);
+		}
+	}
+
+	//正价票 默认第一人电话
+	$scope.changemobile = function(index){
+		if(index == 0){
+			for(var i=1; i<$scope.objs.length; i++){
+				$scope.objs[i].mobile = $scope.objs[index].mobile
+			}
+		}
+	};
+
+
 };

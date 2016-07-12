@@ -1,10 +1,10 @@
 module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE, 
-    getDate, update, groupdetail,
+    getDate, update, groupdetail, backlist, outTicketConfirmation,
     $uibModal, 
     //报名
     goodlist, getattrbycode, usersubsibyquery, signup,
     //报名详情
-    infolist, cancleGroup,
+    infolist, cancleGroup, delsignup,
     //编辑
     groupsalelist, groupone, updatedetail, userinfo,
     //新建
@@ -12,6 +12,7 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE,
     ){
 
    	$scope.searchform = {};
+   	$scope.searchform.orderstate = '0';
 
     $scope.usedate = '0';
 
@@ -77,6 +78,20 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE,
         {
             para['arrival_date'] = getDate($scope.section.start.date);
         }
+        switch($scope.searchform.orderstate)
+        {
+        	case '1':
+        		para['del_flg'] = '0';
+        		para['outstate'] = '1';
+        		break;
+        	case '2':
+        		para['del_flg'] = '0';
+        		para['outstate'] = '0';
+        		break;
+    		case '3':
+        		para['del_flg'] = '1';
+        		break;	
+        }
         
         para = angular.extend(para, $scope.searchform);
 
@@ -118,14 +133,29 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE,
 	    }
     };
 
-    $scope.edit = function (code) {
+    $scope.recovery = function (code) {
+	    update.get({'code' : code, 'del_flg' : '0'}, function(res){
+
+	        if(res.errcode === 0)
+			{
+				$scope.load();
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+
+	    });
+    };
+
+    $scope.edit = function (obj) {
         var modalInstance = $uibModal.open({
           template: require('../views/sellinggroupmodel.html'),
           controller: 'sellinggroupupdate',
           size: 'lg',
           resolve: {
             code : function(){
-                return code;
+                return obj.code;
             },
             groupsalelist : function(){
                 return groupsalelist;
@@ -141,6 +171,9 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE,
             },
             userinfo : function(){
                 return userinfo;
+            },
+            outstate : function(){
+                return obj.outstate;
             }
             
           }
@@ -167,6 +200,9 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE,
             },
             groupdetail : function(){
                 return groupdetail;
+            },
+            backlist : function(){
+                return backlist;
             }
             
           }
@@ -182,20 +218,29 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE,
         //$state.go('app.sellingdetail', {'code' : code});
     }
 
-    $scope.info = function (code) {
+    $scope.info = function (obj) {
         var modalInstance = $uibModal.open({
           template: require('../views/sellinggroupinfo.html'),
           controller: 'sellinggroupinfo',
           size: 'lg',
           resolve: {
             code : function(){
-                return code;
+                return obj.code;
+            },
+            outstate : function(){
+                return obj.outstate;
             },
             infolist : function(){
                 return infolist;
             },
             cancleGroup : function(){
                 return cancleGroup;
+            },
+            userinfo : function(){
+                return userinfo;
+            },
+            delsignup : function(){
+                return delsignup;
             }
           }
         });
@@ -211,14 +256,17 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE,
     	//$state.go('app.infosellinggroup', {'code' : code});
     };
 
-    $scope.signup = function (code) {
+    $scope.signup = function (obj) {
         var modalInstance = $uibModal.open({
           template: require('../views/sellinggroupsignup.html'),
           controller: 'sellinggroupsignup',
           size: 'lg',
           resolve: {
             code : function(){
-                return code;
+                return obj.code;
+            },
+            plan_count : function(){
+                return obj.plan_count;
             },
             goodlist : function(){
                 return goodlist;
@@ -231,6 +279,9 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE,
             },
             signup : function(){
                 return signup;
+            },
+            infolist : function(){
+                return infolist;
             }
           }
         });
@@ -244,6 +295,29 @@ module.exports = function($scope, $state, grouplist, ITEMS_PERPAGE,
 
     	//$state.go('app.signupsellinggroup', {'code' : code});
     };
+
+    $scope.outticket = function(code){
+
+    	if (confirm("确定要出票吗?")) {
+	    	outTicketConfirmation.save({'code' : code}, function(res){
+
+			    console.log(res);
+
+			    if(res.errcode === 0)
+			    {
+			        alert("出票成功，请注意查收短信！");
+			        $scope.load();
+			    }
+			    else
+			    {
+			        alert(res.errmsg);
+			    }
+
+			});
+	    }	
+
+    }
+    
 
 
 };

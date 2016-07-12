@@ -1,4 +1,13 @@
-module.exports = function($scope, $stateParams, $state, code, infolist, cancleGroup, $uibModalInstance){
+module.exports = function($scope, $stateParams, $state, code, delsignup,
+	outstate, infolist, cancleGroup, $uibModalInstance, userinfo){
+
+	$scope.outstate = outstate;
+
+	var name;
+
+	userinfo().then(function(res) {
+		name = res.name;
+    });
 
 	$scope.load = function(){
 		infolist.get({'code' : code}, function(res){
@@ -31,6 +40,7 @@ module.exports = function($scope, $stateParams, $state, code, infolist, cancleGr
         /*var mapone = {};
         mapone['id'] = id;*/
         list_map.push(id);
+        //list_map.push(name);
 
 		var map = {};
 		map['cancleList'] = list_map;
@@ -60,4 +70,32 @@ module.exports = function($scope, $stateParams, $state, code, infolist, cancleGr
 
 		$state.go('app.signupsellinggroup', {'code' : code});
 	};
+
+	$scope.del = function(id){
+
+		var list_map = new Array();
+        /*var mapone = {};
+        mapone['id'] = id;*/
+        list_map.push(id);
+        //list_map.push(name);
+
+		var map = {};
+		map['cancleList'] = list_map;
+		//console.log(map);return;
+
+	    delsignup.save(map, function(res){
+
+	        if(res.errcode === 0)
+	        {
+	            alert("删除成功");
+	            $scope.load();
+	        }
+	        else
+	        {
+	            alert(res.errmsg);
+	        }
+
+	    });
+	}
+	
 };
