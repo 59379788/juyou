@@ -441,5 +441,25 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
 
     };
 
+    $scope.del = function(id){
+
+        saleupdate.save({'id' : id, 'del_flg' : '1'}, function(res){
+
+            console.log(res);
+
+            if(res.errcode === 0)
+            {
+        		alert("删除成功");
+                $scope.load();
+            }
+            else
+            {
+                alert(res.errmsg);
+            }
+
+        });
+
+    };
+
 
 };
