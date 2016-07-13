@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, orderbacklist, orderback, ITEMS_PERPAGE){
+module.exports = function($scope, $state, orderbacklist, orderback, ITEMS_PERPAGE, $uibModal){
 
 	$scope.searchform = {};
 
@@ -34,25 +34,29 @@ module.exports = function($scope, $state, orderbacklist, orderback, ITEMS_PERPAG
     };
     $scope.load();
 
-    $scope.back = function(id){
-    	var para = {
-            id:id
-        };
-		orderback.save(para, function(res){
+	$scope.back = function(obj){
+		var modalInstance = $uibModal.open({
+	          template: require('../user/orderback.html'),
+	          controller: 'orderback',
+	          size: 'xs',
+	          resolve: {
+	            id : function(){
+	                return obj.id;
+	            },
+	            back_price : function(){
+	                return obj.back_price;
+	            },
+	            orderback : function(){
+	                return orderback;
+	            }
+	          }
+        });
 
-			console.log(res);
-
-			if(res.errcode === 0)
-			{
-				alert("退款成功");
-				$scope.load();
-			}
-			else
-			{
-				alert(res.errmsg);
-			}
-
-		});
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+            
+        });
 	}
 
 };

@@ -19,6 +19,7 @@ App.controller('redpackage',require('./controllers/redpackage'));
 App.controller('userorderlist',require('./controllers/orderlist'));
 App.controller('sendmessage',require('./controllers/sendmessage'));
 App.controller('orderbacklist',require('./controllers/orderbacklist'));
+App.controller('orderback',require('./controllers/orderback'));
 App.controller('carduserinfo',require('./controllers/carduserinfo'));
 
 

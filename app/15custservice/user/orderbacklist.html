@@ -23,7 +23,8 @@
         <th class="text-center col-md-2">创建时间</th>
         <th class="text-center col-md-1">所属机构</th>
         <th class="text-center col-md-1">退款状态</th>
-        <th class="text-center col-md-2">退款时间</th>
+        <th class="text-center col-md-1">实际退款金额</th>
+        <th class="text-center col-md-1">退款时间</th>
         <th class="text-center col-md-1">操作</th>
       </tr>
     </thead>
@@ -36,9 +37,10 @@
         <td class="text-center">{{obj.create_time}}</td>
         <td class="text-center">{{obj.ta_code}}</td>
         <td class="text-center">{{obj.back_statename}}</td>
+        <td class="text-center">{{obj.actual_back_price | currency : '￥'}}</td>
         <td class="text-center">{{obj.update_time}}</td>
         <td class="text-center">
-        	<a ng-show="obj.back_state=='0'" ng-click="back(obj.id)" class="btn btn-success btn-xs">退款</a>
+        	<a ng-show="obj.back_state=='0'" ng-click="back(obj)" class="btn btn-success btn-xs">退款</a>
         </td>
       </tr>
     </tbody>
