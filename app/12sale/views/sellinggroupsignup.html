@@ -90,9 +90,18 @@
 		      </tbody>
 		    </table>
 
+		    <div class="panel panel-success">
+			      <div class="panel-heading">预定需知</div>
+			      <div class="panel-body tinfo">
+			        <p ng-bind-html="bookingnotes | trustHtml"></p>
+			      </div>
+			</div>
+
 
 		</div>
 	</div>
+	
+
 	<div class="modal-footer">
 	    <button class="btn btn-primary" type="button" ng-click="go()">提交</button>
 	    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>

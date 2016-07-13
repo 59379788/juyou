@@ -48,6 +48,7 @@ module.exports = function($scope, $state, code, plan_count, goodlist, infolist,
 		console.log(res);
 		if(res.errcode === 0)
 		{
+			$scope.bookingnotes = res.data[0].bookingnotes;
 			$scope.goodarr = res.data;
 			console.log(res.data);
 			for(var i = 0; i < res.data.length; i++)
