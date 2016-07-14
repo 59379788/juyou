@@ -1,5 +1,8 @@
 module.exports = function($scope, $state, $stateParams, trackinfo, ITEMS_PERPAGE){
 
+	$scope.searchform = {};
+	$scope.searchform.type = '';
+
     var seller_code = $stateParams.seller_code;
 
     /* 分页
@@ -15,6 +18,8 @@ module.exports = function($scope, $state, $stateParams, trackinfo, ITEMS_PERPAGE
             'pageSize' : $scope.itemsPerPage,
             'seller_code' : seller_code
         };
+
+        para = angular.extend($scope.searchform, para);
 
         trackinfo.save(para, function(res){
 
