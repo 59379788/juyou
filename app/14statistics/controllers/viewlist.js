@@ -2,6 +2,8 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal,
      viewdestorystatisticlist, govsubsidygoodscodelist, useddetaillist, grouplxslist){
 
     $scope.searchform = {};
+    //$scope.obj = {};
+    //$scope.obj.check = true;
 
     $scope.total = {
         'buy' : 0,
@@ -67,7 +69,8 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal,
                         console.log($scope.objs);
                         for(var i = 0, j = $scope.objs.length; i < j; i++)
                         {
-                            var tmp = $scope.objs[i]
+                            var tmp = $scope.objs[i];
+                            tmp.check = true;
                             $scope.total.buy += tmp.buy;
                             $scope.total.used += tmp.used;
                             $scope.total.back += tmp.back;
@@ -138,5 +141,58 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal,
         });
     };
 
+    $scope.ok = function(objs){console.log(objs);
+    	for(var i=0; i<=objs.length; i++){
+    		$scope.objs[i].check = true;
+    	}
+    	
+    }
+
+    $scope.cancel = function(objs){console.log(objs);
+    	for(var i=0; i<=objs.length; i++){
+    		$scope.objs[i].check = false;
+    	}
+    }
+
+    $scope.clickbox = function (index) {
+
+    	if($scope.objs[index].check == true){
+    		$scope.objs[index].check = false;
+    	}else{
+    		$scope.objs[index].check = true;
+    	}
+    }
+
+    $scope.goodscount = function (objs) {
+
+    	$scope.total = {
+	        'buy' : 0,
+	        'used' : 0,
+	        'back' : 0,
+	        'total' : 0,
+	        'gov' : 0
+	    };
+
+    	for(var i = 0, j = $scope.objs.length; i < j; i++)
+        {
+            var tmp = objs[i];
+            if(tmp.check == true){
+            	$scope.total.buy += tmp.buy;
+	            $scope.total.used += tmp.used;
+	            $scope.total.back += tmp.back;
+	            $scope.total.total += tmp.cost_price * tmp.used;
+	            tmp.gov = 0;
+	            for(var m = 0, n = $scope.subsidy.length; m < n; m++)
+	            {
+	                if($scope.subsidy[m]['goods_code'] == tmp.goods_code)
+	                {
+	                    tmp.gov = $scope.subsidy[m]['govsubsidy_price'];
+	                    break;
+	                }
+	            }
+	            $scope.total.gov += tmp.gov * tmp.used;
+            }
+        }
+    }
 
 };
