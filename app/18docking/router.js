@@ -21,6 +21,23 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+      .state('app.qunabackticketapplylist', {
+        url: '/qunabackticketapplylist',
+        controller : 'qunabackticketapplylist',
+        template: require('./docking/qunabackticketapplylist.html'),
+        resolve:{
+            selectapplyOrderRefundByUserlist : function(dockingservice){
+                return dockingservice.selectapplyOrderRefundByUserlist();
+            },
+            updateOrderRefundAgree : function(dockingservice){
+                return dockingservice.updateOrderRefundAgree();
+            },
+            updateOrderRefundNotAgree : function(dockingservice){
+                return dockingservice.updateOrderRefundNotAgree();
+            }
+        }
+      })
+
       
 
 

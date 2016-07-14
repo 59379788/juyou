@@ -10,6 +10,8 @@ App.factory('dockingservice', require('./service'));
 
 App.controller('corridorproductlist',require('./controllers/corridorproductlist'));
 App.controller('corridorproductdetail',require('./controllers/corridorproductdetail'));
+App.controller('qunabackticketapplylist',require('./controllers/qunabackticketapplylist'));
+App.controller('qunaexamineback',require('./controllers/qunaexamineback'));
 // App.controller('info',require('./controllers/info'));
 
 
