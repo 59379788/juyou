@@ -108,6 +108,9 @@
           <a ng-click="relay(obj)" class="btn btn-warning btn-xs"
           ng-show="obj.sale_belong == 'juyou' && obj.ticket_state == '2' && obj.sms_state == '2'"
           >转发短信</a>
+          <a ng-click="back(obj)" class="btn btn-primary btn-xs"
+          ng-show="obj.sale_belong == 'juyou' && obj.ticket_state == '2' && obj.sms_state == '2'"
+          >退多张票</a>
           
         </th>
       </tr>

@@ -185,5 +185,31 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
         });
     }
 
+    $scope.back = function(obj){
+        
+    	var modalInstance = $uibModal.open({
+          template: require('../views/backticket.html'),
+          controller: 'backticket',
+          size: 'xs',
+          resolve: {
+            code : function(){
+                return obj.code;
+            },
+            num : function(){
+                return obj.num;
+            },
+            createBackOrder : function(){
+                return createBackOrder;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+            
+        });
+    }
+
 
 };
