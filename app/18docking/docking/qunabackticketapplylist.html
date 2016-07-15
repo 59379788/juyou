@@ -4,7 +4,7 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="text-center col-md-1">订单编号</th>
+        <th class="text-center col-md-2">订单编号</th>
         <th class="text-center col-md-1">订单金额</th>
         <th class="text-center col-md-1">订单票数</th>
         <th class="text-center col-md-1">退款票数</th>
@@ -12,9 +12,10 @@
         <!--<th class="text-center col-md-1">退款原因</th>
         <th class="text-center col-md-1">退款说明</th>-->
         <th class="text-center col-md-1">退款手续费</th>
-        <th class="text-center col-md-2">申请时间</th>
+        <th class="text-center col-md-1">申请时间</th>
         <th class="text-center col-md-1">审核状态</th>
-        <th class="text-center col-md-2">审核时间</th>
+        <th class="text-center col-md-1">审核时间</th>
+        <th class="text-center col-md-1">通知去哪</th>
         <th class="text-center col-md-1">操作</th>
       </tr>
     </thead>
@@ -31,6 +32,7 @@
         <td class="text-center">{{obj.create_time}}</td>
         <td class="text-center">{{obj.statename}}</td>
         <td class="text-center">{{obj.update_time}}</td>
+        <td class="text-center">{{obj.noticedname}}</td>
         <td class="text-center">
           <a ng-click="info(obj)" class="btn btn-info btn-xs">详情</a>
           <a ng-click="examine(obj)" ng-show="obj.state=='1'" class="btn btn-success btn-xs">审核</a>
