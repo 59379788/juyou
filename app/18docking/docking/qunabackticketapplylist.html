@@ -9,9 +9,12 @@
         <th class="text-center col-md-1">订单票数</th>
         <th class="text-center col-md-1">退款票数</th>
         <th class="text-center col-md-1">退款流水号</th>
-        <th class="text-center col-md-2">退款原因</th>
-        <th class="text-center col-md-3">退款说明</th>
+        <!--<th class="text-center col-md-1">退款原因</th>
+        <th class="text-center col-md-1">退款说明</th>-->
         <th class="text-center col-md-1">退款手续费</th>
+        <th class="text-center col-md-2">申请时间</th>
+        <th class="text-center col-md-1">审核状态</th>
+        <th class="text-center col-md-2">审核时间</th>
         <th class="text-center col-md-1">操作</th>
       </tr>
     </thead>
@@ -22,11 +25,15 @@
         <td class="text-center">{{obj.orderquantity}}</td>
         <td class="text-center">{{obj.refundquantity}}</td>
         <td class="text-center">{{obj.refundseq}}</td>
-        <td class="text-center">{{obj.refundreason}}</td>
-        <td class="text-center">{{obj.refundexplain}}</td>
+        <!--<td class="text-center">{{obj.refundreason}}</td>
+        <td class="text-center">{{obj.refundexplain}}</td>-->
         <td class="text-center">{{obj.refundcharge * 0.01 | currency : '￥'}}</td>
+        <td class="text-center">{{obj.create_time}}</td>
+        <td class="text-center">{{obj.statename}}</td>
+        <td class="text-center">{{obj.update_time}}</td>
         <td class="text-center">
-          <a ng-click="examine(obj.partnerorderid)" class="btn btn-success btn-xs">审核</a>
+          <a ng-click="info(obj)" class="btn btn-info btn-xs">详情</a>
+          <a ng-click="examine(obj)" ng-show="obj.state=='1'" class="btn btn-success btn-xs">审核</a>
         </td>
       </tr>
     </tbody>

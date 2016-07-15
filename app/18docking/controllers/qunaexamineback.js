@@ -1,7 +1,13 @@
-module.exports = function($scope, $uibModalInstance, partnerorderid, updateOrderRefundAgree, updateOrderRefundNotAgree){
+module.exports = function($scope, $uibModalInstance, partnerorderid, refundseq, 
+	updateOrderRefundAgree, updateOrderRefundNotAgree){
 
+	var para = {
+		'partnerorderid' : partnerorderid,
+		'refundseq' : refundseq
+	};
+	
 	$scope.ok = function(){
-		updateOrderRefundAgree.save({'partnerorderid' : partnerorderid}, function(res){
+		updateOrderRefundAgree.save(para, function(res){
 
 	        if(res.errcode === 0)
 	        {
@@ -18,7 +24,7 @@ module.exports = function($scope, $uibModalInstance, partnerorderid, updateOrder
 	}
     
 	$scope.cancel = function(){
-		updateOrderRefundNotAgree.save({'partnerorderid' : partnerorderid}, function(res){
+		updateOrderRefundNotAgree.save(para, function(res){
 
 	        if(res.errcode === 0)
 	        {

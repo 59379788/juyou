@@ -36,7 +36,7 @@ module.exports = function($scope, ITEMS_PERPAGE, $uibModal,
     };
     $scope.load();
 
-    $scope.examine = function(partnerorderid){
+    $scope.examine = function(obj){
 
         var modalInstance = $uibModal.open({
           template: require('../docking/qunaexamineback.html'),
@@ -44,13 +44,40 @@ module.exports = function($scope, ITEMS_PERPAGE, $uibModal,
           size: 'xs',
           resolve: {
             partnerorderid : function(){
-                return partnerorderid;
+                return obj.partnerorderid;
+            },
+            refundseq : function(){
+                return obj.refundseq;
             },
             updateOrderRefundAgree : function(){
                 return updateOrderRefundAgree;
             },
             updateOrderRefundNotAgree : function(){
                 return updateOrderRefundNotAgree;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+        	
+        });
+
+    };
+
+    $scope.info = function(obj){
+
+        var modalInstance = $uibModal.open({
+          template: require('../docking/qunabackticketapplyinfo.html'),
+          controller: 'qunabackticketapplyinfo',
+          size: 'xs',
+          resolve: {
+            refundreason : function(){
+                return obj.refundreason;
+            },
+            refundexplain : function(){
+                return obj.refundexplain;
             }
           }
         });
