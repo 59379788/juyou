@@ -1,4 +1,4 @@
-module.exports = function($scope, ITEMS_PERPAGE, $uibModal, 
+module.exports = function($scope, ITEMS_PERPAGE, $uibModal, createBackOrder,
 	selectapplyOrderRefundByUserlist, updateOrderRefundAgree, updateOrderRefundNotAgree){
 
 	$scope.searchform = {};
@@ -48,6 +48,12 @@ module.exports = function($scope, ITEMS_PERPAGE, $uibModal,
             },
             refundseq : function(){
                 return obj.refundseq;
+            },
+            refundquantity : function(){
+                return obj.refundquantity;
+            },
+            createBackOrder : function(){
+                return createBackOrder;
             },
             updateOrderRefundAgree : function(){
                 return updateOrderRefundAgree;

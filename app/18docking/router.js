@@ -34,6 +34,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             updateOrderRefundNotAgree : function(dockingservice){
                 return dockingservice.updateOrderRefundNotAgree();
+            },
+            createBackOrder : function(orderservice){
+                return orderservice.createBackOrder();
             }
         }
       })
