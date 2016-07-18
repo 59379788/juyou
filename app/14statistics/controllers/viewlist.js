@@ -1,9 +1,9 @@
-module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal,
-     viewdestorystatisticlist, govsubsidygoodscodelist, useddetaillist, grouplxslist){
+module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, viewdestorystatistichistorylist,
+     viewdestorystatisticlist, govsubsidygoodscodelist, useddetaillist, grouplxslist, DateDiff){
 
     $scope.searchform = {};
-    //$scope.obj = {};
-    //$scope.obj.check = true;
+
+    $scope.searchform.seltype = '0';
 
     $scope.total = {
         'buy' : 0,
@@ -33,18 +33,36 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal,
 
     $scope.load = function () {
         
-        var para = {
-            //pageNo:$scope.bigCurrentPage, 
-            //pageSize:$scope.itemsPerPage,
-            start_time : getDate($scope.section.start.date) + " 00:00:00",
-            end_time : getDate($scope.section.end.date) + " 23:59:59"
-        };
+        var fun;
+    	var para;
+    	var iDays;
+
+    	if($scope.searchform.seltype == 0){
+    		iDays = DateDiff(getDate($scope.section.start.date), getDate($scope.section.end.date));
+			if(iDays > 14){
+				alert("不能选择超过两周的日期哦\n如有需求请选择历史查询");
+				return;
+				//$scope.section.start.date = new Date();
+				//$scope.section.end.date = new Date();
+			}
+    		fun = viewdestorystatisticlist;
+    		para = {
+	            start_time : getDate($scope.section.start.date) + " 00:00:00",
+	            end_time : getDate($scope.section.end.date) + " 23:59:59"
+	        };
+    	}else{
+    		fun = viewdestorystatistichistorylist;
+    		para = {
+	            start_time : getDate($scope.section.start.date),
+	            end_time : getDate($scope.section.end.date)
+	        };
+    	}
 
         para = angular.extend($scope.searchform, para);
 
         console.log(para);
         
-        viewdestorystatisticlist.save(para, function(res){
+        fun.save(para, function(res){
 
             console.log(res);
 

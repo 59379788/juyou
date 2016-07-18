@@ -34,6 +34,9 @@ var router = function($urlRouterProvider, $stateProvider){
             viewdestorystatisticlist : function(statisticsservice){
                 return statisticsservice.viewdestorystatisticlist();
             },
+            viewdestorystatistichistorylist : function(statisticsservice){
+                return statisticsservice.viewdestorystatistichistorylist();
+            },
             getDate : function(utilservice){
                 return utilservice.getDate;
             },
@@ -45,6 +48,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             grouplxslist : function(statisticsservice){
                 return statisticsservice.grouplxslist();
+            },
+            DateDiff : function(utilservice){
+                return utilservice.DateDiff;
             }
         }
         
