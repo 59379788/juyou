@@ -14,7 +14,7 @@
 			      <span class="input-group-btn">
 			      	<button class="btn btn-default" type="button"
 			      	ng-click="add(num)"
-			      	>添加</button>
+			      	>预订</button>
 			      </span>
 			    </div>
 			</div>
@@ -31,9 +31,10 @@
 			<table class="table table-bordered">
 		      <thead>
 		        <tr>
+		          <th class="text-center col-xs-1">序号</th>
 		          <th class="text-center col-xs-2">电话</th>
 		          <th class="text-center col-xs-1">姓名</th>
-		          <th class="text-center col-xs-3">身份证</th>
+		          <th class="text-center col-xs-2">身份证</th>
 		          <th class="text-center col-xs-2">票种</th>
 		          <th class="text-center col-xs-1">价格</th>
 		          <th class="text-center col-xs-1">用户补贴余额</th>
@@ -43,6 +44,9 @@
 		      </thead>
 		      <tbody>
 		        <tr ng-repeat="obj in objs">
+		           <td class="text-center">
+		           		{{$index+1}}
+				  </td>
 		          <td>
 		          	<input type="text" class="form-control" placeholder="请输入电话"
 					ng-model="obj.mobile" ng-blur="blur($index)" ng-change="changemobile($index)"

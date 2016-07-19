@@ -26,6 +26,9 @@ module.exports = function($scope, $state, code, plan_count, goodlist, infolist,
 	var goodscodegov = '';
 	var paypricegov = '0';
 
+	//预定人数全局变量
+	var count = 1;
+
 	//总价
 	$scope.totalprice = 0;
 
@@ -80,7 +83,7 @@ module.exports = function($scope, $state, code, plan_count, goodlist, infolist,
 	});
 
 	//初始化 获取预定信息
-	infolist.get({'code' : code}, function(res){
+	/*infolist.get({'code' : code}, function(res){
 		console.log(res);
 		if(res.errcode === 0)
 		{
@@ -117,7 +120,7 @@ module.exports = function($scope, $state, code, plan_count, goodlist, infolist,
 		});
 		return subsidy;
 
-	}
+	}*/
 
 	//电话失去焦点
 	$scope.blur = function(index){
@@ -301,9 +304,7 @@ module.exports = function($scope, $state, code, plan_count, goodlist, infolist,
 		{
 			var tmp = $scope.objs[i];
 			if(tmp.goods_code == '') continue;
-			if(tmp.mobile!=''){
-				$scope.totalprice += parseInt(goods[tmp.goods_code]);
-			}
+			$scope.totalprice += parseInt(goods[tmp.goods_code]);
 			
 
 		}
@@ -317,11 +318,14 @@ module.exports = function($scope, $state, code, plan_count, goodlist, infolist,
 	}
 
 	//添加一行
+
 	function row(num){
-		for(var i = 0; i < num; i++)
+		var j;
+		for(var i = 1; i <= num; i++)
 		{
+			j = parseInt(count);
 			var obj = {
-				'name' : '',
+				'name' : '第'+j+'人',
 				'mobile' : '',
 				'cardno' : '',
 				'goods_code' : $scope.goodarr[0].goods_code,
@@ -330,18 +334,20 @@ module.exports = function($scope, $state, code, plan_count, goodlist, infolist,
 				'usesubsidy' : 0,	//本次使用补贴
 				'disabled' : false
 			};
+			count+=1;
 			$scope.objs.push(obj);
 		}
+		calctotalprice();
 	}
 
 	//正价票 默认第一人电话
-	$scope.changemobile = function(index){
+	/*$scope.changemobile = function(index){
 		if(index == 0){
 			for(var i=1; i<$scope.objs.length; i++){
 				$scope.objs[i].mobile = $scope.objs[index].mobile
 			}
 		}
-	};
+	};*/
 
 
 };
