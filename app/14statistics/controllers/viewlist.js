@@ -125,23 +125,23 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
     };
     $scope.load();
 
-    $scope.detail = function (view, goods_code) {
+    $scope.detail = function (obj) {
         var modalInstance = $uibModal.open({
           template: require('../views/useddetail.html'),
           controller: 'useddetail',
           size: 'lg',
           resolve: {
             view : function(){
-                return view;
+                return obj.view;
             },
             goods_code : function(){
-                return goods_code;
+                return obj.goods_code;
             },
             start_time : function(){
-                return getDate($scope.section.start.date) + " 00:00:00";
+                return obj.date + " 00:00:00";
             },
             end_time : function(){
-                return getDate($scope.section.end.date) + " 23:59:59";
+                return obj.date + " 23:59:59";
             },
             useddetaillist : function(){
                 return useddetaillist;
