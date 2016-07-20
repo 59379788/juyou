@@ -5,6 +5,14 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
 
     $scope.searchform.seltype = '0';
 
+    $scope.viewarr = [];
+
+    var attrarr = [];
+
+    $scope.dlq = {};
+
+    var searchviewcode = null;
+
     $scope.total = {
         'buy' : 0,
         'used' : 0,
@@ -64,19 +72,38 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
         
         fun.save(para, function(res){
 
-            console.log(res);
-
-             $scope.total = {
-                'buy' : 0,
-                'used' : 0,
-                'back' : 0,
-                'total' : 0,
-                'gov' : 0
-            };
-
             if(res.errcode === 0)
             {
                 $scope.objs = res.data;
+
+                //--- 从结果里搜索出结果里有的景区 -- start
+                console.log($scope.objs);
+                var viewobj = {};
+                var attrobj = {};
+                $scope.viewarr.splice(0,$scope.viewarr.length);
+                for(var m = 0, n = $scope.objs.length; m < n ;m++)
+                {
+                    var tmp = $scope.objs[m];
+                    if(viewobj[tmp.place_code] === undefined)
+                    {
+                        viewobj[tmp.place_code] = tmp.place_name;
+                    }
+
+                    // if(attrobj[tmp.attr] === undefined)
+                    // {
+                    //     attrobj[tmp.attr] = tmp.attr;
+                    // }
+
+                }
+                angular.forEach(viewobj, function (value, key) {
+                    console.log(key + ':' + value);
+                    $scope.viewarr.push({
+                        'code' : key,
+                        'name' : value
+                    });
+                });
+                //--- 从结果里搜索出结果里有的景区 -- end
+
 
                 govsubsidygoodscodelist.get({}, function(res1){
 
@@ -84,15 +111,12 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
                     if(res1.errcode === 0)
                     {
                         $scope.subsidy = res1.data;
-                        console.log($scope.objs);
+                        //console.log($scope.objs);
                         for(var i = 0, j = $scope.objs.length; i < j; i++)
                         {
                             var tmp = $scope.objs[i];
                             tmp.check = true;
-                            $scope.total.buy += tmp.buy;
-                            $scope.total.used += tmp.used;
-                            $scope.total.back += tmp.back;
-                            $scope.total.total += tmp.cost_price * tmp.used;
+                            
                             tmp.gov = 0;
                             for(var m = 0, n = $scope.subsidy.length; m < n; m++)
                             {
@@ -102,11 +126,10 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
                                     break;
                                 }
                             }
-                            $scope.total.gov += tmp.gov * tmp.used;
                             
                         }
 
-                        console.log($scope.total);
+                        calcTotal();
                     }
                     else
                     {
@@ -181,6 +204,7 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
     	}
     }
 
+    //废弃
     $scope.goodscount = function (objs) {
 
     	$scope.total = {
@@ -191,10 +215,10 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
 	        'gov' : 0
 	    };
 
-    	for(var i = 0, j = $scope.objs.length; i < j; i++)
+    	for(var i = 0, j = objs.length; i < j; i++)
         {
             var tmp = objs[i];
-            if(tmp.check == true){
+            if(tmp.check == true &&  tmp.place_code === searchviewcode){
             	$scope.total.buy += tmp.buy;
 	            $scope.total.used += tmp.used;
 	            $scope.total.back += tmp.back;
@@ -212,5 +236,52 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
             }
         }
     }
+
+    //景区下拉
+    $scope.change = function(x){
+        searchviewcode = x;
+        calcTotal();
+    }
+
+    //结果过滤器
+    $scope.myFilter = function (item) {
+
+        var res = false;
+
+        if(searchviewcode == null
+        || item.place_code === searchviewcode)
+        {
+            res = true; 
+        }
+
+        return res;
+    };
+
+    //计算统计
+    function calcTotal()
+    {
+        $scope.total = {
+            'buy' : 0,
+            'used' : 0,
+            'back' : 0,
+            'total' : 0,
+            'gov' : 0
+        };
+        for(var i = 0, j = $scope.objs.length; i < j; i++)
+        {
+            var tmp = $scope.objs[i];
+            if(searchviewcode == null
+            || tmp.place_code === searchviewcode)
+            {
+                $scope.total.buy += tmp.buy;
+                $scope.total.used += tmp.used;
+                $scope.total.back += tmp.back;
+                $scope.total.total += tmp.cost_price * tmp.used;
+                $scope.total.gov += tmp.gov * tmp.used;
+            }
+        }
+    }
+
+    
 
 };

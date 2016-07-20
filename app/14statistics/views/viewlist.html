@@ -4,18 +4,24 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
 
-              <input type="text" class="form-control" ng-model="searchform.place_name" placeholder="景区名称">
+              <!-- <input type="text" class="form-control" ng-model="searchform.place_name" placeholder="景区名称"> -->
+              <select class="form-control" ng-model="viewcode" 
+                ng-options="view.code as view.name for view in viewarr"
+                ng-change="change(viewcode)"
+              >
+                  <option value=""> -- 全部景区 -- </option>
+              </select>
               &nbsp;&nbsp;&nbsp;&nbsp;
 
-              <input type="text" class="form-control" ng-model="searchform.type_name" placeholder="票种名称">
-              &nbsp;&nbsp;&nbsp;&nbsp;
+              <!-- <input type="text" class="form-control" ng-model="searchform.type_name" placeholder="票种名称">
+              &nbsp;&nbsp;&nbsp;&nbsp; -->
               
                 
               <label>使用时间</label>&nbsp;&nbsp;
               <select class="form-control" ng-model="searchform.seltype" ng-change="changetype()">
               	<option value="0">实时查询</option>
               	<option value="1">历史查询</option>
-        	  </select>&nbsp;&nbsp;
+        	    </select>&nbsp;&nbsp;
               <div class="input-group">
               <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
                   <span class="input-group-btn">
@@ -42,12 +48,12 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-      	<th class="col-md-1 text-center">
+      	<!-- <th class="col-md-1 text-center">
       		<a ng-click="ok(objs)" class="btn btn-default btn-sm">全选</a>
       		<a ng-click="cancel(objs)" class="btn btn-default btn-sm">取消</a>
-      	</th>
-        <th class="col-md-1 text-center">时间</th>
-        <th class="col-md-1 text-center">景区名称</th>
+      	</th> -->
+        <th class="col-md-2 text-center">时间</th>
+        <th class="col-md-2 text-center">景区名称</th>
         <th class="col-md-2 text-center">商品信息</th>
         <!-- <th class="col-md-1 text-center">商品编号</th> -->
         <!-- <th class="col-md-2 text-center">数量</th> -->
@@ -60,10 +66,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="obj in objs">
-      	<td class="text-center">
+      <tr ng-repeat="obj in objs | filter:myFilter">
+      	<!-- <td class="text-center">
       		<input type="checkbox" name="checkname" ng-checked="obj.check" ng-click="clickbox($index)"> 
-      	</td>
+      	</td> -->
         <td class="text-center">{{obj.date}}</td>
         <td class="text-center">{{obj.place_name}}</td>
         <td class="">{{obj.type_name}}<br>商品编号：{{obj.goods_code}}<br>商品单价：{{obj.cost_price  * 0.01 | currency : '￥'}}</td>
@@ -86,9 +92,9 @@
       </tr>
 
       <tr >
-      	<td class="text-center">
+      	<!-- <td class="text-center">
       		<a ng-click="goodscount(objs)" class="btn btn-success btn-sm">多商品统计</a>
-      	</td>
+      	</td> -->
         <td class="text-center">总计</td>
         <td class="text-center"></td>
         <td class=""></td>
