@@ -38,6 +38,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             relay : function(orderservice){
                 return orderservice.relay();
+            },
+            getRedCorridorTrSendSms : function(orderservice){
+                return orderservice.getRedCorridorTrSendSms();
             }
 
         }

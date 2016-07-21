@@ -34,6 +34,8 @@ var service = function($resource, BASEURL38985){
     var getRedCorridorOrderList = BASEURL38985 + '/api/ac/tc/ticketRedCorridorService/getRedCorridorOrderList';
     //重发短信
     var getRedCorridorResentMsg = BASEURL38985 + '/api/ac/tc/ticketRedCorridorService/getRedCorridorResentMsg';
+    //转发短信 廊道
+    var getRedCorridorTrSendSms = BASEURL38985 + '/api/ac/tc/ticketRedCorridorService/getRedCorridorTrSendSms';
 
     return {
 
@@ -78,6 +80,9 @@ var service = function($resource, BASEURL38985){
         },
         relay : function(){
             return $resource(relay, {}, {});
+        },
+        getRedCorridorTrSendSms : function(){
+            return $resource(getRedCorridorTrSendSms, {}, {});
         }
 
     };

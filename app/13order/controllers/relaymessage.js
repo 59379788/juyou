@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModalInstance, code, relay, sale_belong, getRedCorridorResentMsg){
+module.exports = function($scope, $uibModalInstance, code, relay, sale_belong, getRedCorridorTrSendSms){
 
 	$scope.obj = {};
 	$scope.obj.code = code;
@@ -12,7 +12,7 @@ module.exports = function($scope, $uibModalInstance, code, relay, sale_belong, g
 
 	$scope.gogo = function(){
 
-		/*var fun;
+		var fun;
 
         if(sale_belong === 'juyou')
         {
@@ -20,8 +20,8 @@ module.exports = function($scope, $uibModalInstance, code, relay, sale_belong, g
         }
         else
         {
-            fun = getRedCorridorResentMsg;
-        }*/
+            fun = getRedCorridorTrSendSms;
+        }
 
 		if($scope.obj.mobile === undefined || $scope.obj.mobile == '')
 		{
@@ -35,7 +35,7 @@ module.exports = function($scope, $uibModalInstance, code, relay, sale_belong, g
 			return;
 		}
 
-		relay.save($scope.obj, function(res){
+		fun.save($scope.obj, function(res){
 
 			if(res.errcode === 0)
 			{

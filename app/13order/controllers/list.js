@@ -1,6 +1,6 @@
 module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, 
     $uibModal, ticketlist, createBackOrder, resend, getRedCorridorOrderList,
-    getRedCorridorResentMsg, orderbacklist, relay){
+    getRedCorridorResentMsg, getRedCorridorTrSendSms, orderbacklist, relay){
     
     $scope.searchform = {};
 
@@ -169,8 +169,8 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
             relay : function(){
                 return relay;
             },
-            getRedCorridorResentMsg : function(){
-                return getRedCorridorResentMsg;
+            getRedCorridorTrSendSms : function(){
+                return getRedCorridorTrSendSms;
             },
             sale_belong : function(){
                 return obj.sale_belong;
