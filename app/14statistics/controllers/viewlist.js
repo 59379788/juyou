@@ -260,8 +260,6 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
     //结果过滤器
     $scope.myFilter = function (item) {
 
-        console.log($scope.attrarr);
-
         //属性选择
         var attrflag = false;
         for(var i = 0, j = $scope.attrarr.length; i < j; i++)
