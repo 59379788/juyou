@@ -7,7 +7,7 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
 
     $scope.viewarr = [];
 
-    var attrarr = [];
+    $scope.attrarr = [];
 
     $scope.dlq = {};
 
@@ -80,7 +80,9 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
                 console.log($scope.objs);
                 var viewobj = {};
                 var attrobj = {};
+                var attrindex = 0;
                 $scope.viewarr.splice(0,$scope.viewarr.length);
+                $scope.attrarr.splice(0,$scope.attrarr.length);
                 for(var m = 0, n = $scope.objs.length; m < n ;m++)
                 {
                     var tmp = $scope.objs[m];
@@ -88,20 +90,27 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
                     {
                         viewobj[tmp.place_code] = tmp.place_name;
                     }
-
-                    // if(attrobj[tmp.attr] === undefined)
-                    // {
-                    //     attrobj[tmp.attr] = tmp.attr;
-                    // }
-
+                    var attr = getAttr(tmp.type_name);
+                    tmp.attr = attr;
+                    if(attrobj[attr] === undefined)
+                    {
+                        attrobj[attr] = 1;
+                    }
                 }
+                //console.log(attrobj);
                 angular.forEach(viewobj, function (value, key) {
-                    console.log(key + ':' + value);
                     $scope.viewarr.push({
                         'code' : key,
                         'name' : value
                     });
                 });
+                angular.forEach(attrobj, function (value, key) {
+                    $scope.attrarr.push({
+                        'name' : key,
+                        'value' : value
+                    });
+                });
+                //console.log($scope.attrarr);
                 //--- 从结果里搜索出结果里有的景区 -- end
 
 
@@ -243,13 +252,41 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
         calcTotal();
     }
 
+    //属性点击事件
+    $scope.checkattr = function(){
+        calcTotal();
+    }
+
     //结果过滤器
     $scope.myFilter = function (item) {
 
-        var res = false;
+        console.log($scope.attrarr);
 
+        //属性选择
+        var attrflag = false;
+        for(var i = 0, j = $scope.attrarr.length; i < j; i++)
+        {
+            var tmp = $scope.attrarr[i];
+            if(tmp.name == item.attr && tmp.value == 1)
+            {
+
+                attrflag = true;
+                break;
+            }
+        }
+
+        //景区选择
+        var viewflag = false;
         if(searchviewcode == null
         || item.place_code === searchviewcode)
+        {
+            viewflag = true;
+        }
+
+        var res = false;
+        if(attrflag
+        && viewflag
+        )
         {
             res = true; 
         }
@@ -267,11 +304,33 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
             'total' : 0,
             'gov' : 0
         };
+
         for(var i = 0, j = $scope.objs.length; i < j; i++)
         {
             var tmp = $scope.objs[i];
+
+            //属性选择
+            var attrflag = false;
+            for(var m = 0, n = $scope.attrarr.length; m < n; m++)
+            {
+                var attrtmp = $scope.attrarr[m];
+                if(attrtmp.name == tmp.attr && attrtmp.value == 1)
+                {
+                    attrflag = true;
+                    break;
+                }
+            }
+
+            //景区选择
+            var viewflag = false;
             if(searchviewcode == null
             || tmp.place_code === searchviewcode)
+            {
+                viewflag = true;
+            }
+
+            if(attrflag
+            && viewflag)
             {
                 $scope.total.buy += tmp.buy;
                 $scope.total.used += tmp.used;
@@ -283,5 +342,11 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
     }
 
     
+    function getAttr(typename)
+    {
+        var start = typename.indexOf('【') + 1;
+        var end = typename.indexOf('】');
+        return typename.slice(start, end);
+    }
 
 };

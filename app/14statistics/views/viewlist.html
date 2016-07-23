@@ -2,8 +2,10 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="form-group form-inline">
-            <div class="col-sm-12">
+            
 
+            <div class="row ">
+            <div class="col-sm-12">
               <!-- <input type="text" class="form-control" ng-model="searchform.place_name" placeholder="景区名称"> -->
               <select class="form-control" ng-model="viewcode" 
                 ng-options="view.code as view.name for view in viewarr"
@@ -13,15 +15,37 @@
               </select>
               &nbsp;&nbsp;&nbsp;&nbsp;
 
+              <label class="checkbox-inline" 
+                ng-repeat="attr in attrarr"
+              >
+                <input type="checkbox" ng-model=attr.value
+                ng-true-value="1" ng-false-value="0"
+                ng-click="checkattr()"
+                > {{attr.name}}
+              </label>
+              
+              &nbsp;&nbsp;&nbsp;&nbsp;
+
               <!-- <input type="text" class="form-control" ng-model="searchform.type_name" placeholder="票种名称">
               &nbsp;&nbsp;&nbsp;&nbsp; -->
               
                 
+              
+
+              
+              
+            </div>
+            </div>
+
+
+            <div class="row mt15">
+            <div class="col-sm-12">
+
               <label>使用时间</label>&nbsp;&nbsp;
               <select class="form-control" ng-model="searchform.seltype" ng-change="changetype()">
-              	<option value="0">实时查询</option>
-              	<option value="1">历史查询</option>
-        	    </select>&nbsp;&nbsp;
+                <option value="0">实时查询</option>
+                <option value="1">历史查询</option>
+              </select>&nbsp;&nbsp;&nbsp;&nbsp;
               <div class="input-group">
               <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
                   <span class="input-group-btn">
@@ -35,10 +59,10 @@
                     <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
                   </span>
               </div>
-              &nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;
 
-              <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
-              
+              <button type="button" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
+            </div>
             </div>
         </div>
     </div>
