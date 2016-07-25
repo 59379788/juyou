@@ -5,7 +5,10 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
     salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo,
     //系统确认模块
     affirmcreate, affirminfo, affirmupdate,
-    smstmplist
+    smstmplist,
+    //限时购模块
+    flashsalecreate, flashsaleinfo, flashsaleupdate,
+    getDate
 	){
 
 	$scope.saleobj = {};
@@ -218,6 +221,18 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 		            },
 		            smstmplist : function(){
 		            	return smstmplist;
+		            },
+		            flashsalecreate : function(){
+		                return flashsalecreate;
+		            },
+		            flashsaleinfo : function(){
+		                return flashsaleinfo;
+		            },
+		            flashsaleupdate : function(){
+		                return flashsaleupdate;
+		            },
+		            getDate : function(){
+		            	return getDate;
 		            }
 		          }
 		        });

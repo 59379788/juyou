@@ -4,7 +4,10 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, what,
 	//系统确认模块
     affirmcreate, affirminfo, affirmupdate,
-    smstmplist
+    smstmplist,
+    //限时购模块
+    flashsalecreate, flashsaleinfo, flashsaleupdate,
+    getDate
     ){
 
 	//销售品对象
@@ -141,6 +144,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 
 			//系统确认模块
 			getaffirm($scope.saleobj.code);
+
 		}
 		else
 		{
@@ -302,6 +306,10 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 					{
 						getjuyousubsidy(salecode, $scope.funobj[tmp.sub_table_code]);
 					}
+					else if(tmp.sub_table_code === 'flashsale')
+					{
+						getflashsale(salecode, $scope.funobj[tmp.sub_table_code]);
+					}
 				}
 			}
 			else
@@ -432,9 +440,6 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 
 
 	//系统确认项 affirm
-	
-
-
 	dictbytypelist({'type' : 'ticket_sys_affirm'}).then(function(res) {
     	console.log(res);
         if(res.errcode === 0)
@@ -501,6 +506,83 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 		};
 		console.log(para);
 		affirmupdate.save(para, function(res){
+			console.log(res);
+			if(res.errcode === 0)
+			{
+				alert('ok');
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+		});
+	}
+
+
+
+	//限时购
+	//有效区间
+    $scope.section = {};
+    $scope.section.start = {};
+    $scope.section.start.date = new Date();
+
+    $scope.section.end = {};
+    $scope.section.end.date = new Date();
+
+    $scope.open = function(obj) {
+        obj.opened = true;
+    };
+
+    function getflashsale(code, obj){
+		//console.log({'govsubsidy_sale_code' : code});
+		flashsaleinfo.get({'sale_code' : code}, function(res){
+
+			console.log(res);
+
+			if(res.errcode === 10003)
+			{
+				obj['has'] = false;
+			}
+			else
+			{
+				$scope.flashsale = res.data;
+			}
+
+		});
+
+	}
+
+	$scope.flashsalecreate = function(){
+		alert('创建');
+		var para = {
+			'start_time' : getDate($scope.section.start.date),
+			'end_time' : getDate($scope.section.end.date),
+			'sale_code' : $scope.saleobj.code
+		};
+		console.log(para);
+		flashsalecreate.save(para, function(res){
+			console.log(res);
+			if(res.errcode === 0)
+			{
+				alert('ok');
+				$scope.funobj.flashsale.has = true;
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
+		});
+	}
+
+	$scope.flashsaleupdate = function(){
+		alert('更新');
+		var para = {
+			'start_time' : getDate($scope.section.start.date),
+			'end_time' : getDate($scope.section.end.date),
+			'sale_code' : $scope.saleobj.code
+		};
+		console.log(para);
+		flashsaleupdate.save(para, function(res){
 			console.log(res);
 			if(res.errcode === 0)
 			{

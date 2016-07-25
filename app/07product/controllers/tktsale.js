@@ -7,7 +7,10 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     //系统确认模块
     affirmcreate, affirminfo, affirmupdate,
     //短信模版
-    smstmplist
+    smstmplist,
+    //限时购模块
+    flashsalecreate, flashsaleinfo, flashsaleupdate,
+    getDate
     ){
     
 
@@ -83,6 +86,18 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             smstmplist : function(){
                 return smstmplist;
+            },
+            flashsalecreate : function(){
+                return flashsalecreate;
+            },
+            flashsaleinfo : function(){
+                return flashsaleinfo;
+            },
+            flashsaleupdate : function(){
+                return flashsaleupdate;
+            },
+            getDate : function(){
+                return getDate;
             }
           }
         });
@@ -283,6 +298,18 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             smstmplist : function(){
                 return smstmplist;
+            },
+            flashsalecreate : function(){
+                return flashsalecreate;
+            },
+            flashsaleinfo : function(){
+                return flashsaleinfo;
+            },
+            flashsaleupdate : function(){
+                return flashsaleupdate;
+            },
+            getDate : function(){
+                return getDate;
             }
           }
         });
@@ -392,6 +419,18 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             smstmplist : function(){
                 return smstmplist;
+            },
+            flashsalecreate : function(){
+                return flashsalecreate;
+            },
+            flashsaleinfo : function(){
+                return flashsaleinfo;
+            },
+            flashsaleupdate : function(){
+                return flashsaleupdate;
+            },
+            getDate : function(){
+                return getDate;
             }
           }
         });

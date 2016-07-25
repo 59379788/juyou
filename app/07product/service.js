@@ -158,10 +158,13 @@ var service = function($resource, BASEURL38985, $q, $http){
     //更新
     var affirmupdate = BASEURL38985 + '/api/as/tc/salesysaffirm/update';
 
-
-
     //短信模版
     var smstmplist = BASEURL38985 + '/api/as/tc/salesmstemplate/list';
+
+    //限时购
+    var flashsalecreate = BASEURL38985 + '/api/as/tc/flashsale/create';
+    var flashsaleinfo = BASEURL38985 + '/api/as/tc/flashsale/info';
+    var flashsaleupdate = BASEURL38985 + '/api/as/tc/flashsale/update';
     
     return {
 
@@ -384,6 +387,15 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         smstmplist : function(){
             return $resource(smstmplist, {}, {});
+        },
+        flashsalecreate : function(){
+            return $resource(flashsalecreate, {}, {});
+        },
+        flashsaleinfo : function(){
+            return $resource(flashsaleinfo, {}, {});
+        },
+        flashsaleupdate : function(){
+            return $resource(flashsaleupdate, {}, {});
         }
        
     };

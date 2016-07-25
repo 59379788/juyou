@@ -285,6 +285,21 @@ var router = function($urlRouterProvider, $stateProvider){
             //短信模版列表
             smstmplist : function(productservice){
                 return productservice.smstmplist();
+            },
+
+            //限时购
+            flashsalecreate : function(productservice){
+                return productservice.flashsalecreate();
+            },
+            flashsaleinfo : function(productservice){
+                return productservice.flashsaleinfo();
+            },
+            flashsaleupdate : function(productservice){
+                return productservice.flashsaleupdate();
+            },
+
+            getDate : function(utilservice){
+                return utilservice.getDate;
             }
             
         }

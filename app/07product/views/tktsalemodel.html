@@ -472,7 +472,62 @@
 </div>
 
 
+<!-- 限时购 -->
+<div class="col-xs-12 " ng-show="funobj.hasOwnProperty('flashsale')">
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			限时购
+			<button type="button" 
+				class="btn btn-xs btn-info pull-right"
+				ng-show="!funobj.flashsale.has"
+				ng-click="flashsalecreate()"
+			>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
 
+			<button type="button" 
+				class="btn btn-xs btn-info pull-right"
+				ng-show="funobj.flashsale.has"
+				ng-click="flashsaleupdate()"
+			>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				
+				<div class="col-xs-10" >
+					<div class="form-group">
+						<label class="col-xs-2 control-label">开始时间</label>
+						<div class="col-xs-10">
+							<div class="input-group">
+			                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+			                      <span class="input-group-btn">
+			                        <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+			                      </span>
+			                  </div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-10" >
+					<div class="form-group">
+						<label class="col-xs-2 control-label">结束时间</label>
+						<div class="col-xs-10">
+							<div class="input-group">
+			                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+			                      <span class="input-group-btn">
+			                        <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+			                      </span>
+			                 </div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
 
 
 <!-- <div class="col-xs-12 " ng-show="funobj.hasOwnProperty('juyousubsidy')">
