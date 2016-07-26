@@ -10,7 +10,7 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     smstmplist,
     //限时购模块
     flashsalecreate, flashsaleinfo, flashsaleupdate,
-    getDate
+    getDate, str2date, date2str
     ){
     
 
@@ -98,6 +98,12 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             getDate : function(){
                 return getDate;
+            },
+            str2date : function(){
+                return str2date;
+            },
+            date2str : function(){
+                return date2str;
             }
           }
         });
@@ -310,6 +316,12 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             getDate : function(){
                 return getDate;
+            },
+            str2date : function(){
+                return str2date;
+            },
+            date2str : function(){
+                return date2str;
             }
           }
         });
@@ -431,6 +443,12 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             getDate : function(){
                 return getDate;
+            },
+            str2date : function(){
+                return str2date;
+            },
+            date2str : function(){
+                return date2str;
             }
           }
         });

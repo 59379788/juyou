@@ -300,6 +300,12 @@ var router = function($urlRouterProvider, $stateProvider){
 
             getDate : function(utilservice){
                 return utilservice.getDate;
+            },
+            str2date : function(utilservice){
+                return utilservice.str2date;
+            },
+            date2str : function(utilservice){
+                return utilservice.date2str;
             }
             
         }

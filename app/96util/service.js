@@ -151,16 +151,45 @@ var service = function(){
 		        			month + "-"  
 		                	+ dayStr);  
 		        
-		        /* 
-		         * document.write("<div style='display:block'>" + date1.getFullYear() + 
-		         * "-" + (date1.getMonth() + 1) + "-" + date1.getDate() + "</div>"); 
-		         */  
-		        // document.write(dateArr[i] + "<br>");  
-		        
 		        date1.setDate(date1.getDate() + 1);  
 
 		    }  
 		    return dateArr;  
+		}
+
+		,
+
+		str2date : function(strDate){
+
+			if(angular.isString(strDate))
+			{
+				var objDate = new Date(Date.parse(strDate.replace(/-/g, "/")));
+
+				return objDate;
+			}
+			else
+			{
+				return '错误格式';
+			}
+			
+		}
+
+		,
+
+		date2str : function (objDate){
+
+			if(angular.isDate(objDate))
+			{
+				var y = objDate.getFullYear();
+				var m = objDate.getMonth();
+				var d = objDate.getDate();
+
+				return y + '-' + (m + 1) + '-' + d;
+			}
+			else
+			{
+				return '错误格式';
+			}
 		}
        
     };

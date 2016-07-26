@@ -8,7 +8,7 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
     smstmplist,
     //限时购模块
     flashsalecreate, flashsaleinfo, flashsaleupdate,
-    getDate
+    getDate, str2date, date2str
 	){
 
 	$scope.saleobj = {};
@@ -44,6 +44,9 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 	$scope.saleobj.guide_price = 0;
 	$scope.saleobj.cost_price = 0;
 
+	//库存
+	$scope.saleobj.current_stock_num = 0;
+
 	var uploader1 = $scope.uploader1 = new FileUploader({
         url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
     });
@@ -56,6 +59,20 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
     }); 
     uploader1.onSuccessItem = function(fileItem, response, status, headers) {
         $scope.saleobj.top_pic = response.savename;
+    };
+
+    var uploader2 = $scope.uploader2 = new FileUploader({
+        url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
+    });
+    uploader2.filters.push({
+        name: 'imageFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    }); 
+    uploader2.onSuccessItem = function(fileItem, response, status, headers) {
+        $scope.saleobj.logo = response.savename;
     };
 	
 
@@ -233,6 +250,12 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 		            },
 		            getDate : function(){
 		            	return getDate;
+		            },
+		            str2date : function(){
+		                return str2date;
+		            },
+		            date2str : function(){
+		                return date2str;
 		            }
 		          }
 		        });

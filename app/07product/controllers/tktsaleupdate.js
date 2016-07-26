@@ -7,7 +7,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
     smstmplist,
     //限时购模块
     flashsalecreate, flashsaleinfo, flashsaleupdate,
-    getDate
+    getDate, str2date, date2str
     ){
 
 	//销售品对象
@@ -64,6 +64,20 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
     }); 
     uploader1.onSuccessItem = function(fileItem, response, status, headers) {
         $scope.saleobj.top_pic = response.savename;
+    };
+
+    var uploader2 = $scope.uploader2 = new FileUploader({
+        url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
+    });
+    uploader2.filters.push({
+        name: 'imageFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    }); 
+    uploader2.onSuccessItem = function(fileItem, response, status, headers) {
+        $scope.saleobj.logo = response.savename;
     };
 
     dictbytypelist({'type' : 'sale_category'}).then(function(res) {
@@ -522,12 +536,16 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 
 	//限时购
 	//有效区间
-    $scope.section = {};
-    $scope.section.start = {};
-    $scope.section.start.date = new Date();
+    $scope.flashsale = {};
+    $scope.flashsale.start = {};
+    $scope.flashsale.start.date = new Date();
+    $scope.flashsale.start.h = '00';
+    $scope.flashsale.start.m = '00';
 
-    $scope.section.end = {};
-    $scope.section.end.date = new Date();
+    $scope.flashsale.end = {};
+    $scope.flashsale.end.date = new Date();
+    $scope.flashsale.end.h = '23';
+    $scope.flashsale.end.m = '59';
 
     $scope.open = function(obj) {
         obj.opened = true;
@@ -545,7 +563,17 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			}
 			else
 			{
-				$scope.flashsale = res.data;
+				//$scope.flashsale = res.data;
+				$scope.flashsale.start.date = str2date(res.data.start_time);
+				$scope.flashsale.end.date = str2date(res.data.end_time);
+				$scope.flashsale.start.h = res.data.start_h;
+				$scope.flashsale.start.m = res.data.start_m;
+				$scope.flashsale.end.h = res.data.end_h;
+				$scope.flashsale.end.m = res.data.end_m;
+
+				// $scope.obj.start_date = date2str($scope.section.start.date);
+				// $scope.obj.end_date = date2str($scope.section.end.date);
+				// $scope.obj.use_rule = getWeek();
 			}
 
 		});
@@ -553,10 +581,15 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	}
 
 	$scope.flashsalecreate = function(){
-		alert('创建');
 		var para = {
-			'start_time' : getDate($scope.section.start.date),
-			'end_time' : getDate($scope.section.end.date),
+			'start_time' : getDate($scope.flashsale.start.date) + 
+						   ' ' + $scope.flashsale.start.h +
+						   ':' + $scope.flashsale.start.m +
+						   ':00',
+			'end_time' :   getDate($scope.flashsale.end.date) + 
+						   ' ' + $scope.flashsale.end.h +
+						   ':' + $scope.flashsale.end.m +
+						   ':00',
 			'sale_code' : $scope.saleobj.code
 		};
 		console.log(para);
@@ -575,10 +608,15 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	}
 
 	$scope.flashsaleupdate = function(){
-		alert('更新');
 		var para = {
-			'start_time' : getDate($scope.section.start.date),
-			'end_time' : getDate($scope.section.end.date),
+			'start_time' : getDate($scope.flashsale.start.date) + 
+						   ' ' + $scope.flashsale.start.h +
+						   ':' + $scope.flashsale.start.m +
+						   ':00',
+			'end_time' :   getDate($scope.flashsale.end.date) + 
+						   ' ' + $scope.flashsale.end.h +
+						   ':' + $scope.flashsale.end.m +
+						   ':00',
 			'sale_code' : $scope.saleobj.code
 		};
 		console.log(para);
