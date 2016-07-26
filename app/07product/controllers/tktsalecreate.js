@@ -44,6 +44,9 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 	$scope.saleobj.guide_price = 0;
 	$scope.saleobj.cost_price = 0;
 
+	//库存
+	$scope.saleobj.current_stock_num = 0;
+
 	var uploader1 = $scope.uploader1 = new FileUploader({
         url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
     });
