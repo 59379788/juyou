@@ -130,7 +130,7 @@
 
 				  	<div class="form-group">
 						<label class="col-xs-3 control-label">销售品图片</label>
-						<div class="col-xs-9">
+						<div class="col-xs-3">
 							<img ng-src="{{saleobj.top_pic}}" width="250" height="150" ng-model="saleobj.top_pic">
 							<input type="file" nv-file-select uploader="uploader1" />
 							<br>
@@ -140,6 +140,21 @@
 							        <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
 							        <div class="progress mt10">
 							            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader1.progress + '%' }"></div>
+							        </div>
+							    </li>
+							</ul>
+						</div>
+						<label class="col-xs-1 control-label">logo</label>
+						<div class="col-xs-3">
+							<img ng-src="{{saleobj.logo}}" width="250" height="150" ng-model="saleobj.logo">
+							<input type="file" nv-file-select uploader="uploader2" />
+							<br>
+							<ul class="list-group">
+							    <li class="list-group-item" ng-repeat="item in uploader2.queue">
+							        文件名: <span ng-bind="item.file.name"></span>
+							        <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+							        <div class="progress mt10">
+							            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader2.progress + '%' }"></div>
 							        </div>
 							    </li>
 							</ul>
@@ -499,27 +514,130 @@
 				<div class="col-xs-10" >
 					<div class="form-group">
 						<label class="col-xs-2 control-label">开始时间</label>
-						<div class="col-xs-10">
+						<div class="col-xs-4">
 							<div class="input-group">
-			                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+			                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="flashsale.start.date" is-open="flashsale.start.opened" ng-required="true" close-text="Close" readonly/>
 			                      <span class="input-group-btn">
-			                        <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+			                        <button type="button" class="btn btn-default" ng-click="open(flashsale.start)"><i class="glyphicon glyphicon-calendar"></i></button>
 			                      </span>
 			                  </div>
 						</div>
+
+						<div class="col-xs-2">
+							<select class="form-control" 
+							ng-model="flashsale.start.h" 
+				            >
+				            	<option value='00'>00时</option>
+				            	<option value='01'>01时</option>
+				            	<option value='02'>02时</option>
+				            	<option value='03'>03时</option>
+				            	<option value='04'>04时</option>
+				            	<option value='05'>05时</option>
+				            	<option value='06'>06时</option>
+				            	<option value='07'>07时</option>
+				            	<option value='08'>08时</option>
+				            	<option value='09'>09时</option>
+				            	<option value='10'>10时</option>
+				            	<option value='11'>11时</option>
+				            	<option value='12'>12时</option>
+				            	<option value='13'>13时</option>
+				            	<option value='14'>14时</option>
+				            	<option value='15'>15时</option>
+				            	<option value='16'>16时</option>
+				            	<option value='17'>17时</option>
+				            	<option value='18'>18时</option>
+				            	<option value='19'>19时</option>
+				            	<option value='20'>20时</option>
+				            	<option value='21'>21时</option>
+				            	<option value='22'>22时</option>
+				            	<option value='23'>23时</option>
+				            </select>
+						</div>
+
+						<div class="col-xs-2">
+							<select class="form-control" 
+							ng-model="flashsale.start.m" 
+				            >
+				            	<option value='00'>00分</option>
+				            	<option value='05'>05分</option>
+				            	<option value='10'>10分</option>
+				            	<option value='15'>15分</option>
+				            	<option value='20'>20分</option>
+				            	<option value='25'>25分</option>
+				            	<option value='30'>30分</option>
+				            	<option value='35'>35分</option>
+				            	<option value='40'>40分</option>
+				            	<option value='45'>45分</option>
+				            	<option value='50'>50分</option>
+				            	<option value='55'>55分</option>
+				            	<option value='59'>59分</option>
+				            </select>
+						</div>
+
 					</div>
 				</div>
 
 				<div class="col-xs-10" >
 					<div class="form-group">
 						<label class="col-xs-2 control-label">结束时间</label>
-						<div class="col-xs-10">
+						<div class="col-xs-4">
 							<div class="input-group">
-			                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+			                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="flashsale.end.date" is-open="flashsale.end.opened" ng-required="true" close-text="Close" readonly/>
 			                      <span class="input-group-btn">
-			                        <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+			                        <button type="button" class="btn btn-default" ng-click="open(flashsale.end)"><i class="glyphicon glyphicon-calendar"></i></button>
 			                      </span>
 			                 </div>
+						</div>
+
+						<div class="col-xs-2">
+							<select class="form-control" 
+							ng-model="flashsale.end.h" 
+				            >
+				            	<option value='00'>00时</option>
+				            	<option value='01'>01时</option>
+				            	<option value='02'>02时</option>
+				            	<option value='03'>03时</option>
+				            	<option value='04'>04时</option>
+				            	<option value='05'>05时</option>
+				            	<option value='06'>06时</option>
+				            	<option value='07'>07时</option>
+				            	<option value='08'>08时</option>
+				            	<option value='09'>09时</option>
+				            	<option value='10'>10时</option>
+				            	<option value='11'>11时</option>
+				            	<option value='12'>12时</option>
+				            	<option value='13'>13时</option>
+				            	<option value='14'>14时</option>
+				            	<option value='15'>15时</option>
+				            	<option value='16'>16时</option>
+				            	<option value='17'>17时</option>
+				            	<option value='18'>18时</option>
+				            	<option value='19'>19时</option>
+				            	<option value='20'>20时</option>
+				            	<option value='21'>21时</option>
+				            	<option value='22'>22时</option>
+				            	<option value='23'>23时</option>
+				            </select>
+						</div>
+
+						<div class="col-xs-2">
+							<select class="form-control" 
+							ng-model="flashsale.end.m" 
+				            >
+				            	<option value='00'>00分</option>
+				            	<option value='05'>05分</option>
+				            	<option value='10'>10分</option>
+				            	<option value='15'>15分</option>
+				            	<option value='20'>20分</option>
+				            	<option value='25'>25分</option>
+				            	<option value='30'>30分</option>
+				            	<option value='35'>35分</option>
+				            	<option value='40'>40分</option>
+				            	<option value='45'>45分</option>
+				            	<option value='50'>50分</option>
+				            	<option value='55'>55分</option>
+				            	<option value='59'>59分</option>
+				            </select>
 						</div>
 					</div>
 				</div>
