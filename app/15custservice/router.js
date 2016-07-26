@@ -143,6 +143,17 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+      .state('app.destoryticketrecord', {
+        url: '/destoryticketrecord',
+        controller : 'destoryticketrecord',
+        template: require('./user/destoryticketrecord.html'),
+        resolve:{
+            destoryticketrecord : function(custservice){
+                return custservice.destoryticketrecord();
+            }
+        }
+      })
+
 
 };
 
