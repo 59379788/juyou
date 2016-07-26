@@ -14,7 +14,7 @@ module.exports = function($scope, destoryticketrecord){
          		return;
          	}
 
-         	$scope.objs = res.data;
+         	$scope.obj = res.data;
 
         });
 
