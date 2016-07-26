@@ -1,0 +1,40 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                <label>票码</label>&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="searchform.ticket_code" placeholder="请输入票码">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center col-md-2">票码列表</th>
+        <th class="text-center col-md-2">景区名称</th>
+        <th class="text-center col-md-2">票种名称</th>
+        <th class="text-center col-md-2">销票方式</th>
+        <th class="text-center col-md-2">销票号码</th>
+        <th class="text-center col-md-2">销票时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="text-center">{{obj.ticket_list}}</td>
+        <td class="text-center">{{obj.name}}</td>
+        <td class="text-center">{{obj.tkt_name}}</td>
+        <td class="text-center">{{obj.destorytype}}</td>
+        <td class="text-center">{{obj.destoryvalue}}</td>
+        <td class="text-center">{{obj.create_time}}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+
+</div>

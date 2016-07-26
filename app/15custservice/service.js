@@ -35,6 +35,8 @@ var service = function($resource, BASEURL38985){
     var updateCardPass = BASEURL38985 + "/api/as/uc/jyu/updateCardPass";
 
     var carduserinfo = BASEURL38985 + "/api/ac/uc/userService/getUserInfoUseCardP";
+
+    var destoryticketrecord = BASEURL38985 + "/api/as/tc/ticketorder/destoryticketrecord";
     
     return {
 
@@ -85,6 +87,9 @@ var service = function($resource, BASEURL38985){
         },
         carduserinfo : function(){
             return $resource(carduserinfo, {}, {});
+        },
+        destoryticketrecord : function(){
+            return $resource(destoryticketrecord, {}, {});
         }
        
     };

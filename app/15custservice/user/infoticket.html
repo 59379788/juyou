@@ -17,7 +17,8 @@
     <thead>
       <tr>
         <th class="col-md-3 text-center">订单编号</th>
-        <th class="col-md-5 text-center">票种名称</th>
+        <th class="col-md-2 text-center">票码</th>
+        <th class="col-md-3 text-center">票种名称</th>
         <th class="col-md-2 text-center">使用状态</th>
         <th class="col-md-3 text-center">出票时间</th>
       </tr>
@@ -25,6 +26,7 @@
     <tbody>
       <tr ng-repeat="obj in objs">
         <td class="text-center">{{obj.order_code}}</td>
+        <td class="text-center">{{obj.code}}</td>
         <td class="">{{obj.type_name}}</td>
         <td class="text-center">{{obj.used}}</td>
         <td class="text-center">{{obj.ticket_out_time}}</td>
