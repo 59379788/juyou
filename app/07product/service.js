@@ -99,10 +99,10 @@ var service = function($resource, BASEURL38985, $q, $http){
     var dictbytypelist = BASEURL38985 + '/api/as/sc/dict/dictbytypelist'
 
     //销售品上架
-    var saleup = BASEURL38985 + '/api/ac/tc/salehService/up';
+    var saleup = BASEURL38985 + '/api/ac/tc/salehService/setup';
 
     //销售品下架
-    var saledown = BASEURL38985 + '/api/ac/tc/salehService/down';
+    var saledown = BASEURL38985 + '/api/ac/tc/salehService/setdown';
 
     //添加销售品半价信息（对应销售品）
     var salehalfinsert = BASEURL38985 + '/api/as/tc/salehalf/create';
