@@ -148,7 +148,7 @@ module.exports = function($scope, $stateParams, goodsupdate, goodsinfo, viewlist
 		$scope.goodsobj.cost_price *= 100;
 		console.log($scope.goodsobj);
 		goodsupdate.save($scope.goodsobj, function(res){
-
+			console.log(res);
 			var view = $scope.goodsobj.place_code;
 
 			if(res.errcode === 0)

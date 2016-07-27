@@ -47,6 +47,9 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 	//库存
 	$scope.saleobj.current_stock_num = 0;
 
+	//最大购买数量
+	$scope.saleobj.max_limit = 0
+
 	var uploader1 = $scope.uploader1 = new FileUploader({
         url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
     });
