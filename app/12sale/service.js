@@ -42,9 +42,9 @@ var service = function($resource, BASEURL38985, $q, $http){
 
     var backlist = BASEURL38985 + '/api/as/tc/grouporder/backlist';
 
-    var outTicketConfirmation = BASEURL38985 + '/api/ac/tc/ticketGroupOrderService/outTicketConfirmation';
+    var outTicketConfirmation = BASEURL38985 + '/api/ac/tc/ticketGroupOrderService/updateTicketConfirmation';
 
-    var delsignup = BASEURL38985 + '/api/ac/tc/ticketGroupOrderService/delsignup';
+    var delsignup = BASEURL38985 + '/api/ac/tc/ticketGroupOrderService/deletesignup';
 
 
     
