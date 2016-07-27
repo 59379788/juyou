@@ -1,8 +1,8 @@
-module.exports = function($scope, $state, $stateParams, edituserinfo, oneuserinfo, updateUserSubsidy){
+module.exports = function($scope, edituserinfo, oneuserinfo, updateUserSubsidy, mobile, $uibModalInstance){
 
 	$scope.objt = {};
 
-	oneuserinfo.get({'mobile' : $stateParams.mobile}, function(res){
+	oneuserinfo.get({'mobile' : mobile}, function(res){
 		console.log(res);
 
 		if(res.errcode === 0)
@@ -13,14 +13,14 @@ module.exports = function($scope, $state, $stateParams, edituserinfo, oneuserinf
 	});
 
 	$scope.gogo = function(){
-		$scope.objt.mobile = $stateParams.mobile;
+		$scope.objt.mobile = mobile;
 		edituserinfo.save($scope.objt, function(res){
 
 			console.log(res);
 
 			if(res.errcode === 0)
 			{
-				$state.go('app.userinfo', {'mobile' : $scope.objt.mobile});
+				$uibModalInstance.close();
 			}
 			else
 			{
@@ -31,14 +31,14 @@ module.exports = function($scope, $state, $stateParams, edituserinfo, oneuserinf
 	}
 
 	$scope.xoxo = function(){
-		$scope.objt.mobile = $stateParams.mobile;
+		$scope.objt.mobile = mobile;
 		updateUserSubsidy.save($scope.objt, function(res){
 
 			console.log($scope.objt);
 
 			if(res.errcode === 0)
 			{
-				$state.go('app.userinfo', {'mobile' : $scope.objt.mobile});
+				$uibModalInstance.close();
 			}
 			else
 			{

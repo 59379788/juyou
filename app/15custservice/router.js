@@ -8,24 +8,19 @@ var router = function($urlRouterProvider, $stateProvider){
  	$stateProvider
 
  	  .state('app.userinfo', {
-        url: '/userinfo/:mobile',
+        url: '/userinfo',
         controller : 'userinfo',
         template: require('./user/userinfo.html'),
         resolve:{
             userinfo : function(custservice){
                 return custservice.userinfo();
             },
+            userinfobypapersno : function(custservice){
+                return custservice.userinfobypapersno();
+            },
             updateUserAuthInfo : function(custservice){
                 return custservice.updateUserAuthInfo();
-            }
-        }
-      })
-
-      .state('app.edituserinfo', {
-        url: '/edituserinfo/:mobile',
-        controller : 'edituserinfo',
-        template: require('./user/edituserinfo.html'),
-        resolve:{
+            },
             edituserinfo : function(custservice){
                 return custservice.edituserinfo();
             },

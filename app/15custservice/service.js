@@ -6,6 +6,8 @@ var service = function($resource, BASEURL38985){
 
     var userinfo = BASEURL38985 + "/api/ac/uc/userService/getUserInfoByMobile";
 
+    var userinfobypapersno = BASEURL38985 + "/api/ac/uc/userService/getUserInfoByPapersno";
+
     var oneuserinfo = BASEURL38985 + "/api/as/uc/jyu/getjyuserinfo";
 
     var edituserinfo = BASEURL38985 + "/api/ac/uc/userService/updateUserInfoByMobile";
@@ -42,6 +44,9 @@ var service = function($resource, BASEURL38985){
 
         userinfo : function(){
             return $resource(userinfo, {}, {});
+        },
+        userinfobypapersno : function(){
+            return $resource(userinfobypapersno, {}, {});
         },
         oneuserinfo : function(){
             return $resource(oneuserinfo, {}, {});
