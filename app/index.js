@@ -148,6 +148,7 @@ App.config(['$urlRouterProvider', '$stateProvider',
 
 
 //html过滤器
+//用法<p class="form-control-static" ng-bind-html="viewobj.book_info | trustHtml"/>
 .filter('trustHtml', function ($sce) {
     return function (input) {
         return $sce.trustAsHtml(input);
