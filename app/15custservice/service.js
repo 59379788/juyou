@@ -20,6 +20,8 @@ var service = function($resource, BASEURL38985){
 
     var infoticket = BASEURL38985 + "/api/as/tc/ticketorder/forKefuOrderInfoByMobilelist";
 
+    var destoryticket = BASEURL38985 + "/api/as/tc/ticketorder/destoryticket";
+
     var redpackage = BASEURL38985 + "/api/us/uc/jyu/getredpackagelist";
 
     var updateUserAuthInfo = BASEURL38985 + "/api/ac/uc/userService/updateUserAuthInfo";
@@ -65,6 +67,9 @@ var service = function($resource, BASEURL38985){
         },
         infoticket : function(){
             return $resource(infoticket, {}, {});
+        },
+        destoryticket : function(){
+            return $resource(destoryticket, {}, {});
         },
         redpackage : function(){
             return $resource(redpackage, {}, {});

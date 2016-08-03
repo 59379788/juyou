@@ -3,8 +3,7 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
-                <label>手机号</label>&nbsp;&nbsp;
-                <input type="text" class="form-control" ng-model="searchform.mobile" placeholder="请输入手机号">
+                <input type="text" class="form-control" ng-model="searchform.para" placeholder="请输入票码或手机号">
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
             </div>
@@ -16,11 +15,12 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-3 text-center">订单编号</th>
+        <th class="col-md-2 text-center">订单编号</th>
         <th class="col-md-2 text-center">票码</th>
         <th class="col-md-3 text-center">票种名称</th>
         <th class="col-md-2 text-center">使用状态</th>
-        <th class="col-md-3 text-center">出票时间</th>
+        <th class="col-md-2 text-center">出票时间</th>
+        <th class="col-md-1 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -28,11 +28,33 @@
         <td class="text-center">{{obj.order_code}}</td>
         <td class="text-center">{{obj.code}}</td>
         <td class="">{{obj.type_name}}</td>
-        <td class="text-center">{{obj.used}}</td>
+        <td class="text-center">{{obj.usedname}}</td>
         <td class="text-center">{{obj.ticket_out_time}}</td>
+        <td class="text-center">
+        	<a ng-show="obj.used == '0'" ng-click="destory(obj.id)" class="btn btn-success btn-xs">销票</a>
+        </td>
       </tr>
     </tbody>
   </table>
+
+  <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div>
   
 
 </div>

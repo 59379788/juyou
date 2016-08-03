@@ -76,6 +76,9 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
             infoticket : function(custservice){
                 return custservice.infoticket();
+            },
+            destoryticket : function(custservice){
+                return custservice.destoryticket();
             }
         }
       })
