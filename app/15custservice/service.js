@@ -20,7 +20,7 @@ var service = function($resource, BASEURL38985){
 
     var infoticket = BASEURL38985 + "/api/as/tc/ticketorder/forKefuOrderInfoByMobilelist";
 
-    var destoryticket = BASEURL38985 + "/api/as/tc/ticketorder/destoryticket";
+    var destoryticket = BASEURL38985 + "/tktapi/sc/destoryService/updateByCode";
 
     var redpackage = BASEURL38985 + "/api/us/uc/jyu/getredpackagelist";
 

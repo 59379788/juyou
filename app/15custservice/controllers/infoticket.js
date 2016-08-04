@@ -43,10 +43,18 @@ module.exports = function($scope, infoticket, destoryticket, ITEMS_PERPAGE){
     };
     //$scope.load();
 
-    $scope.destory = function (id) {
+    $scope.destory = function (code) {
+
+    	var para = {
+            code:code, 
+            num:1,
+            device:'hdsw88888888'
+        };
+
+        /*var para = '{"body":{"code":"' + code + '", "num":"1", "device":"hdsw88888888"},"head":{}}';*/
 
     	if(confirm("确定要销票？")){
-    		destoryticket.save({'id' : id}, function(res){
+    		destoryticket.save(para, function(res){
 
 	         	console.log(res);
 
