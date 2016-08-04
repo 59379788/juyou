@@ -45,7 +45,7 @@ module.exports = function($scope, infoticket, destoryticket, ITEMS_PERPAGE){
 
     $scope.destory = function (code) {
 
-    	var para = {
+    	var destorypara = {
             code:code, 
             num:1,
             device:'hdsw88888888'
@@ -54,7 +54,7 @@ module.exports = function($scope, infoticket, destoryticket, ITEMS_PERPAGE){
         /*var para = '{"body":{"code":"' + code + '", "num":"1", "device":"hdsw88888888"},"head":{}}';*/
 
     	if(confirm("确定要销票？")){
-    		destoryticket.save(para, function(res){
+    		destoryticket.save(destorypara, function(res){
 
 	         	console.log(res);
 
