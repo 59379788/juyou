@@ -12,7 +12,7 @@
           'glyphicon-chevron-right': collapsed,
           'glyphicon-chevron-down': !collapsed
         }"></span></a>&nbsp;
-    {{node.name}}
+    {{node.name}} <span ng-show="node.code != undefined">［{{node.code}}］</span>
     <p class="text-right" style="margin-top: 5px;margin-bottom: 0px;">
       
       <small ng-show="node.guide_price != undefined">
