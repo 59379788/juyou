@@ -4,15 +4,22 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
 
+              <div class="row ">
               <input type="text" class="form-control" ng-model="searchform.company_code" placeholder="分销商编号">
               &nbsp;&nbsp;
 
+              <input type="text" class="form-control" ng-model="searchform.view" placeholder="景区编号">
+              &nbsp;&nbsp;
+              </div>
 
+              <div class="row mt15">
               <label>使用时间</label>&nbsp;&nbsp;
               <select class="form-control" ng-model="searchform.seltype" ng-change="changetype()">
-              	<option value="0">实时查询</option>
-              	<option value="1">历史查询</option>
-        	  </select>&nbsp;&nbsp;
+                	<option value="0">实时查询</option>
+                	<option value="1">历史查询</option>
+          	  </select>
+              &nbsp;&nbsp;
+
               <div class="input-group">
               <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" ng-change="changestart()" readonly/>
                   <span class="input-group-btn">
@@ -29,7 +36,7 @@
               &nbsp;&nbsp;
 
               <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
-              
+              </div>
             </div>
         </div>
     </div>
@@ -41,26 +48,29 @@
       <tr>
         <th class="col-md-1 text-center">时间</th>
         <th class="col-md-3 text-center">销售品名称</th>
-        <th class="col-md-1 text-center">销售品编号</th>
         <th class="col-md-1 text-center">分销商</th>
         <th class="col-md-1 text-center">购买数量</th>
         <th class="col-md-1 text-center">使用数量</th>
         <th class="col-md-1 text-center">退票数量</th>
         <th class="col-md-1 text-center">单价</th>
         <th class="col-md-1 text-center">总计</th>
+        <th class="col-md-1 text-center">详情</th>
+
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
         <td class="text-center">{{obj.date}}</td>
-        <td class="">{{obj.name}}</td>
-        <td class="text-center">{{obj.sale_code}}</td>
+        <td class="">{{obj.name}}<br>销售品编号:{{obj.sale_code}}</td>
         <td class="text-center">{{obj.company_name}}<br>{{obj.company_code}}</td>
         <td class="text-center">{{obj.buy}}</td>
         <td class="text-center">{{obj.used}}</td>
         <td class="text-center">{{obj.back}}</td>
         <td class="text-center">{{obj.unit_price}}</td>
         <td class="text-center">{{(obj.total_buy - obj.total_back)  * 0.01 | currency : '￥'}}</td>
+        <td class="text-center">
+          <a ng-click="detail(obj)" ng-hide="obj.used == 0" class="btn btn-success btn-sm">使用详情</a>
+        </td>
       </tr>
       <tr >
         <td class="text-center">总计</td>

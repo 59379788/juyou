@@ -32,6 +32,8 @@ var service = function($resource, BASEURL38985){
 	//商品统计 月查询
     var viewdestorystatistichistorylist = BASEURL38985 + '/api/as/tc/ticket2/viewdestorystatistichistorylist';
 
+    //销售统计－使用详情
+    var orderstatisticsusedinfolist = BASEURL38985 + '/api/as/tc/ticketorder/orderstatisticsusedinfolist';
 
     return {
         uselist : function(){
@@ -72,6 +74,9 @@ var service = function($resource, BASEURL38985){
         },
         viewdestorystatistichistorylist : function(){
             return $resource(viewdestorystatistichistorylist, {}, {});
+        },
+        orderstatisticsusedinfolist : function(){
+            return $resource(orderstatisticsusedinfolist, {}, {});
         }
     };
 
