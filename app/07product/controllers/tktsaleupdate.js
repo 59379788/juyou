@@ -272,6 +272,12 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			alert('销售品名称不能为空');
 			return;
 		}
+		if($scope.saleobj.sms_type == 1
+		&& ($scope.saleobj.sms_diy == undefined || $scope.saleobj.sms_diy == ''))
+		{
+			alert('请配置短信内容');
+			return;
+		}
 		$scope.saleobj.market_price *= 100;
 		$scope.saleobj.guide_price *= 100;
 		$scope.saleobj.cost_price *= 100;
