@@ -6,6 +6,31 @@
                 <label>订单编号</label>&nbsp;&nbsp;
                 <input type="text" class="form-control" ng-model="searchform.order_code" placeholder="请输入订单编号">
                 &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <label>支付类型</label>&nbsp;&nbsp;
+                <select class="form-control" ng-model="searchform.payment_type" 
+                  ng-options="payment_type.value as payment_type.label for payment_type in payment_typearr"
+                >
+                  <option value="">  -- 不限 --  </option>
+                </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <label>退款类型</label>&nbsp;&nbsp;
+                <select class="form-control" ng-model="searchform.back_state" 
+                  ng-options="back_state.value as back_state.label for back_state in back_statearr"
+                >
+                  <option value="">  -- 不限 --  </option>
+                </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <label>退票状态</label>&nbsp;&nbsp;
+                <select class="form-control" ng-model="searchform.ticket_state" 
+                  ng-options="ticket_state.value as ticket_state.label for ticket_state in ticket_statearr"
+                >
+                  <option value="">  -- 不限 --  </option>
+                </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
                 <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
             </div>
         </div>
@@ -20,8 +45,9 @@
         <th class="text-center col-md-1">订单序号</th>
         <th class="text-center col-md-1">支付金额</th>
         <th class="text-center col-md-1">支付类型</th>
-        <th class="text-center col-md-2">创建时间</th>
+        <th class="text-center col-md-1">创建时间</th>
         <th class="text-center col-md-1">所属机构</th>
+        <th class="text-center col-md-1">退票状态</th>
         <th class="text-center col-md-1">退款状态</th>
         <th class="text-center col-md-1">实际退款金额</th>
         <th class="text-center col-md-1">退款时间</th>
@@ -36,11 +62,12 @@
         <td class="text-center">{{obj.payment_type}}</td>
         <td class="text-center">{{obj.create_time}}</td>
         <td class="text-center">{{obj.ta_code}}</td>
+        <td class="text-center">{{obj.ticket_statename}}</td>
         <td class="text-center">{{obj.back_statename}}</td>
         <td class="text-center">{{obj.actual_back_price | currency : '￥'}}</td>
         <td class="text-center">{{obj.update_time}}</td>
         <td class="text-center">
-        	<a ng-show="obj.back_state=='0'" ng-click="back(obj)" class="btn btn-success btn-xs">退款</a>
+        	<a ng-show="obj.back_state=='0' && obj.ticket_state == 1" ng-click="back(obj)" class="btn btn-success btn-xs">退款</a>
         </td>
       </tr>
     </tbody>

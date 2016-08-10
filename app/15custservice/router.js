@@ -126,6 +126,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             orderback : function(custservice){
                 return custservice.orderback();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
             }
         }
       })
