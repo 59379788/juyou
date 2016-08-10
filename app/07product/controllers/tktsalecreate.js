@@ -124,6 +124,8 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
     	if(res.errcode === 0)
         {
         	$scope.smsarr = res.data;
+        	$scope.saleobj.sms_template_id = res.data[0].sms_template_id;
+        	$scope.saleobj.sms_diy = res.data[0].sms_diy;
         }
         else
         {
@@ -133,6 +135,7 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 
     $scope.changesms = function(obj){
     	var smsid = obj.sms_template_id;
+
     	if(smsid == null) 
     	{
     		obj.sms_diy = '';
@@ -149,7 +152,6 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
     			}
     		}
     	}
-
     };
 
     //基本信息 保存
@@ -158,6 +160,12 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 		if($scope.saleobj.name === undefined || $scope.saleobj.name == '')
 		{
 			alert('销售品名称不能为空');
+			return;
+		}
+		if($scope.saleobj.sms_type == 1
+		&& ($scope.saleobj.sms_diy == undefined || $scope.saleobj.sms_diy == ''))
+		{
+			alert('请配置短信内容');
 			return;
 		}
 		$scope.saleobj.market_price *= 100;

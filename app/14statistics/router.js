@@ -69,6 +69,9 @@ var router = function($urlRouterProvider, $stateProvider){
             orderstatisticshistorylist : function(statisticsservice){
                 return statisticsservice.orderstatisticshistorylist();
             },
+            orderstatisticsusedinfolist : function(statisticsservice){
+                return statisticsservice.orderstatisticsusedinfolist();
+            },
             getDate : function(utilservice){
                 return utilservice.getDate;
             },
@@ -91,6 +94,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             orderstatisticscompanyhistorylist : function(statisticsservice){
                 return statisticsservice.orderstatisticscompanyhistorylist();
+            },
+            orderstatisticsusedinfolist : function(statisticsservice){
+                return statisticsservice.orderstatisticsusedinfolist();
             },
             getDate : function(utilservice){
                 return utilservice.getDate;

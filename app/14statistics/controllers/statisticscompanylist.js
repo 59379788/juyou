@@ -1,4 +1,6 @@
-module.exports = function($scope, getDate, orderstatisticscompanylist, ITEMS_PERPAGE, orderstatisticscompanyhistorylist, DateDiff){
+module.exports = function($scope, getDate, orderstatisticscompanylist, 
+    ITEMS_PERPAGE, orderstatisticscompanyhistorylist, DateDiff,
+    $uibModal, orderstatisticsusedinfolist){
 
     $scope.searchform = {};
 
@@ -97,40 +99,39 @@ module.exports = function($scope, getDate, orderstatisticscompanylist, ITEMS_PER
     };
     $scope.load();
 
-    /*$scope.changestart = function() {
+    $scope.detail = function (obj) {
+        var modalInstance = $uibModal.open({
+          template: require('../views/statisticsdetail.html'),
+          controller: 'statisticsdetail',
+          size: 'lg',
+          resolve: {
+            day : function(){
+                return obj.date;
+            },
+            sale_code : function(){
+                return obj.sale_code;
+            },
+            sale_name : function(){
+                return obj.name;
+            },
+            company_code : function(){
+                return obj.company_code;
+            },
+            operation_login_name : function(){
+                return undefined;
+            },
+            orderstatisticsusedinfolist : function(){
+                return orderstatisticsusedinfolist;
+            }
+          }
+        });
 
-    	var iDays;
-    	
-    	if($scope.searchform.seltype == 0){
-			iDays = DateDiff(getDate($scope.section.start.date), getDate($scope.section.end.date));
-			if(iDays > 7){
-				alert("不能选择超过一周的日期哦\n如有需求请选择历史查询");
-				$scope.section.start.date = new Date();
-			}
-    	}
-
-    }
-
-    $scope.changeend = function() {
-
-    	var iDays;
-    	
-    	if($scope.searchform.seltype == 0){
-			iDays = DateDiff(getDate($scope.section.start.date), getDate($scope.section.end.date));
-			if(iDays > 7){
-				alert("不能选择超过一周的日期哦\n如有需求请选择历史查询");
-				$scope.section.end.date = new Date();
-			}
-    	}
-
-    }
-
-    $scope.changetype = function() {
-
-    	$scope.section.start.date = new Date();
-   		$scope.section.end.date = new Date();
-
-    }*/
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+            
+        });
+    };
     
 
 };
