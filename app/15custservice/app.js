@@ -22,6 +22,8 @@ App.controller('orderbacklist',require('./controllers/orderbacklist'));
 App.controller('orderback',require('./controllers/orderback'));
 App.controller('carduserinfo',require('./controllers/carduserinfo'));
 App.controller('destoryticketrecord',require('./controllers/destoryticketrecord'));
+App.controller('registercount',require('./controllers/registercount'));
+
 
 
 

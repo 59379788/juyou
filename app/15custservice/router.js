@@ -155,6 +155,17 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+      .state('app.registercount', {
+        url: '/registercount',
+        controller : 'registercount',
+        template: require('./user/registercount.html'),
+        resolve:{
+            registercount : function(custservice){
+                return custservice.registercount();
+            }
+        }
+      })
+
 
 };
 

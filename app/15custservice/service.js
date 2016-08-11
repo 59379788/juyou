@@ -41,6 +41,8 @@ var service = function($resource, BASEURL38985){
     var carduserinfo = BASEURL38985 + "/api/ac/uc/userService/getUserInfoUseCardP";
 
     var destoryticketrecord = BASEURL38985 + "/api/as/tc/ticketorder/destoryticketrecord";
+
+    var registercount = BASEURL38985 + "/api/ac/uc/userActiveService/countCard";
     
     return {
 
@@ -100,6 +102,9 @@ var service = function($resource, BASEURL38985){
         },
         destoryticketrecord : function(){
             return $resource(destoryticketrecord, {}, {});
+        },
+        registercount : function(){
+            return $resource(registercount, {}, {});
         }
        
     };
