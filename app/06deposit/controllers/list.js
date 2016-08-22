@@ -69,6 +69,38 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, mechanism,
         });
     }
 
+    //充值回平台
+    $scope.back = function(){
+
+      var obj = {};
+
+      obj.seller_code = 'L0002';
+
+      var modalInstance = $uibModal.open({
+          template: require('../views/recharge.html'),
+          controller: 'recharge',
+          //size: 'lg',
+          resolve: {
+            obj : function(){
+                return obj;
+            },
+            recharge : function(){
+                return recharge;
+            },
+            balance : function(){
+                return $scope.balance_price;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          init();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
+    }
+
     //明细
     $scope.trackinfo = function(obj){
 
