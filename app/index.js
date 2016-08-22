@@ -62,6 +62,7 @@ require('./15custservice/app');
 require('./16notice/app');
 require('./17chart/app');
 require('./18docking/app');
+require('./19guide/app');
 
 
 require('./96util/app');
@@ -108,6 +109,7 @@ var App = angular.module('juyouApp', [
     'notice',
     'chart',
     'docking',
+    'guide',
     'util',
     'test',
     'common',
