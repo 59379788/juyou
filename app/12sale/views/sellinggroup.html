@@ -78,7 +78,7 @@
 						<a ng-click="signup(obj)" class="btn btn-warning btn-sm">预订</a>
 						<a ng-click="edit(obj)" class="btn btn-success btn-sm">编辑</a>
 			        </div>
-			        <a ng-click="outticket(obj.code)" ng-show="obj.outstate=='0'" class="btn btn-primary btn-sm">出票确认</a>
+			        <a ng-click="outticket(obj.code)" ng-show="obj.outstate=='0' && obj.book_count>0" class="btn btn-primary btn-sm">出票确认</a>
 			        <a ng-click="detail(obj.code)" class="btn btn-info btn-sm">查询纪录</a>
 			        <a ng-click="info(obj)" class="btn btn-warning btn-sm">修改订单</a>
 			        <a ng-click="del(obj.code)" ng-show="obj.outstate=='0'" class="btn btn-danger btn-sm">删除订单</a>
