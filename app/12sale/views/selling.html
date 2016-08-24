@@ -155,7 +155,12 @@
                 <span class="input-group-btn">
                   <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
-            </div>
+          </div>
+      </div>
+
+      <div class="col-sm-12" ng-show="obj.tour_date_type == '1'">
+        <p class="form-control-static text-danger" >
+        启用出游时间必填，该票种只能在出游日期使用！！！！</p>
       </div>
 
 
