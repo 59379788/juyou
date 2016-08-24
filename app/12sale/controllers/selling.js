@@ -165,6 +165,9 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
             fun = createSubsidyOrder;
         }
 
+        console.log(getDate($scope.section.start.date));
+
+        return ;
         console.log($scope.order);
         fun.save($scope.order, function(res){
 
