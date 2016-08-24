@@ -278,9 +278,9 @@
 							  > 启用
 							</label>
 					    </div>
-					    <div class="col-sm-5">
+					    <div class="col-xs-7">
 					      <p class="form-control-static text-danger" >
-					      启用出游时间后，该销售品</p>
+					      启用出游时间后，该销售品只能在出游日期当天使用</p>
 					    </div>
 				  	</div>
 
@@ -507,7 +507,9 @@
 			</div>
 
 			<!-- 红海滩廊道需要的内容 -->
-			<div class="col-xs-10" ng-show="affirm.sysaffirm_target_code == 'langdao'">
+			<div class="col-xs-10" 
+				ng-show="affirm.sysaffirm_target_code == 'langdao' 
+				|| affirm.sysaffirm_target_code == 'huaxiapiaolian' ">
 				<div class="form-group">
 					<label class="col-xs-2 control-label">商品id</label>
 					<div class="col-xs-10">
