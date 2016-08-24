@@ -22,7 +22,13 @@ var service = function($resource, BASEURL38985){
     
     var shakeevaluatequestiondel = BASEURL38985 + '/api/as/gc/shakeevaluatequestion/del';
 
-
+    //导游评价系统团列表
+    var shakeevaluategrouplist = BASEURL38985 + '/api/as/gc/shakeevaluateanswer/coldlist';
+    //游客
+    var shakeevaluategrouptourist = BASEURL38985 + '/api/as/gc/shakeevaluateanswer/openidByCodeList';
+        
+    var shakeevaluateanswerlist = BASEURL38985 + '/api/as/gc/shakeevaluateanswer/answerslist';
+    
 
     return {
 
@@ -40,6 +46,7 @@ var service = function($resource, BASEURL38985){
         },
 
 
+
         shakeevaluatequestion : function(){
             return $resource(shakeevaluatequestion, {}, {});
         },
@@ -51,6 +58,18 @@ var service = function($resource, BASEURL38985){
         },
         shakeevaluatequestiondel : function(){
             return $resource(shakeevaluatequestiondel, {}, {});
+        },
+
+
+
+        shakeevaluategrouplist : function(){
+            return $resource(shakeevaluategrouplist, {}, {});
+        },
+        shakeevaluategrouptourist : function(){
+            return $resource(shakeevaluategrouptourist, {}, {});
+        },
+        shakeevaluateanswerlist : function(){
+            return $resource(shakeevaluateanswerlist, {}, {});
         }
         
     };

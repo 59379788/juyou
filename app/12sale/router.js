@@ -29,6 +29,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getuserinfobymobile : function(memberservice){
                 return memberservice.getuserinfobymobile();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
             }
         }
         

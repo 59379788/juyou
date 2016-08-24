@@ -8,6 +8,7 @@ module.exports = function($scope, $stateParams, $state, shakeevaluatequestion, s
     if(id === '')   //新建
     {
         $scope.obj.category = '1';
+        $scope.obj.sort = 0;
     }
     else    
     {

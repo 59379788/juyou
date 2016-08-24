@@ -1,5 +1,6 @@
 module.exports = function($scope, $state, $stateParams, namelist, info, 
-    createorder, IdentityCodeValid, getuserinfobymobile, createSubsidyOrder){
+    createorder, IdentityCodeValid, getuserinfobymobile, createSubsidyOrder,
+    getDate){
 
     //类别
     $scope.sale_category = $stateParams.type;
@@ -21,7 +22,18 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
         'num' : 0
     };
 
-    //
+    //出游时间
+    $scope.section = {};
+    $scope.section.start = {};
+    //$scope.section.start.date = new Date();
+
+    $scope.open = function(obj) {
+        obj.opened = true;
+    };
+
+    $scope.inlineOptions = {
+        minDate: new Date()
+    };
 
     // $scope.order.name = 'dlq';
     // $scope.order.cardno = '210302198308022412';
@@ -110,6 +122,9 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
 
         //销售品政府补贴
         $scope.obj.govsubsidy_price = obj.$modelValue.govsubsidy_price;
+
+        //更新出游时间
+        $scope.section.start.date = null;
 
         if(obj.$modelValue.hasOwnProperty('id'))
         {

@@ -147,6 +147,18 @@
         <span class="input-group-addon">备注信息</span>
           <input type="text" class="form-control" ng-model="order.note" >
       </div>
+
+      <div class="input-group mt20">
+        <span class="input-group-addon">出游时间</span>
+          <div class="input-group">
+            <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" datepicker-options="inlineOptions" close-text="Close" readonly/>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </div>
+      </div>
+
+
       <button type="button" class="btn btn-info btn-block mt20" 
         ng-click="gogo()" ng-disabled="!btnstate"
       >确认购票</button>

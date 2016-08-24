@@ -65,6 +65,19 @@ var router = function($urlRouterProvider, $stateProvider){
       })
 
 
+
+      .state('app.shakeevaluategrouplist', {
+        url: '/shakeevaluategrouplist',
+        controller : 'shakeevaluategrouplist',
+        template: require('./views/shakeevaluategrouplist.html'),
+        resolve:{
+            shakeevaluategrouplist : function(guideservice){
+                return guideservice.shakeevaluatequestionlist();
+            }
+        }
+      })
+
+
 };
 
 module.exports = router;

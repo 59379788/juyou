@@ -12,6 +12,7 @@ App.controller('shakedevicelist',require('./controllers/shakedevicelist'));
 App.controller('shakedevice',require('./controllers/shakedevice'));
 App.controller('shakeevaluatequestionlist',require('./controllers/shakeevaluatequestionlist'));
 App.controller('shakeevaluatequestion',require('./controllers/shakeevaluatequestion'));
+App.controller('shakeevaluategrouplist',require('./controllers/shakeevaluategrouplist'));
 
 
 
