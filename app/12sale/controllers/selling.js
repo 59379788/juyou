@@ -19,7 +19,8 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
         'name' : '',
         'cardno' : '',
         'mobile' : '',
-        'num' : 0
+        'num' : 0,
+        'tour_date' : ''
     };
 
     //出游时间
@@ -69,6 +70,7 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
             o.market_price = tmp.market_price;
             o.govsubsidy_price = tmp.govsubsidy_price;
             o.cost_price = tmp.cost_price;
+            o.tour_date_type = tmp.tour_date_type;
             if($scope.sale_category === 'F11'
             || $scope.sale_category === 'F15')
             {
@@ -111,6 +113,8 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
 
         if(obj.$modelValue.unavailable) return;
 
+        console.log(obj.$modelValue);
+
         $scope.show = true;
 
         //销售品编号，用于下单
@@ -125,6 +129,7 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
 
         //更新出游时间
         $scope.section.start.date = null;
+        $scope.obj.tour_date_type = obj.$modelValue.tour_date_type;
 
         if(obj.$modelValue.hasOwnProperty('id'))
         {
@@ -151,6 +156,11 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
 
     $scope.gogo = function(){
 
+        if($scope.section.start.date != null)
+        {
+            $scope.order.tour_date = getDate($scope.section.start.date);
+        }
+
         //-------------- 参数验证 -----------------------//
         if(!check()) return ;
         //-------------- 参数验证 -----------------------//
@@ -165,9 +175,6 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
             fun = createSubsidyOrder;
         }
 
-        console.log(getDate($scope.section.start.date));
-
-        return ;
         console.log($scope.order);
         fun.save($scope.order, function(res){
 
@@ -180,6 +187,7 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
                 $scope.order.cardno = '';
                 $scope.order.mobile = '';
                 $scope.order.num = 0;
+                $scope.order.tour_date = '';
 
                 $scope.searchform.mobile = '';
                 $scope.userinfo = '';
@@ -260,7 +268,8 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
             return false;
         }
 
-        if(isNaN($scope.order.num)){
+        if(isNaN($scope.order.num))
+        {
             alert('购买数量请输入正确数字');
             $scope.order.num = 0;
             return false;
@@ -269,6 +278,12 @@ module.exports = function($scope, $state, $stateParams, namelist, info,
         if($scope.order.num == "0")
         {
             alert("请填写购票数量");
+            return false;
+        }
+
+        if($scope.obj.tour_date_type == '1' && $scope.order.tour_date == '')
+        {
+            alert("请填写出游时间，该票种只能在填写的出游时间使用。");
             return false;
         }
 

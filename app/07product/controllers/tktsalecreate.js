@@ -14,7 +14,7 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 	$scope.saleobj = {};
 	$scope.saleobj.id = '';
 	$scope.saleobj.take_effect_type = 0;
-	$scope.saleobj.tour_date_tpye = 0;
+	$scope.saleobj.tour_date_tpye = '0';
 
 	$scope.take_effect_typearr = [
 		{'name' : '次日','value' : -1},
