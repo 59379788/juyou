@@ -1,9 +1,21 @@
-module.exports = function($scope, $stateParams, $state, shakedevice, shakedeviceinfo){
+module.exports = function($scope, $stateParams, $state, shakedevice, shakedeviceinfo, dictbytypelist){
 
     $scope.obj = {};
 
     //机器id
     var id = $stateParams.id;
+
+    dictbytypelist({'type' : 'general_evaluate_type'}).then(function(res) {
+        console.log(res);
+        if(res.errcode === 0)
+        {
+            $scope.typearr = res.data;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
 
     if(id === '')   //新建
     {

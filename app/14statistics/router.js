@@ -138,6 +138,23 @@ var router = function($urlRouterProvider, $stateProvider){
         
       })
 
+
+
+      .state('app.distributor', {
+        url: '/distributor',
+        controller : 'distributor',
+        template: require('./views/distributor.html'),
+        resolve:{
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            },
+            orderstatisticscompanyhistorylist : function(statisticsservice){
+                return statisticsservice.orderstatisticscompanyhistorylist();
+            }
+        }
+        
+      })
+
       
 
 

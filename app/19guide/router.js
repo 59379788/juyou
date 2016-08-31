@@ -32,6 +32,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             shakedeviceinfo : function(guideservice){
                 return guideservice.shakedeviceinfo();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
             }
         }
       })
