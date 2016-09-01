@@ -37,6 +37,12 @@ var service = function($resource, BASEURL38985){
     //转发短信 廊道
     var getRedCorridorTrSendSms = BASEURL38985 + '/api/ac/tc/ticketRedCorridorService/getRedCorridorTrSendSms';
 
+    
+    //北京票联  红海滩廊道
+    var getOrderSimInfo = BASEURL38985 + '/api/uc/dc/huaxiapl/getOrderSimInfo';
+    //重发短信
+    var agencyOrderRepeatECode = BASEURL38985 + '/api/uc/dc/huaxiapl/agencyOrderRepeatECode';
+
     return {
 
         createorder : function(){
@@ -83,6 +89,12 @@ var service = function($resource, BASEURL38985){
         },
         getRedCorridorTrSendSms : function(){
             return $resource(getRedCorridorTrSendSms, {}, {});
+        },
+        getOrderSimInfo : function(){
+            return $resource(getOrderSimInfo, {}, {});
+        },
+        agencyOrderRepeatECode : function(){
+            return $resource(agencyOrderRepeatECode, {}, {});
         }
 
     };

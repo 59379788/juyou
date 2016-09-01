@@ -1,6 +1,8 @@
 module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, 
     $uibModal, ticketlist, createBackOrder, resend, getRedCorridorOrderList,
-    getRedCorridorResentMsg, getRedCorridorTrSendSms, orderbacklist, relay){
+    getRedCorridorResentMsg, getRedCorridorTrSendSms, orderbacklist, relay,
+    getOrderSimInfo
+    ){
     
     $scope.searchform = {};
 
@@ -83,6 +85,10 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
             //退票历史
             orderbacklist : function(){
                 return orderbacklist;
+            },
+            //北京票联  红海滩廊道
+            getOrderSimInfo : function(){
+                return getOrderSimInfo;
             }
           }
         });

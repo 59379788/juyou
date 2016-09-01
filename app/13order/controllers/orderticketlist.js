@@ -1,5 +1,5 @@
 module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj, 
-    getRedCorridorOrderList, $uibModal, orderbacklist){
+    getRedCorridorOrderList, $uibModal, orderbacklist, getOrderSimInfo){
 
     var code = obj.code;
 
@@ -10,10 +10,15 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
     {
         fun = ticketlist;
     }
-    else
+    else if(obj.sale_belong === 'langdao')
     {
-        if(obj.sale_belong === 'langdao') viewname = '红海滩廊道';
+        viewname = '红海滩廊道';
         fun = getRedCorridorOrderList;
+    }
+    else if(obj.sale_belong === 'huaxiapiaolian')
+    {
+        viewname = '红海滩廊道';
+        fun = getOrderSimInfo;
     }
 
     console.log(obj);
@@ -42,7 +47,11 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
             {
                 arr = res.data;
             }
-            else
+            else if(obj.sale_belong === 'huaxiapiaolian')
+            {
+                arr = change_huaxiapiaolian(res.data.order);
+            }
+            else if(obj.sale_belong === 'langdao')
             {
                 arr = change(res.data);
             }
@@ -154,6 +163,40 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
 
         arr.push(newobj);
         return arr;
+    }
+
+
+    function change_huaxiapiaolian(obj){
+
+        var arr = [];
+
+        var msg = ' (总人数' + obj.firstNum + 
+                  ', 已使用人数' + obj.productNum +
+                  ', 退票人数' + obj.cancelNum + ') ';
+
+
+        var newobj = {
+            'back1' : obj.cancelNum,
+            'code' : obj.ecode,
+            'goods_code' : obj.productCode,
+            //'id':
+            'order_code' : obj.platOrderNo,
+            'order_name' : obj.productName  + msg,
+            //'otime' : otime,
+            // 'place_code' :
+            'place_name' : viewname,
+            'sequence' : 1,
+            //'state' : '1',
+            // 'type' :
+            // 'type_attr' :
+            'type_name' : obj.productName,
+            'used1' : obj.productNum,
+            'inCount' : obj.productNum 
+        };
+
+        arr.push(newobj);
+        return arr;
+
     }
 
     //居游退票

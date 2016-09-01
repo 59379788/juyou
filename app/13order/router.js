@@ -41,6 +41,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getRedCorridorTrSendSms : function(orderservice){
                 return orderservice.getRedCorridorTrSendSms();
+            },
+            getOrderSimInfo : function(orderservice){
+                return orderservice.getOrderSimInfo();
             }
 
         }
