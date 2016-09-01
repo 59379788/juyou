@@ -13,6 +13,8 @@ App.controller('corridorproductdetail',require('./controllers/corridorproductdet
 App.controller('qunabackticketapplylist',require('./controllers/qunabackticketapplylist'));
 App.controller('qunaexamineback',require('./controllers/qunaexamineback'));
 App.controller('qunabackticketapplyinfo',require('./controllers/qunabackticketapplyinfo'));
+App.controller('huaxiaplproduct',require('./controllers/huaxiaplproduct'));
+App.controller('huaxiaplorder',require('./controllers/huaxiaplorder'));
 
 
 module.exports = App;

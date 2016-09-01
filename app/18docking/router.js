@@ -41,6 +41,31 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+      .state('app.huaxiaplproduct', {
+        url: '/huaxiaplproductlist',
+        controller : 'huaxiaplproduct',
+        template: require('./docking/huaxiaplproduct.html'),
+        resolve:{
+            getAgencyProductInfo : function(dockingservice){
+                return dockingservice.getAgencyProductInfo();
+            }
+        }
+      })
+
+      .state('app.huaxiaplorder', {
+        url: '/huaxiaplorder',
+        controller : 'huaxiaplorder',
+        template: require('./docking/huaxiaplorder.html'),
+        resolve:{
+            getOrderSimInfo : function(dockingservice){
+                return dockingservice.getOrderSimInfo();
+            },
+            agencyOrderUsed : function(dockingservice){
+                return dockingservice.agencyOrderUsed();
+            }
+        }
+      })
+
       
 
 

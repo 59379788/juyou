@@ -1,0 +1,60 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                <label>商品编号</label>&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="searchform.productCode" placeholder="请输入商品编号">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center">商品编号</th>
+        <th class="text-center">商品名称</th>
+        <th class="text-center">供应商编号</th>
+        <th class="text-center">供应商名称</th>
+        <th class="text-center">门市价</th>
+        <th class="text-center">结算价</th>
+        <th class="text-center">有效天数</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.productCode}}</td>
+        <td class="text-center">{{obj.productName}}</td>
+        <td class="text-center">{{obj.providerNo}}</td>
+        <td class="text-center">{{obj.providerName}}</td>
+        <td class="text-center">{{obj.productPublic | currency : '￥'}}</td>
+        <td class="text-center">{{obj.productCost | currency : '￥'}}</td>
+        <td class="text-center">{{obj.validDays}}天</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div>
+  
+
+</div>

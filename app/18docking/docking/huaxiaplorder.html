@@ -1,0 +1,55 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                <label>订单编号</label>&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="searchform.platOrderNo" placeholder="请输入票联订单编号">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="searchform.order_code" placeholder="请输入居游订单编号">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered" ng-show='state==1'>
+    <thead>
+      <tr>
+        <th class="text-center">订单信息</th>
+        <th class="text-center">取票人信息</th>
+        <th class="text-center">商品信息</th>
+        <th class="text-center">票信息</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="">
+        	【订单编号】{{obj.platOrderNo}}<br>
+        	【订单状态】{{obj.orderStatus}}
+    	</td>
+        <td class="">
+        	【取票人姓名】{{obj.ownerName}}<br>
+        	【取票人手机号】{{obj.ownerMobile}}<br>
+        	【取票人身份证号】{{obj.ownerIDCard}}
+    	</td>
+        <td class="">
+        	【商品编码】{{obj.productCode}}<br>
+        	【商品名称】{{obj.productName}}<br>
+        	【商品金额】{{obj.productAmount | currency : '￥'}}
+    	</td>
+        <td class="">
+        	【预订数量】{{obj.firstNum}}张<br>
+        	【取票数量】{{obj.productNum}}张<br>
+        	<!--【使用数量】{{obj.usedNUm}}张<br>-->
+        	【使用数量】{{usedobj.orderUsed}}张<br>
+        	【退票数量】{{obj.cancelNum}}张
+    	</td>
+      </tr>
+    </tbody>
+  </table>
+  
+
+</div>
