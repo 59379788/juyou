@@ -1,6 +1,7 @@
 module.exports = function($scope, getOrderSimInfo, agencyOrderUsed){
 
 	$scope.searchform = {};
+	$scope.usedobj={};
 	$scope.state = 0;
     
     $scope.load = function () {
@@ -57,7 +58,7 @@ module.exports = function($scope, getOrderSimInfo, agencyOrderUsed){
          	agencyOrderUsed.save($scope.searchform, function(res){
 
 	         	console.log(res);
-
+				
 	         	if(res.errcode !== 0)
 	         	{
 	         		alert("数据获取失败");
@@ -66,10 +67,9 @@ module.exports = function($scope, getOrderSimInfo, agencyOrderUsed){
 
 	         	if(res.data.repCode !== '1')
 	     		{
-	     			alert(res.data.repMsg);
+	     			$scope.usedobj.orderUsed = '0';
 	         		return;
 	     		}
-
 
 	         	$scope.usedobj = res.data;
 
