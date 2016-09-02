@@ -18,17 +18,17 @@
   <table class="table table-bordered" ng-show='state==1'>
     <thead>
       <tr>
-        <th class="text-center">订单信息</th>
-        <th class="text-center">取票人信息</th>
-        <th class="text-center">商品信息</th>
-        <th class="text-center">票信息</th>
+        <th class="text-center col-md-2">订单信息</th>
+        <th class="text-center col-md-3">取票人信息</th>
+        <th class="text-center col-md-5">商品信息</th>
+        <th class="text-center col-md-2">票信息</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td class="">
-        	【订单编号】{{obj.platOrderNo}}<br>
-        	【订单状态】{{obj.orderStatus}}
+        <td class="text-center">
+        	【订单编号】<br>{{obj.platOrderNo}}<br>
+        	【订单状态】<br>{{obj.orderStatus}}
     	</td>
         <td class="">
         	【取票人姓名】{{obj.ownerName}}<br>
@@ -38,7 +38,9 @@
         <td class="">
         	【商品编码】{{obj.productCode}}<br>
         	【商品名称】{{obj.productName}}<br>
-        	【商品金额】{{obj.productAmount | currency : '￥'}}
+        	【商品金额】{{obj.productAmount | currency : '￥'}}&nbsp;&nbsp;&nbsp;&nbsp;
+        	【销售价格】{{obj.productPrice | currency : '￥'}}<br>
+        	【有效期】{{obj.beginDate}} ~ {{obj.endDate}}
     	</td>
         <td class="">
         	【预订数量】{{obj.firstNum}}张<br>

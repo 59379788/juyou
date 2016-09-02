@@ -7,10 +7,8 @@ module.exports = function($scope, getOrderSimInfo, agencyOrderUsed){
         
         $scope.state = 0;
         getOrderSimInfo.save($scope.searchform, function(res){
-
+        	console.log($scope.searchform);
          	console.log(res);
-
-         	var result = res.data.order;
 
          	if(res.errcode !== 0)
          	{
@@ -23,6 +21,8 @@ module.exports = function($scope, getOrderSimInfo, agencyOrderUsed){
      			alert(res.data.repMsg);
          		return;
      		}
+
+     		var result = res.data.order;
 
      		switch(res.data.order.orderStatus)
      		{
@@ -53,30 +53,33 @@ module.exports = function($scope, getOrderSimInfo, agencyOrderUsed){
 			}
 
          	$scope.obj = result;
+
+         	agencyOrderUsed.save($scope.searchform, function(res){
+
+	         	console.log(res);
+
+	         	if(res.errcode !== 0)
+	         	{
+	         		alert("数据获取失败");
+	         		return;
+	         	}
+
+	         	if(res.data.repCode !== '1')
+	     		{
+	     			alert(res.data.repMsg);
+	         		return;
+	     		}
+
+
+	         	$scope.usedobj = res.data;
+
+	        });
+
          	$scope.state = 1;
 
         });
 
-        agencyOrderUsed.save($scope.searchform, function(res){
-
-         	console.log(res);
-
-         	if(res.errcode !== 0)
-         	{
-         		alert("数据获取失败");
-         		return;
-         	}
-
-         	if(res.data.repCode !== '1')
-     		{
-     			alert(res.data.repMsg);
-         		return;
-     		}
-
-
-         	$scope.usedobj = res.data;
-
-        });
+        
 
     };
 

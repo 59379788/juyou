@@ -10,7 +10,6 @@ module.exports = function($scope, ITEMS_PERPAGE, getAgencyProductInfo){
 
     var para = {
     	pageIndex : $scope.bigCurrentPage
-
     };
 
     if($scope.searchform.productCode != ''){
@@ -18,7 +17,7 @@ module.exports = function($scope, ITEMS_PERPAGE, getAgencyProductInfo){
     }
     
     $scope.load = function () {
-        console.log(para);
+
         getAgencyProductInfo.save(para, function(res){
 
          	console.log(res);
@@ -29,15 +28,20 @@ module.exports = function($scope, ITEMS_PERPAGE, getAgencyProductInfo){
          		return;
          	}
 
+         	if(res.data.repCode !== '1')
+     		{
+     			alert(res.data.repMsg);
+         		return;
+     		}
+
          	if(!(res.data.product.list instanceof Array)){
          		var xx = [];
          		xx.push(res.data.product.list);
          		$scope.objs = xx;
-         		$scope.bigTotalItems = res.data.product.list.length;
-         		return;
+         	}else{
+				$scope.objs = res.data.product.list;
          	}
-
-         	$scope.objs = res.data.product.list;
+         	
          	$scope.bigTotalItems = res.data.product.list.length;
 
         });
