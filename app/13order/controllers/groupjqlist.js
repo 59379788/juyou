@@ -54,7 +54,7 @@ module.exports = function($scope, grouporderlist, ITEMS_PERPAGE, $uibModal, getD
         var modalInstance = $uibModal.open({
           template: require('../views/grouplistinfo.html'),
           controller: 'grouplistinfo',
-          size: 'xs',
+          size: 'lg',
           resolve: {
             code : function(){
                 return code;
