@@ -1,4 +1,5 @@
-module.exports = function($scope, $uibModalInstance, code, relay, sale_belong, getRedCorridorTrSendSms){
+module.exports = function($scope, $uibModalInstance, code, relay, sale_belong, 
+	getRedCorridorTrSendSms, agencyOrderRepeatECode){
 
 	$scope.obj = {};
 	$scope.obj.code = code;
@@ -12,17 +13,6 @@ module.exports = function($scope, $uibModalInstance, code, relay, sale_belong, g
 
 	$scope.gogo = function(){
 
-		var fun;
-
-        if(sale_belong === 'juyou')
-        {
-            fun = relay;
-        }
-        else
-        {
-            fun = getRedCorridorTrSendSms;
-        }
-
 		if($scope.obj.mobile === undefined || $scope.obj.mobile == '')
 		{
 			alert('手机号码不能为空');
@@ -35,7 +25,29 @@ module.exports = function($scope, $uibModalInstance, code, relay, sale_belong, g
 			return;
 		}
 
-		fun.save($scope.obj, function(res){
+
+		var fun;
+		var para = {};
+        if(sale_belong === 'juyou')
+        {
+            fun = relay;
+            para['code'] = $scope.obj.code;
+            para['mobile'] = $scope.obj.mobile;
+        }
+        else if(sale_belong === 'langdao')
+        {
+            fun = getRedCorridorTrSendSms;
+            para['code'] = $scope.obj.code;
+            para['mobile'] = $scope.obj.mobile;
+        }
+        else if(sale_belong === 'huaxiapiaolian')
+        {
+        	fun = agencyOrderRepeatECode;
+        	para['order_code'] = $scope.obj.code;
+            para['ownerMobile'] = $scope.obj.mobile;
+        }
+
+		fun.save(para, function(res){
 
 			if(res.errcode === 0)
 			{

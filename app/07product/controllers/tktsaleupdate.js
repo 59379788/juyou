@@ -497,7 +497,8 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 		var para = {
 			'sysaffirm_sale_code' : $scope.saleobj.code,
 			'sysaffirm_target_code' : $scope.affirm.sysaffirm_target_code,
-			'sysaffirm_target_goods_code' : $scope.affirm.sysaffirm_target_goods_code
+			'sysaffirm_target_goods_code' : $scope.affirm.sysaffirm_target_goods_code,
+			'sysaffirm_target_goods_back_type' : $scope.affirm.sysaffirm_target_goods_back_type
 		};
 		console.log(para);
 		affirmcreate.save(para, function(res){
@@ -522,7 +523,8 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 		var para = {
 			'sysaffirm_sale_code' : $scope.saleobj.code,
 			'sysaffirm_target_code' : $scope.affirm.sysaffirm_target_code,
-			'sysaffirm_target_goods_code' : $scope.affirm.sysaffirm_target_goods_code
+			'sysaffirm_target_goods_code' : $scope.affirm.sysaffirm_target_goods_code,
+			'sysaffirm_target_goods_back_type' : $scope.affirm.sysaffirm_target_goods_back_type
 		};
 		console.log(para);
 		affirmupdate.save(para, function(res){

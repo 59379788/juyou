@@ -1,7 +1,7 @@
 module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, 
     $uibModal, ticketlist, createBackOrder, resend, getRedCorridorOrderList,
     getRedCorridorResentMsg, getRedCorridorTrSendSms, orderbacklist, relay,
-    getOrderSimInfo
+    getOrderSimInfo, agencyOrderRepeatECode
     ){
     
     $scope.searchform = {};
@@ -138,18 +138,26 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
     $scope.resend = function(obj){
         var fun;
 
+        var para = {};
         if(obj.sale_belong === 'juyou')
         {
             fun = resend;
+            para['code'] = obj.code;
         }
-        else
+        else if(obj.sale_belong == 'langdao')
         {
             fun = getRedCorridorResentMsg;
+            para['code'] = obj.code;
+        }
+        else if(obj.sale_belong == 'huaxiapiaolian')
+        {
+            fun = agencyOrderRepeatECode;
+            para['order_code'] = obj.code;
+            para['ownerMobile'] = obj.mobile;
         }
 
-        var code = obj.code;
-        console.log({'code' : code});
-        fun.save({'code' : code}, function(res){
+        console.log(para);
+        fun.save(para, function(res){
             console.log(res);
             if(res.errcode === 0)
             {
@@ -180,6 +188,9 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
             },
             sale_belong : function(){
                 return obj.sale_belong;
+            },
+            agencyOrderRepeatECode : function(){
+                return agencyOrderRepeatECode;
             }
           }
         });

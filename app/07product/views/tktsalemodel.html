@@ -519,6 +519,30 @@
 					</div>
 				</div>
 			</div>
+
+
+			<!-- 红海滩廊道需要的内容 -->
+			<div class="col-xs-10" 
+				ng-show="affirm.sysaffirm_target_code == 'langdao' 
+				|| affirm.sysaffirm_target_code == 'huaxiapiaolian' ">
+				<div class="form-group">
+					<label class="col-xs-2 control-label">退票类别</label>
+					<div class="col-xs-10">
+				    	<label class="radio-inline">
+						  <input type="radio" name="sysaffirm_target_goods_back_type" value="0"
+						  ng-model="affirm.sysaffirm_target_goods_back_type"
+						  > 不限制
+						</label>
+						<label class="radio-inline">
+						  <input type="radio" name="sysaffirm_target_goods_back_type" value="1"
+						  ng-model="affirm.sysaffirm_target_goods_back_type"
+						  > 只能退最大可用数量
+						</label>
+				    </div>
+				</div>
+			</div>
+
+
 				
 			</div>
 		</div>

@@ -44,6 +44,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getOrderSimInfo : function(orderservice){
                 return orderservice.getOrderSimInfo();
+            },
+            agencyOrderRepeatECode : function(orderservice){
+                return orderservice.agencyOrderRepeatECode();
             }
 
         }
