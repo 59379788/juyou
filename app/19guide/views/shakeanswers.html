@@ -1,0 +1,32 @@
+<div class="panel panel-default form-horizontal">
+	<div class="panel-heading">
+		问题
+	</div>
+	<div class="panel-body">
+		<div class="container-fluid">
+			<div class="col-sm-12">
+			  <table class="table table-bordered">
+			    <thead>
+			      <tr>
+			        <th class="col-md-7 text-center">问题</th>
+			        <th class="col-md-5 text-center">答案</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr ng-repeat="obj in objs">
+			        <td class="text-center">{{obj.question}}</td>
+			        <td class="text-center">
+				        <div ng-repeat="answer in answers" >
+				 			<input type="radio" value="{{answer.id}}" 
+				  			ng-model="obj.answer_code"
+				  			> {{answer.name}}
+						</div>
+					</td>
+			      </tr>
+			    </tbody>
+			  </table>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer" style='text-align:center;'><button class="btn btn-primary" type="button" ng-click="gogo()">提交</button></div>
+</div>

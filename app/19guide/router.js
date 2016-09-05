@@ -67,20 +67,65 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
-
-
       .state('app.shakeevaluategrouplist', {
         url: '/shakeevaluategrouplist',
         controller : 'shakeevaluategrouplist',
         template: require('./views/shakeevaluategrouplist.html'),
         resolve:{
             shakeevaluategrouplist : function(guideservice){
-                return guideservice.shakeevaluatequestionlist();
+                return guideservice.shakeevaluategroup();
+            }
+           
+        }
+      })
+
+      .state('app.shakeevaluatetourist', {
+        url: '/shakeevaluatetourist/:code',
+        controller : 'shakeevaluatetourist',
+        template: require('./views/shakeevaluatetourist.html'),
+        resolve:{
+            shakeevaluatetourist : function(guideservice){
+                return guideservice.shakeevaluatetouristlist();
+            },
+            shakeevaluateanswerlist : function(guideservice){
+                return guideservice.shakeevaluateanswerlist();
+            },
+            shakeanswers : function(guideservice){
+                return guideservice.shakeanswers();
+            },
+            shakeanswer : function(guideservice){
+                return guideservice.shakeanswer();
+            },
+            
+            shakegetquestion : function(guideservice){
+                return guideservice.shakegetquestion();
             }
         }
       })
 
+      .state('app.shakeanswers', {
+        url: '/shakeanswers/:code',
+        controller : 'shakeanswers',
+        template: require('./views/shakeanswers.html'),
+        resolve:{
+            shakeanswers : function(guideservice){
+                return guideservice.shakeanswers();
+            },
+            shakeevaluateanswerlist : function(guideservice){
+                return guideservice.shakeevaluateanswerlist();
+            },
+            shakeevaluatecountlist : function(guideservice){
+                return guideservice.shakeevaluatecountlist();
+            },
+            shakeanswer : function(guideservice){
+                return guideservice.shakeanswer();
+            },
+            shakegetquestion : function(guideservice){
+                return guideservice.shakegetquestion();
+            }
 
+        }
+      })
 };
 
 module.exports = router;

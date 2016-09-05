@@ -1,0 +1,22 @@
+<div class="col-sm-12">
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-8 text-center">游客名</th>
+        <th class="col-md-4 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.openid}}</td>
+        <td class="text-center">
+          <a ng-click="info(obj.openid)" class="btn btn-info btn-xs">问题详情</a>
+           <a ng-click="sub(obj.openid)" class="btn btn-warning btn-xs">作答</a>
+        </td>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

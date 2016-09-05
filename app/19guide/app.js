@@ -13,7 +13,8 @@ App.controller('shakedevice',require('./controllers/shakedevice'));
 App.controller('shakeevaluatequestionlist',require('./controllers/shakeevaluatequestionlist'));
 App.controller('shakeevaluatequestion',require('./controllers/shakeevaluatequestion'));
 App.controller('shakeevaluategrouplist',require('./controllers/shakeevaluategrouplist'));
-
-
+App.controller('shakeevaluatetourist',require('./controllers/shakeevaluatetourist'));
+App.controller('shakequestioninfo',require('./controllers/shakequestioninfo'));
+App.controller('shakeanswers',require('./controllers/shakeanswers'));
 
 module.exports = App;

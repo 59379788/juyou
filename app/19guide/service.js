@@ -22,13 +22,21 @@ var service = function($resource, BASEURL38985){
     
     var shakeevaluatequestiondel = BASEURL38985 + '/api/as/gc/shakeevaluatequestion/del';
 
-    //导游评价系统团列表
-    var shakeevaluategrouplist = BASEURL38985 + '/api/as/gc/shakeevaluateanswer/coldlist';
-    //游客
-    var shakeevaluategrouptourist = BASEURL38985 + '/api/as/gc/shakeevaluateanswer/openidByCodeList';
-        
+
+    //导游评价系统
+    var shakeevaluategroup = BASEURL38985 + '/api/as/gc/shakeevaluateanswer/coldlist';
+
+    var shakeevaluatetouristlist = BASEURL38985 + '/api/as/gc/shakeevaluateanswer/openidByCodeList';
+
     var shakeevaluateanswerlist = BASEURL38985 + '/api/as/gc/shakeevaluateanswer/answerslist';
-    
+
+    var shakeevaluatecountlist = BASEURL38985 + '/api/as/gc/shakeevaluateanswer/answertypecountlist';
+
+    var shakeanswers = BASEURL38985 + '/api/ac/gc/shakeEvaluateAnswerService/save';
+
+    var shakeanswer = BASEURL38985 + '/api/as/gc/shakeevaluateanswer/getanswerlist';
+
+    var shakegetquestion = BASEURL38985 + '/api/as/gc/shakeevaluatequestion/findquerybydevicelist';
 
     return {
 
@@ -59,19 +67,32 @@ var service = function($resource, BASEURL38985){
         shakeevaluatequestiondel : function(){
             return $resource(shakeevaluatequestiondel, {}, {});
         },
-
-
-
-        shakeevaluategrouplist : function(){
-            return $resource(shakeevaluategrouplist, {}, {});
+        
+        
+        
+        shakeevaluategroup : function(){
+            return $resource(shakeevaluategroup, {}, {});
         },
-        shakeevaluategrouptourist : function(){
-            return $resource(shakeevaluategrouptourist, {}, {});
+        shakeevaluatetouristlist : function(){
+            return $resource(shakeevaluatetouristlist, {}, {});
         },
         shakeevaluateanswerlist : function(){
             return $resource(shakeevaluateanswerlist, {}, {});
-        }
-        
+        },
+        shakeevaluatecountlist : function(){
+            return $resource(shakeevaluatecountlist, {}, {});
+        },
+        shakeanswers : function(){
+            return $resource(shakeanswers, {}, {});
+        },
+        shakeanswer : function(){
+            return $resource(shakeanswer, {}, {});
+        },
+
+        shakegetquestion : function(){
+            return $resource(shakegetquestion, {}, {});
+        },
+
     };
 
 };
