@@ -1,4 +1,5 @@
-module.exports = function($scope, $stateParams, $state, shakedevice, shakedeviceinfo, dictbytypelist){
+module.exports = function($scope, $stateParams, $state, shakedevice, shakedeviceinfo, dictbytypelist,
+    shakecompanyinfolist){
 
     $scope.obj = {};
 
@@ -13,18 +14,18 @@ module.exports = function($scope, $stateParams, $state, shakedevice, shakedevice
             if(id === '')   //新建
             {
                 $scope.obj.binding_type = '1';
+                getCompany($scope.obj.binding_type);
             }
             else    
             {
-                //angular.extend($scope.obj, {'id' : id});
-                shakedeviceinfo.get({'id' : id}, function(res){
-                    console.log(res);
-                    if(res.errcode !== 0)
+                shakedeviceinfo.get({'id' : id}, function(info){
+                    if(info.errcode !== 0)
                     {
-                        alert(res.errmsg);
+                        alert(info.errmsg);
                         return;
                     }
-                    $scope.obj = res.data;
+                    $scope.obj = info.data;
+                    getCompany(info.data.binding_type)
                 })
             }
         }
@@ -35,7 +36,29 @@ module.exports = function($scope, $stateParams, $state, shakedevice, shakedevice
     });
 
     
+    function getCompany(type){
 
+        $scope.companyarr = [];
+
+        shakecompanyinfolist.get({'binding_type' : type}, function(res){
+            
+            if(res.errcode !== 0)
+            {
+                alert(res.errmsg);
+                return ;
+            }
+
+            $scope.companyarr = res.data;
+            //console.log($scope.obj.binding_company_code);
+            //$scope.obj.binding_company_code = res.data[0].binding_company_code;
+        });
+    }
+
+
+    $scope.change = function(type){
+
+        getCompany(type);
+    }
 
     $scope.gogo = function(){
 

@@ -35,6 +35,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             dictbytypelist : function(productservice){
                 return productservice.dictbytypelist;
+            },
+            shakecompanyinfolist : function(guideservice){
+                return guideservice.shakecompanyinfolist();
             }
         }
       })
