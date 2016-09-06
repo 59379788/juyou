@@ -10,6 +10,23 @@ module.exports = function($scope, $stateParams, $state, shakedevice, shakedevice
         if(res.errcode === 0)
         {
             $scope.typearr = res.data;
+            if(id === '')   //新建
+            {
+                $scope.obj.binding_type = '1';
+            }
+            else    
+            {
+                //angular.extend($scope.obj, {'id' : id});
+                shakedeviceinfo.get({'id' : id}, function(res){
+                    console.log(res);
+                    if(res.errcode !== 0)
+                    {
+                        alert(res.errmsg);
+                        return;
+                    }
+                    $scope.obj = res.data;
+                })
+            }
         }
         else
         {
@@ -17,23 +34,7 @@ module.exports = function($scope, $stateParams, $state, shakedevice, shakedevice
         }
     });
 
-    if(id === '')   //新建
-    {
-        $scope.obj.binding_type = '1';
-    }
-    else    
-    {
-        angular.extend($scope.obj, {'id' : id});
-        shakedeviceinfo.get({'id' : id}, function(res){
-            console.log(res);
-            if(res.errcode !== 0)
-            {
-                alert(res.errmsg);
-                return;
-            }
-            $scope.obj = res.data;
-        })
-    }
+    
 
 
     $scope.gogo = function(){
