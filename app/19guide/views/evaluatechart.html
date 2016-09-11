@@ -1,0 +1,428 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+
+				<label>旅行社</label>&nbsp;&nbsp;
+				<select class="form-control" ng-model="searchform.binding_type">
+					<option value="1"> 沈阳青年旅行社 </option>
+					<option value="2"> 景区评价 </option>
+					<option value=""> -- 全部 -- </option>
+				</select>
+				&nbsp;&nbsp;
+
+				<label>线路名称</label>&nbsp;&nbsp;
+				<select class="form-control" ng-model="searchform.binding_type">
+					<option value="1"> 沈阳市植物园一日游 </option>
+					<option value="2"> 景区评价 </option>
+					<option value=""> -- 全部 -- </option>
+				</select>
+				&nbsp;&nbsp;
+			           
+				<label>出游时间</label>&nbsp;&nbsp;
+				<div class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+				  <span class="input-group-btn">
+				    <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+				  </span>
+				</div>
+				&nbsp;&nbsp;
+
+				<label>批次</label>&nbsp;&nbsp;
+				<select class="form-control" ng-model="searchform.binding_type">
+					<option value="1"> 第一批 </option>
+					<option value="2"> 景区评价 </option>
+					<option value=""> -- 全部 -- </option>
+				</select>
+				&nbsp;&nbsp;
+
+				<button type="button" class="btn btn-default search pull-right" ng-click="search()">立即搜索</button>
+
+			</div>
+
+        </div>
+    </div>
+</div>
+</div><!-- searchArea -->
+
+
+<div class="col-sm-12">
+
+	<div class="col-sm-7">
+
+		<div class="col-sm-6">
+			<canvas id="pie" class="chart chart-pie"
+			  chart-data="data1" chart-labels="labels" chart-options="options">
+			</canvas> 
+			<div class="panel panel-default mt10">
+
+			  	<table class="table table-bordered">
+			      <div class="panel-heading text-center">接待人员态度评价</div>
+			      <tbody>
+			        <tr>
+			          <td class="text-center">非常满意</td>
+			          <td class="text-center">35人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">一般满意</td>
+			          <td class="text-center">10人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">不满意</td>
+			          <td class="text-center">5人</td>
+			        </tr>
+			      </tbody>
+			   	</table>
+			</div>
+		</div>
+
+		<div class="col-sm-6">
+			<canvas id="pie" class="chart chart-pie"
+			  chart-data="data2" chart-labels="labels" chart-options="options">
+			</canvas> 
+			<div class="panel panel-default mt10">
+
+			  	<table class="table table-bordered">
+			      <div class="panel-heading text-center">
+			      	旅游线路质量和价格平价
+			      </div>
+			      <tbody>
+			        <tr>
+			          <td class="text-center">非常满意</td>
+			          <td class="text-center">40人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">一般满意</td>
+			          <td class="text-center">7人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">不满意</td>
+			          <td class="text-center">3人</td>
+			        </tr>
+			      </tbody>
+			   	</table>
+			</div>
+		</div>
+
+
+		<div class="col-sm-6">
+			<canvas id="pie" class="chart chart-pie"
+			  chart-data="data1" chart-labels="labels" chart-options="options">
+			</canvas> 
+			<div class="panel panel-default mt10">
+
+			  	<table class="table table-bordered">
+			      <div class="panel-heading text-center">交通工具安全舒适度</div>
+			      <tbody>
+			        <tr>
+			          <td class="text-center">非常满意</td>
+			          <td class="text-center">35人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">一般满意</td>
+			          <td class="text-center">10人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">不满意</td>
+			          <td class="text-center">5人</td>
+			        </tr>
+			      </tbody>
+			   	</table>
+			</div>
+		</div>
+
+		<div class="col-sm-6">
+			<canvas id="pie" class="chart chart-pie"
+			  chart-data="data2" chart-labels="labels" chart-options="options">
+			</canvas> 
+			<div class="panel panel-default mt10">
+
+			  	<table class="table table-bordered">
+			      <div class="panel-heading text-center">
+			      	提供的餐饮标准
+			      </div>
+			      <tbody>
+			        <tr>
+			          <td class="text-center">非常满意</td>
+			          <td class="text-center">40人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">一般满意</td>
+			          <td class="text-center">7人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">不满意</td>
+			          <td class="text-center">3人</td>
+			        </tr>
+			      </tbody>
+			   	</table>
+			</div>
+		</div>
+
+
+		<div class="col-sm-6">
+			<canvas id="pie" class="chart chart-pie"
+			  chart-data="data1" chart-labels="labels" chart-options="options">
+			</canvas> 
+			<div class="panel panel-default mt10">
+
+			  	<table class="table table-bordered">
+			      <div class="panel-heading text-center">宣传及信息真实性</div>
+			      <tbody>
+			        <tr>
+			          <td class="text-center">非常满意</td>
+			          <td class="text-center">35人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">一般满意</td>
+			          <td class="text-center">10人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">不满意</td>
+			          <td class="text-center">5人</td>
+			        </tr>
+			      </tbody>
+			   	</table>
+			</div>
+		</div>
+
+		<div class="col-sm-6">
+			<canvas id="pie" class="chart chart-pie"
+			  chart-data="data2" chart-labels="labels" chart-options="options">
+			</canvas> 
+			<div class="panel panel-default mt10">
+
+			  	<table class="table table-bordered">
+			      <div class="panel-heading text-center">
+			      	提供的旅游娱乐活动
+			      </div>
+			      <tbody>
+			        <tr>
+			          <td class="text-center">非常满意</td>
+			          <td class="text-center">40人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">一般满意</td>
+			          <td class="text-center">7人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">不满意</td>
+			          <td class="text-center">3人</td>
+			        </tr>
+			      </tbody>
+			   	</table>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="col-sm-5">
+
+		<div class="panel panel-default">
+
+		  	<table class="table table-bordered">
+		      <thead>
+		        <tr>
+		          <th class="col-sm-7 text-center">昵称</th>
+		          <th class="col-sm-3 text-center">评价红包金额</th>
+		          <th class="col-sm-2 text-center">作答详情</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		        <tr>
+		          <td class="text-center">张三</td>
+		          <td class="text-center">1.5元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">李四</td>
+		          <td class="text-center">1.8元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">王五</td>
+		          <td class="text-center">1.2元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">用户一</td>
+		          <td class="text-center">1.9元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">张三</td>
+		          <td class="text-center">1.5元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">李四</td>
+		          <td class="text-center">1.8元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">王五</td>
+		          <td class="text-center">1.2元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">用户一</td>
+		          <td class="text-center">1.9元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">张三</td>
+		          <td class="text-center">1.5元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">李四</td>
+		          <td class="text-center">1.8元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">王五</td>
+		          <td class="text-center">1.2元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">用户一</td>
+		          <td class="text-center">1.9元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">张三</td>
+		          <td class="text-center">1.5元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">李四</td>
+		          <td class="text-center">1.8元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">王五</td>
+		          <td class="text-center">1.2元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">用户一</td>
+		          <td class="text-center">1.9元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">张三</td>
+		          <td class="text-center">1.5元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">李四</td>
+		          <td class="text-center">1.8元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">王五</td>
+		          <td class="text-center">1.2元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">用户一</td>
+		          <td class="text-center">1.9元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">用户一</td>
+		          <td class="text-center">1.9元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">张三</td>
+		          <td class="text-center">1.5元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">李四</td>
+		          <td class="text-center">1.8元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">王五</td>
+		          <td class="text-center">1.2元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">张三</td>
+		          <td class="text-center">1.5元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">李四</td>
+		          <td class="text-center">1.8元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">总计</td>
+		          <td class="text-center">20.5元</td>
+		          <td class="text-center">
+		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		      </tbody>
+		   	</table>
+		</div>
+
+	</div>
+
+</div>

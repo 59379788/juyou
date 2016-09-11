@@ -129,6 +129,43 @@ var router = function($urlRouterProvider, $stateProvider){
 
         }
       })
+
+      .state('app.evaluatechart', {
+        url: '/evaluatechart',
+        controller : 'evaluatechart',
+        template: require('./views/evaluatechart.html'),
+        resolve:{
+            
+
+        }
+      })
+      .state('app.evaluatechart1', {
+        url: '/evaluatechart1',
+        controller : 'evaluatechart1',
+        template: require('./views/evaluatechart1.html'),
+        resolve:{
+            
+
+        }
+      })
+      .state('app.evaluatechart2', {
+        url: '/evaluatechart2',
+        controller : 'evaluatechart2',
+        template: require('./views/evaluatechart2.html'),
+        resolve:{
+            
+
+        }
+      })
+      .state('app.evaluatechart3', {
+        url: '/evaluatechart3',
+        controller : 'evaluatechart3',
+        template: require('./views/evaluatechart3.html'),
+        resolve:{
+            
+
+        }
+      })
 };
 
 module.exports = router;

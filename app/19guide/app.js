@@ -16,5 +16,9 @@ App.controller('shakeevaluategrouplist',require('./controllers/shakeevaluategrou
 App.controller('shakeevaluatetourist',require('./controllers/shakeevaluatetourist'));
 App.controller('shakequestioninfo',require('./controllers/shakequestioninfo'));
 App.controller('shakeanswers',require('./controllers/shakeanswers'));
+App.controller('evaluatechart',require('./controllers/evaluatechart'));
+App.controller('evaluatechart1',require('./controllers/evaluatechart1'));
+App.controller('evaluatechart2',require('./controllers/evaluatechart2'));
+App.controller('evaluatechart3',require('./controllers/evaluatechart3'));
 
 module.exports = App;

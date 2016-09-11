@@ -1,0 +1,264 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+
+				<label>景区</label>&nbsp;&nbsp;
+				<select class="form-control" ng-model="searchform.binding_type">
+					<option value="1"> 沈阳市故宫 </option>
+					<option value="2"> 沈阳市植物园 </option>
+					<option value=""> -- 全部 -- </option>
+				</select>
+				&nbsp;&nbsp;
+
+				
+
+				<button type="button" class="btn btn-default search " ng-click="search()">追加</button>
+
+			</div>
+
+        </div>
+    </div>
+</div>
+</div><!-- searchArea -->
+
+
+<div class="col-sm-12">
+
+	<div class="col-sm-7" >
+		<canvas id="radar" class="chart chart-radar"
+		  chart-data="data" chart-options="options" chart-labels="labels">
+		</canvas> 
+	</div>
+
+	<div class="col-sm-5">
+
+		<div class="panel panel-default">
+			<div class="panel-heading text-center">
+		      	全部景区
+		    </div>
+		  	<table class="table table-bordered">
+		      <thead>
+		        <tr>
+		          <th class="col-sm-8 text-center">问题</th>
+		          <th class="col-sm-4 text-center">好评百分比</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		        <tr>
+		          <td class="text-center">评价一</td>
+		          <td class="text-center">65%</td>
+		        </tr>
+		        <tr>
+		          <td class="text-center">评价二</td>
+		          <td class="text-center">65%</td>
+		        </tr><tr>
+		          <td class="text-center">评价三</td>
+		          <td class="text-center">65%</td>
+		        </tr><tr>
+		          <td class="text-center">评价四</td>
+		          <td class="text-center">65%</td>
+		        </tr><tr>
+		          <td class="text-center">评价五</td>
+		          <td class="text-center">65%</td>
+		        </tr><tr>
+		          <td class="text-center">评价六</td>
+		          <td class="text-center">65%</td>
+		        </tr><tr>
+		          <td class="text-center">评价七</td>
+		          <td class="text-center">65%</td>
+		        </tr><tr>
+		          <td class="text-center">评价八</td>
+		          <td class="text-center">65%</td>
+		        </tr><tr>
+		          <td class="text-center">评价九</td>
+		          <td class="text-center">65%</td>
+		        </tr><tr>
+		          <td class="text-center">评价十</td>
+		          <td class="text-center">65%</td>
+		        </tr>
+		      </tbody>
+		   	</table>
+		</div>
+
+	</div>
+
+</div>
+
+
+
+
+
+
+<div class="col-sm-4">
+
+	<div class="panel panel-default">
+		<div class="panel-heading text-center">
+	      	沈阳市故宫
+	      	<a ng-click="del(obj.code)" class="btn pull-right" style="color: red; padding:0px;">
+		        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		    </a>
+	    </div>
+	  	<table class="table table-bordered">
+	      <thead>
+	        <tr>
+	          <th class="col-sm-8 text-center">问题</th>
+	          <th class="col-sm-4 text-center">好评百分比</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	        <tr>
+	          <td class="text-center">评价一</td>
+	          <td class="text-center">65%</td>
+	        </tr>
+	        <tr>
+	          <td class="text-center">评价二</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价三</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价四</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价五</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价六</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价七</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价八</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价九</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价十</td>
+	          <td class="text-center">65%</td>
+	        </tr>
+	      </tbody>
+	   	</table>
+	</div>
+
+</div>
+
+
+
+
+<div class="col-sm-4">
+
+	<div class="panel panel-default">
+		<div class="panel-heading text-center">
+	      	沈阳市植物园
+	      	<a ng-click="del(obj.code)" class="btn pull-right" style="color: red; padding:0px;">
+		        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		    </a>
+	    </div>
+	  	<table class="table table-bordered">
+	      <thead>
+	        <tr>
+	          <th class="col-sm-8 text-center">问题</th>
+	          <th class="col-sm-4 text-center">好评百分比</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	        <tr>
+	          <td class="text-center">评价一</td>
+	          <td class="text-center">65%</td>
+	        </tr>
+	        <tr>
+	          <td class="text-center">评价二</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价三</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价四</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价五</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价六</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价七</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价八</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价九</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价十</td>
+	          <td class="text-center">65%</td>
+	        </tr>
+	      </tbody>
+	   	</table>
+	</div>
+
+</div>
+
+
+
+<div class="col-sm-4">
+
+	<div class="panel panel-default">
+		<div class="panel-heading text-center">
+	      	沈阳市森林动物园
+	      	<a ng-click="del(obj.code)" class="btn pull-right" style="color: red; padding:0px;">
+		        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		    </a>
+	    </div>
+	  	<table class="table table-bordered">
+	      <thead>
+	        <tr>
+	          <th class="col-sm-8 text-center">问题</th>
+	          <th class="col-sm-4 text-center">好评百分比</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	        <tr>
+	          <td class="text-center">评价一</td>
+	          <td class="text-center">65%</td>
+	        </tr>
+	        <tr>
+	          <td class="text-center">评价二</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价三</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价四</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价五</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价六</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价七</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价八</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价九</td>
+	          <td class="text-center">65%</td>
+	        </tr><tr>
+	          <td class="text-center">评价十</td>
+	          <td class="text-center">65%</td>
+	        </tr>
+	      </tbody>
+	   	</table>
+	</div>
+
+</div>
+
+

@@ -24,7 +24,7 @@ require('../node_modules/textangular/dist/textAngular.css');
 
 // ------------ 图表 ----------------------//
 require('../node_modules/angular-chart.js/dist/angular-chart.min');
-require('../node_modules/angular-chart.js/dist/angular-chart.min.css');
+//require('../node_modules/angular-chart.js/dist/angular-chart.min.css');
 // ------------ 图表 ----------------------//
 
 
