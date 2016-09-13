@@ -72,22 +72,28 @@
               <tr>
                 <th class="col-md-2 text-center">申请时间</th>
                 <th class="col-md-2 text-center">确认时间</th>
+                <th class="col-md-1 text-center">退款流水号</th>
                 <th class="col-md-1 text-center">退款状态</th>
                 <th class="col-md-1 text-center">退票状态</th>
-                <th class="col-md-2 text-center">退票数量</th>
-                <th class="col-md-2 text-center">退票金额</th>
-                <th class="col-md-2 text-center">退票机构</th>
+                <th class="col-md-1 text-center">退票数量</th>
+                <th class="col-md-1 text-center">退票金额</th>
+                <th class="col-md-1 text-center">实际退款</th>
+                <th class="col-md-1 text-center">退票机构</th>
+                <th class="col-md-1 text-center">备注</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="back in backarr">
                 <td class="text-center">{{back.create_time}}</td>
                 <td class="text-center">{{back.update_time}}</td>
+                <td class="text-center">{{back.seq_id}}</td>
                 <td class="text-center">{{back.back_statename}}</td>
                 <td class="text-center">{{back.ticket_statename}}</td>
                 <td class="text-center">{{back.back_count}}</td>
                 <td class="text-center">{{back.back_price * 0.01 | currency : '¥'}}</td>
+                <td class="text-center">{{back.actual_back_price}}</td>
                 <td class="text-center">{{back.ta_code}}</td>
+                <td class="text-center">{{back.remark}}</td>
 
               </tr>
             </tbody>

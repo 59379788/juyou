@@ -101,7 +101,9 @@
         </td>
         <td class="text-center">{{obj.company_name}}<br>{{obj.company_code}}<br>{{obj.operation_login_name}}</td>
         <th class="text-center">
-          <a ng-click="ticketlist(obj)" class="btn btn-success btn-xs">票信息</a>
+          <a ng-click="ticketlist(obj)" 
+            ng-show="obj.ticket_state != 9"
+          class="btn btn-success btn-xs">票信息</a>
           <br>
           <a ng-click="orderinfo(obj)" class="btn btn-info btn-xs"
           has-permission='orderinfo' 
