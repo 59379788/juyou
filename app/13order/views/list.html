@@ -93,7 +93,12 @@
           <span>使用{{obj.used}}</span>
         </td>
         <td class="text-center">{{obj.create_time}}</td>
-        <td class="text-center"><br>{{obj.ticket_state_name}}</td>
+        <td class="text-center">
+          {{obj.ticket_state_name}}<br>
+          <span ng-show="obj.ticket_state == 9">
+            {{obj.cancel_reason}}
+          </span>
+        </td>
         <td class="text-center">{{obj.company_name}}<br>{{obj.company_code}}<br>{{obj.operation_login_name}}</td>
         <th class="text-center">
           <a ng-click="ticketlist(obj)" class="btn btn-success btn-xs">票信息</a>
