@@ -25,70 +25,70 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
     console.log(code);
 
     $scope.load = function () {
-        fun.get({'order_code' : code}, function(res){
+        if(obj.ticket_state != '9'){
+            fun.get({'order_code' : code}, function(res){
 
-            console.log(res);
+                console.log(res);
 
-            /* 门票存储结构
-             * ========================================= */
-            var tkt = new Object();
-            var restkt = new Array();
+                /* 门票存储结构
+                 * ========================================= */
+                var tkt = new Object();
+                var restkt = new Array();
 
-            //console.log(res);
+                //console.log(res);
 
-            if(res.errcode !== 0)
-            {
-                alert("数据获取失败");
-                return;
-            }
-
-            var arr = [];
-            if(obj.sale_belong === 'juyou')
-            {
-                arr = res.data;
-            }
-            else if(obj.sale_belong === 'huaxiapiaolian')
-            {
-                arr = change_huaxiapiaolian(res.data.order);
-            }
-            else if(obj.sale_belong === 'langdao')
-            {
-                arr = change(res.data);
-            }
-
-            console.log(arr);
-
-            //用景区编号作为存储结构的属性，值是数组
-            for(var i = 0, j = arr.length; i < j; i++)
-            {
-                var tt = arr[i];
-                var v = tt.sequence;
-
-                if(!tkt.hasOwnProperty(v))
+                if(res.errcode !== 0)
                 {
-                    tkt[v] = new Object();
-                    tkt[v].ticketarr = new Array();
-                    tkt[v].sequence = tt.sequence;
-                    tkt[v].name = tt.order_name;
+                    alert("数据获取失败");
+                    return;
                 }
-                tkt[v].ticketarr.push(tt);
-            }
 
-            for(var key in tkt)
-            {
-                var o = tkt[key];
-                restkt.push(o);
-            }
+                var arr = [];
+                if(obj.sale_belong === 'juyou')
+                {
+                    arr = res.data;
+                }
+                else if(obj.sale_belong === 'huaxiapiaolian')
+                {
+                    arr = change_huaxiapiaolian(res.data.order);
+                }
+                else if(obj.sale_belong === 'langdao')
+                {
+                    arr = change(res.data);
+                }
 
+                console.log(arr);
 
-            // console.log("------------");
-            // console.log(restkt);
-            // console.log("------------");
+                //用景区编号作为存储结构的属性，值是数组
+                for(var i = 0, j = arr.length; i < j; i++)
+                {
+                    var tt = arr[i];
+                    var v = tt.sequence;
 
-            $scope.objs = restkt;
+                    if(!tkt.hasOwnProperty(v))
+                    {
+                        tkt[v] = new Object();
+                        tkt[v].ticketarr = new Array();
+                        tkt[v].sequence = tt.sequence;
+                        tkt[v].name = tt.order_name;
+                    }
+                    tkt[v].ticketarr.push(tt);
+                }
 
-        });
+                for(var key in tkt)
+                {
+                    var o = tkt[key];
+                    restkt.push(o);
+                }
 
+                // console.log("------------");
+                // console.log(restkt);
+                // console.log("------------");
+
+                $scope.objs = restkt;
+
+            });
+        }
 
         //退票历史
         orderbacklist.get({'order_code' : code, 'pageSize':999}, function(res){
@@ -107,6 +107,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
 
     };
     $scope.load();
+    
 
 
     
