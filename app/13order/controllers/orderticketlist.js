@@ -172,7 +172,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
         var arr = [];
 
         var msg = ' (总人数' + obj.firstNum + 
-                  ', 已使用人数' + obj.productNum +
+                  ', 已使用人数' + obj.usedNum +
                   ', 退票人数' + obj.cancelNum + ') ';
 
 
