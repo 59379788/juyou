@@ -191,8 +191,8 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
             // 'type' :
             // 'type_attr' :
             'type_name' : obj.productName,
-            'used1' : obj.productNum,
-            'inCount' : obj.productNum 
+            'used1' : obj.usedNum,
+            'inCount' : obj.usedNum 
         };
 
         arr.push(newobj);
