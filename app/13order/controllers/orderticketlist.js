@@ -25,7 +25,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
     console.log(code);
 
     $scope.load = function () {
-        if(obj.ticket_state != '9'){
+        if(!(obj.ticket_state == '9' || obj.ticket_state == '0')){
             fun.get({'order_code' : code}, function(res){
 
                 console.log(res);
