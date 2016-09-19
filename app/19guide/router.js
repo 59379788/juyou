@@ -17,6 +17,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             shakedevicedel : function(guideservice){
                 return guideservice.shakedevicedel();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
             }
         }
       })
@@ -38,6 +41,14 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             shakecompanyinfolist : function(guideservice){
                 return guideservice.shakecompanyinfolist();
+            }
+            ,
+            shakegroupinfolist : function(guideservice){
+                return guideservice.shakegroupinfolist();
+            }
+            ,
+            getDate : function(utilservice){
+                return utilservice.getDate;
             }
         }
       })

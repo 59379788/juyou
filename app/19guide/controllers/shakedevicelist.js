@@ -1,9 +1,26 @@
-module.exports = function($scope, $state, shakedevicelist, shakedevicedel){
+module.exports = function($scope, $state, shakedevicelist, shakedevicedel, getDate){
 
     $scope.searchform = {};
     $scope.searchform.binding_type = '';
 
+    $scope.usedate = '0';
+
+    $scope.section = {};
+	$scope.section.start = {};
+	$scope.section.start.date = new Date();
+
+
+	$scope.open = function(obj) {
+		obj.opened = true;
+	};
+
     function _info(){
+    	if($scope.usedate == '1')
+        {
+            $scope.searchform.binding_time = getDate($scope.section.start.date);
+        }else{
+        	$scope.searchform.binding_time = '';
+        }
         console.log($scope.searchform);
         shakedevicelist.save($scope.searchform, function(res){
             console.log(res);

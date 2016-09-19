@@ -15,6 +15,8 @@ var service = function($resource, BASEURL38985){
 
     var shakecompanyinfolist = BASEURL38985 + '/api/as/gc/shakecompany/companyInfoList';
 
+    var shakegroupinfolist = BASEURL38985 + '/api/as/gc/shakecompany/groupInfoList';
+
     //导游评价系统问题
     var shakeevaluatequestion = BASEURL38985 + '/api/as/gc/shakeevaluatequestion/save';
   
@@ -56,6 +58,9 @@ var service = function($resource, BASEURL38985){
         },
         shakecompanyinfolist : function(){
             return $resource(shakecompanyinfolist, {}, {});
+        },
+        shakegroupinfolist : function(){
+            return $resource(shakegroupinfolist, {}, {});
         },
 
 
