@@ -13,6 +13,8 @@ var service = function($resource, BASEURL38985){
 
     var shakedevicedel = BASEURL38985 + '/api/as/gc/shakedevice/del';
 
+    var savedevicerecode = BASEURL38985 + '/api/as/gc/shakedevice/saverecode';
+
     var shakecompanyinfolist = BASEURL38985 + '/api/as/gc/shakecompany/companyInfoList';
 
     var shakegroupinfolist = BASEURL38985 + '/api/as/gc/shakecompany/groupInfoList';
@@ -55,6 +57,9 @@ var service = function($resource, BASEURL38985){
         },
         shakedevicedel : function(){
             return $resource(shakedevicedel, {}, {});
+        },
+        savedevicerecode : function(){
+            return $resource(savedevicerecode, {}, {});
         },
         shakecompanyinfolist : function(){
             return $resource(shakecompanyinfolist, {}, {});

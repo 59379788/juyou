@@ -3,39 +3,54 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
+            	<div style='float:left;'>
+					<label>评价类型</label>&nbsp;&nbsp;
+					<select class="form-control" ng-model="obj.binding_type" 
+		              ng-options="type.value as type.label for type in typearr"
+		              ng-change="changeCompany(obj.binding_type)"
+		            >
+		            	<option value=""> -- 全部 -- </option>
+		            </select>
+					&nbsp;&nbsp;
 
-				<label>旅行社</label>&nbsp;&nbsp;
-				<select class="form-control" ng-model="searchform.binding_type">
-					<option value="1"> 沈阳青年旅行社 </option>
-					<option value="2"> 景区评价 </option>
-					<option value=""> -- 全部 -- </option>
-				</select>
-				&nbsp;&nbsp;
-
-				<label>线路名称</label>&nbsp;&nbsp;
-				<select class="form-control" ng-model="searchform.binding_type">
-					<option value="1"> 沈阳市植物园一日游 </option>
-					<option value="2"> 景区评价 </option>
-					<option value=""> -- 全部 -- </option>
-				</select>
-				&nbsp;&nbsp;
-			           
-				<label>出游时间</label>&nbsp;&nbsp;
-				<div class="input-group">
-				<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
-				  <span class="input-group-btn">
-				    <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
-				  </span>
+					<label>评价机构</label>&nbsp;&nbsp;
+					<select class="form-control" ng-model="obj.binding_company_code" 
+		              ng-options="type.binding_company_code as type.name for type in companyarr"
+		              ng-change="changeGroup(obj.binding_company_code)"
+		            >
+		            	<option value=""> -- 全部 -- </option>
+		            </select>
+					&nbsp;&nbsp;
 				</div>
-				&nbsp;&nbsp;
+				<div ng-show="xx=='1'" style='float:left;'>
+					<label>线路名称</label>&nbsp;&nbsp;
+					<select class="form-control" ng-model="obj.binding_code" 
+		              ng-options="group.group_id as group.group_name for group in grouparr"
+		            >
+		            	<option value=""> -- 全部 -- </option>
+		            </select>
+					&nbsp;&nbsp;
+				           
+					<input type="checkbox" ng-model="usedate" 
+                    ng-true-value="1" ng-false-value="0"
+                  	> 出游时间</label>&nbsp;&nbsp;
+					<div class="input-group">
+					<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+					  <span class="input-group-btn">
+					    <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+					  </span>
+					</div>
+					&nbsp;&nbsp;
+					</div>
+				</div>
 
-				<label>批次</label>&nbsp;&nbsp;
+				<!--<label>批次</label>&nbsp;&nbsp;
 				<select class="form-control" ng-model="searchform.binding_type">
 					<option value="1"> 第一批 </option>
 					<option value="2"> 景区评价 </option>
 					<option value=""> -- 全部 -- </option>
 				</select>
-				&nbsp;&nbsp;
+				&nbsp;&nbsp;-->
 
 				<button type="button" class="btn btn-default search pull-right" ng-click="search()">立即搜索</button>
 

@@ -50,6 +50,10 @@ var router = function($urlRouterProvider, $stateProvider){
             getDate : function(utilservice){
                 return utilservice.getDate;
             }
+            ,
+            savedevicerecode : function(guideservice){
+                return guideservice.savedevicerecode();
+            }
         }
       })
 
@@ -146,8 +150,21 @@ var router = function($urlRouterProvider, $stateProvider){
         controller : 'evaluatechart',
         template: require('./views/evaluatechart.html'),
         resolve:{
-            
-
+        	dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
+            },
+            shakecompanyinfolist : function(guideservice){
+                return guideservice.shakecompanyinfolist();
+            },
+            shakegroupinfolist : function(guideservice){
+                return guideservice.shakegroupinfolist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            },
+            shakeanswer : function(guideservice){
+                return guideservice.shakeanswer();
+            }
         }
       })
       .state('app.evaluatechart1', {
