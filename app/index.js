@@ -63,7 +63,7 @@ require('./16notice/app');
 require('./17chart/app');
 require('./18docking/app');
 require('./19guide/app');
-require('./20card/app');
+require('./21card/app');
 
 
 require('./96util/app');
