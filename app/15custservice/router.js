@@ -166,6 +166,23 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+      //app.openlottery
+      .state('app.openlottery', {
+        url: '/openlottery',
+        controller : 'openlottery',
+        template: require('./user/openlottery.html'),
+        resolve:{
+           getWeekLottey : function(custservice){
+                return custservice.getWeekLottey();
+            },
+            lotteyUserinfo : function(custservice){
+                return custservice.lotteyUserinfo();
+            },
+            saveUserinfo : function(custservice){
+                return custservice.saveUserinfo();
+            }
+        }
+      })
 
 };
 
