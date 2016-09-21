@@ -1,8 +1,9 @@
 module.exports = function($scope, $stateParams, $state, shakedevice, shakedeviceinfo, dictbytypelist,
-    shakecompanyinfolist, shakegroupinfolist, getDate, savedevicerecode){
+    shakecompanyinfolist, shakegroupinfolist, getDate, savedevicerecode, userinfo){
 
     $scope.obj = {};
     $scope.isshow = '1';
+    $scope.company_code = '';
 
     $scope.section = {};
 	$scope.section.start = {};
@@ -12,6 +13,19 @@ module.exports = function($scope, $stateParams, $state, shakedevice, shakedevice
 	$scope.open = function(obj) {
 		obj.opened = true;
 	};
+
+	//用户信息
+	function isable()
+	{
+		userinfo().then(function(res) {
+			$scope.company_code = res.company_code;
+	        if(res.company_code != 'L0002')
+	    	{
+	    		$scope.isable = '1';
+	    	}
+	    });
+	}
+    
 
     //机器id
     var id = $stateParams.id;
@@ -30,7 +44,7 @@ module.exports = function($scope, $stateParams, $state, shakedevice, shakedevice
             }
             else    
             {
-        		$scope.isable = '1';
+        		isable();
                 shakedeviceinfo.get({'id' : id}, function(info){
                     if(info.errcode !== 0)
                     {
@@ -154,7 +168,7 @@ module.exports = function($scope, $stateParams, $state, shakedevice, shakedevice
                 return;
             }
 
-            if(id != '')
+            if(id != '' && $scope.company_code != 'L0002')
         	{
         		savedevicerecode.save($scope.obj, function(res){
 

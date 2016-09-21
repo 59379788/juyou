@@ -42,12 +42,22 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
         {
             $scope.typearr = res.data;
             getCompany($scope.obj.binding_type);
-            getGroup($scope.obj.binding_company_code);
         }
         else
         {
             alert(res.errmsg);
         }
+    });
+
+    shakegroupinfolist.get({}, function(res){
+            
+        if(res.errcode !== 0)
+        {
+            alert(res.errmsg);
+            return ;
+        }
+
+        $scope.grouparr = res.data;
     });
 
     function getCompany(type){
@@ -93,11 +103,6 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
     	}
 
         getCompany(type);
-    }
-
-    $scope.changeGroup = function(type){
-
-        getGroup(type);
     }
 
     $scope.load = function(){
@@ -149,7 +154,7 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
 	        }
 
 	        //console.log("------------");
-	        console.log(restkt);
+	        //console.log(restkt);
 	        //console.log("------------");
 
 	        $scope.objs = restkt;
@@ -157,7 +162,7 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
 	    });
 
 		peoplerebatelist.save($scope.obj, function(res){
-			console.log(res);
+			//console.log(res);
 			$scope.peoplestate = '1';
 	        if(res.errcode !== 0)
 	        {

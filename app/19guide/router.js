@@ -20,7 +20,10 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getDate : function(utilservice){
                 return utilservice.getDate;
-            }
+            },
+            userinfo:  function(dashboardservice){
+	          return dashboardservice.userinfo;
+	        }
         }
       })
 
@@ -54,6 +57,10 @@ var router = function($urlRouterProvider, $stateProvider){
             savedevicerecode : function(guideservice){
                 return guideservice.savedevicerecode();
             }
+            ,
+            userinfo:  function(dashboardservice){
+	          return dashboardservice.userinfo;
+	        }
         }
       })
 

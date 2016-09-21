@@ -19,6 +19,8 @@ var service = function($resource, BASEURL38985){
 
     var shakegroupinfolist = BASEURL38985 + '/api/as/gc/shakecompany/groupInfoList';
 
+    var userinfo = BASEURL38985 + "/api/as/info";
+
     //导游评价系统问题
     var shakeevaluatequestion = BASEURL38985 + '/api/as/gc/shakeevaluatequestion/save';
   
