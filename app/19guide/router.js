@@ -164,6 +164,15 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             shakeanswer : function(guideservice){
                 return guideservice.shakeanswer();
+            },
+            questionstatisticlist : function(guideservice){
+                return guideservice.questionstatisticlist();
+            },
+            peoplerebatelist : function(guideservice){
+                return guideservice.peoplerebatelist();
+            },
+            shakeevaluateanswerlist : function(guideservice){
+                return guideservice.shakeevaluateanswerlist();
             }
         }
       })

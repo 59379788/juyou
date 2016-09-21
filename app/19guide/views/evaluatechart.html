@@ -23,7 +23,7 @@
 					&nbsp;&nbsp;
 				</div>
 				<div ng-show="xx=='1'" style='float:left;'>
-					<label>线路名称</label>&nbsp;&nbsp;
+					<label>团名称</label>&nbsp;&nbsp;
 					<select class="form-control" ng-model="obj.binding_code" 
 		              ng-options="group.group_id as group.group_name for group in grouparr"
 		            >
@@ -52,7 +52,7 @@
 				</select>
 				&nbsp;&nbsp;-->
 
-				<button type="button" class="btn btn-default search pull-right" ng-click="search()">立即搜索</button>
+				<button type="button" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
 
 			</div>
 
@@ -68,9 +68,9 @@
 	<div class="col-sm-7">
 
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-sm-6" ng-repeat="obj in objs" style='height:400px;'>
 			<canvas id="pie" class="chart chart-pie"
-			  chart-data="data1" chart-labels="labels" chart-options="options">
+			  chart-data="obj.data1" chart-labels="obj.labels" chart-options="options">
 			</canvas> 
 			<!-- <canvas id="base" class="chart-base" chart-type="type"
 			  chart-data="data1" chart-labels="labels" >
@@ -79,26 +79,18 @@
 			<div class="panel panel-default mt10">
 
 			  	<table class="table table-bordered">
-			      <div class="panel-heading text-center">接待人员态度评价</div>
+			      <div class="panel-heading text-center">{{obj.questionname}}</div>
 			      <tbody>
-			        <tr>
-			          <td class="text-center">非常满意</td>
-			          <td class="text-center">35人</td>
-			        </tr>
-			        <tr>
-			          <td class="text-center">一般满意</td>
-			          <td class="text-center">10人</td>
-			        </tr>
-			        <tr>
-			          <td class="text-center">不满意</td>
-			          <td class="text-center">5人</td>
+			        <tr ng-repeat="question in obj.questionarr">
+			          <td class="text-center">{{question.name}}</td>
+			          <td class="text-center">{{question.num}}人</td>
 			        </tr>
 			      </tbody>
 			   	</table>
 			</div>
 		</div>
 
-		<div class="col-sm-6">
+		<!--<div class="col-sm-6">
 			<canvas id="pie" class="chart chart-pie"
 			  chart-data="data2" chart-labels="labels" chart-options="options">
 			</canvas> 
@@ -241,9 +233,9 @@
 			      </tbody>
 			   	</table>
 			</div>
-		</div>
+		</div>-->
 
-		</div>
+	</div>
 
 
 
@@ -253,7 +245,7 @@
 
 	<div class="col-sm-5">
 
-		<div class="panel panel-default">
+		<div class="panel panel-default" ng-show="peoplestate == '1'">
 
 		  	<table class="table table-bordered">
 		      <thead>
@@ -264,193 +256,11 @@
 		        </tr>
 		      </thead>
 		      <tbody>
-		        <tr>
-		          <td class="text-center">张三</td>
-		          <td class="text-center">1.5元</td>
+		        <tr ng-repeat="peopleobj in peopleobjs">
+		          <td class="text-center">{{peopleobj.openid}}</td>
+		          <td class="text-center">{{peopleobj.total_price/100}}元</td>
 		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">李四</td>
-		          <td class="text-center">1.8元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">王五</td>
-		          <td class="text-center">1.2元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">用户一</td>
-		          <td class="text-center">1.9元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">张三</td>
-		          <td class="text-center">1.5元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">李四</td>
-		          <td class="text-center">1.8元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">王五</td>
-		          <td class="text-center">1.2元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">用户一</td>
-		          <td class="text-center">1.9元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">张三</td>
-		          <td class="text-center">1.5元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">李四</td>
-		          <td class="text-center">1.8元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">王五</td>
-		          <td class="text-center">1.2元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">用户一</td>
-		          <td class="text-center">1.9元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">张三</td>
-		          <td class="text-center">1.5元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">李四</td>
-		          <td class="text-center">1.8元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">王五</td>
-		          <td class="text-center">1.2元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">用户一</td>
-		          <td class="text-center">1.9元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">张三</td>
-		          <td class="text-center">1.5元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">李四</td>
-		          <td class="text-center">1.8元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">王五</td>
-		          <td class="text-center">1.2元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">用户一</td>
-		          <td class="text-center">1.9元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">用户一</td>
-		          <td class="text-center">1.9元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">张三</td>
-		          <td class="text-center">1.5元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">李四</td>
-		          <td class="text-center">1.8元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">王五</td>
-		          <td class="text-center">1.2元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">张三</td>
-		          <td class="text-center">1.5元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">李四</td>
-		          <td class="text-center">1.8元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
-		          </td>
-		        </tr>
-		        <tr>
-		          <td class="text-center">总计</td>
-		          <td class="text-center">20.5元</td>
-		          <td class="text-center">
-		          	<a class="btn btn-info btn-xs">作答详情</a>
+		          	<a ng-click="info(peopleobj.openid)" class="btn btn-info btn-xs">作答详情</a>
 		          </td>
 		        </tr>
 		      </tbody>

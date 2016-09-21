@@ -44,6 +44,11 @@ var service = function($resource, BASEURL38985){
 
     var shakegetquestion = BASEURL38985 + '/api/as/gc/shakeevaluatequestion/findquerybydevicelist';
 
+    //评价系统图标分析
+    var questionstatisticlist = BASEURL38985 + '/api/as/gc/shakestatistics/questionstatisticlist';
+
+    var peoplerebatelist = BASEURL38985 + '/api/as/gc/shakestatistics/peoplerebatelist';
+
     return {
 
         shakedevicelist : function(){
@@ -103,10 +108,17 @@ var service = function($resource, BASEURL38985){
         shakeanswer : function(){
             return $resource(shakeanswer, {}, {});
         },
-
         shakegetquestion : function(){
             return $resource(shakegetquestion, {}, {});
         },
+
+
+        questionstatisticlist : function(){
+            return $resource(questionstatisticlist, {}, {});
+        },
+        peoplerebatelist : function(){
+            return $resource(peoplerebatelist, {}, {});
+        }
 
     };
 
