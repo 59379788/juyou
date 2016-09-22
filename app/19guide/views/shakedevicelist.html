@@ -86,7 +86,7 @@
         <td class="text-center">{{obj.binding_time}}</td>
         <td class="text-center">{{obj.remarks}}</td>
         <td class="text-center">
-          <a ng-click="del(obj.id)" class="btn btn-danger btn-xs">删除</a>
+          <a ng-click="del(obj.id)" class="btn btn-danger btn-xs" ng-show="company_code == 'L0002'">删除</a>
           <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑</a>
         </td>
         </th>

@@ -20,7 +20,10 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getDate : function(utilservice){
                 return utilservice.getDate;
-            }
+            },
+            userinfo:  function(dashboardservice){
+	          return dashboardservice.userinfo;
+	        }
         }
       })
 
@@ -50,6 +53,14 @@ var router = function($urlRouterProvider, $stateProvider){
             getDate : function(utilservice){
                 return utilservice.getDate;
             }
+            ,
+            savedevicerecode : function(guideservice){
+                return guideservice.savedevicerecode();
+            }
+            ,
+            userinfo:  function(dashboardservice){
+	          return dashboardservice.userinfo;
+	        }
         }
       })
 
@@ -146,8 +157,30 @@ var router = function($urlRouterProvider, $stateProvider){
         controller : 'evaluatechart',
         template: require('./views/evaluatechart.html'),
         resolve:{
-            
-
+        	dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
+            },
+            shakecompanyinfolist : function(guideservice){
+                return guideservice.shakecompanyinfolist();
+            },
+            shakegroupinfolist : function(guideservice){
+                return guideservice.shakegroupinfolist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            },
+            shakeanswer : function(guideservice){
+                return guideservice.shakeanswer();
+            },
+            questionstatisticlist : function(guideservice){
+                return guideservice.questionstatisticlist();
+            },
+            peoplerebatelist : function(guideservice){
+                return guideservice.peoplerebatelist();
+            },
+            shakeevaluateanswerlist : function(guideservice){
+                return guideservice.shakeevaluateanswerlist();
+            }
         }
       })
       .state('app.evaluatechart1', {

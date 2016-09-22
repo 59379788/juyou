@@ -1,9 +1,10 @@
-module.exports = function($scope, $state, shakedevicelist, shakedevicedel, getDate){
+module.exports = function($scope, $state, shakedevicelist, shakedevicedel, getDate, userinfo){
 
     $scope.searchform = {};
     $scope.searchform.binding_type = '';
 
     $scope.usedate = '0';
+    $scope.company_code = '';
 
     $scope.section = {};
 	$scope.section.start = {};
@@ -13,6 +14,11 @@ module.exports = function($scope, $state, shakedevicelist, shakedevicedel, getDa
 	$scope.open = function(obj) {
 		obj.opened = true;
 	};
+
+	//用户信息
+    userinfo().then(function(res) {
+        $scope.company_code = res.company_code;
+    });
 
     function _info(){
     	if($scope.usedate == '1')
