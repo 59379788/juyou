@@ -1,0 +1,31 @@
+<form class="form-horizontal" role="form">
+  <h2>创建卡池基本信息</h2>
+  <div class="form-group">
+    <label for="inputLottry" class="col-sm-2 control-label">卡池名称</label>
+    <div class="col-md-4">
+      <input type="text" class="form-control" id="inputLottry" placeholder="** ** ** ** ** ** **"
+      ng-model="lottry.sevenstart"
+      >
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputDate" class="col-sm-2 control-label">卡池类型</label>
+    <div class="col-md-4">
+     <select class="form-control">
+      <option>普通卡</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+     </select>  
+    </div>
+  </div>
+
+  
+  <div>
+  <button type="button" class="btn btn-primary btn-sm col-md-1 col-md-offset-5" ng-click="savecardpool()">保存</button>
+  </div>
+
+  
+ </form>
