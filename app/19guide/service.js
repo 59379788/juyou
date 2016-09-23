@@ -51,6 +51,13 @@ var service = function($resource, BASEURL38985){
 
     var peoplerebatelist = BASEURL38985 + '/api/as/gc/shakestatistics/peoplerebatelist';
 
+    //评价系统图标分析时间轴
+    var totalevaluatelist = BASEURL38985 + '/api/ac/gc/ShakeEvaluateStatisticsService/evaluatechart1';
+
+    //评价系统图标分析景区时间轴
+    var totalevaluatejqlist = BASEURL38985 + '/api/ac/gc/ShakeEvaluateStatisticsService/evaluatechart2';
+
+
     return {
 
         shakedevicelist : function(){
@@ -120,6 +127,13 @@ var service = function($resource, BASEURL38985){
         },
         peoplerebatelist : function(){
             return $resource(peoplerebatelist, {}, {});
+        },
+
+        totalevaluatelist : function(){
+            return $resource(totalevaluatelist, {}, {});
+        },
+        totalevaluatejqlist : function(){
+            return $resource(totalevaluatejqlist, {}, {});
         }
 
     };

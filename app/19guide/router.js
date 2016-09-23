@@ -183,24 +183,38 @@ var router = function($urlRouterProvider, $stateProvider){
             }
         }
       })
+
       .state('app.evaluatechart1', {
         url: '/evaluatechart1',
         controller : 'evaluatechart1',
         template: require('./views/evaluatechart1.html'),
         resolve:{
-            
-
+        	shakegroupinfolist : function(guideservice){
+                return guideservice.shakegroupinfolist();
+            },
+            shakecompanyinfolist : function(guideservice){
+                return guideservice.shakecompanyinfolist();
+            },
+            totalevaluatelist : function(guideservice){
+                return guideservice.totalevaluatelist();
+            }
         }
       })
+
       .state('app.evaluatechart2', {
         url: '/evaluatechart2',
         controller : 'evaluatechart2',
         template: require('./views/evaluatechart2.html'),
         resolve:{
-            
-
+            shakecompanyinfolist : function(guideservice){
+                return guideservice.shakecompanyinfolist();
+            },
+            totalevaluatejqlist : function(guideservice){
+                return guideservice.totalevaluatejqlist();
+            }
         }
       })
+      
       .state('app.evaluatechart3', {
         url: '/evaluatechart3',
         controller : 'evaluatechart3',
