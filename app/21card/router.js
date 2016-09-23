@@ -66,6 +66,35 @@ var router = function($urlRouterProvider, $stateProvider){
             }
          }
        })
+
+
+       //卡产品管理
+       .state('app.cardproductlist', {
+         url: '/cardproductlist',
+         controller : 'cardproductlist',
+         template: require('./views/cardproductlist.html'),
+         resolve:{
+            cardproductlist : function(cardservice){
+                 return cardservice.cardproductlist();
+            }
+         }
+       })
+
+
+       //卡产品信息
+       .state('app.cardproduct', {
+         url: '/cardproduct/:code',
+         controller : 'cardproduct',
+         template: require('./views/cardproduct.html'),
+         resolve:{
+            cardproduct : function(cardservice){
+                 return cardservice.cardproduct();
+            },
+            cardproductinfo : function(cardservice){
+                 return cardservice.cardproductinfo();
+            }
+         }
+       })
       
 };
 

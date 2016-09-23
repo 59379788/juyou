@@ -38,7 +38,7 @@ module.exports = function($scope, $uibModal,
 		if(len === 0) return;
 
 		//票码
-		if(len === 8)
+		if(len === 8 || len === 9 || len === 10)
 		{
 			para = {"code" : $scope.code, "device" : $scope.device};
 			func = useticketbycode;
