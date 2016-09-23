@@ -5,6 +5,7 @@ module.exports = function($scope, $state, cardproductlist){
 	$scope.search = function(){
 
 		cardproductlist.save($scope.searchform, function(res){
+			console.log(res);
 			if(res.errcode !== 0)
 			{
 				alert(res.errmsg);

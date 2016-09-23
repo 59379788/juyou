@@ -16,11 +16,36 @@ var service = function($resource, BASEURL38985){
 
     //----- 卡产品 -----------------------//
     //列表
-    var cardproductlist = BASEURL38985 + '';
+    var cardproductlist = BASEURL38985 + '/api/as/uc/cardproduct/productList';
     //创建，修改卡产品
-    var cardproduct = BASEURL38985 + '';
+    var cardproduct = BASEURL38985 + '/api/as/uc/cardproduct/save';
     //卡产品信息
-    var cardproductinfo = BASEURL38985 + '';
+    var cardproductinfo = BASEURL38985 + '/api/as/uc/cardproduct/getbycode';
+
+
+
+    //卡资源列表
+    var cardresources = BASEURL38985 + '/api/as/uc/cardproductsubtable/tableInfoList';
+    //添加资源
+    var cardresourcesinsert = BASEURL38985 + '/api/as/uc/cardproductsubtable/insert';
+    //删除资源
+    var cardresourcesdel = BASEURL38985 + '/api/as/uc/cardproductsubtable/delete';
+
+
+    //卡产品绑定的卡池列表
+    var cardproduct_cardpoollist = BASEURL38985 + 'api/as/uc/cardproductsubpool/poolInfoList';
+    //添加卡池
+    var cardproductpoolinsert = BASEURL38985 + '/api/as/uc/cardproductsubpool/insert';
+    //删除卡池
+    var cardproductpooldel = BASEURL38985 + '/api/as/uc/cardproductsubpool/delete';
+
+
+    //卡产品绑定的票列表
+    var cardproduct_ticketlist = BASEURL38985 + '/api/as/uc/cardproductsubticket/ticketInfoList';
+    //添加票
+    var cardproductticketinsert = BASEURL38985 + '/api/as/uc/cardproductsubticket/save';
+    //删除票
+    var cardproductticketdel = BASEURL38985 + '/api/as/uc/cardproductsubticket/delete';
     //----- 卡产品 -----------------------//
 
     
@@ -51,6 +76,33 @@ var service = function($resource, BASEURL38985){
         },
         cardproductinfo : function(){
              return $resource(cardproductinfo, {}, {});
+        },
+        cardresources : function(){
+             return $resource(cardresources, {}, {});
+        },
+        cardresourcesinsert : function(){
+             return $resource(cardresourcesinsert, {}, {});
+        },
+        cardresourcesdel : function(){
+             return $resource(cardresourcesdel, {}, {});
+        },
+        cardproduct_cardpoollist : function(){
+             return $resource(cardproduct_cardpoollist, {}, {});
+        },
+        cardproductpoolinsert : function(){
+             return $resource(cardproductpoolinsert, {}, {});
+        },
+        cardproductpooldel : function(){
+             return $resource(cardproductpooldel, {}, {});
+        },
+        cardproduct_ticketlist : function(){
+             return $resource(cardproduct_ticketlist, {}, {});
+        },
+        cardproductticketinsert : function(){
+             return $resource(cardproductticketinsert, {}, {});
+        },
+        cardproductticketdel : function(){
+             return $resource(cardproductticketdel, {}, {});
         }
     };
 

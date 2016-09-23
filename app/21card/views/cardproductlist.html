@@ -20,28 +20,31 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-2 text-center">设备编号</th>
-        <th class="col-md-2 text-center">设备名称</th>
-        <th class="col-md-1 text-center">设备所属机构</th>
-        <th class="col-md-1 text-center">设备绑定类型</th>
-        <th class="col-md-2 text-center">绑定团名</th>
-        <th class="col-md-1 text-center">绑定时间</th>
-        <th class="col-md-2 text-center">备注</th>
+        <th class="col-md-3 text-center">卡产品名称</th>
+        <th class="col-md-1 text-center">卡产品类型</th>
+        <th class="col-md-1 text-center">市场价格</th>
+        <th class="col-md-1 text-center">指导价格</th>
+        <th class="col-md-2 text-center">绑定卡池编号</th>
+        <th class="col-md-2 text-center">绑定票销售品编号</th>
+        <th class="col-md-1 text-center">状态</th>
         <th class="col-md-1 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
-        <td class="text-center">{{obj.code}}</td>
         <td class="text-center">{{obj.name}}</td>
-        <td class="text-center">{{obj.binding_company_name}}</td>
-        <td class="text-center">{{obj.binding_type_name}}</td>
-        <td class="text-center">{{obj.group_name}}</td>
-        <td class="text-center">{{obj.binding_time}}</td>
-        <td class="text-center">{{obj.remarks}}</td>
+        <td class="text-center">{{obj.card_type}}</td>
+        <td class="text-center">{{obj.market_price}}</td>
+        <td class="text-center">{{obj.guide_price}}</td>
+        <td class="text-center">{{obj.pool_code}}</td>
+        <td class="text-center">{{obj.ticket_code}}</td>
+        <td class="text-center">{{obj.state_name}}</td>
         <td class="text-center">
-          <a ng-click="del(obj.id)" class="btn btn-danger btn-xs" ng-show="company_code == 'L0002'">删除</a>
-          <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑</a>
+          <a ng-click="edit(obj.code)" class="btn btn-info btn-xs">编辑</a>
+          <a ng-show="obj.state=='0' || obj.state=='2'"
+          ng-click="start(obj.code)" class="btn btn-danger btn-xs">上架</a>
+          <a ng-show="obj.state=='1'"
+          ng-click="stop(obj.code)" class="btn btn-success btn-xs">下架</a>
         </td>
         </th>
       </tr>

@@ -92,6 +92,39 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             cardproductinfo : function(cardservice){
                  return cardservice.cardproductinfo();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
+            },
+            cardresources : function(cardservice){
+                return cardservice.cardresources();
+            },
+            cardresourcesinsert : function(cardservice){
+                return cardservice.cardresourcesinsert();
+            },
+            cardresourcesdel : function(cardservice){
+                return cardservice.cardresourcesdel();
+            },
+            cardpoollist : function(cardservice){
+                return cardservice.cardpoollist();
+            },
+            cardproduct_cardpoollist : function(cardservice){
+                return cardservice.cardproduct_cardpoollist();
+            },
+            cardproductpoolinsert : function(cardservice){
+                return cardservice.cardproductpoolinsert();
+            },
+            cardproductpooldel : function(cardservice){
+                return cardservice.cardproductpooldel();
+            },
+            cardproduct_ticketlist : function(cardservice){
+                return cardservice.cardproduct_ticketlist();
+            },
+            cardproductticketinsert : function(cardservice){
+                return cardservice.cardproductticketinsert();
+            },
+            cardproductticketdel : function(cardservice){
+                return cardservice.cardproductticketdel();
             }
          }
        })
