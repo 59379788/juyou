@@ -11,6 +11,7 @@ App.factory('ticketservice', require('./service'));
 App.controller('login',require('./controllers/login'));
 App.controller('check',require('./controllers/check'));
 App.controller('ticketinfo',require('./controllers/ticketinfo'));
+App.controller('testtest',require('./controllers/testtest'));
 
 
 module.exports = App;
