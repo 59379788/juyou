@@ -1,21 +1,19 @@
 
 var service = function($resource, BASEURL38985){
     // 卡池列表
-var cardpoollist = BASEURL38985 + '/api/as/uc/cardpooldao/findpoollist';
+    var cardpoollist = BASEURL38985 + '/api/as/uc/cardpooldao/findpoollist';
     // 删除卡
     //var deletecard = BASEURL38985 + '/api/as/gc/shakedevice/findlist';
     // 添加卡
-var addcard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/save';
+    var addcard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/save';
     // 添加卡池
-<<<<<<< HEAD
-var addcardpool = BASEURL38985 + '/api/as/uc/cardpooldao/save';
+    var addcardpool = BASEURL38985 + '/api/as/uc/cardpooldao/save';
     // 释放卡池里面的卡
-var releasecard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/releasecardpoolupdate';
-// 置为已用接口
-var used = BASEURL38985 + '/api/as/uc/cardpoolinfodao/upcardstatusztotwo';
-// 挂失接口
-var lost = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/reportcardupdate';
-=======
+    var releasecard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/releasecardpoolupdate';
+    // 置为已用接口
+    var used = BASEURL38985 + '/api/as/uc/cardpoolinfodao/upcardstatusztotwo';
+    // 挂失接口
+    var lost = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/reportcardupdate';
     var addcardpool = BASEURL38985 + '/api/as/uc/cardpooldao/save';
     // 释放卡池
     var releasecard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/releasecardpool';
@@ -57,7 +55,6 @@ var lost = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/reportcardupdate';
     var cardproductticketdel = BASEURL38985 + '/api/as/uc/cardproductsubticket/delete';
     //----- 卡产品 -----------------------//
 
->>>>>>> 42f0f36ab58d0bae98f8e07399ee85c0a29de980
     
     return {
         cardpoollist : function(){
@@ -76,17 +73,12 @@ var lost = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/reportcardupdate';
         releasecard : function(){
              return $resource(releasecard, {}, {});
         },
-<<<<<<< HEAD
         used : function(){
              return $resource(used, {}, {});
         },
         lost : function(){
              return $resource(lost, {}, {});
-        }
-        
-=======
-
-
+        },
         cardproductlist : function(){
              return $resource(cardproductlist, {}, {});
         },
@@ -123,7 +115,6 @@ var lost = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/reportcardupdate';
         cardproductticketdel : function(){
              return $resource(cardproductticketdel, {}, {});
         }
->>>>>>> 42f0f36ab58d0bae98f8e07399ee85c0a29de980
     };
 
 };
