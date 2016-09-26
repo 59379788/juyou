@@ -1,26 +1,13 @@
 module.exports = function($scope, addcardpool){
 
-	$scope.savecardpool = function(){
-
-		//alert('2222');
-		/*var para = {
-			'name' : $scope.user.username,
-			'lottry' : $scope.user.lotter,
-			'mobile' : $scope.user.mobile,
-			'period' : $scope.user.period
-		};*/
-		$scope.cardinfo = {
-			'pool_code' : '',
+    $scope.cardinfo = {
 			'pool_name' : '',
-			'pool_type' : '',
-			'company_code' : '',
-			'sys_area' : ''
-
-			
-
+			'pool_type' : '1'
 		};
-
+	$scope.savecardpool = function(){
 		addcardpool.save($scope.cardinfo, function(res){
+			//alert('baocun');
+			console.log($scope.cardinfo);
 			console.log(res);
 			    //alert('hfdkh');
 			    if (res.errcode !== 0) {

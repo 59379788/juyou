@@ -17,7 +17,7 @@ var router = function($urlRouterProvider, $stateProvider){
        
        // 添加卡
        .state('app.addcard', {
-         url: '/addcard',
+         url: '/addcard/:poolcode',
          controller : 'addcard',
          template: require('./views/addcard.html'),
          resolve:{
@@ -42,7 +42,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
        // 释放卡池里面的卡
        .state('app.releasecard', {
-         url: '/releasecard',
+         url: '/releasecard/:poolcode',
          controller : 'releasecard',
          template: require('./views/releasecard.html'),
          resolve:{
@@ -52,7 +52,21 @@ var router = function($urlRouterProvider, $stateProvider){
          }
        })
 
-       // 释放卡池
+       // 修改卡信息
+
+       .state('app.resivecardinfo', {
+         url: '/resivecardinfo/:poolcode',
+         controller : 'resivecardinfo',
+         template: require('./views/resivecardinfo.html'),
+         resolve:{
+            used : function(cardservice){
+                 return cardservice.used();
+            },
+            lost : function(cardservice){
+                 return cardservice.lost();
+            }
+         }
+       })
 
 
        // 删除卡
