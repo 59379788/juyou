@@ -80,6 +80,68 @@ var router = function($urlRouterProvider, $stateProvider){
             }
          }
        })
+
+
+       //卡产品管理
+       .state('app.cardproductlist', {
+         url: '/cardproductlist',
+         controller : 'cardproductlist',
+         template: require('./views/cardproductlist.html'),
+         resolve:{
+            cardproductlist : function(cardservice){
+                 return cardservice.cardproductlist();
+            }
+         }
+       })
+
+
+       //卡产品信息
+       .state('app.cardproduct', {
+         url: '/cardproduct/:code',
+         controller : 'cardproduct',
+         template: require('./views/cardproduct.html'),
+         resolve:{
+            cardproduct : function(cardservice){
+                 return cardservice.cardproduct();
+            },
+            cardproductinfo : function(cardservice){
+                 return cardservice.cardproductinfo();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
+            },
+            cardresources : function(cardservice){
+                return cardservice.cardresources();
+            },
+            cardresourcesinsert : function(cardservice){
+                return cardservice.cardresourcesinsert();
+            },
+            cardresourcesdel : function(cardservice){
+                return cardservice.cardresourcesdel();
+            },
+            cardpoollist : function(cardservice){
+                return cardservice.cardpoollist();
+            },
+            cardproduct_cardpoollist : function(cardservice){
+                return cardservice.cardproduct_cardpoollist();
+            },
+            cardproductpoolinsert : function(cardservice){
+                return cardservice.cardproductpoolinsert();
+            },
+            cardproductpooldel : function(cardservice){
+                return cardservice.cardproductpooldel();
+            },
+            cardproduct_ticketlist : function(cardservice){
+                return cardservice.cardproduct_ticketlist();
+            },
+            cardproductticketinsert : function(cardservice){
+                return cardservice.cardproductticketinsert();
+            },
+            cardproductticketdel : function(cardservice){
+                return cardservice.cardproductticketdel();
+            }
+         }
+       })
       
 };
 

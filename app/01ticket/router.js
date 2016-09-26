@@ -62,6 +62,19 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+
+      .state('app.testtest', {
+        url: '/testtest',
+        title: 'testtest',
+        controller : 'testtest',
+        template: require('./views/testtest.html'),
+        resolve : {
+       //  	login:  function(ticketservice){
+	     	// 	return ticketservice.login();
+	     	// }
+        }
+      })
+
 };
 
 module.exports = router;

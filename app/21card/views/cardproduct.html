@@ -1,0 +1,366 @@
+<div class="col-xs-12" >
+<div class="panel panel-success">
+  <div class="panel-heading">卡产品信息</div>
+
+<div class="panel-body">
+    <div class="container-fluid form-horizontal ">
+
+<div class="col-xs-10 col-xs-offset-1 form-horizontal" >
+	
+	<div class="form-group">
+		<label class="col-xs-3 control-label">产品名称</label>
+		<div class="col-xs-9">
+			<input type="text" class="form-control" 
+			ng-model="obj.name"
+			>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-3 control-label">卡产品类型</label>
+		<div class="col-xs-9">
+			<select class="form-control" ng-model="obj.card_type" 
+              ng-options="cardtype.value as cardtype.label for cardtype in cardtypearr"
+            >
+            </select>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-3 control-label">市场价格</label>
+		<div class="col-xs-9">
+			<div class="input-group">
+				<span class="input-group-addon">¥</span>
+				<input type="number" class="form-control" placeholder="请输入市场价格" min='0'
+				ng-model="obj.market_price"
+				>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-xs-3 control-label">居游价格</label>
+		<div class="col-xs-9">
+			<div class="input-group">
+				<span class="input-group-addon">¥</span>
+				<input type="number" class="form-control" placeholder="请输入居游价格" min='0'
+				ng-model="obj.guide_price"
+				>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+	    <label class="col-xs-3 control-label">支付类型</label>
+	    <div class="col-xs-9">
+	    	<label class="radio-inline">
+			  <input type="radio" name="pay_type" value="0"
+			  ng-model="obj.pay_type"
+			  > 需要支付
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="pay_type" value="1"
+			  ng-model="obj.pay_type"
+			  > 无需支付
+			</label>
+	    </div>
+  	</div>
+
+  	<div class="form-group">
+	    <label class="col-xs-3 control-label">库存类型</label>
+	    <div class="col-xs-2">
+	    	<label class="radio-inline">
+			  <input type="radio" name="stock_type" value="0"
+			  ng-model="obj.stock_type"
+			  > 不启用
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="stock_type" value="1"
+			  ng-model="obj.stock_type"
+			  > 启用
+			</label>
+	    </div>
+	    <div class="col-xs-2" ng-show="obj.stock_type == 1">
+	    	<input type="number" class="form-control" placeholder="预存数量" min='0' ng-model="obj.current_stock_num"
+			>
+	    </div>
+  	</div>
+
+  	<div class="form-group">
+	    <label class="col-xs-3 control-label">最大购买数量限制</label>
+	    <div class="col-xs-2">
+	    	<input type="number" class="form-control" 
+			ng-model="obj.max_limit"
+			>
+			
+	    </div>
+	    <div class="col-sm-5">
+	      <p class="form-control-static text-danger" > -1:不限，其他数字:限制购买个数</p>
+	    </div>
+  	</div>
+
+  	<div class="form-group">
+	    <label class="col-xs-3 control-label">限制规则</label>
+	    <div class="col-xs-4">
+	    	<label class="radio-inline">
+			  <input type="radio" name="max_limit_type" value="0"
+			  ng-model="obj.max_limit_type"
+			  > 平台
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="max_limit_type" value="1"
+			  ng-model="obj.max_limit_type"
+			  > 所属区域
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="max_limit_type" value="2"
+			  ng-model="obj.max_limit_type"
+			  > 指定区域
+			</label>
+	    </div>
+	    <div class="col-xs-2" ng-show="obj.max_limit_type == 2">
+	    	<input type="text" class="form-control" placeholder="指定区域进行限制" ng-model="obj.max_limit_area"
+			>
+	    </div>
+  	</div>
+
+	<div class="form-group">
+	    <label class="col-xs-3 control-label">实名制类型</label>
+	    <div class="col-xs-9">
+	    	<label class="radio-inline">
+			  <input type="radio" name="realname_type" value="0"
+			  ng-model="obj.realname_type"
+			  > 需要实名制
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="realname_type" value="1"
+			  ng-model="obj.realname_type"
+			  > 无需实名制
+			</label>
+	    </div>
+  	</div>
+
+	<div class="form-group">
+		<label class="col-xs-3 control-label">备注</label>
+		<div class="col-xs-9">
+			<textarea class="form-control" rows="3"
+			ng-model="obj.remarks"
+			></textarea>
+		</div>
+	</div>
+
+	<button 
+    type="button" 
+    class="btn btn-success btn-lg col-xs-3 pull-right" 
+    ng-click="gogo()"
+    >
+    提交
+    </button>
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+<div class="panel panel-success">
+  <div class="panel-heading">卡产品资源</div>
+
+<div class="panel-body">
+    <div class="container-fluid form-horizontal ">
+
+<div class="col-xs-10 col-xs-offset-1 form-horizontal" >
+	
+	<div class="form-group">
+		<label class="col-xs-2 control-label">资源列表</label>
+		<div class="col-xs-2" >
+			<select class="form-control" ng-model="resobj.sub_table_code" 
+              ng-options="subtable.value as subtable.label for subtable in subtablearr"
+            >
+            </select>
+        </div>
+        <div class="col-xs-3" >
+        	<label class="radio-inline">
+			  <input type="radio" name="sub_table_used_type" 
+			  ng-model="resobj.sub_table_used_type" value="0"> 资源校验
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="sub_table_used_type" 
+			  ng-model="resobj.sub_table_used_type" value="1"> 无需校验
+			</label>
+        </div>
+        <div class="col-xs-3" >
+        	<label class="radio-inline">
+			  <input type="radio" name="sub_table_data_type" 
+			  ng-model="resobj.sub_table_data_type" value="0"> 一对一
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="sub_table_data_type" 
+			  ng-model="resobj.sub_table_data_type" value="1"> 一对多
+			</label>
+        </div>
+        <div class="col-xs-2" >
+        	<button 
+		    type="button" 
+		    class="btn btn-success btn-block pull-right" 
+		    ng-click="resourcesok()"
+		    >
+		    添加
+		    </button>
+
+        </div>
+
+	</div>
+
+
+	<div class="panel panel-default col-xs-8 col-xs-offset-2">
+		<table class="table">
+        <tbody>
+          <tr ng-repeat="res in resources">
+            <td>{{res.sub_table_name}}</td>
+            <td>{{res.sub_table_data_name}}</td>
+            <td>{{res.sub_table_used_name}}</td>
+            <td>
+	           	<a ng-click="cardpooldel(res.sub_table_code)" class="btn pull-right" style="color: red; padding:0px;" >
+	        	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	      		</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+	</div>
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+
+<div class="panel panel-success" ng-show="resourcesflag.pool !== undefined">
+  <div class="panel-heading">卡池</div>
+
+<div class="panel-body">
+    <div class="container-fluid form-horizontal ">
+
+<div class="col-xs-10 col-xs-offset-1 form-horizontal" >
+	
+	<div class="form-group">
+		<label class="col-xs-2 control-label">选择卡池</label>
+		<div class="col-xs-8">
+			<select class="form-control" ng-model="cardpoolobj.pool_code" 
+              ng-options="cardpool.pool_code as cardpool.pool_name for cardpool in cardpoolarr"
+            >
+            </select>
+		</div>
+		<div class="col-xs-2" >
+        	<button 
+		    type="button" 
+		    class="btn btn-success btn-block pull-right" 
+		    ng-click="cardpoolok()"
+		    >
+		    添加
+		    </button>
+
+        </div>
+	</div>
+
+	<div class="panel panel-default col-xs-8 col-xs-offset-2">
+		<table class="table">
+        <tbody>
+          <tr ng-repeat="cardpool in cardproduct_cardpoollistarr">
+            <td>{{cardpool.pool_name}}</td>
+            <td>
+	           	<a ng-click="cardpooldel(cardpool.pool_code)" class="btn pull-right" style="color: red; padding:0px;" >
+	        	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	      		</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+	</div>
+
+	<!-- <button 
+    type="button" 
+    class="btn btn-success btn-lg col-xs-3 pull-right" 
+    ng-click="gogo()"
+    >
+    提交
+    </button> -->
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+
+
+<div class="panel panel-success" ng-show="resourcesflag.ticket !== undefined">
+  <div class="panel-heading">票销售品</div>
+
+<div class="panel-body">
+    <div class="container-fluid form-horizontal ">
+
+<div class="col-xs-10 col-xs-offset-1 form-horizontal" >
+	
+	<div class="form-group">
+		<label class="col-xs-2 control-label">填写销售品编号</label>
+		<div class="col-xs-8">
+			<input type="text" class="form-control" 
+			ng-model="ticketobj.ticket_code"
+			>
+		</div>
+		<div class="col-xs-2" >
+        	<button 
+		    type="button" 
+		    class="btn btn-success btn-block pull-right" 
+		    ng-click="ticketok()"
+		    >
+		    添加
+		    </button>
+
+        </div>
+	</div>
+
+
+	<div class="panel panel-default col-xs-8 col-xs-offset-2">
+		<table class="table">
+        <tbody>
+          <tr ng-repeat="ticket in cardproduct_ticketarr">
+            <td>{{ticket.ticket_code}}</td>
+            <td>
+	           	<a ng-click="ticketdel(ticket.ticket_code)" class="btn pull-right" style="color: red; padding:0px;" >
+	        	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	      		</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+	</div>
+
+	<button 
+    type="button" 
+    class="btn btn-success btn-lg col-xs-3 pull-right" 
+    ng-click="gogo()"
+    >
+    提交
+    </button>
+
+</div>
+
+</div>
+</div>
+</div>
+
+
+
