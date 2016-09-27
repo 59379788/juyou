@@ -105,6 +105,38 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
         getCompany(type);
     }
 
+    $scope.pageload = function(){
+    	/* 分页
+	     * ========================================= */
+	    $scope.maxSize = 5;            //最多显示多少个按钮
+	    $scope.bigCurrentPage = 1;      //当前页码
+	    $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+
+	    var para = {
+            pageNo:$scope.bigCurrentPage, 
+            pageSize:$scope.itemsPerPage
+        };
+
+        para = angular.extend($scope.obj, para);
+
+		peoplerebatelist.save(para, function(res){
+			//console.log(res);
+			$scope.peoplestate = '1';
+	        if(res.errcode !== 0)
+	        {
+	            alert("数据获取失败");
+	            return;
+	        }
+	        if(res.data == "")
+        	{
+        		$scope.peoplestate = '0';
+        	}
+	        $scope.peopleobjs = res.data.results;
+	        $scope.bigTotalItems = res.data.totalRecord;
+		        
+	    });
+    }
+
     $scope.load = function(){
     	if($scope.usedate == '1'){
     		$scope.obj.binding_time = getDate($scope.section.start.date);
@@ -161,38 +193,12 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
 
 	    });
 
-		/* 分页
-	     * ========================================= */
-	    $scope.maxSize = 5;            //最多显示多少个按钮
-	    $scope.bigCurrentPage = 1;      //当前页码
-	    $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
-
-	    var para = {
-            pageNo:$scope.bigCurrentPage, 
-            pageSize:$scope.itemsPerPage
-        };
-
-        para = angular.extend($scope.obj, para);
-
-		peoplerebatelist.save(para, function(res){
-			//console.log(res);
-			$scope.peoplestate = '1';
-	        if(res.errcode !== 0)
-	        {
-	            alert("数据获取失败");
-	            return;
-	        }
-	        if(res.data == "")
-        	{
-        		$scope.peoplestate = '0';
-        	}
-	        $scope.peopleobjs = res.data.results;
-	        $scope.bigTotalItems = res.data.totalRecord;
-		        
-	    });
+		$scope.pageload();
 
     }
     $scope.load();
+
+    
 
     $scope.info = function(openid)
     {
