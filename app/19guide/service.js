@@ -57,6 +57,9 @@ var service = function($resource, BASEURL38985){
     //评价系统图标分析景区时间轴
     var totalevaluatejqlist = BASEURL38985 + '/api/ac/gc/ShakeEvaluateStatisticsService/evaluatechart2';
 
+    //评价系统图标分析景区综合评价
+    var questionhpllist = BASEURL38985 + '/api/ac/gc/ShakeEvaluateStatisticsService/evaluatechart3';
+
 
     return {
 
@@ -134,6 +137,10 @@ var service = function($resource, BASEURL38985){
         },
         totalevaluatejqlist : function(){
             return $resource(totalevaluatejqlist, {}, {});
+        },
+
+        questionhpllist : function(){
+            return $resource(questionhpllist, {}, {});
         }
 
     };
