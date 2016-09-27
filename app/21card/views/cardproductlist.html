@@ -40,7 +40,7 @@
         <td class="text-center">{{obj.ticket_code}}</td>
         <td class="text-center">{{obj.state_name}}</td>
         <td class="text-center">
-          <a ng-click="edit(obj.code)" class="btn btn-info btn-xs">编辑</a>
+          <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑</a>
           <a ng-show="obj.state=='0' || obj.state=='2'"
           ng-click="start(obj.code)" class="btn btn-danger btn-xs">上架</a>
           <a ng-show="obj.state=='1'"
