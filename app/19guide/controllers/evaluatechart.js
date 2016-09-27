@@ -1,5 +1,5 @@
 module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolist, shakegroupinfolist, 
-	getDate, shakeanswer, questionstatisticlist, peoplerebatelist, shakeevaluateanswerlist){
+	getDate, shakeanswer, questionstatisticlist, peoplerebatelist, shakeevaluateanswerlist, ITEMS_PERPAGE){
 
     $scope.data1 = [];
     $scope.labels = [];
@@ -161,7 +161,20 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
 
 	    });
 
-		peoplerebatelist.save($scope.obj, function(res){
+		/* 分页
+	     * ========================================= */
+	    $scope.maxSize = 5;            //最多显示多少个按钮
+	    $scope.bigCurrentPage = 1;      //当前页码
+	    $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+
+	    var para = {
+            pageNo:$scope.bigCurrentPage, 
+            pageSize:$scope.itemsPerPage
+        };
+
+        para = angular.extend($scope.obj, para);
+
+		peoplerebatelist.save(para, function(res){
 			//console.log(res);
 			$scope.peoplestate = '1';
 	        if(res.errcode !== 0)
@@ -173,7 +186,8 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
         	{
         		$scope.peoplestate = '0';
         	}
-	        $scope.peopleobjs = res.data;
+	        $scope.peopleobjs = res.data.results;
+	        $scope.bigTotalItems = res.data.totalRecord;
 		        
 	    });
 
