@@ -8,6 +8,13 @@ var service = function($resource, BASEURL38985){
     var addcard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/save';
     // 添加卡池
     var addcardpool = BASEURL38985 + '/api/as/uc/cardpooldao/save';
+    // 释放卡池里面的卡
+    var releasecard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/releasecardpoolupdate';
+    // 置为已用接口
+    var used = BASEURL38985 + '/api/as/uc/cardpoolinfodao/upcardstatusztotwo';
+    // 挂失接口
+    var lost = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/reportcardupdate';
+    var addcardpool = BASEURL38985 + '/api/as/uc/cardpooldao/save';
     // 释放卡池
     var releasecard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/releasecardpool';
 
@@ -20,7 +27,7 @@ var service = function($resource, BASEURL38985){
     //创建，修改卡产品
     var cardproduct = BASEURL38985 + '/api/as/uc/cardproduct/save';
     //卡产品信息
-    var cardproductinfo = BASEURL38985 + '/api/as/uc/cardproduct/getbycode';
+    var cardproductinfo = BASEURL38985 + '/api/as/uc/cardproduct/getbyid';
 
 
 
@@ -33,7 +40,7 @@ var service = function($resource, BASEURL38985){
 
 
     //卡产品绑定的卡池列表
-    var cardproduct_cardpoollist = BASEURL38985 + 'api/as/uc/cardproductsubpool/poolInfoList';
+    var cardproduct_cardpoollist = BASEURL38985 + '/api/as/uc/cardproductsubpool/poolInfoList';
     //添加卡池
     var cardproductpoolinsert = BASEURL38985 + '/api/as/uc/cardproductsubpool/insert';
     //删除卡池
@@ -66,8 +73,12 @@ var service = function($resource, BASEURL38985){
         releasecard : function(){
              return $resource(releasecard, {}, {});
         },
-
-
+        used : function(){
+             return $resource(used, {}, {});
+        },
+        lost : function(){
+             return $resource(lost, {}, {});
+        },
         cardproductlist : function(){
              return $resource(cardproductlist, {}, {});
         },

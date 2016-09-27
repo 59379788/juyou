@@ -3,8 +3,8 @@
   <div class="form-group">
     <label for="inputLottry" class="col-sm-2 control-label">卡池名称</label>
     <div class="col-md-4">
-      <input type="text" class="form-control" id="inputLottry" placeholder="** ** ** ** ** ** **"
-      ng-model="lottry.sevenstart"
+      <input type="text" class="form-control" id="inputpoolname" placeholder="** ** ** ** ** ** **"
+      ng-model="cardinfo.pool_name"
       >
     </div>
   </div>
@@ -12,12 +12,12 @@
   <div class="form-group">
     <label for="inputDate" class="col-sm-2 control-label">卡池类型</label>
     <div class="col-md-4">
-     <select class="form-control">
-      <option>普通卡</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+     <select class="form-control" ng-model="cardinfo.pool_type">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
      </select>  
     </div>
   </div>

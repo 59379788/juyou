@@ -1,27 +1,57 @@
 <form class="form-horizontal" role="form">
   <h2>释放卡</h2>
   <div class="form-group">
-    <label class="radio-inline">
-      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 单张
+    <label class="col-md-1 col-md-offset-1 radio-inline ">
+      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="cardinfo.status">单张
     </label>
-    <input type="text" class="form-control" id="inputcardnum" placeholder="** ** ** ** ** ** **"
-      ng-model="lottry.sevenstart"
-     >
+    <div class="col-md-2">
+      <input type="text" class="form-control" id="inputLottry" placeholder="** ** ** ** ** ** **"
+      ng-model="cardinfo.cardnum"
+      >
+    </div>
   </div>
 
   <div class="form-group">
-    <label class="radio-inline">
-      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 卡段
+    <label class="col-md-1 col-md-offset-1 radio-inline ">
+      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" ng-model="cardinfo.type">卡段
     </label>
-    <input type="text" class="form-control" id="inputcardnum1" placeholder="** ** ** ** ** ** **"
-      ng-model="lottry.sevenstart"
-     >
+    <div class="col-md-2">
+      <input type="text" class="form-control" id="inputLottry" placeholder="** ** ** ** ** ** **"
+      ng-model="cardinfo.startnum"
+      >
+    </div>
+    
+    <div class="form-group">
+     <label for="inputLottry" class="control-label col-md-1">到</label>
+      <div class="col-md-2">
+      <input type="text" class="form-control col-md-offset-3" id="inputLottry" placeholder="** ** ** ** ** ** **"
+      ng-model="cardinfo.endnum"
+      >
+      </div>
+    </div>
   </div>
 
-
+  <div class="form-group">
+    <label class="col-md-1 col-md-offset-1 radio-inline ">
+      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3" ng-model="cardinfo.status">全部
+    </label>
+    <div class="col-md-2">
+      <input type="text" class="form-control" id="inputLottry" placeholder="** ** ** ** ** ** **"
+      ng-model="cardinfo.cardnum"
+      >
+    </div>
+  </div>
 
   
+  <div class="form-group">
+  </div>
+    <button type="button" class="col-md-1 col-md-offset-2 btn btn-danger btn-xs" ng-click="resivecard()">释放</button>
+  </div>
+  </div>  
 
+
+ 
+  <div class="form-group">
   
-
+  </div>
  </form>

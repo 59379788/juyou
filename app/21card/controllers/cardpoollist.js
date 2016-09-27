@@ -5,14 +5,25 @@ module.exports = function($scope, $state, cardpoollist){
         $state.go('app.deletecard');
     }
     // 添加卡
-    $scope.add = function()
+    $scope.add = function(poolcode)
     {
-        $state.go('app.addcard');
+        $state.go('app.addcard', {'poolcode':poolcode});
     }
-
-    $scope.release = function()
+    // 添加卡池
+    $scope.addcardpool = function()
     {
-        $state.go('app.releasecard');
+        $state.go('app.addcardpool');
+    }
+    // 释放卡
+    $scope.release = function(poolcode)
+    {
+        $state.go('app.releasecard', {'poolcode':poolcode});
+    }
+    // 修改卡信息
+    $scope.resivecardinfo = function(poolcode)
+    {
+    	//alert('修改卡信息');
+        $state.go('app.resivecardinfo', {'poolcode':poolcode});
     }
 
 

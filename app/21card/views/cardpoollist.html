@@ -1,5 +1,10 @@
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" role="form">  
   <h2>卡池列表</h2>
+
+  <div class="form-group">
+  <button type="button" class="btn btn-primary col-md-1  col-md-offset-10" ng-click="addcardpool()">添加卡池</button>
+  </div>
+
   <div class="col-md-12 panel panel-default table-responsive">
      <table ng-click="getlist()" class="table table-bordered">
 	    <thead>
@@ -21,9 +26,9 @@
 	        </td>
 	        <td class="col-md-4 text-center">
 	        	
-	        	<a ng-click="add()" class="btn btn-default btn-xs">添加卡</a>
-	        	<a class="btn btn-default btn-xs">修改卡信息</a>
-	        	<a ng-click="relase()" class="btn btn-default btn-xs">释放卡</a></td>
+	        	<a ng-click="add(cardpool.pool_code)" class="btn btn-default btn-xs">添加卡</a>
+	        	
+	        	<a ng-click="release(cardpool.pool_code)" class="btn btn-default btn-xs">释放卡</a></td>
 	      </tr>
 	    </tbody>
 	  </table>
