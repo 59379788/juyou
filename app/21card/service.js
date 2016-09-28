@@ -17,6 +17,12 @@ var service = function($resource, BASEURL38985){
     var addcardpool = BASEURL38985 + '/api/as/uc/cardpooldao/save';
     // 释放卡池
     var releasecard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/releasecardpool';
+    // 获取卡段
+    var getcardlist = BASEURL38985 + '/api/as/uc/cardpoolinfodao/findcardcodebypoolcodelist';
+    // 用卡号查询用户信息
+    var cardnumuser = BASEURL38985 + '/api/as/uc/cardproductorder/getUserInfoByCardNo';
+    // 记录拿卡人信息
+    var issuecard = BASEURL38985 + '/api/ac/uc/cardreleaseservice/save';
 
 
 
@@ -53,6 +59,11 @@ var service = function($resource, BASEURL38985){
     var cardproductticketinsert = BASEURL38985 + '/api/as/uc/cardproductsubticket/save';
     //删除票
     var cardproductticketdel = BASEURL38985 + '/api/as/uc/cardproductsubticket/delete';
+
+    // 上架
+    var onsale = BASEURL38985 + '/api/ac/uc/userProductService/shelves';
+    // 下架
+    var goodoffsale = BASEURL38985 + '/api/ac/uc/userProductService/setdown';
     //----- 卡产品 -----------------------//
 
     
@@ -78,6 +89,9 @@ var service = function($resource, BASEURL38985){
         },
         lost : function(){
              return $resource(lost, {}, {});
+        },
+        getcardlist : function(){
+             return $resource(getcardlist, {}, {});
         },
         cardproductlist : function(){
              return $resource(cardproductlist, {}, {});
@@ -114,6 +128,19 @@ var service = function($resource, BASEURL38985){
         },
         cardproductticketdel : function(){
              return $resource(cardproductticketdel, {}, {});
+        },
+        onsale : function(){
+             return $resource(onsale, {}, {});
+        },
+        goodoffsale : function(){
+             return $resource(goodoffsale, {}, {});
+        },
+        
+        cardnumuser : function(){
+             return $resource(cardnumuser, {}, {});
+        },
+        issuecard : function(){
+             return $resource(issuecard, {}, {});
         }
     };
 

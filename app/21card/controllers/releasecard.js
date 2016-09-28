@@ -1,19 +1,8 @@
-module.exports = function($scope,  $stateParams, releasecard){
-
-
-	
-
-    var poolcode = $stateParams.poolcode;
-
-    $scope.cardinfo = {
-    	'status' : '2',
-    	'cardnum' : '',
-    	'startnum' : '',
-    	'endnum' : ''
-
-    };
-
-	$scope.resivecard = function(){
+module.exports = function($scope,  $stateParams, getcardlist){
+   var poolcode = $stateParams.poolcode;
+    
+    console.log(poolcode);
+	/*$scope.resivecard = function(){
 		console.log($scope.cardinfo.status);
 		var cardparem = {'pool_code' : poolcode,'status':$scope.cardinfo.status};
         if ($scope.cardinfo.status === '1') {
@@ -41,6 +30,26 @@ module.exports = function($scope,  $stateParams, releasecard){
 			    	return;
 			    }
      	});                
-	};
+	};*/
+
+    $scope.cardinfo = [];
+    // 获取卡段列表
+	$scope.getcardlist = function(){
+		
+    	getcardlist.save({'pool_code' : poolcode}, function(res){
+			console.log(res);
+			$scope.cardinfos = res.data;
+			console.log($scope.cardinfos);
+			    if (res.errcode !== 0) {
+                   alert(res.errmsg);
+                   return;
+			    } else {
+			    	//alert('12345');
+			    	return;
+			    }
+     	});        
+    	
+    };
+    $scope.getcardlist();
 
 };
