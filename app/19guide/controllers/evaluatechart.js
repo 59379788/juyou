@@ -1,5 +1,5 @@
 module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolist, shakegroupinfolist, 
-	getDate, shakeanswer, questionstatisticlist, peoplerebatelist, shakeevaluateanswerlist){
+	getDate, shakeanswer, questionstatisticlist, peoplerebatelist, shakeevaluateanswerlist, ITEMS_PERPAGE){
 
     $scope.data1 = [];
     $scope.labels = [];
@@ -104,6 +104,38 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
 
         getCompany(type);
     }
+    /* 分页
+     * ========================================= */
+    $scope.maxSize = 5;            //最多显示多少个按钮
+    $scope.bigCurrentPage = 1;      //当前页码
+    $scope.itemsPerPage = 10;         //每页显示几条
+
+    $scope.pageload = function(){
+
+	    var para = {
+            pageNo:$scope.bigCurrentPage, 
+            pageSize:$scope.itemsPerPage
+        };
+
+        para = angular.extend($scope.obj, para);
+
+		peoplerebatelist.save(para, function(res){
+			console.log(res);
+			$scope.peoplestate = '1';
+	        if(res.errcode !== 0)
+	        {
+	            alert("数据获取失败");
+	            return;
+	        }
+	        if(res.data == "")
+        	{
+        		$scope.peoplestate = '0';
+        	}
+	        $scope.peopleobjs = res.data.results;
+	        $scope.bigTotalItems = res.data.totalRecord;
+		        
+	    });
+    }
 
     $scope.load = function(){
     	if($scope.usedate == '1'){
@@ -161,24 +193,12 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
 
 	    });
 
-		peoplerebatelist.save($scope.obj, function(res){
-			//console.log(res);
-			$scope.peoplestate = '1';
-	        if(res.errcode !== 0)
-	        {
-	            alert("数据获取失败");
-	            return;
-	        }
-	        if(res.data == "")
-        	{
-        		$scope.peoplestate = '0';
-        	}
-	        $scope.peopleobjs = res.data;
-		        
-	    });
+		$scope.pageload();
 
     }
     $scope.load();
+
+    
 
     $scope.info = function(openid)
     {

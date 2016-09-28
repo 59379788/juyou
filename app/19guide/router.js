@@ -220,8 +220,12 @@ var router = function($urlRouterProvider, $stateProvider){
         controller : 'evaluatechart3',
         template: require('./views/evaluatechart3.html'),
         resolve:{
-            
-
+        	shakecompanyinfolist : function(guideservice){
+                return guideservice.shakecompanyinfolist();
+            },
+            questionhpllist : function(guideservice){
+                return guideservice.questionhpllist();
+            }
         }
       })
 };
