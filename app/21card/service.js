@@ -56,6 +56,9 @@ var service = function($resource, BASEURL38985){
     //----- 卡产品 -----------------------//
 
     
+    //卡基本信息列表
+    var cardbaselist = BASEURL38985 + 'api/uc/uc/cardBaseService/getAllCardInfo';
+
     return {
         cardpoollist : function(){
              return $resource(cardpoollist, {}, {});
@@ -114,6 +117,9 @@ var service = function($resource, BASEURL38985){
         },
         cardproductticketdel : function(){
              return $resource(cardproductticketdel, {}, {});
+        },
+        cardbaselist : function(){
+             return $resource(cardbaselist, {}, {});
         }
     };
 

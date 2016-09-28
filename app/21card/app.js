@@ -22,6 +22,8 @@ App.controller('resivecardinfo',require('./controllers/resivecardinfo'));
 App.controller('cardproductlist',require('./controllers/cardproductlist'));
 //添加，修改卡产品
 App.controller('cardproduct',require('./controllers/cardproduct'));
+//卡基本信息列表
+App.controller('basecardlist',require('./controllers/basecardlist'));
 
 
 module.exports = App;

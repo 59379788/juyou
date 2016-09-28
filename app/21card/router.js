@@ -142,6 +142,21 @@ var router = function($urlRouterProvider, $stateProvider){
             }
          }
        })
+
+
+
+
+       //卡产品管理
+       .state('app.basecardlist', {
+         url: '/basecardlist',
+         controller : 'basecardlist',
+         template: require('./views/basecardlist.html'),
+         resolve:{
+            cardbaselist : function(cardservice){
+                 return cardservice.cardbaselist();
+            }
+         }
+       })
       
 };
 
