@@ -28,9 +28,9 @@ var router = function($urlRouterProvider, $stateProvider){
          
        })
 
-       // 添加卡池
+       // 添加卡池，修改卡池
        .state('app.addcardpool', {
-         url: '/addcardpool',
+         url: '/addcardpool/:poolcode',
          controller : 'addcardpool',
          template: require('./views/addcardpool.html'),
          resolve:{
@@ -40,6 +40,9 @@ var router = function($urlRouterProvider, $stateProvider){
          }
        })
 
+
+       // 
+
        // 释放卡池里面的卡
        .state('app.releasecard', {
          url: '/releasecard/:poolcode',
@@ -48,7 +51,25 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
             releasecard : function(cardservice){
                  return cardservice.releasecard();
+            },
+            getcardlist : function(cardservice){
+                 return cardservice.getcardlist();
             }
+             
+            
+         }
+       })
+       // 记录发卡信息
+       .state('app.issuecard', {
+         url: '/issuecard/:poolcode',
+         controller : 'issuecard',
+         template: require('./views/issuecard.html'),
+         resolve:{
+            issuecard : function(cardservice){
+                 return cardservice.issuecard();
+            }
+             
+            
          }
        })
 
@@ -64,7 +85,11 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             lost : function(cardservice){
                  return cardservice.lost();
+            },
+            cardnumuser : function(cardservice){
+                 return cardservice.cardnumuser();
             }
+
          }
        })
 
@@ -80,6 +105,7 @@ var router = function($urlRouterProvider, $stateProvider){
             }
          }
        })
+        
 
 
        //卡产品管理
@@ -90,6 +116,25 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
             cardproductlist : function(cardservice){
                  return cardservice.cardproductlist();
+            },
+            onsale : function(cardservice){
+                 return cardservice.onsale();
+            },
+            goodoffsale : function(cardservice){
+                 return cardservice.goodoffsale();
+            }
+         }
+       })
+
+
+       // 产品下架
+       .state('app.offsale', {
+         url: '/offsale',
+         controller : 'offsale',
+         template: require('./views/offsale.html'),
+         resolve:{
+            goodoffsale : function(cardservice){
+                 return cardservice.goodoffsale();
             }
          }
        })

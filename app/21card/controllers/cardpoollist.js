@@ -25,6 +25,11 @@ module.exports = function($scope, $state, cardpoollist){
     	//alert('修改卡信息');
         $state.go('app.resivecardinfo', {'poolcode':poolcode});
     }
+    // 修改卡池信息
+    $scope.resivepoolinfo = function(poolcode)
+    {
+        $state.go('app.addcardpool', {'poolcode':poolcode});
+    }
 
 
     /*$scope.addcardpool = function()
