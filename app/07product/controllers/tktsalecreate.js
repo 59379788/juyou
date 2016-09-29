@@ -53,6 +53,9 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 
 	$scope.saleobj.back_type = 0;
 
+	//是否出票
+	$scope.saleobj.ticket_type = 0;
+
 	var uploader1 = $scope.uploader1 = new FileUploader({
         url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
     });
