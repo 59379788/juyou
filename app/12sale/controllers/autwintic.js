@@ -123,6 +123,8 @@ module.exports = function($scope, search, sale_01, insertWinterTicketOrder, crea
 
 	function clear()
 	{
+		$scope.papersno = '';
+
 		$scope.user = {
 			'mobile' : '',
 			'name' : '',
