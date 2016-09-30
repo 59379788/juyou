@@ -22,13 +22,13 @@
 	        <td class="col-md-2 text-center">{{cardpool.pool_name}}</td>
 	        <td class="col-md-2 text-center">{{cardpool.pool_type}}</td>
 	        <td class="col-md-2 text-center">
-	        	<button type="button" class="btn btn-default btn-xs" ng-click="resivepoolinfo">修改</button>
+	        	<button type="button" class="btn btn-default btn-xs" ng-click="resivepoolinfo(cardpool.pool_code)">修改</button>
 	        </td>
 	        <td class="col-md-4 text-center">
 	        	
 	        	<a ng-click="add(cardpool.pool_code)" class="btn btn-default btn-xs">添加卡</a>
 	        	
-	        	<a ng-click="release(cardpool.pool_code)" class="btn btn-default btn-xs">释放卡</a></td>
+	        	<a ng-click="release(cardpool.pool_code)" class="btn btn-default btn-xs">卡池详情</a></td>
 	      </tr>
 	    </tbody>
 	  </table>

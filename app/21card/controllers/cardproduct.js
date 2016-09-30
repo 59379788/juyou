@@ -105,7 +105,12 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 				return;
 			}
 			alert('保存成功');
-			$state.go('app.cardproduct', {'code' : res.data.uuid});
+
+			if(id === '') 
+			{
+				id = res.data.uuid;
+			}
+			$state.go('app.cardproduct', {'code' : id});
 
 		});
 
