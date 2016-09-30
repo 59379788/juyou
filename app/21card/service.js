@@ -72,7 +72,29 @@ var service = function($resource, BASEURL38985){
     var goodoffsale = BASEURL38985 + '/api/ac/uc/userProductService/setdown';
     //----- 卡产品 -----------------------//
 
+<<<<<<< HEAD
     
+=======
+
+    //卡订单列表
+    var cardproductorderlist = BASEURL38985 + '/api/us/uc/cardproductorder/cardProductOrderList';
+    //卡订单详情
+    var cardproductorderinfo = BASEURL38985 + '/api/us/uc/cardproductorder/cardProductOrderInfo';
+
+
+    //根据电话查看用户信息
+    var getUserInfoByMobile = BASEURL38985 + '/api/ac/uc/userService/getUserInfoByMobile';
+    //根据卡号查看可以激活的产品
+    var getProductByCardNoList = BASEURL38985 + '/api/as/uc/cardproductorder/getProductByCardNoList';
+    //激活卡
+    var createProductOrderByCardNo = BASEURL38985 + '/api/uc/uc/userCardProductOrderService/createProductOrderByCardNo';
+    
+    
+    //卡基本信息列表
+    var cardbaselist = BASEURL38985 + 'api/uc/uc/cardBaseService/getAllCardInfo';
+
+
+>>>>>>> a7838f8a022fad48546be299b18f7ed0a7a7f7d4
     return {
         cardpoollist : function(){
              return $resource(cardpoollist, {}, {});

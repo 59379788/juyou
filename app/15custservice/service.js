@@ -51,6 +51,10 @@ var service = function($resource, BASEURL38985){
     var lotteyUserinfo = BASEURL38985 + '/api/uc/uc/userService/getUserInfoById';
     // 保存中奖人信息
     var saveUserinfo = BASEURL38985 + '/api/ac/ac/winLotteryService/saveweeklottery';
+
+
+    //查看激活码
+    var getActiveCodeByMobile = BASEURL38985 + '/api/ac/uc/userActiveService/getActiveCodeByMobile';
     
     return {
 
@@ -124,6 +128,9 @@ var service = function($resource, BASEURL38985){
 
         saveUserinfo : function(){
             return $resource(saveUserinfo, {}, {});
+        },
+        getActiveCodeByMobile : function(){
+             return $resource(getActiveCodeByMobile, {}, {});
         }
 
        

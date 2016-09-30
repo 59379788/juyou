@@ -257,6 +257,7 @@ var router = function($urlRouterProvider, $stateProvider){
             }
           }   
         })
+
        //卡产品管理
        .state('app.basecardlist', {
          url: '/basecardlist',
@@ -268,7 +269,7 @@ var router = function($urlRouterProvider, $stateProvider){
             }
          }
        })
-      
+       
 };
 
 module.exports = router;

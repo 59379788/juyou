@@ -1,0 +1,46 @@
+<div class="col-md-12 table-responsive">
+	<div class="col-md-12">
+			<br>
+			<div class="col-md-2"></div>
+			<input type="text" style="border: 1px solid #ccc;" ng-model="mobile" placeholder="请输入电话号码">
+	        <button type="button" class="btn btn-primary btn-xs" ng-click="search_activecode(mobile)">
+	          搜索
+	        </button>
+	      	
+	</div>
+	<br>
+  	<div class="col-md-12"></div>
+  	<br>
+  	<br>
+  	<div class="col-md-12">
+  		<h3 class="col-md-12">
+  			信息
+  		</h3>
+  		<br>
+  		<table class="table-bordered col-md-6">
+  			<tr>
+  				<td>
+  					激活码
+  				</td>
+  				<td>
+  					是否删除
+  				</td>
+  				<td>
+  					是否有效
+  				</td>
+  			</tr>
+  			<tr>
+  				<td>
+  					{{activecode_info}}
+  				</td>
+  				<td>
+  					{{status}}
+  				</td>
+  				<td>
+  					{{delflag}}
+  				</td>
+  			</tr>
+  		</table>
+  	</div>
+
+</div>
