@@ -142,6 +142,54 @@ var router = function($urlRouterProvider, $stateProvider){
             }
          }
        })
+
+
+
+
+       //卡订单列表
+       .state('app.cardorderlist', {
+         url: '/cardorderlist',
+         controller : 'cardorderlist',
+         template: require('./views/cardorderlist.html'),
+         resolve:{
+            cardproductorderlist : function(cardservice){
+                 return cardservice.cardproductorderlist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            }
+         }
+       })
+
+       //卡订单详情
+       .state('app.cardorderinfo', {
+         url: '/cardorderinfo/:code',
+         controller : 'cardorderinfo',
+         template: require('./views/cardorderinfo.html'),
+         resolve:{
+            cardproductorderinfo : function(cardservice){
+                 return cardservice.cardproductorderinfo();
+            }
+         }
+       })
+
+       //激活卡
+       .state('app.activationcard', {
+         url: '/activationcard',
+         controller : 'activationcard',
+         template: require('./views/activationcard.html'),
+         resolve:{
+            getUserInfoByMobile : function(cardservice){
+                 return cardservice.getUserInfoByMobile();
+            },
+            getProductByCardNoList : function(cardservice){
+                 return cardservice.getProductByCardNoList();
+            },
+            createProductOrderByCardNo : function(cardservice){
+                 return cardservice.createProductOrderByCardNo();
+            }
+         }
+       })
       
 };
 

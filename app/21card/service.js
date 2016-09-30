@@ -55,6 +55,20 @@ var service = function($resource, BASEURL38985){
     var cardproductticketdel = BASEURL38985 + '/api/as/uc/cardproductsubticket/delete';
     //----- 卡产品 -----------------------//
 
+
+    //卡订单列表
+    var cardproductorderlist = BASEURL38985 + '/api/us/uc/cardproductorder/cardProductOrderList';
+    //卡订单详情
+    var cardproductorderinfo = BASEURL38985 + '/api/us/uc/cardproductorder/cardProductOrderInfo';
+
+
+    //根据电话查看用户信息
+    var getUserInfoByMobile = BASEURL38985 + '/api/ac/uc/userService/getUserInfoByMobile';
+    //根据卡号查看可以激活的产品
+    var getProductByCardNoList = BASEURL38985 + '/api/as/uc/cardproductsubtable/getProductByCardNoList';
+    //激活卡
+    var createProductOrderByCardNo = BASEURL38985 + '/api/uc/uc/userCardProductOrderService/createProductOrderByCardNo';
+    
     
     return {
         cardpoollist : function(){
@@ -114,6 +128,21 @@ var service = function($resource, BASEURL38985){
         },
         cardproductticketdel : function(){
              return $resource(cardproductticketdel, {}, {});
+        },
+        cardproductorderlist : function(){
+             return $resource(cardproductorderlist, {}, {});
+        },
+        cardproductorderinfo : function(){
+             return $resource(cardproductorderinfo, {}, {});
+        },
+        getUserInfoByMobile : function(){
+             return $resource(getUserInfoByMobile, {}, {});
+        },
+        getProductByCardNoList : function(){
+             return $resource(getProductByCardNoList, {}, {});
+        },
+        createProductOrderByCardNo : function(){
+             return $resource(createProductOrderByCardNo, {}, {});
         }
     };
 
