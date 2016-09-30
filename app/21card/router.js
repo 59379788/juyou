@@ -61,9 +61,7 @@ var router = function($urlRouterProvider, $stateProvider){
             listinpool : function(cardservice){
                  return cardservice.listinpool();
             },
-            statuscardlist : function(cardservice){
-                 return cardservice.statuscardlist();
-            },
+           
             statename : function(cardservice){
                  return cardservice.statename;
             }

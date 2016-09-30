@@ -27,8 +27,7 @@ var service = function($resource, BASEURL38985){
     var cardinpool = BASEURL38985 + '/api/as/uc/cardpoolinfodao/getallhavegavebypool';
     // 卡池中卡列表
     var listinpool = BASEURL38985 + '/api/as/uc/cardpoolinfodao/findcardbynumslist';
-    // 状态卡列表
-    var statuscardlist = BASEURL38985 + '';
+    
 
 
 
@@ -72,10 +71,6 @@ var service = function($resource, BASEURL38985){
     var goodoffsale = BASEURL38985 + '/api/ac/uc/userProductService/setdown';
     //----- 卡产品 -----------------------//
 
-<<<<<<< HEAD
-    
-=======
-
     //卡订单列表
     var cardproductorderlist = BASEURL38985 + '/api/us/uc/cardproductorder/cardProductOrderList';
     //卡订单详情
@@ -93,8 +88,6 @@ var service = function($resource, BASEURL38985){
     //卡基本信息列表
     var cardbaselist = BASEURL38985 + 'api/uc/uc/cardBaseService/getAllCardInfo';
 
-
->>>>>>> a7838f8a022fad48546be299b18f7ed0a7a7f7d4
     return {
         cardpoollist : function(){
              return $resource(cardpoollist, {}, {});
@@ -176,9 +169,7 @@ var service = function($resource, BASEURL38985){
         listinpool : function(){
              return $resource(listinpool, {}, {});
         },
-        statuscardlist : function(){
-             return $resource(statuscardlist, {}, {});
-        },
+       
         statename:{ 
         	state:[
     			{name : "未使用" , code : 0 },

@@ -15,7 +15,7 @@ App.controller('addcardpool',require('./controllers/addcardpool'));
 App.controller('addcard',require('./controllers/addcard'));
 App.controller('deletecard',require('./controllers/deletecard'));
 //卡池详情
-App.controller('deletecard',require('./controllers/deletecard'));
+App.controller('releasecard',require('./controllers/releasecard'));
 // 释放卡
 App.controller('relief',require('./controllers/relief'));
 // 修改卡信息
@@ -36,6 +36,8 @@ App.controller('basecardlist',require('./controllers/basecardlist'));
 App.controller('issuecard',require('./controllers/issuecard'));
 // 下架弹出模态框
 App.controller('offsale',require('./controllers/offsale'));
+
+
 
 
 module.exports = App;
