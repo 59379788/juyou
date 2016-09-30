@@ -4,12 +4,18 @@
   <div class="col-sm-6">  
 	  <div class="panel panel-default">
 	    <div class="panel-body form-inline">
-		    <label for="inputLottry" class="control-label">总卡量</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled>
-		    <label for="inputLottry" class="control-label">未使用</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled>
-		    <label for="inputLottry" class="control-label">已使用</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled>
+		    <label for="inputLottry" class="control-label">总卡片数量</label>
+		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled ng-model="cardinfo.allcard">
+		    <label for="inputLottry" class="control-label">未使用数量</label>
+		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled ng-model="cardinfo.can_use_card">
+		    <label for="inputLottry" class="control-label">已锁定数量</label>
+		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled ng-model="cardinfo.lock_card">
+		    <label for="inputLottry" class="control-label">已使用数量</label>
+		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled ng-model="cardinfo.used_card">
+		    <label for="inputLottry" class="control-label">已失效数量</label>
+		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled ng-model="cardinfo.not_avail_card">
+		    <label for="inputLottry" class="control-label">已释放数量</label>
+		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled ng-model="cardinfo.release_card">
 	    </div>
 	  </div>
   </div>
@@ -18,14 +24,12 @@
 	    <div class="panel-body">
 	    	<div class="form-group form-inline mb0">
 	    		<div class="col-sm-10">
-			      <input type="text" class="form-control" ng-model="searchform.name" >
-			      <input type="text" class="form-control" ng-model="searchform.name" >        
-			      <select class="form-control">
-			        <option>未使用</option>
-			        <option>已使用</option>
-			        <option>全部</option>
+			      <input type="text" class="form-control" ng-model="typecard.startnum" placeholder="起始卡号">
+			      <input type="text" class="form-control" ng-model="typecard.endnum" placeholder="结束卡号">        
+			      <select class="form-control" ng-model="typecard.card_status" ng-options="state.code as state.name for state in state">
+			     
 			      </select>
-			      <button type="button" class="btn btn-info new">搜索</button>
+			      <button type="button" class="btn btn-info new" ng-click="search()">搜索</button>
 			    </div>
 		    </div>
 	    </div>
@@ -60,18 +64,42 @@
 	    <thead>
 	      <tr>
 	        <th class="col-md-2 text-center">卡号</th>
-	        <th class="col-md-2 text-center">操作</th>
-	        
+	        <th class="col-md-2 text-center">状态</th>
+	        <th class="col-md-2 text-center">种类</th>
+	        <th class="col-md-2 text-center">发放时间</th>
+	        <th class="col-md-2 text-center">发放目标</th>
 	      </tr>
 	    </thead>
 	    <tbody>
-	     <tr ng-repeat = "cardinfo in cardinfos">
-	       <td class="col-md-2 text-center">{{cardinfo.mincard}}</td>
-	       <td class="col-md-2 text-center">{{cardinfo.maxcard}}</td>
+	     <tr ng-repeat = "cardlist in cardlists">
+	       <td class="col-md-2 text-center">{{cardlist.card_num}}</td>
+	       <td class="col-md-2 text-center">{{cardlist.card_status_name}}</td>
+	       <td class="col-md-2 text-center">{{cardlist.card_type}}</td>
+	       <td class="col-md-2 text-center">{{cardlist.card_giveout_time}}</td>
+	       <td class="col-md-2 text-center">{{cardlist.card_giveout_target}}</td>
 	     </tr>
 	    </tbody>
 	 </table>
-</div>	 
+</div>	
+
+<div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+</div> 
 </div>
 
 
