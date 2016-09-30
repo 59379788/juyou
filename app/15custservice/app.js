@@ -25,6 +25,8 @@ App.controller('destoryticketrecord',require('./controllers/destoryticketrecord'
 App.controller('registercount',require('./controllers/registercount'));
 
 App.controller('openlottery',require('./controllers/openlottery'));
+//查看激活码
+App.controller('activecode',require('./controllers/activecode'));
 
 
 

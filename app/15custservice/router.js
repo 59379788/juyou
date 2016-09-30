@@ -184,6 +184,19 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+
+       //根据电话查看激活码
+       .state('app.activecode', {
+         url: '/activecode',
+         controller : 'activecode',
+         template: require('./user/activecode.html'),
+         resolve:{
+            getActiveCodeByMobile : function(custservice){
+                 return custservice.getActiveCodeByMobile();
+            }
+         }
+       })
+
 };
 
 module.exports = router;

@@ -5,41 +5,16 @@
 
 module.exports = function($scope, $stateParams, getUserInfoByMobile,getProductByCardNoList,createProductOrderByCardNo){
 
-	$scope.card_product = [
-		    		{
-		    			value : "套票一",
-		    			key : 1
-		    		},
-		    		{
-		    			value :  "套票二",
-		    			key : 2
-		    		},
-		    		{
-		    			value :  "套票三",
-		    			key : 3
-		    		},
-		    		{
-		    			value :  "套票四",
-		    			key : 4
-		    		},
-		    		{
-		    			value :  "套票五",
-		    			key : 5
-		    		},
-		    		{
-		    			value :  "套票六",
-		    			key : 6
-		    		}
-		    ];
-		    var cardno;
-			var card_password;
-			var product_code;
-
-		    $scope.creat = function(index){
-		    	if (index<card_product.length&&index>=0) {
-		    		product_code = index;
-		    	}
-			};
+    var cardno;
+	var card_password;
+	var product_code;
+	$scope.card_product = {};
+	// var card_product ;
+    $scope.creat = function(index){
+    	if (index<card_product.length&&index>=0) {
+    		product_code = index;
+    	}
+	};
 
 
 			
@@ -69,10 +44,10 @@ module.exports = function($scope, $stateParams, getUserInfoByMobile,getProductBy
 	$scope.searchcard_product = function(card_num){
 
 		//验证卡号
-		if(!(/\b\d{12}\b/.test(card_num))){ 
-        alert("卡号有误，请重填");  
-        return ; 
-   		};
+		// if(!(/\b\d{12}\b/.test(card_num))){ 
+  //       alert("卡号有误，请重填");  
+  //       return ; 
+  //  		};
 		getProductByCardNoList.save({'card_num' : card_num}, function(res){
 			console.log(card_num);
 			console.log(res);
@@ -81,8 +56,8 @@ module.exports = function($scope, $stateParams, getUserInfoByMobile,getProductBy
 	           alert(res.errmsg);
 	           return;
 		    }
-		    console.log($scope.card_product);
-		    // $scope.card_product = res.data;
+		    $scope.card_product = res.data;
+		    console.log($scope.card_product[0]);
 	 	}); 
 
 	};

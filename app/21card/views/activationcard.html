@@ -63,7 +63,7 @@
 		    </button>
 	      	<h2>可以激活的产品</h2>
 	      	<HR style="border:3 double #987cb9" width="80%" color=#987cb9 SIZE=3>
-	  	<!-- 	<label class="radio-inline">
+	  		<!-- <label class="radio-inline">
 			  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1
 			</label>
 			<label class="radio-inline">
@@ -71,46 +71,50 @@
 			</label>
 			<label class="radio-inline">
 			  <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3
-			</label> -->
+			</label>
 			<div class="col-xs-12">
 				<form class="col-xs-12">
 					<label ng-repeat="obj in card_product" class="col-xs-12">
 						<div class="col-xs-12">
-							<input type="radio" ng-model="obj.value" class="col-xs-1" name="product_info">
-		        	        <div class="col-xs-11">4444<!-- {{obj.value}} --></div>
+							<input type="radio" ng-model="obj.key" class="col-xs-1" name="product_info">
+		        	        <div class="col-xs-11">{{obj.value}}</div>
 						</div>
-		                <!-- <div class="co-xs-10"></div> -->
+		                <div class="co-xs-10"></div>
 	                </label>
-				</form>
-			</div>
-			<div>
-				<!-- <table class="table table-hover table-borderde col-xs-12 text-center">
-					<tr class="col-xs-12 ">
-						<div class="col-xs-6"></div>
-						<td class="col-xs5"></td>
-						<td class="col-xs-1"></td>
-						<td class="col-xs-2">产品</td>
-						<td class="col-xs-1"></td>
-						<td class="col-xs-1">激活</td>
-						<td class="col-xs-2"></td>
-						<div class="col-xs-3"></div>
-					</tr>
-			     	<tr ng-repeat="obj in card_product" class="col-xs-12" >
-			     		<td class="col-xs-1"></td>
-			     		<td class="col-xs-1"></td>
-				        <td class="col-xs-2">{{obj.info}}</td>
-				        <td class="col-xs-1">
-			        	<button ng-click="expression" class="btn btn-primary btn-sm" ng-click="creat($index)">激活此产品</button>
-			        	</td>
-			        	<td class="col-xs-7"></td>
-			     	</tr>
-			     	<tr>
-			      		<td></td>
-			      	</tr>
-			    </table>
-				<div class="col-xs-12"></div>
-				<div class="col-xs-12"></div>
-				<div class="col-xs-12"></div> -->
+				</form> -->
+			</div> 
+			<div class="col-xs-12">
+				<div class="col-xs-12">
+					<table class="table table-hover table-borderde col-xs-12 text-center">
+						<tr class="col-xs-12 ">
+							<div class="col-xs-6"></div>
+							<td class="col-xs5"></td>
+							<td class="col-xs-1"></td>
+							<td class="col-xs-2">产品</td>
+							<td class="col-xs-1"></td>
+							<td class="col-xs-1">激活</td>
+							<td class="col-xs-2"></td>
+							<div class="col-xs-3"></div>
+						</tr>
+				     	<tr ng-repeat="obj in card_product" class="col-xs-12" >
+				     		<td class="col-xs-1"></td>
+				     		<td class="col-xs-1"></td>
+					        <td class="col-xs-2">
+					        	{{obj.name}}
+					        </td>
+					        <td class="col-xs-1">
+				        	<button ng-click="expression" class="btn btn-primary btn-sm" ng-click="creat($index)">激活此产品</button>
+				        	</td>
+				        	<td class="col-xs-7"></td>
+				     	</tr>
+				     	<tr>
+				      		<td></td>
+				      	</tr>
+			    	</table>
+					<div class="col-xs-12"></div>
+					<div class="col-xs-12"></div>
+					<div class="col-xs-12"></div>
+				</div>
 
 				<div class="col-xs-12">
 					<div class="col-xs-12"></div>
