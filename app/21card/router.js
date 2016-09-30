@@ -49,9 +49,9 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'releasecard',
          template: require('./views/releasecard.html'),
          resolve:{
-            releasecard : function(cardservice){
+            /*releasecard : function(cardservice){
                  return cardservice.releasecard();
-            },
+            },*/
             getcardlist : function(cardservice){
                  return cardservice.getcardlist();
             },
@@ -84,8 +84,19 @@ var router = function($urlRouterProvider, $stateProvider){
          }
        })
 
-       // 修改卡信息
+       // 释放卡
+       .state('app.relief', {
+         url: '/relief/:poolcode',
+         controller : 'relief',
+         template: require('./views/relief.html'),
+         resolve:{
+            releasecard : function(cardservice){
+                 return cardservice.releasecard();
+            }
+         }
+       })
 
+       // 修改卡信息
        .state('app.resivecardinfo', {
          url: '/resivecardinfo/:poolcode',
          controller : 'resivecardinfo',

@@ -49,6 +49,7 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool, staten
 			    	return;
 			    }
      	});  
+     	// 卡池中卡数量
      	cardinpool.save({'pool_code' : poolcode}, function(res){
 			console.log(res);
 			$scope.cardinfo = res.data;

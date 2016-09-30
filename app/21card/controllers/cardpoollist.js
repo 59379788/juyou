@@ -14,10 +14,16 @@ module.exports = function($scope, $state, cardpoollist){
     {
         $state.go('app.addcardpool');
     }
-    // 释放卡
+    // 卡池详情
     $scope.release = function(poolcode)
     {
         $state.go('app.releasecard', {'poolcode':poolcode});
+    }
+    // 释放卡
+    $scope.relief = function(poolcode)
+    {
+        $state.go('app.relief', {'poolcode':poolcode});
+        alert('shifang');
     }
     // 修改卡信息
     $scope.resivecardinfo = function(poolcode)
