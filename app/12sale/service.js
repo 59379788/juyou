@@ -46,6 +46,16 @@ var service = function($resource, BASEURL38985, $q, $http){
 
     var delsignup = BASEURL38985 + '/api/ac/tc/ticketGroupOrderService/deletesignup';
 
+    //2016秋冬套票
+    //通过身份证查询用户信息
+    var search  = BASEURL38985  + '/api/uc/uc/userActiveService/getUserInfoByPapersno';
+
+    //实名用户购票
+    var sale_01  = BASEURL38985 + "/api/ac/uc/userActiveService/insertWinterTicket";
+
+    //非实名用户购
+    var insertWinterTicketOrder  = BASEURL38985 + "/api/ac/uc/userActiveService/insertWinterTicketOrder";
+
 
     
     return {
@@ -125,8 +135,16 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         delsignup : function(){
             return $resource(delsignup, {}, {});
+        },
+        search : function(){
+            return $resource(search, {}, {});
+        },
+        sale_01 : function(){
+            return $resource(sale_01, {}, {});
+        },
+        insertWinterTicketOrder : function(){
+            return $resource(insertWinterTicketOrder, {}, {});
         }
-       
     };
 
 };

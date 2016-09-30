@@ -186,7 +186,7 @@ var router = function($urlRouterProvider, $stateProvider){
         controller : 'sellinggroupsignup',
         template: require('./views/sellinggroupsignup.html'),
         resolve:{
-        	goodlist : function(sellingservice){
+            goodlist : function(sellingservice){
                 return sellingservice.goodlist();
             },
             getattrbycode : function(sellingservice){
@@ -197,6 +197,26 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             signup : function(sellingservice){
                 return sellingservice.signup();
+            }
+        }
+      })
+
+      .state('app.autwintic', {
+        url: '/autwintic',
+        controller : 'autwintic',
+        template: require('./views/autwintic.html'),
+        resolve:{
+            search : function(sellingservice){
+                return sellingservice.search();
+            },
+            sale_01 : function(sellingservice){
+                return sellingservice.sale_01();
+            },
+            insertWinterTicketOrder : function(sellingservice){
+                return sellingservice.insertWinterTicketOrder();
+            },
+            createOrder : function(sellingservice){
+                return sellingservice.createOrder();
             }
         }
       })
