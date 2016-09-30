@@ -285,6 +285,43 @@
 				  	</div>
 
 				  	<div class="form-group">
+					    <label class="col-xs-3 control-label">是否允许退票</label>
+					    <div class="col-xs-9">
+					    	<label class="radio-inline">
+							  <input type="radio" name="back_type" value="0"
+							  ng-model="saleobj.back_type"
+							  > 允许
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="back_type" value="1"
+							  ng-model="saleobj.back_type"
+							  > 不允许
+							</label>
+					    </div>
+				  	</div>
+
+				  	<div class="form-group">
+					    <label class="col-xs-3 control-label">是否出票</label>
+					    <div class="col-xs-2">
+					    	<label class="radio-inline">
+							  <input type="radio" name="ticket_type" value="0"
+							  ng-model="saleobj.ticket_type"
+							  > 出票
+							</label>
+							<label class="radio-inline">
+							  <input type="radio" name="ticket_type" value="8"
+							  ng-model="saleobj.ticket_type"
+							  > 不出票
+							</label>
+					    </div>
+					    <div class="col-xs-7">
+					      <p class="form-control-static text-danger" >
+					      该选项请慎重使用，如果选择’不出票‘该销售品将不会出票也不发短信！</p>
+					    </div>
+				  	</div>
+
+
+				  	<div class="form-group">
 						<label class="col-xs-3 control-label">团产品-预定须知</label>
 						<div class="col-xs-9">
 							<textarea class="form-control" rows="3"

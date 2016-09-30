@@ -1,0 +1,112 @@
+<div class="col-xs-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+              <div class="row">
+                  <input type="text" class="form-control" ng-model="searchform.mobile" placeholder="电话">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.username" placeholder="姓名">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.paperno" placeholder="身份证">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.code" 
+                  placeholder="订单编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.product_code" placeholder="销售品编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+              </div>
+              <div class="row mt10">
+                  <input type="text" class="form-control" ng-model="searchform.cardno" placeholder="卡号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.seller_code" placeholder="销售者编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <div class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                  </div>
+                        &nbsp;&nbsp;到&nbsp;&nbsp;            
+                  <div class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                  </div>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                  <button type="button" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
+
+              </div>   
+
+
+
+
+                 
+
+
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+<table class="table table-hover table-bordered">
+  <thead>
+    <tr>
+      <th class="col-xs-1 text-center">姓名</th>
+      <th class="col-xs-1 text-center">电话</th>
+      <th class="col-xs-2 text-center">身份证</th>
+      <th class="col-xs-3 text-center">卡号</th>
+      <th class="col-xs-2 text-center">订单编码</th>
+      <th class="col-xs-2 text-center">创建时间</th>
+      <th class="col-xs-1 text-center">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="obj in objs">
+      <td class="text-center">{{obj.username}}</td>
+      <td class="text-center">{{obj.mobile}}</td>
+      <td class="text-center">{{obj.papersno}}</td>
+      <td class="text-center">{{obj.cardno}}</td>
+      <td class="text-center">{{obj.code}}</td>
+      <td class="text-center">{{obj.create_time}}</td>
+      <td class="text-center">
+        <button type="button" class="btn btn-primary btn-sm" ng-click="info(obj.code)">
+          查看详情
+        </button>
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+  <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div>
+
+
+</div>
