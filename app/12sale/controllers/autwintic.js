@@ -8,6 +8,11 @@ module.exports = function($scope, search, sale_01, insertWinterTicketOrder, crea
 
 	var txt = ['未实名', '实名制会员'];
 
+	//可用
+    $scope.btnstate = true;
+    $scope.notrelbtnstate = true;
+    $scope.relbtnstate = true;
+
 	$scope.searchinfo = function () {
 
 		$scope.user = {
@@ -45,18 +50,23 @@ module.exports = function($scope, search, sale_01, insertWinterTicketOrder, crea
 
 	$scope.buynotrealname = function(){
 
+		$scope.notrelbtnstate = false;
+
 		insertWinterTicketOrder.save({'mobile':$scope.user.mobile}, function(res){
 
 			console.log(res);
 
 	        if (res.errcode !== 0) {
 	       		alert(res.errmsg);
+	       		$scope.notrelbtnstate = true;
 	       		return;
 	       	}
 
 	       	alert('发送成功');
 
 			clear();
+
+			$scope.notrelbtnstate = true;
 
 	    });
 
@@ -66,18 +76,23 @@ module.exports = function($scope, search, sale_01, insertWinterTicketOrder, crea
 
 	$scope.buyrealname = function(){
 
+		$scope.relbtnstate = false;
+
 		sale_01.save({'mobile':$scope.user.mobile}, function(res){
 
 			console.log(res);
 
 	        if (res.errcode !== 0) {
 	       		alert(res.errmsg);
+	       		$scope.relbtnstate = true;
 	       		return;
 	       	}
 
 	       	alert('购买成功');
 
 			clear();
+
+			$scope.relbtnstate = true;
 
 	    });
 
@@ -91,6 +106,9 @@ module.exports = function($scope, search, sale_01, insertWinterTicketOrder, crea
 			alert('请收入手机号');
 			return;
 		}
+
+		$scope.btnstate = false;
+
 		console.log({
 			'mobile' : $scope.user.mobile, 
 			'cardno' : $scope.papersno, 
@@ -109,12 +127,15 @@ module.exports = function($scope, search, sale_01, insertWinterTicketOrder, crea
 			if(res.errcode !== 0)
 			{
 				alert(res.errmsg);
+				$scope.btnstate = true;
 				return;
 			}
 
 			alert('购买成功');
 
 			clear();
+
+			$scope.btnstate = true;
 		});
 
 

@@ -39,12 +39,15 @@
 		   <div class="panel-body">
 		    <button type="button" class="btn btn-warning btn-block"
 			ng-show="user.what === '0'" ng-click="buynotrealname()"
+			ng-disabled="!notrelbtnstate"
 		    >发送激活码（50元）</button>
 			<button type="button" class="btn btn-primary btn-block"
 			ng-show="user.what === '1'" ng-click="buyrealname()"
+			ng-disabled="!relbtnstate"
 			>发送套票（50元）</button>
 			<button type="button" class="btn btn-danger btn-block"
 			ng-click="buy90()"
+			ng-disabled="!btnstate"
 			>直接购票（90元）</button>
 		   </div>
 		</div>
