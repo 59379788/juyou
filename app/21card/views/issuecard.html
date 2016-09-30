@@ -4,10 +4,10 @@
  <div class="form-group">
  <label for="inputDate" class="col-sm-2 control-label">类型：</label>
  <label class="col-md-1 radio-inline ">
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" ng-model="cardinfo.type">拿卡
+        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" ng-model="userinfo.type">拿卡
         </label>
  <label class="col-md-1 radio-inline ">
-            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="cardinfo.type">退卡
+            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="userinfo.type">退卡
         </label>
  </div>
  
@@ -64,7 +64,7 @@
  <label for="inputDate" class="col-sm-2 control-label">拿卡数量：</label>
  <div class="col-md-3">
  <p type="text" class="form-control" id="inputpoolname" 
-      ng-model="userinfo.cardnum">
+      ng-model="userinfo.num">
        {{userinfo.end_card_no - userinfo.start_card_no + 1}} </p>
       
  </div>    

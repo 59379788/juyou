@@ -23,6 +23,12 @@ var service = function($resource, BASEURL38985){
     var cardnumuser = BASEURL38985 + '/api/as/uc/cardproductorder/getUserInfoByCardNo';
     // 记录拿卡人信息
     var issuecard = BASEURL38985 + '/api/ac/uc/cardreleaseservice/save';
+    // 卡池中卡的数量
+    var cardinpool = BASEURL38985 + '/api/as/uc/cardpoolinfodao/getallhavegavebypool';
+    // 卡池中卡列表
+    var listinpool = BASEURL38985 + '/api/as/uc/cardpoolinfodao/findcardbynumslist';
+    // 状态卡列表
+    var statuscardlist = BASEURL38985 + '';
 
 
 
@@ -176,6 +182,25 @@ var service = function($resource, BASEURL38985){
         },
         issuecard : function(){
              return $resource(issuecard, {}, {});
+        },
+        cardinpool : function(){
+             return $resource(cardinpool, {}, {});
+        },
+        listinpool : function(){
+             return $resource(listinpool, {}, {});
+        },
+        statuscardlist : function(){
+             return $resource(statuscardlist, {}, {});
+        },
+        statename:{ 
+        	state:[
+    			{name : "未使用" , code : 0 },
+    			{name : "锁定" , code : 1 },
+    			{name : "已生效" , code : 2 },
+    			{name : "已失效" , code : 3 },
+    			{name : "已释放" , code : 4 },
+    			{name : "全部" , code : '' },
+        	]
         }
     };
 

@@ -43,7 +43,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
        // 
 
-       // 释放卡池里面的卡
+       // 释放卡池里面的卡(卡池详情)
        .state('app.releasecard', {
          url: '/releasecard/:poolcode',
          controller : 'releasecard',
@@ -54,8 +54,19 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getcardlist : function(cardservice){
                  return cardservice.getcardlist();
+            },
+            cardinpool : function(cardservice){
+                 return cardservice.cardinpool();
+            },
+            listinpool : function(cardservice){
+                 return cardservice.listinpool();
+            },
+            statuscardlist : function(cardservice){
+                 return cardservice.statuscardlist();
+            },
+            statename : function(cardservice){
+                 return cardservice.statename;
             }
-             
             
          }
        })
