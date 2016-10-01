@@ -327,7 +327,7 @@ var router = function($urlRouterProvider, $stateProvider){
          }
        })
 
-        // 根据条件查询基本卡
+        /*/ 根据条件查询基本卡
         .state('app.searchcard', {
          url: '/searchcard/',
          controller : 'searchcard',
@@ -337,7 +337,7 @@ var router = function($urlRouterProvider, $stateProvider){
                  return cardservice.searchcard();
              } 
             
-       })
+       })*/
        
 };
 
