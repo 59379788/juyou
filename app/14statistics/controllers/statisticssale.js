@@ -5,6 +5,8 @@ module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE,
 
     $scope.searchform.seltype = '0';
 
+    $scope.showtype = '0';
+
     $scope.total = {
         'buy' : 0,
         'used' : 0,
@@ -23,6 +25,18 @@ module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE,
     $scope.open = function(obj) {
         obj.opened = true;
     };
+
+    $scope.changetype = function () {
+    	if($scope.searchform.seltype == '0'){
+    		$scope.showtype = '0';
+    		$scope.section.start.date = new Date();
+    		$scope.section.end.date = new Date();
+    	}else{
+    		$scope.showtype = '1';
+    		$scope.section.start.date = new Date();
+    		$scope.section.end.date = new Date();
+    	}
+    }
 
     /* 分页
      * ========================================= */

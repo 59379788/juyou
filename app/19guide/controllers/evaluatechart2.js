@@ -91,9 +91,9 @@ module.exports = function($scope, shakecompanyinfolist, totalevaluatejqlist){
 				}
 			}
 		}
-    	//console.log($scope.obj);
+    	console.log($scope.obj);
     	totalevaluatejqlist.get($scope.obj, function(res){
-            //console.log(res.data);
+            console.log(res.data);
 	        if(res.errcode !== 0)
 	        {
 	            alert(res.errmsg);
