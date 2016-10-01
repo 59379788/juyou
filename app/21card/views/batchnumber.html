@@ -1,0 +1,35 @@
+<form class="form-horizontal" role="form">
+<h2>设置批次号</h2>
+<div class="col-md-8">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+              <label class="col-md-1 radio-inline ">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0" ng-model="cardinfo.cardstatu">单张</label>
+              <input type="text" class="col-md-2 form-control" id="inputLottry" placeholder="卡号"
+                   ng-model="cardinfo.cardnum">
+              <div>
+              <label class="col-md-1 col-md-offset-1 radio-inline ">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" ng-model="cardinfo.cardstatu">卡段</label>
+              </div>
+              <input type="text" class="form-control" id="inputLottry" placeholder="起始卡号"
+                   ng-model="cardinfo.startcard">
+              <input type="text" class="form-control" id="inputLottry" placeholder="结束卡号"
+                   ng-model="cardinfo.endnum">
+
+
+                  
+                  <button type="button" class="btn btn-default search pull-right" ng-click="setbatch()">确定设置</button>
+
+
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+
+  
+
+</form>

@@ -1,0 +1,93 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                  <input type="text" class="form-control" ng-model="searchform.startcard" placeholder="起始卡号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="searchform.endcard" placeholder="结束卡号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="searchform.cardbatch" placeholder="批次号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <select class="form-control" ng-model="searchform.cardgivetatus">
+                    <option value="">全部</option>
+                    <option value="0">未发放</option>
+                    <option value="1">已发放</option>
+                  </select>
+                  <select class="form-control" ng-model="searchform.cardmakestatus">
+                    <option value="">全部</option>
+                    <option value="0">未制作</option>
+                    <option value="2">制作中</option>
+                    <option value="1">已制作</option>
+                  </select>
+                  
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="searchcard()">立即搜索</button>
+
+
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-3 text-center">卡号</th>
+        <th class="col-md-3 text-center">批次</th>
+        <th class="col-md-2 text-center">卡状态</th>
+        <th class="col-md-2 text-center">制作状态</th>
+        <th class="col-md-2 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in searchobj">
+        <td class="text-center">{{obj.cardno}}</td>
+        <td class="text-center">{{obj.card_make_batch}}</td>
+        <td class="text-center">
+          {{obj.card_giveout_statusname}}<br>
+          {{obj.card_add_time}}
+        </td>
+        <td class="text-center">
+          {{obj.card_make_statusname}}<br>
+          {{obj.card_make_time}}
+        </td>
+        <td class="text-center">
+          <a ng-show="obj.card_giveout_statusname=='未发放' && obj.card_make_statusname=='未制作'" ng-click="batchnumber(obj.id)" class="btn btn-info btn-xs">设置批次号</a>
+
+          <a ng-show="obj.card_giveout_statusname=='未发放' && obj.card_make_statusname=='制作中'"
+          ng-click="cardcomplete(obj.card_make_batch)" class="btn btn-danger btn-xs">制卡完成</a>
+
+          <a ng-show="obj.card_giveout_statusname=='未发放' && obj.card_make_statusname=='已制作'"
+          ng-click="addtocardpool(obj.code)" class="btn btn-success btn-xs">添加到卡池</a>
+
+          
+
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+<!--   <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div> -->
+  
+
+</div>
