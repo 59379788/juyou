@@ -36,8 +36,14 @@ App.controller('basecardlist',require('./controllers/basecardlist'));
 App.controller('issuecard',require('./controllers/issuecard'));
 // 下架弹出模态框
 App.controller('offsale',require('./controllers/offsale'));
-
-
-
-
+// 基本卡添加到卡池
+App.controller('addtocardpool',require('./controllers/addtocardpool'));
+// 设置批次号
+App.controller('batchnumber',require('./controllers/batchnumber'));
+// 制卡完成
+App.controller('cardcomplete',require('./controllers/cardcomplete'));
+// 状态改变
+App.controller('unissued',require('./controllers/unissued'));
+// 根据条件查询基本卡
+App.controller('searchcard',require('./controllers/searchcard'));
 module.exports = App;

@@ -178,8 +178,8 @@ var router = function($urlRouterProvider, $stateProvider){
             peoplerebatelist : function(guideservice){
                 return guideservice.peoplerebatelist();
             },
-            shakeevaluateanswerlist : function(guideservice){
-                return guideservice.shakeevaluateanswerlist();
+            shakeanswerslist : function(guideservice){
+                return guideservice.shakeanswerslist();
             }
         }
       })
@@ -197,6 +197,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             totalevaluatelist : function(guideservice){
                 return guideservice.totalevaluatelist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
             }
         }
       })
@@ -209,8 +212,11 @@ var router = function($urlRouterProvider, $stateProvider){
             shakecompanyinfolist : function(guideservice){
                 return guideservice.shakecompanyinfolist();
             },
-            totalevaluatejqlist : function(guideservice){
-                return guideservice.totalevaluatejqlist();
+            totalevaluatelist : function(guideservice){
+                return guideservice.totalevaluatelist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
             }
         }
       })

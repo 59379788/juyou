@@ -4,7 +4,7 @@ module.exports = function($scope, $state, cardpoollist){
     {
         $state.go('app.deletecard');
     }
-    // 添加卡
+    // 往卡池里添加卡
     $scope.add = function(poolcode)
     {
         $state.go('app.addcard', {'poolcode':poolcode});

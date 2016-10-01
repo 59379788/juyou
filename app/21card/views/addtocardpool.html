@@ -1,11 +1,16 @@
 <form class="form-horizontal" role="form">
-<h2>添加卡</h2>   
-<div class="col-md-8">
+<h2>添加到卡池</h2>
+  
+<div class="col-md-12">
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
-              <label class="col-md-1 radio-inline ">
+
+              <label for="inputLottry" class="col-md-1 control-label">卡池编号</label>
+              <input type="text" class="col-md-4 form-control" id="inputLottry" placeholder="卡池编号"
+                   ng-model="cardinfo.pool_code">
+              <label class="col-md-1 col-md-offset-1 radio-inline ">
               <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="cardinfo.type">单张</label>
               <input type="text" class="col-md-2 form-control" id="inputLottry" placeholder="卡号"
                    ng-model="cardinfo.cardnum">
@@ -20,7 +25,7 @@
 
 
                   
-                  <button type="button" class="btn btn-default search pull-right" ng-click="addcard()">添加卡</button>
+                  <button type="button" class="btn btn-default search pull-right" ng-click="addcard()">确定添加</button>
 
 
             </div>
@@ -28,5 +33,7 @@
     </div>
 </div><!-- searchArea -->
 
+
+  
 
 </form>
