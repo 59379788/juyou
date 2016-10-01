@@ -3,12 +3,9 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
-                  <input type="text" class="form-control" ng-model="searchform.title" placeholder="卡产品名称">
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-
-
-                  <button type="button" class="btn btn-default search pull-right" ng-click="create()">创建卡产品</button>
-                  <button type="button" class="btn btn-default search pull-right" ng-click="search()">立即搜索</button>
+                  
+                  
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="searchcard(searchform.startcard)">卡段详情</button>
 
 
             </div>
@@ -40,11 +37,17 @@
           {{obj.card_make_time}}
         </td>
         <td class="text-center">
-          <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑</a>
-          <a ng-show="obj.state=='0' || obj.state=='2'"
-          ng-click="start(obj.code)" class="btn btn-danger btn-xs">上架</a>
-          <a ng-show="obj.state=='1'"
-          ng-click="stop(obj.code)" class="btn btn-success btn-xs">下架</a>
+          <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='未制作'" ng-click="batchnumber(obj.id)" class="btn btn-info btn-xs">设置批次号</a>
+
+          <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='制作中'"
+          ng-click="cardcomplete(obj.card_make_batch)" class="btn btn-danger btn-xs">制卡完成</a>
+
+          <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='已制作'"
+          ng-click="addtocardpool(obj.code)" class="btn btn-success btn-xs">添加到卡池</a>
+
+          
+
+          
         </td>
       </tr>
     </tbody>

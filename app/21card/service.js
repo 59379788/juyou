@@ -87,6 +87,12 @@ var service = function($resource, BASEURL38985){
     
     //卡基本信息列表
     var cardbaselist = BASEURL38985 + 'api/uc/uc/cardBaseService/getAllCardInfo';
+    // 设置批次号
+    var batchnumber = BASEURL38985 + '/api/ac/uc/cardBaseService/updateNewCardBatch';
+    // 修改制卡状态完成
+    var changestatus = BASEURL38985 + '/api/ac/uc/cardBaseService/updateNewCardFinStatu';
+    // 根据条件查询基本卡
+    var searchcard = BASEURL38985 + '/api/ac/uc/cardBaseService/getCardByCardnostatus';
 
     return {
         cardpoollist : function(){
@@ -179,7 +185,20 @@ var service = function($resource, BASEURL38985){
     			{name : "已释放" , code : 4 },
     			{name : "全部" , code : '' },
         	]
+        },
+        cardbaselist : function(){
+             return $resource(cardbaselist, {}, {});
+        },
+        batchnumber : function(){
+             return $resource(batchnumber, {}, {});
+        },
+        changestatus : function(){
+             return $resource(changestatus, {}, {});
+        },
+        searchcard : function(){
+             return $resource(searchcard, {}, {});
         }
+
     };
 
 };

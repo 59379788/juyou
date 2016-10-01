@@ -1,51 +1,36 @@
 <form class="form-horizontal" role="form">
 <h2>释放卡</h2>
-  <div class="form-group">
-    <label class="col-md-1 col-md-offset-1 radio-inline ">
-      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="cardinfo.status">单张
-    </label>
-    <div class="col-md-2">
-      <input type="text" class="form-control" id="inputLottry" placeholder="** ** ** ** ** ** **"
-      ng-model="cardinfo.cardnum"
-      >
+<div class="col-md-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+              
+              <label class="col-md-1 radio-inline ">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="cardinfo.status">单张</label>
+              <input type="text" class="col-md-1 form-control" id="inputLottry" placeholder="卡号"
+                   ng-model="cardinfo.cardnum">
+              
+              <label class="col-md-1 col-md-offset-1 radio-inline ">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" ng-model="cardinfo.status">号段</label>
+              <input type="text" class="col-md-2 form-control" id="inputLottry" placeholder="起始卡号"
+                   ng-model="cardinfo.startnum">
+                   <input type="text" class="col-md-2 form-control" id="inputLottry" placeholder="结束卡号"
+                   ng-model="cardinfo.endnum">
+
+              <label class="col-md-1 col-md-offset-1 radio-inline ">
+              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3" ng-model="cardinfo.status">全部</label>
+              
+              
+              
+                  
+                  <button type="button" class="btn btn-default search pull-right" ng-click="resivecard()">释放</button>
+
+
+            </div>
+        </div>
     </div>
-  </div>
-
-  <div class="form-group">
-    <label class="col-md-1 col-md-offset-1 radio-inline ">
-      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" ng-model="cardinfo.status">卡段
-    </label>
-    <div class="col-md-1">
-      <input type="text" class="form-control" id="inputLottry" placeholder="起始卡号"
-      ng-model="cardinfo.startnum"
-      >
-    </div>
-    
-    <div class="form-group"> 
-      <div class="col-md-1">
-      <input type="text" class="form-control col-md-offset-2" id="inputLottry" placeholder="结束卡号"
-      ng-model="cardinfo.endnum"
-      >
-      </div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label class="col-md-1 col-md-offset-1 radio-inline ">
-      <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3" ng-model="cardinfo.status">全部
-    </label>   
-  </div>
-
-  
-  <div class="form-group">
-   </div>
-    <button type="button" class="col-md-1 col-md-offset-2 btn btn-danger" ng-click="resivecard()">释放</button>
-   </div>
-  </div>  
+</div><!-- searchArea -->
 
 
- 
-  <div class="form-group">
-  
-  </div>
 </form>
