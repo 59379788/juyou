@@ -44,7 +44,7 @@ var service = function($resource, BASEURL38985){
     var agencyOrderRepeatECode = BASEURL38985 + '/api/ac/dc/huaxiapl/agencyOrderRepeatECode';
 
     //生效时间
-    var updateTicketEffectTime = BASEURL38985 + '/api/ac/sc/menuService/menulist';
+    var updateTicketEffectTime = BASEURL38985 + '/api/as/tc/ticket2/updateTicketEffectTime';
 
 
     return {
