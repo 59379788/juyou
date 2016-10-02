@@ -256,17 +256,88 @@ var router = function($urlRouterProvider, $stateProvider){
           }   
         })
 
-       //卡产品管理
+       //卡基本信息
        .state('app.basecardlist', {
          url: '/basecardlist',
          controller : 'basecardlist',
          template: require('./views/basecardlist.html'),
          resolve:{
-            // cardbaselist : function(cardservice){
-            //      return cardservice.cardbaselist();
-            // }
+         	
+            cardbaselist : function(cardservice){
+                 return cardservice.cardbaselist();
+            },
+            cardproductlist:function(cardservice){
+                 return cardservice.cardproductlist();
+            },
+            searchcard : function(cardservice){
+                 return cardservice.searchcard();
+             }
+            
          }
        })
+
+       //卡基本信息添加到卡池
+       .state('app.addtocardpool', {
+         url: '/addtocardpool',
+         controller : 'addtocardpool',
+         template: require('./views/addtocardpool.html'),
+         resolve:{
+            addcard : function(cardservice){
+                 return cardservice.addcard();
+             }
+         }
+       })
+
+       //设置批次号 
+       .state('app.batchnumber', {
+         url: '/batchnumber',
+         controller : 'batchnumber',
+         template: require('./views/batchnumber.html'),
+         resolve:{
+            // 释放卡（置为未发放）
+            batchnumber : function(cardservice){
+                 return cardservice.batchnumber();
+             }
+         }
+       })
+
+       // 置为未发放
+       .state('app.unissued', {
+         url: '/unissued',
+         controller : 'unissued',
+         template: require('./views/unissued.html'),
+         resolve:{
+            // 释放卡（置为未发放）
+            releasecard : function(cardservice){
+                 return cardservice.releasecard();
+             }
+         }
+       })
+        
+        // 更改制作状态
+        .state('app.cardcomplete', {
+         url: '/cardcomplete/:cardmakebatch',
+         controller : 'cardcomplete',
+         template: require('./views/cardcomplete.html'),
+         resolve:{
+            // 置为已制作
+            changestatus : function(cardservice){
+                 return cardservice.changestatus();
+             }
+         }
+       })
+
+        /*/ 根据条件查询基本卡
+        .state('app.searchcard', {
+         url: '/searchcard/',
+         controller : 'searchcard',
+         template: require('./views/searchcard.html'),
+         resolve:{
+           searchcard : function(cardservice){
+                 return cardservice.searchcard();
+             } 
+            
+       })*/
        
 };
 

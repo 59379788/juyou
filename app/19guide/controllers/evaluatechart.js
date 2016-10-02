@@ -1,5 +1,5 @@
 module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolist, shakegroupinfolist, 
-	getDate, shakeanswer, questionstatisticlist, peoplerebatelist, shakeevaluateanswerlist, ITEMS_PERPAGE){
+	getDate, shakeanswer, questionstatisticlist, peoplerebatelist, shakeanswerslist, ITEMS_PERPAGE){
 
     $scope.data1 = [];
     $scope.labels = [];
@@ -96,17 +96,13 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
     $scope.changeCompany = function(type){
     	if($scope.obj.binding_type == '1'){
     		$scope.xx = '1';
-    		$scope.obj.binding_time = getDate($scope.section.start.date);
     	}else{
 			$scope.xx = $scope.obj.binding_type;
-			$scope.obj.binding_time = '';
     	}
 
     	if($scope.obj.binding_type == null){
     		$scope.obj.binding_company_code = '';
     		$scope.obj.binding_code = '';
-    		$scope.section.start.date = new Date();
-    		$scope.usedate = '0';
     	}
 
         getCompany(type);
@@ -125,7 +121,7 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
         };
 
         para = angular.extend($scope.obj, para);
-
+console.log(para);
 		peoplerebatelist.save(para, function(res){
 			console.log(res.data);
 			$scope.peoplestate = '1';
@@ -146,11 +142,11 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
 
     $scope.load = function(){
     	if($scope.usedate == '1'){
-    		$scope.obj.binding_time = getDate($scope.section.start.date);
+    		$scope.obj.create_time = getDate($scope.section.start.date);
     	}else{
-    		$scope.obj.binding_time = '';
+    		$scope.obj.create_time = '';
     	}
-    	//console.log($scope.obj);
+    	console.log($scope.obj);
     	questionstatisticlist.save($scope.obj, function(res){
 	        var tkt = new Object();
 	        var restkt = new Array();
@@ -217,8 +213,8 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
             openid : function(){
                 return openid;
             },
-            shakeevaluateanswerlist : function(){
-                return shakeevaluateanswerlist;
+            shakeanswerslist : function(){
+                return shakeanswerslist;
             } 
           }
         });
