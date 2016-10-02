@@ -5,9 +5,9 @@
 
 var router = function($urlRouterProvider, $stateProvider){
 
- 	$stateProvider
+    $stateProvider
 
- 	  .state('app.selling', {
+      .state('app.selling', {
         url: '/selling/:type',
         controller : 'selling',
         template: require('./views/selling.html'),
@@ -172,7 +172,7 @@ var router = function($urlRouterProvider, $stateProvider){
         controller : 'sellinggroupinfo',
         template: require('./views/sellinggroupinfo.html'),
         resolve:{
-        	infolist : function(sellingservice){
+            infolist : function(sellingservice){
                 return sellingservice.infolist();
             },
             cancleGroup : function(sellingservice){
@@ -215,8 +215,8 @@ var router = function($urlRouterProvider, $stateProvider){
             insertWinterTicketOrder : function(sellingservice){
                 return sellingservice.insertWinterTicketOrder();
             },
-            createOrder90 : function(sellingservice){
-                return sellingservice.createOrder90();
+            createOrder : function(orderservice){
+                return orderservice.createorder();
             }
         }
       })
