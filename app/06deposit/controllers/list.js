@@ -2,6 +2,30 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, mechanism,
  $uibModal, recharge, trackinfo, update, getSellerInfoByCode, transData){
 
   	$scope.searchform = {};
+    $scope.seller_name ;
+
+    $scope.searchbyname = function(){
+        $scope.aggregate = new Array();
+        if (($scope.seller_name == undefined) || ($scope.seller_name == "") ) {
+          console.log($scope.seller_name);
+          $scope.aggregate = $scope.objs;
+          return;
+        }
+        var len = $scope.seller_name.length ;
+        console.log(len);
+        for (var i = $scope.objs.length - 1; i >= 0; i--) {
+          if ($scope.objs[i].seller_name.length >= len) {
+            for (var j = 0; $scope.objs[i].seller_name.length - j >= 0; j++) {
+              if($scope.objs[i].seller_name.substring(j, j + len) == $scope.seller_name) {
+                $scope.aggregate.push($scope.objs[i]);
+              }
+            }
+          }
+        }
+        console.log($scope.aggregate);
+        // return;
+    }
+
 
     function init(){
       //预存余额
@@ -27,7 +51,11 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, mechanism,
           return;
         }
 
+        $scope.aggregate = res.data;
         $scope.objs = res.data;
+        console.log(11111111111111);
+        console.log($scope.objs);
+        console.log(2222222222222);
 
       });
     }

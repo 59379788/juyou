@@ -3,6 +3,19 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-8">
+              <p class="form-control-static">
+                <input type="text" 
+                class="form-control" 
+                ng-model="seller_name"
+                placeholder="请输入商户名称">
+                <button type="button" 
+                  class="btn btn-primary" 
+                  ng-click="searchbyname()">搜索</button>
+              
+                
+              </p>
+            </div>
+            <div class="col-sm-2">
                 <p class="form-control-static">
                     账户余额：{{balance_price | currency : '¥'}}
 
@@ -21,7 +34,7 @@
                 <button type="button" class="btn btn-default" ng-click="load()">立即搜索</button> -->
             </div>
 
-            <div class="col-sm-4 text-right">
+            <div class="col-sm-2 text-right">
 
                 <button type="button" class="btn btn-default pull-right" ng-click="back()">充值回平台</button>
                 <button type="button" class="btn btn-info new" ng-click="create()"
@@ -49,7 +62,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="obj in objs">
+      <tr ng-repeat="obj in aggregate">
         <td class="">{{obj.seller_name}}</td>
         <!-- <td class="text-center">{{obj.total_price | currency : '¥'}}</td> -->
         <td class="text-center">{{obj.balance_price | currency : '￥'}}</td>
