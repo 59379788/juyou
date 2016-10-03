@@ -155,10 +155,15 @@ module.exports = function($scope, shakegroupinfolist, shakecompanyinfolist, tota
 	            alert(res.errmsg);
 	            return ;
 	        }
+			var r = res.data;
+	        r.name = res.data.name.replace('+',' ');
+	        var rr = r;
+	        rr.name = res.data.name.replace('+',' ');
+	        console.log(rr);
 
-	        $scope.totalobjs.push(res.data);
-	        $scope.data.push(res.data.data);
-	        $scope.labels = res.data.labels;
+	        $scope.totalobjs.push(rr);
+	        $scope.data.push(rr.data);
+	        $scope.labels = rr.labels;
 
 	        var para = {
 	        	label : res.data.lxsname,
