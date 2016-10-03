@@ -244,15 +244,15 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'activationcard',
          template: require('./views/activationcard.html'),
          resolve:{
-            // getUserInfoByMobile : function(cardservice){
-            //      return cardservice.getUserInfoByMobile();
-            // },
-            // getProductByCardNoList : function(cardservice){
-            //      return cardservice.getProductByCardNoList();
-            // },
-            // createProductOrderByCardNo : function(cardservice){
-            //      return cardservice.createProductOrderByCardNo();
-            // }
+            getUserInfoByMobile : function(cardservice){
+                 return cardservice.getUserInfoByMobile();
+            },
+            getProductByCardNoList : function(cardservice){
+                 return cardservice.getProductByCardNoList();
+            },
+            createProductOrderByCardNo : function(cardservice){
+                 return cardservice.createProductOrderByCardNo();
+            }
           }   
         })
 
