@@ -14,7 +14,10 @@ module.exports = function($scope, search, sale_01, insertWinterTicketOrder, crea
     $scope.relbtnstate = true;
 
 	$scope.searchinfo = function () {
-
+		if ($scope.IdentityCodeValid($scope.papersno)) {
+		}else{
+			return;
+		}
 		$scope.user = {
 			'mobile' : '',
 			'name' : '',
