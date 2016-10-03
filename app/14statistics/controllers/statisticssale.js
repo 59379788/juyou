@@ -17,6 +17,7 @@ module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE,
     //有效区间
     $scope.section = {};
     $scope.section.start = {};
+    // $scope.section.sale_name = {};
     $scope.section.start.date = new Date();
 
     $scope.section.end = {};
@@ -44,7 +45,7 @@ module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE,
     // $scope.bigCurrentPage = 1;      //当前页码
     // $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
 
-    $scope.load = function () {
+    $scope.load = function (sale_name) {
 
     	var fun;
     	var para;
@@ -61,19 +62,23 @@ module.exports = function($scope, getDate, orderstatisticslist, ITEMS_PERPAGE,
     		fun = orderstatisticslist;
     		para = {
 	            start_time : getDate($scope.section.start.date) + " 00:00:00",
-	            end_time : getDate($scope.section.end.date) + " 23:59:59"
+	            end_time : getDate($scope.section.end.date) + " 23:59:59",
+                sale_name : sale_name
 	        };
     	}else{
     		fun = orderstatisticshistorylist;
     		para = {
 	            start_time : getDate($scope.section.start.date),
-	            end_time : getDate($scope.section.end.date)
+	            end_time : getDate($scope.section.end.date),
+                sale_name : sale_name
 	        };
     	}
 
         para = angular.extend($scope.searchform, para);
 
+        console.log(11111111);
         console.log(para);
+        console.log(2222222);
         
         fun.save(para, function(res){
 
