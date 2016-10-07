@@ -26,7 +26,7 @@ module.exports = function($scope, search, sale_01, insertWinterTicketOrder, crea
 			console.log(res);
 
 	       	if(res.errcode == 9999) {
-	       		$scope.user.juyou = 0;
+	       		$scope.user.juyou = '0';
 	       	}
 	       	else if(res.errcode == 0)
 	       	{
@@ -35,7 +35,7 @@ module.exports = function($scope, search, sale_01, insertWinterTicketOrder, crea
 					'name' : res.data.username,
 					'what' : res.data.status,
 					'whattxt' : txt[res.data.status],
-					'juyou' : 1
+					'juyou' : '1'
 				};
 	       	}
 	       	else
