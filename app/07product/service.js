@@ -166,6 +166,22 @@ var service = function($resource, BASEURL38985, $q, $http){
     var flashsaleinfo = BASEURL38985 + '/api/as/tc/flashsale/info';
     var flashsaleupdate = BASEURL38985 + '/api/as/tc/flashsale/update';
     
+    //保险管理
+
+    //添加一个保险
+    var createinsuranceapi = BASEURL38985 + "/api/as/lc/insurance/add";
+    
+    //获取保险列表
+    var queryinsuranceapi = BASEURL38985 + "/api/as/lc/insurance/talist";
+    
+    //获取可用保险列表
+    var queryopeninsuranceapi = BASEURL38985 + "/api/as/lc/insurance/taopenlist";
+    
+    var startinsuranceapi = BASEURL38985 + "/api/as/lc/insurance/onshelf";
+    
+    var stopinsuranceapi = BASEURL38985 + "/api/as/lc/insurance/offshelf";
+
+
     return {
 
     	tktcreate : function(){
@@ -396,7 +412,72 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         flashsaleupdate : function(){
             return $resource(flashsaleupdate, {}, {});
-        }
+        },
+        insmodel : {
+          
+          title : "",
+          platformprice : 0,
+          stbprice : 0,
+          description : ""
+          
+        },
+        getOpenInsurance : function (obj) {
+        var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  
+          $http({method: 'GET', params: obj, url: queryopeninsuranceapi}).  
+          success(function(data, status, headers, config) {  
+            deferred.resolve(data);  // 声明执行成功，即http请求数据成功，可以返回数据了  
+          }).  
+          error(function(data, status, headers, config) {  
+            deferred.reject(data);   // 声明执行失败，即服务器返回错误  
+          });  
+          return deferred.promise;   // 返回承诺，这里并不是最终数据，而是访问最终数据的API  
+      },
+      createInsurance : function(obj){
+          var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  
+          $http({method: 'POST', data: obj, url: createinsuranceapi}).
+          success(function(data, status, headers, config) {  
+            deferred.resolve(data);  // 声明执行成功，即http请求数据成功，可以返回数据了  
+          }).  
+          error(function(data, status, headers, config) {  
+            deferred.reject(data);   // 声明执行失败，即服务器返回错误  
+          });  
+          return deferred.promise;   // 返回承诺，这里并不是最终数据，而是访问最终数据的API  
+        //return $resource(createinsuranceapi, {}, {});
+      },
+      queryInsurance : function(obj){
+          var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  
+          $http({method: 'GET', params: obj, url: queryinsuranceapi}).  
+          success(function(data, status, headers, config) {  
+            deferred.resolve(data);  // 声明执行成功，即http请求数据成功，可以返回数据了  
+          }).  
+          error(function(data, status, headers, config) {  
+            deferred.reject(data);   // 声明执行失败，即服务器返回错误  
+          });  
+          return deferred.promise;   // 返回承诺，这里并不是最终数据，而是访问最终数据的API  
+        //return $resource(queryinsuranceapi, {}, {});
+      },
+      startInsurance : function(obj){
+          var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  
+          $http({method: 'GET', params: obj, url: startinsuranceapi}).  
+          success(function(data, status, headers, config) {  
+            deferred.resolve(data);  // 声明执行成功，即http请求数据成功，可以返回数据了  
+          }).  
+          error(function(data, status, headers, config) {  
+            deferred.reject(data);   // 声明执行失败，即服务器返回错误  
+          });  
+          return deferred.promise;   // 返回承诺，这里并不是最终数据，而是访问最终数据的API  
+      },
+      stopInsurance : function(obj){
+          var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  
+          $http({method: 'GET', params: obj, url: stopinsuranceapi}).  
+          success(function(data, status, headers, config) {  
+            deferred.resolve(data);  // 声明执行成功，即http请求数据成功，可以返回数据了  
+          }).  
+          error(function(data, status, headers, config) {  
+            deferred.reject(data);   // 声明执行失败，即服务器返回错误  
+          });  
+          return deferred.promise;   // 返回承诺，这里并不是最终数据，而是访问最终数据的API  
+      }
        
     };
 

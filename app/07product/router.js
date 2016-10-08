@@ -467,7 +467,29 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
-
+    //保险管理
+    .state('app.insurance', {
+        url: '/insurance',
+        controller : 'insurance',
+        template: require('./views/insurance.html'),
+        resolve:{
+            ins : function(productservice){
+                return productservice.insmodel;
+            },
+            inslist : function(productservice){
+                return productservice.queryInsurance;
+            },
+            createins : function(productservice){
+                return productservice.createInsurance;
+            },
+            startins : function(productservice){
+                return productservice.startInsurance;
+            },
+            stopins : function(productservice){
+                return productservice.stopInsurance;
+            }
+        }
+      })
 
 
 };

@@ -1,0 +1,76 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="form-group form-inline productssearchform">
+      <div class="col-md-10">
+        <label>旅游地区</label>&nbsp;&nbsp;
+        <select class="form-control" ng-model="searchform.area" 
+          ng-options="area.code as area.name group by typearray1[area.type] for area in areaarray  ">
+        </select>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <label>关键字</label>&nbsp;&nbsp;
+        <input type="text" class="form-control" ng-model="searchform.keyword" >
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <label>状态</label>&nbsp;&nbsp;
+        <select class="form-control" ng-model="searchform.state" ng-options="state.code as state.name for state in statearray">
+        </select>
+         &nbsp;&nbsp;&nbsp;&nbsp;
+        <!-- <label>线路类型</label>&nbsp;&nbsp;
+        <select class="form-control" ng-model="searchform.publishType" 
+          ng-options="publishType.code as publishType.name for publishType in publishTypearray">
+        </select> -->
+        <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+      </div>
+      <div class="col-md-2 text-right">
+          <button type="button" class="btn btn-info new" ng-click="create()">发布新线路</button>
+      </div>
+    </div>
+  </div>
+</div><!-- searchArea -->
+ 
+ <table class="table table-bordered productstable">
+  <thead>
+    <tr>
+      <th class="col-md-1 text-center">旅游地区</th>
+      <th class="col-md-7 text-center">线路名称</th>
+      <!-- <th class="text-center">发布类型</th> -->
+      <th class="col-md-1 text-center">发布状态</th>
+      <th class="col-md-3 text-center">操作</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr ng-repeat='product in ps'>
+      <td class="col-md-1 text-center">{{product.areaname}}</td>
+      <td class="col-md-7 text-center">{{product.title}}</td>
+      <!-- <td class="col-md-1 text-center">{{typearray[product.publish_type]}}</td> -->
+      <td class="col-md-1 text-center">{{product.statename}}</td>
+      <td class="col-md-3 text-center">
+          <a ng-show="product.state=='0' || product.state=='2'" ng-click="start(product.code)" class="btn btn-primary ">启用</a>
+          <a ng-show="product.state=='1'" ng-click="stop(product.code)" class="btn btn-success ">停用</a>
+          <a ng-show="product.state=='0' || product.state=='2'" class="btn btn-success " ng-click="editline(product.code)">编辑</a>
+          <a class="btn btn-warning " ng-click="group()">发团</a>
+          <a class="btn btn-info " ng-click="grouplist(product.code,product.title)">团列表</a>
+          <a ng-show="product.state=='1'" ng-click="lineinfo(product.code)" class="btn btn-danger ">详情</a>
+          <!-- <a class="btn btn-danger " ng-click="delete(product.code)">删除</a>-->
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div>

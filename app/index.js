@@ -63,9 +63,8 @@ require('./16notice/app');
 require('./17chart/app');
 require('./18docking/app');
 require('./19guide/app');
+require('./20line/app');
 require('./21card/app');
-
-
 require('./96util/app');
 require('./97intercept/app');   //拦截器
 require('./98test/app');
@@ -111,6 +110,7 @@ var App = angular.module('juyouApp', [
     'chart',
     'docking',
     'guide',
+    'line',
     'card',
     'util',
     'test',

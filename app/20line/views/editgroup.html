@@ -1,0 +1,131 @@
+<!--<div class="col-md-10">-->
+    <div class="row mt20">
+        <div class="form-group">
+            <label class="col-md-1 col-md-offset-1 control-label">定员人数</label>
+            <div class="col-md-3">
+                <input type="text" class="form-control" ng-model="teammodel.person_limit">
+            </div>
+            <div class="col-md-3 text-right">
+                <button type="button" class="btn btn-info" ng-click="save()" >立即保存</button>
+            </div>
+        </div>
+    </div>
+    <div class="form-horizontal mt20">
+        <div class="form-group">
+            <label class="col-md-2 control-label text-right">市场成人价格</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" 
+                ng-model="teammodel.market_price">
+            </div>
+            <label class="col-md-2 control-label text-right">市场儿童价格</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" 
+                ng-model="teammodel.market_price_child">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-horizontal mt20">
+        <div class="form-group">
+            <label class="col-md-2 control-label text-right">让利成人价格</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" ng-model="teammodel.discount_adult">
+            </div>
+            <label class="col-md-2 control-label text-right">让利儿童价格</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" ng-model="teammodel.discount_child">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-horizontal mt20">
+        <div class="form-group">
+            <label class="col-md-2 control-label text-right">平台成人价格</label>
+            <div class="col-md-2 text-left">
+                <p class="form-control-static" ng-model="teammodel.platform_adult">
+                    {{teammodel.market_price - teammodel.discount_adult}}
+                </p>
+            </div>
+            <label class="col-md-2 control-label text-right">平台儿童价格</label>
+            <div class="col-md-2 text-left">
+                <p class="form-control-static" ng-model="teammodel.platform_child">
+                    {{teammodel.market_price_child - teammodel.discount_child}}
+                </p>
+            </div>
+        </div>
+    </div>
+    
+<!--     <div class="form-horizontal mt20">
+        <div class="form-group">
+            <label class="col-md-2 control-label text-right">同业成人价格</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" ng-model="teammodel.stb_adult">
+            </div>
+            <label class="col-md-2 control-label text-right">同业儿童价格</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" ng-model="teammodel.stb_child">
+            </div>
+        </div>
+    </div> -->
+    
+<!--     <div class="form-horizontal mt20">
+        <div class="form-group">
+            <label class="col-md-2 control-label text-right">补贴成人价格</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" ng-model="teammodel.subsidy_adult">
+            </div>
+            <label class="col-md-2 control-label text-right">补贴儿童价格</label>
+            <div class="col-md-2">
+                <input type="text" class="form-control" ng-model="teammodel.subsidy_child">
+            </div>
+        </div>
+    </div> -->
+    
+
+
+
+    <div class="row mt20">
+        <div class="form-group">
+            <label class="col-md-1 col-md-offset-1 control-label">停售提前</label>
+            <div class="col-md-3">
+                <input type="text" class="form-control" ng-model="teammodel.end_advance">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt20">
+        <div class="form-group">
+            <label class="col-md-1 col-md-offset-1 control-label">起售时间</label>
+            <div class="col-md-3">
+                <input type="text" class="form-control" ng-model="teammodel.start_advance">
+            </div>
+        </div>
+    </div>
+<!--
+</div>
+
+<div class="">
+    
+    <button type="button" class="btn btn-info" ng-click="save()" style="float:right;">立即保存</button>
+</div>
+-->
+<!--
+<div class="row mt20">
+    <div class="form-group">
+        <label class="col-md-1 col-md-offset-1 control-label">订单预留</label>
+        <div class="col-md-3">
+            <input type="text" class="form-control" ng-model="line.area">
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt20">
+    <div class="form-group">
+        <label class="col-md-1 col-md-offset-1 control-label">团期说明</label>
+        <div class="col-md-3">
+            <input type="text" class="form-control" ng-model="line.area">
+        </div>
+    </div>
+</div>
+-->

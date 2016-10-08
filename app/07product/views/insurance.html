@@ -1,0 +1,88 @@
+<style>
+    #insform .ng-invalid-number{ border: 2px solid red;}
+</style>
+   
+
+   
+   <div class="panel panel-default">
+    <div class="panel-body">
+        <form class="form-group form-inline productssearchform" name="myForm" id="insform">
+            <div class="col-md-10">
+
+                <label>名称</label>&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="insform.title" placeholder="必填" required>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                
+                <label>平台价格</label>&nbsp;&nbsp;
+                <input type="number" name="platformprice" class="form-control" ng-model="insform.platformprice" >
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                
+                <label>同业价格</label>&nbsp;&nbsp;
+                <input type="number" name="stbprice" class="form-control" ng-model="insform.stbprice" >
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                
+                <label>描述</label>&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="insform.description" >
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                
+            </div>
+            <div class="col-md-2 text-right">
+                <button type="button" class="btn btn-info" ng-click="createins()" ng-disabled="myForm.$invalid">发布新保险</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+ <table class="table table-bordered productstable">
+  <thead>
+    <tr>
+      <th class="text-center">保险名称</th>
+      <th class="text-center">平台价格</th>
+      <th class="text-center">同业价格</th>
+      <th class="text-center">描述</th>
+      <th class="text-center">操作</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr ng-repeat='ins in insarray'>
+      <td class="col-md-4 text-center">{{ins.title}}</td>
+      <td class="col-md-1 text-center">{{ins.platformprice}}</td>
+      <td class="col-md-1 text-center">{{ins.stbprice}}</td>
+      <td class="col-md-4 text-center">{{ins.description}}</td>
+      <td class="col-md-2 text-center">
+<!--          <a ng-href="#editins/{{ins.code}}" ng-show="ins.state==='0'" class="btn btn-success ">编辑</a>-->
+          <button type="button" ng-show="ins.state==='0'" class="btn btn-primary " ng-click="start(ins.id)">启用</button>
+          <button type="button" ng-show="ins.state==='1'" class="btn btn-warning " ng-click="stop(ins.id)">停用</button>
+          
+<!--
+          <a ng-show="product.state=='0' || product.state=='2'" ng-click="start(product.code)" class="btn btn-primary ">启用</a>
+          <a ng-show="product.state=='1'" ng-click="stop(product.code)" class="btn btn-success ">停用</a>
+          <a ng-show="product.state=='0'" ng-href="#editline/{{product.code}}" class="btn btn-success ">编辑</a>
+          <a ng-href="#team/{{product.code}}" class="btn btn-warning ">发团</a>
+          <a ng-href="#teamlist/{{product.code}}" class="btn btn-info ">团列表</a>
+-->
+<!--          <button type="button" class="btn btn-danger " ng-click="delete(product.code)">删除</button>-->
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <div class="col-md-12 text-right">
+    <pagination items-per-page="itemsPerPage" 
+                total-items="bigTotalItems" 
+                ng-model="bigCurrentPage" 
+                max-size="maxSize" 
+                class="pagination-sm" 
+                boundary-links="true" 
+                rotate="false" 
+                num-pages="numPages" 
+                previous-text="上一页"
+                next-text="下一页"
+                first-text="首页"
+                last-text="末页"
+                ng-change="load()"></pagination>
+</div> -->
+
+
+

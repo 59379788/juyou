@@ -1,0 +1,514 @@
+<form name="myForm" id="line" >
+  <uib-tabset active="active">
+    <uib-tab heading="基本信息">
+      <div class="col-md-7 col-md-offset-1 form-horizontal mt10">
+        <div class="form-group">
+          <label class="col-md-2 control-label">线路类型</label>
+            <div class="col-md-10">
+              <label class="radio-inline">
+                <input type="radio" name="xllx" value="0" ng-model="line.type" ng-change="line.changetype()"> 省内游
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="xllx" value="1" ng-model="line.type" ng-change="line.changetype()"> 国内游
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="xllx" value="2" ng-model="line.type" ng-change="line.changetype()"> 出境游
+              </label>
+            </div>
+          </div>
+        
+        <div class="form-group">
+          <label class="col-md-2 control-label">旅游地区</label>
+          <div class="col-md-10">
+            <select class="form-control" ng-model="line.area" ng-options="area.code as area.name for area in line.areaarray">
+            </select>
+          </div>
+        </div>
+        <!-- <div class="form-group">
+            <label class="col-md-2 control-label">供应商产品编号</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" ng-model="line.pcode">
+            </div>
+        </div> -->
+        <div class="form-group">
+          <label class="col-md-2 control-label">线路标题</label>
+          <div class="col-md-10">
+            <input type="text" class="form-control" ng-model="line.title" placeholder="必填" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">关键字</label>
+          <div class="col-md-10">
+            <input type="text" class="form-control" placeholder="用空格分割多个关键字" ng-model="line.keyword">
+          </div>
+        </div>
+        <!-- <div class="form-group">
+            <label class="col-md-2 control-label">发布类型</label>
+            <div class="col-md-10">
+                <label class="radio-inline">
+                  <input type="radio" name="fblx" value="2" ng-model="line.publish_type"> 公益游
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="fblx" value="1" ng-model="line.publish_type"> 补贴游
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="fblx" value="0" ng-model="line.publish_type"> 其他
+                </label>
+            </div>
+        </div> -->
+        <div class="form-group">
+          <label class="col-md-2 control-label">是否担保</label>
+          <div class="col-md-10">
+            <label class="radio-inline">
+              <input type="radio" value="1" ng-model="line.guarantee"> 是
+            </label>
+            <label class="radio-inline">
+              <input type="radio" value="0" ng-model="line.guarantee"> 否
+            </label>
+          </div>
+        </div>
+        <!-- <div class="form-group">
+            <label class="col-md-2 control-label">是否同业可用</label>
+            <div class="col-md-10">
+                <label class="radio-inline">
+                  <input type="radio" ng-model="line.stb_use" value="1"> 是
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" ng-model="line.stb_use" value="0"> 否
+
+                </label>
+            </div>
+        </div> -->
+        <div class="form-group">
+          <label class="col-md-2 control-label">行程天数</label>
+          <div class="col-md-5">
+            <select class="form-control" ng-model="line.days" 
+              ng-options="day.value as day.name for day in line.daysarray">
+            </select>
+          </div>
+          <div class="col-md-5">
+            <select class="form-control" ng-model="line.night"
+              ng-options="night.value as night.name for night in line.nightsarray">
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">出发城市</label>
+          <div class="col-md-5">
+            <select class="form-control" ng-model="line.start_city">
+              <option value="沈阳">沈阳</option>
+              <option value="鞍山">鞍山</option>
+              <option value="抚顺">抚顺</option>
+              <option value="本溪">本溪</option>
+              <option value="营口">营口</option>
+              <option value="阜新">阜新</option>
+              <option value="辽阳">辽阳</option>
+              <option value="铁岭">铁岭</option>
+              <option value="丹东">丹东</option>
+              <option value="北京">北京</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">保险材料</label>
+          <div class="col-md-10">
+            <select class="form-control" ng-model="line.insurance" ng-change="line.changeinsurance(line.insurance)"
+              ng-options="insurance.id as insurance.title for insurance in line.insurancearray">
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">保险金额</label>
+          <div class="col-md-2 text-left mt10" >
+            {{line.insuranceprice}}元
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mt10">
+        <img ng-src="{{line.img}}" width="100%" height="200" ng-model="line.img">
+        <input type="file" nv-file-select uploader="uploader" / ng-hide="hide===true" ><br/>
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="item in uploader.queue">
+            文件名: <span ng-bind="item.file.name"></span>
+            <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+            <div class="progress mt10">
+              <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </uib-tab>
+    <uib-tab heading="产品推荐">
+      <div class="col-md-7 col-md-offset-1 form-horizontal mt10">
+        <div class="form-group">
+          <label class="col-md-2 control-label">行程特色</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="3" ng-model="line.feature"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">食</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="1" ng-model="line.eat_info"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">住</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="1" ng-model="line.stay_info"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">行</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="1" ng-model="line.travel_info"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">游</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="1" ng-model="line.tour_info"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">购</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="1" ng-model="line.buy_info"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">娱</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="1" ng-model="line.play_info"></textarea>
+          </div>
+        </div>
+      </div>
+    </uib-tab>
+    <uib-tab heading="发车信息">
+      <div class="col-md-10 col-md-offset-1 form-horizontal mt10">
+        <div class="form-group mt10">
+          <label class="col-md-2 control-label">紧急联系人及电话</label>
+          <div class="col-md-10">
+            <input type="text" class="form-control" ng-model="line.contacts">
+          </div>
+        </div>
+        <table class="table table-bordered mt10">
+          <thead>
+            <tr>
+              <th class="col-md-3">发车地点</th>
+              <th class="col-md-3">发车时间</th>
+              <th class="col-md-3">返回地点</th>
+              <th class="col-md-2">备注</th>
+              <th class="col-md-1"><button type="button" class="btn btn-default" ng-click="line.newDepart()">新增一条</button></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="depart in line.departArray">
+              <td><input type="text" class="form-control" ng-model="depart.start"></td>
+              <td><input type="text" class="form-control" ng-model="depart.time"></td>
+              <td><input type="text" class="form-control" ng-model="depart.end"></td>
+              <td><input type="text" class="form-control" ng-model="depart.mark"></td>
+              <td class="text-center"><button type="button" class="btn btn-danger" ng-click="line.delDepart($index)">删除</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </uib-tab>
+    <uib-tab heading="费用包含">
+      <div class="col-md-7 col-md-offset-1 form-horizontal mt10">
+        <div class="form-group">
+          <label class="col-md-2 control-label">交通</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="1" ng-model="line.cost_traffic"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">小交通</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="1" ng-model="line.cost_straffic"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">住宿</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="1" ng-model="line.cost_stay"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">用餐</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="1" ng-model="line.cost_dinner"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">门票</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="1" ng-model="line.cost_ticket"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">导服</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="1" ng-model="line.cost_guide"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">儿童价标准</label>
+          <div class="col-md-10 ">
+            <textarea class="form-control" rows="1" ng-model="line.cost_child"></textarea>
+          </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">赠送</label>
+            <div class="col-md-10 ">
+                <textarea class="form-control" rows="1" ng-model="line.cost_give"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">其他</label>
+            <div class="col-md-10 ">
+                <textarea class="form-control" rows="1" ng-model="line.cost_other"></textarea>
+            </div>
+        </div>
+
+      </div>
+      
+    </uib-tab>
+    <uib-tab heading="费用不包含">
+      <div class="col-md-7 col-md-offset-1 form-horizontal mt10">
+        <div class="form-group">
+            <label class="col-md-2 control-label">小交通</label>
+            <div class="col-md-10 ">
+                <textarea class="form-control" rows="1" ng-model="line.notinclude_straffic"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">机票税</label>
+            <div class="col-md-10 ">
+                <textarea class="form-control" rows="1" ng-model="line.notinclude_att"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">单房差</label>
+            <div class="col-md-10 ">
+                <textarea class="form-control" rows="1" ng-model="line.notinclude_srd"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">门票</label>
+            <div class="col-md-10 ">
+                <textarea class="form-control" rows="1" ng-model="line.notinclude_ticket"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">其他</label>
+            <div class="col-md-10 ">
+                <textarea class="form-control" rows="1" ng-model="line.notinclude_other"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">补充</label>
+            <div class="col-md-10 ">
+                <textarea class="form-control" rows="1" ng-model="line.notinclude_supplement"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">保险</label>
+            <div class="col-md-10 ">
+                <textarea class="form-control" rows="1" ng-model="line.notinclude_insurance"></textarea>
+            </div>
+        </div>
+
+      </div>  
+    </uib-tab>
+    <uib-tab heading="特殊人群限制">
+      <div class="col-md-7 col-md-offset-1 form-horizontal mt10">
+        <div class="form-group">
+            <label class="col-md-2 control-label">特殊人群限制</label>
+            <div class="col-md-10 ">
+                <textarea class="form-control" rows="3" ng-model="line.special_population_limit"></textarea>
+            </div>
+        </div>
+      </div>
+      
+  </uib-tab>
+  <uib-tab heading="其他信息">
+      <div class="col-md-7 col-md-offset-1 form-horizontal mt10">
+        <div class="form-group">
+            <label class="col-md-2 control-label">预定需知</label>
+            <div class="col-md-10 ">
+                <textarea class="form-control" rows="3" ng-model="line.booking_information"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">注意事项</label>
+            <div class="col-md-10 ">
+                <textarea class="form-control" rows="3" ng-model="line.note"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">温馨提示</label>
+            <div class="col-md-10 ">
+                <textarea class="form-control" rows="3" ng-model="line.reminder"></textarea>
+            </div>
+        </div>
+      </div>
+      
+  </uib-tab>
+  
+    
+    
+<uib-tab heading="编辑行程">
+
+
+    <uib-tabset class="mt20 ml20 mr20">
+      <uib-tab heading="第 {{$index + 1}} 天" ng-repeat="trip in line.triparray">
+         
+          <div class="col-md-7 col-md-offset-1 form-horizontal mt20">
+            <div class="form-group">
+                <label class="col-md-2 control-label">行程区间</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" ng-model="trip.resume" placeholder="如 沈阳 - 广州">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label">行程说明</label>
+                <div class="col-md-10 ">
+                  <textarea class="form-control" rows="3" ng-model="trip.describe" placeholder="不能为空"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label">用餐描述</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" ng-model="trip.dinner">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label">住宿描述</label>
+                <div class="col-md-10">
+                    <input type="text" class="form-control" ng-model="trip.stay">
+                </div>
+            </div>
+          </div>
+          <div class="col-md-3 mt20">
+            <img ng-src="{{trip.img}}" width="100%" height="200" ng-model="trip.img">
+            <input type="file" nv-file-select uploader="uploader"/ ng-hide="hide===true" ><br/>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="item in uploader.queue">
+                    文件名: <span ng-bind="item.file.name"></span>
+                    <button type="button" class="btn btn-default btn-xs" ng-click="item.upload()" ><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                    <div class="progress mt10">
+                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                    </div>
+                </li>
+            </ul>
+          </div>
+          <div class="col-md-1 mt20">
+             <button type="button" class="btn btn-danger ml10 " ng-hide="hide===true" ng-click="line.deltrip($index)" >
+                <span style="font-size:16px; corlor:#fff;">删除</span>
+              </button>
+          </div>
+          
+      </uib-tab>
+      <button type="button" class="btn btn-warning ml10 " ng-hide="hide===true" ng-click="line.newtrip()" >
+          <span style="font-size:16px; corlor:#fff;">+</span>
+      </button>
+      
+    </uib-tabset>
+</uib-tab>
+ 
+ 
+<uib-tab heading="编辑价格" >
+
+    <div class="form-horizontal mt20">
+        <div class="form-group">
+            <label class="col-md-2 control-label text-right">市场成人价格</label>
+            <div class="col-md-2 ">
+                    <input type="number" class="form-control" name="market_price" ng-model="line.market_price" placeholder="必填" required>
+            </div>
+            <label class="col-md-2 control-label text-right">市场儿童价格</label>
+            <div class="col-md-2">
+                    <input type="number" class="form-control" name="market_price_child" ng-model="line.market_price_child" placeholder="必填" required>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-horizontal mt20">
+        <div class="form-group">
+            <label class="col-md-2 control-label text-right">成人让利补贴</label>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="discount_adult" ng-model="line.discount_adult" placeholder="必填" required>
+            </div>
+            <label class="col-md-2 control-label text-right">儿童让利补贴</label>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="discount_child" ng-model="line.discount_child" placeholder="必填" required>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-horizontal mt20">
+        <div class="form-group">
+            <label class="col-md-2 control-label text-right">平台成人价格</label>
+            <div class="col-md-2 text-left">
+                <p class="form-control-static" ng-model="line.platform_adult">
+                    {{line.market_price - line.discount_adult}}
+                </p>
+            </div>
+            <label class="col-md-2 control-label text-right">平台儿童价格</label>
+            <div class="col-md-2 text-left">
+                <p class="form-control-static" ng-model="line.platform_child">
+                    {{line.market_price_child - line.discount_child}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    
+    
+    <!-- <div class="form-horizontal mt20">
+        <div class="form-group">
+            <label class="col-md-2 control-label text-right">同业成人价格</label>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="stb_adult" ng-model="line.stb_adult" placeholder="必填" required>
+            </div>
+            <label class="col-md-2 control-label text-right">同业儿童价格</label>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="stb_child" ng-model="line.stb_child" placeholder="必填" required>
+            </div>
+        </div>
+    </div> -->
+    
+    <!-- <div class="form-horizontal mt20">
+        <div class="form-group">
+            <label class="col-md-2 control-label text-right">补贴成人价格</label>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="subsidy_adult" ng-model="line.subsidy_adult" placeholder="必填" required disabled="disabled">
+            </div>
+            <label class="col-md-2 control-label text-right">补贴儿童价格</label>
+            <div class="col-md-2">
+                <input type="number" class="form-control" name="subsidy_child" ng-model="line.subsidy_child" placeholder="必填" required>
+            </div>
+        </div>
+    </div> -->
+  </uib-tab>
+  <button type="button" class="btn btn-info" ng-click="save()" ng-hide="hide===true" style="float:right;" ng-disabled="myForm.$invalid" >立即保存</button>
+      
+  </tabset>
+
+</form>
+
