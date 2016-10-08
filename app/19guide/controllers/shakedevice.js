@@ -45,7 +45,7 @@ module.exports = function($scope, $stateParams, $state, shakedevice, shakedevice
             else    
             {
         		isable();
-                shakedeviceinfo.get({'id' : id}, function(info){
+                shakedeviceinfo.get({'id' : id}, function(info){console.log(info);
                     if(info.errcode !== 0)
                     {
                         alert(info.errmsg);
