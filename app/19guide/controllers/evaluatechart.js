@@ -102,6 +102,12 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
 			$scope.obj.binding_time = '';
     	}
 
+    	if($scope.obj.binding_type == ''){
+    		$scope.obj.binding_company_code = '';
+    		$scope.obj.binding_code = '';
+    		$scope.obj.usedate = '0';
+    	}
+
         getCompany(type);
     }
     /* 分页
