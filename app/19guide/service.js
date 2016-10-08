@@ -49,7 +49,7 @@ var service = function($resource, BASEURL38985){
     //评价系统图标分析
     var questionstatisticlist = BASEURL38985 + '/api/as/gc/shakestatistics/questionstatisticlist';
 
-    var peoplerebatelist = BASEURL38985 + '/api/as/gc/shakestatistics/peoplerebatelist';
+    var peoplerebatelist = BASEURL38985 + '/api/ac/gc/ShakeEvaluateStatisticsService/rebatelist';
 
     //评价系统图标分析时间轴
     var totalevaluatelist = BASEURL38985 + '/api/ac/gc/ShakeEvaluateStatisticsService/evaluatechart1';
