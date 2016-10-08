@@ -102,10 +102,11 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
 			$scope.obj.binding_time = '';
     	}
 
-    	if($scope.obj.binding_type == ''){
+    	if($scope.obj.binding_type == null){
     		$scope.obj.binding_company_code = '';
     		$scope.obj.binding_code = '';
-    		$scope.obj.usedate = '0';
+    		$scope.section.start.date = new Date();
+    		$scope.usedate = '0';
     	}
 
         getCompany(type);
@@ -126,7 +127,7 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
         para = angular.extend($scope.obj, para);
 
 		peoplerebatelist.save(para, function(res){
-			console.log(res);
+			console.log(res.data);
 			$scope.peoplestate = '1';
 	        if(res.errcode !== 0)
 	        {
