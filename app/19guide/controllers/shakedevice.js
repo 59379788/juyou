@@ -45,12 +45,13 @@ module.exports = function($scope, $stateParams, $state, shakedevice, shakedevice
             else    
             {
         		isable();
-                shakedeviceinfo.get({'id' : id}, function(info){console.log(info);
+                shakedeviceinfo.get({'id' : id}, function(info){
                     if(info.errcode !== 0)
                     {
                         alert(info.errmsg);
                         return;
                     }
+                	$scope.section.start.date = new Date(info.data.binding_time);
                     $scope.obj = info.data;
                     $scope.obj.binding_code = $scope.obj.binding_code.substr(0,$scope.obj.binding_code.indexOf('_'));
                     if($scope.obj.binding_type != '1'){
