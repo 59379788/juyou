@@ -93,7 +93,12 @@
           <span>使用{{obj.used}}</span>
         </td>
         <td class="text-center">{{obj.create_time}}</td>
-        <td class="text-center"><br>{{obj.ticket_state_name}}</td>
+        <td class="text-center">
+          {{obj.ticket_state_name}}<br>
+          <span ng-show="obj.ticket_state == 9">
+            {{obj.cancel_reason}}
+          </span>
+        </td>
         <td class="text-center">{{obj.company_name}}<br>{{obj.company_code}}<br>{{obj.operation_login_name}}</td>
         <th class="text-center">
           <a ng-click="ticketlist(obj)" class="btn btn-success btn-xs">票信息</a>
@@ -109,7 +114,7 @@
           ng-show="obj.sale_belong != 'juyou' || (obj.ticket_state == '2' && obj.sms_state == '2')"
           >转发短信</a>
           <a ng-click="back(obj)" class="btn btn-primary btn-xs"
-          ng-show="obj.sale_belong != 'langdao' && obj.ticket_state == '2' "
+          ng-show="(obj.num > obj.back + obj.used) && ((obj.sale_belong != 'langdao' && obj.ticket_state == '2') || obj.ticket_state == '9') "
           >退多张票</a>
           
         </th>

@@ -13,6 +13,14 @@ var service = function($resource, BASEURL38985){
 
     var shakedevicedel = BASEURL38985 + '/api/as/gc/shakedevice/del';
 
+    var savedevicerecode = BASEURL38985 + '/api/as/gc/shakedevice/saverecode';
+
+    var shakecompanyinfolist = BASEURL38985 + '/api/as/gc/shakecompany/companyInfoList';
+
+    var shakegroupinfolist = BASEURL38985 + '/api/as/gc/shakecompany/groupInfoList';
+
+    var userinfo = BASEURL38985 + "/api/as/info";
+
     //导游评价系统问题
     var shakeevaluatequestion = BASEURL38985 + '/api/as/gc/shakeevaluatequestion/save';
   
@@ -38,6 +46,21 @@ var service = function($resource, BASEURL38985){
 
     var shakegetquestion = BASEURL38985 + '/api/as/gc/shakeevaluatequestion/findquerybydevicelist';
 
+    //评价系统图标分析
+    var questionstatisticlist = BASEURL38985 + '/api/as/gc/shakestatistics/questionstatisticlist';
+
+    var peoplerebatelist = BASEURL38985 + '/api/as/gc/shakestatistics/peoplerebatelist';
+
+    //评价系统图标分析时间轴
+    var totalevaluatelist = BASEURL38985 + '/api/ac/gc/ShakeEvaluateStatisticsService/evaluatechart1';
+
+    //评价系统图标分析景区时间轴
+    var totalevaluatejqlist = BASEURL38985 + '/api/ac/gc/ShakeEvaluateStatisticsService/evaluatechart2';
+
+    //评价系统图标分析景区综合评价
+    var questionhpllist = BASEURL38985 + '/api/ac/gc/ShakeEvaluateStatisticsService/evaluatechart3';
+
+
     return {
 
         shakedevicelist : function(){
@@ -51,6 +74,15 @@ var service = function($resource, BASEURL38985){
         },
         shakedevicedel : function(){
             return $resource(shakedevicedel, {}, {});
+        },
+        savedevicerecode : function(){
+            return $resource(savedevicerecode, {}, {});
+        },
+        shakecompanyinfolist : function(){
+            return $resource(shakecompanyinfolist, {}, {});
+        },
+        shakegroupinfolist : function(){
+            return $resource(shakegroupinfolist, {}, {});
         },
 
 
@@ -88,10 +120,28 @@ var service = function($resource, BASEURL38985){
         shakeanswer : function(){
             return $resource(shakeanswer, {}, {});
         },
-
         shakegetquestion : function(){
             return $resource(shakegetquestion, {}, {});
         },
+
+
+        questionstatisticlist : function(){
+            return $resource(questionstatisticlist, {}, {});
+        },
+        peoplerebatelist : function(){
+            return $resource(peoplerebatelist, {}, {});
+        },
+
+        totalevaluatelist : function(){
+            return $resource(totalevaluatelist, {}, {});
+        },
+        totalevaluatejqlist : function(){
+            return $resource(totalevaluatejqlist, {}, {});
+        },
+
+        questionhpllist : function(){
+            return $resource(questionhpllist, {}, {});
+        }
 
     };
 

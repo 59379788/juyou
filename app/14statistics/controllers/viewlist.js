@@ -10,6 +10,8 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
     $scope.attrarr = [];
 
     $scope.dlq = {};
+    
+    $scope.showtype = '0';
 
     var searchviewcode = null;
 
@@ -32,6 +34,18 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
     $scope.open = function(obj) {
         obj.opened = true;
     };
+
+    $scope.changetype = function () {
+    	if($scope.searchform.seltype == '0'){
+    		$scope.showtype = '0';
+    		$scope.section.start.date = new Date();
+    		$scope.section.end.date = new Date();
+    	}else{
+    		$scope.showtype = '1';
+    		$scope.section.start.date = new Date();
+    		$scope.section.end.date = new Date();
+    	}
+    }
 
     /* 分页
      * ========================================= */

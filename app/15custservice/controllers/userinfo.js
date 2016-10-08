@@ -75,6 +75,7 @@ module.exports = function($scope, $state, userinfo, $uibModal,
     	var para = {
             mobile:mobile
         };
+        console.log(para);
 		updateUserAuthInfo.save(para, function(res){
 
 			console.log(res);

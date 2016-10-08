@@ -39,9 +39,9 @@ var service = function($resource, BASEURL38985){
 
     
     //北京票联  红海滩廊道
-    var getOrderSimInfo = BASEURL38985 + '/api/uc/dc/huaxiapl/getOrderSimInfo';
+    var getOrderSimInfo = BASEURL38985 + '/api/ac/dc/huaxiapl/getOrderSimInfo';
     //重发短信
-    var agencyOrderRepeatECode = BASEURL38985 + '/api/uc/dc/huaxiapl/agencyOrderRepeatECode';
+    var agencyOrderRepeatECode = BASEURL38985 + '/api/ac/dc/huaxiapl/agencyOrderRepeatECode';
 
     return {
 

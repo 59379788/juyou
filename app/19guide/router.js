@@ -17,7 +17,13 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             shakedevicedel : function(guideservice){
                 return guideservice.shakedevicedel();
-            }
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            },
+            userinfo:  function(dashboardservice){
+	          return dashboardservice.userinfo;
+	        }
         }
       })
 
@@ -35,7 +41,26 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             dictbytypelist : function(productservice){
                 return productservice.dictbytypelist;
+            },
+            shakecompanyinfolist : function(guideservice){
+                return guideservice.shakecompanyinfolist();
             }
+            ,
+            shakegroupinfolist : function(guideservice){
+                return guideservice.shakegroupinfolist();
+            }
+            ,
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            }
+            ,
+            savedevicerecode : function(guideservice){
+                return guideservice.savedevicerecode();
+            }
+            ,
+            userinfo:  function(dashboardservice){
+	          return dashboardservice.userinfo;
+	        }
         }
       })
 
@@ -124,6 +149,83 @@ var router = function($urlRouterProvider, $stateProvider){
                 return guideservice.shakegetquestion();
             }
 
+        }
+      })
+
+      .state('app.evaluatechart', {
+        url: '/evaluatechart',
+        controller : 'evaluatechart',
+        template: require('./views/evaluatechart.html'),
+        resolve:{
+        	dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
+            },
+            shakecompanyinfolist : function(guideservice){
+                return guideservice.shakecompanyinfolist();
+            },
+            shakegroupinfolist : function(guideservice){
+                return guideservice.shakegroupinfolist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            },
+            shakeanswer : function(guideservice){
+                return guideservice.shakeanswer();
+            },
+            questionstatisticlist : function(guideservice){
+                return guideservice.questionstatisticlist();
+            },
+            peoplerebatelist : function(guideservice){
+                return guideservice.peoplerebatelist();
+            },
+            shakeevaluateanswerlist : function(guideservice){
+                return guideservice.shakeevaluateanswerlist();
+            }
+        }
+      })
+
+      .state('app.evaluatechart1', {
+        url: '/evaluatechart1',
+        controller : 'evaluatechart1',
+        template: require('./views/evaluatechart1.html'),
+        resolve:{
+        	shakegroupinfolist : function(guideservice){
+                return guideservice.shakegroupinfolist();
+            },
+            shakecompanyinfolist : function(guideservice){
+                return guideservice.shakecompanyinfolist();
+            },
+            totalevaluatelist : function(guideservice){
+                return guideservice.totalevaluatelist();
+            }
+        }
+      })
+
+      .state('app.evaluatechart2', {
+        url: '/evaluatechart2',
+        controller : 'evaluatechart2',
+        template: require('./views/evaluatechart2.html'),
+        resolve:{
+            shakecompanyinfolist : function(guideservice){
+                return guideservice.shakecompanyinfolist();
+            },
+            totalevaluatejqlist : function(guideservice){
+                return guideservice.totalevaluatejqlist();
+            }
+        }
+      })
+      
+      .state('app.evaluatechart3', {
+        url: '/evaluatechart3',
+        controller : 'evaluatechart3',
+        template: require('./views/evaluatechart3.html'),
+        resolve:{
+        	shakecompanyinfolist : function(guideservice){
+                return guideservice.shakecompanyinfolist();
+            },
+            questionhpllist : function(guideservice){
+                return guideservice.questionhpllist();
+            }
         }
       })
 };

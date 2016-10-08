@@ -13,6 +13,8 @@ module.exports = function($scope, getDate, orderstatisticscompanylist,
         'total' : 0
     };
 
+    $scope.showtype = '0';
+
     //有效区间
     $scope.section = {};
     $scope.section.start = {};
@@ -24,6 +26,18 @@ module.exports = function($scope, getDate, orderstatisticscompanylist,
     $scope.open = function(obj) {
         obj.opened = true;
     };
+
+    $scope.changetype = function () {
+    	if($scope.searchform.seltype == '0'){
+    		$scope.showtype = '0';
+    		$scope.section.start.date = new Date();
+    		$scope.section.end.date = new Date();
+    	}else{
+    		$scope.showtype = '1';
+    		$scope.section.start.date = new Date();
+    		$scope.section.end.date = new Date();
+    	}
+    }
 
     /* 分页
      * ========================================= */

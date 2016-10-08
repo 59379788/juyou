@@ -96,9 +96,6 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
             //把子分享商加到一级分销商里
             var res = {};
             angular.forEach(objs, function (value, key) {
-                //console.log(key + ':' + value);
-
-                //if(key == '') continue;
 
                 var company_id_parents = value.parentsid;
                 if(!(company_id_parents === undefined || company_id_parents == ''))
@@ -109,6 +106,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
                     for(var j = 0; j < tmparr.length; j++)
                     {
                         var tmpj = tmparr[j];
+                        console.log(tmpj);
                         if(tmpj == 0 || tmpj == '') continue;
                         if(!pointer.hasOwnProperty(tmpj))
                         {
@@ -122,6 +120,23 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
             });
             console.log(res);
 
+            var companys = [];
+            angular.forEach(res, function (value, key) {
+
+                companys = value.company;
+                for(var i = 0; i < companys.length; i++)
+                {
+                    var c = companys[i];
+                    var id = c.id;
+                    if(value.hasOwnProperty(id))
+                    {
+                        c['sub'] = {};
+                        c['sub'] = value[id];
+                    }
+                }
+
+            });
+            console.log(companys);
             return ;
 
 

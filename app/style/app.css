@@ -318,4 +318,6 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .unavailable, .unavailable:hover {cursor:not-allowed; color:#aaaaaa;}
 .tree-node-content:hover, .selected {color:#3c763d; background: #dff0d8;}
 
-
+/*卡池样式*/
+.wid20{width: 20% !important;}
+.mb0{margin-bottom: 0 !important;}

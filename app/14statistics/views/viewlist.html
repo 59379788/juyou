@@ -46,20 +46,22 @@
                 <option value="0">实时查询</option>
                 <option value="1">历史查询</option>
               </select>&nbsp;&nbsp;&nbsp;&nbsp;
-              <div class="input-group">
-              <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
-                  </span>
+              <div ng-show="showtype == '1'">
+	              <div class="input-group">
+	              <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+	                  <span class="input-group-btn">
+	                    <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+	                  </span>
+	              </div>
+	                    &nbsp;&nbsp;到&nbsp;&nbsp;            
+	              <div class="input-group">
+	              <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+	                  <span class="input-group-btn">
+	                    <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+	                  </span>
+	              </div>
+	              &nbsp;&nbsp;&nbsp;&nbsp;
               </div>
-                    &nbsp;&nbsp;到&nbsp;&nbsp;            
-              <div class="input-group">
-              <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
-                  <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
-                  </span>
-              </div>
-              &nbsp;&nbsp;&nbsp;&nbsp;
 
               <button type="button" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
             </div>

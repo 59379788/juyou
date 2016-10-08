@@ -1,0 +1,291 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+            	<div style='float:left;'>
+					<label>评价类型</label>&nbsp;&nbsp;
+					<select class="form-control" ng-model="obj.binding_type" 
+		              ng-options="type.value as type.label for type in typearr"
+		              ng-change="changeCompany(obj.binding_type)"
+		            >
+		            	<option value=""> -- 全部 -- </option>
+		            </select>
+					&nbsp;&nbsp;
+
+					<label>评价机构</label>&nbsp;&nbsp;
+					<select class="form-control" ng-model="obj.binding_company_code" 
+		              ng-options="type.binding_company_code as type.name for type in companyarr"
+		            >
+		            	<option value=""> -- 全部 -- </option>
+		            </select>
+					&nbsp;&nbsp;
+				</div>
+				<div ng-show="xx=='1'" style='float:left;'>
+					<label>团名称</label>&nbsp;&nbsp;
+					<select class="form-control" ng-model="obj.binding_code" 
+		              ng-options="group.group_id as group.group_name for group in grouparr"
+		            >
+		            	<option value=""> -- 全部 -- </option>
+		            </select>
+					&nbsp;&nbsp;
+				           
+					<input type="checkbox" ng-model="usedate" 
+                    ng-true-value="1" ng-false-value="0"
+                  	> 出游时间</label>&nbsp;&nbsp;
+					<div class="input-group">
+					<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+					  <span class="input-group-btn">
+					    <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+					  </span>
+					</div>
+					&nbsp;&nbsp;
+					</div>
+				</div>
+
+				<!--<label>批次</label>&nbsp;&nbsp;
+				<select class="form-control" ng-model="searchform.binding_type">
+					<option value="1"> 第一批 </option>
+					<option value="2"> 景区评价 </option>
+					<option value=""> -- 全部 -- </option>
+				</select>
+				&nbsp;&nbsp;-->
+
+				<button type="button" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
+
+			</div>
+
+        </div>
+    </div>
+</div>
+</div><!-- searchArea -->
+
+
+
+<div class="col-sm-12">
+
+	<div class="col-sm-7">
+
+	<div class="row">
+		<div class="col-sm-6" ng-repeat="obj in objs" style='height:380px;'>
+			<canvas id="pie" class="chart chart-pie"
+			  chart-data="obj.data1" chart-labels="obj.labels" chart-options="options">
+			</canvas> 
+			<!-- <canvas id="base" class="chart-base" chart-type="type"
+			  chart-data="data1" chart-labels="labels" >
+			</canvas>  -->
+
+			<div class="panel panel-default mt10">
+
+			  	<table class="table table-bordered">
+			      <div class="panel-heading text-center">{{obj.questionname}}</div>
+			      <tbody>
+			        <tr ng-repeat="question in obj.questionarr">
+			          <td class="text-center">{{question.name}}</td>
+			          <td class="text-center">{{question.num}}人</td>
+			        </tr>
+			      </tbody>
+			   	</table>
+			</div>
+		</div>
+
+		<!--<div class="col-sm-6">
+			<canvas id="pie" class="chart chart-pie"
+			  chart-data="data2" chart-labels="labels" chart-options="options">
+			</canvas> 
+			<div class="panel panel-default mt10">
+
+			  	<table class="table table-bordered">
+			      <div class="panel-heading text-center">
+			      	旅游线路质量和价格平价
+			      </div>
+			      <tbody>
+			        <tr>
+			          <td class="text-center">非常满意</td>
+			          <td class="text-center">40人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">一般满意</td>
+			          <td class="text-center">7人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">不满意</td>
+			          <td class="text-center">3人</td>
+			        </tr>
+			      </tbody>
+			   	</table>
+			</div>
+		</div>
+
+		</div>
+		
+
+		<div class="row">
+		<div class="col-sm-6">
+			<canvas id="pie" class="chart chart-pie"
+			  chart-data="data1" chart-labels="labels" chart-options="options">
+			</canvas> 
+			<div class="panel panel-default mt10">
+
+			  	<table class="table table-bordered">
+			      <div class="panel-heading text-center">宣传及信息真实性</div>
+			      <tbody>
+			        <tr>
+			          <td class="text-center">非常满意</td>
+			          <td class="text-center">35人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">一般满意</td>
+			          <td class="text-center">10人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">不满意</td>
+			          <td class="text-center">5人</td>
+			        </tr>
+			      </tbody>
+			   	</table>
+			</div>
+		</div>
+
+		<div class="col-sm-6">
+			<canvas id="pie" class="chart chart-pie"
+			  chart-data="data2" chart-labels="labels" chart-options="options">
+			</canvas> 
+			<div class="panel panel-default mt10">
+
+			  	<table class="table table-bordered">
+			      <div class="panel-heading text-center">
+			      	提供的旅游娱乐活动
+			      </div>
+			      <tbody>
+			        <tr>
+			          <td class="text-center">非常满意</td>
+			          <td class="text-center">40人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">一般满意</td>
+			          <td class="text-center">7人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">不满意</td>
+			          <td class="text-center">3人</td>
+			        </tr>
+			      </tbody>
+			   	</table>
+			</div>
+		</div>
+
+		</div>
+
+
+
+		<div class="row">
+		<div class="col-sm-6">
+			<canvas id="pie" class="chart chart-pie"
+			  chart-data="data1" chart-labels="labels" chart-options="options">
+			</canvas> 
+			<div class="panel panel-default mt10">
+
+			  	<table class="table table-bordered">
+			      <div class="panel-heading text-center">宣传及信息真实性</div>
+			      <tbody>
+			        <tr>
+			          <td class="text-center">非常满意</td>
+			          <td class="text-center">35人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">一般满意</td>
+			          <td class="text-center">10人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">不满意</td>
+			          <td class="text-center">5人</td>
+			        </tr>
+			      </tbody>
+			   	</table>
+			</div>
+		</div>
+
+		<div class="col-sm-6">
+			<canvas id="pie" class="chart chart-pie"
+			  chart-data="data2" chart-labels="labels" chart-options="options">
+			</canvas> 
+			<div class="panel panel-default mt10">
+
+			  	<table class="table table-bordered">
+			      <div class="panel-heading text-center">
+			      	提供的旅游娱乐活动
+			      </div>
+			      <tbody>
+			        <tr>
+			          <td class="text-center">非常满意</td>
+			          <td class="text-center">40人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">一般满意</td>
+			          <td class="text-center">7人</td>
+			        </tr>
+			        <tr>
+			          <td class="text-center">不满意</td>
+			          <td class="text-center">3人</td>
+			        </tr>
+			      </tbody>
+			   	</table>
+			</div>
+		</div>-->
+
+	</div>
+
+
+
+
+
+	</div>
+
+	<div class="col-sm-5">
+
+		<div class="panel panel-default" ng-show="peoplestate == '1'">
+
+		  	<table class="table table-bordered">
+		      <thead>
+		        <tr>
+		          <th class="col-sm-7 text-center">昵称</th>
+		          <th class="col-sm-3 text-center">评价红包金额</th>
+		          <th class="col-sm-2 text-center">作答详情</th>
+		        </tr>
+		      </thead>
+		      <tbody>
+		        <tr ng-repeat="peopleobj in peopleobjs">
+		          <td class="text-center">{{peopleobj.openid}}</td>
+		          <td class="text-center">{{peopleobj.total_price/100}}元</td>
+		          <td class="text-center">
+		          	<a ng-click="info(peopleobj.openid)" class="btn btn-info btn-xs">作答详情</a>
+		          </td>
+		        </tr>
+		      </tbody>
+		   	</table>
+
+		</div>
+
+		<div class="text-right">
+
+		    <uib-pagination 
+		      total-items="bigTotalItems" 
+		      ng-model="bigCurrentPage" 
+		      max-size="maxSize" 
+		      class="pagination-sm" 
+		      boundary-links="true" 
+		      ng-change="pageload()"
+		      items-per-page="itemsPerPage"
+		      previous-text="上一页"
+		      next-text="下一页"
+		      first-text="首页"
+		      last-text="末页"
+		      rotate="false">
+		    </uib-pagination>
+
+		  </div>
+
+	</div>
+
+</div>

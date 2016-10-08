@@ -1,0 +1,74 @@
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="inputLottry" class="col-sm-2 control-label">开奖号码</label>
+    <div class="col-md-4">
+      <input type="text" class="form-control" id="inputLottry" placeholder="** ** ** ** ** ** **"
+      ng-model="lottry.sevenstart"
+      >
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputDate" class="col-sm-2 control-label">开奖期数</label>
+    <div class="col-md-4">
+      <input type="text" class="form-control" id="inputDate" placeholder="****"
+      ng-model="lottry.period"
+      ng-disabled="btn.periodtxt"
+      >
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default"
+      ng-click="querylottry()"
+      ng-disabled="btn.query"
+      >查询</button>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="info" class="col-sm-2 control-label">个人信息</label>
+    
+    <div class="col-md-4">
+    <div class="panel panel-default">
+            <table class="table table-bordered">
+		        <tbody>
+		          <tr>
+		            <td class="col-md-1 text-center">姓名</td>
+		            <td class="col-md-3">{{user.username}}</td>
+		          </tr>
+		          <tr>
+		            <td class="col-xs-1 text-center">中奖号码</td>
+		            <td class="col-xs-3">{{user.lotter}}</td>
+		          </tr>
+		          <tr>
+		            <td class="col-xs-1 text-center">手机号</td>
+		            <td class="col-xs-3">{{user.mobile}}</td>
+		          </tr>
+		          <tr>
+		            <td class="col-xs-1 text-center">期号</td>
+		            <td class="col-xs-3">{{user.period}}</td>
+		          </tr>
+		          
+		        </tbody>
+		    </table>
+	</div>	    
+    </div>
+  </div> 
+
+  <div class="form-group">
+    <div class="col-sm-offset-3 col-sm-2">
+      <button type="button" class="btn btn-default btn-lg " 
+      ng-disabled="btn.confirm"
+      ng-click="confirm()"
+      >确 定</button>
+       <button type="button" class="btn btn-default btn-lg " 
+      ng-click="clear()"
+      >重置</button>
+    </div>
+   
+
+  </div>
+
+ </form>

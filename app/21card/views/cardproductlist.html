@@ -1,0 +1,75 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                  <input type="text" class="form-control" ng-model="searchform.title" placeholder="卡产品名称">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+
+                  <button type="button" class="btn btn-default search pull-right" ng-click="create()">创建卡产品</button>
+                  <button type="button" class="btn btn-default search pull-right" ng-click="search()">立即搜索</button>
+
+
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-3 text-center">卡产品名称</th>
+        <th class="col-md-1 text-center">卡产品类型</th>
+        <th class="col-md-1 text-center">市场价格</th>
+        <th class="col-md-1 text-center">指导价格</th>
+        <th class="col-md-2 text-center">绑定卡池编号</th>
+        <th class="col-md-2 text-center">绑定票销售品编号</th>
+        <th class="col-md-1 text-center">状态</th>
+        <th class="col-md-1 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.name}}</td>
+        <td class="text-center">{{obj.card_type}}</td>
+        <td class="text-center">{{obj.market_price}}</td>
+        <td class="text-center">{{obj.guide_price}}</td>
+        <td class="text-center">{{obj.pool_code}}</td>
+        <td class="text-center">{{obj.ticket_code}}</td>
+        <td class="text-center">{{obj.state_name}}</td>
+        <td class="text-center">
+          <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑</a>
+          <a ng-show="obj.state=='0' || obj.state=='2'"
+          ng-click="start(obj.code)" class="btn btn-danger btn-xs">上架</a>
+          <a ng-show="obj.state=='1'"
+          ng-click="stop(obj.code)" class="btn btn-success btn-xs">下架</a>
+        </td>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+
+
+<!--   <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div> -->
+  
+
+</div>

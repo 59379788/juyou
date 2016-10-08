@@ -24,7 +24,7 @@ require('../node_modules/textangular/dist/textAngular.css');
 
 // ------------ 图表 ----------------------//
 require('../node_modules/angular-chart.js/dist/angular-chart.min');
-require('../node_modules/angular-chart.js/dist/angular-chart.min.css');
+//require('../node_modules/angular-chart.js/dist/angular-chart.min.css');
 // ------------ 图表 ----------------------//
 
 
@@ -64,7 +64,7 @@ require('./17chart/app');
 require('./18docking/app');
 require('./19guide/app');
 require('./20line/app');
-
+require('./21card/app');
 require('./96util/app');
 require('./97intercept/app');   //拦截器
 require('./98test/app');
@@ -111,6 +111,7 @@ var App = angular.module('juyouApp', [
     'docking',
     'guide',
     'line',
+    'card',
     'util',
     'test',
     'common',
