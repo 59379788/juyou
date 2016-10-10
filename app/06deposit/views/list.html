@@ -36,10 +36,13 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-8 text-center">商户名称</th>
+        <th class="col-md-5 text-center">商户名称</th>
         <!-- <th class="col-md-1 text-center">总量</th> -->
         <th class="col-md-1 text-center">余额</th>
         <th class="col-md-1 text-center">信用额度</th>
+        <th class="col-md-1 text-center">短信提示余额不足阀值</th>
+        <th class="col-md-1 text-center">是否发送短信</th>
+        <th class="col-md-1 text-center">手机号码</th>
        <!--  <th class="col-md-2 text-center">欠款时间</th>
         <th class="col-md-1 text-center">警戒线</th> -->
         <th class="col-md-2 text-center">操作</th>
@@ -51,6 +54,10 @@
         <!-- <td class="text-center">{{obj.total_price | currency : '¥'}}</td> -->
         <td class="text-center">{{obj.balance_price | currency : '￥'}}</td>
         <td class="text-center">{{obj.loan_limit_price | currency : '￥'}}</td>
+        <td class="text-center">{{obj.send_sms_price | currency : '￥' }}</td>
+        <td class="text-center" ng-show="obj.send_sms_flag === '1' ">是</td>
+        <td class="text-center" ng-show="obj.send_sms_flag === '0' ">否</td>
+        <td class="text-center">{{obj.send_sms_mobile}}</td>
         <!-- <td class="text-center">{{obj.arrears_time}}</td>
         <td class="text-center">{{obj.picket_line | currency : '￥'}}</td> -->
         <td class="text-center">

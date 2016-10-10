@@ -43,6 +43,10 @@ var service = function($resource, BASEURL38985){
     //重发短信
     var agencyOrderRepeatECode = BASEURL38985 + '/api/ac/dc/huaxiapl/agencyOrderRepeatECode';
 
+    //生效时间
+    var updateTicketEffectTime = BASEURL38985 + '/api/as/tc/ticket2/updateTicketEffectTime';
+
+
     return {
 
         createorder : function(){
@@ -95,6 +99,9 @@ var service = function($resource, BASEURL38985){
         },
         agencyOrderRepeatECode : function(){
             return $resource(agencyOrderRepeatECode, {}, {});
+        },
+        updateTicketEffectTime : function(){
+            return $resource(updateTicketEffectTime, {}, {});
         }
 
     };

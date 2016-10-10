@@ -56,7 +56,8 @@ var service = function($resource, BASEURL38985, $q, $http){
     //非实名用户购
     var insertWinterTicketOrder  = BASEURL38985 + "/api/ac/uc/userActiveService/insertWinterTicketOrder";
 
-
+    //90元购票
+    var createOrder90  = BASEURL38985 + "/api/ac/tc/ticketOrderService/createOrder";
     
     return {
         namelist : function(){
@@ -144,6 +145,9 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         insertWinterTicketOrder : function(){
             return $resource(insertWinterTicketOrder, {}, {});
+        },
+        createOrder90 : function(){
+            return $resource(createOrder90, {}, {});
         }
     };
 

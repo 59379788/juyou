@@ -1,6 +1,13 @@
 module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj, 
-    getRedCorridorOrderList, $uibModal, orderbacklist, getOrderSimInfo){
+    getRedCorridorOrderList, getDate, $uibModal, orderbacklist, getOrderSimInfo, updateTicketEffectTime, str2date){
 
+    $scope.front_date = new Date();
+    // console.log(77777777744444);
+    // console.log(obj.ticket_out_time);
+    // console.log(44444444477777);
+    $scope.front_date = str2date(obj.ticket_out_time.substring(0,10));
+    // $scope.front = getDate($scope.front_date);
+    // $scope.front_date = str2date($scope.front);
     var code = obj.code;
 
     var fun;
@@ -275,6 +282,41 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
           //$log.info('Modal dismissed at: ' + new Date());
         });
     }
+
+    $scope.timechange = function(id,take_effect_time){
+
+        updateTicketEffectTime.save({'id' : id, 'take_effect_time' : take_effect_time} ,function(res){
+            console.log(res);
+
+            if(res.errcode === 0)
+            {
+                alert('修改成功');
+                // $scope.load();
+            }
+            else
+            {
+                alert(res.errmsg);
+            }
+        });
+    }
+
+    $scope.open = function(obj) {
+        obj.opened = true;
+    };
+
+    
+
+    $scope.mosaic = function(id,take_effect_time){
+        $scope.front = getDate($scope.front_date);
+        take_effect_time = $scope.front + ' ' + take_effect_time.substring(11,19);
+        console.log($scope.front);
+        // console.log(11111);
+        console.log(id);
+        // console.log(22222);
+        // console.log(take_effect_time);
+        // console.log(333333);
+        $scope.timechange(id,take_effect_time);
+    };
 
 
 };

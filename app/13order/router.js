@@ -47,6 +47,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             agencyOrderRepeatECode : function(orderservice){
                 return orderservice.agencyOrderRepeatECode();
+            },
+            updateTicketEffectTime : function(orderservice){
+                return orderservice.updateTicketEffectTime();
+            },
+            str2date : function(utilservice){
+                return utilservice.str2date;
             }
 
         }
@@ -79,12 +85,20 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             createBackOrder : function(orderservice){
                 return orderservice.createBackOrder();
+            },
+            updateTicketEffectTime : function(orderservice){
+                return orderservice.updateTicketEffectTime();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            },
+            str2date : function(utilservice){
+                return utilservice.str2date;
             }
             // getDate : function(utilservice){
             //     return utilservice.getDate;
             // }
         }
-        
       })
 
 
@@ -96,6 +110,12 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
             ticketlist : function(orderservice){
                 return orderservice.ticketlist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            },
+            str2date : function(utilservice){
+                return utilservice.str2date;
             }
             // getDate : function(utilservice){
             //     return utilservice.getDate;

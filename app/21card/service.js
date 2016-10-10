@@ -169,6 +169,24 @@ var service = function($resource, BASEURL38985){
         listinpool : function(){
              return $resource(listinpool, {}, {});
         },
+        cardbaselist : function(){
+             return $resource(cardbaselist, {}, {});
+        },
+        getUserInfoByMobile : function(){
+             return $resource(getUserInfoByMobile, {}, {});
+        },
+        getProductByCardNoList : function(){
+             return $resource(getProductByCardNoList, {}, {});
+        },
+        createProductOrderByCardNo : function(){
+             return $resource(createProductOrderByCardNo, {}, {});
+        },
+        cardproductorderlist : function(){
+             return $resource(cardproductorderlist, {}, {});
+        },
+        cardproductorderinfo : function(){
+             return $resource(cardproductorderinfo, {}, {});
+        },
        
         statename:{ 
         	state:[

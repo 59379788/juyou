@@ -1,4 +1,4 @@
-module.exports = function($scope, search, sale_01, insertWinterTicketOrder, createOrder){
+module.exports = function($scope, search, sale_01, insertWinterTicketOrder, createOrder90){
 
 	//页面数据
 	$scope.papersno = '';
@@ -111,13 +111,13 @@ module.exports = function($scope, search, sale_01, insertWinterTicketOrder, crea
 
 		console.log({
 			'mobile' : $scope.user.mobile, 
-			'cardno' : $scope.papersno, 
+			// 'cardno' : $scope.papersno, 
 			'num' : 1, 
 			'sale_code' : '1475207394349'
 		});
-		createOrder.save({
+		createOrder90.save({
 			'mobile' : $scope.user.mobile, 
-			'cardno' : $scope.papersno, 
+			// 'cardno' : $scope.papersno, 
 			'num' : 1, 
 			'sale_code' : '1475207394349'
 		}, function(res){
