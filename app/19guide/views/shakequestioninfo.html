@@ -18,15 +18,17 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th class="text-center col-md-6">问题</th>
-                <th class="text-center col-md-3">答案</th>
-                <th class="text-center col-md-3">作答时间</th>
+                <th class="text-center col-md-5">问题</th>
+                <th class="text-center col-md-2">答案</th>
+                <th class="text-center col-md-3">不满意原因</th>
+                <th class="text-center col-md-2">作答时间</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="obj in group.answerarr">
                 <td class="text-center">{{obj.question}}</td>
                 <td class="text-center">{{obj.name}}</td>
+                <td class="text-center">{{obj.answer_instruction}}</td>
                 <td class="text-center">{{obj.answer_time}}</td>
             </tbody>
           </table>
