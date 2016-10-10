@@ -1,5 +1,5 @@
 module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolist, shakegroupinfolist, 
-	getDate, shakeanswer, questionstatisticlist, peoplerebatelist, shakeevaluateanswerlist, ITEMS_PERPAGE){
+	getDate, shakeanswer, questionstatisticlist, peoplerebatelist, shakeanswerslist, ITEMS_PERPAGE){
 
     $scope.data1 = [];
     $scope.labels = [];
@@ -217,8 +217,8 @@ module.exports = function($scope, $uibModal, dictbytypelist, shakecompanyinfolis
             openid : function(){
                 return openid;
             },
-            shakeevaluateanswerlist : function(){
-                return shakeevaluateanswerlist;
+            shakeanswerslist : function(){
+                return shakeanswerslist;
             } 
           }
         });

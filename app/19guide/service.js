@@ -51,6 +51,8 @@ var service = function($resource, BASEURL38985){
 
     var peoplerebatelist = BASEURL38985 + '/api/ac/gc/ShakeEvaluateStatisticsService/rebatelist';
 
+    var shakeanswerslist = BASEURL38985 + '/api/as/gc/shakeevaluateanswer/shakeanswerslist';
+
     //评价系统图标分析时间轴
     var totalevaluatelist = BASEURL38985 + '/api/ac/gc/ShakeEvaluateStatisticsService/evaluatechart1';
 
@@ -130,6 +132,9 @@ var service = function($resource, BASEURL38985){
         },
         peoplerebatelist : function(){
             return $resource(peoplerebatelist, {}, {});
+        },
+        shakeanswerslist : function(){
+            return $resource(shakeanswerslist, {}, {});
         },
 
         totalevaluatelist : function(){

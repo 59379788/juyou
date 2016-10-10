@@ -178,8 +178,8 @@ var router = function($urlRouterProvider, $stateProvider){
             peoplerebatelist : function(guideservice){
                 return guideservice.peoplerebatelist();
             },
-            shakeevaluateanswerlist : function(guideservice){
-                return guideservice.shakeevaluateanswerlist();
+            shakeanswerslist : function(guideservice){
+                return guideservice.shakeanswerslist();
             }
         }
       })
