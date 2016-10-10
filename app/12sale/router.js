@@ -216,7 +216,7 @@ var router = function($urlRouterProvider, $stateProvider){
                 return sellingservice.insertWinterTicketOrder();
             },
             createOrder : function(orderservice){
-                return orderservice.createOrder();
+                return orderservice.createorder();
             }
         }
       })
