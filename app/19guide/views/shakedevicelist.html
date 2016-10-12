@@ -19,6 +19,9 @@
                   <input type="text" class="form-control" ng-model="searchform.group_name" placeholder="绑定团名" >
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
+                  <input type="text" class="form-control" ng-model="searchform.remarks" placeholder="备注" >
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
                   <label>设备绑定类型</label>&nbsp;&nbsp;
                   <select class="form-control" ng-model="searchform.binding_type">
                     <option value="1"> 旅行社评价 </option>
@@ -51,7 +54,7 @@
 
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <button type="button" class="btn btn-default search pull-right" ng-click="search()">立即搜索</button>
+                  <button type="button" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
 
                 </div>
 
@@ -96,7 +99,7 @@
   </table>
 
 
-<!--   <div class="text-right">
+<div class="text-right">
 
     <uib-pagination 
       total-items="bigTotalItems" 
@@ -113,7 +116,7 @@
       rotate="false">
     </uib-pagination>
 
-  </div> -->
+  </div>
   
 
 </div>

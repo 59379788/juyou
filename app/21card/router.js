@@ -244,15 +244,15 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'activationcard',
          template: require('./views/activationcard.html'),
          resolve:{
-            getUserInfoByMobile : function(cardservice){
-                 return cardservice.getUserInfoByMobile();
-            },
-            getProductByCardNoList : function(cardservice){
-                 return cardservice.getProductByCardNoList();
-            },
-            createProductOrderByCardNo : function(cardservice){
-                 return cardservice.createProductOrderByCardNo();
-            }
+            // getUserInfoByMobile : function(cardservice){
+            //      return cardservice.getUserInfoByMobile();
+            // },
+            // getProductByCardNoList : function(cardservice){
+            //      return cardservice.getProductByCardNoList();
+            // },
+            // createProductOrderByCardNo : function(cardservice){
+            //      return cardservice.createProductOrderByCardNo();
+            // }
           }   
         })
 
@@ -262,6 +262,7 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'basecardlist',
          template: require('./views/basecardlist.html'),
          resolve:{
+<<<<<<< HEAD
             cardbaselist : function(cardservice){
                  return cardservice.cardbaselist();
             },
@@ -336,6 +337,11 @@ var router = function($urlRouterProvider, $stateProvider){
                  return cardservice.searchcard();
              } 
             
+=======
+            // cardbaselist : function(cardservice){
+            //      return cardservice.cardbaselist();
+            // }
+>>>>>>> 97884bf3e8030e781126057a03d96e4d9194ae10
          }
        })
        

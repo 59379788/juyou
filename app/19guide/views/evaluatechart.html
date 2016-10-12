@@ -32,7 +32,7 @@
 				           
 					<input type="checkbox" ng-model="usedate" 
                     ng-true-value="1" ng-false-value="0"
-                  	> 出游时间</label>&nbsp;&nbsp;
+                  	> <label>评价时间</label>&nbsp;&nbsp;
 					<div class="input-group">
 					<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
 					  <span class="input-group-btn">
@@ -256,7 +256,7 @@
 		      </thead>
 		      <tbody>
 		        <tr ng-repeat="peopleobj in peopleobjs">
-		          <td class="text-center">{{peopleobj.openid}}</td>
+		          <td class="text-center">{{peopleobj.openname}}</td>
 		          <td class="text-center">{{peopleobj.total_price/100}}元</td>
 		          <td class="text-center">
 		          	<a ng-click="info(peopleobj.openid)" class="btn btn-info btn-xs">作答详情</a>

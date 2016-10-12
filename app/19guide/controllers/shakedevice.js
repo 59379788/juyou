@@ -51,6 +51,7 @@ module.exports = function($scope, $stateParams, $state, shakedevice, shakedevice
                         alert(info.errmsg);
                         return;
                     }
+                	$scope.section.start.date = new Date(info.data.binding_time);
                     $scope.obj = info.data;
                     $scope.obj.binding_code = $scope.obj.binding_code.substr(0,$scope.obj.binding_code.indexOf('_'));
                     if($scope.obj.binding_type != '1'){
@@ -150,7 +151,14 @@ module.exports = function($scope, $stateParams, $state, shakedevice, shakedevice
 	            alert('设备绑定团名必填');
 	            return;
 	        }	
+	        if($scope.obj.binding_maxsignup == null)
+	        {
+	            alert('最大报名人数必填');
+	            return;
+	        }
     	}
+
+
 
     	if($scope.obj.binding_code == null || $scope.obj.binding_code == ''){
     		$scope.obj.binding_code = $scope.obj.binding_company_code;
