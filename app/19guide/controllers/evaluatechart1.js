@@ -1,10 +1,7 @@
-module.exports = function($scope, shakegroupinfolist, shakecompanyinfolist, totalevaluatelist){
+module.exports = function($scope, shakegroupinfolist, shakecompanyinfolist, totalevaluatelist, getDate){
 
     $scope.colors = ['#45b7cd', '#ff6384', '#ff8e72', '#FF0088', '#FF0000', '#FF8800', '#FFFF00', '#77FF00'];
-
-    var labels1 = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
-    var labels2 = ['1号', '2号', '3号', '4号', '5号', '6号', '7号', '8号', '9号', '10号', '11号', '12号', '13号', '14号', '15号', '16号', '17号', '18号', '19号', '20号', '21号', '22号', '23号', '24号', '25号', '26号', '27号', '28号', '29号', '30号', '31号'];
-    var labels3 = ['1时', '2时', '3时', '4时', '5时', '6时', '7时', '8时', '9时', '10时', '11时', '12时', '13时', '14时', '15时', '16时', '17时', '18时', '19时', '20时', '21时', '22时', '23时', '24时'];
+    
     /*$scope.data = [
       [1000, 1200, 900, 400, 930, 800,1000, 1200, 900, 400, 930, 800],
       [28, 48, 40, 19, 86, 27, 28, 48, 40, 19, 86, 27],
@@ -44,13 +41,32 @@ module.exports = function($scope, shakegroupinfolist, shakecompanyinfolist, tota
 
 
     $scope.obj = [];
+    $scope.obj.binding_type = '1';
     $scope.totalobjs = [];
+
+    //有效区间
+    $scope.section = {};
+    $scope.section.start = {};
+    $scope.section.start.date = new Date();
+    $scope.section.starttime = {};
+    $scope.section.starttime.date = new Date();
+
+    $scope.section.end = {};
+    $scope.section.end.date = new Date();
+    $scope.section.endtime = {};
+    $scope.section.endtime.date = new Date();
+
+    $scope.open = function(obj) {
+        obj.opened = true;
+    };
 
     //设置默认值
     $scope.obj.type_month = '1';				
     $scope.obj.type_year = '2016';					
     $scope.obj.type_playtime_start = '1';		
     $scope.obj.type_playtime_end = '12';
+    $scope.obj.starthour = '08:00';		
+    $scope.obj.endhour = '21:00';
     $scope.isable = '0';
 
     shakegroupinfolist.get({}, function(res){
@@ -79,17 +95,25 @@ module.exports = function($scope, shakegroupinfolist, shakecompanyinfolist, tota
 		$scope.data = [];
 		$scope.totalobjs = [];
 
-		//组合出游时间参数
-	    var start = $scope.obj.type_playtime_start;
-		var end = $scope.obj.type_playtime_end;
-		if(start.length == 1) start = '0' + start;
-		if(end.length == 1) end = '0' + end;
-		$scope.obj.binding_time_start = $scope.obj.type_year + '-' + start + '-01';
-		$scope.obj.binding_time_end = $scope.obj.type_year + '-' + end + '-31';
-		//$scope.obj.binding_company_code = '111';
+		//组合评价时间参数
+		if($scope.obj.type_month == '1'){
+			var start = $scope.obj.type_playtime_start;
+			var end = $scope.obj.type_playtime_end;
+			if(start.length == 1) start = '0' + start;
+			if(end.length == 1) end = '0' + end;
+			$scope.obj.create_time_start = $scope.obj.type_year + '-' + start + '-01';
+			$scope.obj.create_time_end = $scope.obj.type_year + '-' + end + '-31';
+		}else if($scope.obj.type_month == '2'){
+			$scope.obj.create_time_start = getDate($scope.section.start.date);
+			$scope.obj.create_time_end = getDate($scope.section.end.date);
+		}else if($scope.obj.type_month == '3'){
+			$scope.obj.create_time_start = getDate($scope.section.starttime.date) + ' ' + $scope.obj.starthour + ':00';
+			$scope.obj.create_time_end = getDate($scope.section.endtime.date) + ' ' + $scope.obj.endhour + ':00';
+		}
     	console.log($scope.obj);
+
     	totalevaluatelist.get($scope.obj, function(res){
-            //console.log(res.data);
+            console.log(res.data);
 	        if(res.errcode !== 0)
 	        {
 	            alert(res.errmsg);
@@ -97,19 +121,8 @@ module.exports = function($scope, shakegroupinfolist, shakecompanyinfolist, tota
 	        }
 
 	        $scope.totalobjs.push(res.data);
-
-	        switch(res.data.type_month)
-	        {
-        		case '1' : $scope.labels = labels1; break;
-        		case '2' : $scope.labels = labels2; break;
-        		case '3' : $scope.labels = labels3; break;
-	        }
-
-	        var r = [];
-	        for(var i=0; i<res.data.list.length; i++){
-	        	r.push(res.data.list[i].sum);
-	        }
-	        $scope.data.push(r);
+	        $scope.data.push(res.data.data);
+	        $scope.labels = res.data.labels;
 	        
 	    });
     	
@@ -130,9 +143,9 @@ module.exports = function($scope, shakegroupinfolist, shakecompanyinfolist, tota
 				}
 			}
 		}
-    	//console.log($scope.obj);
+    	console.log($scope.obj);
     	totalevaluatelist.get($scope.obj, function(res){
-            //console.log(res.data);
+            console.log(res.data);
 	        if(res.errcode !== 0)
 	        {
 	            alert(res.errmsg);
@@ -140,12 +153,8 @@ module.exports = function($scope, shakegroupinfolist, shakecompanyinfolist, tota
 	        }
 
 	        $scope.totalobjs.push(res.data);
-
-	        var r = [];
-	        for(var i=0; i<res.data.list.length; i++){
-	        	r.push(res.data.list[i].sum);
-	        }
-	        $scope.data.push(r);
+	        $scope.data.push(res.data.data);
+	        $scope.labels = res.data.labels;
 
 	        var para = {
 	        	label : res.data.lxsname,
@@ -174,6 +183,22 @@ module.exports = function($scope, shakegroupinfolist, shakecompanyinfolist, tota
     		$scope.isable = '0';
 		}else{
 			$scope.isable = '1';
+		}
+    }
+
+    $scope.changetype = function() {
+    	if($scope.obj.type_month == '1'){
+    		$scope.obj.type_year = '2016';					
+		    $scope.obj.type_playtime_start = '1';		
+		    $scope.obj.type_playtime_end = '12';
+		}else if($scope.obj.type_month == '2'){
+			$scope.section.start.date = new Date();
+			$scope.section.end.date = new Date();
+		}else if($scope.obj.type_month == '3'){
+			$scope.section.starttime.date = new Date();
+			$scope.section.endtime.date = new Date();
+			$scope.obj.starthour = '08:00';		
+    		$scope.obj.endhour = '21:00';
 		}
     }
 

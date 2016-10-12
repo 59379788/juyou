@@ -5,68 +5,145 @@
             <div class="col-sm-12">
 
             	<div class="row">
-				<label>团名称</label>&nbsp;&nbsp;
-				<select class="form-control" ng-model="obj.binding_code" 
-	              ng-options="group.group_id as group.group_name for group in grouparr"
-	              ng-disabled="isable=='1'"
-	            >
-	            	<option value=""> -- 全部 -- </option>
-	            </select>
-				&nbsp;&nbsp;
+            		<div style="float:left;">
+						<label>团名称</label>&nbsp;&nbsp;
+						<select class="form-control" ng-model="obj.binding_code" 
+			              ng-options="group.group_id as group.group_name for group in grouparr"
+			              ng-disabled="isable=='1'"
+			            >
+			            	<option value=""> -- 全部 -- </option>
+			            </select>
+						&nbsp;&nbsp;
 
-				<label>统计类型</label>&nbsp;&nbsp;
-				<select class="form-control" ng-model="obj.type_month" ng-disabled="isable=='1'">
-					<option value="1"> 月份 </option>
-					<option value="2"> 日期 </option>
-					<option value="3"> 时间 </option>
-				</select>
-				&nbsp;&nbsp;
+						<label>统计类型</label>&nbsp;&nbsp;
+						<select class="form-control" ng-model="obj.type_month" 
+							ng-disabled="isable=='1'" ng-change="changetype()">
+							<option value="1"> 月份 </option>
+							<option value="2"> 日期 </option>
+							<option value="3"> 时间 </option>
+						</select>
+						&nbsp;&nbsp;
+					</div>
+					<div style="float:left;" ng-show="obj.type_month=='1'">
+						<label>评价月份</label>&nbsp;&nbsp;
+						<select class="form-control" ng-model="obj.type_year" ng-disabled="isable=='1'">
+							<option value="2016"> 2016 </option>
+							<option value="2017"> 2017 </option>
+						</select>
+						&nbsp;&nbsp;
+						<select class="form-control" ng-model="obj.type_playtime_start" ng-disabled="isable=='1'">
+							<option value="1"> 一月 </option>
+							<option value="2"> 二月 </option>
+							<option value="3"> 三月 </option>
+							<option value="4"> 四月 </option>
+							<option value="5"> 五月 </option>
+							<option value="6"> 六月 </option>
+							<option value="7"> 七月 </option>
+							<option value="8"> 八月 </option>
+							<option value="9"> 九月 </option>
+							<option value="10"> 十月 </option>
+							<option value="11"> 十一月 </option>
+							<option value="12"> 十二月 </option>
+						</select>
+						&nbsp;&nbsp;至&nbsp;&nbsp;
+						<select class="form-control" ng-model="obj.type_playtime_end" ng-disabled="isable=='1'">
+							<option value="1"> 一月 </option>
+							<option value="2"> 二月 </option>
+							<option value="3"> 三月 </option>
+							<option value="4"> 四月 </option>
+							<option value="5"> 五月 </option>
+							<option value="6"> 六月 </option>
+							<option value="7"> 七月 </option>
+							<option value="8"> 八月 </option>
+							<option value="9"> 九月 </option>
+							<option value="10"> 十月 </option>
+							<option value="11"> 十一月 </option>
+							<option value="12"> 十二月 </option>
+						</select>
+						&nbsp;&nbsp;
+					</div>
 
-				<label>年份</label>&nbsp;&nbsp;
-				<select class="form-control" ng-model="obj.type_year" ng-disabled="isable=='1'">
-					<option value="2016"> 2016 </option>
-					<option value="2017"> 2017 </option>
-					<option value="2018"> 2018 </option>
-				</select>
-				&nbsp;&nbsp;
+					<div style="float:left;" ng-show="obj.type_month=='2'">
+						<label>评价日期</label>&nbsp;&nbsp;
+		                  <div class="input-group">
+		                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" 
+		                  ng-model="section.start.date" is-open="section.start.opened"  ng-disabled="isable=='1'"
+		                  ng-required="true" close-text="Close" readonly/>
+		                      <span class="input-group-btn">
+		                        <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"  ng-disabled="isable=='1'"></i></button>
+		                      </span>
+		                  </div>
+		                        &nbsp;&nbsp;到&nbsp;&nbsp;            
+		                  <div class="input-group">
+		                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" 
+		                  ng-model="section.end.date" is-open="section.end.opened" ng-disabled="isable=='1'"
+		                  ng-required="true" close-text="Close" readonly/>
+		                      <span class="input-group-btn">
+		                        <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar" ng-disabled="isable=='1'"></i></button>
+		                      </span>
+		                  </div>
+		                  &nbsp;&nbsp;&nbsp;&nbsp;
+					</div>
+					
+					<div style="float:left;" ng-show="obj.type_month=='3'">
+						<label>评价时间</label>&nbsp;&nbsp;
+		                  <div class="input-group">
+		                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" 
+		                  ng-model="section.starttime.date" is-open="section.starttime.opened" ng-disabled="isable=='1'"
+		                  ng-required="true" close-text="Close" readonly/>
+		                      <span class="input-group-btn">
+		                        <button type="button" class="btn btn-default" ng-click="open(section.starttime)"><i class="glyphicon glyphicon-calendar" ng-disabled="isable=='1'"></i></button>
+		                      </span>
+		                  </div>
+		                  &nbsp;&nbsp;
+		                  <select class="form-control" ng-model="obj.starthour" ng-disabled="isable=='1'">
+								<option value="08:00">08:00</option>
+								<option value="09:00">09:00</option>
+								<option value="10:00">10:00</option>
+								<option value="11:00">11:00</option>
+								<option value="12:00">12:00</option>
+								<option value="13:00">13:00</option>
+								<option value="14:00">14:00</option>
+								<option value="15:00">15:00</option>
+								<option value="16:00">16:00</option>
+								<option value="17:00">17:00</option>
+								<option value="18:00">18:00</option>
+								<option value="19:00">19:00</option>
+								<option value="20:00">20:00</option>
+								<option value="21:00">21:00</option>
+						  </select>
+		                        &nbsp;&nbsp;到&nbsp;&nbsp;            
+		                  <div class="input-group">
+		                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" 
+		                  ng-model="section.endtime.date" is-open="section.endtime.opened" ng-disabled="isable=='1'"
+		                  ng-required="true" close-text="Close" readonly/>
+		                      <span class="input-group-btn">
+		                        <button type="button" class="btn btn-default" ng-click="open(section.endtime)">
+		                        <i class="glyphicon glyphicon-calendar" ng-disabled="isable=='1'"></i></button>
+		                      </span>
+		                  </div>
+		                  &nbsp;&nbsp;
+		                  <select class="form-control" ng-model="obj.endhour" ng-disabled="isable=='1'">
+								<option value="08:00">08:00</option>
+								<option value="09:00">09:00</option>
+								<option value="10:00">10:00</option>
+								<option value="11:00">11:00</option>
+								<option value="12:00">12:00</option>
+								<option value="13:00">13:00</option>
+								<option value="14:00">14:00</option>
+								<option value="15:00">15:00</option>
+								<option value="16:00">16:00</option>
+								<option value="17:00">17:00</option>
+								<option value="18:00">18:00</option>
+								<option value="19:00">19:00</option>
+								<option value="20:00">20:00</option>
+								<option value="21:00">21:00</option>
+						  </select>
+						  &nbsp;&nbsp;&nbsp;&nbsp;
+					</div>
 
-				<label>出游时间</label>&nbsp;&nbsp;
-				<select class="form-control" ng-model="obj.type_playtime_start" ng-disabled="isable=='1'">
-					<option value="1"> 一月 </option>
-					<option value="2"> 二月 </option>
-					<option value="3"> 三月 </option>
-					<option value="4"> 四月 </option>
-					<option value="5"> 五月 </option>
-					<option value="6"> 六月 </option>
-					<option value="7"> 七月 </option>
-					<option value="8"> 八月 </option>
-					<option value="9"> 九月 </option>
-					<option value="10"> 十月 </option>
-					<option value="11"> 十一月 </option>
-					<option value="12"> 十二月 </option>
-				</select>
-				&nbsp;&nbsp;至&nbsp;&nbsp;
-				<select class="form-control" ng-model="obj.type_playtime_end" ng-disabled="isable=='1'">
-					<option value="1"> 一月 </option>
-					<option value="2"> 二月 </option>
-					<option value="3"> 三月 </option>
-					<option value="4"> 四月 </option>
-					<option value="5"> 五月 </option>
-					<option value="6"> 六月 </option>
-					<option value="7"> 七月 </option>
-					<option value="8"> 八月 </option>
-					<option value="9"> 九月 </option>
-					<option value="10"> 十月 </option>
-					<option value="11"> 十一月 </option>
-					<option value="12"> 十二月 </option>
-				</select>
-
-				&nbsp;&nbsp;
-				
-				
-
-				<button type="button" class="btn btn-default search pull-right" 
-					ng-click="load()" ng-disabled="isable=='1'">立即搜索</button>
+					<button type="button" class="btn btn-default search pull-right" 
+						ng-click="load()" ng-disabled="isable=='1'">立即搜索</button>
 
 				</div>
 
@@ -119,8 +196,8 @@
 		      <tbody>
 		        <tr ng-repeat="totalobj in tobj.list">
 		          <td class="text-center" ng-show="tobj.type_month=='1'">{{totalobj.month}}月</td>
-		          <td class="text-center" ng-show="tobj.type_month=='2'">{{totalobj.month}}号</td>
-		          <td class="text-center" ng-show="tobj.type_month=='3'">{{totalobj.month}}时</td>
+		          <td class="text-center" ng-show="tobj.type_month=='2'">{{totalobj.day}}</td>
+		          <td class="text-center" ng-show="tobj.type_month=='3'">{{totalobj.daytime}}</td>
 		          <td class="text-center">{{totalobj.sum}}人次</td>
 		        </tr>
 		      </tbody>
