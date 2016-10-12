@@ -337,7 +337,7 @@ var router = function($urlRouterProvider, $stateProvider){
                  return cardservice.searchcard();
              } 
             
-       })
+       })//aaa
        
 };
 
