@@ -176,4 +176,45 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
 
 
 
+    //将子分销商的销售情况合并到一级分销。
+    function merge(obj1, obj2){
+
+        var res = false;
+
+        //将子分销的复制一份
+        var tmpobj2 = angular.copy(obj2);
+
+        //obj2的父节点id不是obj1的id
+        if(obj1.id !== obj2.parentid)
+        {
+            return res;
+        }
+
+
+        //key:销售品编号，value:销售情况
+        angular.forEach(tmpobj2['saleobjs'], function (saleinfo, salecode) {
+            //查询一级分销是否卖过该子分销的销售品
+            var saleobj = obj1['saleobjs'][salecode];
+            //一级分销没卖过的销售品
+            if(saleobj === undefined)
+            {
+                saleobj = {};
+                saleobj = saleinfo;
+            }
+            //一级分销也卖过的销售品
+            else
+            {
+                angular.forEach(saleobj['saleobjs'], function (value, key) {
+
+                });
+            }
+
+
+
+        });
+
+
+        return res;
+    }
+
 };
