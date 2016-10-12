@@ -1,31 +1,41 @@
 <form class="form-horizontal" role="form">
   <h2>添加/修改卡池基本信息</h2>
-  <div class="form-group">
-    <label for="inputLottry" class="col-sm-2 control-label">卡池名称</label>
-    <div class="col-md-4">
-      <input type="text" class="form-control" id="inputpoolname" placeholder="** ** ** ** ** ** **"
-      ng-model="cardinfo.pool_name"
-      >
-    </div>
-  </div>
+  <div class="col-md-6">
+  <div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-md-12">
+              
+              <label for="inputLottry" class="col-md-2 control-label">卡池名称</label>
+              <input type="text" class="col-md-4 form-control" id="inputLottry" placeholder="卡池名称"
+                   ng-model="cardinfo.pool_name">
+              
+              <label for="inputDate" class="col-md-2 control-label">卡池类型</label>
+              <div class="col-md-2">
+               <select class="form-control" ng-model="cardinfo.pool_type">
+               <option value="1">普通卡</option>
+               <option value="2">会员卡</option>
+               <option value="3">金卡</option>
+               <option value="4">银卡</option>
+               <option value="5">VIP</option>
+               </select>  
+              </div>
+              
+              
+              
+                  
+               <button type="button" class="btn btn-default search pull-right" ng-click="savecardpool()">确定</button>
 
-  <div class="form-group">
-    <label for="inputDate" class="col-sm-2 control-label">卡池类型</label>
-    <div class="col-md-4">
-     <select class="form-control" ng-model="cardinfo.pool_type">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-     </select>  
+
+            </div>
+        </div>
     </div>
-  </div>
+   </div><!-- searchArea -->
+
+
+
 
   
-  <div>
-  <button type="button" class="btn btn-primary btn-sm col-md-1 col-md-offset-5" ng-click="savecardpool()">确定</button>
-  </div>
 
   
  </form>
