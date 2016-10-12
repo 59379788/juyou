@@ -262,7 +262,7 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'basecardlist',
          template: require('./views/basecardlist.html'),
          resolve:{
-<<<<<<< HEAD
+         	
             cardbaselist : function(cardservice){
                  return cardservice.cardbaselist();
             },
@@ -337,12 +337,6 @@ var router = function($urlRouterProvider, $stateProvider){
                  return cardservice.searchcard();
              } 
             
-=======
-            // cardbaselist : function(cardservice){
-            //      return cardservice.cardbaselist();
-            // }
->>>>>>> 97884bf3e8030e781126057a03d96e4d9194ae10
-         }
        })
        
 };
