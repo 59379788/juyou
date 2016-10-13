@@ -6,13 +6,14 @@ module.exports = function($scope, $uibModalInstance, saveprice, sale_company_pri
 	var para = {};
 	if(sale_company_price_id == undefined){
 		para.sale_code = sale_code;
+		$scope.obj.cost_price = '0';
 	}else{
 		para.id = sale_company_price_id;
 	}
 
 	$scope.gogo = function(){
 
-		if($scope.obj.cost_price == undefined)
+		if($scope.obj.cost_price == '0')
 		{
 			alert("请输入分销成本价");
 			return;
