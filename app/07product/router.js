@@ -498,6 +498,9 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
             skgoodslist : function(productservice){
                 return productservice.skgoodslist();
+            },
+            saveprice : function(productservice){
+                return productservice.saveprice();
             }
         }
       })

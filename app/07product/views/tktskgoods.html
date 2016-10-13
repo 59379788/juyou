@@ -23,13 +23,14 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="text-center col-md-5">商客产品名称</th>
+        <th class="text-center col-md-4">商客产品名称</th>
         <th class="text-center col-md-2">商客产品编号</th>
         <th class="text-center col-md-1">市场价</th>
         <th class="text-center col-md-1">指导价</th>
         <th class="text-center col-md-1">成本价</th>
         <th class="text-center col-md-1">分销商成本价</th>
         <th class="text-center col-md-1">分销商状态</th>
+        <th class="text-center col-md-1">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -41,6 +42,9 @@
         <td class="text-center">{{obj.cost_price * 0.01 | currency : '￥'}}</td>
         <td class="text-center">{{obj.company_cost_price * 0.01 | currency : '￥'}}</td>
         <td class="text-center">{{obj.company_price_statename}}</td>
+        <td class="text-center">
+        	<a ng-click="edit(obj)" class="btn btn-success btn-xs">设置分销价</a>
+        </td>
       </tr>
     </tbody>
   </table>

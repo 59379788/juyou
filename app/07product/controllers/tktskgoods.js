@@ -1,4 +1,4 @@
-module.exports = function($scope, skgoodslist){
+module.exports = function($scope, $uibModal, skgoodslist, saveprice){
 
 	$scope.searchform = {};
 
@@ -52,6 +52,38 @@ module.exports = function($scope, skgoodslist){
 
     };
     $scope.load();
+
+    $scope.edit = function (obj) {
+        var modalInstance = $uibModal.open({
+          template: require('../views/edittktskgoods.html'),
+          controller: 'edittktskgoods',
+          size: 'xs',
+          resolve: {
+            saveprice : function(){
+                return saveprice;
+            },
+            sale_company_price_id : function(){
+                return obj.sale_company_price_id;
+            },
+            sale_code : function(){
+                return obj.sale_code;
+            },
+            company_cost_price : function(){
+                return obj.company_cost_price * 0.01;
+            },
+            cost_price : function(){
+                return obj.cost_price * 0.01;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.load();
+        }, function () {
+
+        });
+
+    };
 
 
 };
