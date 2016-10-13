@@ -181,6 +181,9 @@ var service = function($resource, BASEURL38985, $q, $http){
     
     var stopinsuranceapi = BASEURL38985 + "/api/as/lc/insurance/offshelf";
 
+    //商客产品列表
+    var skgoodslist = BASEURL38985 + '/api/as/tc/sale/saleNameByCompanyPriceList';
+
 
     return {
 
@@ -210,6 +213,9 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         goodslist : function(){
             return $resource(goodslist, {}, {});
+        },
+        skgoodslist : function(){
+            return $resource(skgoodslist, {}, {});
         },
         goodsupdate : function(){
             return $resource(goodsupdate, {}, {});

@@ -491,6 +491,17 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+    .state('app.tktskgoods', {
+        url: '/skgoodslist',
+        controller : 'tktskgoods',
+        template: require('./views/tktskgoods.html'),
+        resolve:{
+            skgoodslist : function(productservice){
+                return productservice.skgoodslist();
+            }
+        }
+      })
+
 
 };
 
