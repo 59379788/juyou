@@ -5,17 +5,17 @@
 	  <div class="panel panel-default">
 	    <div class="panel-body form-inline">
 		    <label for="inputLottry" class="control-label">总卡片数量</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled ng-model="cardinfo.allcard">
+		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.allcard">
 		    <label for="inputLottry" class="control-label">未使用数量</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled ng-model="cardinfo.can_use_card">
+		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.can_use_card">
 		    <label for="inputLottry" class="control-label">已锁定数量</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled ng-model="cardinfo.lock_card">
+		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.lock_card">
 		    <label for="inputLottry" class="control-label">已使用数量</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled ng-model="cardinfo.used_card">
+		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.used_card">
 		    <label for="inputLottry" class="control-label">已失效数量</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled ng-model="cardinfo.not_avail_card">
+		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.not_avail_card">
 		    <label for="inputLottry" class="control-label">已释放数量</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="111" disabled ng-model="cardinfo.release_card">
+		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.release_card">
 	    </div>
 	  </div>
   </div>
@@ -23,12 +23,13 @@
 	  <div class="panel panel-default">
 	    <div class="panel-body">
 	    	<div class="form-group form-inline mb0">
-	    		<div class="col-sm-10">
+	    		<div class="col-sm-12">
 			      <input type="text" class="form-control" ng-model="typecard.startnum" placeholder="起始卡号">
 			      <input type="text" class="form-control" ng-model="typecard.endnum" placeholder="结束卡号">        
-			      <select class="form-control" ng-model="typecard.card_status" ng-options="state.code as state.name for state in state">
-			     
-			      </select>
+			      <select class="form-control" ng-model="typecard.card_status" ng-options="state.code as state.name for state in state"></select>
+			      <select class="form-control" ng-model="typecard.card_giveout_target" ng-options = "info.card_giveout_target for info in targetinfo">   
+                  </select>
+			      
 			      <button type="button" class="btn btn-info new" ng-click="search()">搜索</button>
 			    </div>
 		    </div>

@@ -93,6 +93,12 @@ var service = function($resource, BASEURL38985){
     var changestatus = BASEURL38985 + '/api/ac/uc/cardBaseService/updateNewCardFinStatu';
     // 根据条件查询基本卡
     var searchcard = BASEURL38985 + '/api/ac/uc/cardBaseService/getCardByCardnostatus';
+    // 可添加到卡池的卡
+    var unusedcard = BASEURL38985 + '/api/ac/uc/cardBaseService/getbacecardcanuse';
+    // 能释放的卡
+    var canrelease = BASEURL38985 + '/api/as/uc/cardpooldao/getcardcanreleaselist';
+    // 卡池详情获取发卡目标
+    var targetcard = BASEURL38985 + '/api/as/uc/cardpooldao/findgivetargtlist';
 
     return {
         cardpoollist : function(){
@@ -186,6 +192,7 @@ var service = function($resource, BASEURL38985){
     			{name : "全部" , code : '' },
         	]
         },
+        
         cardbaselist : function(){
              return $resource(cardbaselist, {}, {});
         },
@@ -197,6 +204,15 @@ var service = function($resource, BASEURL38985){
         },
         searchcard : function(){
              return $resource(searchcard, {}, {});
+        },
+        unusedcard : function(){
+             return $resource(unusedcard, {}, {});
+        },
+        canrelease : function(){
+             return $resource(canrelease, {}, {});
+        },
+        targetcard : function(){
+             return $resource(targetcard, {}, {});
         }
 
     };

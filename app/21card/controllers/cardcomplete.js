@@ -1,7 +1,16 @@
 module.exports = function($scope, $stateParams, changestatus){
-	console.log('12456');
+	//console.log('12456');
   var cardmakebatch = $stateParams.cardmakebatch;
+  var maxcard = $stateParams.maxcard;
+  var mincard = $stateParams.mincard;
   console.log(cardmakebatch);
+  console.log(maxcard);
+  console.log(mincard);
+  $scope.card = { 
+  	'scard' : mincard,
+  	'ecard' : maxcard,
+  	'sumcard' : ''
+  };
   $scope.cardinfo = { 
   	'cardstatu' : '0',
   	'cardbatch' : '',
@@ -14,7 +23,7 @@ module.exports = function($scope, $stateParams, changestatus){
   $scope.change = function(){ 
   	var param = {'cardbatch' : cardmakebatch, 'cardstatu' : $scope.cardinfo.cardstatu};
   	if ($scope.cardinfo.cardstatu == '0') { 
-  		param['cardnum'] = $scope.cardinfo.cardnum;
+  		param['cardno'] = $scope.cardinfo.cardnum;
   	} else if ($scope.cardinfo.cardstatu == '1') { 
   		param['startcard'] = $scope.cardinfo.startcard;
   		param['endcard'] = $scope.cardinfo.endcard;

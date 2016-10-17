@@ -1,8 +1,8 @@
-module.exports = function($scope, $stateParams, addcard){
+module.exports = function($scope, $state, $stateParams, addcard, unusedcard){
 
 
-var poolcode = $stateParams.poolcode;
-console.log(poolcode);
+    var poolcode = $stateParams.poolcode;
+    console.log(poolcode);
     $scope.cardinfo = {
     	'type' : '2',
     	'cardnum' : '',
@@ -10,7 +10,24 @@ console.log(poolcode);
     	'endnum' : ''
 
     };
+
+    $scope.getunusedcard = function(){ 
+     unusedcard.save({}, function(res){ 
+    	if (res.errcode !== 0) { 
+    		alert(res.errmsg);
+    	} else { 
+    		console.log(res);
+    		$scope.cardinfos = res.data;
+    		console.log($scope.cardinfos);
+    	}
+     });
+    };
+    $scope.getunusedcard();
+
+    
+
 	$scope.addcard = function(){
+		//$state.go('app.cardpoollist'); 
 		console.log($scope.cardinfo.type);
 		// 声明一个要传的参数变量
 		var cardparem = {'pool_code' : poolcode,'type':$scope.cardinfo.type};
@@ -35,8 +52,12 @@ console.log(poolcode);
 			    } else {
 			    	alert('添加卡成功');
 			    	return;
+
 			    }
-     	});                
+			    
+     	});  
+        // 调回到原页面
+		
 	};
 
 };

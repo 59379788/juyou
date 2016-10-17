@@ -1,8 +1,27 @@
-module.exports = function($scope,  $stateParams, getcardlist, cardinpool, statename, listinpool){
+module.exports = function($scope,  $stateParams, getcardlist, cardinpool, statename, listinpool, targetcard){
    var poolcode = $stateParams.poolcode;
     
     console.log(poolcode);
-	
+
+    $scope.getcardaim = function(){ 
+      alert('fauhfjkhfjd');
+      targetcard.save({'pool_code' : poolcode}, function(res){ 
+      	$scope.targetinfo = res.data;
+	    console.log(res);
+      	if (res.errcode !== 0) {
+                   alert(res.errmsg);
+                   return;
+			    } else {
+			    	console.log('xinxi');
+			    	return;
+			    }
+      });
+      
+    };
+
+    $scope.getcardaim();
+
+    
 	$scope.state = statename.state;
     $scope.cardinfos = [];
     $scope.cardinfo = [];
@@ -54,8 +73,9 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool, staten
     // 根据起始卡号 状态 查询卡池中的卡
     $scope.search = function(){
 		//alert('sousuo');
-		var cardparem = {'pool_code' : poolcode, 'startnum' : $scope.typecard.startnum ,'endnum' : $scope.typecard.endnum, 'card_status' : $scope.typecard.card_status };
+		var cardparem = {'pool_code' : poolcode, 'startnum' : $scope.typecard.startnum ,'endnum' : $scope.typecard.endnum, 'card_status' : $scope.typecard.card_status, 'card_giveout_target' :  $scope.typecard.card_giveout_target};
 		listinpool.save(cardparem, function(res){
+			console.log(cardparem);
 			console.log(res);
 			$scope.cardlists = res.data;
 			//console.log($scope.typecard);

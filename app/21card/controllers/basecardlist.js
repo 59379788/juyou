@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, cardbaselist, cardproductlist, searchcard){
+module.exports = function($scope, $state, cardbaselist, cardproductlist,searchcard){
 
 
     cardbaselist.save({}, function(res){
@@ -20,8 +20,8 @@ module.exports = function($scope, $state, cardbaselist, cardproductlist, searchc
     	$state.go('app.addtocardpool');
     };
     // 设置批次号
-    $scope.batchnumber = function(){ 
-    	$state.go('app.batchnumber');
+    $scope.batchnumber = function(mincard,maxcard){ 
+    	$state.go('app.batchnumber',{'mincard' : mincard, 'maxcard' : maxcard});
     };
     // 置为未发放(接释放卡接口)
     /*$scope.unissued = function(){ 
@@ -29,9 +29,9 @@ module.exports = function($scope, $state, cardbaselist, cardproductlist, searchc
 
     };*/
     // 制卡完成
-    $scope.cardcomplete = function(cardmakebatch){ 
+    $scope.cardcomplete = function(cardmakebatch,mincard,maxcard){ 
     	//alert('制作中变为已制作');
-    	$state.go('app.cardcomplete', {'cardmakebatch' : cardmakebatch});
+    	$state.go('app.cardcomplete', {'cardmakebatch' : cardmakebatch, 'mincard' : mincard, 'maxcard' : maxcard});
     	
     };
     // 创建卡产品
@@ -54,8 +54,9 @@ module.exports = function($scope, $state, cardbaselist, cardproductlist, searchc
 	};
 	$scope.searchobj = {};
 
-	$scope.searchcard = function(){
-       // $state.go('app.searchcard', {'searchobject' : searchobject});
+	$scope.searchcard = function(startcard,endcard,cardmakestatus,cardbatch,cardgivetatus){
+		$state.go('app.searchcard', {'startcard' : startcard, 'endcard':endcard, 'cardmakestatus':cardmakestatus, 'cardbatch':'', 'cardgivetatus':''});
+      
 		/*searchcard.save($scope.searchform, function(res){
 			console.log($scope.searchform);
 			//console.log(res);
@@ -69,7 +70,7 @@ module.exports = function($scope, $state, cardbaselist, cardproductlist, searchc
 			//$scope.productinfo = res.data[0].code;
 			//console.log($scope.productinfo);
 		})*/
-		 $state.go('app.searchcard');
+		// $state.go('app.searchcard');
 	};
 	//$scope.search();
 

@@ -1,7 +1,18 @@
-module.exports = function($scope,  $stateParams, releasecard){
+module.exports = function($scope,  $stateParams, releasecard, canrelease){
    var poolcode = $stateParams.poolcode;
     
     console.log(poolcode);
+    $scope.canreleasecard = function(){ 
+    	canrelease.save({}, function(res){ 
+    		if (res.errcode !== 0) { 
+    			alert(res.errmsg);
+    		} else { 
+    			$scope.releasecardinfo = res.data;
+    			console.log(res);
+    		}
+    	});
+    };
+    $scope.canreleasecard();
 
     $scope.cardinfo = { 
        'status' : '2',
@@ -13,11 +24,11 @@ module.exports = function($scope,  $stateParams, releasecard){
 	$scope.resivecard = function(){
 		console.log($scope.cardinfo.status);
 		var cardparem = {'pool_code' : poolcode,'status':$scope.cardinfo.status};
-        if ($scope.cardinfo.status === '3') {
+        if ($scope.cardinfo.status === '1') {
         	
         } else if ($scope.cardinfo.status === '2'){
         	cardparem['cardnum'] = $scope.cardinfo.cardnum;
-        } else if ($scope.cardinfo.status === '1'){
+        } else if ($scope.cardinfo.status === '3'){
         	cardparem['startnum'] = $scope.cardinfo.startnum;
         	cardparem['endnum'] = $scope.cardinfo.endnum;
         } else {

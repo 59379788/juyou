@@ -4,8 +4,24 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                   
-                  
-                  <button type="button" class="btn btn-primary search pull-right" ng-click="searchcard(searchform.startcard)">卡段详情</button>
+                  <input type="text" class="form-control" ng-model="searchform.startcard" placeholder="起始卡号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="searchform.endcard" placeholder="结束卡号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="searchform.cardbatch" placeholder="批次号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <select class="form-control" ng-model="searchform.cardgivetatus">
+                    <option value="">全部</option>
+                    <option value="0">未发放</option>
+                    <option value="1">已发放</option>
+                  </select>
+                  <select class="form-control">
+                    <option value="">全部</option>
+                    <option value="0">未制作</option>
+                    <option value="2">制作中</option>
+                    <option value="1">已制作</option>
+                  </select>
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="searchcard(searchform.startcard, searchform.endcard, searchform.cardbatch, searchform.cardgivetatus, searchform.cardmakestatus)">立即搜索</button>
 
 
             </div>
@@ -26,7 +42,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
-        <td class="text-center">{{obj.maxcard}} - {{obj.mincard}}</td>
+        <td class="text-center">{{obj.mincard}} - {{obj.maxcard}}</td>
         <td class="text-center">{{obj.card_make_batch}}</td>
         <td class="text-center">
           {{obj.card_giveout_status}}<br>
@@ -37,13 +53,12 @@
           {{obj.card_make_time}}
         </td>
         <td class="text-center">
-          <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='未制作'" ng-click="batchnumber(obj.id)" class="btn btn-info btn-xs">设置批次号</a>
+          <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='未制作'" ng-click="batchnumber(obj.mincard,obj.maxcard)" class="btn btn-info btn-xs">设置批次号</a>
 
           <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='制作中'"
-          ng-click="cardcomplete(obj.card_make_batch)" class="btn btn-danger btn-xs">制卡完成</a>
+          ng-click="cardcomplete(obj.card_make_batch,obj.mincard,obj.maxcard)" class="btn btn-danger btn-xs">制卡完成</a>
 
-          <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='已制作'"
-          ng-click="addtocardpool(obj.code)" class="btn btn-success btn-xs">添加到卡池</a>
+          
 
           
 

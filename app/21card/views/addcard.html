@@ -1,6 +1,6 @@
 <form class="form-horizontal" role="form">
 <h2>添加卡</h2>   
-<div class="col-md-8">
+<div class="col-md-12">
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="form-group form-inline">
@@ -27,6 +27,25 @@
         </div>
     </div>
 </div><!-- searchArea -->
+
+<div class="form-group">
+<div class="col-md-4 col-md-offset-1 panel panel-default table-responsive">
+     <table ng-click="getlist()" class="table table-bordered">
+	    <thead>
+	      <tr>
+	        <th class="col-md-2 text-center">起始卡号</th>
+	        <th class="col-md-2 text-center">结束卡号</th>
+	        
+	      </tr>
+	    </thead>
+	    <tbody>
+	     <tr ng-repeat = "cardinfo in cardinfos">
+	       <td class="col-md-2 text-center">{{cardinfo.mincard}}</td>
+	       <td class="col-md-2 text-center">{{cardinfo.maxcard}}</td>
+	     </tr>
+	    </tbody>
+	 </table>
+</div><!-- 可用卡 -->
 
 
 </form>

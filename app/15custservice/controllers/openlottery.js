@@ -62,7 +62,7 @@ module.exports = function($scope, getWeekLottey, lotteyUserinfo, saveUserinfo){
 		//alert('2222');
 		var para = {
 			'name' : $scope.user.username,
-			'lottry' : $scope.user.lotter,
+			'lottory' : $scope.user.lotter,
 			'mobile' : $scope.user.mobile,
 			'period' : $scope.user.period
 		};

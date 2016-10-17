@@ -23,7 +23,10 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
             addcard : function(cardservice){
                  return cardservice.addcard();
-             }
+            },
+            unusedcard : function(cardservice){
+                 return cardservice.unusedcard();
+            }
          }
          
        })
@@ -43,7 +46,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
        // 
 
-       // 释放卡池里面的卡(卡池详情)
+       // (卡池详情)
        .state('app.releasecard', {
          url: '/releasecard/:poolcode',
          controller : 'releasecard',
@@ -64,6 +67,9 @@ var router = function($urlRouterProvider, $stateProvider){
            
             statename : function(cardservice){
                  return cardservice.statename;
+            },
+            targetcard : function(cardservice){
+                 return cardservice.targetcard();
             }
             
          }
@@ -77,6 +83,7 @@ var router = function($urlRouterProvider, $stateProvider){
             issuecard : function(cardservice){
                  return cardservice.issuecard();
             }
+
              
             
          }
@@ -90,8 +97,12 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
             releasecard : function(cardservice){
                  return cardservice.releasecard();
+            },
+            canrelease : function(cardservice){
+                 return cardservice.canrelease();
             }
          }
+
        })
 
        // 修改卡信息
@@ -258,20 +269,20 @@ var router = function($urlRouterProvider, $stateProvider){
 
        //卡基本信息
        .state('app.basecardlist', {
-         url: '/basecardlist',
+         url: '/basecardlist/',
          controller : 'basecardlist',
          template: require('./views/basecardlist.html'),
          resolve:{
-<<<<<<< HEAD
+
             cardbaselist : function(cardservice){
                  return cardservice.cardbaselist();
             },
             cardproductlist:function(cardservice){
                  return cardservice.cardproductlist();
             },
-            searchcard : function(cardservice){
+            searchcard:function(cardservice){
                  return cardservice.searchcard();
-             }
+            }
             
          }
        })
@@ -290,7 +301,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
        //设置批次号 
        .state('app.batchnumber', {
-         url: '/batchnumber',
+         url: '/batchnumber/:mincard/:maxcard',
          controller : 'batchnumber',
          template: require('./views/batchnumber.html'),
          resolve:{
@@ -316,7 +327,7 @@ var router = function($urlRouterProvider, $stateProvider){
         
         // 更改制作状态
         .state('app.cardcomplete', {
-         url: '/cardcomplete/:cardmakebatch',
+         url: '/cardcomplete/:cardmakebatch/:mincard/:maxcard',
          controller : 'cardcomplete',
          template: require('./views/cardcomplete.html'),
          resolve:{
@@ -329,7 +340,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
         // 根据条件查询基本卡
         .state('app.searchcard', {
-         url: '/searchcard/',
+         url: '/searchcard/:startcard/:endcard/:cardmakestatus/:cardbatch/:cardgivetatus',
          controller : 'searchcard',
          template: require('./views/searchcard.html'),
          resolve:{
@@ -337,11 +348,7 @@ var router = function($urlRouterProvider, $stateProvider){
                  return cardservice.searchcard();
              } 
             
-=======
-            // cardbaselist : function(cardservice){
-            //      return cardservice.cardbaselist();
-            // }
->>>>>>> 97884bf3e8030e781126057a03d96e4d9194ae10
+
          }
        })
        

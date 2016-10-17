@@ -1,5 +1,21 @@
 <form class="form-horizontal" role="form">
 <h2>更改制作状态</h2>
+
+<div class="col-md-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-md-12">
+              <label for="inputLottry" class="col-md-offset-1 control-label">号段</label>
+              <input type="text" class="form-control" id="inputLottry" placeholder="起始卡号"ng-model="card.scard">
+               <input type="text" class="form-control" id="inputLottry" placeholder="结束卡号"ng-model="card.ecard">
+               <label for="inputLottry" class="col-md-offset-1 control-label">数量</label>
+              <p type="text" class="form-control" id="inputLottry" placeholder="数量"
+                   ng-model="card.sumcard" >{{card.ecard - card.scard + 1}} </p>
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
   
 <div class="col-md-12">
 <div class="panel panel-default">

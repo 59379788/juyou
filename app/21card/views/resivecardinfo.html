@@ -34,8 +34,8 @@
 	        <td class="col-md-2 text-center">{{userinfo.papersno}}</td>
 	        <td class="col-md-2 text-center">{{userinfo.card_status_z}}</td>
 	        <td class="col-md-4 text-center">
-	        	<a ng-click="used()" class="btn btn-primary btn-xs">置为已用</a>
-	        	<a ng-click="lost()" class="btn btn-danger btn-xs">挂失</a>
+	        	<a ng-show="userinfo.card_status_z=='未发放'" ng-click="used()" class="btn btn-primary btn-xs">置为已用</a>
+	        	<a ng-show="userinfo.card_status_z=='已发放' " ng-click="lost()" class="btn btn-danger btn-xs">挂失</a>
 	        	
 	        </td>
 	      </tr>

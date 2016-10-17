@@ -5,7 +5,20 @@ module.exports = function($scope, $stateParams, batchnumber){
  	'endcard' : '',
  	'cardstatu' : '0'
  };
+ 
 
+ var mincard = $stateParams.mincard;
+ var maxcard = $stateParams.maxcard;
+ console.log(mincard);
+ console.log(maxcard);
+ $scope.cardnuminfo = { 
+ 	'scard' : mincard,
+ 	'ecard' : maxcard,
+ 	'sumcard' : ''
+ };
+ 
+
+ console.log($scope.cardnuminfo);
  $scope.setbatch = function(){ 
  	var cardparem = {'cardstatu':$scope.cardinfo.cardstatu};
  	if ($scope.cardinfo.cardstatu === '0') {
@@ -17,9 +30,9 @@ module.exports = function($scope, $stateParams, batchnumber){
         	alert('参数错误');
         }
 
-        console.log(cardparem);
+        //console.log(cardparem);
  	batchnumber.save(cardparem, function(res){
-			console.log(res);
+			//console.log(res);
 			    if (res.errcode !== 0) {
                    alert(res.errmsg);
                    return;

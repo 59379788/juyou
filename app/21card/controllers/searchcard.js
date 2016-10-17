@@ -1,12 +1,21 @@
-module.exports = function($scope, $state, searchcard){
+module.exports = function($scope, $state, $stateParams, searchcard){
+	var startcard = $stateParams.startcard;
+	var endcard = $stateParams.endcard;
+	var cardmakestatus = $stateParams.cardmakestatus;
+	var cardbatch = $stateParams.cardbatch;
+	var cardgivetatus = $stateParams.cardgivetatus;
+	console.log($stateParams.startcard);
+	console.log($stateParams.endcard);
+	console.log($stateParams.cardmakestatus);
     // 搜索卡产品
     $scope.searchform = { 
-    	'startcard' : '',
-    	'endcard' : '',
-    	'cardmakestatus' : '',
-    	'cardbatch' : '',
-    	'cardgivetatus' : ''
+    	'startcard' : startcard,
+    	'endcard' : endcard,
+    	'cardmakestatus' : cardmakestatus,
+    	'cardbatch' : cardbatch,
+    	'cardgivetatus' : cardgivetatus
     };
+    console.log($scope.searchform);
     $scope.searchcard= function(){ 
     	searchcard.save($scope.searchform, function(res){
 			console.log($scope.searchform);
@@ -22,6 +31,7 @@ module.exports = function($scope, $state, searchcard){
 			//console.log($scope.productinfo);
 	   })
     };
+    $scope.searchcard();
 
     // 添加到卡池
     $scope.addtocardpool = function(){

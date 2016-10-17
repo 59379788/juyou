@@ -1,10 +1,34 @@
 <form class="form-horizontal" role="form">
 <h2>设置批次号</h2>
-<div class="col-md-8">
+
+
+<div class="col-md-12">
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="form-group form-inline">
-            <div class="col-sm-12">
+            <div class="col-md-12">
+              <label for="inputLottry" class="col-md-offset-1 control-label">号段</label>
+              <input type="text" class="form-control" id="inputLottry" placeholder="起始卡号"
+                   ng-model="cardnuminfo.scard">
+                   <input type="text" class="form-control" id="inputLottry" placeholder="结束卡号"
+                   ng-model="cardnuminfo.ecard">
+               <label for="inputLottry" class="col-md-offset-1 control-label">数量</label>
+              <p type="text" class="form-control" id="inputLottry" placeholder="数量"
+                   ng-model="cardinfo.sumcard">{{cardnuminfo.ecard - cardnuminfo.scard + 1}} </p>
+
+
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+
+<div class="col-md-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-md-12">
               <label class="col-md-1 radio-inline ">
               <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0" ng-model="cardinfo.cardstatu">单张</label>
               <input type="text" class="col-md-2 form-control" id="inputLottry" placeholder="卡号"
@@ -16,11 +40,9 @@
               <input type="text" class="form-control" id="inputLottry" placeholder="起始卡号"
                    ng-model="cardinfo.startcard">
               <input type="text" class="form-control" id="inputLottry" placeholder="结束卡号"
-                   ng-model="cardinfo.endnum">
-
-
-                  
-                  <button type="button" class="btn btn-default search pull-right" ng-click="setbatch()">确定设置</button>
+                   ng-model="cardinfo.endcard">
+  
+               <button type="button" class="btn btn-default search pull-right" ng-click="setbatch()">确定设置</button>
 
 
             </div>
@@ -29,7 +51,5 @@
 </div><!-- searchArea -->
 
 
-
-  
 
 </form>

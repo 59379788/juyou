@@ -6,7 +6,8 @@ module.exports = function($scope, $state, cardpoollist){
     }
     // 往卡池里添加卡
     $scope.add = function(poolcode)
-    {
+    
+    {   alert('tianjiaka');
         $state.go('app.addcard', {'poolcode':poolcode});
     }
     // 添加卡池
