@@ -15,6 +15,8 @@ App.controller('tkttypeattr',require('./controllers/tkttypeattr'));
 App.controller('tkttypeattrcreate',require('./controllers/tkttypeattrcreate'));
 App.controller('tkttypeattredit',require('./controllers/tkttypeattredit'));
 App.controller('tktgoods',require('./controllers/tktgoods'));
+App.controller('tktskgoods',require('./controllers/tktskgoods'));
+App.controller('edittktskgoods',require('./controllers/edittktskgoods'));
 App.controller('tktgoodscreate',require('./controllers/tktgoodscreate'));
 App.controller('tktgoodsupdate',require('./controllers/tktgoodsupdate'));
 App.controller('tktsale',require('./controllers/tktsale'));

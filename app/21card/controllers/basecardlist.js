@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, cardbaselist, cardproductlist,searchcard){
+module.exports = function($scope, $state, cardbaselist, cardproductlist){
 
 
     cardbaselist.save({}, function(res){
@@ -55,24 +55,12 @@ module.exports = function($scope, $state, cardbaselist, cardproductlist,searchca
 	$scope.searchobj = {};
 
 	$scope.searchcard = function(startcard,endcard,cardmakestatus,cardbatch,cardgivetatus){
-		$state.go('app.searchcard', {'startcard' : startcard, 'endcard':endcard, 'cardmakestatus':cardmakestatus, 'cardbatch':'', 'cardgivetatus':''});
+		alert('tiap');
+		$state.go('app.searchcard', {'startcard' : startcard, 'endcard':endcard, 'cardmakestatus':cardmakestatus, 'cardbatch': cardbatch, 'cardgivetatus':cardgivetatus});
       
-		/*searchcard.save($scope.searchform, function(res){
-			console.log($scope.searchform);
-			//console.log(res);
-			if(res.errcode !== 0)
-			{
-				alert(res.errmsg);
-				return;
-			}
-			$scope.searchobj = res.data;
-			console.log($scope.searchobj);
-			//$scope.productinfo = res.data[0].code;
-			//console.log($scope.productinfo);
-		})*/
-		// $state.go('app.searchcard');
+		
 	};
-	//$scope.search();
+	
 
 
 

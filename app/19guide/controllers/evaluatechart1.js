@@ -113,16 +113,20 @@ module.exports = function($scope, shakegroupinfolist, shakecompanyinfolist, tota
     	console.log($scope.obj);
 
     	totalevaluatelist.get($scope.obj, function(res){
-            console.log(res.data);
 	        if(res.errcode !== 0)
 	        {
 	            alert(res.errmsg);
 	            return ;
 	        }
+	        var r = res.data;
+	        r.name = res.data.name.replace('+',' ');
+	        var rr = r;
+	        rr.name = res.data.name.replace('+',' ');
+	        console.log(rr);
 
-	        $scope.totalobjs.push(res.data);
-	        $scope.data.push(res.data.data);
-	        $scope.labels = res.data.labels;
+	        $scope.totalobjs.push(rr);
+	        $scope.data.push(rr.data);
+	        $scope.labels = rr.labels;
 	        
 	    });
     	
@@ -143,18 +147,23 @@ module.exports = function($scope, shakegroupinfolist, shakecompanyinfolist, tota
 				}
 			}
 		}
-    	console.log($scope.obj);
+    	//console.log($scope.obj);
     	totalevaluatelist.get($scope.obj, function(res){
-            console.log(res.data);
+            //console.log(res.data);
 	        if(res.errcode !== 0)
 	        {
 	            alert(res.errmsg);
 	            return ;
 	        }
+			var r = res.data;
+	        r.name = res.data.name.replace('+',' ');
+	        var rr = r;
+	        rr.name = res.data.name.replace('+',' ');
+	        console.log(rr);
 
-	        $scope.totalobjs.push(res.data);
-	        $scope.data.push(res.data.data);
-	        $scope.labels = res.data.labels;
+	        $scope.totalobjs.push(rr);
+	        $scope.data.push(rr.data);
+	        $scope.labels = rr.labels;
 
 	        var para = {
 	        	label : res.data.lxsname,

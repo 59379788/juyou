@@ -25,13 +25,13 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th class="col-md-2 text-center">景区名称</th>
-                <th class="col-md-4 text-center">票名称</th>
+                <th class="col-md-1 text-center">景区名称</th>
+                <th class="col-md-3 text-center">票名称</th>
                 <th class="col-md-1 text-center">票号</th>
                 <th class="col-md-1 text-center">未使用</th>
                 <th class="col-md-1 text-center">未退票</th>
                 <th class="col-md-1 text-center">可用</th>
-                <th class="col-md-2 text-center">操作时间</th>
+                <th class="col-md-4 text-center">时间</th>
               </tr>
             </thead>
             <tbody>
@@ -51,7 +51,30 @@
                   <span ng-show="{{obj.state == '1'}}" class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
                   <span ng-show="{{obj.state == '0'}}" class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
                 </td>
-                <td class="text-center">{{obj.otime}}</td>
+                <td class="text-center">
+                  <span class="col-xs-4">操作时间：</span><span class="col-xs-8">{{obj.otime}}</span>
+                  <!-- <br> -->
+
+                  <span class="col-xs-4">生效时间：</span>
+                  <div class="input-group col-xs-8">
+                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd"
+                    ng-model="obj.take_effect_time"  on-open-focus="true"  
+                   is-open="obj.opened" ng-required="true" close-text="Close" readonly/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(obj)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                  </div>
+<!-- 
+                 <span class="col-xs-3">生效：</span><input type="text" class="col-xs-9 form-control" ng-value="obj.take_effect_time.substring(0,10)" ng-model="obj.take_effect_time">
+                </td> -->
+                <!-- <td class="text-center">
+                
+                </td> -->
+                <td>
+                  <button type="button" class="btn button" ng-click="mosaic(obj.id,obj.take_effect_time,obj.otime)">
+                    修改
+                  </button>
+                </td>
 
               </tr>
             </tbody>

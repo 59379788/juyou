@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label class="col-xs-3 control-label">借款最大限额</label>
                 <div class="col-xs-9">
-                    <input type="number" class="form-control" ng-model="obj.loan_limit_price" >
+                    <input type="number" ng-value="obj.loan_limit_price" class="form-control" ng-model="obj.loan_limit_price" >
                 </div>
             </div>
 
@@ -20,6 +20,26 @@
                 <div class="col-xs-9">
                     <input type="number" class="form-control" ng-model="obj.picket_line" >
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">短信提示余额不足阀值</label>
+                <div class="col-xs-9">
+                    <input type="number" value="123456" class="form-control" ng-model="obj.send_sms_price" >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">手机号码</label>
+                <div class="col-xs-9">
+                    <input type="text" class="form-control" ng-model="obj.send_sms_mobile" >
+                </div>
+                <h6 class="col-xs-3">
+                    
+                </h6>
+                <h6 class="col-xs-9">
+                    (多个电话号码之间用英文逗号隔开)
+                </h6>
             </div>
 
             <div class="form-group">
@@ -34,6 +54,22 @@
                       <input type="radio" name="prestore_state" value="1"
                       ng-model="obj.prestore_state"
                       > 不允许
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-3 control-label">是否发送短信</label>
+                <div class="col-xs-7">
+                    <label class="radio-inline">
+                      <input type="radio" name="send_sms_flag" value="1"
+                      ng-model="obj.send_sms_flag" checked 
+                       > 提示
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="send_sms_flag" value="0"
+                      ng-model="obj.send_sms_flag"
+                      > 不提示
                     </label>
                 </div>
             </div>

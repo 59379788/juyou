@@ -45,13 +45,13 @@ module.exports = function($scope, $state, $stateParams, searchcard){
     /*$scope.unissued = function(){ 
     	$state.go('app.unissued');
 
-    };*/
+    };
     // 制卡完成
     $scope.cardcomplete = function(cardmakebatch){ 
     	//alert('制作中变为已制作');
     	$state.go('app.cardcomplete', {'cardmakebatch' : cardmakebatch});
     	
-    };
+    };*/
 
 
 };

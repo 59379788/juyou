@@ -3,33 +3,33 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
-            	<div style='float:left;'>
-					<label>评价类型</label>&nbsp;&nbsp;
-					<select class="form-control" ng-model="obj.binding_type" 
-		              ng-options="type.value as type.label for type in typearr"
-		              ng-change="changeCompany(obj.binding_type)"
-		            >
-		            	<option value=""> -- 全部 -- </option>
-		            </select>
-					&nbsp;&nbsp;
+            		<div style='float:left;'>
+						<label>评价类型</label>&nbsp;&nbsp;
+						<select class="form-control" ng-model="obj.binding_type" 
+			              ng-options="type.value as type.label for type in typearr"
+			              ng-change="changeCompany(obj.binding_type)"
+			            >
+			            	<option value=""> -- 全部 -- </option>
+			            </select>
+						&nbsp;&nbsp;
 
-					<label>评价机构</label>&nbsp;&nbsp;
-					<select class="form-control" ng-model="obj.binding_company_code" 
-		              ng-options="type.binding_company_code as type.name for type in companyarr"
-		            >
-		            	<option value=""> -- 全部 -- </option>
-		            </select>
-					&nbsp;&nbsp;
-				</div>
-				<div ng-show="xx=='1'" style='float:left;'>
-					<label>团名称</label>&nbsp;&nbsp;
-					<select class="form-control" ng-model="obj.binding_code" 
-		              ng-options="group.group_id as group.group_name for group in grouparr"
-		            >
-		            	<option value=""> -- 全部 -- </option>
-		            </select>
-					&nbsp;&nbsp;
-				           
+						<label>评价机构</label>&nbsp;&nbsp;
+						<select class="form-control" ng-model="obj.binding_company_code" 
+			              ng-options="type.binding_company_code as type.name for type in companyarr"
+			            >
+			            	<option value=""> -- 全部 -- </option>
+			            </select>
+						&nbsp;&nbsp;
+					</div>
+					<div ng-show="xx=='1'" style='float:left;'>
+						<label>团名称</label>&nbsp;&nbsp;
+						<select class="form-control" ng-model="obj.binding_code" 
+			              ng-options="group.group_id as group.group_name for group in grouparr"
+			            >
+			            	<option value=""> -- 全部 -- </option>
+			            </select>
+						&nbsp;&nbsp;
+					</div>
 					<input type="checkbox" ng-model="usedate" 
                     ng-true-value="1" ng-false-value="0"
                   	> <label>评价时间</label>&nbsp;&nbsp;
@@ -41,15 +41,6 @@
 					</div>
 					&nbsp;&nbsp;
 					</div>
-				</div>
-
-				<!--<label>批次</label>&nbsp;&nbsp;
-				<select class="form-control" ng-model="searchform.binding_type">
-					<option value="1"> 第一批 </option>
-					<option value="2"> 景区评价 </option>
-					<option value=""> -- 全部 -- </option>
-				</select>
-				&nbsp;&nbsp;-->
 
 				<button type="button" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
 
@@ -67,7 +58,7 @@
 	<div class="col-sm-7">
 
 	<div class="row">
-		<div class="col-sm-6" ng-repeat="obj in objs" style='height:380px;'>
+		<div class="col-sm-6" ng-repeat="obj in objs" style='height:430px;'>
 			<canvas id="pie" class="chart chart-pie"
 			  chart-data="obj.data1" chart-labels="obj.labels" chart-options="options">
 			</canvas> 

@@ -181,6 +181,12 @@ var service = function($resource, BASEURL38985, $q, $http){
     
     var stopinsuranceapi = BASEURL38985 + "/api/as/lc/insurance/offshelf";
 
+    //商客产品列表
+    var skgoodslist = BASEURL38985 + '/api/as/tc/sale/saleNameByCompanyPriceList';
+
+    //设置分销价格
+    var saveprice = BASEURL38985 + '/api/as/tc/salecompanyprice/save';
+
 
     return {
 
@@ -210,6 +216,12 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         goodslist : function(){
             return $resource(goodslist, {}, {});
+        },
+        skgoodslist : function(){
+            return $resource(skgoodslist, {}, {});
+        },
+        saveprice : function(){
+            return $resource(saveprice, {}, {});
         },
         goodsupdate : function(){
             return $resource(goodsupdate, {}, {});

@@ -13,6 +13,10 @@
 
               <input type="text" class="form-control" ng-model="searchform.view" placeholder="景区编号">
               &nbsp;&nbsp;
+              &nbsp;&nbsp;
+
+              <input type="text" class="form-control" ng-model="searchform.sale_name" placeholder="销售品名称">
+              &nbsp;&nbsp;
               </div>
 
               <div class="row mt15">
@@ -38,7 +42,7 @@
 	              &nbsp;&nbsp;
               </div>
 
-              <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+              <button type="button" class="btn btn-default search" ng-click="load(searchform.sale_name)">立即搜索</button>
 
               </div>
               

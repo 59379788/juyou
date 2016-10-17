@@ -255,15 +255,15 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'activationcard',
          template: require('./views/activationcard.html'),
          resolve:{
-            // getUserInfoByMobile : function(cardservice){
-            //      return cardservice.getUserInfoByMobile();
-            // },
-            // getProductByCardNoList : function(cardservice){
-            //      return cardservice.getProductByCardNoList();
-            // },
-            // createProductOrderByCardNo : function(cardservice){
-            //      return cardservice.createProductOrderByCardNo();
-            // }
+            getUserInfoByMobile : function(cardservice){
+                 return cardservice.getUserInfoByMobile();
+            },
+            getProductByCardNoList : function(cardservice){
+                 return cardservice.getProductByCardNoList();
+            },
+            createProductOrderByCardNo : function(cardservice){
+                 return cardservice.createProductOrderByCardNo();
+            }
           }   
         })
 
@@ -279,10 +279,8 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             cardproductlist:function(cardservice){
                  return cardservice.cardproductlist();
-            },
-            searchcard:function(cardservice){
-                 return cardservice.searchcard();
             }
+            
             
          }
        })
@@ -338,7 +336,7 @@ var router = function($urlRouterProvider, $stateProvider){
          }
        })
 
-        // 根据条件查询基本卡
+        //根据条件查询基本卡
         .state('app.searchcard', {
          url: '/searchcard/:startcard/:endcard/:cardmakestatus/:cardbatch/:cardgivetatus',
          controller : 'searchcard',
@@ -347,10 +345,13 @@ var router = function($urlRouterProvider, $stateProvider){
            searchcard : function(cardservice){
                  return cardservice.searchcard();
              } 
-            
+  
 
          }
+       
+
        })
+
        
 };
 

@@ -1,7 +1,7 @@
 module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, 
     $uibModal, ticketlist, createBackOrder, resend, getRedCorridorOrderList,
     getRedCorridorResentMsg, getRedCorridorTrSendSms, orderbacklist, relay,
-    getOrderSimInfo, agencyOrderRepeatECode
+    getOrderSimInfo, agencyOrderRepeatECode, updateTicketEffectTime, str2date
     ){
     
     $scope.searchform = {};
@@ -89,7 +89,17 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
             //北京票联  红海滩廊道
             getOrderSimInfo : function(){
                 return getOrderSimInfo;
-            }
+            },
+            //修改生效时间
+            updateTicketEffectTime : function(){
+                return updateTicketEffectTime;
+            },
+            getDate : function(){
+                return getDate;
+            },
+            str2date : function(){
+                return str2date;
+            },
           }
         });
 

@@ -1,6 +1,11 @@
 module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj, 
-    getRedCorridorOrderList, $uibModal, orderbacklist, getOrderSimInfo){
+    getRedCorridorOrderList, getDate, $uibModal, orderbacklist, getOrderSimInfo, updateTicketEffectTime, str2date){
 
+    // $scope.newdate;
+    console.log(11111111);
+    console.log(obj);
+    console.log(3333333333);
+    
     var code = obj.code;
 
     var fun;
@@ -28,7 +33,15 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
         if(!(obj.ticket_state == '9' || obj.ticket_state == '0')){
             fun.get({'order_code' : code}, function(res){
 
+                console.log(444444444);
                 console.log(res);
+                console.log(4444444444);
+                for (var i = res.data.length - 1; i >= 0; i--) {
+                    res.data[i].take_effect_time = str2date(res.data[i].take_effect_time); 
+                }
+
+                // obj = res;
+                // $scope.newdate = str2date(res.ticket_out_time);
 
                 /* 门票存储结构
                  * ========================================= */
@@ -71,6 +84,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
                         tkt[v].ticketarr = new Array();
                         tkt[v].sequence = tt.sequence;
                         tkt[v].name = tt.order_name;
+                        tkt[v].newdate = tt.take_effect_time;
                     }
                     tkt[v].ticketarr.push(tt);
                 }
@@ -82,9 +96,11 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
                 }
 
                 // console.log("------------");
-                // console.log(restkt);
+                // console.log(restkt[0]);
                 // console.log("------------");
-
+                // for (var i = restkt.length - 1; i >= 0; i--) {
+                //     restkt[i]
+                // }
                 $scope.objs = restkt;
 
             });
@@ -154,6 +170,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
             // 'place_code' :
             'place_name' : viewname,
             'sequence' : 1,
+            'newdate' : obj.take_effect_time,
             //'state' : '1',
             // 'type' :
             // 'type_attr' :
@@ -275,6 +292,37 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
           //$log.info('Modal dismissed at: ' + new Date());
         });
     }
+
+    $scope.timechange = function(id,take_effect_time){
+
+        updateTicketEffectTime.save({'id' : id, 'take_effect_time' : take_effect_time} ,function(res){
+            console.log(res);
+
+            if(res.errcode === 0)
+            {
+                alert('修改成功');
+                // $scope.load();
+            }
+            else
+            {
+                alert(res.errmsg);
+            }
+        });
+    }
+
+    $scope.open = function(obj) {
+        obj.opened = true;
+    };
+
+    
+
+    $scope.mosaic = function(id,take_effect_time,date){
+
+        $scope.front = getDate(take_effect_time);
+        take_effect_time = $scope.front + ' ' + date.substring(11,19);
+        console.log(take_effect_time);
+        $scope.timechange(id,take_effect_time);
+    };
 
 
 };
