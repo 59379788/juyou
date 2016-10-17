@@ -142,7 +142,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
       .state('app.grouporderlist', {
         url: '/grouporderlist',
-        controller : 'grouplist',
+        controller : '13grouplist',
         template: require('./views/grouplist.html'),
         resolve:{
             grouplist : function(orderservice){
