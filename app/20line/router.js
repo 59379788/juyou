@@ -9,7 +9,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
  	  .state('app.linelist', {
         url: '/linelist',
-        controller : 'linelist',
+        controller : '20linelist',
         template: require('./views/linelist.html'),
         resolve:{
             ps : function(lineservice){
@@ -42,7 +42,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
       .state('app.createline', {
         url: '/createline',
-        controller : 'createline',
+        controller : '20createline',
         template: require('./views/createline.html'),
         resolve:{
             ps : function(lineservice){
@@ -65,7 +65,7 @@ var router = function($urlRouterProvider, $stateProvider){
       
       .state('app.editline', {
         url: '/editline/:lineid',
-        controller : 'editline',
+        controller : '20editline',
         template: require('./views/createline.html'),
         resolve:{
             ps : function(lineservice){
@@ -92,7 +92,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
       .state('app.lineinfo', {
         url: '/lineinfo/:lineid',
-        controller : 'lineinfo',
+        controller : '20lineinfo',
         template: require('./views/createline.html'),
         resolve:{
             ps : function(lineservice){
@@ -113,7 +113,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
       .state('app.group', {
         url: '/group/:lineid',
-        controller : 'group',
+        controller : '20group',
         template: require('./views/group.html'),
         resolve:{
             teammodel : function(lineservice){
@@ -132,7 +132,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
       .state('app.grouplist', {
         url: '/grouplist/:lineid/:title',
-        controller : 'grouplist',
+        controller : '20grouplist',
         template: require('./views/grouplist.html'),
         resolve:{
             ps : function(lineservice){
@@ -162,7 +162,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
       .state('app.editgroup', {
         url: '/editgroup/:teamid',
-        controller : 'editgroup',
+        controller : '20editgroup',
         template: require('./views/editgroup.html'),
         resolve:{
             editteam : function(lineservice){
