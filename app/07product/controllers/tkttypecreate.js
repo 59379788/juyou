@@ -11,6 +11,8 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams,
 		'state' : '1',
 		'book_info' : ''
 	};
+	 $scope.objt.start_date = new Date();
+	 $scope.objt.end_date = new Date();
 
 	//有效区间
 	$scope.section = {};
@@ -35,11 +37,15 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams,
 	{
 		//景区下拉
 		viewlist().then(function(res) {
-	        //console.log(res);
+	        
 	        if(res.errcode === 0)
 	        {
 	        	$scope.viewarr = res.data;
 	        	$scope.objt.place_code = res.data[0].code;
+	        	// console.log(111111111);
+		        // console.log($scope.viewarr);
+		        // console.log($scope.objt);
+		        // console.log(22222222);
 	        }
 	        else
 	        {
@@ -73,13 +79,20 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams,
 		if(!check()) return;
 
 		var para = {
-			'start_date' : getDate($scope.section.start.date),
-			'end_date' : getDate($scope.section.end.date),
+			// 'start_date' : getDate($scope.section.start.date),
+			// 'end_date' : getDate($scope.section.end.date),
 			'print_setup' : makeStr($scope.objs)
 		}
 
 		para = angular.extend($scope.objt, para);
+		para.start_date	 = getDate($scope.objt.start_date);
+		para.end_date	 = getDate($scope.objt.end_date);
+		console.log($scope.objt.start_date);
+		console.log($scope.objt.end_date);
+		console.log($scope.objt);
+		console.log("----------");
 		console.log(para);
+		console.log("----------");
 		tktcreate.save(para, function(res){
 
 			console.log(res);
