@@ -7,14 +7,14 @@ var service = function($resource, BASEURL38985){
     // 添加卡
     var addcard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/save';
     // 添加卡池
-    var addcardpool = BASEURL38985 + '/api/as/uc/cardpooldao/save';
+    var addcardpool = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/savepool';
     // 释放卡池里面的卡
     var releasecard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/releasecardpoolupdate';
     // 置为已用接口
     var used = BASEURL38985 + '/api/as/uc/cardpoolinfodao/upcardstatusztotwo';
     // 挂失接口
     var lost = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/reportcardupdate';
-    var addcardpool = BASEURL38985 + '/api/as/uc/cardpooldao/save';
+    // var addcardpool = BASEURL38985 + '/api/as/uc/cardpooldao/save';
     // 释放卡池
     //var releasecard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/releasecardpool';
     // 获取卡段
@@ -36,7 +36,7 @@ var service = function($resource, BASEURL38985){
     //列表
     var cardproductlist = BASEURL38985 + '/api/as/uc/cardproduct/productList';
     //创建，修改卡产品
-    var cardproduct = BASEURL38985 + '/api/as/uc/cardproduct/save';
+    var cardproduct = BASEURL38985 + '/api/ac/uc/cardproductservice/save';
     //卡产品信息
     var cardproductinfo = BASEURL38985 + '/api/as/uc/cardproduct/getbyid';
 
@@ -99,6 +99,12 @@ var service = function($resource, BASEURL38985){
     var canrelease = BASEURL38985 + '/api/as/uc/cardpooldao/getcardcanreleaselist';
     // 卡池详情获取发卡目标
     var targetcard = BASEURL38985 + '/api/as/uc/cardpooldao/findgivetargtlist';
+
+    //----- 拿卡人管理 -----------------------//
+    // 拿卡人列表
+    var takecardlist = BASEURL38985 + '/api/as/uc/cardgiveouttargetdao/finduserlist';
+    // 保存拿卡人信息
+    var savetakecarduser = BASEURL38985 + '/api/as/uc/cardgiveouttargetdao/save';
 
     return {
         cardpoollist : function(){
@@ -231,6 +237,12 @@ var service = function($resource, BASEURL38985){
         },
         targetcard : function(){
              return $resource(targetcard, {}, {});
+        },
+        takecardlist : function(){
+             return $resource(takecardlist, {}, {});
+        },
+        savetakecarduser : function(){
+             return $resource(savetakecarduser, {}, {});
         }
 
     };

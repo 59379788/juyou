@@ -140,6 +140,21 @@
 	    </div>
   	</div>
 
+  	<div class="form-group form-inline">
+	    <label class="col-xs-3 control-label">红包  </label>
+	    <label class="radio-inline">
+		 <input type="radio" name="rebate_type" value="1"
+			  ng-model="obj.rebate_type"
+			  >是</label>
+	    
+	    <input type="text" class="form-control" ng-model="obj.rebate_start">
+        <input type="text" class="form-control" ng-model="obj.rebate_end">
+        <label class="radio-inline">
+		 <input type="radio" name="rebate_type" value="0"
+			  ng-model="obj.rebate_type"
+			  >否</label>   
+  	</div>
+
 	<div class="form-group">
 		<label class="col-xs-3 control-label">备注</label>
 		<div class="col-xs-9">

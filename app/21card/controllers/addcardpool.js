@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, addcardpool){
+module.exports = function($scope, $state, $stateParams, addcardpool){
 
 	//alert('修改卡池信息');
     var poolcode = $stateParams.poolcode;
@@ -6,7 +6,7 @@ module.exports = function($scope, $stateParams, addcardpool){
 
     $scope.cardinfo = {
 			'pool_name' : '',
-			'pool_type' : '1'
+			'pool_type' : '0'
 		};  
 
 	$scope.savecardpool = function(){
@@ -22,14 +22,19 @@ module.exports = function($scope, $stateParams, addcardpool){
 
         console.log(cardparem);
 		addcardpool.save(cardparem, function(res){
+            //$state.go('app.basecardlist');
 			console.log(res);
 			    if (res.errcode !== 0) {
+			    	
                    alert(res.errmsg);
                    return;
 			    } else {
+			    	
 			    	alert('成功');
+			    	$state.go('app.basecardlist');
 			    	return;
 			    }
+			
      	});                
 	};
 
