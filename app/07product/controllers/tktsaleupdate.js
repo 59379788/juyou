@@ -143,6 +143,10 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 		if(res.errcode === 0)
 		{
 			$scope.saleobj = res.data;
+			console.log(6666666666666666);
+			console.log($scope.saleobj.user_status);
+			console.log($scope.saleobj);
+			console.log(66666666666666666);
 			$scope.saleobj.market_price *= 0.01;
 			$scope.saleobj.guide_price *= 0.01;
 			$scope.saleobj.cost_price *= 0.01;

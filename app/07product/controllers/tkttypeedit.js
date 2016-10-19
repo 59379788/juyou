@@ -19,6 +19,8 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 	};
 
 	$scope.objs = [];
+	$scope.midstart = {};
+	$scope.midend = {};
 	
 	//景区下拉
 	// viewlist().then(function(res) {
@@ -146,18 +148,22 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 
 	$scope.gogo = function(){
 		$scope.objt['print_setup'] = makeStr($scope.objs);
-		console.log(111111111);
+		console.log(6666666666666666);
 		console.log($scope.objt);
+		$scope.midstart = $scope.objt.start_date;
+		$scope.midend = $scope.objt.end_date;
 		$scope.objt.start_date =  getDate($scope.objt.start_date);
 		$scope.objt.end_date =  getDate($scope.objt.end_date);
 		console.log($scope.objt);
-		console.log(222222222);
+		console.log(6666666666666);
 		tktupdate.save($scope.objt, function(res){
 
 			console.log(res);
 
 			if(res.errcode === 0)
 			{
+				$scope.objt.start_date = $scope.midstart;
+				$scope.objt.end_date = $scope.midend;
 				alert('修改成功');
 			}
 			else

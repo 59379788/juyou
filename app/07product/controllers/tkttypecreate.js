@@ -42,10 +42,10 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams,
 	        {
 	        	$scope.viewarr = res.data;
 	        	$scope.objt.place_code = res.data[0].code;
-	        	// console.log(111111111);
-		        // console.log($scope.viewarr);
-		        // console.log($scope.objt);
-		        // console.log(22222222);
+	        	// console.log(666666666666);
+		        console.log($scope.viewarr);
+		        console.log($scope.objt);
+		        // console.log(6666666666);
 	        }
 	        else
 	        {
