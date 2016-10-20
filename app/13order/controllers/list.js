@@ -38,7 +38,9 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
 
         para = angular.extend($scope.searchform, para);
 
+        console.log('###########');
         console.log(para);
+        console.log('##########');
         
         list.save(para, function(res){
 

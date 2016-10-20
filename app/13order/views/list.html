@@ -24,7 +24,24 @@
                   <input type="text" class="form-control" ng-model="searchform.mobile" placeholder="电话">
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  
+                  <!-- <input type="text" class="form-control" ng-model="searchform.ticket_state" placeholder="票状态"> -->
+                  <!-- <select class="form-control" 
+                  ng-model="searchform.ticket_state" 
+                  ng-options="label for value in tic"
+                  >
+                  </select> -->
+                  <label class="control-label">票状态：</label>
+                  <select class="form-control" ng-model="searchform.ticket_state" 
+                   placeholder="票状态" >
+                    <option label="未出票" value="0"></option>
+                    <option label="等待出票" value="1"></option>
+                    <option label="全部出票完成" value="2"></option>
+                    <option label="无需出票" value="8"></option>
+                    <option label="出票失败" value="9"></option>
+                  </select>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                    
 
                 </div>
 
@@ -54,6 +71,9 @@
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
                   <input type="text" class="form-control" ng-model="searchform.login_name" placeholder="登录帐号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.note" placeholder="备注">
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
                   <button type="button" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
