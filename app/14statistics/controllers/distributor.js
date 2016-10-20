@@ -119,7 +119,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
                         }
                         pointer = pointer[tmpj];
                     }
-                    pointer['company'].push(value);
+                    pointer['company'] || pointer['company'].push(value);
                 }
             });
             console.log(res);
