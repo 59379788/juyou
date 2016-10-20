@@ -14,6 +14,8 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
         obj.opened = true;
     };
 
+    $scope.companys = [];
+
    
     $scope.load = function(){
         var para = {
@@ -45,6 +47,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
                 var company_code = tmp.company_code;
                 var sale_code = tmp.sale_code;
                 var unit_price = tmp.unit_price;
+                var company_name = tmp.company_name;
 
                 var id = tmp.company_id;
                 var parentsid = tmp.company_id_parents;
@@ -58,6 +61,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
                     o['id'] = id;
                     o['parentsid'] = parentsid;
                     o['parentid'] = parentid;
+                    o['company_name'] = company_name;
                     o['saleobjs'][sale_code] = {};
                     o['saleobjs'][sale_code]['prices'] = {};
                     o['saleobjs'][sale_code]['prices'][unit_price] = tmp;
@@ -120,13 +124,13 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
             });
             console.log(res);
 
-            var companys = [];
+            //var companys = [];
             angular.forEach(res, function (value, key) {
 
-                companys = value.company;
-                for(var i = 0; i < companys.length; i++)
+                $scope.companys = value.company;
+                for(var i = 0; i < $scope.companys.length; i++)
                 {
-                    var c = companys[i];
+                    var c = $scope.companys[i];
                     var id = c.id;
                     if(value.hasOwnProperty(id))
                     {
@@ -136,37 +140,78 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
                 }
 
             });
-            console.log(companys);
-            return ;
+            console.log($scope.companys);
 
 
-            var objs = {};
-            for(var i = 0; i < res.data.length; i++)
+
+            for(var i = 0; i < $scope.companys.length; i++)
             {
-                var tmp = res.data[i];
-                var company_code = tmp.company_code
-                var company_id_parents = tmp.company_id_parents;
-                if(company_id_parents === undefined || company_id_parents == '') continue;
+                var company = $scope.companys[i];
+                if(company.sub === undefined) continue;
 
-                //console.log(company_code_parent + '---' + company_code);
-
-                var pointer = objs;
-                var tmparr = company_id_parents.split(',');
-                //console.log(tmparr);
-                for(var j = 0; j < tmparr.length; j++)
+                for(var j = 0; j < company.sub.length; j++)
                 {
-                    var tmpj = tmparr[j]
-                    if(tmpj == 0 || tmpj == '') continue;
-                    if(!pointer.hasOwnProperty(tmpj))
-                    {
-                        pointer[tmpj] = {};
-                        pointer[tmpj]['company'] = [];
-                    }
-                    pointer = pointer[tmpj];
+                    var sub = company.sub[j];
+                    merge(company, sub);
                 }
-                pointer['company'].push(tmp);
+
             }
-            console.log(objs);
+            console.log($scope.companys);
+            
+
+            for(var i = 0; i < $scope.companys.length; i++)
+            {
+                var c = $scope.companys[i];
+                c.salearr = [];
+                angular.forEach(c['saleobjs'], function (saleinfo, salecode) {
+
+                    c.salearr.push(saleinfo);
+
+                    saleinfo.pricesarr = [];
+
+                    angular.forEach(saleinfo['prices'], function (priceinfo, price) {
+
+                        saleinfo.pricesarr.push(priceinfo);
+
+                    });
+
+                });
+
+            }
+
+            console.log($scope.companys);
+
+            //$scope.companys = companys;
+            // return ;
+
+
+            // var objs = {};
+            // for(var i = 0; i < res.data.length; i++)
+            // {
+            //     var tmp = res.data[i];
+            //     var company_code = tmp.company_code
+            //     var company_id_parents = tmp.company_id_parents;
+            //     if(company_id_parents === undefined || company_id_parents == '') continue;
+
+            //     //console.log(company_code_parent + '---' + company_code);
+
+            //     var pointer = objs;
+            //     var tmparr = company_id_parents.split(',');
+            //     //console.log(tmparr);
+            //     for(var j = 0; j < tmparr.length; j++)
+            //     {
+            //         var tmpj = tmparr[j]
+            //         if(tmpj == 0 || tmpj == '') continue;
+            //         if(!pointer.hasOwnProperty(tmpj))
+            //         {
+            //             pointer[tmpj] = {};
+            //             pointer[tmpj]['company'] = [];
+            //         }
+            //         pointer = pointer[tmpj];
+            //     }
+            //     pointer['company'].push(tmp);
+            // }
+            // console.log(objs);
 
 
 
@@ -176,23 +221,19 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
 
 
 
-    //将子分销商的销售情况合并到一级分销。
+    //将子分销商的销售情况合并到一级分销。obj1父节点，obj2子节点。
     function merge(obj1, obj2){
 
-        var res = false;
-
-        //将子分销的复制一份
-        var tmpobj2 = angular.copy(obj2);
+        var res = true;
 
         //obj2的父节点id不是obj1的id
         if(obj1.id !== obj2.parentid)
         {
-            return res;
+            return false;
         }
 
-
-        //key:销售品编号，value:销售情况
-        angular.forEach(tmpobj2['saleobjs'], function (saleinfo, salecode) {
+        //salecode:销售品编号，saleinfo:销售情况
+        angular.forEach(obj2['saleobjs'], function (saleinfo, salecode) {
             //查询一级分销是否卖过该子分销的销售品
             var saleobj = obj1['saleobjs'][salecode];
             //一级分销没卖过的销售品
@@ -204,17 +245,44 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
             //一级分销也卖过的销售品
             else
             {
-                angular.forEach(saleobj['saleobjs'], function (value, key) {
+                //saleobj 父节点。
+                angular.forEach(saleobj['prices'], function (priceinfo, price) {
+
+                    //父节点没卖过这个价格
+                    var pprice = saleobj['prices'][price];
+                    if(pprice === undefined)
+                    {
+                        pprice = {};
+                        pprice = priceinfo;
+                    }
+                    //父节点也卖过这个价格
+                    else
+                    {
+                        // o[sale_code]['prices'][unit_price]['back'] += tmp.back;
+                        // o[sale_code]['prices'][unit_price]['buy'] += tmp.buy;
+                        // o[sale_code]['prices'][unit_price]['total_back'] += tmp.total_back;
+                        // o[sale_code]['prices'][unit_price]['total_buy'] += tmp.total_buy;
+                        // o[sale_code]['prices'][unit_price]['used'] += tmp.used;
+                        pprice.back += priceinfo.back;
+                        pprice.buy += priceinfo.buy;
+                        pprice.total_back += priceinfo.total_back;
+                        pprice.total_buy += priceinfo.total_buy;
+                        pprice.used += priceinfo.used;
+                    }
 
                 });
             }
 
-
-
         });
-
 
         return res;
     }
 
+
+    //
+    function change(obj){
+
+        
+
+    }
 };

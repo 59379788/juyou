@@ -33,7 +33,89 @@
 </div><!-- searchArea -->
 
 
-  <table class="table table-bordered">
+
+
+<div class="panel panel-danger" ng-repeat="company in companys">
+  <!-- Default panel contents -->
+  <div class="panel-heading">{{company.company_name}}</div>
+
+  <div class="panel-body">
+    <div class="panel panel-info" ng-repeat="sale in company.salearr">
+    <!-- Default panel contents -->
+    <div class="panel-heading">{{sale.pricesarr[0].sale_name}}</div>
+
+    <!-- Table -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="col-xs-2 text-center">销售品编号</th>
+          <th class="col-xs-3 text-center">销售品名称</th>
+          <th class="col-xs-1 text-center">单价</th>
+          <th class="col-xs-3 text-center">数量</th>
+          <th class="col-xs-3 text-center">总价</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="price in sale.pricesarr">
+          <td>{{price.sale_code}}</td>
+          <td>{{price.sale_name}}</td>
+          <td class="text-center">{{price.unit_price}}</td>
+          <td class="text-center">
+            购买：{{price.buy}}, 
+            使用：{{price.used}}, 
+            退票：{{price.back}}
+          </td>
+          <td class="text-center">
+            购买：{{price.total_buy * 0.01 | currency : '￥'}}, 
+            使用：{{price.total_back * 0.01 | currency : '￥'}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <!-- Table -->
+  <!-- <table class="table">
+    <thead>
+      <tr>
+        <th>销售品编号</th>
+        <th>销售品名称</th>
+        <th>Last Name</th>
+        <th>Username</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="sale in company.salearr">
+        <td>1</td>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
+  </table> -->
+</div>
+
+
+
+
+
+
+
+
+  <!-- <table class="table table-bordered">
     <thead>
       <tr>
         <th class="col-md-1 text-center">时间</th>
@@ -75,7 +157,7 @@
         <td class="text-center">{{total.total * 0.01 | currency : '￥'}}</td>
       </tr>
     </tbody>
-  </table>
+  </table> -->
 
 
 </div>
