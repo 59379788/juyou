@@ -1,5 +1,5 @@
 module.exports = function($scope, $stateParams, viewlist, tktinfo, 
-	tktupdate, placeinfo, makeArr, makeStr, getDate){
+	tktupdate, placeinfo, makeArr, makeStr, getDate, str2date){
 
 	$scope.placeid = '';
 	//有效区间
@@ -19,20 +19,9 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 	};
 
 	$scope.objs = [];
-	$scope.midstart = {};
-	$scope.midend = {};
+	$scope.midstart = new Date();
+	$scope.midend = new Date();
 	
-	//景区下拉
-	// viewlist().then(function(res) {
- //        if(res.errcode === 0)
- //        {
- //        	$scope.viewarr = res.data;
- //        }
- //        else
- //        {
- //            alert(res.errmsg);
- //        }
- //    });
 	$scope.objt = {
 		'name' : '',
 	//	'code' : '',
@@ -41,86 +30,29 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 		'state' : '1',
 		'book_info' : ''
 	};
- 	// viewlist().then(function(res) {
-	 //        console.log("*******************");
-	 //        console.log(res);
-	 //        // console.log(22222222);
-	 //        console.log("*******************");
-	 //        if(res.errcode === 0)
-	 //        {
-	 //        	$scope.viewarr = res.data;
-	 //        	$scope.objt.place_code = res.data[0].code;
-	 //        }
-	 //        else
-	 //        {
-	 //            alert(res.errmsg);
-	 //        }
-	 //    });
-	 // if($scope.placeid === '')
-	// {
-		//景区下拉
-		viewlist().then(function(res) {
-	        // console.log(888888888);
-	        // console.log(res);
-	        // console.log(22222222);
-	        if(res.errcode === 0)
-	        {
-	        	$scope.viewarr = res.data;
-	        	// $scope.objt.place_code = res.data[0].code;
-	        	console.log(888888888);
-		        console.log($scope.objt.place_code);
-		        console.log(22222222);
-	        }
-	        else
-	        {
-	            alert(res.errmsg);
-	        }
-	    });
-	// }
-	// else
-	// {
-	// 	placeinfo.get({'id' : $scope.placeid}, function(res){
-
-	//     	console.log(res);
-
-	//     	if(res.errcode === 0)
-	//         {
-	//         	$scope.objt.placename = res.data.name;
-	//         	$scope.objt.placecode = res.data.code;
-	//         }
-	//         else
-	//         {
-	//             alert(res.errmsg);
-	//         }
-
-	//     });
-	// }
     
 
 	tktinfo.get({'id' : $stateParams.id}, function(res){
 		console.log(res);
-		console.log("//////////////");
 
 		if(res.errcode === 0)
 		{
 			$scope.objt = res.data;
+			$scope.midstart = str2date( $scope.objt.start_date);
+			$scope.midend = str2date($scope.objt.end_date);
 			$scope.objs = makeArr(res.data.print_setup);
 			//getplaceinfo();
 		}
 
 	});
+
+	//景区下拉
 	viewlist().then(function(res) {
-	        // console.log(888888888);
-	        // console.log(res);
-	        // console.log(22222222);
+
 	        if(res.errcode === 0)
 	        {
 	        	$scope.viewarr = res.data;
 	        	$scope.objt.place_code = res.data[0].code;
-	        	console.log(888888888);
-		        console.log($scope.viewarr);
-		        console.log($scope.objt);
-		        console.log(22222222);
 	        }
 	        else
 	        {
@@ -147,23 +79,17 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 	// }
 
 	$scope.gogo = function(){
+
+		console.log($scope.objt);
 		$scope.objt['print_setup'] = makeStr($scope.objs);
-		console.log(6666666666666666);
-		console.log($scope.objt);
-		$scope.midstart = $scope.objt.start_date;
-		$scope.midend = $scope.objt.end_date;
-		$scope.objt.start_date =  getDate($scope.objt.start_date);
-		$scope.objt.end_date =  getDate($scope.objt.end_date);
-		console.log($scope.objt);
-		console.log(6666666666666);
+		$scope.objt.start_date =  getDate($scope.midstart);
+		$scope.objt.end_date =  getDate($scope.midend);
 		tktupdate.save($scope.objt, function(res){
 
 			console.log(res);
 
 			if(res.errcode === 0)
 			{
-				$scope.objt.start_date = $scope.midstart;
-				$scope.objt.end_date = $scope.midend;
 				alert('修改成功');
 			}
 			else

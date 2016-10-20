@@ -23,6 +23,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getDate : function(utilservice){
                 return utilservice.getDate;
+            },
+            str2date : function(utilservice){
+                return utilservice.str2date;
             }
         }
       })
@@ -49,6 +52,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             makeStr : function(productservice){
                 return productservice.makeStr;
+            },
+            str2date : function(utilservice){
+                return utilservice.str2date;
             }
         }
       })
@@ -78,6 +84,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getDate : function(utilservice){
                 return utilservice.getDate;
+            },
+            str2date : function(utilservice){
+                return utilservice.str2date;
             }
         }
       })

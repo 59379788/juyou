@@ -1,4 +1,5 @@
-module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktupdate){
+module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktupdate,
+ str2date){
 
 	$scope.searchform = {};
 
