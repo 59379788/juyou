@@ -20,6 +20,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             tktupdate : function(productservice){
                 return productservice.tktupdate();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
             }
         }
       })
@@ -72,6 +75,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             makeStr : function(productservice){
                 return productservice.makeStr;
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
             }
         }
       })
@@ -83,6 +89,9 @@ var router = function($urlRouterProvider, $stateProvider){
         resolve:{
             attrlist : function(productservice){
                 return productservice.attrlist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
             }
         }
       })

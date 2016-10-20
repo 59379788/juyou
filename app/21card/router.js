@@ -82,7 +82,10 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
             issuecard : function(cardservice){
                  return cardservice.issuecard();
-            }
+            },
+            takecardlist : function(cardservice){
+                 return cardservice.takecardlist();
+            },
 
              
             
@@ -173,7 +176,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
        //卡产品信息
        .state('app.cardproduct', {
-         url: '/cardproduct/:code',
+         url: '/cardproduct/:code/:editstate',
          controller : 'cardproduct',
          template: require('./views/cardproduct.html'),
          resolve:{
@@ -345,14 +348,23 @@ var router = function($urlRouterProvider, $stateProvider){
            searchcard : function(cardservice){
                  return cardservice.searchcard();
              } 
-  
-
          }
-       
-
        })
 
-       
+        //拿卡人管理里
+        .state('app.takecard', {
+         url: '/takecard',
+         controller : 'takecard',
+         template: require('./views/takecard.html'),
+         resolve:{
+           takecardlist : function(cardservice){
+                 return cardservice.takecardlist();
+           },
+           savetakecarduser : function(cardservice){
+                 return cardservice.savetakecarduser();
+           } 
+         }
+       })
 };
 
 module.exports = router;

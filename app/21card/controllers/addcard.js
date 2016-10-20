@@ -51,6 +51,7 @@ module.exports = function($scope, $state, $stateParams, addcard, unusedcard){
                    return;
 			    } else {
 			    	alert('添加卡成功');
+			    	$state.go('app.basecardlist');
 			    	return;
 
 			    }

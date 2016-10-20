@@ -1,0 +1,43 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                  <label>姓名</label>&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="takecarduserinfo.name" placeholder="姓名">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <label>所属旅行社</label>&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="takecarduserinfo.travelagency" placeholder="所属旅行社">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <label>手机号</label>&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="takecarduserinfo.mobile" placeholder="手机号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <label>备注</label>&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="takecarduserinfo.remarks" placeholder="备注">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="save()">保存</button>
+
+
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-4 text-center">姓名</th>
+        <th class="col-md-4 text-center">所属旅行社</th>
+        <th class="col-md-4 text-center">手机号</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.name}}</td>
+        <td class="text-center">{{obj.travelagency}}</td>
+        <td class="text-center">{{obj.mobile}}</td>
+      </tr>
+    </tbody>
+  </table>

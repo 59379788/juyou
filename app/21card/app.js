@@ -46,4 +46,6 @@ App.controller('cardcomplete',require('./controllers/cardcomplete'));
 App.controller('unissued',require('./controllers/unissued'));
 // 根据条件查询基本卡
 App.controller('searchcard',require('./controllers/searchcard'));
+// 拿卡人管理
+App.controller('takecard',require('./controllers/takecard'));
 module.exports = App;

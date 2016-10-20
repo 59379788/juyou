@@ -1,6 +1,6 @@
 <form class="form-horizontal" role="form">
  <h2>记录发卡信息</h2>
- <div class="col-md-5 col-md-offset-1">
+ <div class="col-md-10 col-md-offset-1">
  <div class="panel panel-default">
  <div class="panel-body">
  <div class="form-group">
@@ -16,12 +16,12 @@
  </div>
  
  <div class="form-group">
- <label for="inputDate" class="col-sm-4 control-label">拿/退卡人姓名：</label>
- <div class="col-md-6">
- <input type="text" class="form-control" id="inputpoolname" placeholder="* * *"
-      ng-model="userinfo.name"
-      >
- </div>    
+   <label for="inputDate" class="col-md-4 control-label">拿/退卡人姓名：</label>
+   <div class="col-md-6">
+   <select class="form-control" ng-model="userinfo.name" ng-options = "obj.name as obj.name for obj in objs">
+ 	<option value="">全部</option>
+   </select>
+   </div>    
  </div>
 
  <div class="form-group">

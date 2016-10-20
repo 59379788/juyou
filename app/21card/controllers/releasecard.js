@@ -1,10 +1,17 @@
 module.exports = function($scope,  $stateParams, getcardlist, cardinpool, statename, listinpool, targetcard){
    var poolcode = $stateParams.poolcode;
-    
     console.log(poolcode);
-
+    $scope.typecard = {
+        'startnum' : '',
+        'endnum' : '',
+        'card_status' : '',
+        'card_type' : '',
+        'card_giveout_time' : '',
+        'card_giveout_target' : ''
+    };
+    $scope.infos = [];
     $scope.getcardaim = function(){ 
-      alert('fauhfjkhfjd');
+      //alert('卡池详情');
       targetcard.save({'pool_code' : poolcode}, function(res){ 
       	$scope.targetinfo = res.data;
 	    console.log(res);
@@ -12,7 +19,7 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool, staten
                    alert(res.errmsg);
                    return;
 			    } else {
-			    	console.log('xinxi');
+			    	console.log();
 			    	return;
 			    }
       });
@@ -57,20 +64,10 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool, staten
     $scope.getcardlist();
 
 
-    $scope.typecard = {
-        'startnum' : '',
-        'endnum' : '',
-        'card_status' : '',
-        'card_type' : '',
-        'card_giveout_time' : '',
-        'card_giveout_target' : ''
-        
-
-        
-    };
+    
     $scope.cardlists = [];
     
-    // 根据起始卡号 状态 查询卡池中的卡
+    // 根据起始卡号 状态 发卡目标查询卡池中的卡
     $scope.search = function(){
 		//alert('sousuo');
 		var cardparem = {'pool_code' : poolcode, 'startnum' : $scope.typecard.startnum ,'endnum' : $scope.typecard.endnum, 'card_status' : $scope.typecard.card_status, 'card_giveout_target' :  $scope.typecard.card_giveout_target};

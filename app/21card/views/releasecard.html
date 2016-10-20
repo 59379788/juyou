@@ -27,7 +27,8 @@
 			      <input type="text" class="form-control" ng-model="typecard.startnum" placeholder="起始卡号">
 			      <input type="text" class="form-control" ng-model="typecard.endnum" placeholder="结束卡号">        
 			      <select class="form-control" ng-model="typecard.card_status" ng-options="state.code as state.name for state in state"></select>
-			      <select class="form-control" ng-model="typecard.card_giveout_target" ng-options = "info.card_giveout_target for info in targetinfo">   
+			      <select class="form-control" ng-model="typecard.card_giveout_target" ng-options = "info.card_giveout_target as info.card_giveout_target for info in targetinfo"> 
+			      <option value="">全部</option>  
                   </select>
 			      
 			      <button type="button" class="btn btn-info new" ng-click="search()">搜索</button>

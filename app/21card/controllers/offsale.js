@@ -12,11 +12,15 @@ module.exports = function($scope, $state, code, $uibModalInstance, goodoffsale){
 	    goodoffsale.save($scope.obj, {'code' : code}, function(res){
 
             console.log(res);
-
-            if(res.errcode === 0)
+            if ($scope.obj.off_reason === '') { 
+            	alert('请填写下架原因');
+            }
+            else if(res.errcode === 0)
             {
                 alert('下架成功');
                 $uibModalInstance.close();
+                // 刷新页面
+                
             }
             else
             {

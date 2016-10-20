@@ -1,4 +1,24 @@
-module.exports = function($scope, issuecard){
+module.exports = function($scope, issuecard, takecardlist){
+  
+   $scope.takecarduserlist = function(){ 
+    takecardlist.save({}, function(res){ 
+    	console.log(res);
+    	if (res.errcode !== 0) { 
+    		alert(errmsg);
+    		return;
+    	} else { 
+          $scope.objs = res.data;
+          $scope.cardinfo = res.data[0];
+          return;
+    	}
+    });
+  };
+  $scope.takecarduserlist(); 
+
+
+
+
+
   $scope.userinfo = {
   	   'type' : '1',
        'name' : '',	
@@ -13,6 +33,7 @@ module.exports = function($scope, issuecard){
        'card_giveout_target' : ''
 
     };
+    $scope.searchinfo = [];
     //$scope.userinfo.cardnum = $scope.userinfo.end_card_no - $scope.userinfo.start_card_no;
 
    $scope.saveuserinfo = function(){

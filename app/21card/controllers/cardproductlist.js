@@ -6,8 +6,9 @@ module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, go
 	};
 
 	$scope.search = function(){
-
+        //alert('搜索卡产品');
 		cardproductlist.save($scope.searchform, function(res){
+			console.log($scope.searchform);
 			console.log(res);
 			if(res.errcode !== 0)
 			{
@@ -27,9 +28,9 @@ module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, go
 
 	};
 
-	$scope.edit = function(code){
+	$scope.edit = function(code, editstate){
 
-		$state.go('app.cardproduct', {'code' : code});
+		$state.go('app.cardproduct', {'code' : code, 'editstate' : editstate});
 
 	};
 
@@ -46,6 +47,7 @@ module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, go
                    return;
 			    } else {
 			    	alert('上架成功');
+			    	$scope.search();
 			    	return;
 			    }
      	});        
@@ -69,11 +71,15 @@ module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, go
         });
 
         modalInstance.result.then(function () {
-          init();
+
+          //init();
+           $scope.search();
         }, function () {
+        	
           //$log.info('Modal dismissed at: ' + new Date());
         });
 
+       
 	};
 
 
