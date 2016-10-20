@@ -11,8 +11,8 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams,
 		'state' : '1',
 		'book_info' : ''
 	};
-	 $scope.objt.start_date = new Date();
-	 $scope.objt.end_date = new Date();
+	$scope.midstart = new Date();
+	$scope.midend = new Date();
 
 	//有效区间
 	$scope.section = {};
@@ -85,14 +85,14 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams,
 		}
 
 		para = angular.extend($scope.objt, para);
-		para.start_date	 = getDate($scope.objt.start_date);
-		para.end_date	 = getDate($scope.objt.end_date);
-		console.log($scope.objt.start_date);
-		console.log($scope.objt.end_date);
-		console.log($scope.objt);
-		console.log("----------");
-		console.log(para);
-		console.log("----------");
+		para.start_date	 = getDate($scope.midstart);
+		para.end_date	 = getDate($scope.midend);
+		console.log(parseInt(para.start_date));
+		console.log(parseInt(para.end_date));
+		if ( parseInt(para.start_date.substring(0,4)+para.start_date.substring(5,7)+para.start_date.substring(8,10)) > parseInt(para.end_date.substring(0,4)+para.end_date.substring(5,7)+para.end_date.substring(8,10)) ) {
+			alert('有效时间的初始日期应早于末尾日期');
+			return;
+		}
 		tktcreate.save(para, function(res){
 
 			console.log(res);
