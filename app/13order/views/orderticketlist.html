@@ -57,9 +57,16 @@
 
                   <span class="col-xs-4">生效时间：</span>
                   <div class="input-group col-xs-8">
-                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd"
-                    ng-model="obj.take_effect_time"  on-open-focus="true"  
-                   is-open="obj.opened" ng-required="true" close-text="Close" readonly/>
+                  <input  type="text" 
+                          class="form-control" 
+                          uib-datepicker-popup="yyyy-MM-dd"
+                          ng-model="obj.take_effect_time"  
+                          ng-change="authchange()"
+                          on-open-focus="true"  
+                          is-open="obj.opened" 
+                          ng-required="true" 
+                          close-text="Close" 
+                          readonly/>
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="open(obj)"><i class="glyphicon glyphicon-calendar"></i></button>
                       </span>
@@ -71,7 +78,10 @@
                 
                 </td> -->
                 <td>
-                  <button type="button" class="btn button" ng-click="mosaic(obj.id,obj.take_effect_time,obj.otime)">
+                  <button type="button" 
+                          class="btn btn-primary" 
+                          ng-click="mosaic(obj.id,obj.take_effect_time,obj.otime)" 
+                          ng-disabled="authority">
                     修改
                   </button>
                 </td>

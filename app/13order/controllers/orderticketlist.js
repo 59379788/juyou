@@ -8,6 +8,8 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
     
     var code = obj.code;
 
+    $scope.authority = true;
+    $scope.middle ;
     var fun;
     var viewname = '';
 
@@ -301,6 +303,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
             if(res.errcode === 0)
             {
                 alert('修改成功');
+                $scope.authority = true;
                 // $scope.load();
             }
             else
@@ -313,6 +316,10 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
     $scope.open = function(obj) {
         obj.opened = true;
     };
+
+    $scope.authchange = function(){
+        $scope.authority = false;
+    }
 
     
 

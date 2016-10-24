@@ -10,6 +10,7 @@ var router = function($urlRouterProvider, $stateProvider){
  	  .state('app.tkttype', {
         url: '/tkttype/:placeid',
         controller : 'tkttype',
+        templateUrl : 'abc.html',
         template: require('./views/tkttype.html'),
         resolve:{
             viewlist : function(productservice){
