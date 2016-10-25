@@ -12,8 +12,8 @@ var router = function($urlRouterProvider, $stateProvider){
 	      url: '/app',
 	      abstract: true,
 	      controller : 'appcontroller',
-	      //template : require('./views/app.html'),
-	      template : require('./views/app2.html'),
+	      template : require('./views/app.html'),
+	      //template : require('./views/app2.html'),
 	      resolve:{
         	permission : function(commonservice){
         		return commonservice.permission();
