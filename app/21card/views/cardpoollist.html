@@ -6,9 +6,6 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                   <label for="inputLottry" class="control-label">卡池列表</label>
-
-
-                  
                   <button type="button" class="btn btn-default search pull-right" ng-click="addcardpool()">添加卡池</button>
 
 
@@ -35,7 +32,7 @@
 	        <td class="col-md-2 text-center">{{cardpool.pool_name}}</td>
 	        <td class="col-md-2 text-center">{{cardpool.pool_type_name}}</td>
 	        <td class="col-md-2 text-center">
-	        	<button type="button" class="btn btn-default btn-xs" ng-click="resivepoolinfo(cardpool.pool_code)">修改</button>
+	        	<button type="button" class="btn btn-default btn-xs" ng-click="resivepoolinfo(cardpool.pool_code, cardpool.pool_name)">修改</button>
 	        </td>
 	        <td class="col-md-4 text-center">
 	        	
@@ -48,7 +45,23 @@
 	  </table>
 	</div>	    
     </div>
+    <div class="text-right">
 
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+</div> 
   
 
 

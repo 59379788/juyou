@@ -24,14 +24,14 @@
 	    <div class="panel-body">
 	    	<div class="form-group form-inline mb0">
 	    		<div class="col-sm-12">
-			      <input type="text" class="form-control" ng-model="typecard.startnum" placeholder="起始卡号">
-			      <input type="text" class="form-control" ng-model="typecard.endnum" placeholder="结束卡号">        
-			      <select class="form-control" ng-model="typecard.card_status" ng-options="state.code as state.name for state in state"></select>
-			      <select class="form-control" ng-model="typecard.card_giveout_target" ng-options = "info.card_giveout_target as info.card_giveout_target for info in targetinfo"> 
+			      <input type="text" class="form-control" ng-model="typecard.startnum" placeholder="起始卡号" style="width:250px">
+			      <input type="text" class="form-control" ng-model="typecard.endnum" placeholder="结束卡号" style="width:250px">        
+			      <select class="form-control" ng-model="typecard.card_status" ng-options="state.code as state.name for state in state" style="width:200px"></select>
+			      <select class="form-control" ng-model="typecard.card_giveout_target" ng-options = "info.card_giveout_target as info.card_giveout_target for info in targetinfo" style="width:200px"> 
 			      <option value="">全部</option>  
                   </select>
 			      
-			      <button type="button" class="btn btn-info new" ng-click="search()">搜索</button>
+			      <button type="button" class="btn btn-info new" ng-click="search()" style="width:100px">搜索</button>
 			    </div>
 		    </div>
 	    </div>

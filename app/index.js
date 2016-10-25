@@ -64,6 +64,7 @@ require('./17chart/app');
 require('./18docking/app');
 require('./19guide/app');
 require('./20line/app');
+require('./22busscustomer/app');
 require('./21card/app');
 require('./96util/app');
 require('./97intercept/app');   //拦截器
@@ -112,6 +113,7 @@ var App = angular.module('juyouApp', [
     'guide',
     'line',
     'card',
+    'busscustomer',
     'util',
     'test',
     'common',

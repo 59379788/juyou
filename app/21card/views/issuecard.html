@@ -18,7 +18,7 @@
  <div class="form-group">
    <label for="inputDate" class="col-md-4 control-label">拿/退卡人姓名：</label>
    <div class="col-md-6">
-   <select class="form-control" ng-model="userinfo.name" ng-options = "obj.name as obj.name for obj in objs">
+   <select class="form-control" ng-model="searchinfo"  ng-options = "obj as obj.name for obj in objs" ng-change="selection(searchinfo)">
  	<option value="">全部</option>
    </select>
    </div>    
@@ -44,21 +44,17 @@
 
  <div class="form-group">
  <label for="inputDate" class="col-sm-4 control-label">号段：</label>
- <div class="col-md-6">
+ <div class="col-md-3">
  <input type="text" class="form-control" id="inputpoolname" placeholder="起始号段"
-      ng-model="userinfo.start_card_no"
-      >
+      ng-model="userinfo.start_card_no">
+ </div>
+ <div class="col-md-3">
+ <input type="text" class="form-control" id="inputpoolname" placeholder="起始号段"
+      ng-model="userinfo.end_card_no">
  </div>
  </div>
 
- <div class="form-group">
- <label for="inputDate" class="col-sm-4 control-label"></label>
- <div class="col-md-6">
- <input type="text" class="form-control" id="inputpoolname" placeholder="结束号段"
-      ng-model="userinfo.end_card_no"
-      >
- </div>
- </div>
+ 
 
  
 

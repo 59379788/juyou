@@ -75,7 +75,7 @@ module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, go
           //init();
            $scope.search();
         }, function () {
-        	
+           
           //$log.info('Modal dismissed at: ' + new Date());
         });
 
