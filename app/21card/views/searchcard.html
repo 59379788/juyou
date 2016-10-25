@@ -23,13 +23,12 @@
           {{obj.card_make_time}}
         </td>
         <td class="text-center">
-          <a ng-show="obj.card_giveout_statusname=='未发放' && obj.card_make_statusname=='未制作'" ng-click="batchnumber(obj.id)" class="btn btn-info btn-xs">设置批次号</a>
+          <a ng-show="obj.card_giveout_statusname=='未发放' && obj.card_make_statusname=='未制作'" ng-click="setbatchnumber(obj.cardno)" class="btn btn-info btn-xs">设置批次号</a>
 
           <a ng-show="obj.card_giveout_statusname=='未发放' && obj.card_make_statusname=='制作中'"
-          ng-click="cardcomplete(obj.card_make_batch)" class="btn btn-danger btn-xs">制卡完成</a>
+          ng-click="setcardcomplete(obj.card_make_batch,obj.cardno)" class="btn btn-danger btn-xs">制卡完成</a>
 
-          <a ng-show="obj.card_giveout_statusname=='未发放' && obj.card_make_statusname=='已制作'"
-          ng-click="addtocardpool(obj.code)" class="btn btn-success btn-xs">添加到卡池</a>
+          
 
           
 

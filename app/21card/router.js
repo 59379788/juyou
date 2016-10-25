@@ -357,7 +357,14 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
            searchcard : function(cardservice){
                  return cardservice.searchcard();
-             } 
+             },
+           batchnumber : function(cardservice){
+                 return cardservice.batchnumber();
+             },
+           changestatus : function(cardservice){
+                 return cardservice.changestatus();
+             }
+
          }
        })
 
