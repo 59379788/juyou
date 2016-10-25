@@ -24,7 +24,7 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE){
         para = angular.extend($scope.searchform, para);
         
         list.save(para, function(res){
-
+            console.log(para);
          	console.log(res);
 
          	if(res.errcode !== 0)

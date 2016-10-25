@@ -18,6 +18,9 @@ App.controller('deletecard',require('./controllers/deletecard'));
 App.controller('releasecard',require('./controllers/releasecard'));
 // 释放卡
 App.controller('relief',require('./controllers/relief'));
+// 修改卡池信息
+App.controller('reviseinfo',require('./controllers/reviseinfo'));
+
 // 修改卡信息
 App.controller('resivecardinfo',require('./controllers/resivecardinfo'));
 //卡产品列表
@@ -48,4 +51,6 @@ App.controller('unissued',require('./controllers/unissued'));
 App.controller('searchcard',require('./controllers/searchcard'));
 // 拿卡人管理
 App.controller('takecard',require('./controllers/takecard'));
+// 修改领卡人信息
+App.controller('chatakecarduser',require('./controllers/chatakecarduser'));
 module.exports = App;

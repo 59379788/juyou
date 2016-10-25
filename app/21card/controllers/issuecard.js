@@ -6,15 +6,17 @@ module.exports = function($scope, issuecard, takecardlist){
     	if (res.errcode !== 0) { 
     		alert(errmsg);
     		return;
-    	} else { 
-          $scope.objs = res.data;
-          $scope.cardinfo = res.data[0];
-          return;
     	}
+      	$scope.objs = res.data;
+      	$scope.cardinfo = res.data[0];
     });
   };
   $scope.takecarduserlist(); 
-
+  $scope.selection = function(obj){ 
+    console.log(obj);
+    $scope.userinfo.mobile = obj.mobile;
+    $scope.userinfo.name = obj.name;
+  };
 
 
 
@@ -33,6 +35,7 @@ module.exports = function($scope, issuecard, takecardlist){
        'card_giveout_target' : ''
 
     };
+
     $scope.searchinfo = [];
     //$scope.userinfo.cardnum = $scope.userinfo.end_card_no - $scope.userinfo.start_card_no;
 

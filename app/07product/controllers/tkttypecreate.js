@@ -1,6 +1,27 @@
 module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams, 
 	placeinfo, $state, makeArr, makeStr){
 
+	product.directive('', ['', function(){
+		// Runs during compile
+		return {
+			// name: '',
+			// priority: 1,
+			// terminal: true,
+			// scope: {}, // {} = isolate, true = child, false/undefined = no change
+			// controller: function($scope, $element, $attrs, $transclude) {},
+			// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
+			// restrict: 'A', // E = Element, A = Attribute, C = Class, M = Comment
+			// template: '',
+			// templateUrl: '',
+			// replace: true,
+			// transclude: true,
+			// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),
+			link: function($scope, iElm, iAttrs, controller) {
+				
+			}
+		};
+	}]);
+
 	$scope.placeid = $stateParams.placeid;
 
 	$scope.objt = {
@@ -11,8 +32,8 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams,
 		'state' : '1',
 		'book_info' : ''
 	};
-	 $scope.objt.start_date = new Date();
-	 $scope.objt.end_date = new Date();
+	$scope.midstart = new Date();
+	$scope.midend = new Date();
 
 	//有效区间
 	$scope.section = {};
@@ -85,14 +106,14 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams,
 		}
 
 		para = angular.extend($scope.objt, para);
-		para.start_date	 = getDate($scope.objt.start_date);
-		para.end_date	 = getDate($scope.objt.end_date);
-		console.log($scope.objt.start_date);
-		console.log($scope.objt.end_date);
-		console.log($scope.objt);
-		console.log("----------");
-		console.log(para);
-		console.log("----------");
+		para.start_date	 = getDate($scope.midstart);
+		para.end_date	 = getDate($scope.midend);
+		console.log(parseInt(para.start_date));
+		console.log(parseInt(para.end_date));
+		if ( parseInt(para.start_date.substring(0,4)+para.start_date.substring(5,7)+para.start_date.substring(8,10)) > parseInt(para.end_date.substring(0,4)+para.end_date.substring(5,7)+para.end_date.substring(8,10)) ) {
+			alert('有效时间的初始日期应早于末尾日期');
+			return;
+		}
 		tktcreate.save(para, function(res){
 
 			console.log(res);

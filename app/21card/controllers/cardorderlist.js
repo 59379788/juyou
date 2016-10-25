@@ -9,7 +9,17 @@ module.exports = function($scope, cardproductorderlist, ITEMS_PERPAGE, getDate, 
     var par = $stateParams;
 
     //搜索条件
-    $scope.searchform = {};
+    $scope.searchform = { 
+    	'mobile' : '',
+    	'username' : '',
+    　　'papersno' :　'',
+        'code' : '',
+        'cardno' : '',
+        'product_code' : '',
+        'seller_code' : '',
+        'start_time' : '',
+        'end_time' : ''
+    };
 
     //有效区间
     $scope.section = {};
@@ -30,7 +40,7 @@ module.exports = function($scope, cardproductorderlist, ITEMS_PERPAGE, getDate, 
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
     
-
+    // 卡订单列表
     $scope.load = function(){
 
         var para = {
@@ -51,6 +61,7 @@ module.exports = function($scope, cardproductorderlist, ITEMS_PERPAGE, getDate, 
             }
 
             $scope.objs = res.data.results;
+            console.log($scope.objs);
 
         });
 
@@ -63,6 +74,24 @@ module.exports = function($scope, cardproductorderlist, ITEMS_PERPAGE, getDate, 
         $state.go('app.cardorderinfo', {'code' : code});
     };
 
+    // 搜索
+    $scope.searchinfo = function(){ 
+    	alert('souuo');
+    	cardproductorderlist.save($scope.searchform, function(res){
+    		console.log($scope.searchform);
+
+            if(res.errcode !== 0)
+            {
+                alert(res.errmsg);
+                return;
+            }
+
+            $scope.objs = res.data.results;
+            console.log($scope.objs);
+
+        });
+
+    };
 
 
 };

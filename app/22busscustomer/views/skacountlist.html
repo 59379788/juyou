@@ -1,0 +1,89 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                  
+                  <input type="text" class="form-control" ng-model="searchform.startcard" placeholder="姓名">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="searchform.endcard" placeholder="手机号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="searchform.cardbatch" placeholder="身份证号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <select class="form-control" ng-model="searchform.cardgivetatus">
+                    <option value="">全部</option>
+                    <option value="0">未处理</option>
+                    <option value="1">未通过</option>
+                    <option value="2">已通过</option>
+                  </select>
+                  <select class="form-control" ng-model="searchform.cardmakestatus">
+                    <option value="">全部</option>
+                    <option value="0">未发送</option>
+                    <option value="1">已发送</option>
+                    
+                  </select>
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="searchcard(searchform.startcard, searchform.endcard, searchform.cardmakestatus, searchform.cardbatch, searchform.cardgivetatus)">立即搜索</button>
+
+
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-1 text-center">姓名</th>
+        <th class="col-md-1 text-center">手机号</th>
+        <th class="col-md-2 text-center">身份证号</th>
+        <th class="col-md-1 text-center">工作单位</th>
+        <th class="col-md-1 text-center">申报优势</th>
+        <th class="col-md-1 text-center">申请时间</th>
+        <th class="col-md-1 text-center">状态</th>
+        <th class="col-md-1 text-center">短信状态</th>
+        <th class="col-md-2 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.name}}</td>
+        <td class="text-center">{{obj.mobile}}</td>
+        <td class="text-center">{{obj.idcard}}</td>
+        <td class="text-center">{{obj.employer}}</td>
+        <td class="text-center">{{obj.apply_text}}</td>
+        <td class="text-center">{{obj.ins_time}}</td>
+        <td class="text-center">{{obj.state}}</td>
+        <td class="text-center">{{obj.sms_state}}</td>
+        <td class="text-center">
+           <a ng-show="obj.state=='未处理'" ng-click="pass(obj.id)" class="btn btn-danger btn-xs">通过</a>
+           
+           <a ng-show="obj.state=='已通过'" ng-click="creataccount(obj.id)" class="btn btn-success btn-xs">创建账号</a>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+
+<!--   <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div> -->
+  
+
+</div>

@@ -18,7 +18,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 		'sub_table_code' : 'pool',
 		'sub_table_used_type' : 0,
 		'sub_table_data_type' : 0,
-		'rebate_type' : 0,
+		'rebate_type' : '0',
 		'rebate_start' : '',
 		'rebate_end' : ''
 	};
@@ -80,7 +80,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 			'max_limit' : -1,
 			'max_limit_type' : 0,
 			'realname_type' : 0,
-			'rebate_type' : 1,
+			'rebate_type' : '0',
 			'rebate_start' : '',
 			'rebate_end' : ''
 		};

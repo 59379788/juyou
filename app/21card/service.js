@@ -105,6 +105,9 @@ var service = function($resource, BASEURL38985){
     var takecardlist = BASEURL38985 + '/api/as/uc/cardgiveouttargetdao/finduserlist';
     // 保存拿卡人信息
     var savetakecarduser = BASEURL38985 + '/api/as/uc/cardgiveouttargetdao/save';
+    // 删除拿卡人信息
+    var deletetakecarduser = BASEURL38985 + '/api/as/uc/cardgiveouttargetdao/del';
+    
 
     return {
         cardpoollist : function(){
@@ -243,6 +246,9 @@ var service = function($resource, BASEURL38985){
         },
         savetakecarduser : function(){
              return $resource(savetakecarduser, {}, {});
+        },
+        deletetakecarduser : function(){
+             return $resource(deletetakecarduser, {}, {});
         }
 
     };

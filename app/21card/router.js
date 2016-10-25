@@ -31,7 +31,7 @@ var router = function($urlRouterProvider, $stateProvider){
          
        })
 
-       // 添加卡池，修改卡池
+       // 添加卡池
        .state('app.addcardpool', {
          url: '/addcardpool/:poolcode',
          controller : 'addcardpool',
@@ -42,7 +42,17 @@ var router = function($urlRouterProvider, $stateProvider){
             }
          }
        })
-
+       // 修改卡池
+       .state('app.reviseinfo', {
+         url: '/reviseinfo/:poolcode/:poolname',
+         controller : 'reviseinfo',
+         template: require('./views/reviseinfo.html'),
+         resolve:{
+            addcardpool : function(cardservice){
+                 return cardservice.addcardpool();
+            }
+         }
+       })
 
        // 
 
@@ -351,7 +361,7 @@ var router = function($urlRouterProvider, $stateProvider){
          }
        })
 
-        //拿卡人管理里
+        //拿卡人管理
         .state('app.takecard', {
          url: '/takecard',
          controller : 'takecard',
@@ -362,9 +372,27 @@ var router = function($urlRouterProvider, $stateProvider){
            },
            savetakecarduser : function(cardservice){
                  return cardservice.savetakecarduser();
-           } 
+           },
+           deletetakecarduser : function(cardservice){
+                 return cardservice.deletetakecarduser();
+           },
+
          }
        })
+
+        // 领卡人修改
+        .state('app.chatakecarduser', {
+         url: '/chatakecarduser/:id/:name/:travelagency/:mobile/:remarks',
+         controller : 'chatakecarduser',
+         template: require('./views/chatakecarduser.html'),
+         resolve:{
+           savetakecarduser : function(cardservice){
+                 return cardservice.savetakecarduser();
+           }
+
+         }
+       })
+
 };
 
 module.exports = router;

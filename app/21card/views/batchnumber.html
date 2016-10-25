@@ -1,29 +1,35 @@
-<form class="form-horizontal" role="form">
-<h2>设置批次号</h2>
+<div class="col-xs-12 col-xs-offset-0" >
+ <div class="panel panel-success">
+ <div class="panel-heading text-center">设置批次号</div>
+ <div class="panel-body">
+    <div class="container-fluid form-horizontal ">
 
-
-<div class="col-md-12">
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="form-group form-inline">
-            <div class="col-md-12">
-              <label for="inputLottry" class="col-md-offset-1 control-label">号段</label>
-              <input type="text" class="form-control" id="inputLottry" placeholder="起始卡号"
-                   ng-model="cardnuminfo.scard">
-                   <input type="text" class="form-control" id="inputLottry" placeholder="结束卡号"
-                   ng-model="cardnuminfo.ecard">
-               <label for="inputLottry" class="col-md-offset-1 control-label">数量</label>
-              <p type="text" class="form-control" id="inputLottry" placeholder="数量"
-                   ng-model="cardinfo.sumcard">{{cardnuminfo.ecard - cardnuminfo.scard + 1}} </p>
-
-
-            </div>
-        </div>
+<div class="col-xs-12 form-horizontal" >
+  <div class="form-group">
+    <label for="inputLottry" class="col-md-1 control-label">号段：</label>
+    <div class="col-xs-3">
+	 <input type="text" class="form-control" placeholder="起始卡号"
+			ng-model="cardnuminfo.scard">
     </div>
-</div><!-- searchArea -->
+	<div class="col-xs-3">
+	 <input type="text" class="form-control" placeholder="结束卡号"
+			ng-model="cardnuminfo.ecard">
+	</div>
+	<label for="inputLottry" class="col-md-3 control-label">数量</label>
+	<div class="col-xs-2">
+	 <p id="disabledInput" type="text" class="form-control" id="inputLottry" placeholder="数量" disabled ng-model="cardinfo.sumcard">{{cardnuminfo.ecard - cardnuminfo.scard + 1}} 
+	 </p>
+	</div>       
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
 
 
-
+<form class="form-horizontal" role="form">
 <div class="col-md-12">
 <div class="panel panel-default">
     <div class="panel-body">
@@ -38,9 +44,9 @@
               <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" ng-model="cardinfo.cardstatu">卡段</label>
               </div>
               <input type="text" class="form-control" id="inputLottry" placeholder="起始卡号"
-                   ng-model="cardinfo.startcard">
+                   ng-model="cardinfo.startcard" style="width:250px">
               <input type="text" class="form-control" id="inputLottry" placeholder="结束卡号"
-                   ng-model="cardinfo.endcard">
+                   ng-model="cardinfo.endcard" style="width:250px">
   
                <button type="button" class="btn btn-default search pull-right" ng-click="setbatch()">确定设置</button>
 
