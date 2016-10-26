@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, changestatus){
+module.exports = function($scope, $state, $stateParams, changestatus){
 	//console.log('12456');
   var cardmakebatch = $stateParams.cardmakebatch;
   var maxcard = $stateParams.maxcard;
@@ -31,14 +31,21 @@ module.exports = function($scope, $stateParams, changestatus){
   	  alert('参数错误');
   	}
   	console.log(param);
-  	changestatus.save(param, function(res){ 
+  	if ((param.cardno >= mincard && param.cardno<=maxcard) ||(param.startcard>=mincard && param.startcard<=maxcard && param.endcard>=mincard && param.endcard<=maxcard) ) { 
+  	 changestatus.save(param, function(res){ 
       console.log(res);
       if (res.errcode !== 0) { 
           alert(res.errmsg);
       } else { 
       	alert('状态更改成功');
+        $state.go('app.basecardlist');
       }
 
-  	});
+  	 });
+  	} else { 
+  		alert('卡号不在可填卡号范围内');
+  		return;
+  	}
+  	
   };
 };

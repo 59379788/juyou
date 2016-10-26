@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, batchnumber){
+module.exports = function($scope, $state, $stateParams, batchnumber){
  $scope.cardinfo = { 
  	'cardnum' : '',
  	'startcard' : '',
@@ -31,16 +31,22 @@ module.exports = function($scope, $stateParams, batchnumber){
         }
 
         //console.log(cardparem);
- 	batchnumber.save(cardparem, function(res){
-			//console.log(res);
-			    if (res.errcode !== 0) {
-                   alert(res.errmsg);
-                   return;
-			    } else {
-			    	alert('批次号设置成功');
-			    	return;
-			    }
+     if ((cardparem.cardnum >= mincard && cardparem.cardnum<=maxcard) ||(cardparem.startcard>=mincard && cardparem.startcard<=maxcard && cardparem.endcard>=mincard && cardparem.endcard<=maxcard) ) { 
+  	    batchnumber.save(cardparem, function(res){
+			if (res.errcode !== 0) {
+              alert(res.errmsg);
+              return;
+			} else {
+			  alert('批次号设置成功');
+			  $state.go('app.basecardlist');
+			  return;
+			       }
     });     
+  	} else { 
+  		alert('卡号不在可填卡号范围内');
+  		return;
+  	}
+ 	
  };
 
 };

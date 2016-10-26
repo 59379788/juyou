@@ -16,9 +16,9 @@ module.exports = function($scope, $state, cardbaselist, cardproductlist){
     });
 
     // 添加到卡池
-    $scope.addtocardpool = function(){
+    /*$scope.addtocardpool = function(){
     	$state.go('app.addtocardpool');
-    };
+    };*/
     // 设置批次号
     $scope.batchnumber = function(mincard,maxcard){ 
     	$state.go('app.batchnumber',{'mincard' : mincard, 'maxcard' : maxcard});
@@ -55,8 +55,12 @@ module.exports = function($scope, $state, cardbaselist, cardproductlist){
 	$scope.searchobj = {};
 
 	$scope.searchcard = function(startcard,endcard,cardmakestatus,cardbatch,cardgivetatus){
-		alert('tiap');
-		$state.go('app.searchcard', {'startcard' : startcard, 'endcard':endcard, 'cardmakestatus':cardmakestatus, 'cardbatch': cardbatch, 'cardgivetatus':cardgivetatus});
+		if (startcard !== '' && endcard !== '') { 
+			$state.go('app.searchcard', {'startcard' : startcard, 'endcard':endcard, 'cardmakestatus':cardmakestatus, 'cardbatch': cardbatch, 'cardgivetatus':cardgivetatus});
+		} else { 
+			alert('卡号输入不完全');
+		}
+		
       
 		
 	};

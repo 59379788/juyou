@@ -16,36 +16,10 @@
                   <input type="text" class="form-control" ng-model="takecarduserinfo.remarks" placeholder="备注">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   
-                  <button type="button" class="btn btn-primary search pull-right" ng-click="save()">保存</button>
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="save()">修改</button>
 
 
             </div>
         </div>
     </div>
 </div><!-- searchArea -->
-
-<table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="col-md-2 text-center">姓名</th>
-        <th class="col-md-2 text-center">所属旅行社</th>
-        <th class="col-md-3 text-center">手机号</th>
-        <th class="col-md-3 text-center">备注</th>
-        <th class="col-md-2 text-center">操作</th>
-
-        
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="obj in objs">
-        <td class="text-center">{{obj.name}}</td>
-        <td class="text-center">{{obj.travelagency}}</td>
-        <td class="text-center">{{obj.mobile}}</td>
-        <td class="text-center">{{obj.remarks}}</td>
-        <td class="col-md-4 text-center">
-	        	<a ng-click="delete(obj.id)" class="btn btn-default btn-xs">删除</a>
-	        	<a ng-click="change(obj.id,obj.name, obj.travelagency,obj.mobile,obj.remarks)" class="btn btn-default btn-xs">修改</a>
-	    </td>
-      </tr>
-    </tbody>
-  </table>

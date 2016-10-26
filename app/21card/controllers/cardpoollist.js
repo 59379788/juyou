@@ -6,8 +6,7 @@ module.exports = function($scope, $state, cardpoollist){
     }
     // 往卡池里添加卡
     $scope.add = function(poolcode)
-    
-    {   alert('tianjiaka');
+    {   
         $state.go('app.addcard', {'poolcode':poolcode});
     }
     // 添加卡池
@@ -34,38 +33,37 @@ module.exports = function($scope, $state, cardpoollist){
         $state.go('app.resivecardinfo', {'poolcode':poolcode});
     }
     // 修改卡池信息
-    $scope.resivepoolinfo = function(poolcode)
+    $scope.resivepoolinfo = function(poolcode, poolname)
     {
-        $state.go('app.addcardpool', {'poolcode':poolcode});
+        $state.go('app.reviseinfo', {'poolcode':poolcode, 'poolname':poolname});
     }
 
 
-    /*$scope.addcardpool = function()
-    {
-        $state.go('app.addcardpool');
-    }*/
+    
 
     $scope.cardpoollists = [];
-   
+    $scope.searchform = {};
 
 	//$scope.lottry = {
 	//	'sevenstart' : '',
 	//	'period' : ''
 	//};
 
-   
-    $scope.getlist = function(){
-    	
-    	cardpoollist.save({}, function(res){
-			
-			console.log(res);
-			if (res.errcode !== 0) {
-				alert(res.errmsg);
-				return;
-			}
-			$scope.cardpoollists = res.data;
-		});
+    $scope.getlist = function(){ 
+    	cardpoollist.save({}, function(res){ 
+    		if (res.errcode !== 0) {
+                   alert(res.errmsg);
+                   return;
+			    } else {
+			    	$scope.cardpoollists = res.data;
+			    	
+			    	return;
+			    }
+    	});
     };
+    		
+			
+			
     $scope.getlist();
     
 

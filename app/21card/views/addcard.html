@@ -1,38 +1,49 @@
-<form class="form-horizontal" role="form">
-<h2>添加卡</h2>   
-<div class="col-md-12">
-<div class="panel panel-default">
-    <div class="panel-body">
-        <div class="form-group form-inline">
-            <div class="col-sm-12">
-              <label class="col-md-1 radio-inline ">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="cardinfo.type">单张</label>
-              <input type="text" class="col-md-2 form-control" id="inputLottry" placeholder="卡号"
-                   ng-model="cardinfo.cardnum">
-              <div>
-              <label class="col-md-1 col-md-offset-1 radio-inline ">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" ng-model="cardinfo.type">卡段</label>
-              </div>
-              <input type="text" class="form-control" id="inputLottry" placeholder="起始卡号"
-                   ng-model="cardinfo.startnum">
-              <input type="text" class="form-control" id="inputLottry" placeholder="结束卡号"
-                   ng-model="cardinfo.endnum">
+<div class="col-xs-12 col-xs-offset-0" >
+ <div class="panel panel-success">
+ <div class="panel-heading text-center">添加卡</div>
+ <div class="panel-body">
+    <div class="container-fluid form-horizontal ">
 
-
-                  
-                  <button type="button" class="btn btn-default search pull-right" ng-click="addcard()">添加卡</button>
-
-
-            </div>
+<div class="col-xs-12 form-horizontal" >
+  <div class="form-group">
+		<label class="col-md-1 radio-inline ">
+            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="cardinfo.type">单张</label>
+		<div class="col-xs-2">
+			<input type="text" class="form-control" placeholder="卡号"
+			ng-model="cardinfo.cardnum" style="width:200px">
+		</div>
+		<div>
+            <label class="col-md-1 col-md-offset-1 radio-inline ">
+             <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" ng-model="cardinfo.type">卡段</label>
         </div>
-    </div>
-</div><!-- searchArea -->
+        <div class="col-xs-2">
+			<input type="text" class="form-control" placeholder="起始卡号"
+			ng-model="cardinfo.startnum" style="width:200px">
+		</div>
+		<label class="col-xs-1 control-label" style="width:8px">到</label>
+		<div class="col-xs-2">
+			<input type="text" class="form-control" placeholder="结束卡号"
+			ng-model="cardinfo.endnum" style="width:200px">
+		</div>
+		
+        <button type="button" class="btn btn-default col-xs-offset-1" ng-click="addcardbtn()" style="width:100px;">添加卡<button>
+         
+  </div>
+</div>
 
+</div>
+</div>
+</div>
+</div>
+
+
+<form class="form-horizontal" role="form">
 <div class="form-group">
 <div class="col-md-4 col-md-offset-1 panel panel-default table-responsive">
      <table ng-click="getlist()" class="table table-bordered">
 	    <thead>
 	      <tr>
+	        <th class="col-md-2 text-center">操作</th>
 	        <th class="col-md-2 text-center">起始卡号</th>
 	        <th class="col-md-2 text-center">结束卡号</th>
 	        
@@ -40,12 +51,14 @@
 	    </thead>
 	    <tbody>
 	     <tr ng-repeat = "cardinfo in cardinfos">
+           <td class="col-md-2 text-center"> 
+           <input type="checkbox" ng-model=cardinfo.value ng-true-value="1"ng-false-value="0" ng-click="checkcardinfo()">
+           </td>
 	       <td class="col-md-2 text-center">{{cardinfo.mincard}}</td>
 	       <td class="col-md-2 text-center">{{cardinfo.maxcard}}</td>
 	     </tr>
 	    </tbody>
 	 </table>
 </div><!-- 可用卡 -->
-
-
 </form>
+
