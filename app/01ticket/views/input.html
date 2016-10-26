@@ -36,9 +36,16 @@
 		      <input type="text" class="form-control" ng-model="device" placeholder="输入设备码" ng-readonly="true">
 		    </div> -->
 
-		    <div class="col-sm-9">
+		    <div class="col-sm-6">
+			    <select class="form-control" ng-model="obj" 
+	              		ng-options="obj.code as obj.name for obj in objs"
+	              		ng-change="tktmachine(obj)"
+	            >
+	            </select>
+            </div>
+		    <div class="col-sm-6">
 			    <select class="form-control" ng-model="device" 
-	              ng-options="device.code as device.name for device in devicearr"
+	              ng-options="device.code as device.remarks for device in devicearr"
 	            >
 	            </select>
             </div>

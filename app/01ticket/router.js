@@ -57,7 +57,13 @@ var router = function($urlRouterProvider, $stateProvider){
 	        },
 	        devicenamelist : function(deviceservice){
 	        	return deviceservice.devicenamelist();
-	        }
+	        },
+            list : function(viewservice){
+                return viewservice.list();
+            },
+            devicelist : function(deviceservice){
+            return deviceservice.devicelist();
+            }
 	        
         }
       })

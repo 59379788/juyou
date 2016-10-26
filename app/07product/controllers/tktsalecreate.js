@@ -16,6 +16,16 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 	$scope.saleobj.take_effect_type = 0;
 	$scope.saleobj.tour_date_type = '0';
 
+
+	$scope.section = {};
+    $scope.section.start = {};
+    $scope.section.end = {};
+	$scope.start_time = new Date();
+	$scope.end_time = new Date($scope.start_time.getFullYear(),11,31); 
+	$scope.open = function(obj){
+		obj.opened = true;
+	}
+
 	$scope.take_effect_typearr = [
 		{'name' : '次日','value' : -1},
 		{'name' : '即时','value' : 0},
@@ -180,6 +190,8 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 		$scope.saleobj.market_price *= 100;
 		$scope.saleobj.guide_price *= 100;
 		$scope.saleobj.cost_price *= 100;
+		$scope.saleobj.periodstart = getDate($scope.start_time);
+		$scope.saleobj.periodend = getDate($scope.end_time);
 		salecreate.save($scope.saleobj, function(res){
 
 			console.log(res);

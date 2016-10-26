@@ -2,7 +2,7 @@
  * 子模块service
  * dlq
  */
-var service = function($resource, BASEURL){
+var service = function($resource, BASEURL,BASEURL38985){
 
 	var url = BASEURL + "/tktapi/sc";
 
@@ -23,6 +23,10 @@ var service = function($resource, BASEURL){
    	var useticketbygroupcode = url + "/destoryService/updateByGroupCode";
 
    	var login = url + "/queryService/login";
+
+    var list = BASEURL38985 + "/api/as/tc/placeview/list";
+
+    var devicelist = BASEURL38985 + '/api/as/tc/device/watchdevicelist';
 
 
     
@@ -57,6 +61,12 @@ var service = function($resource, BASEURL){
         },
         login : function(){
             return $resource(login, {}, {});
+        },
+        list : function(){
+            return $resource(list, {}, {});
+        },
+        devicelist : function(deviceservice){
+            return deviceservice.devicelist();
         }
       
     };

@@ -15,6 +15,12 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	//商品列表对象
 	$scope.goodsobj = {};
 
+	$scope.section = {};
+    $scope.section.start = {};
+    $scope.section.end = {};
+	$scope.start_time = new Date();
+	$scope.end_time = new Date();
+
 	$scope.take_effect_typearr = [
 		{'name' : '次日','value' : -1},
 		{'name' : '即时','value' : 0},
@@ -143,9 +149,11 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 		if(res.errcode === 0)
 		{
 			$scope.saleobj = res.data;
+			$scope.start_time = str2date($scope.saleobj.periodstart + " 00:00:00");
+			$scope.end_time = str2date($scope.saleobj.periodend + " 23:59:59");
 			console.log(6666666666666666);
-			console.log($scope.saleobj.user_status);
 			console.log($scope.saleobj);
+			console.log($scope.start_time);
 			console.log(66666666666666666);
 			$scope.saleobj.market_price *= 0.01;
 			$scope.saleobj.guide_price *= 0.01;
@@ -285,6 +293,8 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 		$scope.saleobj.market_price *= 100;
 		$scope.saleobj.guide_price *= 100;
 		$scope.saleobj.cost_price *= 100;
+		$scope.saleobj.periodstart = getDate($scope.start_time);
+		$scope.saleobj.periodend = getDate($scope.end_time);
 		//console.log($scope.saleobj);
 		saleupdate.save($scope.saleobj, function(res){
 
@@ -643,6 +653,10 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 				alert(res.errmsg);
 			}
 		});
+	}
+
+	$scope.open = function(obj){
+		obj.opened = true;
 	}
 	
 };

@@ -52,7 +52,7 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 	        if(res.errcode === 0)
 	        {
 	        	$scope.viewarr = res.data;
-	        	$scope.objt.place_code = res.data[0].code;
+	        	//$scope.objt.place_code = res.data[0].code;
 	        }
 	        else
 	        {
