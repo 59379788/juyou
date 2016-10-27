@@ -55,10 +55,11 @@ module.exports = function($scope, $state, cardbaselist, cardproductlist){
 	$scope.searchobj = {};
 
 	$scope.searchcard = function(startcard,endcard,cardmakestatus,cardbatch,cardgivetatus){
-		if (startcard !== '' && endcard !== '') { 
-			$state.go('app.searchcard', {'startcard' : startcard, 'endcard':endcard, 'cardmakestatus':cardmakestatus, 'cardbatch': cardbatch, 'cardgivetatus':cardgivetatus});
-		} else { 
+		if ((startcard !== '' && endcard === '') || (startcard === '' && endcard !== '') ) { 
 			alert('卡号输入不完全');
+			
+		} else { 
+			$state.go('app.searchcard', {'startcard' : startcard, 'endcard':endcard, 'cardmakestatus':cardmakestatus, 'cardbatch': cardbatch, 'cardgivetatus':cardgivetatus});
 		}
 		
       

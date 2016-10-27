@@ -79,10 +79,10 @@ module.exports = function($scope, $uibModalInstance,id,role,create,message,compa
                if (res.errcode !== 0) { 
                	alert(res.errmsg);
                	return;
-               } else { 
+               } 
                	alert('发送短信验证码成功');
 
-               }
+               
 
             });
 
