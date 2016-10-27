@@ -22,7 +22,14 @@ var router = function($urlRouterProvider, $stateProvider){
           },
           message : function(busscustomerservice){
                  return busscustomerservice.message();
+          },
+          userinfo : function(busscustomerservice){
+                 return busscustomerservice.userinfo();
+          },
+          insertnops : function(busscustomerservice){
+                 return busscustomerservice.insertnops();
           }
+
        
          }
        })
@@ -38,9 +45,26 @@ var router = function($urlRouterProvider, $stateProvider){
           },
           message : function(busscustomerservice){
                  return busscustomerservice.message();
+          },
+          insertnops : function(busscustomerservice){
+                 return busscustomerservice.insertnops();
           }
        
          }
        })
+
+       .state('app.get2', {
+         url: '/get2/:id',
+         controller : 'get2',
+         template: require('./views/get2.html'),
+         resolve:{
+            userinfo : function(busscustomerservice){
+                 return busscustomerservice.userinfo();
+          }
+       
+         }
+       })
+
+       
 }
 module.exports = router;

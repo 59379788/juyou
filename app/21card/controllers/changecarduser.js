@@ -1,19 +1,19 @@
 module.exports = function($scope, $state, $stateParams, savetakecarduser){
-  /*var id = $stateParams.id; 
+  var id = $stateParams.id; 
   var name = $stateParams.name;
   var travelagency = $stateParams.travelagency;
   var mobile = $stateParams.mobile;
   var remarks = $stateParams.remarks;
   console.log(id);
   console.log(name);
- /* $scope.takecarduserinfo = { 
+  $scope.takecarduserinfo = { 
   	'id' : id,
   	'name' : name,
   	'travelagency' : travelagency,
   	'mobile' : mobile,
   	'remarks' : remarks
-  };*/
- /* $scope.save = function(){ 
+  };
+  $scope.save = function(){ 
   	if ($scope.takecarduserinfo.name !== '' && $scope.takecarduserinfo.travelagency !=='' && $scope.takecarduserinfo.mobile!=='' && $scope.takecarduserinfo.remarks!=='') { 
      		
      	 
@@ -34,7 +34,7 @@ module.exports = function($scope, $state, $stateParams, savetakecarduser){
     	alert('参数不能为空');
     	return;
     }
-  };*/
+  };
 
  
     

@@ -1,11 +1,18 @@
-module.exports = function($scope, $uibModalInstance,id,role,create,message){
-  // console.log(id);
+module.exports = function($scope, $uibModalInstance,id,role,create,message,company_id,company_code,office_id,insertnops){
+   console.log(company_id);
+   console.log(company_code);
+   $scope.code = company_code;
+   console.log(office_id);
    // 获取角色列表
    role.save({},function(res){ 
    	console.log(res);
     $scope.objs = res.allRoles;
+  //  $scope.obj['company.id'] = res.company.code;
+  //  $scope.obj['office.id'] = res.company.code;
+  //  console.log($scope.obj['company.id']);
    });
 
+    // 用户信息
     $scope.obj = {};
     // 登录名
     $scope.obj.loginName = '';
@@ -19,7 +26,7 @@ module.exports = function($scope, $uibModalInstance,id,role,create,message){
     };
    // ok
     $scope.ok = function(){
-
+        // 保存用户
         if($scope.obj.loginName === '')
         {
             alert('用户名必填');
@@ -48,21 +55,46 @@ module.exports = function($scope, $uibModalInstance,id,role,create,message){
         $scope.obj.loginName = $scope.obj.loginName;
         $scope.obj.newPassword = '000000';
         $scope.obj.confirmNewPassword = '000000';
-      //  $scope.obj['company.id'] = officeid;
-      //  $scope.obj['office.id'] = officeid;
-      //  $scope.obj['company.id'] = '';
-      //  $scope.obj['office.id'] = '';
+        $scope.obj['company.id'] = company_id;
+        $scope.obj['office.id'] = office_id;
+      
         $scope.obj.loginFlag = '1';
         console.log($scope.obj);
         create.save($scope.obj, {}, function(res){
 
             console.log(res);
+            if (res.errcode !== 0) { 
+            	alert(res.errmsg);
+            	return;
+            }
+            // 	插入账号密码
+        insertnops.save({'id':id, 'ticket_id':$scope.code+$scope.obj.loginName, 'ticket_pwd':'000000'}, function(res){ 
+          console.log({'id':id, 'ticket_id':$scope.code+$scope.obj.loginName, 'ticket_pwd':'000000'});
+          
+          
+        });
+            message.save({'id':id}, function(res){ 
+             //  console.log({'id':id});
+             //  console.log(res);
+               if (res.errcode !== 0) { 
+               	alert(res.errmsg);
+               	return;
+               } else { 
+               	alert('发送短信验证码成功');
+
+               }
+
+            });
 
             $uibModalInstance.close();
 
         });
+
+        
+
         // 发送短信验证码
-            message.save({'id':id}, function(res){ 
+
+           /* message.save({'id':id}, function(res){ 
                console.log({'id':id});
                console.log(res);
                if (res.errcode !== 0) { 
@@ -73,7 +105,7 @@ module.exports = function($scope, $uibModalInstance,id,role,create,message){
 
                }
 
-            });
+            });*/
         
 
 

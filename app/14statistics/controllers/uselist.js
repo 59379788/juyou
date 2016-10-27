@@ -7,7 +7,7 @@ module.exports = function($scope, $state, destoryDetail, ITEMS_PERPAGE, getDate)
     $scope.section = {};
     $scope.section.start = {};
     $scope.section.start.date = new Date();
-
+ 
     $scope.section.end = {};
     $scope.section.end.date = new Date();
 

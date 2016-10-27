@@ -52,5 +52,7 @@ App.controller('searchcard',require('./controllers/searchcard'));
 // 拿卡人管理
 App.controller('takecard',require('./controllers/takecard'));
 // 修改领卡人信息
-App.controller('chatakecarduser',require('./controllers/chatakecarduser'));
+App.controller('changecarduser',require('./controllers/changecarduser'));
+// 查看卡产品信息
+App.controller('cardproductinfo',require('./controllers/cardproductinfo'));
 module.exports = App;

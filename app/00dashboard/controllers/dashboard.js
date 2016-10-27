@@ -60,7 +60,6 @@ module.exports = function($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticein
 
     //用户信息
     userinfo().then(function(res) {
-
         console.log(res);
 
         $scope.userobj = res;

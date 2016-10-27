@@ -20,14 +20,14 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-3 text-center">卡产品名称</th>
+        <th class="col-md-2 text-center">卡产品名称</th>
         <th class="col-md-1 text-center">卡产品类型</th>
         <th class="col-md-1 text-center">市场价格</th>
         <th class="col-md-1 text-center">指导价格</th>
         <th class="col-md-2 text-center">绑定卡池名称</th>
         <th class="col-md-2 text-center">绑定票销售品编号</th>
         <th class="col-md-1 text-center">状态</th>
-        <th class="col-md-1 text-center">操作</th>
+        <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -43,6 +43,7 @@
           <a ng-show="obj.state=='0' || obj.state=='2'" ng-click="edit(obj.id, obj.state)" class="btn btn-info btn-xs">编辑</a>
           <a ng-show="obj.state=='0' || obj.state=='2'"
           ng-click="start(obj.code)" class="btn btn-danger btn-xs">上架</a>
+          <a ng-show="obj.state=='0' || obj.state=='2'" ng-click="check(obj.id)" class="btn btn-info btn-xs">查看</a>
           <a ng-show="obj.state=='1'"
           ng-click="stop(obj.code)" class="btn btn-success btn-xs">下架</a>
         </td>

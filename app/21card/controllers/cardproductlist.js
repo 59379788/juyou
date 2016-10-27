@@ -33,6 +33,9 @@ module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, go
 		$state.go('app.cardproduct', {'code' : code, 'editstate' : editstate});
 
 	};
+	$scope.check = function(id){ 
+		$state.go('app.cardproductinfo',{'id':id});
+	};
 
     
     // 上架

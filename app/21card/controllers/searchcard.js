@@ -33,10 +33,7 @@ module.exports = function($scope, $state, $stateParams, searchcard, batchnumber,
     };
     $scope.searchcard();
 
-    // 添加到卡池
-    /*$scope.addtocardpool = function(){
-    	$state.go('app.addtocardpool');
-    };*/
+    
     // 设置批次号
     $scope.setbatchnumber = function(cardno){ 
     	//$state.go('app.batchnumber',{'cardno' : cardno});
@@ -52,11 +49,7 @@ module.exports = function($scope, $state, $stateParams, searchcard, batchnumber,
 
 
     };
-    // 置为未发放(接释放卡接口)
-    /*$scope.unissued = function(){ 
-    	$state.go('app.unissued');
-
-    };*/
+    
     // 制卡完成
    $scope.setcardcomplete = function(cardmakebatch,cardno){ 
    	   console.log(cardmakebatch, cardno);

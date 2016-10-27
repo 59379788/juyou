@@ -4,25 +4,25 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                   
-                  <input type="text" class="form-control" ng-model="searchform.startcard" placeholder="姓名">
+                  <input type="text" class="form-control" ng-model="searchform.name" placeholder="姓名">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="searchform.endcard" placeholder="手机号">
+                  <input type="text" class="form-control" ng-model="searchform.mobile" placeholder="手机号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="searchform.cardbatch" placeholder="身份证号">
+                  <input type="text" class="form-control" ng-model="searchform.idcard" placeholder="身份证号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <select class="form-control" ng-model="searchform.cardgivetatus">
+                  <select class="form-control" ng-model="searchform.state">
                     <option value="">全部</option>
                     <option value="0">未处理</option>
-                    <option value="1">未通过</option>
-                    <option value="2">已通过</option>
+                    <option value="2">未通过</option>
+                    <option value="1">已通过</option>
                   </select>
-                  <select class="form-control" ng-model="searchform.cardmakestatus">
+                  <select class="form-control" ng-model="searchform.sms_state">
                     <option value="">全部</option>
                     <option value="0">未发送</option>
                     <option value="1">已发送</option>
                     
                   </select>
-                  <button type="button" class="btn btn-primary search pull-right" ng-click="searchcard(searchform.startcard, searchform.endcard, searchform.cardmakestatus, searchform.cardbatch, searchform.cardgivetatus)">立即搜索</button>
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="searchuser(searchform.startcard, searchform.endcard, searchform.cardmakestatus, searchform.cardbatch, searchform.cardgivetatus)">立即搜索</button>
 
 
             </div>
@@ -37,8 +37,8 @@
         <th class="col-md-1 text-center">姓名</th>
         <th class="col-md-1 text-center">手机号</th>
         <th class="col-md-2 text-center">身份证号</th>
-        <th class="col-md-1 text-center">工作单位</th>
-        <th class="col-md-1 text-center">申报优势</th>
+        <th class="col-md-1 text-center">区域</th>
+        <th class="col-md-1 text-center">行业</th>
         <th class="col-md-1 text-center">申请时间</th>
         <th class="col-md-1 text-center">状态</th>
         <th class="col-md-1 text-center">短信状态</th>
@@ -50,15 +50,16 @@
         <td class="text-center">{{obj.name}}</td>
         <td class="text-center">{{obj.mobile}}</td>
         <td class="text-center">{{obj.idcard}}</td>
-        <td class="text-center">{{obj.employer}}</td>
-        <td class="text-center">{{obj.apply_text}}</td>
+        <td class="text-center">{{obj.area}}</td>
+        <td class="text-center">{{obj.trade}}</td>
         <td class="text-center">{{obj.ins_time}}</td>
         <td class="text-center">{{obj.state}}</td>
         <td class="text-center">{{obj.sms_state}}</td>
         <td class="text-center">
            <a ng-show="obj.state=='未处理'" ng-click="pass(obj.id)" class="btn btn-danger btn-xs">通过</a>
            
-           <a ng-show="obj.state=='已通过'" ng-click="creataccount(obj.id)" class="btn btn-success btn-xs">创建账号</a>
+           <a ng-show="obj.state=='已通过' && obj.sms_state =='未发送'" ng-click="creataccount(obj.id,loginuser.company_id,loginuser.company_code,loginuser.office_id)" class="btn btn-success btn-xs">创建账号</a>
+           <a ng-show="obj.sms_state=='已发送'" ng-click="sendmessage(obj.id,loginuser.company_id,loginuser.company_code,loginuser.office_id)" class="btn btn-success btn-xs">发送短信</a>
         </td>
 
       </tr>

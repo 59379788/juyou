@@ -388,13 +388,26 @@ var router = function($urlRouterProvider, $stateProvider){
        })
 
         // 领卡人修改
-        .state('app.chatakecarduser', {
-         url: '/chatakecarduser/:id/:name/:travelagency/:mobile/:remarks',
-         controller : 'chatakecarduser',
-         template: require('./views/chatakecarduser.html'),
+        .state('app.changecarduser', {
+         url: '/changecarduser/:id/:name/:travelagency/:mobile/:remarks',
+         controller : 'changecarduser',
+         template: require('./views/changecarduser.html'),
          resolve:{
            savetakecarduser : function(cardservice){
                  return cardservice.savetakecarduser();
+           }
+
+         }
+       })
+
+        // 查看卡产品信息
+        .state('app.cardproductinfo', {
+         url: '/cardproductinfo/:id',
+         controller : 'cardproductinfo',
+         template: require('./views/cardproductinfo.html'),
+         resolve:{
+           cardproductinfo : function(cardservice){
+                 return cardservice.cardproductinfo();
            }
 
          }

@@ -9,6 +9,10 @@ var service = function($resource, BASEURL38985, SYS){
    var create = SYS + '/a/sys/user/ajaxsave';
    // 短信
    var message = BASEURL38985 + '/api/ac/tc/tktdealerapplyservice/updatesms';
+   // 用户信息
+   var userinfo = BASEURL38985 + "/api/as/info";
+   // 	插入账号密码
+   var insertnops = BASEURL38985 + '/api/as/tc/tktdealerapplydao/save';
 
     return {
         customerlist : function(){
@@ -25,6 +29,12 @@ var service = function($resource, BASEURL38985, SYS){
         },
         message : function(){
              return $resource(message, {}, {});
+        },
+        userinfo : function(){
+             return $resource(userinfo, {}, {});
+        },
+        insertnops : function(){
+             return $resource(insertnops, {}, {});
         }
     }
 };

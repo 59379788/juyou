@@ -5,9 +5,10 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 	){
 
 	var id = $stateParams.code;
-	var state = $stateParams.editstate;
 	console.log(id);
-	console.log(state);
+	var state = $stateParams.editstate;
+	//console.log(id);
+	//console.log(state);
 
 	$scope.code = '';
 
@@ -61,7 +62,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
         if(res.errcode === 0)
         {
         	$scope.cardtypearr = res.data;
-        	console.log($scope.cardtypearr);
+        //	console.log($scope.cardtypearr);
         }
         else
         {
@@ -69,9 +70,10 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
         }
     });
 
-	if(id === '')   //修改卡产品信息
+	if(id === '')   //新建卡产品
     {
 		$scope.obj = {
+			'id' : id,
 			'market_price' : 0,
 			'guide_price' : 0,
 			'pay_type' : 0,
@@ -89,7 +91,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
     }
     else  // 
     {
-    	_getBaseInfo();
+    	_getBaseInfo(); //编辑卡产品信息
 
     	// _getResourcesInfo();
 
@@ -109,7 +111,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 
 		cardproduct.save($scope.obj, function(res){
             console.log($scope.obj);
-			console.log(res);
+			//console.log(res);
 			if (res.errcode !== 0) {
 				alert(res.errmsg);
 				return;

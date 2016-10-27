@@ -3,7 +3,7 @@ module.exports = function($scope, $state, $stateParams, savetakecarduser, takeca
     takecardlist.save({}, function(res){ 
     	console.log(res);
     	if (res.errcode !== 0) { 
-    		alert(errmsg);
+    		alert(res.errmsg);
     		return;
     	} else { 
           $scope.objs = res.data;
@@ -29,7 +29,7 @@ module.exports = function($scope, $state, $stateParams, savetakecarduser, takeca
      	$scope.takecarduserlist(); 
      	console.log(res);
     	if (res.errcode !== 0) { 
-    		alert(errmsg);
+    		alert(res.errmsg);
     		return;
     	} else { 
           $scope.objs = res.data;
@@ -46,7 +46,7 @@ module.exports = function($scope, $state, $stateParams, savetakecarduser, takeca
     takecardlist.save({}, function(res){ 
     	console.log(res);
     	if (res.errcode !== 0) { 
-    		alert(errmsg);
+    		alert(res.errmsg);
     		return;
     	} else { 
           $scope.objs = res.data;
@@ -78,7 +78,8 @@ module.exports = function($scope, $state, $stateParams, savetakecarduser, takeca
   };
   	
   $scope.change = function(id,name,travelagency,mobile,remarks){ 
-  	$state.go('app.chatakecarduser', {'id':id,'name':name, 'travelagency':travelagency, 'mobile':mobile, 'remarks':remarks});
+  	console.log(id,name,travelagency,mobile,remarks);
+  	$state.go('app.changecarduser', {'id':id,'name':name, 'travelagency':travelagency, 'mobile':mobile, 'remarks':remarks});
   };
     
   
