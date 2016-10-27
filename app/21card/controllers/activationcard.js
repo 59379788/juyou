@@ -6,20 +6,13 @@
 module.exports = function($scope, $stateParams, getUserInfoByMobile,getProductByCardNoList,createProductOrderByCardNo){
 
     var cardno;
-	var card_password;
+	$scope.card_num ;
+	$scope.card_password ;
+	$scope.opened = false ;
 	var product_code;
-	$scope.card_product = {};
-	// var card_product ;
-    $scope.creat = function(index){
-    	if (index<card_product.length&&index>=0) {
-    		product_code = index;
-    	}
-	};
+	$scope.card_product = [];
 
-
-			
-
-
+	
 	$scope.searchuser_info = function(mobile){
 
 		//验证手机号
@@ -28,9 +21,6 @@ module.exports = function($scope, $stateParams, getUserInfoByMobile,getProductBy
         return ; 
    		};
 		getUserInfoByMobile.save({'mobile' : mobile}, function(res){
-			console.log(mobile);
-			console.log(res);
-			console.log(mobile);
 		    if (res.errcode !== 0) {
 	           alert(res.errmsg);
 	           return;
@@ -49,33 +39,25 @@ module.exports = function($scope, $stateParams, getUserInfoByMobile,getProductBy
   //       return ; 
   //  		};
 		getProductByCardNoList.save({'card_num' : card_num}, function(res){
-			console.log(card_num);
-			console.log(res);
-			console.log(card_num);
 		    if (res.errcode !== 0) {
 	           alert(res.errmsg);
 	           return;
 		    }
 		    $scope.card_product = res.data;
-		    console.log($scope.card_product[0]);
 	 	}); 
 
 	};
 
 
-	$scope.active_product = function(userid,cardno,card_password){
+	$scope.active_product = function(product_code){
 
-		console.log(userid);
-		console.log(cardno);
-		console.log(card_password);
-		console.log(product_code);
-		createProductOrderByCardNo.save({'userid':userid,'cardno':cardno,'card_password':card_password,'product_code':product_code},function(res){
-			console.log(res);
+		createProductOrderByCardNo.save({'userid':$scope.user_info.userid,'cardno':$scope.card_num,'card_password':$scope.card_password,'product_code':product_code},function(res){
 			if (res.errcode !== 0) {
 	           alert(res.errmsg);
 	           return;
 		    }else{
 		    	alert("激活成功");
+		    	$scope.opened = true;
 		    	return;
 		    }
 		});
