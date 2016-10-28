@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams,customerlist,review, $uibModal,role,create,message,userinfo,insertnops){
+module.exports = function($scope, $stateParams,customerlist,review, $uibModal,role,create,message,userinfo,insertnops,failed){
     // 获取用户信息
     userinfo.save({}, function(res){ 
     	
@@ -47,6 +47,23 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
             console.log("点击了取消");  
         }  	
 	};
+
+	// 拒绝
+	$scope.refuse = function(id){ 
+      if (confirm("你确定要拒绝吗?")) {
+        failed.save({'id' : id}, function(res){ 
+        if (res.errcode !== 0) { 
+          alert(res.errmsg);
+          return;
+        }  
+        $scope.getlist();
+      }); 
+	  } else { 
+	  	 console.log("点击了取消");
+	  }
+      
+	};
+
 	// 创建账号
 	$scope.creataccount = function(id,company_id,company_code,office_id){ 
 		//$scope.getlist();

@@ -3,6 +3,8 @@ var service = function($resource, BASEURL38985, SYS){
    var customerlist = BASEURL38985 + '/api/as/tc/tktdealerapplydao/finddealerapplylist';
    // 通过审核
    var review = BASEURL38985 + '/api/as/tc/tktdealerapplydao/updatestate';
+   // 拒绝审核
+   var failed = BASEURL38985 + '/api/as/tc/tktdealerapplydao/updatestateno';
    // 二级商客角色
    var role = SYS + '/a/sys/user/ajaxform';
    // 创建角色
@@ -35,6 +37,9 @@ var service = function($resource, BASEURL38985, SYS){
         },
         insertnops : function(){
              return $resource(insertnops, {}, {});
+        },
+        failed : function(){
+             return $resource(failed, {}, {});
         }
     }
 };

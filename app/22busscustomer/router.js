@@ -28,6 +28,9 @@ var router = function($urlRouterProvider, $stateProvider){
           },
           insertnops : function(busscustomerservice){
                  return busscustomerservice.insertnops();
+          },
+          failed : function(busscustomerservice){
+                 return busscustomerservice.failed();
           }
 
        
