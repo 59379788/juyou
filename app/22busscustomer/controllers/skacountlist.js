@@ -26,19 +26,26 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
 	// 通过
 	$scope.pass = function(id){ 
 		//console.log(id);
-	  review.save({'id' : id}, function(res){ 
-	  	if (res.errcode !== 0) { 
+	//	alert('你确定提交吗？');
+     
+        //利用对话框返回的值 （true 或者 false）  
+        if (confirm("你确定要通过吗?")) {  
+            //  console.log('通过');
+          review.save({'id' : id}, function(res){ 
+	       if (res.errcode !== 0) { 
     		alert(res.errmsg);
-    		return;
-    	} else { 
-          $scope.objss = res.data;
-          console.log($scope.objss);
-          $scope.getlist();
-          return;
-    	}
-	  });
-	  
-		
+    		
+    	   } else { 
+           $scope.objss = res.data;
+           console.log($scope.objss);
+           $scope.getlist();
+            
+    	   }
+	     });
+        }  
+        else {  
+            console.log("点击了取消");  
+        }  	
 	};
 	// 创建账号
 	$scope.creataccount = function(id,company_id,company_code,office_id){ 
