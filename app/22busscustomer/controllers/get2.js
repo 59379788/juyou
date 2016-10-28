@@ -10,7 +10,7 @@ module.exports = function($scope, $stateParams,userinfo){
     });
     
     $scope.obj = { 
-    	'sclink' : 'http://weixint.juyouhx.com?company_code=',
+    	'sclink' : 'http://weixint.juyouhx.com/views/applytab/bmreg.html?company_code=',
     	'link' :　'http://weixint.sylyx.cn/views/applytab/bmreg.html?company_code=',
     	'text' : '测试:',
     	'shengchan' :　'生产:'
