@@ -11,18 +11,16 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool, staten
     };
     $scope.infos = [];
     $scope.getcardaim = function(){ 
-      //alert('卡池详情');
-      targetcard.save({'pool_code' : poolcode}, function(res){ 
-      	console.log({'pool_code' : poolcode});
-      	if (res.errcode !== 0) {
-               alert(res.errmsg);
-               return;
+        targetcard.save({'pool_code' : poolcode}, function(res){ 
+      	    console.log({'pool_code' : poolcode});
+      	    if (res.errcode !== 0) {
+                alert(res.errmsg);
+                return;
 			}
 			$scope.targetinfo = res.data;
 			console.log(res);
 			    	
-			 
-      });
+	    });
       
     };
 
@@ -34,29 +32,20 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool, staten
     $scope.cardinfo = [];
     // 获取卡段列表 获取卡数量
 	$scope.getcardlist = function(){
-		
-    	getcardlist.save({'pool_code' : poolcode}, function(res){
-			console.log(res);
-			$scope.cardinfos = res.data;
-			console.log($scope.cardinfos);
+    	getcardlist.save({'pool_code' : poolcode}, function(res){	
 			    if (res.errcode !== 0) {
-                   alert(res.errmsg);
-                   return;
+                    alert(res.errmsg);
 			    } else {
-			    	//alert('12345');
+			    	$scope.cardinfos = res.data;
 			    	return;
 			    }
      	});  
      	// 卡池中卡数量
      	cardinpool.save({'pool_code' : poolcode}, function(res){
-			console.log(res);
-			$scope.cardinfo = res.data;
-			console.log($scope.cardinfo);
 			    if (res.errcode !== 0) {
                    alert(res.errmsg);
-                   return;
 			    } else {
-			    	//alert('12345');
+			    	$scope.cardinfo = res.data;
 			    	return;
 			    }
      	});  	
@@ -72,15 +61,11 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool, staten
 		//alert('sousuo');
 		var cardparem = {'pool_code' : poolcode, 'startnum' : $scope.typecard.startnum ,'endnum' : $scope.typecard.endnum, 'card_status':$scope.typecard.card_status, 'card_giveout_target' :  $scope.typecard.card_giveout_target};
 		listinpool.save(cardparem, function(res){
-			console.log(cardparem);
-			console.log(res);
-			$scope.cardlists = res.data;
 			//console.log($scope.typecard);
 			    if (res.errcode !== 0) {
-                   alert(res.errmsg);
-                   return;
+                   alert(res.errmsg);   
 			    } else {
-			    	return;
+			    	$scope.cardlists = res.data;
 			    }
      	});        
 	};

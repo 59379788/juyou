@@ -23,7 +23,6 @@ module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, go
 	$scope.search();
 
 	$scope.create = function(){
-
 		$state.go('app.cardproduct');
 
 	};

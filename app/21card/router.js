@@ -44,7 +44,7 @@ var router = function($urlRouterProvider, $stateProvider){
        })
        // 修改卡池
        .state('app.reviseinfo', {
-         url: '/reviseinfo/:poolcode/:poolname',
+         url: '/reviseinfo/:poolcode/:poolname/:pooltype',
          controller : 'reviseinfo',
          template: require('./views/reviseinfo.html'),
          resolve:{

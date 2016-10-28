@@ -1,18 +1,12 @@
 module.exports = function($scope, $state, cardbaselist, cardproductlist,searchcard){
-
-
     cardbaselist.save({}, function(res){
-
         console.log(res);
-
         if(res.errcode !== 0)
         {
             alert(res.errmsg);
             return;
         }
         $scope.objs = res.data;
-
-
     });
 
     // 设置批次号
@@ -22,15 +16,12 @@ module.exports = function($scope, $state, cardbaselist, cardproductlist,searchca
     
     // 制卡完成
     $scope.cardcomplete = function(cardmakebatch,mincard,maxcard){ 
-    	//alert('制作中变为已制作');
     	$state.go('app.cardcomplete', {'cardmakebatch' : cardmakebatch, 'mincard' : mincard, 'maxcard' : maxcard});
     	
     };
     // 创建卡产品
     $scope.create = function(){
-
 		$state.go('app.cardproduct');
-
 	};
 
     // 搜索卡产品
@@ -48,21 +39,12 @@ module.exports = function($scope, $state, cardbaselist, cardproductlist,searchca
 
 	$scope.searchcard = function(startcard,endcard,cardmakestatus,cardbatch,cardgivetatus){
 		if ((startcard !== '' && endcard === '') || (startcard === '' && endcard !== '') ) { 
-			alert('卡号输入不完全');
-			
+			alert('卡号输入不完全');			
 		} else if (endcard < startcard) { 
 			alert('结束卡号不能小于起始卡号');
 		}else { 
 			$state.go('app.searchcard', {'startcard' : startcard, 'endcard':endcard, 'cardmakestatus':cardmakestatus, 'cardbatch': cardbatch, 'cardgivetatus':cardgivetatus});
 		   
-		}
-
-		
-      
-		
+		}	
 	};
-	
-
-
-
 };

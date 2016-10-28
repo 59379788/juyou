@@ -19,7 +19,6 @@ module.exports = function($scope, $state, $stateParams, searchcard, batchnumber,
     $scope.searchcard= function(){ 
     	searchcard.save($scope.searchform, function(res){
 			console.log($scope.searchform);
-			//console.log(res);
 			if(res.errcode !== 0)
 			{
 				alert(res.errmsg);
@@ -27,8 +26,6 @@ module.exports = function($scope, $state, $stateParams, searchcard, batchnumber,
 			}
 			$scope.searchobj = res.data;
 			console.log($scope.searchobj);
-			//$scope.productinfo = res.data[0].code;
-			//console.log($scope.productinfo);
 	   })
     };
     $scope.searchcard();
@@ -46,7 +43,4 @@ module.exports = function($scope, $state, $stateParams, searchcard, batchnumber,
     	$state.go('app.cardcomplete', {'cardmakebatch' : cardmakebatch, 'mincard' : mincard, 'maxcard' : maxcard});
     	
     };
-  
-
-
 };

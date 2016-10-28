@@ -26,18 +26,19 @@
   <div class="col-sm-6">
 	  <div class="panel panel-default">
 	    <div class="panel-body">
-	    	<div class="form-group form-inline mb5">
+	    	<div class="form-group form-inline ">
 	    		<div class="col-sm-12">
-	    		  <div class="row">
-			      <input type="text" class="form-control" ng-model="typecard.startnum" placeholder="起始卡号" style="width:200px">
-			      <input type="text" class="col-md-offset-1 form-control" ng-model="typecard.endnum" placeholder="结束卡号" style="width:200px">  
+	    		  <div class="col-md-offset-1 row">
+			      <input type="text" class="col-sm-1 form-control" ng-model="typecard.startnum" placeholder="起始卡号" style="width:200px">
+			      <label class="col-md-1 row mt10">到</label>
+			      <input type="text" class="col-md-1 form-control" ng-model="typecard.endnum" placeholder="结束卡号"  style="width:200px">  
                   </div>
-			      <div class="row mt10">      
-			      <select class="form-control" ng-model="typecard.card_status" ng-options="state.code as state.name for state in state" style="width:200px"></select>
-			      <select class="col-md-offset-1 form-control" ng-model="typecard.card_giveout_target" ng-options = "info.card_giveout_target as info.card_giveout_target for info in targetinfo" style="width:200px"> 
+			      <div class="col-md-offset-1 row mt10">      
+			      <select class="form-control" ng-model="typecard.card_status" ng-options="state.code as state.name for state in state" style="width:160px"></select>
+			      <select class=" form-control" ng-model="typecard.card_giveout_target" ng-options = "info.card_giveout_target as info.card_giveout_target for info in targetinfo" style="width:160px"> 
 			      <option value="">全部</option>  
                   </select>
-			      <button type="button" class="btn btn-info new" ng-click="search()" style="width:100px">搜索</button>
+			      <button type="button" class="btn btn-info new" ng-click="search()" style="width:90px">搜索</button>
 			      </div>
 			    </div>
 		    </div>
@@ -70,7 +71,7 @@
 
 
 
-<div class="col-md-4 col-md-offset-2 panel panel-default table-responsive">
+<div class="col-md-6 col-md-offset-1 panel panel-default table-responsive">
      <table ng-click="getlist()" class="table table-bordered">
 	    <thead>
 	      <tr>
@@ -78,7 +79,7 @@
 	        <th class="col-md-2 text-center">状态</th>
 	        <th class="col-md-2 text-center">种类</th>
 	        <th class="col-md-2 text-center">发放时间</th>
-	        <th class="col-md-2 text-center">发放目标</th>
+	        <th class="col-md-3 text-center">发放目标</th>
 	      </tr>
 	    </thead>
 	    <tbody>

@@ -2,30 +2,34 @@
  <div class="panel panel-default">
  <div class="panel-heading text-center">更改制作状态</div>
  <div class="panel-body">
-    <div class="container-fluid form-horizontal ">
-
-<div class="col-xs-12 form-horizontal" >
-  <div class="form-group form-inline">
-    <label for="inputLottry" class="col-md-1 control-label">号段：</label>
-    <div class="col-xs-3">
-	 <input type="text" class="form-control" placeholder="起始卡号"
-			ng-model="card.scard">
-    </div>
-	<div class="col-xs-3">
-	 <input type="text" class="form-control" placeholder="结束卡号"
-			ng-model="card.ecard">
-	</div>
-	<label for="inputLottry" class="col-md-3 control-label">数量</label>
-	<div class="col-xs-2">
-	 <p id="disabledInput" type="text" class="form-control" id="inputLottry" placeholder="数量" disabled ng-model="cardinfo.sumcard">{{card.ecard - card.scard + 1}} 
-	 </p>
+ <div class="container-fluid form-horizontal ">
+ <div class="col-xs-12 form-horizontal" >
+   <div class="form-group form-inline">
+    
+    <label for="inputLottry" class="col-md-2 control-label row mt10">号段：</label>
+    
+    
+	<input type="text" class="form-control" placeholder="起始卡号"
+			ng-model="card.scard" style="width:200px">
+    <label>到</label>
+	
+	<input type="text" class="form-control" placeholder="结束卡号"
+			ng-model="card.ecard" style="width:200px">
+	 
+	<label for="inputLottry" class="col-xs-offset-3 control-label">数量：</label> 
+	<label>:</label>
+	<p id="disabledInput" type="text" class="form-control row mt10 text-center" id="inputLottry" placeholder="数量" disabled ng-model="cardinfo.sumcard" style="width:200px">{{card.ecard - card.scard + 1}} 
+	</p>
+    
+	
+	
+	 
 	</div>       
-  </div>
-</div>
-
-</div>
-</div>
-</div>
+   </div>
+ </div> 
+ </div>
+ </div>
+ </div>
 </div>
 
 
@@ -55,8 +59,4 @@
         </div>
     </div>
 </div><!-- searchArea -->
-
-
-  
-
 </form>

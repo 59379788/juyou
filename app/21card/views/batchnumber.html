@@ -2,21 +2,20 @@
  <div class="panel panel-default">
  <div class="panel-heading text-center">设置批次号</div>
  <div class="panel-body">
-    <div class="container-fluid form-horizontal ">
-
-<div class="col-xs-12 form-horizontal" >
+ <div class="container-fluid form-horizontal ">
+ <div class="col-xs-12 form-horizontal" >
   <div class="form-group form-inline">
     
-    <label for="inputLottry" class="col-md-0 control-label" style="width:100px">号段：</label>
+    <label for="inputLottry" class="col-md-2 control-label row mt10">号段：</label>
 	 <input type="text" class="form-control" placeholder="起始卡号"
-			ng-model="cardnuminfo.scard" style="width:250px">
+			ng-model="cardnuminfo.scard" style="width:200px">
      <label>到</label>
 	 <input type="text" class="form-control" placeholder="结束卡号"
-			ng-model="cardnuminfo.ecard" style="width:250px">
+			ng-model="cardnuminfo.ecard" style="width:200px">
 
-	 <label for="inputLottry" class="control-label" style="width:100px">数量：</label>
-	 
-     <p id="disabledInput" type="text" class="form-control" id="inputLottry" placeholder="数量" disabled ng-model="cardinfo.sumcard" style="width:250px">{{cardnuminfo.ecard - cardnuminfo.scard + 1}} 
+	 <label for="inputLottry" class="col-xs-offset-3 control-label" >数量：</label>
+	 <label>:</label>
+     <p id="disabledInput" type="text" class="form-control row mt10" id="inputLottry" placeholder="数量" disabled ng-model="cardinfo.sumcard" style="width:200px">{{cardnuminfo.ecard - cardnuminfo.scard + 1}} 
 	 </p>
 	 
 

@@ -57,7 +57,7 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
           return;
         }  
         $scope.getlist();
-      }); 
+        }); 
 	  } else { 
 	  	 console.log("点击了取消");
 	  }

@@ -1,22 +1,19 @@
 module.exports = function($scope, $state, $stateParams, addcardpool){
     $scope.cardinfo = {
-			'pool_name' : '',
-			'pool_type' : '0'
-		};  
+	    'pool_name' : '',
+	    'pool_type' : '0'
+	};  
 
 	$scope.savecardpool = function(){
-		 // 如果卡池编号非空，是修改卡池，否则是添加卡池
-    	var cardparem = {'pool_name':$scope.cardinfo.pool_name,'pool_type':$scope.cardinfo.pool_type};
+        var cardparem = {'pool_name':$scope.cardinfo.pool_name,'pool_type':$scope.cardinfo.pool_type};
         console.log(cardparem);
 		addcardpool.save(cardparem, function(res){
 			console.log(res);
 			    if (res.errcode !== 0) {
-                   alert(res.errmsg);
-                   return;
+                    alert(res.errmsg);
 			    } else {
-			    	alert('成功');
+			    	alert('添加卡池成功');
 			    	$state.go('app.cardpool');
-			    	return;
 			    }
 			
      	});                
