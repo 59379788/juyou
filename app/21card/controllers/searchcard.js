@@ -35,37 +35,18 @@ module.exports = function($scope, $state, $stateParams, searchcard, batchnumber,
 
     
     // 设置批次号
-    $scope.setbatchnumber = function(cardno){ 
-    	//$state.go('app.batchnumber',{'cardno' : cardno});
-    	//console.log(cardno);
-    	batchnumber.save({'cardstatu' : 0, 'cardnum' : cardno}, function(res){ 
-           if (res.errcode !== 0) { 
-           	alert(res.errmsg);
-           	return;
-           } 
-           console.log(res);
-           $scope.searchcard();
-    	});
-
-
+    $scope.setbatchnumber = function(mincard,maxcard){ 
+    	$state.go('app.batchnumber',{'mincard' : mincard, 'maxcard' : maxcard});
     };
     
+    
     // 制卡完成
-   $scope.setcardcomplete = function(cardmakebatch,cardno){ 
-   	   console.log(cardmakebatch, cardno);
-   	   changestatus.save({'cardbatch':cardmakebatch, 'cardstatu': 0, 'cardno' : cardno}, function(res){ 
-   	   	console.log({'cardbatch':cardmakebatch, 'cardstatu': 0, 'cardnum' : cardno});
-         if (res.errcode !== 0) { 
-           	alert(res.errmsg);
-           	return;
-           } 
-          $scope.searchcard();
-
-   	   });
+    $scope.setcardcomplete = function(cardmakebatch,mincard,maxcard){ 
     	//alert('制作中变为已制作');
-    	//$state.go('app.cardcomplete', {'cardmakebatch' : cardmakebatch, 'mincard' : mincard, 'maxcard' : maxcard});
+    	$state.go('app.cardcomplete', {'cardmakebatch' : cardmakebatch, 'mincard' : mincard, 'maxcard' : maxcard});
     	
     };
+  
 
 
 };

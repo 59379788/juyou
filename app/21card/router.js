@@ -292,7 +292,10 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             cardproductlist:function(cardservice){
                  return cardservice.cardproductlist();
-            }
+            },
+            searchcard : function(cardservice){
+                 return cardservice.searchcard();
+             }
             
             
          }

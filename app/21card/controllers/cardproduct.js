@@ -73,7 +73,8 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 	if(id === '')   //新建卡产品
     {
 		$scope.obj = {
-			'id' : id,
+			'name' : '',
+			'card_type' : '',
 			'market_price' : 0,
 			'guide_price' : 0,
 			'pay_type' : 0,
@@ -84,7 +85,8 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 			'realname_type' : 0,
 			'rebate_type' : '0',
 			'rebate_start' : '',
-			'rebate_end' : ''
+			'rebate_end' : '',
+			'remarks' : ''
 		};
 
 		
@@ -107,16 +109,22 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 	
     //卡产品信息提交
 	$scope.gogo = function(){
-
-
-		cardproduct.save($scope.obj, function(res){
+            if ($scope.obj.name === '' || $scope.obj.card_type === '' || $scope.obj.remarks ==='' ||$scope.obj.market_price===null ||$scope.obj.guide_price===null) { 
+            	alert('信息填写不完全');
+            	return;
+            } 
+            cardproduct.save($scope.obj, function(res){
             console.log($scope.obj);
+            
+
 			//console.log(res);
 			if (res.errcode !== 0) {
 				alert(res.errmsg);
-				return;
-			}
-			alert('保存成功');
+				
+			} else { 
+				alert('保存成功');
+				   }
+			   
 
 			if(id === '') 
 			{
@@ -125,9 +133,10 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 			}
 			$state.go('app.cardproduct', {'code' : id});
 
-		});
-
-
+		    });
+        	
+        
+            
 	}
 
 	//卡产品资源添加

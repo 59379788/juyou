@@ -1,34 +1,30 @@
 <div class="col-xs-12 col-xs-offset-0" >
- <div class="panel panel-success">
+ <div class="panel panel-default">
  <div class="panel-heading text-center">释放卡</div>
  <div class="panel-body">
     <div class="container-fluid form-horizontal ">
 
 <div class="col-xs-12 form-horizontal" >
-  <div class="form-group">
-		<label class="col-md-1 radio-inline ">
-            <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="cardinfo.status">单张</label>
-		<div class="col-xs-2">
-			<input type="text" class="form-control" placeholder="卡号"
+  <div class="form-group form-inline">
+		<label class="col-md-0 radio-inline ">
+        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="cardinfo.status">单张</label>
+		<input type="text" class="form-control" placeholder="卡号"
 			ng-model="cardinfo.cardnum" style="width:200px">
-		</div>
-		<div>
-            <label class="col-md-1 col-md-offset-1 radio-inline ">
-             <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3" ng-model="cardinfo.status">卡段</label>
-        </div>
-        <div class="col-xs-2">
-			<input type="text" class="form-control" placeholder="起始卡号"
+		
+		<label class="col-md-offset-1 radio-inline ">
+        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3" ng-model="cardinfo.status">卡段</label>
+        <input type="text" class="form-control" placeholder="起始卡号"
 			ng-model="cardinfo.startnum" style="width:200px">
-		</div>
-		<label class="col-xs-1 control-label" style="width:8px">到</label>
-		<div class="col-xs-2">
+		
+		<label>到</label>
+		
 			<input type="text" class="form-control" placeholder="结束卡号"
 			ng-model="cardinfo.endnum" style="width:200px">
-		</div>
-		<label class="col-md-1 col-md-offset-1 radio-inline ">
+		
+		<label class="col-md-offset-1 radio-inline ">
               <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" ng-model="cardinfo.status">全部</label>
 		
-        <button type="button" class="btn btn-default search pull-right" ng-click="resivecard()">释放卡<button>
+        <button type="button" class="btn btn-info search pull-right" ng-click="resivecard()" style="width:100px">释放卡<button>
          
   </div>
 </div>

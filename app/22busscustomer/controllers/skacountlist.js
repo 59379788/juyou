@@ -25,7 +25,7 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
     $scope.getlist();
 	// 通过
 	$scope.pass = function(id){ 
-		console.log(id);
+		//console.log(id);
 	  review.save({'id' : id}, function(res){ 
 	  	if (res.errcode !== 0) { 
     		alert(res.errmsg);
@@ -33,14 +33,16 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
     	} else { 
           $scope.objss = res.data;
           console.log($scope.objss);
+          $scope.getlist();
           return;
     	}
 	  });
-	  $scope.getlist();
+	  
 		
 	};
 	// 创建账号
 	$scope.creataccount = function(id,company_id,company_code,office_id){ 
+		//$scope.getlist();
 		//alert('创建账号');
 		var modalInstance = $uibModal.open({
           template: require('../views/creataccount.html'),
@@ -76,14 +78,14 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
         });
 
         modalInstance.result.then(function () {
-
+          alert('账号创建成功');
           //init();
-           $scope.getlist();
+         $scope.getlist();
         }, function () {
-           
+         //  $scope.getlist();
           //$log.info('Modal dismissed at: ' + new Date());
         });
-
+     //  $scope.getlist();
 	};
     
     // 发送短信

@@ -68,12 +68,10 @@ module.exports = function($scope, $uibModalInstance,id,role,create,message,compa
             	return;
             }
             // 	插入账号密码
-        insertnops.save({'id':id, 'ticket_id':$scope.code+$scope.obj.loginName, 'ticket_pwd':'000000'}, function(res){ 
+          insertnops.save({'id':id, 'ticket_id':$scope.code+$scope.obj.loginName, 'ticket_pwd':'000000'}, function(res){ 
           console.log({'id':id, 'ticket_id':$scope.code+$scope.obj.loginName, 'ticket_pwd':'000000'});
-          
-          
-        });
-            message.save({'id':id}, function(res){ 
+          if (res.errcode === 0) { 
+               message.save({'id':id}, function(res){ 
              //  console.log({'id':id});
              //  console.log(res);
                if (res.errcode !== 0) { 
@@ -81,12 +79,15 @@ module.exports = function($scope, $uibModalInstance,id,role,create,message,compa
                	return;
                } 
                	alert('发送短信验证码成功');
+               });
 
-               
-
-            });
-
-            $uibModalInstance.close();
+               $uibModalInstance.close();
+           } else { 
+          	  alert(res.errmsg);
+           }
+          
+           });
+           
 
         });
 
