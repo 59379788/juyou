@@ -1,22 +1,19 @@
-<div class="col-xs-12 col-xs-offset-0" >
- <div class="panel panel-default">
- <div class="panel-heading text-center">释放卡</div>
- <div class="panel-body">
-    <div class="container-fluid form-horizontal ">
-
-<div class="col-xs-12 form-horizontal" >
-  <div class="form-group form-inline">
+<div class="col-xs-12" >
+<div class="panel panel-default">
+<div class="panel-heading text-center">释放卡</div>
+<div class="panel-body">
+    <div class="form-group form-inline">
 		<label class="col-md-0 radio-inline ">
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="cardinfo.status">单张</label>
+        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="cardinfo.status">单张</label>&nbsp;&nbsp;
 		<input type="text" class="form-control" placeholder="卡号"
 			ng-model="cardinfo.cardnum" style="width:200px">
 		
 		<label class="col-md-offset-1 radio-inline ">
-        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3" ng-model="cardinfo.status">卡段</label>
+        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3" ng-model="cardinfo.status">卡段</label>&nbsp;&nbsp;
         <input type="text" class="form-control" placeholder="起始卡号"
 			ng-model="cardinfo.startnum" style="width:200px">
 		
-		<label>到</label>
+		&nbsp;&nbsp;<label class="col-md-0">到</label>&nbsp;&nbsp;
 		
 			<input type="text" class="form-control" placeholder="结束卡号"
 			ng-model="cardinfo.endnum" style="width:200px">
@@ -24,23 +21,19 @@
 		<label class="col-md-offset-1 radio-inline ">
               <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" ng-model="cardinfo.status">全部</label>
 		
-        <button type="button" class="btn btn-info search pull-right" ng-click="resivecard()" style="width:100px">释放卡<button>
-         
-  </div>
-</div>
-
+        <button type="button" class="btn btn-info search pull-right" ng-click="resivecard()" style="width:100px">释放卡<button>        
+    </div>
 </div>
 </div>
 </div>
 </div>
 
-<form class="form-horizontal" role="form">
-<div class="form-group">
-<div class="col-md-4 col-md-offset-1 panel panel-default table-responsive">
+
+<div class="col-md-5">
      <table ng-click="getlist()" class="table table-bordered">
 	    <thead>
 	      <tr>
-	      <th class="col-md-2 text-center">操作</th>
+	      <th class="col-md-1 text-center">操作</th>
 	        <th class="col-md-2 text-center">起始卡号</th>
 	        <th class="col-md-2 text-center">结束卡号</th>
 	        
@@ -48,7 +41,7 @@
 	    </thead>
 	    <tbody>
 	     <tr ng-repeat = "cardinfo in releasecardinfo">
-	       <td class="col-md-2 text-center"> 
+	       <td class="col-md-1 text-center"> 
            <input type="checkbox" ng-model=cardinfo.value ng-true-value="1"ng-false-value="0" ng-click="checkcardinfo()">
            </td>
 	       <td class="col-md-2 text-center">{{cardinfo.mincard}}</td>
@@ -60,5 +53,3 @@
 
 
 
-
-</form>

@@ -1,0 +1,68 @@
+
+
+<div class="col-sm-12">
+<div class="panel panel-default">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-1 text-center">供应商名称</th>
+        <th class="col-md-1 text-center">联系人</th>
+        <th class="col-md-1 text-center">商品类别</th>
+        <th class="col-md-2 text-center">供应商简介</th>
+        <th class="col-md-1 text-center">协助签约</th>
+        <th class="col-md-1 text-center">申请人(电话)</th>
+        <th class="col-md-1 text-center">修改时间</th>
+        <th class="col-md-1 text-center">确认人</th>
+        <th class="col-md-1 text-center">状态</th>
+        <th class="col-md-1 text-center">备注</th>
+        <th class="col-md-1 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.supplier_name}}</td>
+        <td class="text-center">{{obj.name}}<br>{{obj.mobile}}
+        </td>
+        <td class="text-center">{{obj.sale_category}}</td>
+        <td class="text-center">{{obj.supplier_profile}}</td>
+        <td class="text-center">{{obj.assist_sign}}</td>
+        <td class="text-center">{{obj.apply_name}}<br>{{obj.apply_date}}
+        </td>
+        <td class="text-center">{{obj.update_date}}</td>
+        <td class="text-center">{{obj.confirm_name}}</td>
+        <td ng-show="obj.state =='0'" class="text-center">申请中</td>
+        <td ng-show="obj.state =='1'" class="text-center">已联系</td>
+        <td class="text-center">{{obj.remarks}}</td>
+        <td class="text-center">
+           <a ng-show="obj.state =='0'" ng-click="supplierconfirm(obj.id,obj.state,obj.confirm_name)" class="btn btn-danger btn-xs">确认</a>
+           <a ng-show="obj.state =='1'" ng-click="supplierconfirm(obj.id,obj.state,obj.confirm_name)" class="btn btn-success btn-xs">已确认</a>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+</div>
+
+<!--   <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div> -->
+  
+
+</div>

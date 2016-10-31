@@ -56,7 +56,7 @@ var router = function($urlRouterProvider, $stateProvider){
          }
        })
 
-       .state('app.get2', {
+        .state('app.get2', {
          url: '/get2/:id',
          controller : 'get2',
          template: require('./views/get2.html'),
@@ -67,6 +67,35 @@ var router = function($urlRouterProvider, $stateProvider){
        
          }
        })
+
+        // 供应商申请列表
+        .state('app.supplierlist', {
+         url: '/supplierlist',
+         controller : 'supplierlist',
+         template: require('./views/supplierlist.html'),
+         resolve:{
+            supplierlist : function(busscustomerservice){
+                 return busscustomerservice.supplierlist();
+            },
+            saveconfirm : function(busscustomerservice){
+                 return busscustomerservice.saveconfirm();
+            }   
+          
+       
+         }
+        })
+
+        // 供应商备注填写
+        .state('app.supplyremark', {
+         url: '/supplyremark',
+         controller : 'supplyremark',
+         template: require('./views/supplyremark.html'),
+         resolve:{
+            saveconfirm : function(busscustomerservice){
+                 return busscustomerservice.saveconfirm();
+            } 
+         }
+        })
 
        
 }
