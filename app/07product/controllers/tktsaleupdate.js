@@ -149,12 +149,23 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 		if(res.errcode === 0)
 		{
 			$scope.saleobj = res.data;
-			$scope.start_time = str2date($scope.saleobj.periodstart + " 00:00:00");
-			$scope.end_time = str2date($scope.saleobj.periodend + " 23:59:59");
+			if ($scope.saleobj.periodstart != null) {
+				$scope.start_time = str2date($scope.saleobj.periodstart + " 00:00:00");
+			}else{
+				$scope.start_time = new Date();
+			}
+			if ($scope.saleobj.periodend != null) {
+				$scope.end_time = str2date($scope.saleobj.periodend + " 23:59:59");
+			}else{
+				$scope.end_time = new Date($scope.start_time.getFullYear(),11,31);
+			}
+			
 			console.log(6666666666666666);
 			console.log($scope.saleobj);
+			console.log($scope.saleobj.periodstart);
 			console.log($scope.start_time);
-			console.log(66666666666666666);
+			console.log($scope.end_time);
+			console.log(6666666666666666);
 			$scope.saleobj.market_price *= 0.01;
 			$scope.saleobj.guide_price *= 0.01;
 			$scope.saleobj.cost_price *= 0.01;
@@ -295,7 +306,9 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 		$scope.saleobj.cost_price *= 100;
 		$scope.saleobj.periodstart = getDate($scope.start_time);
 		$scope.saleobj.periodend = getDate($scope.end_time);
-		//console.log($scope.saleobj);
+		console.log('$scope.saleobj');
+		console.log($scope.saleobj);
+		console.log('$scope.saleobj');
 		saleupdate.save($scope.saleobj, function(res){
 
 			if(res.errcode === 0)
