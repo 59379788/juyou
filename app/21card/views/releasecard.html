@@ -1,58 +1,68 @@
-<form class="form-horizontal" role="form">
-<h2>卡池详情</h2>
-<div class=" col-sm-12">
-  <div class="col-sm-6">  
-	  <div class="panel panel-default">
-	    <div class="panel-body form-inline">
-		    <label for="inputLottry" class="control-label">总卡片数量</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.allcard" >
-		    <label for="inputLottry" class="col-md-offset-2 control-label">未使用数量</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.can_use_card">
+<div class="form-group">
+<div class="col-sm-6 text-center">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12" style="height:120px">
+            <div class="row">
+                <label for="inputLottry" class="control-label">总卡片数量</label>
+                <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.allcard" style="width:150px">
 
-		    <div>
-		    <label for="inputLottry" class="control-label">已锁定数量</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.lock_card">
-		    <label for="inputLottry" class="col-md-offset-2 control-label">已使用数量</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.used_card">
-		    </div>
+                <label for="inputLottry" class="control-label">未使用数量</label>
+		        <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.can_use_card" style="width:150px">
+            </div>
+            <div class="row mt10">
+		        <label for="inputLottry" class="control-label">已锁定数量</label>
+		        <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.lock_card" style="width:150px">
+                
+                
+                <label for="inputLottry" class="control-label">已使用数量</label>
+                <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.used_card" style="width:150px">
+            </div>
+            <div class="row mt10">
+		        <label for="inputLottry" class="control-label">已失效数量</label>
+		        <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.not_avail_card" style="width:150px">
+            
+                <label for="inputLottry" class="control-label">已释放数量</label>
+                <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.release_card" style="width:150px">
+            </div>
+              
 
-		    <label for="inputLottry" class="control-label">已失效数量</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.not_avail_card">
-		    <label for="inputLottry" class="col-md-offset-2 control-label">已释放数量</label>
-		    <input class="form-control wid20 input-sm text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.release_card">
-	    </div>
-	  </div>
-  </div>
-  <div class="col-sm-6">
-	  <div class="panel panel-default">
-	    <div class="panel-body">
-	    	<div class="form-group form-inline ">
-	    		<div class="col-sm-12">
-	    		  <div class="col-md-offset-1 row">
-			      <input type="text" class="col-sm-1 form-control" ng-model="typecard.startnum" placeholder="起始卡号" style="width:200px">
-			      <label class="col-md-1 row mt10">到</label>
-			      <input type="text" class="col-md-1 form-control" ng-model="typecard.endnum" placeholder="结束卡号"  style="width:200px">  
-                  </div>
-			      <div class="col-md-offset-1 row mt10">      
-			      <select class="form-control" ng-model="typecard.card_status" ng-options="state.code as state.name for state in state" style="width:160px"></select>
-			      <select class=" form-control" ng-model="typecard.card_giveout_target" ng-options = "info.card_giveout_target as info.card_giveout_target for info in targetinfo" style="width:160px"> 
-			      <option value="">全部</option>  
-                  </select>
-			      <button type="button" class="btn btn-info new" ng-click="search()" style="width:90px">搜索</button>
-			      </div>
-			    </div>
-		    </div>
-	    </div>
-	  </div>
-  </div>
+           
+        </div>
+    </div>
+</div>
+</div>
 </div>
 
 
+<div class="col-sm-6">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12" style="height:120px">
+                <div class="row mt20">
+                    <input type="text" class="form-control" ng-model="typecard.startnum" placeholder="起始卡号" style="width:200px">
+                    <input type="text" class="form-control" ng-model="typecard.endnum" placeholder="结束卡号"  style="width:200px">
+                </div>
+                <div class="row mt10">
+                    <select class="form-control" ng-model="typecard.card_status" ng-options="state.code as state.name for state in state" style="width:200px"></select>
+			        <select class=" form-control" ng-model="typecard.card_giveout_target" ng-options = "info.card_giveout_target as info.card_giveout_target for info in targetinfo" style="width:200px"> 
+			        <option value="">全部</option>  
+                    </select>
+                    <button type="button" class="btn btn-info new" ng-click="search()" style="width:90px">搜索</button>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
 
 <div class="form-group">
-<div class="col-md-4 col-md-offset-1 panel panel-default table-responsive">
-     <table ng-click="getlist()" class="table table-bordered">
-	    <thead>
+    <div class="col-md-6">
+        <table ng-click="getlist()" class="table table-bordered">
+	     <thead>
 	      <tr>
 	        <th class="col-md-2 text-center">起始卡号</th>
 	        <th class="col-md-2 text-center">结束卡号</th>
@@ -65,37 +75,31 @@
 	       <td class="col-md-2 text-center">{{cardinfo.maxcard}}</td>
 	     </tr>
 	    </tbody>
-	 </table>
-</div>
+	    </table>
+    </div>
 
-
-
-
-<div class="col-md-6 col-md-offset-1 panel panel-default table-responsive">
-     <table ng-click="getlist()" class="table table-bordered">
-	    <thead>
+    <div class="col-md-6">
+        <table ng-click="getlist()" class="table table-bordered">
+	     <thead>
 	      <tr>
-	        <th class="col-md-2 text-center">卡号</th>
-	        <th class="col-md-2 text-center">状态</th>
-	        <th class="col-md-2 text-center">种类</th>
-	        <th class="col-md-2 text-center">发放时间</th>
-	        <th class="col-md-3 text-center">发放目标</th>
+	        <th class="col-md-1 text-center">卡号</th>
+	        <th class="col-md-1 text-center">状态</th>
+	        <th class="col-md-1 text-center">种类</th>
+	        <th class="col-md-1 text-center">发放时间</th>
+	        <th class="col-md-2 text-center">发放目标</th>
 	      </tr>
 	    </thead>
 	    <tbody>
 	     <tr ng-repeat = "cardlist in cardlists">
-	       <td class="col-md-2 text-center">{{cardlist.card_num}}</td>
-	       <td class="col-md-2 text-center">{{cardlist.card_status_name}}</td>
-	       <td class="col-md-2 text-center">{{cardlist.card_type}}</td>
-	       <td class="col-md-2 text-center">{{cardlist.card_giveout_time}}</td>
+	       <td class="col-md-1 text-center">{{cardlist.card_num}}</td>
+	       <td class="col-md-1 text-center">{{cardlist.card_status_name}}</td>
+	       <td class="col-md-1 text-center">{{cardlist.card_type}}</td>
+	       <td class="col-md-1 text-center">{{cardlist.card_giveout_time}}</td>
 	       <td class="col-md-2 text-center">{{cardlist.card_giveout_target}}</td>
 	     </tr>
 	    </tbody>
-	 </table>
-</div>	
-
+	    </table>
+    </div>
 
 </div>
-
-</form>
 

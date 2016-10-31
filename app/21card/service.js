@@ -8,7 +8,7 @@ var service = function($resource, BASEURL38985){
     // 修改制卡状态完成
     var changestatus = BASEURL38985 + '/api/ac/uc/cardBaseService/updateNewCardFinStatu';
     // 根据条件查询基本卡
-    var searchcard = BASEURL38985 + '/api/ac/uc/cardBaseService/getCardByCardnostatus';
+    var searchcard = BASEURL38985 + '/api/ac/uc/cardBaseService/getCardBaseList';
     //------------------ 卡基本信息 -----------------------//
 
     
