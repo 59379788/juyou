@@ -29,7 +29,7 @@
     </div>
 </div><!-- searchArea -->
 
-
+  <div class="col-md-12 panel panel-default table-responsive">
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -56,12 +56,12 @@
           <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='未制作'" ng-click="batchnumber(obj.mincard,obj.maxcard)" class="btn btn-info btn-xs">设置批次号</a>
 
           <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='制作中'"
-          ng-click="cardcomplete(obj.card_make_batch,obj.mincard,obj.maxcard)" class="btn btn-danger btn-xs">制卡完成</a>  
+          ng-click="cardcomplete(obj.card_make_batch,obj.mincard,obj.maxcard)" class="btn btn-success btn-xs">制卡完成</a>  
         </td>
       </tr>
     </tbody>
   </table>
-
+  </div>
 
 <!--   <div class="text-right">
 

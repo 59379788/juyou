@@ -6,7 +6,7 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                   <label for="inputLottry" class="control-label">卡池列表</label>
-                  <button type="button" class="btn btn-default search pull-right" ng-click="addcardpool()">添加卡池</button>
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="addcardpool()">添加卡池</button>
 
 
             </div>
@@ -32,13 +32,13 @@
 	        <td class="col-md-2 text-center">{{cardpool.pool_name}}</td>
 	        <td class="col-md-2 text-center">{{cardpool.pool_type_name}}</td>
 	        <td class="col-md-2 text-center">
-	        	<button type="button" class="btn btn-default btn-xs" ng-click="resivepoolinfo(cardpool.pool_code, cardpool.pool_name,cardpool.pool_type_name)">修改</button>
+	        	<button type="button" class="btn btn-info btn-xs" ng-click="resivepoolinfo(cardpool.pool_code, cardpool.pool_name,cardpool.pool_type_name)">修改</button>
 	        </td>
 	        <td class="col-md-4 text-center">
 	        	
-	        	<a ng-click="add(cardpool.pool_code)" class="btn btn-default btn-xs">添加卡</a>
-	        	<a ng-click="relief(cardpool.pool_code)" class="btn btn-default btn-xs">释放卡</a>
-	        	<a ng-click="release(cardpool.pool_code)" class="btn btn-default btn-xs">卡池详情</a>
+	        	<a ng-click="add(cardpool.pool_code)" class="btn btn-info btn-xs">添加卡</a>
+	        	<a ng-click="relief(cardpool.pool_code)" class="btn btn-danger btn-xs">释放卡</a>
+	        	<a ng-click="release(cardpool.pool_code)" class="btn btn-success btn-xs">卡池详情</a>
 	        </td>
 	      </tr>
 	    </tbody>

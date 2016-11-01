@@ -24,6 +24,7 @@
     </div>
 </div><!-- searchArea -->
 
+<div class="col-md-12 panel panel-default table-responsive">
 <table class="table table-bordered">
     <thead>
       <tr>
@@ -43,9 +44,10 @@
         <td class="text-center">{{obj.mobile}}</td>
         <td class="text-center">{{obj.remarks}}</td>
         <td class="col-md-4 text-center">
-	        	<a ng-click="delete(obj.id)" class="btn btn-default btn-xs">删除</a>
-	        	<a ng-click="change(obj.id,obj.name, obj.travelagency,obj.mobile,obj.remarks)" class="btn btn-default btn-xs">修改</a>
+	        	<a ng-click="delete(obj.id)" class="btn btn-danger btn-xs">删除</a>
+	        	<a ng-click="change(obj.id,obj.name, obj.travelagency,obj.mobile,obj.remarks)" class="btn btn-info btn-xs">修改</a>
 	    </td>
       </tr>
     </tbody>
   </table>
+</div>

@@ -1,8 +1,9 @@
 
 <form class="form-horizontal" role="form">
- <h2 class="text-center">记录发卡信息</h2>
+ 
  <div class="col-md-10 col-md-offset-1">
  <div class="panel panel-default">
+ <div class="panel-heading text-center">记录发卡信息</div>
  <div class="panel-body">
  <div class="form-group">
 
@@ -29,7 +30,7 @@
  <div class="form-group">
   <label for="inputDate" class="col-sm-4 control-label">电话：</label>
   <div class="col-md-6">
-  <input type="text" class="form-control" id="inputpoolname" placeholder="* * *"
+  <input type="text" class="form-control" id="inputpoolname" placeholder=""
       ng-model="userinfo.mobile"
       >
   </div>    
@@ -38,7 +39,7 @@
  <div class="form-group">
  <label for="inputDate" class="col-sm-4 control-label">机构编码：</label>
  <div class="col-md-6">
- <input type="text" class="form-control" id="inputpoolname" placeholder="* * *"
+ <input type="text" class="form-control" id="inputpoolname" placeholder=""
       ng-model="userinfo.company_code"
       >
  </div>    
@@ -50,6 +51,7 @@
  <input type="text" class="form-control" id="inputpoolname" placeholder="起始卡号"
       ng-model="userinfo.start_card_no">
  </div>
+
  <div class="col-md-3">
  <input type="text" class="form-control" id="inputpoolname" placeholder="结束卡号"
       ng-model="userinfo.end_card_no">
@@ -93,7 +95,7 @@
  <div class="form-group">
  <label for="inputDate" class="col-sm-4 control-label">发放目标：</label>
  <div class="col-md-6">
- <input type="text" class="form-control" id="inputpoolname" placeholder="* * *"
+ <input type="text" class="form-control" id="inputpoolname" placeholder=""
       ng-model="userinfo.card_giveout_target"
       >
  </div>    
@@ -107,12 +109,12 @@
  </div>
 
  <div>
-  <button type="button" class="col-md-1 col-md-offset-6 btn btn-primary btn-xs" ng-click="saveuserinfo()">保存</button>
+  <button type="button" class="col-md-1 col-md-offset-6 btn btn-primary" ng-click="saveuserinfo()">保存</button>
  </div>
 
 </div>
 </div>
-</div>
+
 </div>
  
 

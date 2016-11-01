@@ -32,7 +32,7 @@ module.exports = function($scope, $state, $stateParams, releasecard, canrelease)
         	cardparem['startnum'] = $scope.cardinfo.startnum;
         	cardparem['endnum'] = $scope.cardinfo.endnum;
         	array.push(cardparem);
-        } else {
+        } 
         	for (var i = 0; i < $scope.releasecardinfo.length; i++) {
         	    var tmp = $scope.releasecardinfo[i];
                 if (tmp.value == 1) { 
@@ -45,7 +45,7 @@ module.exports = function($scope, $state, $stateParams, releasecard, canrelease)
                     array.push(arrayObj);	
                 }
             };
-        }
+        
 
        // console.log(cardparem);
         if (array.length === 0) { 

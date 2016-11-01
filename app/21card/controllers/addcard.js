@@ -30,7 +30,7 @@ module.exports = function($scope, $state, $stateParams, addcard, unusedcard){
         	cardparem['startnum'] = $scope.cardinfo.startnum;
         	cardparem['endnum'] = $scope.cardinfo.endnum;
         	array.push(cardparem);
-        } else {
+        } 
         	for (var i = 0; i < $scope.cardinfos.length; i++) {
         	    var tmp = $scope.cardinfos[i];
                 if (tmp.value == 1) { 
@@ -43,7 +43,7 @@ module.exports = function($scope, $state, $stateParams, addcard, unusedcard){
                     array.push(arrayObj);	
                 }
             };
-        }
+        
 
         if (array.length === 0) { 
         	alert('卡号为空');
