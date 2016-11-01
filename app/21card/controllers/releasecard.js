@@ -66,6 +66,7 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool, staten
                    alert(res.errmsg);   
 			    } else {
 			    	$scope.cardlists = res.data;
+			    	console.log($scope.cardlists);
 			    }
      	});        
 	};

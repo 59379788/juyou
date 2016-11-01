@@ -16,8 +16,8 @@ module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, go
 				return;
 			}
 			$scope.objs = res.data;
-			$scope.productinfo = res.data[0].code;
-			console.log($scope.productinfo);
+			//$scope.productinfo = res.data[0].code;
+			//console.log($scope.productinfo);
 		})
 	};
 	$scope.search();

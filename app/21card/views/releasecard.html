@@ -82,20 +82,20 @@
         <table ng-click="getlist()" class="table table-bordered">
 	     <thead>
 	      <tr>
-	        <th class="col-md-1 text-center">卡号</th>
+	        <th class="col-md-2 text-center">卡段</th>
 	        <th class="col-md-1 text-center">状态</th>
 	        <th class="col-md-1 text-center">种类</th>
 	        <th class="col-md-1 text-center">发放时间</th>
-	        <th class="col-md-2 text-center">发放目标</th>
+	        <th class="col-md-1 text-center">发放目标</th>
 	      </tr>
 	    </thead>
 	    <tbody>
 	     <tr ng-repeat = "cardlist in cardlists">
-	       <td class="col-md-1 text-center">{{cardlist.card_num}}</td>
+	       <td class="col-md-2 text-center">{{cardlist.mincard}} - {{cardlist.maxcard}}</td>
 	       <td class="col-md-1 text-center">{{cardlist.card_status_name}}</td>
 	       <td class="col-md-1 text-center">{{cardlist.card_type}}</td>
 	       <td class="col-md-1 text-center">{{cardlist.card_giveout_time}}</td>
-	       <td class="col-md-2 text-center">{{cardlist.card_giveout_target}}</td>
+	       <td class="col-md-1 text-center">{{cardlist.card_giveout_target}}</td>
 	     </tr>
 	    </tbody>
 	    </table>

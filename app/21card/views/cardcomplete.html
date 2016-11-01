@@ -3,13 +3,13 @@
 <div class="panel-heading text-center">更改制作状态</div>
 <div class="panel-body">
     <div class="form-group form-inline">  
-        <label for="inputLottry" class="col-xs-0 col-md-offset-1 control-label">号段</label>&nbsp;&nbsp;
+        <label for="inputLottry" class="col-xs-0 col-md-offset-1 control-label">号段:</label>&nbsp;&nbsp;
 	    <input type="text" class="form-control" placeholder="起始卡号"
 			disabled ng-model="card.scard" style="width:200px">
         &nbsp;&nbsp;<label class="">到</label>&nbsp;&nbsp;
 	    <input type="text" class="form-control" placeholder="结束卡号"
 			disabled ng-model="card.ecard" style="width:200px"> 
-	    <label for="inputLottry" class="col-xs-offset-3 control-label">数量</label>&nbsp;&nbsp;    
+	    <label for="inputLottry" class="col-xs-offset-3 control-label">数量:</label>&nbsp;&nbsp;    
 	    <p id="disabledInput" type="text" class="form-control mt10 text-center" id="inputLottry" placeholder="数量" disabled ng-model="cardinfo.sumcard" style="width:200px">{{card.ecard - card.scard + 1}} 
 	    </p> 
 	</div>       
