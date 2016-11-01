@@ -36,15 +36,31 @@ module.exports = function($scope, $state, cardbaselist, cardproductlist,searchca
          'code' : '11'
 	};
 	$scope.searchobj = {};
-
-	$scope.searchcard = function(startcard,endcard,cardmakestatus,cardbatch,cardgivetatus){
+    
+	$scope.search = function(startcard,endcard,cardmakestatus,cardbatch,cardgivetatus){
 		if ((startcard !== '' && endcard === '') || (startcard === '' && endcard !== '') ) { 
 			alert('卡号输入不完全');			
 		} else if (endcard < startcard) { 
 			alert('结束卡号不能小于起始卡号');
 		}else { 
-			$state.go('app.searchcard', {'startcard' : startcard, 'endcard':endcard, 'cardmakestatus':cardmakestatus, 'cardbatch': cardbatch, 'cardgivetatus':cardgivetatus});
-		   
+			$scope.searchform = { 
+    	'startcard' : startcard,
+    	'endcard' : endcard,
+    	'cardmakestatus' : cardmakestatus,
+    	'cardbatch' : cardbatch,
+    	'cardgivetatus' : cardgivetatus
+    };
+			//$state.go('app.searchcard', {'startcard' : startcard, 'endcard':endcard, 'cardmakestatus':cardmakestatus, 'cardbatch': cardbatch, 'cardgivetatus':cardgivetatus});
+		    searchcard.save($scope.searchform, function(res){
+			console.log($scope.searchform);
+			if(res.errcode !== 0)
+			{
+				alert(res.errmsg);
+				return;
+			}
+			$scope.objs = res.data;
+			console.log($scope.objs);
+	   })
 		}	
 	};
 };
