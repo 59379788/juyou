@@ -16,12 +16,14 @@ module.exports = function($scope, issuecard, takecardlist){
     console.log(obj);
     $scope.userinfo.mobile = obj.mobile;
     $scope.userinfo.name = obj.name;
+    $scope.userinfo.id = obj.id;
   };
 
 
 
 
   $scope.userinfo = {
+  	   'id' : '',
   	   'type' : '1',
        'name' : '',	
        'mobile' : '',

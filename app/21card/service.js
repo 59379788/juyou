@@ -28,7 +28,7 @@ var service = function($resource, BASEURL38985){
     // 卡池中卡的数量
     var cardinpool = BASEURL38985 + '/api/as/uc/cardpoolinfodao/getallhavegavebypool';
     // 卡池中卡列表
-    var listinpool = BASEURL38985 + '/api/as/uc/cardpoolinfodao/findcardbynumslist';
+    var listinpool = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/getcardlist';
     // 可添加到卡池的卡
     var unusedcard = BASEURL38985 + '/api/ac/uc/cardBaseService/getbacecardcanuse';
     // 能释放的卡
@@ -115,7 +115,7 @@ var service = function($resource, BASEURL38985){
     // 保存拿卡人信息
     var savetakecarduser = BASEURL38985 + '/api/as/uc/cardgiveouttargetdao/save';
     // 删除拿卡人信息
-    var deletetakecarduser = BASEURL38985 + '/api/as/uc/cardgiveouttargetdao/del';
+    var deletetakecarduser = BASEURL38985 + '/api/ac/uc/cardreleaseservice/deluser';
     //----- 拿卡人管理 -----------------------//
 
     return {

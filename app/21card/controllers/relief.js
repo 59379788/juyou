@@ -1,27 +1,26 @@
-module.exports = function($scope, $state, $stateParams, releasecard, canrelease){
-    var poolcode = $stateParams.poolcode;
-    console.log(poolcode);
+module.exports = function($scope, $state, $stateParams,  $uibModalInstance,poolcode, releasecard, canrelease){
     $scope.canreleasecard = function(){ 
     	canrelease.save({'pool_code' : poolcode}, function(res){ 
     		if (res.errcode !== 0) { 
     			alert(res.errmsg);
     		} else { 
     			$scope.releasecardinfo = res.data;
-    			//console.log(res);
+    			console.log($scope.releasecardinfo);
     		}
     	});
     };
     $scope.canreleasecard();
-
+    
     $scope.cardinfo = { 
         'status' : '',
         'cardnum' : '',
         'startnum' : '',
         'endnum' : ''
     };
-	$scope.resivecard = function(){
-   		console.log($scope.cardinfo.status);
-		var array = [];
+
+    $scope.ok = function () {
+        //console.log($scope.obj);
+        var array = [];
 		var cardparem = {'pool_code' : poolcode,'status':$scope.cardinfo.status};
         if ($scope.cardinfo.status === '1') {
         	array.push(cardparem);
@@ -58,9 +57,15 @@ module.exports = function($scope, $state, $stateParams, releasecard, canrelease)
                     alert(res.errmsg);
 			    } else {
 			    	alert('释放成功');
-                    $state.go('app.cardpool');
+			    	$uibModalInstance.close();
+                   // $state.go('app.cardpool');
 			    }
      	});                
-	};
+	};  
+    
+
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
 
 };

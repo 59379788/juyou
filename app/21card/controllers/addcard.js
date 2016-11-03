@@ -1,5 +1,34 @@
-module.exports = function($scope, $state, $stateParams, addcard, unusedcard){
-    var poolcode = $stateParams.poolcode;
+module.exports = function($scope, $state, $stateParams, $uibModalInstance,addcard,poolcode,unusedcard,ITEMS_PERPAGE){
+    console.log(poolcode);
+    $scope.cardinfo = {
+    	'type' : '',
+    	'cardnum' : '',
+    	'startnum' : '',
+    	'endnum' : ''
+    };
+    /* 分页
+     * ========================================= */
+    $scope.maxSize = 5;            //最多显示多少个按钮
+    $scope.bigCurrentPage = 1;      //当前页码
+    $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+    $scope.getunusedcard = function(){ 
+    	var para = {
+            pageNo:$scope.bigCurrentPage, 
+            pageSize:$scope.itemsPerPage
+        };
+        //para = angular.extend($scope.searchform, para);
+        unusedcard.save(para, function(res){ 
+        	console.log(para);
+    	    if (res.errcode !== 0) { 
+    		    alert(res.errmsg);
+    	    } else { 
+    		    $scope.cardinfos = res.data;
+    		    console.log(res);
+    	    }
+        });
+    };
+    $scope.getunusedcard();
+
     $scope.cardinfo = {
     	'type' : '',
     	'cardnum' : '',
@@ -7,18 +36,8 @@ module.exports = function($scope, $state, $stateParams, addcard, unusedcard){
     	'endnum' : ''
     };
 
-    $scope.getunusedcard = function(){ 
-        unusedcard.save({}, function(res){ 
-    	    if (res.errcode !== 0) { 
-    		    alert(res.errmsg);
-    	    } else { 
-    		    $scope.cardinfos = res.data;
-    	    }
-        });
-    };
-    $scope.getunusedcard();
-
-	$scope.addcardbtn = function(){
+    $scope.ok = function () {
+        console.log($scope.obj);
         var array = [];
 		// 声明一个要传的参数变量
 		var cardparem = {'pool_code' : poolcode,'type':$scope.cardinfo.type};
@@ -55,11 +74,14 @@ module.exports = function($scope, $state, $stateParams, addcard, unusedcard){
                     alert(res.errmsg);
 			    } else {
 			    	alert('添加卡成功');
-			    	$state.go('app.cardpool');
+			    	$uibModalInstance.close();
+			    	//$state.go('app.cardpool');
 			    }
 			    
      	});  
-	    	
-	};
+    };
 
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
 };

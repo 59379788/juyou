@@ -1,12 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title">添加卡</h4>
+</div>
 <div class="col-xs-12" >
-<div class="panel panel-default">
-<div class="panel-heading text-center">添加卡</div>
+<div class="panel panel-default mt10">
 <div class="panel-body">
-    <div class="form-group form-inline">
-		<label class="col-xs-0 col-md-offset-1 radio-inline" vertical-align="middle">
+<div class="form-group form-inline">
+    <div class="row">
+		<label class="col-md-offset-1 radio-inline" vertical-align="middle">
         <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="cardinfo.type">单张</label>&nbsp;&nbsp;
 		<input type="text" class="form-control" placeholder="卡号"
 			ng-model="cardinfo.cardnum" style="width:200px">
+    </div>
+	<div class="row mt10">
 		<label class="col-md-offset-1 radio-inline ">
              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1" ng-model="cardinfo.type">卡段</label>&nbsp;&nbsp;
 		<input type="text" class="form-control" placeholder="起始卡号"
@@ -14,20 +19,10 @@
 		&nbsp;&nbsp;<label>到</label>&nbsp;&nbsp;
 		<input type="text" class="form-control" placeholder="结束卡号"
 			ng-model="cardinfo.endnum" style="width:200px">
-        <button type="button" class="btn btn-info col-xs-offset-1" ng-click="addcardbtn()" style="width:100px;">添加卡<button> 
-    </div>
-</div>
-</div>
-</div>
-</div>
+	</div>
 
-
-
-
-
-
-     <div class="col-sm-5">
-     <table class="table table-bordered panel panel-default table-responsive">
+    <div class="col-sm-12 row mt10 text-center" style="width:570px">
+        <table class="table table-bordered panel panel-default table-responsive">
 	    <thead>
 	      <tr>
 	        <th class="col-md-1 text-center">操作</th>
@@ -45,7 +40,45 @@
 	       <td class="col-md-2 text-center">{{cardinfo.maxcard}}</td>
 	     </tr>
 	    </tbody>
-	 </table>
-	 </div>
+	    </table>
+	</div>
+    <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="search()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div> 
+
+</div>
+</div>
+</div>
+</div> 
+</div>
+</div>
 
 
+
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">添加卡</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+</div>
+
+
+
+
+
+
+     

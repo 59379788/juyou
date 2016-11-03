@@ -11,6 +11,18 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
             cardpoollist : function(cardservice){
                  return cardservice.cardpoollist();
+            },
+            addcard : function(cardservice){
+                 return cardservice.addcard();
+            },
+            unusedcard : function(cardservice){
+                 return cardservice.unusedcard();
+            },
+            releasecard : function(cardservice){
+                 return cardservice.releasecard();
+            },
+            canrelease : function(cardservice){
+                 return cardservice.canrelease();
             }
          }
        })
