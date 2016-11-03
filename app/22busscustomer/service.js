@@ -17,8 +17,10 @@ var service = function($resource, BASEURL38985, SYS){
    var insertnops = BASEURL38985 + '/api/as/tc/tktdealerapplydao/save';
    // 供应商列表
    var supplierlist = BASEURL38985 + '/api/as/tc/sksupplierapplydao/findSupplierApplyList';
-   // 供应商申请确认
+   // 二级供应商申请确认
    var saveconfirm = BASEURL38985 + '/api/as/tc/sksupplierapplydao/saveConfirm';
+   // 一级供应商申请（获取权限）
+   var confirmauthority = BASEURL38985 + '/api/ac/sc/sysSign/updatesysSign';
     return {
         customerlist : function(){
              return $resource(customerlist, {}, {});
@@ -49,6 +51,9 @@ var service = function($resource, BASEURL38985, SYS){
         },
         saveconfirm : function(){
              return $resource(saveconfirm, {}, {});
+        },
+        confirmauthority : function(){
+             return $resource(confirmauthority, {}, {});
         }
     }
 };

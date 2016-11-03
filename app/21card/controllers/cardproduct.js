@@ -18,10 +18,8 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 		'product_code' : '',
 		'sub_table_code' : 'pool',
 		'sub_table_used_type' : 0,
-		'sub_table_data_type' : 0,
-		'rebate_type' : '0',
-		'rebate_start' : '',
-		'rebate_end' : ''
+		'sub_table_data_type' : 0
+		
 	};
 
 	$scope.cardpoolobj = {
@@ -89,6 +87,8 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 			'remarks' : ''
 		};
 
+		 _getcardpoollist();
+		//_getResourcesInfo($scope.obj.code);
 		
     }
     else  // 
@@ -99,7 +99,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 
     	// _getcardproduct_cardpoollist();
 
-    	// _getcardpoollist();
+    	 //_getcardpoollist();
 
 
 
@@ -107,6 +107,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
     }
 
 	
+    var productcode = '';
     //卡产品信息提交
 	$scope.gogo = function(){
             if ($scope.obj.name === '' || $scope.obj.card_type === '' || $scope.obj.remarks ==='' ||$scope.obj.market_price===null ||$scope.obj.guide_price===null) { 
@@ -123,7 +124,9 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 				
 			} else { 
 				alert('保存成功');
-				   }
+				_getResourcesInfo(res.data.code);
+
+		    }
 			   
 
 			if(id === '') 
@@ -133,11 +136,10 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 			}
 			$state.go('app.cardproduct', {'code' : id});
 
-		    });
-        	
-        
-            
+		    });          
 	}
+	
+	
 
 	//卡产品资源添加
 	$scope.resourcesok = function(){
@@ -289,9 +291,11 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 
 	}
 
+    // 获取资源列表
 	function _getResourcesInfo(code) {
-		cardresources.save({'product_code' : code}, function(res){
-
+		//console.log($scope.saveproduct);
+		cardresources.save({'product_code' :code}, function(res){
+            console.log({'product_code' : code});
     		console.log(res);
 
     		if(res.errcode !== 0)
@@ -329,9 +333,9 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 	}
 
 	function _getcardpoollist(){
-		cardpoollist.save({}, function(res){
+		cardpoollist.save({'pageNo':1,'pageSize':100}, function(res){
 
-    		//console.log(res);
+    		console.log({'pageNo':1,'pageSize':100});
 
     		if(res.errcode !== 0)
     		{
@@ -339,7 +343,8 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
     			return;
     		}
 
-    		$scope.cardpoolarr = res.data;
+    		$scope.cardpoolarr = res.data.results;
+    		
     		console.log($scope.cardpoolarr);
     		
     	});

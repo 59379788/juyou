@@ -24,7 +24,8 @@ module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, go
 				alert(res.errmsg);
 				return;
 			}
-			$scope.objs = res.data;
+			$scope.objs = res.data.results;
+			$scope.bigTotalItems = res.data.totalRecord;
 			console.log(res);
 			//$scope.productinfo = res.data[0].code;
 			//console.log($scope.productinfo);

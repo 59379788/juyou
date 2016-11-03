@@ -49,7 +49,8 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool, staten
 			    if (res.errcode !== 0) {
                     alert(res.errmsg);
 			    } else {
-			    	$scope.cardinfos = res.data;
+			    	$scope.cardinfos = res.data.results;
+			    	$scope.bigTotalItems = res.data.totalRecord;
 			    	console.log(res);
 			    	return;
 			    }
@@ -88,8 +89,9 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool, staten
 			    if (res.errcode !== 0) {
                    alert(res.errmsg);   
 			    } else {
-			    	$scope.cardlists = res.data;
-			    	console.log($scope.cardlists);
+			    	$scope.cardlists = res.data.results;
+			    	$scope.bigTotalItems = res.data.totalRecord;
+			    	console.log(res);
 			    }
      	    }); 
      	}       

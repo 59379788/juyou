@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams,customerlist,review, $uibModal,role,create,message,userinfo,insertnops,failed){
+module.exports = function($scope, $stateParams,customerlist,review, $uibModal,role,create,message,userinfo,insertnops,failed,confirmauthority){
     // 获取用户信息
     userinfo.save({}, function(res){ 
     	console.log(res);
@@ -28,9 +28,6 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
 		//console.log(id);
         //利用对话框返回的值 （true 或者 false）  
         if (confirm("你确定要通过吗?")) {
-            if (ticket_id === $scope.loginuser.company_code) { 
-                alert('通过');
-            } else {
                 review.save({'id' : id}, function(res){ 
 	                if (res.errcode !== 0) { 
     		            alert(res.errmsg);
@@ -40,7 +37,7 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
                         $scope.getlist();     
     	            }
 	            });
-            }
+            
         } else {  
             console.log("点击了取消");  
         }  	
@@ -60,6 +57,18 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
 	  	 console.log("点击了取消");
 	  }
       
+	};
+
+	// 分配权限
+	$scope.assignauthority = function(){
+	    confirmauthority.save({'appid' : 'shangke'},function(res){
+	        if (res.errcode !== 0) { 
+	        	alert(res.errmsg);
+	        	return;
+	        } 
+	        alert('恭喜你，获取到权限！');
+	        $scope.getlist();
+	    }); 
 	};
 
 	// 创建账号

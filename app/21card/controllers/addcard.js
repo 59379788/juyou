@@ -22,7 +22,8 @@ module.exports = function($scope, $state, $stateParams, $uibModalInstance,addcar
     	    if (res.errcode !== 0) { 
     		    alert(res.errmsg);
     	    } else { 
-    		    $scope.cardinfos = res.data;
+    		    $scope.cardinfos = res.data.results;
+    		    $scope.bigTotalItems = res.data.totalRecord;
     		    console.log(res);
     	    }
         });

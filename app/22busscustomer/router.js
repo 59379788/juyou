@@ -1,7 +1,7 @@
 var router = function($urlRouterProvider, $stateProvider){
 
  	$stateProvider
-       // 卡池列表
+       // 申请列表
  	   .state('app.skacountlist', {
          url: '/skacountlist',
          controller : 'skacountlist',
@@ -31,8 +31,10 @@ var router = function($urlRouterProvider, $stateProvider){
           },
           failed : function(busscustomerservice){
                  return busscustomerservice.failed();
+          },
+          confirmauthority : function(busscustomerservice){
+                 return busscustomerservice.confirmauthority();
           }
-
        
          }
        })

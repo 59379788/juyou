@@ -1,11 +1,27 @@
-module.exports = function($scope, $state, $stateParams,  $uibModalInstance,poolcode, releasecard, canrelease){
+module.exports = function($scope, $state, $stateParams,  $uibModalInstance,poolcode, releasecard, canrelease,ITEMS_PERPAGE){
+    $scope.poolcodeinfo = { 
+    	'pool_code' : poolcode
+    };
+    /* 分页
+     * ========================================= */
+    $scope.maxSize = 5;            //最多显示多少个按钮
+    $scope.bigCurrentPage = 1;      //当前页码
+    $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+
     $scope.canreleasecard = function(){ 
-    	canrelease.save({'pool_code' : poolcode}, function(res){ 
+    	var para = {
+            pageNo:$scope.bigCurrentPage, 
+            pageSize:$scope.itemsPerPage
+        };
+        para = angular.extend($scope.poolcodeinfo, para);
+    	canrelease.save(para, function(res){
+    	    console.log(para); 
     		if (res.errcode !== 0) { 
     			alert(res.errmsg);
     		} else { 
-    			$scope.releasecardinfo = res.data;
-    			console.log($scope.releasecardinfo);
+    			$scope.releasecardinfo = res.data.results;
+    			 $scope.bigTotalItems = res.data.totalRecord;
+    			console.log(res);
     		}
     	});
     };
