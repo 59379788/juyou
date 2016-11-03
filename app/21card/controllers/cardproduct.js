@@ -7,13 +7,10 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 	var id = $stateParams.code;
 	console.log(id);
 	var state = $stateParams.editstate;
-	//console.log(id);
-	//console.log(state);
-
+	
 	$scope.code = '';
-
 	$scope.obj = {};
-
+	// 卡产品资源
 	$scope.resobj = {
 		'product_code' : '',
 		'sub_table_code' : 'pool',
@@ -21,15 +18,17 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 		'sub_table_data_type' : 0
 		
 	};
-
+    // 卡池
 	$scope.cardpoolobj = {
+		'pool_code' : '',//卡池编号
 		'pool_product_code' : ''
 	};
-
+    // 销售品
 	$scope.ticketobj = {
 		'ticket_product_code' : ''
-	}
+	};
 
+    
 	$scope.resources = [
 		// {
 		// 	//'title' : '卡池',
@@ -71,6 +70,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 	if(id === '')   //新建卡产品
     {
 		$scope.obj = {
+			'id' : '',
 			'name' : '',
 			'card_type' : '',
 			'market_price' : 0,
@@ -123,8 +123,15 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 				alert(res.errmsg);
 				
 			} else { 
-				alert('保存成功');
-				_getResourcesInfo(res.data.code);
+				alert('保存成功'); 
+				// 卡产品资源
+				$scope.resobj.product_code = res.data.code;
+				// 票销售品
+				//$scope.ticketobj.product_code = res.data.code;
+				$scope.ticketobj.ticket_product_code = res.data.code;
+				// 卡池
+				$scope.cardpoolobj.pool_product_code = res.data.code;
+				
 
 		    }
 			   
@@ -146,7 +153,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 
 		cardresourcesinsert.save($scope.resobj, function(res){
 
-			console.log(res);
+			console.log($scope.resobj);
 			if (res.errcode !== 0) {
 				alert(res.errmsg);
 				return;
@@ -184,7 +191,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 	$scope.cardpoolok = function(){
 
 		cardproductpoolinsert.save($scope.cardpoolobj, function(res){
-
+            console.log($scope.cardpoolobj);
 			console.log(res);
 			if (res.errcode !== 0) {
 				alert(res.errmsg);
@@ -216,11 +223,11 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 	}
 
 
-
+    // 销售品添加
 	$scope.ticketok = function(code){
 
 		cardproductticketinsert.save($scope.ticketobj, function(res){
-
+            console.log($scope.ticketobj);
 			console.log(res);
 			if (res.errcode !== 0) {
 				alert(res.errmsg);
@@ -278,14 +285,15 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 			$scope.ticketobj.ticket_product_code = $scope.obj.code;
 
 	
-
+            // 获取卡资源列表
     		_getResourcesInfo($scope.obj.code);
-
+            // 获取卡产品绑定卡池列表
 	    	_getcardproduct_cardpoollist($scope.obj.code);
-
+            // 获取卡池列表
 	    	_getcardpoollist($scope.obj.code);
-
+            // 获取绑定的销售品编号
 	    	_getcardproduct_ticket($scope.obj.code);
+
 
     	});
 
@@ -331,7 +339,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
     	});
 
 	}
-
+    // 获取卡池列表
 	function _getcardpoollist(){
 		cardpoollist.save({'pageNo':1,'pageSize':100}, function(res){
 
@@ -350,14 +358,11 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
     	});
 	}
 
-
-
-
-	//获取卡产品下绑定的票列表
+	//获取卡产品下绑定的票销售品列表
 	function _getcardproduct_ticket(code){
 		cardproduct_ticketlist.save({'ticket_product_code' : code}, function(res){
-    		console.log(res);
-
+    		
+            
     		if(res.errcode !== 0)
     		{
     			alert(res.errmsg);

@@ -67,7 +67,7 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
 	        	return;
 	        } 
 	        alert('恭喜你，获取到权限！');
-	        $scope.getlist();
+	        //$scope.getlist();
 	    }); 
 	};
 
