@@ -58,12 +58,15 @@
         <td class="text-center">{{obj.state}}</td>
         <td class="text-center">{{obj.sms_state}}</td>
         <td class="text-center">
-           <a ng-show="obj.state=='未处理'" ng-click="pass(obj.id,obj.ticket_id)" class="btn btn-danger btn-xs">通过</a>
-           <a ng-show="obj.state=='未处理'" ng-click="refuse(obj.id)" class="btn btn-danger btn-xs">拒绝</a>
-           <a ng-show="obj.state=='已通过' && obj.sms_state =='未发送' && obj.ticket_id !=obj.ticket_company_code" ng-click="creataccount(obj.id,loginuser.company_id,loginuser.company_code,loginuser.office_id)" class="btn btn-success btn-xs">创建账号</a>
-           <a ng-show="obj.state=='已通过' && obj.ticket_id == obj.ticket_company_code" ng-click="assignauthority(obj.id,loginuser.company_id,loginuser.company_code,loginuser.office_id)" class="btn btn-success btn-xs">分配权限</a>
+           <a ng-show="obj.state=='未处理'&&obj.sms_state == '未发送'" ng-click="pass(obj.id,obj.ticket_id)" class="btn btn-danger btn-xs">通过</a>
+           <a ng-show="obj.state=='未处理'&&obj.sms_state == '未发送'" ng-click="refuse(obj.id)" class="btn btn-danger btn-xs">拒绝</a>
+           <a ng-show="obj.state=='已通过' && obj.sms_state =='未发送'&& obj.ticket_id==undefined" ng-click="creataccount(obj.id,loginuser.company_id,loginuser.company_code,loginuser.office_id)" class="btn btn-success btn-xs">创建账号</a>
 
-           <a ng-show="obj.sms_state=='已发送'" ng-click="sendmessage(obj.id,loginuser.company_id,loginuser.company_code,loginuser.office_id)" class="btn btn-info btn-xs">发送短信</a>
+           <a ng-show="obj.state=='已通过' && obj.ticket_id && obj.ticket_id === obj.ticket_company_code" ng-click="assignauthority(obj.id,loginuser.company_id,loginuser.company_code,loginuser.office_id)" class="btn btn-success btn-xs">分配权限</a>
+
+           
+           <a ng-show="obj.state=='已通过' && obj.sms_state == '已发送'" ng-click="sendmessage(obj.id,loginuser.company_id,loginuser.company_code,loginuser.office_id)" class="btn btn-info btn-xs">发送短信</a>
+
         </td>
 
       </tr>
