@@ -118,25 +118,22 @@
 	    </tbody>
 	    </table>
 
-	    <div class="text-right">
-
+	<div class="text-right">
     <uib-pagination 
-      total-items="bigTotalItems" 
-      ng-model="bigCurrentPage" 
-      max-size="maxSize" 
+      total-items="nbigTotalItems" 
+      ng-model="nbigCurrentPage" 
+      max-size="nmaxSize" 
       class="pagination-sm" 
       boundary-links="true" 
       ng-change="search()"
-      items-per-page="itemsPerPage"
+      items-per-page="nitemsPerPage"
       previous-text="上一页"
       next-text="下一页"
       first-text="首页"
       last-text="末页"
       rotate="false">
     </uib-pagination>
-
-  </div>
+    </div>
     </div>
 
 </div>
-
