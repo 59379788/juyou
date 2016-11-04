@@ -376,7 +376,9 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 
 	}
 
-
+    $scope.submit = function(){ 
+    	$state.go('app.cardproductlist');
+    };
 
 
     

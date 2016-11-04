@@ -423,7 +423,19 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
            cardproductinfo : function(cardservice){
                  return cardservice.cardproductinfo();
+           },
+           cardresources : function(cardservice){
+                 return cardservice.cardresources();
+           },
+           cardproduct_cardpoollist : function(cardservice){
+                 return cardservice.cardproduct_cardpoollist();
+           },
+           cardproduct_ticketlist : function(cardservice){
+                 return cardservice.cardproduct_ticketlist();
            }
+           
+
+           
 
          }
        })
