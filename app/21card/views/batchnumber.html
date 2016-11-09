@@ -32,6 +32,8 @@
         <input type="text" class="form-control" id="inputLottry" placeholder="起始卡号" ng-model="cardinfo.startcard" style="width:250px">
         &nbsp;&nbsp;<label>到</label>&nbsp;&nbsp;
         <input type="text" class="form-control" id="inputLottry" placeholder="结束卡号"ng-model="cardinfo.endcard" style="width:250px">
+        <label class="col-md-0 col-md-offset-1 radio-inline ">
+        <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="cardinfo.cardstatu">全部</label>
         <button type="button" class="btn btn-info search pull-right" ng-click="setbatch()">确定设置</button>
     </div>
 </div>

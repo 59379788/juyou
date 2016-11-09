@@ -34,6 +34,7 @@ module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, go
 	$scope.search();
 
 	$scope.create = function(){
+		
 		$state.go('app.cardproduct');
 
 	};
@@ -49,11 +50,9 @@ module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, go
 
     
     // 上架
-	$scope.start = function(code){
-       
-        alert(code);
-        
-        onsale.save({'code':code}, function(res){
+	$scope.start = function(code){ 
+		if (confirm("你确定要上架吗?")) {
+			onsale.save({'code':code}, function(res){
 			console.log(res);
 			    if (res.errcode !== 0) {
                    alert(res.errmsg);
@@ -63,7 +62,11 @@ module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, go
 			    	$scope.search();
 			    	return;
 			    }
-     	});        
+     	});
+	    } else { 
+
+	    }
+                
 	};
     // 下架
 	$scope.stop = function(code){

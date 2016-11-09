@@ -5,12 +5,10 @@
             <div class="col-sm-12 row">
                   <input type="text" class="form-control" ng-model="searchform.name" placeholder="卡产品名称" style="width:250px">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-
-
-                  <button type="button" class="btn btn-success col-md-offset-7" ng-click="create()">创建卡产品</button>
-                  <button type="button" class="btn btn-primary search pull-right" ng-click="search()" style="width:100px">立即搜索</button>
-
-
+                  <div class="form-group pull-right">
+                      <button type="button" class="btn btn-success" ng-click="create()">创建卡产品</button>
+                      <button type="button" class="btn btn-primary" ng-click="search()">立即搜索</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                  </div>
             </div>
         </div>
     </div>

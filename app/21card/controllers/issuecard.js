@@ -1,26 +1,24 @@
-module.exports = function($scope, issuecard, takecardlist){
+module.exports = function($scope, issuecard, takecardlists,takecardlist){
   
    $scope.takecarduserlist = function(){ 
-    takecardlist.save({}, function(res){ 
-    	console.log(res);
+    takecardlists.save({}, function(res){ 
     	if (res.errcode !== 0) { 
-    		alert(errmsg);
+    		alert(res.errmsg);
     		return;
     	}
       	$scope.objs = res.data;
-      	$scope.cardinfo = res.data[0];
+        console.log(res);
+      	//$scope.cardinfo = res.data[0];
     });
   };
   $scope.takecarduserlist(); 
+
   $scope.selection = function(obj){ 
     console.log(obj);
     $scope.userinfo.mobile = obj.mobile;
     $scope.userinfo.name = obj.name;
     $scope.userinfo.id = obj.id;
   };
-
-
-
 
   $scope.userinfo = {
   	   'id' : '',

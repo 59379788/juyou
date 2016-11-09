@@ -6,7 +6,7 @@ module.exports = function($scope, $state, $stateParams,  $uibModalInstance,poolc
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
     $scope.bigCurrentPage = 1;      //当前页码
-    $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+    $scope.itemsPerPage = 5;         //每页显示几条
 
     $scope.canreleasecard = function(){ 
     	var para = {

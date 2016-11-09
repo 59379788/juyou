@@ -1,8 +1,13 @@
 module.exports = function($scope, $state, $stateParams, cardproduct, cardproductinfo,
-	dictbytypelist, cardresources, cardresourcesinsert, cardresourcesdel, cardpoollist,
+	dictbytypelist, cardresources, cardresourcesinsert, cardresourcesdel, cardpoollists,
 	cardproductpoolinsert, cardproductpooldel, cardproduct_cardpoollist,
-	cardproduct_ticketlist, cardproductticketinsert, cardproductticketdel
+	cardproduct_ticketlist, cardproductticketinsert, cardproductticketdel,cardpoollist
 	){
+
+	$scope.selection = function (obj) {
+       //code.log(obj);
+
+	}
 
 	var id = $stateParams.code;
 	console.log(id);
@@ -22,6 +27,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 	$scope.cardpoolobj = {
 		'pool_code' : '',//卡池编号
 		'pool_product_code' : ''
+		
 	};
     // 销售品
 	$scope.ticketobj = {
@@ -138,7 +144,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 
 			if(id === '') 
 			{
-				id = res.data.uuid;
+				//id = res.data.uuid;
 				console.log(id);
 			}
 			$state.go('app.cardproduct', {'code' : id});
@@ -185,7 +191,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 			
 		});
 	}
-    // 获取卡池
+   
 
     //添加卡池
 	$scope.cardpoolok = function(){
@@ -341,9 +347,9 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 	}
     // 获取卡池列表
 	function _getcardpoollist(){
-		cardpoollist.save({'pageNo':1,'pageSize':100}, function(res){
-
-    		console.log({'pageNo':1,'pageSize':100});
+		cardpoollists.save({}, function(res){
+        //alert('获取卡池');
+    		
 
     		if(res.errcode !== 0)
     		{
@@ -351,9 +357,9 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
     			return;
     		}
 
-    		$scope.cardpoolarr = res.data.results;
+    		$scope.cardpoolarr = res.data;
     		
-    		console.log($scope.cardpoolarr);
+    		console.log(res);
     		
     	});
 	}

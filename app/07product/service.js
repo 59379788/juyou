@@ -186,9 +186,24 @@ var service = function($resource, BASEURL38985, $q, $http){
 
     //设置分销价格
     var saveprice = BASEURL38985 + '/api/as/tc/salecompanyprice/save';
+    // 设置奖励政策
+    var rewardprice = BASEURL38985 + '/api/as/tc/skrewardpricedao/saveRewardPrice';
+    // 获取奖励列表
+    var rewardlist = BASEURL38985 + '/api/as/tc/skrewardpricedao/findList';
+    //删除列表
+    var rewardlistdel = BASEURL38985 + '/api/as/tc/skrewardpricedao/delete';
 
 
     return {
+        rewardprice : function(){
+            return $resource(rewardprice, {}, {});
+        },
+        rewardlist : function(){
+            return $resource(rewardlist, {}, {});
+        },
+        rewardlistdel : function(){
+            return $resource(rewardlistdel, {}, {});
+        },
 
     	tktcreate : function(){
             return $resource(tktcreate, {}, {});

@@ -70,23 +70,22 @@ module.exports = function($scope, $state, $stateParams, savetakecarduser, takeca
   //$scope.takecarduserlist(); 
 
   $scope.delete = function(id){ 
-  	
-  	
   	console.log(id);
-
-  	
-  		deletetakecarduser.save({'id':id}, function(res){ 
-  		
-  			if (res.errcode !== 0) {
+  	  if (confirm("你确定要删除吗?")) {
+          deletetakecarduser.save({'id':id}, function(res){ 
+          if (res.errcode !== 0) {
                    alert(res.errmsg);
                    return;
-			    } else {
-			    	alert('删除成功');
+          } else {
+            alert('删除成功');
                      $scope.takecarduserlist();
-			    	
-			    }
-			     
-  		});
+            
+          }
+           
+      });
+      } else { 
+      }
+  		
   	
   };
   	

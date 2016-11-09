@@ -53,6 +53,8 @@ var service = function($resource, BASEURL38985){
  
     // 记录拿卡人信息
     var issuecard = BASEURL38985 + '/api/ac/uc/cardreleaseservice/save';
+    // 获取拿卡人姓名
+    var takecardlists = BASEURL38985 + '/api/as/uc/cardgiveouttargetdao/finduserslist';
     
 
     //----- 卡产品 -----------------------//
@@ -70,6 +72,8 @@ var service = function($resource, BASEURL38985){
     var cardresourcesdel = BASEURL38985 + '/api/as/uc/cardproductsubtable/delete';
     //卡产品绑定的卡池列表
     var cardproduct_cardpoollist = BASEURL38985 + '/api/as/uc/cardproductsubpool/poolInfoList';
+    // 卡池列表
+    var cardpoollists = BASEURL38985 + '/api/as/uc/cardpooldao/findpoolslist';
     //添加卡池
     var cardproductpoolinsert = BASEURL38985 + '/api/as/uc/cardproductsubpool/insert';
     //删除卡池
@@ -147,6 +151,9 @@ var service = function($resource, BASEURL38985){
         cardproductlist : function(){
              return $resource(cardproductlist, {}, {});
         },
+        cardpoollists : function(){
+             return $resource(cardpoollists, {}, {});
+        },
         cardproduct : function(){
              return $resource(cardproduct, {}, {});
         },
@@ -222,7 +229,7 @@ var service = function($resource, BASEURL38985){
         	state:[
     			{name : "未使用" , code : '0' },
     			{name : "锁定" , code : '1' },
-    			{name : "已生效" , code : '2' },
+    			{name : "已使用" , code : '2' },
     			{name : "已失效" , code : '3' },
     			{name : "已释放" , code : '4' },
     			{name : "全部" , code : '' },
@@ -252,6 +259,9 @@ var service = function($resource, BASEURL38985){
         },
         takecardlist : function(){
              return $resource(takecardlist, {}, {});
+        },
+        takecardlists : function(){
+             return $resource(takecardlists, {}, {});
         },
         savetakecarduser : function(){
              return $resource(savetakecarduser, {}, {});

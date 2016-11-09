@@ -10,7 +10,7 @@ module.exports = function($scope, $state, $stateParams, $uibModalInstance,addcar
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
     $scope.bigCurrentPage = 1;      //当前页码
-    $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+    $scope.itemsPerPage = 5;         //每页显示几条
     $scope.getunusedcard = function(){ 
     	var para = {
             pageNo:$scope.bigCurrentPage, 

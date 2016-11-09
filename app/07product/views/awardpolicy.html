@@ -1,0 +1,62 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                  <input type="text" class="form-control" ng-model="rewardinfo.start_num" placeholder="起始数量">
+                  &nbsp;&nbsp;
+                  <label class="">--</label>
+                  &nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="rewardinfo.end_num" placeholder="结束数量">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="rewardinfo.each_reward_price" placeholder="金额">
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="savereward()">设置</button>
+
+
+            </div>
+        </div>
+    </div>
+</div> <!-- saveArea -->
+
+<div class="panel panel-default">
+<div class="panel-heading">奖励方式列表</div>
+<div class="panel-body">
+<div class="container-fluid form-horizontal ">
+<div class="col-xs-10 col-xs-offset-1 form-horizontal" >
+    <div class="panel panel-default col-xs-8 col-xs-offset-2">
+		<table class="table">
+        <tbody>
+          <tr ng-repeat="obj in listobj">
+            <td>{{obj.start_num}}</td>
+            <td>{{obj.end_num}}</td>
+            <td>{{obj.each_reward_price}}</td>
+            <td>
+	           	<a ng-click="rewardlistdel(obj.id)" class="btn pull-right" style="color: red; padding:0px;" >
+	        	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+	      		</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+	</div>
+</div>
+</div>
+</div>
+</div>
+
+    <div class="text-right">
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="search()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+    </div> 

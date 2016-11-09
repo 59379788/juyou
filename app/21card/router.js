@@ -108,6 +108,9 @@ var router = function($urlRouterProvider, $stateProvider){
             takecardlist : function(cardservice){
                  return cardservice.takecardlist();
             },
+            takecardlists : function(cardservice){
+                 return cardservice.takecardlists();
+            }
 
              
             
@@ -219,6 +222,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             cardresourcesdel : function(cardservice){
                 return cardservice.cardresourcesdel();
+            },
+            cardpoollists : function(cardservice){
+                return cardservice.cardpoollists();
             },
             cardpoollist : function(cardservice){
                 return cardservice.cardpoollist();

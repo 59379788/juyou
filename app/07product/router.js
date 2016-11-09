@@ -524,6 +524,32 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+    .state('app.awardpolicy', {
+        url: '/awardpolicy',
+        controller : 'awardpolicy',
+        template: require('./views/awardpolicy.html'),
+        resolve:{
+            rewardprice : function(productservice){
+                return productservice.rewardprice();
+            },
+            rewardlist : function(productservice){
+                return productservice.rewardlist();
+            },
+            rewardlistdel : function(productservice){
+                return productservice.rewardlistdel();
+            }  
+        }
+      })
+
+    .state('app.middlebusiness', {
+        url: '/middlebusiness',
+        controller : 'middlebusiness',
+        template: require('./views/middlebusiness.html'),
+        resolve:{
+            
+        }
+      })
+
 
 };
 
