@@ -124,7 +124,9 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
                     }
                 }
             });
+            console.log('66666666666');
             console.log(res);
+            console.log('66666666666');
 
             //var companys = [];
             angular.forEach(res, function (value, key) {
@@ -132,6 +134,9 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
                 $scope.companys = value.company;
 
                 angular.forEach(value, function (tainfo, taid) {
+
+                    console.log(taid);
+                    if(taid == 'company') continue;
 
                     var flag = true;//卖票子社标记
                     //遍历已经卖票的一级社
