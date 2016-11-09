@@ -130,16 +130,59 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
             angular.forEach(res, function (value, key) {
 
                 $scope.companys = value.company;
-                for(var i = 0; i < $scope.companys.length; i++)
-                {
-                    var c = $scope.companys[i];
-                    var id = c.id;
-                    if(value.hasOwnProperty(id))
+
+                angular.forEach(value, function (tainfo, taid) {
+
+                    var flag = true;//卖票子社标记
+                    //遍历已经卖票的一级社
+                    for(var i = 0; i < $scope.companys.length; i++)
                     {
-                        c['sub'] = {};
-                        c['sub'] = value[id];
+                        //一级社
+                        var c = $scope.companys[i];
+                        //一级社id
+                        var id = c.id;
+
+                        //将已经卖票的一级社子社追加到一级社里
+                        if(id == taid)
+                        {
+                            c['sub'] = {};
+                            c['sub'] = tainfo;
+                            flag = false;
+                            break;
+                        }
                     }
-                }
+
+                    if(flag)
+                    {
+                        var obj = {
+                            'id' : taid,
+                            'company_name' : 'hahaha',
+                            'sub' : tainfo
+                        };
+                        $scope.companys.push(obj);
+                        flag = true;
+                    }
+
+                });
+
+                // for(var i = 0; i < $scope.companys.length; i++)
+                // {
+                //     //一级社
+                //     var c = $scope.companys[i];
+                //     //一级社id
+                //     var id = c.id;
+                //     //一级社子社卖票了
+                //     if(value.hasOwnProperty(id))
+                //     {
+                //         c['sub'] = {};
+                //         c['sub'] = value[id];
+                //     }
+                //     //一级社没卖票
+                //     else
+                //     {
+
+                //     }
+                // }
 
             });
             console.log($scope.companys);
