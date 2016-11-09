@@ -1,5 +1,8 @@
 module.exports = function($scope, issuecard, takecardlists,takecardlist){
   
+   $scope.nameobj = {
+       'name': '' 
+   };
    $scope.takecarduserlist = function(){ 
     takecardlists.save({}, function(res){ 
     	if (res.errcode !== 0) { 
@@ -7,19 +10,29 @@ module.exports = function($scope, issuecard, takecardlists,takecardlist){
     		return;
     	}
       	$scope.objs = res.data;
+        $scope.nameobj.name = res.data[0].name; 
         console.log(res);
-      	//$scope.cardinfo = res.data[0];
+
+      	
     });
   };
   $scope.takecarduserlist(); 
 
   $scope.selection = function(obj){ 
     console.log(obj);
-    $scope.userinfo.mobile = obj.mobile;
-    $scope.userinfo.name = obj.name;
-    $scope.userinfo.id = obj.id;
+        if (obj === null) { 
+          //console.log(obj);
+          $scope.userinfo.name = '';
+          $scope.userinfo.mobile = '';
+        } else {
+    
+        $scope.userinfo.mobile = obj.mobile;
+        $scope.userinfo.name = obj.name;
+        $scope.userinfo.id = obj.id;
+        }
+    
   };
-
+  console.log($scope.nameobj.name);
   $scope.userinfo = {
   	   'id' : '',
   	   'type' : '1',
@@ -35,27 +48,27 @@ module.exports = function($scope, issuecard, takecardlists,takecardlist){
        'card_giveout_target' : ''
 
     };
-
+    
     $scope.searchinfo = [];
     //$scope.userinfo.cardnum = $scope.userinfo.end_card_no - $scope.userinfo.start_card_no;
 
    $scope.saveuserinfo = function(){
    	console.log($scope.userinfo.num);
 	$scope.userinfo.num = $scope.userinfo.end_card_no - $scope.userinfo.start_card_no + 1;
-	$scope.userinfo.all_price = $scope.userinfo.unit_price * $scope.userinfo.num;	
-		issuecard.save($scope.userinfo, function(res){
-
-			console.log($scope.userinfo.num);
-			console.log($scope.userinfo);
-			console.log(res);
-			    if (res.errcode !== 0) {
+	$scope.userinfo.all_price = $scope.userinfo.unit_price * $scope.userinfo.num;
+    if ($scope.userinfo.name === '') { 
+      alert('请选择拿卡人，拿卡人姓名不能为空！');
+    } else {
+		    issuecard.save($scope.userinfo, function(res){
+			      if (res.errcode !== 0) {
                    alert(res.errmsg);
                    return;
-			     } else {
+			      } else {
                    alert('记录成功');
                    return;
-                 }  
-     	});                
+            }  
+    }); 
+    }               
 	};
 
 };

@@ -5,7 +5,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 	){
 
 	$scope.selection = function (obj) {
-       //code.log(obj);
+       code.log(obj);
 
 	}
 
@@ -115,8 +115,9 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 	
     var productcode = '';
     //卡产品信息提交
+
 	$scope.gogo = function(){
-            if ($scope.obj.name === '' || $scope.obj.card_type === '' || $scope.obj.remarks ==='' ||$scope.obj.market_price===null ||$scope.obj.guide_price===null) { 
+            if ($scope.obj.name === '' || $scope.obj.card_type === '' || $scope.obj.remarks ==='' ||$scope.obj.market_price===null ||$scope.obj.guide_price===null || $scope.obj.name===null) { 
             	alert('信息填写不完全');
             	return;
             } 
@@ -130,6 +131,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 				
 			} else { 
 				alert('保存成功'); 
+		
 				// 卡产品资源
 				$scope.resobj.product_code = res.data.code;
 				// 票销售品
@@ -156,7 +158,9 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 
 	//卡产品资源添加
 	$scope.resourcesok = function(){
-
+        if ($scope.resobj.product_code === '') { 
+        	alert('没有创建卡产品，无法设置卡资源！');
+        } else {
 		cardresourcesinsert.save($scope.resobj, function(res){
 
 			console.log($scope.resobj);
@@ -168,6 +172,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 			$scope.resourcesflag[$scope.resobj.sub_table_code] = {};
 
 		});
+		}
 	}
 
 
@@ -195,7 +200,9 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 
     //添加卡池
 	$scope.cardpoolok = function(){
-
+        if ($scope.cardpoolobj.pool_code === '') { 
+        	alert('请选择卡池');
+        } else { 
 		cardproductpoolinsert.save($scope.cardpoolobj, function(res){
             console.log($scope.cardpoolobj);
 			console.log(res);
@@ -206,6 +213,8 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 			console.log($scope.cardpoolobj.pool_product_code);
 			_getcardproduct_cardpoollist($scope.cardpoolobj.pool_product_code);
 		});
+        } 
+
 
 	};
 
@@ -231,7 +240,10 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 
     // 销售品添加
 	$scope.ticketok = function(code){
-
+		if ($scope.ticketobj.ticket_code === '') {
+		    alert('销售品编号不能为空！'); 
+		} else {
+ 
 		cardproductticketinsert.save($scope.ticketobj, function(res){
             console.log($scope.ticketobj);
 			console.log(res);
@@ -241,6 +253,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 			}
 			_getcardproduct_ticket($scope.ticketobj.ticket_product_code);
 		});
+		}
 
 	};
 

@@ -22,6 +22,7 @@
 			<select class="form-control" ng-model="obj.card_type" 
               ng-options="cardtype.value as cardtype.label for cardtype in cardtypearr"
             >
+            <option value="">请选择</option>
             </select>
 		</div>
 	</div>
@@ -196,7 +197,7 @@
 <div class="col-xs-10 col-xs-offset-1 form-horizontal" >
 	
 	<div class="form-group">
-		<label class="col-xs-2 control-label">资源列表</label>
+		<label class="col-xs-2 control-label">资源列表 </label>
 		<div class="col-xs-2" >
 			<select class="form-control" ng-model="resobj.sub_table_code" 
               ng-options="subtable.value as subtable.label for subtable in subtablearr"
@@ -233,6 +234,7 @@
 		    </button>
 
         </div>
+
 
 	</div>
 
@@ -277,8 +279,8 @@
 		<label class="col-xs-2 control-label">选择卡池</label>
 		<div class="col-xs-8">
 			<select class="form-control" ng-model="cardpoolobj.pool_code" 
-              ng-options="cardpool.pool_code as cardpool.pool_name for cardpool in cardpoolarr">
-            <option value="">全部</option>
+              ng-options="cardpool.pool_code as cardpool.pool_name for cardpool in cardpoolarr" ng-change="selection()">
+            <option value="">请选择卡池</option>
             </select>
 		</div>
 		<div class="col-xs-2" >
