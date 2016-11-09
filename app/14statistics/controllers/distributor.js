@@ -135,39 +135,41 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
 
                 angular.forEach(value, function (tainfo, taid) {
 
-                    console.log(taid);
-                    if(taid == 'company') continue;
-
-                    var flag = true;//卖票子社标记
-                    //遍历已经卖票的一级社
-                    for(var i = 0; i < $scope.companys.length; i++)
+                    if(taid != 'company')
                     {
-                        //一级社
-                        var c = $scope.companys[i];
-                        //一级社id
-                        var id = c.id;
+                        console.log(taid);
 
-                        //将已经卖票的一级社子社追加到一级社里
-                        if(id == taid)
+                        var flag = true;//卖票子社标记
+                        //遍历已经卖票的一级社
+                        for(var i = 0; i < $scope.companys.length; i++)
                         {
-                            c['sub'] = {};
-                            c['sub'] = tainfo;
-                            flag = false;
-                            break;
+                            //一级社
+                            var c = $scope.companys[i];
+                            //一级社id
+                            var id = c.id;
+
+                            //将已经卖票的一级社子社追加到一级社里
+                            if(id == taid)
+                            {
+                                c['sub'] = {};
+                                c['sub'] = tainfo;
+                                flag = false;
+                                break;
+                            }
+                        }
+
+                        if(flag)
+                        {
+                            var obj = {
+                                'id' : taid,
+                                'company_name' : 'hahaha',
+                                'sub' : tainfo
+                            };
+                            $scope.companys.push(obj);
+                            flag = true;
                         }
                     }
-
-                    if(flag)
-                    {
-                        var obj = {
-                            'id' : taid,
-                            'company_name' : 'hahaha',
-                            'sub' : tainfo
-                        };
-                        $scope.companys.push(obj);
-                        flag = true;
-                    }
-
+                    
                 });
 
                 // for(var i = 0; i < $scope.companys.length; i++)
