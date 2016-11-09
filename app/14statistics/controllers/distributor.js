@@ -163,7 +163,8 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
                             var obj = {
                                 'id' : taid,
                                 'company_name' : 'hahaha',
-                                'sub' : tainfo
+                                'sub' : tainfo,
+                                'saleobjs' : {}
                             };
                             $scope.companys.push(obj);
                             flag = true;
