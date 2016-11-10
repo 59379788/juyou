@@ -150,6 +150,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             orderstatisticscompanyhistorylist : function(statisticsservice){
                 return statisticsservice.orderstatisticscompanyhistorylist();
+            },
+            talist : function(depositservice){
+                return depositservice.talist;
             }
         }
         
