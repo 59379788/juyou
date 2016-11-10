@@ -192,9 +192,14 @@ var service = function($resource, BASEURL38985, $q, $http){
     var rewardlist = BASEURL38985 + '/api/as/tc/skrewardpricedao/findList';
     //删除列表
     var rewardlistdel = BASEURL38985 + '/api/as/tc/skrewardpricedao/delete';
+    // 绑定中间商
+    var middlebusiness = BASEURL38985 + '/api/as/tc/skbindingmiddlebusiness/saveMiddleBusiness';
 
 
     return {
+        middlebusiness : function(){
+            return $resource(middlebusiness, {}, {});
+        },
         rewardprice : function(){
             return $resource(rewardprice, {}, {});
         },

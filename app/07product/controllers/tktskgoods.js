@@ -1,4 +1,4 @@
-module.exports = function($scope, $state,$uibModal, skgoodslist, saveprice){
+module.exports = function($scope, $state,$uibModal, skgoodslist, saveprice,middlebusiness){
 
 	$scope.searchform = {};
 
@@ -90,13 +90,18 @@ module.exports = function($scope, $state,$uibModal, skgoodslist, saveprice){
         $state.go('app.awardpolicy');
 
     }
-    $scope.bind = function (obj) {
+    $scope.bind = function (sale_code) {
         var modalInstance = $uibModal.open({
           template: require('../views/middlebusiness.html'),
           controller: 'middlebusiness',
           size: 'xs',
           resolve: {
-            
+            middlebusiness : function(){
+                return middlebusiness;
+            },
+            sale_code : function(){
+                return sale_code;
+            }
           }
         });
 

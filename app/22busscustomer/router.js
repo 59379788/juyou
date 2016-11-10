@@ -99,6 +99,16 @@ var router = function($urlRouterProvider, $stateProvider){
          }
         })
 
+        // 分配权限
+        .state('app.assignauthority', {
+         url: '/assignauthority',
+         controller : 'assignauthority',
+         template: require('./views/assignauthority.html'),
+         resolve:{
+            
+         }
+        })
+
        
 }
 module.exports = router;

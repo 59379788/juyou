@@ -1,16 +1,17 @@
-module.exports = function($scope, $state, $stateParams, $uibModalInstance,ITEMS_PERPAGE){
+module.exports = function($scope, $state, $stateParams, $uibModalInstance,ITEMS_PERPAGE,middlebusiness,sale_code){
     $scope.obj = {
-        'account' : ''
+        'sale_code' : sale_code,
+        'middle_business_code' : ''
     };
     
     $scope.ok = function () {
-        
-        console.log($scope.obj);
-        if ($scope.obj.off_reason !== '') { 
-            goodoffsale.save($scope.obj, {'code' : code}, function(res){
+        if ($scope.obj.middle_business_code !== '') { 
+            middlebusiness.save($scope.obj, function(res){
+            console.log($scope.obj);
             if(res.errcode === 0)
             {
-                alert('下架成功');
+                alert('绑定成功');
+                console.log(res);
                 $uibModalInstance.close();
                 
             }
@@ -20,7 +21,7 @@ module.exports = function($scope, $state, $stateParams, $uibModalInstance,ITEMS_
             }
            });
         } else { 
-            alert('请填写下架原因');
+            alert('请填写中间商编号');
             return;
         }
         

@@ -520,6 +520,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             saveprice : function(productservice){
                 return productservice.saveprice();
+            },
+            middlebusiness : function(productservice){
+                return productservice.middlebusiness();
             }
         }
       })
@@ -546,7 +549,9 @@ var router = function($urlRouterProvider, $stateProvider){
         controller : 'middlebusiness',
         template: require('./views/middlebusiness.html'),
         resolve:{
-            
+            middlebusiness : function(productservice){
+                return productservice.middlebusiness();
+            }  
         }
       })
 
