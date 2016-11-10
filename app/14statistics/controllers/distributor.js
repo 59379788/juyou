@@ -292,8 +292,9 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
             //一级分销没卖过的销售品
             if(saleobj === undefined)
             {
-                saleobj = {};
-                saleobj = saleinfo;
+                obj1['saleobjs'][salecode] = {};
+                obj1['saleobjs'][salecode] = saleinfo;
+                console.log(obj1['saleobjs'][salecode]);
             }
             //一级分销也卖过的销售品
             else
