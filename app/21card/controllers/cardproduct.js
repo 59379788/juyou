@@ -240,7 +240,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 
     // 销售品添加
 	$scope.ticketok = function(code){
-		if ($scope.ticketobj.ticket_code === '') {
+		if ($scope.ticketobj.ticket_code === undefined) {
 		    alert('销售品编号不能为空！'); 
 		} else {
  

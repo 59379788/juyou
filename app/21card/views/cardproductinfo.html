@@ -171,20 +171,34 @@
 </div>
 </div>
 </div>
+</div>
+</div>
 
-<div class="panel panel-default">
-<div class="panel-heading">卡产品绑定资源列表</div>
+
+<div class="col-xs-12" >
+    <div class="panel panel-default" ng-show="resourcesflag.pool !== undefined || resourcesflag.ticket !== undefined">
+  <div class="panel-heading">卡产品资源</div>
+
 <div class="panel-body">
-<div class="container-fluid form-horizontal ">
+    <div class="container-fluid form-horizontal ">
+
 <div class="col-xs-10 col-xs-offset-1 form-horizontal" >
-    <div class="panel panel-default col-xs-8 col-xs-offset-2">
+
+	<div class="panel panel-default col-xs-8 col-xs-offset-2">
 		<table class="table">
+		<thead>
+	      <tr>
+	        <th class="col-md-4 text-center">资源名称</th>
+	        <th class="col-md-4 text-center">资源</th>
+	        <th class="col-md-4 text-center">资源</th>
+	        
+	      </tr>
+	    </thead>
         <tbody>
           <tr ng-repeat="res in resources">
-            <td>{{res.sub_table_name}}</td>
-            <td>{{res.sub_table_data_name}}</td>
-            <td>{{res.sub_table_used_name}}</td>
-            
+            <td class="col-md-4 text-center">{{res.sub_table_name}}</td>
+            <td class="col-md-4 text-center">{{res.sub_table_data_name}}</td>
+            <td class="col-md-4 text-center">{{res.sub_table_used_name}}</td>
           </tr>
         </tbody>
       </table>
@@ -193,40 +207,66 @@
 </div>
 </div>
 </div>
+</div>
+</div>
 
 
+<div class="col-xs-12">
+    <div class="panel panel-default" ng-show="cardpoolflag.pool !== undefined">
+  <div class="panel-heading">卡池</div>
 
-
-<div class="panel panel-default">
-<div class="panel-heading">卡产品绑定卡池列表</div>
 <div class="panel-body">
-<div class="container-fluid form-horizontal ">
+    <div class="container-fluid form-horizontal ">
+
 <div class="col-xs-10 col-xs-offset-1 form-horizontal" >
 	<div class="panel panel-default col-xs-8 col-xs-offset-2">
 		<table class="table">
+		<thead>
+	      <tr>
+	        <th>卡池名称</th>
+	      </tr>
+	    </thead>
         <tbody>
           <tr ng-repeat="cardpool in cardproduct_cardpoollistarr">
             <td>{{cardpool.pool_name}}</td>
-            
           </tr>
         </tbody>
       </table>
 	</div>
+
+	<!-- <button 
+    type="button" 
+    class="btn btn-success btn-lg col-xs-3 pull-right" 
+    ng-click="gogo()"
+    >
+    提交
+    </button> -->
+
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 
+<div class="col-xs-12">
+    <div class="panel panel-default" ng-show="ticketflag.ticket !== undefined">
+  <div class="panel-heading">票销售品</div>
 
-
-
-<div class="panel panel-default">
-<div class="panel-heading">卡产品绑定票销售品列表</div>
 <div class="panel-body">
-<div class="container-fluid form-horizontal ">
+    <div class="container-fluid form-horizontal ">
+
 <div class="col-xs-10 col-xs-offset-1 form-horizontal" >
+	
+	
+
 	<div class="panel panel-default col-xs-8 col-xs-offset-2">
 		<table class="table">
+		<thead>
+	      <tr>
+	        <th>票销售品编号</th>
+	      </tr>
+	    </thead>
         <tbody>
           <tr ng-repeat="ticket in cardproduct_ticketarr">
             <td>{{ticket.ticket_code}}</td>
@@ -235,7 +275,16 @@
         </tbody>
       </table>
 	</div>
+
+	
+
+</div>
+
 </div>
 </div>
 </div>
+
+
+
+
 </div>
