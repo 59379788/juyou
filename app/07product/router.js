@@ -520,7 +520,38 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             saveprice : function(productservice){
                 return productservice.saveprice();
+            },
+            middlebusiness : function(productservice){
+                return productservice.middlebusiness();
             }
+        }
+      })
+
+    .state('app.awardpolicy', {
+        url: '/awardpolicy',
+        controller : 'awardpolicy',
+        template: require('./views/awardpolicy.html'),
+        resolve:{
+            rewardprice : function(productservice){
+                return productservice.rewardprice();
+            },
+            rewardlist : function(productservice){
+                return productservice.rewardlist();
+            },
+            rewardlistdel : function(productservice){
+                return productservice.rewardlistdel();
+            }  
+        }
+      })
+
+    .state('app.middlebusiness', {
+        url: '/middlebusiness',
+        controller : 'middlebusiness',
+        template: require('./views/middlebusiness.html'),
+        resolve:{
+            middlebusiness : function(productservice){
+                return productservice.middlebusiness();
+            }  
         }
       })
 

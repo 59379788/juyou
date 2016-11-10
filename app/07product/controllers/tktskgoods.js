@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModal, skgoodslist, saveprice){
+module.exports = function($scope, $state,$uibModal, skgoodslist, saveprice,middlebusiness){
 
 	$scope.searchform = {};
 
@@ -84,6 +84,36 @@ module.exports = function($scope, $uibModal, skgoodslist, saveprice){
         });
 
     };
+
+    //奖励政策
+    $scope.reward = function(obj) {
+        $state.go('app.awardpolicy');
+
+    }
+    $scope.bind = function (sale_code) {
+        var modalInstance = $uibModal.open({
+          template: require('../views/middlebusiness.html'),
+          controller: 'middlebusiness',
+          size: 'xs',
+          resolve: {
+            middlebusiness : function(){
+                return middlebusiness;
+            },
+            sale_code : function(){
+                return sale_code;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          //  $scope.load();
+        }, function () {
+
+        });
+
+   
+        
+    }
 
 
 };

@@ -1,4 +1,4 @@
-<form class="form-horizontal" role="form">  
+  
   
 <div class="col-sm-12">
 <div class="panel panel-default">
@@ -6,7 +6,7 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                   <label for="inputLottry" class="control-label">卡池列表</label>
-                  <button type="button" class="btn btn-default search pull-right" ng-click="addcardpool()">添加卡池</button>
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="addcardpool()">添加卡池</button>
 
 
             </div>
@@ -15,8 +15,8 @@
 </div>
 
 
-  <div class="col-md-12 panel panel-default table-responsive">
-     <table ng-click="getlist()" class="table table-bordered">
+    <div class="col-md-12 panel panel-default table-responsive">
+    <table ng-click="getlist()" class="table table-bordered">
 	    <thead>
 	      <tr>
 	        <th class="col-md-2 text-center">卡池编号</th>
@@ -32,28 +32,29 @@
 	        <td class="col-md-2 text-center">{{cardpool.pool_name}}</td>
 	        <td class="col-md-2 text-center">{{cardpool.pool_type_name}}</td>
 	        <td class="col-md-2 text-center">
-	        	<button type="button" class="btn btn-default btn-xs" ng-click="resivepoolinfo(cardpool.pool_code, cardpool.pool_name,cardpool.pool_type_name)">修改</button>
+	        	<button type="button" class="btn btn-info btn-xs" ng-click="resivepoolinfo(cardpool.pool_code, cardpool.pool_name,cardpool.pool_type_name)">修改</button>
 	        </td>
 	        <td class="col-md-4 text-center">
 	        	
-	        	<a ng-click="add(cardpool.pool_code)" class="btn btn-default btn-xs">添加卡</a>
-	        	<a ng-click="relief(cardpool.pool_code)" class="btn btn-default btn-xs">释放卡</a>
-	        	<a ng-click="release(cardpool.pool_code)" class="btn btn-default btn-xs">卡池详情</a>
+	        	<a ng-click="add(cardpool.pool_code)" class="btn btn-info btn-xs">添加卡</a>
+	        	<a ng-click="relief(cardpool.pool_code)" class="btn btn-danger btn-xs">释放卡</a>
+	        	<a ng-click="release(cardpool.pool_code)" class="btn btn-success btn-xs">卡池详情</a>
 	        </td>
 	      </tr>
 	    </tbody>
-	  </table>
-	</div>	    
-    </div>
-    <div class="text-right">
+	</table>
+    </div>	    
 
+
+
+    <div class="text-right">
     <uib-pagination 
       total-items="bigTotalItems" 
       ng-model="bigCurrentPage" 
       max-size="maxSize" 
       class="pagination-sm" 
       boundary-links="true" 
-      ng-change="load()"
+      ng-change="getlist()"
       items-per-page="itemsPerPage"
       previous-text="上一页"
       next-text="下一页"
@@ -61,8 +62,7 @@
       last-text="末页"
       rotate="false">
     </uib-pagination>
-</div> 
+    </div> 
   
 
 
- </form>

@@ -13,7 +13,7 @@ var router = function($urlRouterProvider, $stateProvider){
 	      abstract: true,
 	      controller : 'appcontroller',
 	      template : require('./views/app.html'),
-	      //template : require('./views/app2.html'),
+	      //template : require('./views/app3.html'),
 	      resolve:{
         	permission : function(commonservice){
         		return commonservice.permission();

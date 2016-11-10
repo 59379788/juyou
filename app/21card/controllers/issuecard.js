@@ -1,27 +1,40 @@
-module.exports = function($scope, issuecard, takecardlist){
+module.exports = function($scope, issuecard, takecardlists,takecardlist){
   
+   $scope.nameobj = {
+       'name': '' 
+   };
    $scope.takecarduserlist = function(){ 
-    takecardlist.save({}, function(res){ 
-    	console.log(res);
+    takecardlists.save({}, function(res){ 
     	if (res.errcode !== 0) { 
-    		alert(errmsg);
+    		alert(res.errmsg);
     		return;
     	}
       	$scope.objs = res.data;
-      	$scope.cardinfo = res.data[0];
+        $scope.nameobj.name = res.data[0].name; 
+        console.log(res);
+
+      	
     });
   };
   $scope.takecarduserlist(); 
+
   $scope.selection = function(obj){ 
     console.log(obj);
-    $scope.userinfo.mobile = obj.mobile;
-    $scope.userinfo.name = obj.name;
+        if (obj === null) { 
+          //console.log(obj);
+          $scope.userinfo.name = '';
+          $scope.userinfo.mobile = '';
+        } else {
+    
+        $scope.userinfo.mobile = obj.mobile;
+        $scope.userinfo.name = obj.name;
+        $scope.userinfo.id = obj.id;
+        }
+    
   };
-
-
-
-
+  console.log($scope.nameobj.name);
   $scope.userinfo = {
+  	   'id' : '',
   	   'type' : '1',
        'name' : '',	
        'mobile' : '',
@@ -35,27 +48,27 @@ module.exports = function($scope, issuecard, takecardlist){
        'card_giveout_target' : ''
 
     };
-
+    
     $scope.searchinfo = [];
     //$scope.userinfo.cardnum = $scope.userinfo.end_card_no - $scope.userinfo.start_card_no;
 
    $scope.saveuserinfo = function(){
    	console.log($scope.userinfo.num);
 	$scope.userinfo.num = $scope.userinfo.end_card_no - $scope.userinfo.start_card_no + 1;
-	$scope.userinfo.all_price = $scope.userinfo.unit_price * $scope.userinfo.num;	
-		issuecard.save($scope.userinfo, function(res){
-
-			console.log($scope.userinfo.num);
-			console.log($scope.userinfo);
-			console.log(res);
-			    if (res.errcode !== 0) {
+	$scope.userinfo.all_price = $scope.userinfo.unit_price * $scope.userinfo.num;
+    if ($scope.userinfo.name === '' || $scope.userinfo.type ==='' || $scope.userinfo.mobile ===''||$scope.userinfo.company_code==='' || $scope.userinfo.start_card_no === '' || $scope.userinfo.end_card_no==='' || $scope.userinfo.unit_price===''||$scope.userinfo.all_price==='' || $scope.userinfo.card_giveout_target===''||$scope.userinfo.num==='') { 
+      alert('信息填写不完全，请补充完整！');
+    } else {
+		    issuecard.save($scope.userinfo, function(res){
+			      if (res.errcode !== 0) {
                    alert(res.errmsg);
                    return;
-			     } else {
+			      } else {
                    alert('记录成功');
                    return;
-                 }  
-     	});                
+            }  
+    }); 
+    }               
 	};
 
 };

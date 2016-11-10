@@ -21,7 +21,7 @@
                     <option value="2">制作中</option>
                     <option value="1">已制作</option>
                   </select>
-                  <button type="button" class="btn btn-primary search pull-right" ng-click="searchcard(searchform.startcard, searchform.endcard, searchform.cardmakestatus, searchform.cardbatch, searchform.cardgivetatus)">立即搜索</button>
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="search(searchform.startcard, searchform.endcard, searchform.cardmakestatus, searchform.cardbatch, searchform.cardgivetatus)">立即搜索</button>
 
 
             </div>
@@ -29,8 +29,8 @@
     </div>
 </div><!-- searchArea -->
 
-
-  <table class="table table-bordered">
+<div class="col-md-12 panel panel-default table-responsive">
+    <table class="table table-bordered">
     <thead>
       <tr>
         <th class="col-md-3 text-center">卡段</th>
@@ -56,22 +56,21 @@
           <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='未制作'" ng-click="batchnumber(obj.mincard,obj.maxcard)" class="btn btn-info btn-xs">设置批次号</a>
 
           <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='制作中'"
-          ng-click="cardcomplete(obj.card_make_batch,obj.mincard,obj.maxcard)" class="btn btn-danger btn-xs">制卡完成</a>  
+          ng-click="cardcomplete(obj.card_make_batch,obj.mincard,obj.maxcard)" class="btn btn-success btn-xs">制卡完成</a>  
         </td>
       </tr>
     </tbody>
-  </table>
+    </table>
+</div>
 
-
-<!--   <div class="text-right">
-
+    <div class="text-right">
     <uib-pagination 
       total-items="bigTotalItems" 
       ng-model="bigCurrentPage" 
       max-size="maxSize" 
       class="pagination-sm" 
       boundary-links="true" 
-      ng-change="load()"
+      ng-change="search()"
       items-per-page="itemsPerPage"
       previous-text="上一页"
       next-text="下一页"
@@ -79,8 +78,4 @@
       last-text="末页"
       rotate="false">
     </uib-pagination>
-
-  </div> -->
-  
-
-</div>
+    </div> 

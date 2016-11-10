@@ -1,0 +1,89 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+<div class="container-fluid" >
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" style="margin-top: -7px;">
+        <img alt="Brand" src={{logo}}  >
+      </a>
+    </div>
+    <div class="navbar-collapse collapse" uib-collapse="isCollapsed">
+
+      <ul class="nav navbar-nav">
+        <!-- <li class="active"><a href="#">产品</a></li> -->
+        <li ng-repeat="menu in currentsys.menu" ng-click="choosemenu(menu)"
+          ng-class {'selected': isSelected, 'car': isCar}
+        >
+          <a href="#">{{menu.menuname}}</a>
+        </li>
+        <!-- <li><a href="#">收益</a></li> -->
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right mr15">
+          <li class="dropdown" uib-dropdown>
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> 
+              {{currentsys.sysname}} <span class="caret"></span>
+            </a>
+            <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+              <li ng-repeat="sys in menudata" ng-click="choosesys(sys)">
+                <a href="#">{{sys.sysname}}</a>
+              </li>
+              <!-- <li><a href="#">分销商</a></li>
+              <li><a href="#">商户</a></li>
+              <li><a href="#">平台</a></li>
+              <li><a href="#">客服</a></li>
+               -->
+              <li role="separator" class="divider"></li>
+              <li>
+                <a href="manager/logout" class="btn " style="color: red;">
+                  <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+          
+        </ul>
+      <!-- <form class="navbar-form navbar-right">
+        <input type="text" class="form-control" placeholder="Search...">
+      </form> -->
+    </div>
+
+  </div>
+
+
+
+
+</nav>
+
+
+<div class="row">
+  <div class="col-sm-3 col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+      <!-- <li class="active"><a href="#">Overview</a></li> -->
+      <li ng-repeat="submenu in currentmenu.menu"><a href="#">{{submenu.menuname}}</a></li>
+      <!-- <li><a href="#">Analytics</a></li>
+      <li><a href="#">Export</a></li> -->
+    </ul>
+    <!-- <ul class="nav nav-sidebar">
+      <li><a href="">Nav item</a></li>
+      <li><a href="">Nav item again</a></li>
+      <li><a href="">One more nav</a></li>
+      <li><a href="">Another nav item</a></li>
+      <li><a href="">More navigation</a></li>
+    </ul>
+    <ul class="nav nav-sidebar">
+      <li><a href="">Nav item again</a></li>
+      <li><a href="">One more nav</a></li>
+      <li><a href="">Another nav item</a></li>
+    </ul> -->
+  </div>
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ui-view="">
+    
+  </div>
+</div>

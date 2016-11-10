@@ -76,30 +76,64 @@
 	     </tr>
 	    </tbody>
 	    </table>
+	    <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="getcardlist()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div>
     </div>
 
     <div class="col-md-6">
         <table ng-click="getlist()" class="table table-bordered">
 	     <thead>
 	      <tr>
-	        <th class="col-md-1 text-center">卡号</th>
+	        <th class="col-md-2 text-center">卡段</th>
 	        <th class="col-md-1 text-center">状态</th>
 	        <th class="col-md-1 text-center">种类</th>
 	        <th class="col-md-1 text-center">发放时间</th>
-	        <th class="col-md-2 text-center">发放目标</th>
+	        <th class="col-md-1 text-center">发放目标</th>
 	      </tr>
 	    </thead>
 	    <tbody>
 	     <tr ng-repeat = "cardlist in cardlists">
-	       <td class="col-md-1 text-center">{{cardlist.card_num}}</td>
+	       <td class="col-md-2 text-center">{{cardlist.mincard}} - {{cardlist.maxcard}}</td>
 	       <td class="col-md-1 text-center">{{cardlist.card_status_name}}</td>
 	       <td class="col-md-1 text-center">{{cardlist.card_type}}</td>
 	       <td class="col-md-1 text-center">{{cardlist.card_giveout_time}}</td>
-	       <td class="col-md-2 text-center">{{cardlist.card_giveout_target}}</td>
+	       <td class="col-md-1 text-center">{{cardlist.card_giveout_target}}</td>
 	     </tr>
 	    </tbody>
 	    </table>
+
+	<div class="text-right">
+    <uib-pagination 
+      total-items="nbigTotalItems" 
+      ng-model="nbigCurrentPage" 
+      max-size="nmaxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="search()"
+      items-per-page="nitemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+    </div>
     </div>
 
 </div>
-

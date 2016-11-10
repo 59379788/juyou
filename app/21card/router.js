@@ -11,6 +11,18 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
             cardpoollist : function(cardservice){
                  return cardservice.cardpoollist();
+            },
+            addcard : function(cardservice){
+                 return cardservice.addcard();
+            },
+            unusedcard : function(cardservice){
+                 return cardservice.unusedcard();
+            },
+            releasecard : function(cardservice){
+                 return cardservice.releasecard();
+            },
+            canrelease : function(cardservice){
+                 return cardservice.canrelease();
             }
          }
        })
@@ -96,6 +108,9 @@ var router = function($urlRouterProvider, $stateProvider){
             takecardlist : function(cardservice){
                  return cardservice.takecardlist();
             },
+            takecardlists : function(cardservice){
+                 return cardservice.takecardlists();
+            }
 
              
             
@@ -207,6 +222,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             cardresourcesdel : function(cardservice){
                 return cardservice.cardresourcesdel();
+            },
+            cardpoollists : function(cardservice){
+                return cardservice.cardpoollists();
             },
             cardpoollist : function(cardservice){
                 return cardservice.cardpoollist();
@@ -411,7 +429,19 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
            cardproductinfo : function(cardservice){
                  return cardservice.cardproductinfo();
+           },
+           cardresources : function(cardservice){
+                 return cardservice.cardresources();
+           },
+           cardproduct_cardpoollist : function(cardservice){
+                 return cardservice.cardproduct_cardpoollist();
+           },
+           cardproduct_ticketlist : function(cardservice){
+                 return cardservice.cardproduct_ticketlist();
            }
+           
+
+           
 
          }
        })

@@ -10,8 +10,7 @@ module.exports = function($scope, $stateParams, used, lost, cardnumuser){
     	'username' : '',
     	'mobile' : '',
     	'papersno' : '',
-    	'card_status_z' : '',
-    	'pool_code' : ''
+    	'card_status_z' : ''
     };
     // 用卡号查询用户信息
     $scope.queryuser = function(){
@@ -19,13 +18,12 @@ module.exports = function($scope, $stateParams, used, lost, cardnumuser){
     	cardnumuser.save({'cardno' : $scope.cardinfo.cardno}, function(res){
     		console.log($scope.cardinfo.cardno);
 			
-			console.log(res);
-			$scope.userinfo = res.data;
 			if (res.errcode !== 0) {
 				alert(res.errmsg);
 				return;
 			}
-			//$scope.cardpoollists = res.data;
+			$scope.obj = res.data;
+            console.log($scope.obj);
 		});
     };
 
@@ -33,7 +31,7 @@ module.exports = function($scope, $stateParams, used, lost, cardnumuser){
     // 置为已用
     $scope.used = function(){
     	
-    	used.save({'cardno' : $scope.cardinfo.cardno}, {'pool_code' : $scope.userinfo.pool_code}, function(res){
+    	used.save({'cardno' : $scope.cardinfo.cardno}, {'pool_code' : poolcode}, function(res){
 			console.log($scope.cardinfo.cardno);
             console.log($scope.userinfo.pool_code);
 			console.log(res);
@@ -47,17 +45,15 @@ module.exports = function($scope, $stateParams, used, lost, cardnumuser){
 
     // 挂失
     $scope.lost = function(){
-    	//alert('挂失');
     	lost.save({'cardno' : $scope.cardinfo.cardno}, {'pool_code' : $scope.userinfo.pool_code}, function(res){
-            console.log($scope.cardinfo.cardno);
-            console.log($scope.userinfo.pool_code);
-			console.log(res);
+            console.log({'cardno' : $scope.cardinfo.cardno}, {'pool_code' : $scope.obj.pool_code});
+            
 			if (res.errcode !== 0) {
 				alert(res.errmsg);
 				return;
 			}
-			//$scope.cardpoollists = res.data;
+			
 		});
-    };
-    //$scope.getlist();*/
-};
+    
+   };
+}

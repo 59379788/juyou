@@ -1,17 +1,30 @@
-module.exports = function($scope, $state, $stateParams, savetakecarduser, takecardlist, deletetakecarduser){
-  $scope.takecarduserlist = function(){ 
-    takecardlist.save({}, function(res){ 
-    	console.log(res);
-    	if (res.errcode !== 0) { 
-    		alert(res.errmsg);
-    		return;
-    	} else { 
-          $scope.objs = res.data;
-          return;
-    	}
-    });
-  };
-  $scope.takecarduserlist(); 
+module.exports = function($scope, $state, $stateParams, savetakecarduser, takecardlist, deletetakecarduser,ITEMS_PERPAGE){
+     /* 分页
+     * ========================================= */
+    $scope.maxSize = 5;            //最多显示多少个按钮
+    $scope.bigCurrentPage = 1;      //当前页码
+    $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+
+    $scope.takecarduserlist = function(){
+        var para = {
+            pageNo:$scope.bigCurrentPage, 
+            pageSize:$scope.itemsPerPage
+        };
+       //para = angular.extend($scope.searchform, para); 
+        takecardlist.save(para, function(res){ 
+    	    console.log(para);
+    	    if (res.errcode !== 0) { 
+    		    alert(res.errmsg);
+    		   
+    	    } else { 
+                $scope.objs = res.data.results;
+                $scope.bigTotalItems = res.data.totalRecord;
+                console.log(res);
+                
+    	    }
+       });
+    };
+    $scope.takecarduserlist(); 
 
   $scope.takecarduserinfo = { 
   	'name' : '',
@@ -42,7 +55,7 @@ module.exports = function($scope, $state, $stateParams, savetakecarduser, takeca
     }
   };
 
-  $scope.takecarduserlist = function(){ 
+  /*$scope.takecarduserlist = function(){ 
     takecardlist.save({}, function(res){ 
     	console.log(res);
     	if (res.errcode !== 0) { 
@@ -53,27 +66,26 @@ module.exports = function($scope, $state, $stateParams, savetakecarduser, takeca
           return;
     	}
     });
-  };
-  $scope.takecarduserlist(); 
+  };*/
+  //$scope.takecarduserlist(); 
 
   $scope.delete = function(id){ 
-  	
-  	
   	console.log(id);
-
-  	
-  		deletetakecarduser.save({'id':id}, function(res){ 
-  		
-  			if (res.errcode !== 0) {
+  	  if (confirm("你确定要删除吗?")) {
+          deletetakecarduser.save({'id':id}, function(res){ 
+          if (res.errcode !== 0) {
                    alert(res.errmsg);
                    return;
-			    } else {
-			    	alert('删除成功');
+          } else {
+            alert('删除成功');
                      $scope.takecarduserlist();
-			    	
-			    }
-			     
-  		});
+            
+          }
+           
+      });
+      } else { 
+      }
+  		
   	
   };
   	

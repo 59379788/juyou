@@ -27,6 +27,7 @@ App.controller('salecategory',require('./controllers/salecategory'));
 App.controller('salecategorycreate',require('./controllers/salecategorycreate'));
 App.controller('distribution',require('./controllers/distribution'));
 App.controller('insurance',require('./controllers/insurance'));
-
+App.controller('awardpolicy',require('./controllers/awardpolicy'));
+App.controller('middlebusiness',require('./controllers/middlebusiness'));
 
 module.exports = App;

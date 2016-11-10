@@ -1,7 +1,6 @@
-module.exports = function($scope, $stateParams,customerlist,review, $uibModal,role,create,message,userinfo,insertnops,failed){
+module.exports = function($scope, $stateParams,customerlist,review, $uibModal,role,create,message,userinfo,insertnops,failed,confirmauthority){
     // 获取用户信息
     userinfo.save({}, function(res){ 
-    	
     	console.log(res);
     	//console.log($scope.loginuser);
     	$scope.loginuser = res;
@@ -18,32 +17,28 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
     	} else { 
           $scope.objs = res.data;
           console.log($scope.objs);
+
           return;
     	}
 	 });
     };
     $scope.getlist();
 	// 通过
-	$scope.pass = function(id){ 
+	$scope.pass = function(id,ticket_id){ 
 		//console.log(id);
-	//	alert('你确定提交吗？');
-     
         //利用对话框返回的值 （true 或者 false）  
-        if (confirm("你确定要通过吗?")) {  
-            //  console.log('通过');
-          review.save({'id' : id}, function(res){ 
-	       if (res.errcode !== 0) { 
-    		alert(res.errmsg);
-    		
-    	   } else { 
-           $scope.objss = res.data;
-           console.log($scope.objss);
-           $scope.getlist();
+        if (confirm("你确定要通过吗?")) {
+                review.save({'id' : id}, function(res){ 
+	                if (res.errcode !== 0) { 
+    		            alert(res.errmsg);
+    	            } else { 
+                        $scope.objss = res.data;
+                        console.log($scope.objss);
+                        $scope.getlist();     
+    	            }
+	            });
             
-    	   }
-	     });
-        }  
-        else {  
+        } else {  
             console.log("点击了取消");  
         }  	
 	};
@@ -62,6 +57,18 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
 	  	 console.log("点击了取消");
 	  }
       
+	};
+
+	// 分配权限
+	$scope.assignauthority = function(){
+	    confirmauthority.save({'appid' : 'shangke'},function(res){
+	        if (res.errcode !== 0) { 
+	        	alert(res.errmsg);
+	        	return;
+	        } 
+	        alert('恭喜你，获取到权限！');
+	        //$scope.getlist();
+	    }); 
 	};
 
 	// 创建账号

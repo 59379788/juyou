@@ -1,7 +1,7 @@
 var router = function($urlRouterProvider, $stateProvider){
 
  	$stateProvider
-       // 卡池列表
+       // 申请列表
  	   .state('app.skacountlist', {
          url: '/skacountlist',
          controller : 'skacountlist',
@@ -31,8 +31,10 @@ var router = function($urlRouterProvider, $stateProvider){
           },
           failed : function(busscustomerservice){
                  return busscustomerservice.failed();
+          },
+          confirmauthority : function(busscustomerservice){
+                 return busscustomerservice.confirmauthority();
           }
-
        
          }
        })
@@ -56,7 +58,7 @@ var router = function($urlRouterProvider, $stateProvider){
          }
        })
 
-       .state('app.get2', {
+        .state('app.get2', {
          url: '/get2/:id',
          controller : 'get2',
          template: require('./views/get2.html'),
@@ -67,6 +69,45 @@ var router = function($urlRouterProvider, $stateProvider){
        
          }
        })
+
+        // 供应商申请列表
+        .state('app.supplierlist', {
+         url: '/supplierlist',
+         controller : 'supplierlist',
+         template: require('./views/supplierlist.html'),
+         resolve:{
+            supplierlist : function(busscustomerservice){
+                 return busscustomerservice.supplierlist();
+            },
+            saveconfirm : function(busscustomerservice){
+                 return busscustomerservice.saveconfirm();
+            }   
+          
+       
+         }
+        })
+
+        // 供应商备注填写
+        .state('app.supplyremark', {
+         url: '/supplyremark',
+         controller : 'supplyremark',
+         template: require('./views/supplyremark.html'),
+         resolve:{
+            saveconfirm : function(busscustomerservice){
+                 return busscustomerservice.saveconfirm();
+            } 
+         }
+        })
+
+        // 分配权限
+        .state('app.assignauthority', {
+         url: '/assignauthority',
+         controller : 'assignauthority',
+         template: require('./views/assignauthority.html'),
+         resolve:{
+            
+         }
+        })
 
        
 }
