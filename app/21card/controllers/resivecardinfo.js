@@ -1,11 +1,9 @@
 module.exports = function($scope, $stateParams, used, lost, cardnumuser){
 	//alert('sfsfa');
-	var poolcode = $stateParams.poolcode;
-    console.log(poolcode);
-
     $scope.cardinfo = {
     	'cardno' : ''
     };
+    
     $scope.userinfo = {
     	'username' : '',
     	'mobile' : '',
@@ -13,7 +11,7 @@ module.exports = function($scope, $stateParams, used, lost, cardnumuser){
     	'card_status_z' : ''
     };
     // 用卡号查询用户信息
-    $scope.queryuser = function(){
+    $scope.queryuser = function(cardno){
     	
     	cardnumuser.save({'cardno' : $scope.cardinfo.cardno}, function(res){
     		console.log($scope.cardinfo.cardno);
@@ -23,6 +21,9 @@ module.exports = function($scope, $stateParams, used, lost, cardnumuser){
 				return;
 			}
 			$scope.obj = res.data;
+            $scope.lostinfo.pool_code = res.data.pool_code;
+            $scope.lostinfo.cardno = cardno;
+            console.log($scope.lostinfo.cardno);
             console.log($scope.obj);
 		});
     };
@@ -43,17 +44,23 @@ module.exports = function($scope, $stateParams, used, lost, cardnumuser){
 		});
     };
 
+    $scope.lostinfo = {
+        'cardno' : '',
+        'pool_code' : ''
+    };
     // 挂失
     $scope.lost = function(){
-    	lost.save({'cardno' : $scope.cardinfo.cardno}, {'pool_code' : $scope.userinfo.pool_code}, function(res){
-            console.log({'cardno' : $scope.cardinfo.cardno}, {'pool_code' : $scope.obj.pool_code});
-            
-			if (res.errcode !== 0) {
-				alert(res.errmsg);
-				return;
-			}
-			
-		});
-    
+        if (confirm('您确定要挂失吗?')) {
+            lost.save($scope.lostinfo, function(res){
+            console.log($scope.lostinfo);
+            if (res.errcode !== 0) {
+                alert(res.errmsg);
+                return;
+            }
+
+            $scope.queryuser();
+        }); 
+        } else { 
+        }
    };
 }
