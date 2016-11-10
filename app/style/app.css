@@ -442,7 +442,11 @@ fieldset[disabled] .navbar-default .btn-link:focus {
     margin-bottom: 5px;
 }
 
-<<<<<<< HEAD
+#nav1 .navbar-nav > li > a{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}*/
+
 .ss-item {
     position: relative;
     display: inline-block;
@@ -455,9 +459,3 @@ fieldset[disabled] .navbar-default .btn-link:focus {
     padding: 0 4px 0 4px;
     cursor: pointer;
 }
-=======
-#nav1 .navbar-nav > li > a{
-    padding-top: 5px;
-    padding-bottom: 5px;
-}*/
->>>>>>> b7059b821838696a35e22eaebe93d4a26be69e27
