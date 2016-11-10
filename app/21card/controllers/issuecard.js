@@ -56,8 +56,8 @@ module.exports = function($scope, issuecard, takecardlists,takecardlist){
    	console.log($scope.userinfo.num);
 	$scope.userinfo.num = $scope.userinfo.end_card_no - $scope.userinfo.start_card_no + 1;
 	$scope.userinfo.all_price = $scope.userinfo.unit_price * $scope.userinfo.num;
-    if ($scope.userinfo.name === '') { 
-      alert('请选择拿卡人，拿卡人姓名不能为空！');
+    if ($scope.userinfo.name === '' || $scope.userinfo.type ==='' || $scope.userinfo.mobile ===''||$scope.userinfo.company_code==='' || $scope.userinfo.start_card_no === '' || $scope.userinfo.end_card_no==='' || $scope.userinfo.unit_price===''||$scope.userinfo.all_price==='' || $scope.userinfo.card_giveout_target===''||$scope.userinfo.num==='') { 
+      alert('信息填写不完全，请补充完整！');
     } else {
 		    issuecard.save($scope.userinfo, function(res){
 			      if (res.errcode !== 0) {
