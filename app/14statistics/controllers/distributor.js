@@ -202,9 +202,9 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate){
                 var company = $scope.companys[i];
                 if(company.sub === undefined) continue;
 
-                for(var j = 0; j < company.sub.length; j++)
+                for(var j = 0; j < company.sub.company.length; j++)
                 {
-                    var sub = company.sub[j];
+                    var sub = company.sub.company[j];
                     merge(company, sub);
                 }
 
