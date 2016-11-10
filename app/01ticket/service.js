@@ -26,6 +26,7 @@ var service = function($resource, BASEURL,BASEURL38985){
 
     var list = BASEURL38985 + "/api/as/tc/placeview/list";
 
+    //获取对应景区设备列表
     var devicelist = BASEURL38985 + '/api/as/tc/device/watchdevicelist';
 
 

@@ -20,8 +20,23 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 	$scope.section = {};
     $scope.section.start = {};
     $scope.section.end = {};
+    $scope.section.unavailableDates = {};
 	$scope.start_time = new Date();
 	$scope.end_time = new Date($scope.start_time.getFullYear(),11,31); 
+	$scope.unavailableDates = new Date();
+	$scope.mid = new Date();
+	$scope.arrdate = [];
+	$scope.arrzhou = [];
+	$scope.use_rule = [
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false
+	];
+
 	$scope.open = function(obj){
 		obj.opened = true;
 	}
@@ -192,6 +207,33 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 		$scope.saleobj.cost_price *= 100;
 		$scope.saleobj.periodstart = getDate($scope.start_time);
 		$scope.saleobj.periodend = getDate($scope.end_time);
+		for (var k =  0; k <= $scope.arrdate.length - 1; k++) {
+			if(k == 0){
+				$scope.saleobj.unavailableDates = '';
+				$scope.saleobj.unavailableDates = $scope.arrdate[0];
+				console.log($scope.saleobj.unavailableDates);
+			}else{
+				console.log('kkkkkkkkk');
+				console.log($scope.arrdate);
+				$scope.saleobj.unavailableDates = $scope.saleobj.unavailableDates + ',' ; 
+				$scope.saleobj.unavailableDates = $scope.saleobj.unavailableDates +  $scope.arrdate[k]; 
+				console.log($scope.saleobj.unavailableDates);
+				console.log('kkkkkkkkk');
+			}
+		}
+		console.log('$scope.saleobj.unavailableDates ='+$scope.saleobj.unavailableDates);
+		var h = 0;
+		for(var i = 0; i <= 6; i++) {
+			console.log('hhhh==='+h);
+			if ( ($scope.use_rule[i] === true)  && (h !== 0)) {
+				$scope.saleobj.use_rule = $scope.saleobj.use_rule+','+(i+1).toString();
+				console.log($scope.saleobj.use_rule);
+			}
+			if ($scope.use_rule[i] == true  && h == 0) {
+				$scope.saleobj.use_rule = (i+1).toString();
+				h++;
+			}
+		}
 		salecreate.save($scope.saleobj, function(res){
 
 			console.log(res);
@@ -299,5 +341,24 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 			}
 		});
 	};
+	
+
+	$scope.adddate = function(){
+		for (var i = 0; i <= $scope.arrdate.length - 1; i++) {
+			if ($scope.arrdate[i] == getDate($scope.mid)) {
+				alert('此日期已选');
+				return ;
+			}
+		}
+		$scope.arrdate.push(getDate($scope.mid));
+	}
+
+
+	$scope.deldate = function(id){
+		$scope.arrdate.splice(id,1);
+		// console.log(id);
+		// console.log(id);
+		// console.log(id);
+	}
 	
 };

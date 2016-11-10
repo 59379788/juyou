@@ -432,3 +432,16 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+.ss-item {
+    position: relative;
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    border: 1px solid #DDD;
+    font-size: 12px;
+    vertical-align: top;
+    margin: 0 5px 5px 0;
+    padding: 0 4px 0 4px;
+    cursor: pointer;
+}

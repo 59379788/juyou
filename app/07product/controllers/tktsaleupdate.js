@@ -18,8 +18,22 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	$scope.section = {};
     $scope.section.start = {};
     $scope.section.end = {};
+    $scope.section.unavailableDates = {};
 	$scope.start_time = new Date();
 	$scope.end_time = new Date();
+	$scope.unavailableDates = new Date();
+	$scope.mid = new Date();
+	$scope.arrdate = [];
+	$scope.arrzhou = [];
+	$scope.use_rule = [
+		false,
+		false,
+		false,
+		false,
+		false,
+		false,
+		false
+	];
 
 	$scope.take_effect_typearr = [
 		{'name' : '次日','value' : -1},
@@ -154,17 +168,30 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			}else{
 				$scope.start_time = new Date();
 			}
+			if ($scope.saleobj.unavailableDates != null) {
+				if ($scope.saleobj.unavailableDates.length >= 21) {
+					$scope.arrdate = $scope.saleobj.unavailableDates.split(',');
+				}else{
+					$scope.arrdate[0] = $scope.saleobj.unavailableDates;
+				}
+			}
 			if ($scope.saleobj.periodend != null) {
 				$scope.end_time = str2date($scope.saleobj.periodend + " 23:59:59");
 			}else{
 				$scope.end_time = new Date($scope.start_time.getFullYear(),11,31);
 			}
-			
+			if ($scope.saleobj.use_rule != null) {
+				if ($scope.saleobj.use_rule.length >= 3) {
+					$scope.arrzhou = $scope.saleobj.use_rule.split(',');
+				}else{
+					$scope.arrzhou[0] = $scope.saleobj.use_rule;
+				}
+			}
+			for (var i = 0 ; i <= $scope.arrzhou.length - 1; i++) {
+				$scope.use_rule[ $scope.arrzhou[i] - 1 ] = true ;
+			}
 			console.log(6666666666666666);
 			console.log($scope.saleobj);
-			console.log($scope.saleobj.periodstart);
-			console.log($scope.start_time);
-			console.log($scope.end_time);
 			console.log(6666666666666666);
 			$scope.saleobj.market_price *= 0.01;
 			$scope.saleobj.guide_price *= 0.01;
@@ -290,6 +317,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	//基本信息 保存
 	$scope.salego = function(){
 
+		console.log('ggggggggghhhhhhhhh');
 		if($scope.saleobj.name === undefined || $scope.saleobj.name == '')
 		{
 			alert('销售品名称不能为空');
@@ -306,9 +334,36 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 		$scope.saleobj.cost_price *= 100;
 		$scope.saleobj.periodstart = getDate($scope.start_time);
 		$scope.saleobj.periodend = getDate($scope.end_time);
-		console.log('$scope.saleobj');
+		for (var k =  0; k <= $scope.arrdate.length - 1; k++) {
+			if(k == 0){
+				$scope.saleobj.unavailableDates = '';
+				$scope.saleobj.unavailableDates = $scope.arrdate[0];
+				console.log($scope.saleobj.unavailableDates);
+			}else{
+				console.log('kkkkkkkkk');
+				console.log($scope.arrdate);
+				$scope.saleobj.unavailableDates = $scope.saleobj.unavailableDates + ',' ; 
+				$scope.saleobj.unavailableDates = $scope.saleobj.unavailableDates +  $scope.arrdate[k]; 
+				console.log($scope.saleobj.unavailableDates);
+				console.log('kkkkkkkkk');
+			}
+		}
+		console.log('$scope.saleobj.unavailableDates ='+$scope.saleobj.unavailableDates);
+		var h = 0;
+		for(var i = 0; i <= 6; i++) {
+			console.log('hhhh==='+h);
+			if ( ($scope.use_rule[i] === true)  && (h !== 0)) {
+				$scope.saleobj.use_rule = $scope.saleobj.use_rule+','+(i+1).toString();
+				console.log($scope.saleobj.use_rule);
+			}
+			if ($scope.use_rule[i] == true  && h == 0) {
+				$scope.saleobj.use_rule = (i+1).toString();
+				h++;
+			}
+		}
+		console.log('ggggggggghhhhhhhhh');
 		console.log($scope.saleobj);
-		console.log('$scope.saleobj');
+		console.log('ggggggggghhhhhhhhh');
 		saleupdate.save($scope.saleobj, function(res){
 
 			if(res.errcode === 0)
@@ -668,8 +723,21 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 		});
 	}
 
-	$scope.open = function(obj){
-		obj.opened = true;
+	$scope.adddate = function(){
+		for (var i = 0; i <= $scope.arrdate.length - 1; i++) {
+			if ($scope.arrdate[i] == getDate($scope.mid)) {
+				alert('此日期已选');
+				return ;
+			}
+		}
+		$scope.arrdate.push(getDate($scope.mid));
 	}
-	
+
+
+	$scope.deldate = function(id){
+		$scope.arrdate.splice(id,1);
+		// console.log(id);
+		// console.log(id);
+		// console.log(id);
+	}
 };
