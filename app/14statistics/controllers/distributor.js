@@ -366,9 +366,9 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
         //salecode:销售品编号，saleinfo:销售情况
         angular.forEach(obj2['saleobjs'], function (saleinfo, salecode) {
             //查询一级分销是否卖过该子分销的销售品
-            var saleobj = obj1['saleobjs'][salecode];
+            
             //一级分销没卖过的销售品
-            if(saleobj === undefined)
+            if(obj1['saleobjs'][salecode] === undefined)
             {
                 obj1['saleobjs'][salecode] = {};
                 obj1['saleobjs'][salecode] = saleinfo;
@@ -377,19 +377,20 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             //一级分销也卖过的销售品
             else
             {
+                var saleobj = obj1['saleobjs'][salecode];
                 //saleobj 父节点。
                 angular.forEach(saleobj['prices'], function (priceinfo, price) {
 
                     //父节点没卖过这个价格
-                    var pprice = saleobj['prices'][price];
-                    if(pprice === undefined)
+                    if(saleobj['prices'][price] === undefined)
                     {
-                        pprice = {};
-                        pprice = priceinfo;
+                        saleobj['prices'][price] = {};
+                        saleobj['prices'][price] = priceinfo;
                     }
                     //父节点也卖过这个价格
                     else
                     {
+                        var pprice = saleobj['prices'][price];
                         // o[sale_code]['prices'][unit_price]['back'] += tmp.back;
                         // o[sale_code]['prices'][unit_price]['buy'] += tmp.buy;
                         // o[sale_code]['prices'][unit_price]['total_back'] += tmp.total_back;
