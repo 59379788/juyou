@@ -192,18 +192,20 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                         console.log(tainfo.company[i]);
                         merge(tainfo.info, tainfo.company[i]);
                     }
-                    
-                    var c = tainfo.info;
-                    c.salearr = [];
-                    angular.forEach(c['saleobjs'], function (saleinfo, salecode) {
-                        c.salearr.push(saleinfo);
-                        saleinfo.pricesarr = [];
-                        angular.forEach(saleinfo['prices'], function (priceinfo, price) {
-                            saleinfo.pricesarr.push(priceinfo);
-                        });
-                    });
 
-                    $scope.companys.push(c);
+                    $scope.companys.push(tainfo.info);
+                    
+                    // var c = tainfo.info;
+                    // c.salearr = [];
+                    // angular.forEach(c['saleobjs'], function (saleinfo, salecode) {
+                    //     c.salearr.push(saleinfo);
+                    //     saleinfo.pricesarr = [];
+                    //     angular.forEach(saleinfo['prices'], function (priceinfo, price) {
+                    //         saleinfo.pricesarr.push(priceinfo);
+                    //     });
+                    // });
+
+                    // $scope.companys.push(c);
 
                 });
 
@@ -247,6 +249,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                 //saleobj 父节点。
                 angular.forEach(saleobj['prices'], function (priceinfo, price) {
 
+
                     //父节点没卖过这个价格
                     //var pprice = saleobj['prices'][price];
                     if(!saleobj['prices'].hasOwnProperty(price))
@@ -258,16 +261,22 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                     else
                     {
                         var pprice = saleobj['prices'][price];
-                        // o[sale_code]['prices'][unit_price]['back'] += tmp.back;
-                        // o[sale_code]['prices'][unit_price]['buy'] += tmp.buy;
-                        // o[sale_code]['prices'][unit_price]['total_back'] += tmp.total_back;
-                        // o[sale_code]['prices'][unit_price]['total_buy'] += tmp.total_buy;
-                        // o[sale_code]['prices'][unit_price]['used'] += tmp.used;
+
+                        
+                        
                         pprice.back += priceinfo.back;
                         pprice.buy += priceinfo.buy;
                         pprice.total_back += priceinfo.total_back;
                         pprice.total_buy += priceinfo.total_buy;
                         pprice.used += priceinfo.used;
+
+                        if(obj1.id == '2ea44857dc844a18a943a623d789be08'
+                        && salecode == '1475831766510')
+                        {
+                            console.log(priceinfo.company_name);
+                            console.log(pprice);
+                        }
+
                     }
 
                 });
