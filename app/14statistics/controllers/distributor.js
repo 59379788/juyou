@@ -166,24 +166,6 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                     // {
 
                     // }
-
-                    
-
-                    // for(var j = 0; j < len; j++)
-                    // {
-                    //     var tmpj = tmparr[j];
-                    //     console.log(tmpj);
-                    //     if(tmpj == 0 || tmpj == '') continue;
-                    //     if(!pointer.hasOwnProperty(tmpj))
-                    //     {
-                    //         pointer[tmpj] = {};
-                    //         pointer[tmpj]['company'] = [];
-                    //     }
-                    //     pointer = pointer[tmpj];
-                    // }
-                    // if(pointer['company'] !== undefined){
-                    //     pointer['company'].push(value);
-                    // }
                 }
             });
             console.log('6666666666677788');
@@ -191,18 +173,14 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             console.log('66666666666');
 
 
-
-            return;
-
-
             //var companys = [];
             //key：顶级社
             //value : 所有一级社对象
-            angular.forEach(res, function (value, key) {
+            angular.forEach(res, function (value1, key1) {
 
                 //$scope.companys = value;
 
-                angular.forEach(value, function (tainfo, taid) {
+                angular.forEach(value1, function (tainfo, taid) {
 
                     //taid,一级社id
                     //tainfo.info : 一级社信息
@@ -227,140 +205,10 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
 
                     $scope.companys.push(c);
 
-                    // if(taid != 'company')
-                    // {
-                    //     console.log(taid);
-
-                    //     var flag = true;//卖票子社标记
-                    //     //遍历已经卖票的一级社
-                    //     for(var i = 0; i < $scope.companys.length; i++)
-                    //     {
-                    //         //一级社
-                    //         var c = $scope.companys[i];
-                    //         //一级社id
-                    //         var id = c.id;
-
-                    //         //将已经卖票的一级社子社追加到一级社里
-                    //         if(id == taid)
-                    //         {
-                    //             c['sub'] = {};
-                    //             c['sub'] = tainfo;
-                    //             flag = false;
-                    //             break;
-                    //         }
-                    //     }
-
-                    //     if(flag)
-                    //     {
-                    //         var obj = {
-                    //             'id' : taid,
-                    //             'company_name' : tadata[taid],
-                    //             'sub' : tainfo,
-                    //             'saleobjs' : {}
-                    //         };
-                    //         $scope.companys.push(obj);
-                    //         flag = true;
-                    //     }
-                    // }
-                    
                 });
-
-                // for(var i = 0; i < $scope.companys.length; i++)
-                // {
-                //     //一级社
-                //     var c = $scope.companys[i];
-                //     //一级社id
-                //     var id = c.id;
-                //     //一级社子社卖票了
-                //     if(value.hasOwnProperty(id))
-                //     {
-                //         c['sub'] = {};
-                //         c['sub'] = value[id];
-                //     }
-                //     //一级社没卖票
-                //     else
-                //     {
-
-                //     }
-                // }
 
             });
             console.log($scope.companys);
-
-
-            return;
-
-
-
-            // for(var i = 0; i < $scope.companys.length; i++)
-            // {
-            //     var company = $scope.companys[i];
-            //     if(company.sub === undefined) continue;
-
-            //     for(var j = 0; j < company.sub.company.length; j++)
-            //     {
-            //         var sub = company.sub.company[j];
-            //         merge(company, sub);
-            //     }
-
-            // }
-            // console.log($scope.companys);
-            
-
-            // for(var i = 0; i < $scope.companys.length; i++)
-            // {
-            //     var c = $scope.companys[i];
-            //     c.salearr = [];
-            //     angular.forEach(c['saleobjs'], function (saleinfo, salecode) {
-
-            //         c.salearr.push(saleinfo);
-
-            //         saleinfo.pricesarr = [];
-
-            //         angular.forEach(saleinfo['prices'], function (priceinfo, price) {
-
-            //             saleinfo.pricesarr.push(priceinfo);
-
-            //         });
-
-            //     });
-
-            // }
-
-            console.log($scope.companys);
-
-            //$scope.companys = companys;
-            // return ;
-
-
-            // var objs = {};
-            // for(var i = 0; i < res.data.length; i++)
-            // {
-            //     var tmp = res.data[i];
-            //     var company_code = tmp.company_code
-            //     var company_id_parents = tmp.company_id_parents;
-            //     if(company_id_parents === undefined || company_id_parents == '') continue;
-
-            //     //console.log(company_code_parent + '---' + company_code);
-
-            //     var pointer = objs;
-            //     var tmparr = company_id_parents.split(',');
-            //     //console.log(tmparr);
-            //     for(var j = 0; j < tmparr.length; j++)
-            //     {
-            //         var tmpj = tmparr[j]
-            //         if(tmpj == 0 || tmpj == '') continue;
-            //         if(!pointer.hasOwnProperty(tmpj))
-            //         {
-            //             pointer[tmpj] = {};
-            //             pointer[tmpj]['company'] = [];
-            //         }
-            //         pointer = pointer[tmpj];
-            //     }
-            //     pointer['company'].push(tmp);
-            // }
-            // console.log(objs);
-
 
 
         });
@@ -390,7 +238,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             {
                 obj1['saleobjs'][salecode] = {};
                 obj1['saleobjs'][salecode] = saleinfo;
-                console.log(obj1['saleobjs'][salecode]);
+                //console.log(obj1['saleobjs'][salecode]);
             }
             //一级分销也卖过的销售品
             else
