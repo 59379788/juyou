@@ -184,7 +184,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                     // }
                 }
             });
-            console.log('66666666666777888');
+            console.log('6666666666677788');
             console.log(res);
             console.log('66666666666');
 
@@ -366,9 +366,10 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
         //salecode:销售品编号，saleinfo:销售情况
         angular.forEach(obj2['saleobjs'], function (saleinfo, salecode) {
             //查询一级分销是否卖过该子分销的销售品
-            
+            //salecode,hasOwnProperty
+            //var saleobj = obj1['saleobjs'][salecode];
             //一级分销没卖过的销售品
-            if(obj1['saleobjs'][salecode] === undefined)
+            if(obj1['saleobjs'].hasOwnProperty(salecode))
             {
                 obj1['saleobjs'][salecode] = {};
                 obj1['saleobjs'][salecode] = saleinfo;
@@ -382,7 +383,8 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                 angular.forEach(saleobj['prices'], function (priceinfo, price) {
 
                     //父节点没卖过这个价格
-                    if(saleobj['prices'][price] === undefined)
+                    //var pprice = saleobj['prices'][price];
+                    if(saleobj['prices'].hasOwnProperty(price))
                     {
                         saleobj['prices'][price] = {};
                         saleobj['prices'][price] = priceinfo;
