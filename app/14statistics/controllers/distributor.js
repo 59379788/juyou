@@ -211,8 +211,17 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                         merge(tainfo.info, tainfo.company[i]);
                     }
                     
+                    var c = tainfo.info;
+                    c.salearr = [];
+                    angular.forEach(c['saleobjs'], function (saleinfo, salecode) {
+                        c.salearr.push(saleinfo);
+                        saleinfo.pricesarr = [];
+                        angular.forEach(saleinfo['prices'], function (priceinfo, price) {
+                            saleinfo.pricesarr.push(priceinfo);
+                        });
+                    });
 
-
+                    $scope.companys.push(c);
 
                     // if(taid != 'company')
                     // {
@@ -272,47 +281,47 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                 // }
 
             });
-            console.log(res);
+            console.log($scope.companys);
 
 
             return;
 
 
 
-            for(var i = 0; i < $scope.companys.length; i++)
-            {
-                var company = $scope.companys[i];
-                if(company.sub === undefined) continue;
+            // for(var i = 0; i < $scope.companys.length; i++)
+            // {
+            //     var company = $scope.companys[i];
+            //     if(company.sub === undefined) continue;
 
-                for(var j = 0; j < company.sub.company.length; j++)
-                {
-                    var sub = company.sub.company[j];
-                    merge(company, sub);
-                }
+            //     for(var j = 0; j < company.sub.company.length; j++)
+            //     {
+            //         var sub = company.sub.company[j];
+            //         merge(company, sub);
+            //     }
 
-            }
-            console.log($scope.companys);
+            // }
+            // console.log($scope.companys);
             
 
-            for(var i = 0; i < $scope.companys.length; i++)
-            {
-                var c = $scope.companys[i];
-                c.salearr = [];
-                angular.forEach(c['saleobjs'], function (saleinfo, salecode) {
+            // for(var i = 0; i < $scope.companys.length; i++)
+            // {
+            //     var c = $scope.companys[i];
+            //     c.salearr = [];
+            //     angular.forEach(c['saleobjs'], function (saleinfo, salecode) {
 
-                    c.salearr.push(saleinfo);
+            //         c.salearr.push(saleinfo);
 
-                    saleinfo.pricesarr = [];
+            //         saleinfo.pricesarr = [];
 
-                    angular.forEach(saleinfo['prices'], function (priceinfo, price) {
+            //         angular.forEach(saleinfo['prices'], function (priceinfo, price) {
 
-                        saleinfo.pricesarr.push(priceinfo);
+            //             saleinfo.pricesarr.push(priceinfo);
 
-                    });
+            //         });
 
-                });
+            //     });
 
-            }
+            // }
 
             console.log($scope.companys);
 
