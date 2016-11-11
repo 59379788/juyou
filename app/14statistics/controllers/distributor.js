@@ -131,11 +131,11 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                         if(!res.hasOwnProperty(ta0))
                         {
                             res[ta0] = {};
-                            res[ta0][id] = {
-                                'info' : value,
-                                'company' : []
-                            };
                         }
+                        res[ta0][id] = {
+                            'info' : value,
+                            'company' : []
+                        };
 
                     }
                     //子级社：(二级)0,xxx,yyy,  or (三级)0,xxx,yyy,zzz,
