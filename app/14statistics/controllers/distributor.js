@@ -193,19 +193,19 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                         merge(tainfo.info, tainfo.company[i]);
                     }
 
-                    $scope.companys.push(tainfo.info);
+                    //$scope.companys.push(tainfo.info);
                     
-                    // var c = tainfo.info;
-                    // c.salearr = [];
-                    // angular.forEach(c['saleobjs'], function (saleinfo, salecode) {
-                    //     c.salearr.push(saleinfo);
-                    //     saleinfo.pricesarr = [];
-                    //     angular.forEach(saleinfo['prices'], function (priceinfo, price) {
-                    //         saleinfo.pricesarr.push(priceinfo);
-                    //     });
-                    // });
+                    var c = tainfo.info;
+                    c.salearr = [];
+                    angular.forEach(c['saleobjs'], function (saleinfo, salecode) {
+                        c.salearr.push(saleinfo);
+                        saleinfo.pricesarr = [];
+                        angular.forEach(saleinfo['prices'], function (priceinfo, price) {
+                            saleinfo.pricesarr.push(priceinfo);
+                        });
+                    });
 
-                    // $scope.companys.push(c);
+                    $scope.companys.push(c);
 
                 });
 
@@ -245,24 +245,24 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             //一级分销也卖过的销售品
             else
             {
-                var saleobj = obj1['saleobjs'][salecode];
-                //saleobj 父节点。
-                angular.forEach(saleobj['prices'], function (priceinfo, price) {
+                var saleobj1 = obj1['saleobjs'][salecode];
+                var saleobj2 = saleinfo;
+                //遍历子社的销售价格
+                angular.forEach(saleobj2['prices'], function (priceinfo, price) {
 
 
                     //父节点没卖过这个价格
                     //var pprice = saleobj['prices'][price];
-                    if(!saleobj['prices'].hasOwnProperty(price))
+                    if(!saleobj1['prices'].hasOwnProperty(price))
                     {
-                        saleobj['prices'][price] = {};
-                        saleobj['prices'][price] = angular.copy(priceinfo);
+                        saleobj1['prices'][price] = {};
+                        saleobj1['prices'][price] = angular.copy(priceinfo);
                     }
                     //父节点也卖过这个价格
                     else
                     {
-                        var pprice = saleobj['prices'][price];
+                        var pprice = saleobj1['prices'][price];
 
-                        
                         
                         pprice.back += priceinfo.back;
                         pprice.buy += priceinfo.buy;
