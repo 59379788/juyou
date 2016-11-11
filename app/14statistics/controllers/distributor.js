@@ -204,8 +204,10 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                     //tainfo.info : 一级社信息
                     //tainfo.company : 一级社的子社信息（数组）
 
+                    console.log(tainfo.info)
                     for(var i = 0; i < tainfo.company.length; i++)
                     {
+                        console.log(tainfo.company[i]);
                         merge(tainfo.info, tainfo.company[i]);
                     }
                     
