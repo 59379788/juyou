@@ -116,27 +116,45 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             angular.forEach(objs, function (value, key) {
 
                 var company_id_parents = value.parentsid;
+                var id = value.id;
                 if(!(company_id_parents === undefined || company_id_parents == ''))
                 {
                     var tmparr = company_id_parents.split(',');
 
                     var len = tmparr.length;
-                    var ta1 = '';   //一级社
-
-                    //一级社: 0,xxx,    xxx是顶级社
-                    //子级社：(二级)0,xxx,yyy,  or (三级)0,xxx,yyy,zzz,
-                    if(len >= 3) 
+                    var ta0 = '';   //0级社
+                    var ta1 = '';   //1级社
+                    
+                    if(len === 3)//一级社: 0,xxx,    xxx是顶级社
                     {
-                        ta1 = tmparr[1];
-
-                        if(!res.hasOwnProperty(ta1))
+                        ta0 = tmparr[1];
+                        if(!res.hasOwnProperty(ta0))
                         {
-                            res[ta1] = {};
-                            res[ta1]['company'] = [];
+                            res[ta0] = {};
+                            res[ta0][id] = {
+                                'info' : value,
+                                'company' : []
+                            };
                         }
 
-                        if(res[ta1]['company'] !== undefined){
-                            res[ta1]['company'].push(value);
+                    }
+                    //子级社：(二级)0,xxx,yyy,  or (三级)0,xxx,yyy,zzz,
+                    else if(len > 3) 
+                    {
+                        ta0 = tmparr[1];
+                        ta1 = tmparr[2];
+
+                        if(res[ta0] !== undefined)
+                        {
+                            if(!res[ta0].hasOwnProperty(ta1))
+                            {
+                                res[ta0][ta1] = {
+                                    'info' : {},
+                                    'company' : []
+                                };
+                            }
+
+                            res[ta0][ta1]['company'].push(value);
                         }
                     }
                     // else   //len < 3 //0级社
@@ -163,9 +181,11 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                     // }
                 }
             });
-            console.log('66666666666');
+            console.log('66666666666777');
             console.log(res);
             console.log('66666666666');
+
+            return ;
 
             //var companys = [];
             angular.forEach(res, function (value, key) {
