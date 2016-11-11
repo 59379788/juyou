@@ -118,24 +118,49 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                 var company_id_parents = value.parentsid;
                 if(!(company_id_parents === undefined || company_id_parents == ''))
                 {
-                    var pointer = res;
                     var tmparr = company_id_parents.split(',');
 
-                    for(var j = 0; j < tmparr.length; j++)
+                    var len = tmparr.length;
+                    var ta1 = '';   //一级社
+
+                    //一级社: 0,xxx,    xxx是顶级社
+                    //子级社：(二级)0,xxx,yyy,  or (三级)0,xxx,yyy,zzz,
+                    if(len >= 3) 
                     {
-                        var tmpj = tmparr[j];
-                        console.log(tmpj);
-                        if(tmpj == 0 || tmpj == '') continue;
-                        if(!pointer.hasOwnProperty(tmpj))
+                        ta1 = tmparr[1];
+
+                        if(!res.hasOwnProperty(ta1))
                         {
-                            pointer[tmpj] = {};
-                            pointer[tmpj]['company'] = [];
+                            res[ta1] = {};
+                            res[ta1]['company'] = [];
                         }
-                        pointer = pointer[tmpj];
+
+                        if(res[ta1]['company'] !== undefined){
+                            res[ta1]['company'].push(value);
+                        }
                     }
-                    if(pointer['company'] !== undefined){
-                        pointer['company'].push(value);
-                    }
+                    // else   //len < 3 //0级社
+                    // {
+
+                    // }
+
+                    
+
+                    // for(var j = 0; j < len; j++)
+                    // {
+                    //     var tmpj = tmparr[j];
+                    //     console.log(tmpj);
+                    //     if(tmpj == 0 || tmpj == '') continue;
+                    //     if(!pointer.hasOwnProperty(tmpj))
+                    //     {
+                    //         pointer[tmpj] = {};
+                    //         pointer[tmpj]['company'] = [];
+                    //     }
+                    //     pointer = pointer[tmpj];
+                    // }
+                    // if(pointer['company'] !== undefined){
+                    //     pointer['company'].push(value);
+                    // }
                 }
             });
             console.log('66666666666');
