@@ -730,7 +730,21 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 				return ;
 			}
 		}
+		if (getDate($scope.mid) < getDate(new Date())) {
+			alert('请选择今日之后的日期');
+			return ;
+		}
 		$scope.arrdate.push(getDate($scope.mid));
+		for (var i = 0; i <= $scope.arrdate.length -1; i++) {
+			for (var j = i + 1; j <= $scope.arrdate.length -1; j++) {
+				if ($scope.arrdate[i] > $scope.arrdate[j]) {
+					var temp;
+					temp = $scope.arrdate[i];
+					$scope.arrdate[i] = $scope.arrdate[j];
+					$scope.arrdate[j] = temp;
+				}
+			}
+		}
 	}
 
 
