@@ -149,7 +149,10 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                             if(!res[ta0].hasOwnProperty(ta1))
                             {
                                 res[ta0][ta1] = {
-                                    'info' : {},
+                                    'info' : {
+                                        'id' : ta1,
+                                        'company_name' : tadata[ta1].name
+                                    },
                                     'company' : []
                                 };
                             }
@@ -181,54 +184,67 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                     // }
                 }
             });
-            console.log('66666666666777');
+            console.log('66666666666777888');
             console.log(res);
             console.log('66666666666');
 
-            return ;
 
             //var companys = [];
+            //key：顶级社
+            //value : 所有一级社对象
             angular.forEach(res, function (value, key) {
 
-                $scope.companys = value.company;
+                //$scope.companys = value;
 
                 angular.forEach(value, function (tainfo, taid) {
 
-                    if(taid != 'company')
+                    //taid,一级社id
+                    //tainfo.info : 一级社信息
+                    //tainfo.company : 一级社的子社信息（数组）
+
+                    for(var i = 0; i < tainfo.company.length; i++)
                     {
-                        console.log(taid);
-
-                        var flag = true;//卖票子社标记
-                        //遍历已经卖票的一级社
-                        for(var i = 0; i < $scope.companys.length; i++)
-                        {
-                            //一级社
-                            var c = $scope.companys[i];
-                            //一级社id
-                            var id = c.id;
-
-                            //将已经卖票的一级社子社追加到一级社里
-                            if(id == taid)
-                            {
-                                c['sub'] = {};
-                                c['sub'] = tainfo;
-                                flag = false;
-                                break;
-                            }
-                        }
-
-                        if(flag)
-                        {
-                            var obj = {
-                                'id' : taid,
-                                'company_name' : tadata[taid],
-                                'sub' : tainfo,
-                                'saleobjs' : {}
-                            };
-                            $scope.companys.push(obj);
-                            flag = true;
-                        }
+                        merge(tainfo.info, tainfo.company[i]);
                     }
+                    
+
+
+
+                    // if(taid != 'company')
+                    // {
+                    //     console.log(taid);
+
+                    //     var flag = true;//卖票子社标记
+                    //     //遍历已经卖票的一级社
+                    //     for(var i = 0; i < $scope.companys.length; i++)
+                    //     {
+                    //         //一级社
+                    //         var c = $scope.companys[i];
+                    //         //一级社id
+                    //         var id = c.id;
+
+                    //         //将已经卖票的一级社子社追加到一级社里
+                    //         if(id == taid)
+                    //         {
+                    //             c['sub'] = {};
+                    //             c['sub'] = tainfo;
+                    //             flag = false;
+                    //             break;
+                    //         }
+                    //     }
+
+                    //     if(flag)
+                    //     {
+                    //         var obj = {
+                    //             'id' : taid,
+                    //             'company_name' : tadata[taid],
+                    //             'sub' : tainfo,
+                    //             'saleobjs' : {}
+                    //         };
+                    //         $scope.companys.push(obj);
+                    //         flag = true;
+                    //     }
+                    // }
                     
                 });
 
@@ -252,7 +268,10 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                 // }
 
             });
-            console.log($scope.companys);
+            console.log(res);
+
+
+            return;
 
 
 
@@ -339,10 +358,10 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
         var res = true;
 
         //obj2的父节点id不是obj1的id
-        if(obj1.id !== obj2.parentid)
-        {
-            return false;
-        }
+        // if(obj1.id !== obj2.parentid)
+        // {
+        //     return false;
+        // }
 
         //salecode:销售品编号，saleinfo:销售情况
         angular.forEach(obj2['saleobjs'], function (saleinfo, salecode) {
