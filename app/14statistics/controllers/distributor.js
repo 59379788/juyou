@@ -136,6 +136,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                             'info' : value,
                             'company' : []
                         };
+                        res[ta0][id]['saleobjs'] = {};
 
                     }
                     //子级社：(二级)0,xxx,yyy,  or (三级)0,xxx,yyy,zzz,
@@ -151,7 +152,8 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                                 res[ta0][ta1] = {
                                     'info' : {
                                         'id' : ta1,
-                                        'company_name' : tadata[ta1].name
+                                        'company_name' : tadata[ta1].name,
+                                        'saleobjs' : {}
                                     },
                                     'company' : []
                                 };
