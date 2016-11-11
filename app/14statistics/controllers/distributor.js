@@ -237,7 +237,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             if(!obj1['saleobjs'].hasOwnProperty(salecode))
             {
                 obj1['saleobjs'][salecode] = {};
-                obj1['saleobjs'][salecode] = saleinfo;
+                obj1['saleobjs'][salecode] = angular.copy(saleinfo);
                 //console.log(obj1['saleobjs'][salecode]);
             }
             //一级分销也卖过的销售品
@@ -252,7 +252,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                     if(!saleobj['prices'].hasOwnProperty(price))
                     {
                         saleobj['prices'][price] = {};
-                        saleobj['prices'][price] = priceinfo;
+                        saleobj['prices'][price] = angular.copy(priceinfo);
                     }
                     //父节点也卖过这个价格
                     else
