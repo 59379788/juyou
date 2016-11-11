@@ -186,15 +186,11 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                     //tainfo.info : 一级社信息
                     //tainfo.company : 一级社的子社信息（数组）
 
-                    console.log(tainfo.info)
                     for(var i = 0; i < tainfo.company.length; i++)
                     {
-                        console.log(tainfo.company[i]);
                         merge(tainfo.info, tainfo.company[i]);
                     }
 
-                    //$scope.companys.push(tainfo.info);
-                    
                     var c = tainfo.info;
                     c.salearr = [];
                     angular.forEach(c['saleobjs'], function (saleinfo, salecode) {
@@ -263,19 +259,11 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                     {
                         var pprice = saleobj1['prices'][price];
 
-                        
                         pprice.back += priceinfo.back;
                         pprice.buy += priceinfo.buy;
                         pprice.total_back += priceinfo.total_back;
                         pprice.total_buy += priceinfo.total_buy;
                         pprice.used += priceinfo.used;
-
-                        if(obj1.id == '2ea44857dc844a18a943a623d789be08'
-                        && salecode == '1475831766510')
-                        {
-                            console.log(priceinfo.company_name);
-                            console.log(pprice);
-                        }
 
                     }
 
