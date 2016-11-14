@@ -20,7 +20,9 @@ var service = function($resource, BASEURL38985, SYS){
    // 二级供应商申请确认
    var saveconfirm = BASEURL38985 + '/api/as/tc/sksupplierapplydao/saveConfirm';
    // 一级供应商申请（获取权限）
-   var confirmauthority = BASEURL38985 + '/api/ac/sc/sysSign/updatesysSign';
+   var confirmauthority = BASEURL38985 + '/api/as/sc/syssigndao/savesysSign';
+   //一级商客账号列表
+   var hostlists = BASEURL38985 + '/api/as/sc/syssigndao/getByAppid';
     return {
         customerlist : function(){
              return $resource(customerlist, {}, {});
@@ -54,6 +56,9 @@ var service = function($resource, BASEURL38985, SYS){
         },
         confirmauthority : function(){
              return $resource(confirmauthority, {}, {});
+        },
+        hostlists : function(){
+             return $resource(hostlists, {}, {});
         }
     }
 };

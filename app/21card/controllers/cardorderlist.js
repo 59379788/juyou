@@ -58,4 +58,9 @@ module.exports = function($scope, cardproductorderlist, ITEMS_PERPAGE, getDate, 
     };
     $scope.load();
 
+    $scope.orderinfo = function (code) {
+       // alert('dfak');
+        $state.go('app.cardorderinfo',{'code':code});
+    }
+
 };

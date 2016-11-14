@@ -528,7 +528,7 @@ var router = function($urlRouterProvider, $stateProvider){
       })
 
     .state('app.awardpolicy', {
-        url: '/awardpolicy',
+        url: '/awardpolicy/:sale_code',
         controller : 'awardpolicy',
         template: require('./views/awardpolicy.html'),
         resolve:{

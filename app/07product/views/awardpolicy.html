@@ -10,6 +10,9 @@
                   <input type="text" class="form-control" ng-model="rewardinfo.end_num" placeholder="结束数量">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <input type="text" class="form-control" ng-model="rewardinfo.each_reward_price" placeholder="金额">
+                  &nbsp;&nbsp;
+                  <label class="">商客产品编号</label>
+                  <input type="text" class="form-control" disabled ng-model="productinfo.sale_code" placeholder="">
                   <button type="button" class="btn btn-primary search pull-right" ng-click="savereward()">设置</button>
 
 
@@ -51,7 +54,7 @@
       max-size="maxSize" 
       class="pagination-sm" 
       boundary-links="true" 
-      ng-change="search()"
+      ng-change="getlist()"
       items-per-page="itemsPerPage"
       previous-text="上一页"
       next-text="下一页"

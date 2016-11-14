@@ -105,7 +105,13 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'assignauthority',
          template: require('./views/assignauthority.html'),
          resolve:{
-            
+             confirmauthority : function(busscustomerservice){
+                 return busscustomerservice.confirmauthority();
+             },
+             hostlists : function(busscustomerservice){
+                 return busscustomerservice.hostlists();
+             }
+
          }
         })
 

@@ -86,8 +86,8 @@ module.exports = function($scope, $state,$uibModal, skgoodslist, saveprice,middl
     };
 
     //奖励政策
-    $scope.reward = function(obj) {
-        $state.go('app.awardpolicy');
+    $scope.reward = function(sale_code) {
+        $state.go('app.awardpolicy',{'sale_code':sale_code});
 
     }
     $scope.bind = function (sale_code) {
