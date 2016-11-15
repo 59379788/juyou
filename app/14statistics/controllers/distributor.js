@@ -144,7 +144,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                             result[ta0] = {};
                         }
 
-                        if(!result[ta0].hasOwnProperty(ta1))
+                        if(!result[ta0].hasOwnProperty(id))
                         {
                         	result[ta0][id] = {
 	                            'info' : value,
@@ -223,10 +223,10 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             });
             console.log('6666666666677788');
             console.log(result);
-            console.log('6666666666699999');
+            console.log('6666666666699999111');
 
 
-            return;
+            //return;
 
 
             //var companys = [];
