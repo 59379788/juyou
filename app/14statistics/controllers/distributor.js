@@ -124,6 +124,17 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                     var len = tmparr.length;
                     var ta0 = '';   //0级社
                     var ta1 = '';   //1级社
+
+                    // if(key == 'LA00149')
+                    // {
+                    // 	console.log('重点来了！！！！---开始---');
+
+                    // 	console.log(tmparr);
+                    // 	console.log(len);
+
+
+                    // 	console.log('重点来了！！！！---结束---');
+                    // }
                     
                     if(len === 3)//一级社: 0,xxx,    xxx是顶级社
                     {
@@ -144,6 +155,19 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                     {
                         ta0 = tmparr[1];
                         ta1 = tmparr[2];
+
+                        if(key == 'LA00149')
+	                    {
+	                    	console.log('重点来了！！！！---开始---');
+
+	                    	console.log(tmparr);
+	                    	console.log(len);
+	                    	console.log(ta0);
+	                    	console.log(ta1);
+	                    	console.log(res[ta0][ta1]);
+
+	                    	console.log('重点来了！！！！---结束---');
+	                    }
 
                         if(res[ta0] !== undefined)
                         {
