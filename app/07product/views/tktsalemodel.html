@@ -166,33 +166,33 @@
 							<label class="col-xs-3 control-label">有效期</label>&nbsp;&nbsp;
 		                  	<div class="input-group">
 			                  	<input 	type="text" 
-			                  			class="form-control"
-			                  			ng-model="start_time"
-			                  			uib-datepicker-popup="yyyy-MM-dd" 
-			                  			is-open="section.start.opened" 
-			                  			ng-required="true" 
-			                  			close-text="Close" 
-			                  			readonly/>
-			                    <span 	class="input-group-btn">
-			                        <button type="button" 
-			                        		class="btn btn-default"
-			                        		ng-click="open(section.start)">
-			                        	<i class="glyphicon glyphicon-calendar"></i>
-			                        </button>
-			                    </span>
-		                  	</div>
-	                        &nbsp;&nbsp;至&nbsp;&nbsp;            
-		                  	<div class="input-group">
-		                  		<input 	type="text" 
-		                  				class="form-control"
-		                  				ng-model="end_time"
-		                  				uib-datepicker-popup="yyyy-MM-dd" 
-			                  			is-open="section.end.opened" 
-			                  			ng-required="true" 
-			                  			close-text="Close" 
-			                  			readonly/>
-		                      	<span class="input-group-btn">
-		                        	<button type="button" 
+										class="form-control"
+										ng-model="start_time"
+										uib-datepicker-popup="yyyy-MM-dd" 
+										is-open="section.start.opened" 
+										ng-required="true" 
+										close-text="Close" 
+										readonly/>
+								 <span 	class="input-group-btn">
+										<button type="button" 
+											class="btn btn-default"
+											ng-click="open(section.start)">
+										<i class="glyphicon glyphicon-calendar"></i>
+									</button>
+								</span>
+							</div>
+							 &nbsp;&nbsp;至&nbsp;&nbsp;            
+							<div class="input-group">
+								<input 	type="text" 
+										class="form-control"
+										ng-model="end_time"
+										uib-datepicker-popup="yyyy-MM-dd" 
+										is-open="section.end.opened" 
+										ng-required="true" 
+										close-text="Close" 
+										readonly/>
+								<span class="input-group-btn">
+									<button type="button" 
 		                        			class="btn btn-default" 
 		                        			ng-click="open(section.end)">
 		                        		<i class="glyphicon glyphicon-calendar"></i>
@@ -231,7 +231,7 @@
 			                    	<span class="glyphicon glyphicon-plus"></span> 添加
 			                    </button>
 							</div>
-	                    </form>
+						</form>
 					</div>
 					<div class="form-group">
 						<form class="form-inline">
@@ -243,7 +243,7 @@
 											ng-repeat="obj in arrdate">
 										{{obj}}
 										<span 	class="glyphicon glyphicon-remove" 
-						          				ng-click="deldate($index)"></span>
+												ng-click="deldate($index)"></span>
 									</div>&nbsp;
 							</div>
 						</form>
