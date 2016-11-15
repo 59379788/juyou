@@ -214,6 +214,9 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             console.log('66666666666');
 
 
+            return;
+
+
             //var companys = [];
             //key：顶级社
             //value : 所有一级社对象
