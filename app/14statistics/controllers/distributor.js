@@ -156,19 +156,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                         ta0 = tmparr[1];
                         ta1 = tmparr[2];
 
-                        if(key == 'LA00149')
-	                    {
-	                    	console.log('重点来了！！！！---开始---');
-
-	                    	console.log(tmparr);
-	                    	console.log(len);
-	                    	console.log(ta0);
-	                    	console.log(ta1);
-	                    	console.log(res);
-	                    	console.log(res[ta0][ta1]);
-
-	                    	console.log('重点来了！！！！---结束---');
-	                    }
+                        
 
                         if(res[ta0] !== undefined)
                         {
@@ -182,10 +170,38 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                                     },
                                     'company' : []
                                 };
+
+                                if(key == 'LA00149')
+			                    {
+			                    	console.log('重点来了！！！！---开始---');
+
+			                    	console.log(tmparr);
+			                    	console.log(len);
+			                    	console.log(ta0);
+			                    	console.log(ta1);
+			                    	console.log(res);
+			                    	console.log(res[ta0][ta1]);
+
+			                    	console.log('重点来了！！！！---结束---');
+			                    }
                             }
 
                             res[ta0][ta1]['company'].push(value);
                         }
+                        // else// if(res[ta0] === undefined)
+                        // {
+                        // 	res[ta0] = {};
+                        // 	res[ta0][ta1] = {
+                        // 		'info' : {
+                        //                 'id' : ta1,
+                        //                 'company_name' : tadata[ta1].name,
+                        //                 'saleobjs' : {}
+                        //             },
+                        //         'company' : []
+                        // 	};
+                        // }
+
+                        // res[ta0][ta1]['company'].push(value);
                     }
                     // else   //len < 3 //0级社
                     // {
