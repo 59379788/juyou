@@ -114,7 +114,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             //把子分享商加到一级分销商里
             var res = {};
             angular.forEach(objs, function (value, key) {
-
+            	console.log(key);
                 var company_id_parents = value.parentsid;
                 var id = value.id;
                 if(!(company_id_parents === undefined || company_id_parents == ''))
@@ -164,6 +164,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
 	                    	console.log(len);
 	                    	console.log(ta0);
 	                    	console.log(ta1);
+	                    	console.log(res);
 	                    	console.log(res[ta0][ta1]);
 
 	                    	console.log('重点来了！！！！---结束---');
