@@ -226,7 +226,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             console.log('6666666666699999111');
 
 
-            //return;
+            return;
 
 
             //var companys = [];
