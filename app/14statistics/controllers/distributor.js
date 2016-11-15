@@ -143,11 +143,24 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                         {
                             result[ta0] = {};
                         }
-                        result[ta0][id] = {
-                            'info' : value,
-                            'company' : []
-                        };
-                        result[ta0][id]['saleobjs'] = {};
+
+                        if(!result[ta0].hasOwnProperty(ta1))
+                        {
+                        	result[ta0][id] = {
+	                            'info' : value,
+	                            'company' : []
+	                        };
+                        }
+                        else	//优先处理了其子社，补全一级社信息，不能操作‘company’
+                        {
+                        	result[ta0][id]['info'] = value;
+                        }
+
+                        
+                        if(result[ta0][id]['saleobjs'] === undefined)
+                        {
+                        	result[ta0][id]['saleobjs'] = {};
+                        }
 
                     }
                     //子级社：(二级)0,xxx,yyy,  or (三级)0,xxx,yyy,zzz,
@@ -155,8 +168,6 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                     {
                         ta0 = tmparr[1];
                         ta1 = tmparr[2];
-
-                        
 
                         if(result[ta0] !== undefined)
                         {
@@ -170,21 +181,22 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                                     },
                                     'company' : []
                                 };
-
-                                if(key == 'LA00149')
-			                    {
-			                    	console.log('重点来了！！！！---开始---');
-
-			                    	console.log(tmparr);
-			                    	console.log(len);
-			                    	console.log(ta0);
-			                    	console.log(ta1);
-			                    	console.log(result);
-			                    	console.log(result[ta0][ta1]);
-
-			                    	console.log('重点来了！！！！---结束---');
-			                    }
+                                
                             }
+
+                            if(key == 'LA00149')
+		                    {
+		                    	console.log('重点来了！！！！---开始---');
+
+		                    	console.log(tmparr);
+		                    	console.log(len);
+		                    	console.log(ta0);
+		                    	console.log(ta1);
+		                    	console.log(result);
+		                    	console.log(result[ta0][ta1]);
+
+		                    	console.log('重点来了！！！！---结束---');
+		                    }
 
                             result[ta0][ta1]['company'].push(value);
                         }
