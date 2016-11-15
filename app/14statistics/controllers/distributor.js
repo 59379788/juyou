@@ -39,230 +39,204 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                 return ;
             }
 
-            // talist().then(function(res1) {
-            //     console.log(res1);
-            //     if(res1.errcode === 0)
-            //     {
-            //       $scope.taarr = res1.data;
-            //     }
-            //     else
-            //     {
-            //         alert(res1.errmsg);
-            //     }
-            // });
-
-            //$scope.objs = res.data;
-
-            var objs = {};
-            //分组：旅行社编号－销售品编号－价格－
-            for(var i = 0; i < res.data.length; i++)
-            {
-                var tmp = res.data[i];
-                var company_code = tmp.company_code;
-                var sale_code = tmp.sale_code;
-                var unit_price = tmp.unit_price;
-                var company_name = tmp.company_name;
-
-                var id = tmp.company_id;
-                var parentsid = tmp.company_id_parents;
-                var parentid = tmp.company_id_parent;
-
-
-                if(!objs.hasOwnProperty(company_code))
+            talist().then(function(res1) {
+                console.log(res1);
+                if(res1.errcode === 0)
                 {
-                    var o = objs[company_code] = {};
-                    o['saleobjs'] = {};
-                    o['id'] = id;
-                    o['parentsid'] = parentsid;
-                    o['parentid'] = parentid;
-                    o['company_name'] = company_name;
-                    o['saleobjs'][sale_code] = {};
-                    o['saleobjs'][sale_code]['prices'] = {};
-                    o['saleobjs'][sale_code]['prices'][unit_price] = tmp;
+                    //$scope.taarr = res1.data;
+                    var taarr = res1.data;
+
+		            var objs = {};
+		            //分组：旅行社编号－销售品编号－价格－
+		            for(var i = 0; i < res.data.length; i++)
+		            {
+		                var tmp = res.data[i];
+		                var company_code = tmp.company_code;
+		                var sale_code = tmp.sale_code;
+		                var unit_price = tmp.unit_price;
+		                var company_name = tmp.company_name;
+
+		                var id = tmp.company_id;
+		                var parentsid = tmp.company_id_parents;
+		                var parentid = tmp.company_id_parent;
+
+
+		                if(!objs.hasOwnProperty(company_code))
+		                {
+		                    var o = objs[company_code] = {};
+		                    o['saleobjs'] = {};
+		                    o['id'] = id;
+		                    o['parentsid'] = parentsid;
+		                    o['parentid'] = parentid;
+		                    o['company_name'] = company_name;
+		                    o['saleobjs'][sale_code] = {};
+		                    o['saleobjs'][sale_code]['prices'] = {};
+		                    o['saleobjs'][sale_code]['prices'][unit_price] = tmp;
+		                }
+		                else
+		                {
+		                    var o = objs[company_code]['saleobjs'];
+		                    if(!o.hasOwnProperty(sale_code))
+		                    {
+		                        o[sale_code] = {};
+		                        o[sale_code]['prices'] = {};
+		                        o[sale_code]['prices'][unit_price] = tmp;
+		                    }
+		                    else
+		                    {
+		                        if(!o[sale_code]['prices'].hasOwnProperty(unit_price))
+		                        {
+		                            o[sale_code]['prices'][unit_price] = tmp;
+		                        }
+		                        else
+		                        {
+		                            o[sale_code]['prices'][unit_price]['back'] += tmp.back;
+		                            o[sale_code]['prices'][unit_price]['buy'] += tmp.buy;
+		                            o[sale_code]['prices'][unit_price]['total_back'] += tmp.total_back;
+		                            o[sale_code]['prices'][unit_price]['total_buy'] += tmp.total_buy;
+		                            o[sale_code]['prices'][unit_price]['used'] += tmp.used;
+		                        }
+		                    }
+		                }
+		            }
+
+		            console.log(objs);
+
+		            //把子分享商加到一级分销商里
+		            var result = {};
+		            angular.forEach(objs, function (value, key) {
+		            	console.log(key);
+		                var company_id_parents = value.parentsid;
+		                var id = value.id;
+		                if(!(company_id_parents === undefined || company_id_parents == ''))
+		                {
+		                    var tmparr = company_id_parents.split(',');
+
+		                    var len = tmparr.length;
+		                    var ta0 = '';   //0级社
+		                    var ta1 = '';   //1级社
+
+		                    if(len === 3)//一级社: 0,xxx,    xxx是顶级社
+		                    {
+		                        ta0 = tmparr[1];
+		                        if(!result.hasOwnProperty(ta0))
+		                        {
+		                            result[ta0] = {};
+		                        }
+
+		                        if(!result[ta0].hasOwnProperty(id))
+		                        {
+		                        	result[ta0][id] = {
+			                            'info' : value,
+			                            'company' : []
+			                        };
+		                        }
+		                        else	//优先处理了其子社，补全一级社信息，不能操作‘company’
+		                        {
+		                        	result[ta0][id]['info'] = value;
+		                        }
+
+		                    }
+		                    //子级社：(二级)0,xxx,yyy,  or (三级)0,xxx,yyy,zzz,
+		                    else if(len > 3) 
+		                    {
+		                        ta0 = tmparr[1];
+		                        ta1 = tmparr[2];
+
+		                        if(result[ta0] !== undefined)
+		                        {
+		                            if(!result[ta0].hasOwnProperty(ta1))
+		                            {
+		                                result[ta0][ta1] = {
+		                                    'info' : {
+		                                        'id' : ta1,
+		                                        'company_name' : getTaInfo(taarr, ta1).name,
+		                                        'saleobjs' : {}
+		                                    },
+		                                    'company' : []
+		                                };
+		                                
+		                            }
+
+		                            //result[ta0][ta1]['company'].push(value);
+		                        }
+		                        else// if(result[ta0] === undefined)
+		                        {
+		                        	result[ta0] = {};
+		                        	result[ta0][ta1] = {
+		                        		'info' : {
+	                                        'id' : ta1,
+	                                        'company_name' : getTaInfo(taarr, ta1).name,
+	                                        'saleobjs' : {}
+	                                    },
+		                                'company' : []
+		                        	};
+		                        }
+
+		                        result[ta0][ta1]['company'].push(value);
+		                    }
+		                    // else   //len < 3 //0级社
+		                    // {
+
+		                    // }
+		                }
+		            });
+		            console.log('6666666666677788');
+		            console.log(result);
+		            console.log('6666666666699999111');
+
+
+		            //return;
+
+
+		            //var companys = [];
+		            //key：顶级社
+		            //value : 所有一级社对象
+		            angular.forEach(result, function (value1, key1) {
+
+		                //$scope.companys = value;
+
+		                angular.forEach(value1, function (tainfo, taid) {
+
+		                    //taid,一级社id
+		                    //tainfo.info : 一级社信息
+		                    //tainfo.company : 一级社的子社信息（数组）
+
+		                    for(var i = 0; i < tainfo.company.length; i++)
+		                    {
+		                        merge(tainfo.info, tainfo.company[i]);
+		                    }
+
+		                    var c = tainfo.info;
+		                    c.salearr = [];
+		                    angular.forEach(c['saleobjs'], function (saleinfo, salecode) {
+		                        c.salearr.push(saleinfo);
+		                        saleinfo.pricesarr = [];
+		                        angular.forEach(saleinfo['prices'], function (priceinfo, price) {
+		                            saleinfo.pricesarr.push(priceinfo);
+		                        });
+		                    });
+
+		                    $scope.companys.push(c);
+
+		                });
+
+		            });
+		            console.log($scope.companys);
+
+
+
+
                 }
                 else
                 {
-                    var o = objs[company_code]['saleobjs'];
-                    if(!o.hasOwnProperty(sale_code))
-                    {
-                        o[sale_code] = {};
-                        o[sale_code]['prices'] = {};
-                        o[sale_code]['prices'][unit_price] = tmp;
-                    }
-                    else
-                    {
-                        if(!o[sale_code]['prices'].hasOwnProperty(unit_price))
-                        {
-                            o[sale_code]['prices'][unit_price] = tmp;
-                        }
-                        else
-                        {
-                            o[sale_code]['prices'][unit_price]['back'] += tmp.back;
-                            o[sale_code]['prices'][unit_price]['buy'] += tmp.buy;
-                            o[sale_code]['prices'][unit_price]['total_back'] += tmp.total_back;
-                            o[sale_code]['prices'][unit_price]['total_buy'] += tmp.total_buy;
-                            o[sale_code]['prices'][unit_price]['used'] += tmp.used;
-                        }
-                    }
-                }
-            }
-
-            console.log(objs);
-
-            
-
-            //把子分享商加到一级分销商里
-            var result = {};
-            angular.forEach(objs, function (value, key) {
-            	console.log(key);
-                var company_id_parents = value.parentsid;
-                var id = value.id;
-                if(!(company_id_parents === undefined || company_id_parents == ''))
-                {
-                    var tmparr = company_id_parents.split(',');
-
-                    var len = tmparr.length;
-                    var ta0 = '';   //0级社
-                    var ta1 = '';   //1级社
-
-                    // if(key == 'LA00149')
-                    // {
-                    // 	console.log('重点来了！！！！---开始---');
-
-                    // 	console.log(tmparr);
-                    // 	console.log(len);
-
-
-                    // 	console.log('重点来了！！！！---结束---');
-                    // }
-                    
-                    if(len === 3)//一级社: 0,xxx,    xxx是顶级社
-                    {
-                        ta0 = tmparr[1];
-                        if(!result.hasOwnProperty(ta0))
-                        {
-                            result[ta0] = {};
-                        }
-
-                        if(!result[ta0].hasOwnProperty(id))
-                        {
-                        	result[ta0][id] = {
-	                            'info' : value,
-	                            'company' : []
-	                        };
-                        }
-                        else	//优先处理了其子社，补全一级社信息，不能操作‘company’
-                        {
-                        	result[ta0][id]['info'] = value;
-                        }
-
-                        
-                        // if(result[ta0][id]['saleobjs'] === undefined)
-                        // {
-                        // 	result[ta0][id]['saleobjs'] = {};
-                        // }
-
-                    }
-                    //子级社：(二级)0,xxx,yyy,  or (三级)0,xxx,yyy,zzz,
-                    else if(len > 3) 
-                    {
-                        ta0 = tmparr[1];
-                        ta1 = tmparr[2];
-
-                        if(result[ta0] !== undefined)
-                        {
-                            if(!result[ta0].hasOwnProperty(ta1))
-                            {
-                                result[ta0][ta1] = {
-                                    'info' : {
-                                        'id' : ta1,
-                                        'company_name' : tadata[ta1].name,
-                                        'saleobjs' : {}
-                                    },
-                                    'company' : []
-                                };
-                                
-                            }
-
-                            if(key == 'LA00149')
-		                    {
-		                    	console.log('重点来了！！！！---开始---');
-
-		                    	console.log(tmparr);
-		                    	console.log(len);
-		                    	console.log(ta0);
-		                    	console.log(ta1);
-		                    	console.log(result);
-		                    	console.log(result[ta0][ta1]);
-
-		                    	console.log('重点来了！！！！---结束---');
-		                    }
-
-                            result[ta0][ta1]['company'].push(value);
-                        }
-                        // else// if(result[ta0] === undefined)
-                        // {
-                        // 	result[ta0] = {};
-                        // 	result[ta0][ta1] = {
-                        // 		'info' : {
-                        //                 'id' : ta1,
-                        //                 'company_name' : tadata[ta1].name,
-                        //                 'saleobjs' : {}
-                        //             },
-                        //         'company' : []
-                        // 	};
-                        // }
-
-                        // result[ta0][ta1]['company'].push(value);
-                    }
-                    // else   //len < 3 //0级社
-                    // {
-
-                    // }
+                    alert(res1.errmsg);
                 }
             });
-            console.log('6666666666677788');
-            console.log(result);
-            console.log('6666666666699999111');
+
+            //$scope.objs = res.data;
 
 
-            //return;
-
-
-            //var companys = [];
-            //key：顶级社
-            //value : 所有一级社对象
-            angular.forEach(result, function (value1, key1) {
-
-                //$scope.companys = value;
-
-                angular.forEach(value1, function (tainfo, taid) {
-
-                    //taid,一级社id
-                    //tainfo.info : 一级社信息
-                    //tainfo.company : 一级社的子社信息（数组）
-
-                    for(var i = 0; i < tainfo.company.length; i++)
-                    {
-                        merge(tainfo.info, tainfo.company[i]);
-                    }
-
-                    var c = tainfo.info;
-                    c.salearr = [];
-                    angular.forEach(c['saleobjs'], function (saleinfo, salecode) {
-                        c.salearr.push(saleinfo);
-                        saleinfo.pricesarr = [];
-                        angular.forEach(saleinfo['prices'], function (priceinfo, price) {
-                            saleinfo.pricesarr.push(priceinfo);
-                        });
-                    });
-
-                    $scope.companys.push(c);
-
-                });
-
-            });
-            console.log($scope.companys);
 
 
         });
@@ -329,6 +303,25 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
         });
 
         return res;
+    }
+
+
+    function getTaInfo(taarr, id){
+
+    	if(!angular.isArray(taarr))
+    	{
+    		return {};
+    	}
+
+    	for(var i = 0, j = taarr.length; i < j; i++)
+    	{
+    		var ta = taarr[i];
+
+    		if(ta.id == id)
+    		{
+    			return ta;
+    		}
+    	}
     }
 
 
