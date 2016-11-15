@@ -40,7 +40,6 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             }
 
             talist().then(function(res1) {
-                console.log(res1);
                 if(res1.errcode === 0)
                 {
                     //$scope.taarr = res1.data;
@@ -148,7 +147,6 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
 		                            if(!result[ta0].hasOwnProperty(ta1))
 		                            {
 		                            	var company_name = getTaInfo(taarr, ta1);
-		                            	console.log(company_name);
 		                                result[ta0][ta1] = {
 		                                    'info' : {
 		                                        'id' : ta1,
@@ -166,7 +164,6 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
 		                        {
 		                        	result[ta0] = {};
 		                        	var company_name = getTaInfo(taarr, ta1);
-		                            console.log(company_name);
 		                        	result[ta0][ta1] = {
 		                        		'info' : {
 	                                        'id' : ta1,
@@ -188,7 +185,6 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
 		            console.log('6666666666677788');
 		            console.log(result);
 		            console.log('6666666666699999111');
-
 
 		            //return;
 
@@ -228,9 +224,6 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
 		            });
 		            console.log($scope.companys);
 
-
-
-
                 }
                 else
                 {
@@ -239,9 +232,6 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             });
 
             //$scope.objs = res.data;
-
-
-
 
         });
     }
@@ -328,11 +318,4 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
     	}
     }
 
-
-    //
-    function change(obj){
-
-        
-
-    }
 };
