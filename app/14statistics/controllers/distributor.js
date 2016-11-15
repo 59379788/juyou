@@ -29,7 +29,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
 
         console.log(para);
 
-        orderstatisticscompanyhistorylist.get(para, function(res){
+        orderstatisticscompanyhistorylist.post(para, function(res){
 
             console.log(res);
 
