@@ -112,7 +112,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             
 
             //把子分享商加到一级分销商里
-            var res = {};
+            var result = {};
             angular.forEach(objs, function (value, key) {
             	console.log(key);
                 var company_id_parents = value.parentsid;
@@ -139,15 +139,15 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                     if(len === 3)//一级社: 0,xxx,    xxx是顶级社
                     {
                         ta0 = tmparr[1];
-                        if(!res.hasOwnProperty(ta0))
+                        if(!result.hasOwnProperty(ta0))
                         {
-                            res[ta0] = {};
+                            result[ta0] = {};
                         }
-                        res[ta0][id] = {
+                        result[ta0][id] = {
                             'info' : value,
                             'company' : []
                         };
-                        res[ta0][id]['saleobjs'] = {};
+                        result[ta0][id]['saleobjs'] = {};
 
                     }
                     //子级社：(二级)0,xxx,yyy,  or (三级)0,xxx,yyy,zzz,
@@ -158,11 +158,11 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
 
                         
 
-                        if(res[ta0] !== undefined)
+                        if(result[ta0] !== undefined)
                         {
-                            if(!res[ta0].hasOwnProperty(ta1))
+                            if(!result[ta0].hasOwnProperty(ta1))
                             {
-                                res[ta0][ta1] = {
+                                result[ta0][ta1] = {
                                     'info' : {
                                         'id' : ta1,
                                         'company_name' : tadata[ta1].name,
@@ -179,19 +179,19 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
 			                    	console.log(len);
 			                    	console.log(ta0);
 			                    	console.log(ta1);
-			                    	console.log(res);
-			                    	console.log(res[ta0][ta1]);
+			                    	console.log(result);
+			                    	console.log(result[ta0][ta1]);
 
 			                    	console.log('重点来了！！！！---结束---');
 			                    }
                             }
 
-                            res[ta0][ta1]['company'].push(value);
+                            result[ta0][ta1]['company'].push(value);
                         }
-                        // else// if(res[ta0] === undefined)
+                        // else// if(result[ta0] === undefined)
                         // {
-                        // 	res[ta0] = {};
-                        // 	res[ta0][ta1] = {
+                        // 	result[ta0] = {};
+                        // 	result[ta0][ta1] = {
                         // 		'info' : {
                         //                 'id' : ta1,
                         //                 'company_name' : tadata[ta1].name,
@@ -201,7 +201,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                         // 	};
                         // }
 
-                        // res[ta0][ta1]['company'].push(value);
+                        // result[ta0][ta1]['company'].push(value);
                     }
                     // else   //len < 3 //0级社
                     // {
@@ -210,7 +210,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                 }
             });
             console.log('6666666666677788');
-            console.log(res);
+            console.log(result);
             console.log('66666666666');
 
 
@@ -220,7 +220,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             //var companys = [];
             //key：顶级社
             //value : 所有一级社对象
-            angular.forEach(res, function (value1, key1) {
+            angular.forEach(result, function (value1, key1) {
 
                 //$scope.companys = value;
 
