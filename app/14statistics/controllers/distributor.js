@@ -157,10 +157,10 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
                         }
 
                         
-                        if(result[ta0][id]['saleobjs'] === undefined)
-                        {
-                        	result[ta0][id]['saleobjs'] = {};
-                        }
+                        // if(result[ta0][id]['saleobjs'] === undefined)
+                        // {
+                        // 	result[ta0][id]['saleobjs'] = {};
+                        // }
 
                     }
                     //子级社：(二级)0,xxx,yyy,  or (三级)0,xxx,yyy,zzz,
@@ -223,7 +223,7 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
             });
             console.log('6666666666677788');
             console.log(result);
-            console.log('66666666666');
+            console.log('6666666666699999');
 
 
             return;
