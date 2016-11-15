@@ -9,6 +9,13 @@
                 <label>景区编号</label>&nbsp;&nbsp;
                 <input type="text" class="form-control" ng-model="searchform.place_code" >
                 &nbsp;&nbsp;&nbsp;&nbsp;
+                <label>经销商</label>&nbsp;&nbsp;
+                <select class="form-control" ng-model="searchform.seller_code" 
+                  ng-options="view.CODE as view.NAME for view in taarr"
+                >
+                    <option value="">全选</option>
+                </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
             </div>
             <div class="col-sm-2 text-right">

@@ -117,6 +117,8 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
 	};
 
     $scope.load = function () {
+        console.log('$scope.searchform = '+$scope.searchform);
+        console.log($scope.searchform);
         salelist.save($scope.searchform, function(res){
 
             /* 销售品存储结构
@@ -524,5 +526,16 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
 
     };
 
+
+    talist().then(function(res) {
+        if(res.errcode === 0)
+        {
+            $scope.taarr = res.data;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
 
 };
