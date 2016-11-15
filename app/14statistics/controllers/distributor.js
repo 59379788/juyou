@@ -147,10 +147,12 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
 		                        {
 		                            if(!result[ta0].hasOwnProperty(ta1))
 		                            {
+		                            	var company_name = getTaInfo(taarr, ta1);
+		                            	console.log(company_name);
 		                                result[ta0][ta1] = {
 		                                    'info' : {
 		                                        'id' : ta1,
-		                                        'company_name' : getTaInfo(taarr, ta1).name,
+		                                        'company_name' : company_name.NAME,
 		                                        'saleobjs' : {}
 		                                    },
 		                                    'company' : []
@@ -163,10 +165,12 @@ module.exports = function($scope, orderstatisticscompanyhistorylist, getDate, ta
 		                        else// if(result[ta0] === undefined)
 		                        {
 		                        	result[ta0] = {};
+		                        	var company_name = getTaInfo(taarr, ta1);
+		                            console.log(company_name);
 		                        	result[ta0][ta1] = {
 		                        		'info' : {
 	                                        'id' : ta1,
-	                                        'company_name' : getTaInfo(taarr, ta1).name,
+	                                        'company_name' : company_name.NAME,
 	                                        'saleobjs' : {}
 	                                    },
 		                                'company' : []
