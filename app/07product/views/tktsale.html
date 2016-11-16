@@ -2,24 +2,39 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="form-group form-inline">
-            <div class="col-sm-10">
-                <label>销售品名称</label>
-                <input type="text" class="form-control" ng-model="searchform.name" >
-                &nbsp;
-                <label>景区编号</label>
-                <input type="text" class="form-control" ng-model="searchform.place_code" >
-                &nbsp;
-                <label>经销商</label>
-                <select class="form-control" ng-model="searchform.seller_code" 
-                  ng-options="view.CODE as view.NAME for view in taarr"
-                >
-                    <option value="">全选</option>
-                </select>
-                &nbsp;
-                <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
-            </div>
-            <div class="col-sm-2 text-right">
-                <button type="button" class="btn btn-info new" ng-click="create()">创建销售品</button>
+            <div class="row">
+                <div class="col-sm-11">
+                    <div class="row">
+                        &nbsp;
+                        <input  type="text" 
+                                class="form-control" 
+                                ng-model="searchform.name"
+                                placeholder="销售品名称" >
+                        &nbsp;
+                        <input  type="text" 
+                                class="form-control"   
+                                ng-model="searchform.place_code"
+                                placeholder="景区编号" >
+                        &nbsp;
+                        <label>经销商</label>
+                        <select class="form-control" ng-model="searchform.seller_code" 
+                          ng-options="view.CODE as view.NAME for view in taarr"
+                        >
+                            <option value="">全选</option>
+                        </select>
+                        &nbsp;
+                        <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+                    </div>
+                    
+                </div>
+                <div class="col-sm-1 text-left">
+                    <div class="row">
+                        <button type="button" class="btn btn-info new" ng-click="create()">
+                            创建销售品
+                        </button>
+                    </div>
+                   
+                </div>
             </div>
         </div>
     </div>
