@@ -70,6 +70,8 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 	$scope.saleobj.guide_price = 0;
 	$scope.saleobj.cost_price = 0;
 	$scope.saleobj.user_status = 0;
+	$scope.saleobj.order_num_limit = 0;
+	$scope.saleobj.sms_ticketcode_type = 0;
 
 	//库存
 	$scope.saleobj.current_stock_num = 0;
