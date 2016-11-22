@@ -43,8 +43,15 @@ var service = function($resource, BASEURL38985){
     //重发短信
     var agencyOrderRepeatECode = BASEURL38985 + '/api/ac/dc/huaxiapl/agencyOrderRepeatECode';
 
+
+    //皇家极地海洋馆信息
+    var getroyalocOrdersState = BASEURL38985 + '/api/ac/dc/royaloc/getOrdersState';
+
     //生效时间
     var updateTicketEffectTime = BASEURL38985 + '/api/as/tc/ticket2/updateTicketEffectTime';
+
+
+
 
 
     return {
@@ -99,6 +106,9 @@ var service = function($resource, BASEURL38985){
         },
         agencyOrderRepeatECode : function(){
             return $resource(agencyOrderRepeatECode, {}, {});
+        },
+        getroyalocOrdersState : function(){
+            return $resource(getroyalocOrdersState, {}, {});
         },
         updateTicketEffectTime : function(){
             return $resource(updateTicketEffectTime, {}, {});

@@ -1,10 +1,10 @@
 module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj, 
-    getRedCorridorOrderList, getDate, $uibModal, orderbacklist, getOrderSimInfo, updateTicketEffectTime, str2date){
+    getRedCorridorOrderList, getDate, $uibModal, orderbacklist, getOrderSimInfo, updateTicketEffectTime, str2date,
+    //皇家海洋馆订单状态详情
+    getroyalocOrdersState){
 
     // $scope.newdate;
-    console.log(11111111);
-    console.log(obj);
-    console.log(3333333333);
+    //console.log(obj);
     
     var code = obj.code;
 
@@ -27,17 +27,20 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
         viewname = '红海滩廊道';
         fun = getOrderSimInfo;
     }
+    else if(obj.sale_belong === 'royaloc')
+    {
+        viewname = '皇家极地海洋馆';
+        fun = getroyalocOrdersState;
+    }
 
-    console.log(obj);
-    console.log(code);
+    //console.log(obj);
+    //console.log(code);
 
     $scope.load = function () {
         if(!(obj.ticket_state == '9' || obj.ticket_state == '0')){
             fun.get({'order_code' : code}, function(res){
 
-                console.log(444444444);
-                console.log(res);
-                console.log(4444444444);
+                //console.log(res);
                 for (var i = res.data.length - 1; i >= 0; i--) {
                     res.data[i].take_effect_time = str2date(res.data[i].take_effect_time); 
                 }
@@ -70,6 +73,10 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
                 else if(obj.sale_belong === 'langdao')
                 {
                     arr = change(res.data);
+                }
+                else if(obj.sale_belong === 'royaloc')
+                {
+                    arr = change_royaloc(res.data);
                 }
 
                 console.log(arr);
@@ -217,6 +224,40 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
         arr.push(newobj);
         return arr;
 
+    }
+
+    function change_royaloc(obj)
+    {
+        console.log(obj);
+
+        var arr = [];
+
+        var msg = ' (总人数' + obj.firstNum + 
+                  ', 已使用人数' + obj.usedNum +
+                  ', 退票人数' + obj.cancelNum + ') ';
+
+
+        var newobj = {
+            'back1' : obj.cancelNum,
+            'code' : obj.ecode,
+            'goods_code' : obj.productCode,
+            //'id':
+            'order_code' : obj.platOrderNo,
+            'order_name' : obj.productName  + msg,
+            //'otime' : otime,
+            // 'place_code' :
+            'place_name' : viewname,
+            'sequence' : 1,
+            //'state' : '1',
+            // 'type' :
+            // 'type_attr' :
+            'type_name' : obj.productName,
+            'used1' : obj.usedNum,
+            'inCount' : obj.firstNum 
+        };
+
+        arr.push(newobj);
+        return arr;
     }
 
     //居游退票
