@@ -10,6 +10,8 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
 
     $scope.authority = true;
     $scope.middle ;
+    $scope.order_unique_code = obj.order_unique_code;
+
     var fun;
     var viewname = '';
 
