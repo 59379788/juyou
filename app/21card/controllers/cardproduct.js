@@ -6,7 +6,6 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 
 	$scope.selection = function (obj) {
        code.log(obj);
-
 	}
 
 	var id = $stateParams.code;

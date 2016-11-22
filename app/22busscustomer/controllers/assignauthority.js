@@ -23,6 +23,10 @@ module.exports = function($scope, $stateParams, $uibModal,confirmauthority,hostl
   };
   // 分配权限
   $scope.saveauthority = function(){
+    if ($scope.searchinfo.bind_company_code === '') {
+        alert('请输入一级商客账号！');
+        return; 
+    }
       array.push($scope.searchinfo.bind_company_code);
       var str = array.join(",");
       confirmauthority.save({'appid' : 'shangke','bind_company_code':str},function(res){

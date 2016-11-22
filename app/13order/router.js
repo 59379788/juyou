@@ -51,6 +51,9 @@ var router = function($urlRouterProvider, $stateProvider){
             updateTicketEffectTime : function(orderservice){
                 return orderservice.updateTicketEffectTime();
             },
+            getroyalocOrdersState : function(orderservice){
+                return orderservice.getroyalocOrdersState();
+            },
             str2date : function(utilservice){
                 return utilservice.str2date;
             }

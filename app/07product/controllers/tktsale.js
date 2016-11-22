@@ -4,6 +4,7 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
     salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, talist,
     sellerList, tstcreate, tststart, tststop,
+    sellerListno, tstcreateno, tststartno, tststopno,
     //系统确认模块
     affirmcreate, affirminfo, affirmupdate,
     //短信模版
@@ -464,33 +465,75 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     };
 
 
-    $scope.distribution = function(code){
+    //flag:1,分配经销商
+    //flga:0,不允许销售
+    $scope.distribution = function(code, flag){
 
-        var modalInstance = $uibModal.open({
-          template: require('../views/distribution.html'),
-          controller: 'distribution',
-          //size: 'lg',
-          resolve: {
-            code : function(){
-                return code;
-            },
-            talist : function(){
-                return talist;
-            },
-            sellerList : function(){
-                return sellerList;
-            },
-            tstcreate : function(){
-                return tstcreate;
-            },
-            tststart : function(){
-                return tststart;
-            },
-            tststop : function(){
-                return tststop;
-            }
-          }
-        });
+        var modalInstance;
+
+        if(flag == 1)
+        {
+            modalInstance = $uibModal.open({
+              template: require('../views/distribution.html'),
+              controller: 'distribution',
+              //size: 'lg',
+              resolve: {
+                code : function(){
+                    return code;
+                },
+                talist : function(){
+                    return talist;
+                },
+                sellerList : function(){
+                    return sellerList;
+                },
+                tstcreate : function(){
+                    return tstcreate;
+                },
+                tststart : function(){
+                    return tststart;
+                },
+                tststop : function(){
+                    return tststop;
+                },
+                title : function(){
+                    return '分配经销商';
+                }
+              }
+            });
+        }
+        else if(flag == 0)
+        {
+            modalInstance = $uibModal.open({
+              template: require('../views/distribution.html'),
+              controller: 'distribution',
+              //size: 'lg',
+              resolve: {
+                code : function(){
+                    return code;
+                },
+                talist : function(){
+                    return talist;
+                },
+                sellerList : function(){
+                    return sellerListno;
+                },
+                tstcreate : function(){
+                    return tstcreateno;
+                },
+                tststart : function(){
+                    return tststartno;
+                },
+                tststop : function(){
+                    return tststopno;
+                },
+                title : function(){
+                    return '分配不允许销售经销商';
+                }
+              }
+            });
+        }
+
 
         modalInstance.result.then(function () {
           //load();

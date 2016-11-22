@@ -1,10 +1,10 @@
 module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder, obj, 
-    getRedCorridorOrderList, getDate, $uibModal, orderbacklist, getOrderSimInfo, updateTicketEffectTime, str2date){
+    getRedCorridorOrderList, getDate, $uibModal, orderbacklist, getOrderSimInfo, updateTicketEffectTime, str2date,
+    //皇家海洋馆订单状态详情
+    getroyalocOrdersState){
 
     // $scope.newdate;
-    console.log(11111111);
-    console.log(obj);
-    console.log(3333333333);
+    //console.log(obj);
     
     var code = obj.code;
 
@@ -27,17 +27,20 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
         viewname = '红海滩廊道';
         fun = getOrderSimInfo;
     }
+    else if(obj.sale_belong === 'royaloc')
+    {
+        viewname = '皇家极地海洋馆';
+        fun = getroyalocOrdersState;
+    }
 
-    console.log(obj);
-    console.log(code);
+    //console.log(obj);
+    //console.log(code);
 
     $scope.load = function () {
         if(!(obj.ticket_state == '9' || obj.ticket_state == '0')){
             fun.get({'order_code' : code}, function(res){
 
-                console.log(444444444);
-                console.log(res);
-                console.log(4444444444);
+                //console.log(res);
                 for (var i = res.data.length - 1; i >= 0; i--) {
                     res.data[i].take_effect_time = str2date(res.data[i].take_effect_time); 
                 }
@@ -70,6 +73,10 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
                 else if(obj.sale_belong === 'langdao')
                 {
                     arr = change(res.data);
+                }
+                else if(obj.sale_belong === 'royaloc')
+                {
+                    arr = change_royaloc(res.data);
                 }
 
                 console.log(arr);
@@ -217,6 +224,70 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
         arr.push(newobj);
         return arr;
 
+    }
+
+    function change_royaloc(obj)
+    {
+        console.log(obj);
+
+        var usedNum = 0;
+        var backNum = 0;
+        var buyNum = 1;
+        
+
+        //0  未消费
+        if(obj.state == 0)
+        {
+            usedNum = 0;
+            backNum = 0;
+        }
+        //1  已消费
+        else if(obj.state == 1)
+        {
+            usedNum = 1;
+            backNum = 0;
+        }
+        //2  已作废,退票
+        else if(obj.state == 2)
+        {
+            usedNum = 0;
+            backNum = 1;
+        }
+        //3  订单错误
+        else if(obj.state == 3)
+        {
+            return [];
+        }
+
+
+        var arr = [];
+
+        var msg = ' (总人数' + 1 + 
+                  ', 已使用人数' + usedNum +
+                  ', 退票人数' + backNum + ') ';
+
+
+        var newobj = {
+            'back1' : backNum,
+            'code' : '',
+            'goods_code' : '',
+            //'id':
+            'order_code' : '',
+            'order_name' : '皇家极地海洋馆门票' + msg,
+            //'otime' : otime,
+            // 'place_code' :
+            'place_name' : viewname,
+            'sequence' : 1,
+            //'state' : '1',
+            // 'type' :
+            // 'type_attr' :
+            'type_name' : '皇家极地海洋馆门票',
+            'used1' : usedNum,
+            'inCount' : 1 
+        };
+
+        arr.push(newobj);
+        return arr;
     }
 
     //居游退票

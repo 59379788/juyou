@@ -1,7 +1,8 @@
 module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate, 
     $uibModal, ticketlist, createBackOrder, resend, getRedCorridorOrderList,
     getRedCorridorResentMsg, getRedCorridorTrSendSms, orderbacklist, relay,
-    getOrderSimInfo, agencyOrderRepeatECode, updateTicketEffectTime, str2date
+    getOrderSimInfo, agencyOrderRepeatECode, updateTicketEffectTime, str2date,
+    getroyalocOrdersState
     ){
     
     $scope.searchform = {};
@@ -102,6 +103,9 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
             str2date : function(){
                 return str2date;
             },
+            getroyalocOrdersState : function(){
+                return getroyalocOrdersState;
+            }
           }
         });
 
