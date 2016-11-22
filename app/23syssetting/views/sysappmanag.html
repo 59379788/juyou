@@ -1,0 +1,128 @@
+<div class="row">
+	<div class="col-xs-11 form-group form-inline">
+		<div class="row">
+			&nbsp;&nbsp;&nbsp;&nbsp;
+            <input  type="text" 
+                    class="form-control" 
+                    ng-model="searchform.name"
+                    placeholder="应用名称" >
+            &nbsp;
+            <input  type="text" 
+                    class="form-control"   
+                    ng-model="searchform.url"
+                    placeholder="应用地址" >
+            &nbsp;
+            <input  type="text" 
+                    class="form-control"   
+                    ng-model="searchform.center_code"
+                    placeholder="服务编码" >
+            &nbsp;
+            <input  type="text" 
+                    class="form-control"   
+                    ng-model="searchform.module_code"
+                    placeholder="模块编码" >
+            &nbsp;
+            <input  type="text" 
+                    class="form-control"   
+                    ng-model="searchform.function_code"
+                    placeholder="功能编码" >
+            &nbsp;
+		</div>
+		<div class="row mt10">
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<select class="form-control" ng-model="searchform.type">
+                <option value="">--请选择类型--</option>
+                <option value="0">--通用--</option>
+                <option value="1">--管理侧--</option>
+                <option value="2">--用户侧--</option>
+            </select>
+            &nbsp;
+            <button type="button" class="btn btn-default search" ng-click="searchinfo()">
+            	立即搜索
+            </button>
+		</div>
+	</div>
+	<div class="col-xs-1 text-left">
+		<div class="row">
+            <button type="button" class="btn btn-info new" ng-click="create()">
+                创建应用
+            </button>
+        </div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<table class="table table-bordered  ng-scope col-xs-10">
+	      	<thead class="text-center">
+	            <tr class="text-center">
+		            <th class="col-md-1 text-center">接口名称</th>
+		            <th class="col-md-2 text-center">接口地址</th>
+		            <th class="col-md-1 text-center">类型</th>
+		            <th class="col-md-1 text-center">服务编码</th>
+		            <th class="col-md-1 text-center">模块编码</th>
+		            <th class="col-md-1 text-center">功能编码</th>
+		            <th class="col-md-1 text-center">创建时间</th>
+		            <th class="col-md-2 text-center">操作</th>
+	            </tr>
+	      	</thead>
+	         <tbody class="text-center">
+	            <tr ng-repeat="obj in section" class="ng-scope text-center">
+	              	<td class="text-center ng-binding" 
+	              		ng-bind="obj.name"></td>
+	          	    <td class="text-center ng-binding" 
+	              		ng-bind="obj.url"></td>
+	            	<td class="text-center ng-binding" 
+	              		ng-bind="obj.type"></td>
+	            	<td class="text-center ng-binding" 
+	              		ng-bind="obj.center_code"></td>
+	              	<td class="text-center ng-binding" 
+	              		ng-bind="obj.module_code"></td>
+	              	<td class="text-center ng-binding" 
+	              		ng-bind="obj.function_code"></td>
+	              	<td class="text-center ng-binding"
+	              		ng-bind="obj.create_date"></td>
+	              	<td class="text-center">
+	                	<a 	ng-click="edit($index)" 
+	                		class="btn btn-success btn-xs">
+	                		编辑
+	                	</a>
+	                	<a 	ng-click="del($index)" 
+	                		class="btn btn-danger btn-xs">
+	                		删除
+	                	</a>
+	              	  	<a 	ng-click="info($index)" 
+	              	  		class="btn btn-warning btn-xs">
+	          	  			详情
+	          	  		</a>
+	                	<a 	ng-click="inpara($index)" 
+	                		class="btn btn-primary btn-xs">
+	                		入参
+	                	</a>
+	              	  	<a 	ng-click="outpara($index)" 
+	              	  		class="btn btn-info btn-xs">
+	          	  			出参
+	          	  		</a>
+	              	</td>
+	            </tr>
+	        </tbody>
+	    </table>
+	</div>
+</div>
+
+
+<div class="text-right">
+    <uib-pagination 
+      	total-items="bigTotalItems" 
+      	ng-model="bigCurrentPage" 
+      	max-size="maxSize" 
+      	class="pagination-sm" 
+      	boundary-links="true" 
+      	ng-change="searchinfo()"
+      	items-per-page="itemsPerPage"
+      	previous-text="上一页"
+      	next-text="下一页"
+      	first-text="首页"
+      	last-text="末页"
+      	rotate="false">
+    </uib-pagination>
+</div> 

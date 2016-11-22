@@ -101,7 +101,6 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
     };
 
     dictbytypelist({'type' : 'sale_category'}).then(function(res) {
-    	//console.log(res);
         if(res.errcode === 0)
         {
         	$scope.typearr = res.data;
@@ -113,7 +112,6 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
     });
     //自营
     dictbytypelist({'type' : 'ticket_sale_belong'}).then(function(res) {
-    	console.log(res);
         if(res.errcode === 0)
         {
         	$scope.sale_belongarr = res.data;
@@ -125,7 +123,6 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
     });
 
     smstmplist.get({}, function(res){
-    	console.log(res);
     	if(res.errcode === 0)
         {
         	$scope.smsarr = res.data;
@@ -158,7 +155,6 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
     };
 
 	saleinfo.get({'id' : id}, function(res){
-		console.log(res);
 
 		if(res.errcode === 0)
 		{
@@ -190,9 +186,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			for (var i = 0 ; i <= $scope.arrzhou.length - 1; i++) {
 				$scope.use_rule[ $scope.arrzhou[i] - 1 ] = true ;
 			}
-			console.log(6666666666666666);
-			console.log($scope.saleobj);
-			console.log(6666666666666666);
+			
 			$scope.saleobj.market_price *= 0.01;
 			$scope.saleobj.guide_price *= 0.01;
 			$scope.saleobj.cost_price *= 0.01;
@@ -221,7 +215,6 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	{
 		//详细信息 通过景区编号获取商品下拉
 	    goodlist.get({'view' : place_code}, function(res){
-	    	//console.log(res);
 			if(res.errcode === 0){
 				$scope.goodsarr = res.data;
 				if(res.data.length > 0) $scope.goodsobj.goods_code = res.data[0].code;
@@ -260,7 +253,6 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 		saledetaillist.get({'sale_code' : code}, function(res){
 			if(res.errcode === 0)
 			{
-				//console.log(res.data);
 				$scope.objs = res.data;
 			}
 			else
@@ -317,7 +309,6 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	//基本信息 保存
 	$scope.salego = function(){
 
-		console.log('ggggggggghhhhhhhhh');
 		if($scope.saleobj.name === undefined || $scope.saleobj.name == '')
 		{
 			alert('销售品名称不能为空');
@@ -338,32 +329,21 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			if(k == 0){
 				$scope.saleobj.unavailableDates = '';
 				$scope.saleobj.unavailableDates = $scope.arrdate[0];
-				console.log($scope.saleobj.unavailableDates);
 			}else{
-				console.log('kkkkkkkkk');
-				console.log($scope.arrdate);
 				$scope.saleobj.unavailableDates = $scope.saleobj.unavailableDates + ',' ; 
 				$scope.saleobj.unavailableDates = $scope.saleobj.unavailableDates +  $scope.arrdate[k]; 
-				console.log($scope.saleobj.unavailableDates);
-				console.log('kkkkkkkkk');
 			}
 		}
-		console.log('$scope.saleobj.unavailableDates ='+$scope.saleobj.unavailableDates);
 		var h = 0;
 		for(var i = 0; i <= 6; i++) {
-			console.log('hhhh==='+h);
 			if ( ($scope.use_rule[i] === true)  && (h !== 0)) {
 				$scope.saleobj.use_rule = $scope.saleobj.use_rule+','+(i+1).toString();
-				console.log($scope.saleobj.use_rule);
 			}
 			if ($scope.use_rule[i] == true  && h == 0) {
 				$scope.saleobj.use_rule = (i+1).toString();
 				h++;
 			}
 		}
-		console.log('ggggggggghhhhhhhhh');
-		console.log($scope.saleobj);
-		console.log('ggggggggghhhhhhhhh');
 		saleupdate.save($scope.saleobj, function(res){
 
 			if(res.errcode === 0)
@@ -391,7 +371,6 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 
 		salecategorylist.get({'sale_category_code' : code}, function(res){
 
-			console.log(res);
 			if(res.errcode === 0)
 			{
 				for(var i = 0; i < res.data.length; i++)
@@ -425,7 +404,6 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 
 	//查询政府补贴
 	function getgovsubsidy(code, obj){
-		//console.log({'govsubsidy_sale_code' : code});
 		salegovsubsidyinfo.get({'govsubsidy_sale_code' : code}, function(res){
 
 			if(res.errcode === 10003)
@@ -446,9 +424,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			'govsubsidy_sale_code' : $scope.saleobj.code,
 			'govsubsidy_price' : $scope.govobj.govsubsidy_price
 		};
-		//console.log(para);
 		salegovsubsidycreate.save(para, function(res){
-			//console.log(res);
 			if(res.errcode === 0)
 			{
 				alert('ok');
@@ -466,9 +442,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			'govsubsidy_sale_code' : $scope.saleobj.code,
 			'govsubsidy_price' : $scope.govobj.govsubsidy_price
 		};
-		console.log(para);
 		salegovsubsidyupdate.save(para, function(res){
-			console.log(res);
 			if(res.errcode === 0)
 			{
 				alert('ok');
@@ -483,9 +457,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 
 	//查询居游补贴
 	function getjuyousubsidy(code, obj){
-		console.log({'juyousubsidy_sale_code' : code});
 		salejuyousubsidyinfo.get({'juyousubsidy_sale_code' : code}, function(res){
-			console.log(res);
 			if(res.errcode === 10003)
 			{
 				obj['has'] = false;
@@ -504,9 +476,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			'juyousubsidy_sale_code' : $scope.saleobj.code,
 			'juyousubsidy_price' : $scope.juyouobj.juyousubsidy_price
 		};
-		console.log(para);
 		salejuyousubsidycreate.save(para, function(res){
-			//console.log(res);
 			if(res.errcode === 0)
 			{
 				alert('ok');
@@ -524,9 +494,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			'juyousubsidy_sale_code' : $scope.saleobj.code,
 			'juyousubsidy_price' : $scope.juyouobj.juyousubsidy_price
 		};
-		//console.log(para);
 		salejuyousubsidyupdate.save(para, function(res){
-			//console.log(res);
 			if(res.errcode === 0)
 			{
 				alert('ok');
@@ -543,7 +511,6 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 
 	//系统确认项 affirm
 	dictbytypelist({'type' : 'ticket_sys_affirm'}).then(function(res) {
-    	console.log(res);
         if(res.errcode === 0)
         {
         	$scope.ticket_sys_affirmarr = res.data;
@@ -555,15 +522,21 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
     });
 
     function getaffirm(code){
-		//console.log({'sysaffirm_sale_code' : code});
 		affirminfo.get({'sysaffirm_sale_code' : code}, function(res){
 			if(res.errcode === 10003)
 			{
 				$scope.affirm['has'] = false;
+				$scope.affirm.sysaffirm_target_goods_child_flag = 0;
 			}
 			else
 			{
 				$scope.affirm = res.data;
+				if(!$scope.affirm.sysaffirm_target_goods_child_flag){
+					$scope.affirm.sysaffirm_target_goods_child_flag = 0;
+				}
+				console.log('ggggggggggggg');
+				console.log($scope.affirm);
+				console.log('ggggggggggggg');
 				$scope.affirm['has'] = true;
 			}
 
@@ -580,11 +553,10 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			'sysaffirm_sale_code' : $scope.saleobj.code,
 			'sysaffirm_target_code' : $scope.affirm.sysaffirm_target_code,
 			'sysaffirm_target_goods_code' : $scope.affirm.sysaffirm_target_goods_code,
-			'sysaffirm_target_goods_back_type' : $scope.affirm.sysaffirm_target_goods_back_type
+			'sysaffirm_target_goods_back_type' : $scope.affirm.sysaffirm_target_goods_back_type,
+			'sysaffirm_target_goods_child_flag' : $scope.affirm.sysaffirm_target_goods_child_flag
 		};
-		console.log(para);
 		affirmcreate.save(para, function(res){
-			console.log(res);
 			if(res.errcode === 0)
 			{
 				alert('ok');
@@ -606,11 +578,10 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			'sysaffirm_sale_code' : $scope.saleobj.code,
 			'sysaffirm_target_code' : $scope.affirm.sysaffirm_target_code,
 			'sysaffirm_target_goods_code' : $scope.affirm.sysaffirm_target_goods_code,
-			'sysaffirm_target_goods_back_type' : $scope.affirm.sysaffirm_target_goods_back_type
+			'sysaffirm_target_goods_back_type' : $scope.affirm.sysaffirm_target_goods_back_type,
+			'sysaffirm_target_goods_child_flag' : $scope.affirm.sysaffirm_target_goods_child_flag
 		};
-		console.log(para);
 		affirmupdate.save(para, function(res){
-			console.log(res);
 			if(res.errcode === 0)
 			{
 				alert('ok');
@@ -642,10 +613,8 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
     };
 
     function getflashsale(code, obj){
-		//console.log({'govsubsidy_sale_code' : code});
 		flashsaleinfo.get({'sale_code' : code}, function(res){
 
-			console.log(res);
 
 			if(res.errcode === 10003)
 			{
@@ -682,9 +651,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 						   ':00',
 			'sale_code' : $scope.saleobj.code
 		};
-		console.log(para);
 		flashsalecreate.save(para, function(res){
-			console.log(res);
 			if(res.errcode === 0)
 			{
 				alert('ok');
@@ -709,9 +676,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 						   ':00',
 			'sale_code' : $scope.saleobj.code
 		};
-		console.log(para);
 		flashsaleupdate.save(para, function(res){
-			console.log(res);
 			if(res.errcode === 0)
 			{
 				alert('ok');
@@ -750,8 +715,5 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 
 	$scope.deldate = function(id){
 		$scope.arrdate.splice(id,1);
-		// console.log(id);
-		// console.log(id);
-		// console.log(id);
 	}
 };

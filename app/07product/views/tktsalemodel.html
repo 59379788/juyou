@@ -752,6 +752,26 @@
 				    </div>
 				</div>
 			</div>
+			<div class="col-xs-10" 
+				ng-show="affirm.sysaffirm_target_code == 'langdao' 
+				|| affirm.sysaffirm_target_code == 'huaxiapiaolian'
+				|| affirm.sysaffirm_target_code == 'royaloc'  ">
+				<div class="form-group">
+					<label class="col-xs-2 control-label">成人/儿童</label>
+					<div class="col-xs-10">
+				    	<label class="radio-inline">
+						  <input type="radio" name="sysaffirm_target_goods_child_flag" value="0"
+						  ng-model="affirm.sysaffirm_target_goods_child_flag"
+						  > 成人
+						</label>
+						<label class="radio-inline">
+						  <input type="radio" name="sysaffirm_target_goods_child_flag" value="1"
+						  ng-model="affirm.sysaffirm_target_goods_child_flag"
+						  > 儿童
+						</label>
+				    </div>
+				</div>
+			</div>
 
 
 				

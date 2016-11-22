@@ -1,0 +1,202 @@
+<div class="modal-header">
+    <h4 class="modal-title">应用信息</h4>
+</div>
+<div class="modal-body">
+    <div class="container-fluid form-horizontal">
+        <div class="panel panel-default form-horizontal">
+            <div class="panel-heading">
+                基本信息
+                <button type="button" class="btn btn-xs btn-info pull-right"
+                        ng-click="infoSave()"
+                        ng-show="flag">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    接口名称
+                                </label>
+                                <div class="col-xs-6">
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            placeholder="接口名称" 
+                                            ng-model="section.name">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    接口地址
+                                </label>
+                                <div class="col-xs-6">
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            placeholder="接口地址" 
+                                            ng-model="section.url">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    类型
+                                </label>
+                                <div class="col-xs-6">
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            placeholder="类型" 
+                                            ng-model="section.type">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    服务编码
+                                </label>
+                                <div class="col-xs-6">
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            placeholder="服务编码" 
+                                            ng-model="section.center_code">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    模块编码
+                                </label>
+                                <div class="col-xs-6">
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            placeholder="模块编码" 
+                                            ng-model="section.module_code">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    功能编码
+                                </label>
+                                <div class="col-xs-6">
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            placeholder="功能编码" 
+                                            ng-model="section.function_code">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    描述
+                                </label>
+                                <div class="col-xs-6">
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            placeholder="功能编码" 
+                                            ng-model="section.description">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    排序
+                                </label>
+                                <div class="col-xs-6">
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            placeholder="0" 
+                                            ng-model="section.sort">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    是否开启缓存
+                                </label>
+                                <div class="col-xs-6">
+                                    <select class="form-control"
+                                    		ng-model="section.cache_flag">
+						                <option value="0" >--开启--</option>
+						                <option value="1">--不开启--</option>、
+						            </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    缓存参数 (，分隔)
+                                </label>
+                                <div class="col-xs-6">
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            placeholder="缓存参数" 
+                                            ng-model="section.cache_params">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    缓存时间
+                                </label>
+                                <div class="col-xs-6">
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            placeholder="缓存时间" 
+                                            ng-model="section.cache_timeint">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label class="col-xs-3 control-label">
+                                    备注信息
+                                </label>
+                                <div class="col-xs-6">
+                                    <input  type="text" 
+                                            class="form-control" 
+                                            placeholder="备注信息" 
+                                            ng-model="section.remarks">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
