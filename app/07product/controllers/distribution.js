@@ -1,6 +1,9 @@
-module.exports = function($scope, talist, sellerList, code, tstcreate, tststart, tststop){
+module.exports = function($scope, talist, sellerList, code, tstcreate, tststart, tststop, title){
 
-	$scope.obj = {};
+	$scope.obj = {
+		'title' : title
+	};
+
 
 	talist().then(function(res) {
 	    console.log(res);

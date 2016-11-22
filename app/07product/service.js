@@ -150,6 +150,16 @@ var service = function($resource, BASEURL38985, $q, $http){
     var tststop = BASEURL38985 + '/api/as/tc/ticketsaletarget/updateStop';
 
 
+    //(不可卖)经销商列表
+    var sellerListno = BASEURL38985 + '/api/as/tc/ticketsaletargetno/sellerList';
+    //(不可卖)创建
+    var tstcreateno = BASEURL38985 + '/api/as/tc/ticketsaletargetno/create';
+    //(不可卖)可以
+    var tststartno = BASEURL38985 + '/api/as/tc/ticketsaletargetno/updateStart';
+    //(不可卖)禁止
+    var tststopno = BASEURL38985 + '/api/as/tc/ticketsaletargetno/updateStop';
+
+
     //系统确认项接口
     //创建系统确认
     var affirmcreate = BASEURL38985 + '/api/as/tc/salesysaffirm/create';
@@ -424,6 +434,20 @@ var service = function($resource, BASEURL38985, $q, $http){
         tststop : function(){
             return $resource(tststop, {}, {});
         },
+
+        sellerListno : function(){
+            return $resource(sellerListno, {}, {});
+        },
+        tstcreateno : function(){
+            return $resource(tstcreateno, {}, {});
+        },
+        tststartno : function(){
+            return $resource(tststartno, {}, {});
+        },
+        tststopno : function(){
+            return $resource(tststopno, {}, {});
+        },
+
         affirmcreate : function(){
             return $resource(affirmcreate, {}, {});
         },

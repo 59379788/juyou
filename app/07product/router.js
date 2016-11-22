@@ -290,6 +290,20 @@ var router = function($urlRouterProvider, $stateProvider){
                 return productservice.tststop();
             },
 
+            sellerListno : function(productservice){
+                return productservice.sellerListno();
+            },
+            tstcreateno : function(productservice){
+                return productservice.tstcreateno();
+            },
+            tststartno : function(productservice){
+                return productservice.tststartno();
+            },
+            tststopno : function(productservice){
+                return productservice.tststopno();
+            },
+
+
             //系统确认模块
             affirmcreate : function(productservice){
                 return productservice.affirmcreate();
