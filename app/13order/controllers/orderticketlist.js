@@ -230,20 +230,50 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
     {
         console.log(obj);
 
+        var usedNum = 0;
+        var backNum = 0;
+        var buyNum = 1;
+        
+
+        //0  未消费
+        if(obj.state == 0)
+        {
+            usedNum = 0;
+            backNum = 0;
+        }
+        //1  已消费
+        else if(obj.state == 1)
+        {
+            usedNum = 1;
+            backNum = 0;
+        }
+        //2  已作废,退票
+        else if(obj.state == 2)
+        {
+            usedNum = 0;
+            backNum = 1;
+        }
+        //3  订单错误
+        else if(obj.state == 3)
+        {
+            return [];
+        }
+
+
         var arr = [];
 
-        var msg = ' (总人数' + obj.firstNum + 
-                  ', 已使用人数' + obj.usedNum +
-                  ', 退票人数' + obj.cancelNum + ') ';
+        var msg = ' (总人数' + 1 + 
+                  ', 已使用人数' + usedNum +
+                  ', 退票人数' + backNum + ') ';
 
 
         var newobj = {
-            'back1' : obj.cancelNum,
-            'code' : obj.ecode,
-            'goods_code' : obj.productCode,
+            'back1' : backNum,
+            'code' : '',
+            'goods_code' : '',
             //'id':
-            'order_code' : obj.platOrderNo,
-            'order_name' : obj.productName  + msg,
+            'order_code' : '',
+            'order_name' : '皇家极地海洋馆门票' + msg,
             //'otime' : otime,
             // 'place_code' :
             'place_name' : viewname,
@@ -251,9 +281,9 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
             //'state' : '1',
             // 'type' :
             // 'type_attr' :
-            'type_name' : obj.productName,
-            'used1' : obj.usedNum,
-            'inCount' : obj.firstNum 
+            'type_name' : '皇家极地海洋馆门票',
+            'used1' : usedNum,
+            'inCount' : 1 
         };
 
         arr.push(newobj);

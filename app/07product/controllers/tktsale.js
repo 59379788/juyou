@@ -504,7 +504,6 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
         }
         else if(flag == 0)
         {
-            alert('asddsadasdsa');
             modalInstance = $uibModal.open({
               template: require('../views/distribution.html'),
               controller: 'distribution',
