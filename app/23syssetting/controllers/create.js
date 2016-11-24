@@ -16,7 +16,7 @@ console.log('flag'+$scope.section.cache_flag);
 		            alert(res.errmsg);
 		            return;
 		        }else{
-		        	alert('恭喜亲，新增成功！');
+		        	alert('恭喜亲,新增成功！');
 		        }
 			})
 		}else{
