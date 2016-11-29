@@ -54,11 +54,12 @@ module.exports = function($scope, $uibModalInstance,id,role,create,message,compa
     $scope.obj.loginFlag = '1';
     console.log($scope.obj);
     create.save($scope.obj, {}, function(res){
-      console.log(res);
+      
       if (res.errcode !== 0) { 
         alert(res.errmsg);
         return;
       }
+      console.log(res);
       //插入账号密码
       insertnops.save({'id':id, 'ticket_id':$scope.code+$scope.obj.loginName, 'ticket_pwd':'000000'}, function(res){ 
         console.log({'id':id, 'ticket_id':$scope.code+$scope.obj.loginName, 'ticket_pwd':'000000'});

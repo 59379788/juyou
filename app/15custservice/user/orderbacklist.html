@@ -59,7 +59,11 @@
         <td class="text-center">{{obj.order_code}}</td>
         <td class="text-center">{{obj.sequence}}</td>
         <td class="text-center">{{obj.back_price/100 | currency : '￥'}}</td>
-        <td class="text-center">{{obj.payment_type}}</td>
+        <td class="text-center" ng-show="obj.payment_type=='0'">默认</td>
+        <td class="text-center" ng-show="obj.payment_type=='1'">支付宝支付</td>
+        <td class="text-center" ng-show="obj.payment_type=='2'">微信支付</td>
+        <td class="text-center" ng-show="obj.payment_type=='4'">预存支付</td>
+        <td class="text-center" ng-show="obj.payment_type==undefined"></td>
         <td class="text-center">{{obj.create_time}}</td>
         <td class="text-center">{{obj.ta_code}}</td>
         <td class="text-center">{{obj.ticket_statename}}</td>
