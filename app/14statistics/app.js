@@ -17,6 +17,7 @@ App.controller('statisticsgroupjqlist',require('./controllers/statisticsgroupjql
 App.controller('useddetail',require('./controllers/useddetail'));
 App.controller('statisticsdetail',require('./controllers/statisticsdetail'));
 App.controller('distributor',require('./controllers/distributor'));
+App.controller('staticonline',require('./controllers/staticonline'));
 
 
 module.exports = App;

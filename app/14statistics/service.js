@@ -35,6 +35,9 @@ var service = function($resource, BASEURL38985){
     //销售统计－使用详情
     var orderstatisticsusedinfolist = BASEURL38985 + '/api/as/tc/ticketorder/orderstatisticsusedinfolist';
 
+    //在线套票统计
+    var staticonline = BASEURL38985 + '/api/us/uc/cardorder/getList';
+
     return {
         uselist : function(){
             return $resource(uselist, {}, {});
@@ -77,6 +80,9 @@ var service = function($resource, BASEURL38985){
         },
         orderstatisticsusedinfolist : function(){
             return $resource(orderstatisticsusedinfolist, {}, {});
+        },
+        staticonline : function(){
+            return $resource(staticonline, {}, {});
         }
     };
 

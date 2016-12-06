@@ -158,6 +158,23 @@ var router = function($urlRouterProvider, $stateProvider){
         
       })
 
+
+		//在线套票统计
+      .state('app.cardorder', {
+        url: '/cardorder',
+        controller : 'staticonline',
+        template: require('./views/staticonline.html'),
+        resolve:{
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            },
+            staticonline : function(statisticsservice){
+                return statisticsservice.staticonline();
+            }
+        }
+        
+      })
+
       
 
 
