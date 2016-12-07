@@ -1,7 +1,7 @@
 module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupdate, goodlist, 
 	saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, FileUploader,
 	salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
-	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, what,
+	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, what,saveSaleInteral,
 	//系统确认模块
     affirmcreate, affirminfo, affirmupdate,
     smstmplist,
@@ -14,6 +14,9 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	$scope.saleobj = {};	
 	//商品列表对象
 	$scope.goodsobj = {};
+	//销售品积分对象
+	$scope.salejfobj = {};
+	$scope.salejfobj.list = new Array();
 
 	$scope.section = {};
     $scope.section.start = {};
@@ -247,6 +250,86 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	    });
 
 	};
+	
+	$scope.salejfsave = function(){
+		if($scope.salejfobj.list.length > 0){
+			$scope.salejfobj.integral_sale_code = $scope.saleobj.code;
+			console.log('$scope.salejfobj=');
+			console.log($scope.salejfobj);
+			saveSaleInteral.save($scope.salejfobj, function(res){
+				console.log('res=');
+				console.log(res);
+		     	if(res.errcode === 0)
+		     	{
+		     		alert('保存成功');
+		     	}
+	     		else
+				{
+					alert(res.errmsg);
+				}
+	
+		    });
+		} else {
+			alert('请添加商品');
+			return;
+		}
+	}
+
+	//添加销售品积分及金额
+	$scope.addjf = function(){
+
+		if(!checkAddJf($scope.salejfobj.addtype))
+		{
+			return;
+		}
+		
+		$scope.salejfobj.list.push({'integral_type':$scope.salejfobj.addtype,'integral_price':0})
+			console.log('ooooooooooooooo');
+		console.log($scope.salejfobj);
+			console.log('ooooooooooooooo');
+//		$scope.salejfobj.code = $scope.saleobj.code;
+//		saledetailcreate.save($scope.salejfobj, function(res){
+//
+//	     	if(res.errcode === 0)
+//	     	{
+//	     		getsaledetail($scope.saleobj.code);
+//	     	}
+//   		else
+//			{
+//				alert(res.errmsg);
+//			}
+//
+//	    });
+
+	};
+	
+
+	function checkAddJf(obj){
+		console.log('obj'+obj);
+		if( obj === undefined || obj == ''){
+			return false;
+		}
+
+		for(var i = 0; i < $scope.salejfobj.list.length; i++)
+		{
+			
+			if($scope.salejfobj.list[i].integral_type == obj)
+			{
+				alert('不能添加重复商品！');
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+
+	//详细信息	删除
+	$scope.deljf = function(id){
+		if (confirm("确定要删除商品吗，亲！！～～")) {
+            $scope.salejfobj.list.splice(id,1);
+       }
+	}
 
 
 	function getsaledetail(code){

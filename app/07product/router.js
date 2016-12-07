@@ -302,6 +302,13 @@ var router = function($urlRouterProvider, $stateProvider){
             tststopno : function(productservice){
                 return productservice.tststopno();
             },
+            
+            
+            
+            
+            saveSaleInteral : function(productservice){
+                return productservice.saveSaleInteral();
+            },
 
 
             //系统确认模块
@@ -417,6 +424,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             dictbytypelist : function(productservice){
                 return productservice.dictbytypelist;
+            },
+            
+            
+            
+            saveSaleInteral : function(productservice){
+                return productservice.saveSaleInteral();
             }
         }
       })
@@ -473,6 +486,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             dictbytypelist : function(productservice){
                 return productservice.dictbytypelist;
+            },
+            
+            
+            
+            saveSaleInteral : function(productservice){
+                return productservice.saveSaleInteral();
             }
         }
       })

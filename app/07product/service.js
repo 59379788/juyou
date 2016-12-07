@@ -204,6 +204,11 @@ var service = function($resource, BASEURL38985, $q, $http){
     var rewardlistdel = BASEURL38985 + '/api/as/tc/skrewardpricedao/delete';
     // 绑定中间商
     var middlebusiness = BASEURL38985 + '/api/as/tc/skbindingmiddlebusiness/saveMiddleBusiness';
+    
+    
+    
+    // 销售品类型及金额添加
+    var saveSaleInteral = BASEURL38985 + '/api/uc/tc/ticketSaleIntegralService/saveSaleInteral';
 
 
     return {
@@ -332,6 +337,9 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         saledown : function(){
             return $resource(saledown, {}, {});
+        },
+        saveSaleInteral : function(){
+            return $resource(saveSaleInteral, {}, {});
         },
         viewlist : function(obj){
     		var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  

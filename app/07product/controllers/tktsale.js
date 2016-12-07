@@ -4,7 +4,7 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
     salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, talist,
     sellerList, tstcreate, tststart, tststop,
-    sellerListno, tstcreateno, tststartno, tststopno,
+    sellerListno, tstcreateno, tststartno, tststopno,saveSaleInteral,
     //系统确认模块
     affirmcreate, affirminfo, affirmupdate,
     //短信模版
@@ -47,6 +47,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             saledetaildelete : function(){
                 return saledetaildelete;
+            },
+            saveSaleInteral : function(){
+                return saveSaleInteral;
             },
             //政府补贴
             salegovsubsidycreate : function(){
@@ -268,6 +271,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             saledetaildelete : function(){
                 return saledetaildelete;
             },
+            saveSaleInteral : function(){
+                return saveSaleInteral;
+            },
             //政府补贴
             salegovsubsidycreate : function(){
                 return salegovsubsidycreate;
@@ -394,6 +400,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             saledetaildelete : function(){
                 return saledetaildelete;
+            },
+            saveSaleInteral : function(){
+                return saveSaleInteral;
             },
             //政府补贴
             salegovsubsidycreate : function(){
