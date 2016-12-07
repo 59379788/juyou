@@ -18,7 +18,9 @@ module.exports = function($scope, $state, $uibModalInstance, id, back_price, ord
 			alert('退款金额不能为空');
 			return;
 		}
-
+		$scope.obj.back_price = $scope.obj.back_price*100;
+		console.log('$scope.obj');
+		console.log($scope.obj);
 		orderback.save($scope.obj, function(res){
 
 			if(res.errcode === 0)
@@ -28,6 +30,7 @@ module.exports = function($scope, $state, $uibModalInstance, id, back_price, ord
 			}
 			else
 			{
+				$scope.obj.back_price = $scope.obj.back_price*0.01;
 				alert(res.errmsg);
 			}
 
