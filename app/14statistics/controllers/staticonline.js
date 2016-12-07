@@ -18,22 +18,20 @@ module.exports = function($scope, staticonline, getDate){
     
     //初始化
     $scope.load = function() {
-    	var para = {
-            pageNo:$scope.bigCurrentPage, 
-            pageSize:$scope.itemsPerPage
-        };
-        para = angular.extend($scope.searchform, para);
+    	
     	$scope.searchform.starttime = getDate($scope.section.start.date) + ' 00:00:00';
     	$scope.searchform.endtime = getDate($scope.section.end.date) + ' 23:59:59';
-    	
-            console.log('111111111');
-            console.log($scope.searchform);
-            console.log('111111111');
-    	staticonline.save($scope.searchform, function(res){
+        var para = {
+        pageNo:$scope.bigCurrentPage, 
+        pageSize:$scope.itemsPerPage
+        };
+        para = angular.extend($scope.searchform, para);
+    	staticonline.save(para, function(res){
 
 
             if(res.errcode === 0) {
         		$scope.objs = res.data.results;
+        		$scope.bigTotalItems = res.data.totalRecord;
             } else {
                 alert(res.errmsg);
             }
