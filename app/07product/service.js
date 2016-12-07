@@ -207,7 +207,10 @@ var service = function($resource, BASEURL38985, $q, $http){
     
     
     
-    // 销售品类型及金额添加
+    // 销售品积分列表
+    var findsaleintegrallist = BASEURL38985 + '/api/us/tc/saleintegral/findsaleintegrallist';
+    
+    // 积分配置
     var saveSaleInteral = BASEURL38985 + '/api/uc/tc/ticketSaleIntegralService/saveSaleInteral';
 
 
@@ -340,6 +343,9 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         saveSaleInteral : function(){
             return $resource(saveSaleInteral, {}, {});
+        },
+        findsaleintegrallist : function(){
+            return $resource(findsaleintegrallist, {}, {});
         },
         viewlist : function(obj){
     		var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  

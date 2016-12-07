@@ -1,4 +1,12 @@
 module.exports = function($scope, staticonline, getDate){
+	
+	/* 分页
+     * ========================================= */
+    $scope.maxSize = 5;            //最多显示多少个按钮
+    $scope.bigCurrentPage = 1;      //当前页码
+    $scope.itemsPerPage = 10;         //每页显示几条
+	
+	
 	$scope.searchform = {};
     //有效区间
     $scope.section = {};
@@ -21,7 +29,7 @@ module.exports = function($scope, staticonline, getDate){
 
 
             if(res.errcode === 0) {
-        		$scope.objs = res.data;
+        		$scope.objs = res.data.results;
             } else {
                 alert(res.errmsg);
             }

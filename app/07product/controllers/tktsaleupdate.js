@@ -1,7 +1,7 @@
 module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupdate, goodlist, 
 	saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, FileUploader,
 	salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
-	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, what,saveSaleInteral,
+	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, what,saveSaleInteral,findsaleintegrallist,
 	//系统确认模块
     affirmcreate, affirminfo, affirmupdate,
     smstmplist,
@@ -205,6 +205,12 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 
 			//系统确认模块
 			getaffirm($scope.saleobj.code);
+			
+			
+			//加载积分配置
+			findsaleintegrallist.save({'integral_sale_code':$scope.saleobj.code},function(res){
+				$scope.salejfobj.list = res.data;
+			});
 
 		}
 		else
@@ -251,14 +257,13 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 
 	};
 	
+	
+	
+	
 	$scope.salejfsave = function(){
 		if($scope.salejfobj.list.length > 0){
 			$scope.salejfobj.integral_sale_code = $scope.saleobj.code;
-			console.log('$scope.salejfobj=');
-			console.log($scope.salejfobj);
 			saveSaleInteral.save($scope.salejfobj, function(res){
-				console.log('res=');
-				console.log(res);
 		     	if(res.errcode === 0)
 		     	{
 		     		alert('保存成功');
