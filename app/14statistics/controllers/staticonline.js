@@ -18,7 +18,11 @@ module.exports = function($scope, staticonline, getDate){
     
     //初始化
     $scope.load = function() {
-    	
+    	var para = {
+            pageNo:$scope.bigCurrentPage, 
+            pageSize:$scope.itemsPerPage
+        };
+        para = angular.extend($scope.searchform, para);
     	$scope.searchform.starttime = getDate($scope.section.start.date) + ' 00:00:00';
     	$scope.searchform.endtime = getDate($scope.section.end.date) + ' 23:59:59';
     	

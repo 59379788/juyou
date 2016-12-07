@@ -23,6 +23,7 @@
 		<div class="col-xs-6">
 			<select class="form-control" ng-model="objt.place_code" 
               ng-options="view.code as view.name for view in viewarr"
+              ng-disabled="flag"
             >
             </select>
 		</div>

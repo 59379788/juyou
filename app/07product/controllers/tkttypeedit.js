@@ -22,6 +22,8 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 	$scope.midstart = new Date();
 	$scope.midend = new Date();
 	
+	$scope.flag = true;
+	
 	$scope.objt = {
 		'name' : '',
 	//	'code' : '',
@@ -30,6 +32,7 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 		'state' : '1',
 		'book_info' : ''
 	};
+    
     
 
 	tktinfo.get({'id' : $stateParams.id}, function(res){
