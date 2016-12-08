@@ -214,6 +214,16 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     };
     $scope.load();
 
+	dictbytypelist({'type' : 'sale_category'}).then(function(res) {
+        if(res.errcode === 0)
+        {
+        	$scope.typearr = res.data;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
 
     $scope.start = function(id) {
 		saleup.get({'id' : id}, function(res){

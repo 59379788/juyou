@@ -23,6 +23,12 @@
                             <option value="">--请选择经销商--</option>
                         </select>
                         &nbsp;
+                        <select class="form-control" 
+                        		ng-model="searchform.sale_category" 
+				              	ng-options="type1.value as type1.label for type1 in typearr">
+				            <option value="">--销售品分类--</option>
+				        </select>
+                        &nbsp;
                         <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
                     </div>
                     
