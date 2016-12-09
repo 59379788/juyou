@@ -397,6 +397,9 @@ var router = function($urlRouterProvider, $stateProvider){
             saledetaildelete : function(productservice){
                 return productservice.saledetaildelete();
             },
+            findsaleintegrallist : function(productservice){
+                return productservice.findsaleintegrallist();
+            },
             //政府补贴
             salegovsubsidycreate : function(productservice){
                 return productservice.salegovsubsidycreate();

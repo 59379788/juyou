@@ -2,7 +2,7 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 	saleinfo, saleupdate, goodlist, 
     saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, FileUploader,
     salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
-    salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo,
+    salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo,saveSaleInteral,findsaleintegrallist,
     //系统确认模块
     affirmcreate, affirminfo, affirmupdate,
     smstmplist,
@@ -274,6 +274,12 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 		            },
 		            saledetaildelete : function(){
 		                return saledetaildelete;
+		            },
+		            saveSaleInteral : function(){
+		                return saveSaleInteral;
+		            },
+		            findsaleintegrallist : function(){
+		                return findsaleintegrallist;
 		            },
 		            //政府补贴
 		            salegovsubsidycreate : function(){
