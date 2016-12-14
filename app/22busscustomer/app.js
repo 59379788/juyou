@@ -11,9 +11,22 @@ App.controller('supplierlist',require('./controllers/supplierlist'));
 App.controller('supplyremark',require('./controllers/supplyremark'));
 App.controller('assignauthority',require('./controllers/assignauthority'));
 
+
 //一元券
 App.controller('voucherorderlist',require('./controllers/voucherorderlist'));
 App.controller('voucherorderinfo',require('./controllers/voucherorderinfo'));
 App.controller('voucherinfo',require('./controllers/voucherinfo'));
+
+
+App.controller('friendly',require('./controllers/friendly'));
+App.controller('change',require('./controllers/change'));
+App.controller('onshelf',require('./controllers/onshelf'));
+App.controller('loveactionapply',require('./controllers/loveactionapply'));
+App.controller('applyuserlist',require('./controllers/applyuserlist'));
+App.controller('lovedonateapply',require('./controllers/lovedonateapply'));
+App.controller('goodsforyou',require('./controllers/goodsforyou'));
+App.controller('loveactionlist',require('./controllers/loveactionlist'));
+App.controller('addgoodtype',require('./controllers/addgoodtype'));
+
 
 module.exports = App;
