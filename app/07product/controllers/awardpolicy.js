@@ -41,7 +41,7 @@ module.exports = function($scope, $state,$stateParams,$uibModal,rewardprice,rewa
     $scope.getlist();
 
 
-
+    // 设置奖励政策
     $scope.savereward = function () {
         if ($scope.rewardinfo.start_num!==''&&$scope.rewardinfo.end_num!==''&&$scope.rewardinfo.each_reward_price!=='') {
             rewardprice.save($scope.rewardinfo, function (res) {

@@ -23,6 +23,29 @@ var service = function($resource, BASEURL38985, SYS){
    var confirmauthority = BASEURL38985 + '/api/as/sc/syssigndao/savesysSign';
    //一级商客账号列表
    var hostlists = BASEURL38985 + '/api/as/sc/syssigndao/getByAppid';
+
+  //------商客app------//
+  // 查看活动申请人列表
+  var findhelplist = BASEURL38985 + '/api/as/mc/meraskhelpdao/findhelplist';
+  // 更改活动状态为已开始
+  var updateactivitystateztoone = BASEURL38985 + '/api/as/mc/merloveactivedao/updateactivitystateztoone';
+  // 更改活动状态为未通过
+  var updateactivitystatetothree = BASEURL38985 + '/api/as/mc/merloveactivedao/updateactivitystatetothree';
+  // 捐献记录申请列表
+  var findloveactivercordlist = BASEURL38985 + '/api/us/mc/merloveactivityrecorddao/findloveactivercordlist';
+  // 审核捐献记录
+  var updateronationstate = BASEURL38985 + '/api/as/mc/merloveactivityrecordserviceimpl/updateronationstate';
+  // 求援审核
+  var updatestate = BASEURL38985 + '/api/us/mc/meraskhelpdao/updatestate';
+  // 新建活动
+  var saveactivity = BASEURL38985 + '/api/ac/mc/merloveactivityserviceimpl/save';
+  // 添加商品到为你推荐
+  var savegood = BASEURL38985 + '/api/us/mc/merrecommendforyoudao/save';
+
+  //------商客app------//
+
+
+
     return {
         customerlist : function(){
              return $resource(customerlist, {}, {});
@@ -59,7 +82,32 @@ var service = function($resource, BASEURL38985, SYS){
         },
         hostlists : function(){
              return $resource(hostlists, {}, {});
+        },
+        findhelplist : function(){
+             return $resource(findhelplist, {}, {});
+        },
+        updateactivitystateztoone : function(){
+             return $resource(updateactivitystateztoone, {}, {});
+        },
+        updateactivitystatetothree : function(){
+             return $resource(updateactivitystatetothree, {}, {});
+        },
+        findloveactivercordlist : function(){
+             return $resource(findloveactivercordlist, {}, {});
+        },
+        updateronationstate : function(){
+             return $resource(updateronationstate, {}, {});
+        },
+        updatestate : function(){
+             return $resource(updatestate, {}, {});
+        },
+        saveactivity : function(){
+             return $resource(saveactivity, {}, {});
+        },
+        savegood : function(){
+             return $resource(savegood, {}, {});
         }
+        
     }
 };
 module.exports = service;
