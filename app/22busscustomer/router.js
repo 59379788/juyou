@@ -115,6 +115,28 @@ var router = function($urlRouterProvider, $stateProvider){
          }
         })
 
+        //一元券订单列表
+        .state('app.voucherorderlist', {
+         url: '/voucherorderlist',
+         controller : 'voucherorderlist',
+         template: require('./views/voucherorderlist.html'),
+         resolve:{
+	          orderlist : function(busscustomerservice){
+	                 return busscustomerservice.orderlist();
+	          },
+	          voucherinfo : function(busscustomerservice){
+	                 return busscustomerservice.voucherinfo();
+	          },
+	          getDate : function(utilservice){
+		             return utilservice.getDate;
+		      }
+         }
+
+
+
+         
+       })
+
        
 }
 module.exports = router;

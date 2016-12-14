@@ -1,0 +1,53 @@
+
+
+
+<div class="modal-header">
+    <h4 class="modal-title">码信息</h4>
+</div>
+<div class="modal-body">
+
+    <div class="container-fluid form-horizontal ">
+        
+      <div class="col-sm-12">
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th class="col-md-2 text-center">验证码</th>
+                <th class="col-md-2 text-center">未使用</th>
+                <th class="col-md-2 text-center">可用</th>
+                <th class="col-md-2 text-center">使用方式</th>
+                <th class="col-md-2 text-center">使用时间</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="obj in objs">
+                <td class="text-center">{{obj.code}}</td>
+                <td class="text-center">
+                  <span ng-show="{{obj.used == '0'}}" class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+                  <span ng-show="{{obj.used == '1'}}" class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+                </td>
+                <td class="text-center">
+                  <span ng-show="{{obj.state == '1'}}" class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+                  <span ng-show="{{obj.state == '0'}}" class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>
+                </td>
+                <td class="text-center">{{obj.used_typename}}</td>
+                <td class="text-center">{{obj.otime}}</td>
+              </tr>
+            </tbody>
+          </table>
+          
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+</div>
+
+
+
+
+
+
+
+  

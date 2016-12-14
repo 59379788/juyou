@@ -1,0 +1,117 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+
+                <div class="row ">
+
+                  <input type="text" class="form-control" ng-model="searchform.code" placeholder="订单编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.title" placeholder="订单标题" 
+                  >
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.business_code"  placeholder="商家编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.mobile"  placeholder="手机号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                </div>
+
+                <div class="row mt10">
+
+                  <label>下单时间</label>&nbsp;&nbsp;
+                  <div class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                  </div>
+                        &nbsp;&nbsp;到&nbsp;&nbsp;            
+                  <div class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                  </div>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <label class="control-label">订单状态：</label>
+                  <select class="form-control" ng-model="searchform.pay_state">
+                    <option label="未支付" value="0"></option>
+                    <option label="已支付" value="1"></option>
+                    <option label="查询全部" value=""></option>
+                  </select>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <button type="button btn" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
+
+                </div>
+
+
+                
+                
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-3 text-center">订单名称</th>
+        <th class="col-md-1 text-center">订单编号</th>
+        <th class="col-md-2 text-center">商家信息</th>
+        <th class="col-md-2 text-center">游客信息</th>
+        <th class="col-md-1 text-center">数量</th>
+        <th class="col-md-1 text-center">下单时间</th>
+        <th class="col-md-1 text-center">订单状态</th>
+        <th class="col-md-1 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="">{{obj.title}}</td>
+        <td class="text-center">{{obj.code}}</td>
+        <td class="text-center">{{obj.business_code}}<br>{{obj.name}}</td>
+        <td class="text-center">{{obj.mobile}}</td>
+        <td class="text-center">
+          <span>购买{{obj.num}}</span><br>
+          <span>使用{{obj.used}}</span>
+        </td>
+        <td class="text-center">{{obj.create_time}}</td>
+        <td class="text-center">{{obj.statename}}</td>
+        <th class="text-center">
+          <a ng-click="voucherinfo(obj.code)" class="btn btn-success btn-xs" ng-show="obj.pay_state=='1'">码信息</a>
+          <a ng-click="orderinfo(obj)" class="btn btn-info btn-xs">订单详情</a>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div>
+  
+
+</div>

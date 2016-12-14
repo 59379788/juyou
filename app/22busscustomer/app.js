@@ -11,4 +11,9 @@ App.controller('supplierlist',require('./controllers/supplierlist'));
 App.controller('supplyremark',require('./controllers/supplyremark'));
 App.controller('assignauthority',require('./controllers/assignauthority'));
 
+//一元券
+App.controller('voucherorderlist',require('./controllers/voucherorderlist'));
+App.controller('voucherorderinfo',require('./controllers/voucherorderinfo'));
+App.controller('voucherinfo',require('./controllers/voucherinfo'));
+
 module.exports = App;

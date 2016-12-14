@@ -23,6 +23,13 @@ var service = function($resource, BASEURL38985, SYS){
    var confirmauthority = BASEURL38985 + '/api/as/sc/syssigndao/savesysSign';
    //一级商客账号列表
    var hostlists = BASEURL38985 + '/api/as/sc/syssigndao/getByAppid';
+
+   //一元券订单列表
+   var orderlist = BASEURL38985 + '/api/as/tc/voucherorder/orderlist';
+
+   //一元券码信息
+   var voucherinfo = BASEURL38985 + '/api/as/tc/voucherorder/voucherlist';
+
     return {
         customerlist : function(){
              return $resource(customerlist, {}, {});
@@ -59,6 +66,12 @@ var service = function($resource, BASEURL38985, SYS){
         },
         hostlists : function(){
              return $resource(hostlists, {}, {});
+        },
+        orderlist : function(){
+             return $resource(orderlist, {}, {});
+        },
+        voucherinfo : function(){
+             return $resource(voucherinfo, {}, {});
         }
     }
 };

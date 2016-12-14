@@ -146,7 +146,7 @@ console.log(para);
     	}else{
     		$scope.obj.create_time = '';
     	}
-    	console.log($scope.obj);
+    	//console.log($scope.obj);
     	questionstatisticlist.save($scope.obj, function(res){
 	        var tkt = new Object();
 	        var restkt = new Array();

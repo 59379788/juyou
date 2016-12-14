@@ -84,6 +84,7 @@ module.exports = function($scope, $state, mechanism, $uibModal, create,
             }else{
                 r.push(aVal);
             }
+
         }    
         return r;    
     }
