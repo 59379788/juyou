@@ -25,6 +25,8 @@ var service = function($resource, BASEURL38985, SYS){
    var hostlists = BASEURL38985 + '/api/as/sc/syssigndao/getByAppid';
 
   //------商客app------//
+
+
   // 查看活动申请人列表
   var findhelplist = BASEURL38985 + '/api/as/mc/meraskhelpdao/findhelplist';
   // 更改活动状态为已开始
@@ -41,6 +43,17 @@ var service = function($resource, BASEURL38985, SYS){
   var saveactivity = BASEURL38985 + '/api/ac/mc/merloveactivityserviceimpl/save';
   // 添加商品到为你推荐
   var savegood = BASEURL38985 + '/api/us/mc/merrecommendforyoudao/save';
+  
+
+
+  //------评价模块------//
+  
+
+
+
+
+
+  //------评价模块------//
 
   //------商客app------//
 
