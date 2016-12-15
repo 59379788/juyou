@@ -16,6 +16,8 @@ App.controller('assignauthority',require('./controllers/assignauthority'));
 App.controller('voucherorderlist',require('./controllers/voucherorderlist'));
 App.controller('voucherorderinfo',require('./controllers/voucherorderinfo'));
 App.controller('voucherinfo',require('./controllers/voucherinfo'));
+App.controller('usedorderlist',require('./controllers/usedorderlist'));
+App.controller('usedorderinfo',require('./controllers/usedorderinfo'));
 
 
 App.controller('friendly',require('./controllers/friendly'));

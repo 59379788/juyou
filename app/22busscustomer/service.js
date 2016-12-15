@@ -27,9 +27,10 @@ var service = function($resource, BASEURL38985, SYS){
 
    //一元券订单列表
    var orderlist = BASEURL38985 + '/api/as/tc/voucherorder/orderlist';
-
    //一元券码信息
    var voucherinfo = BASEURL38985 + '/api/as/tc/voucherorder/voucherlist';
+   //在线支付订单列表
+   var usedorderlist = BASEURL38985 + '/api/as/tc/voucherorder/usedorderlist';
 
   //------商客app------//
 
@@ -109,6 +110,9 @@ var service = function($resource, BASEURL38985, SYS){
         },
         voucherinfo : function(){
              return $resource(voucherinfo, {}, {});
+        },
+        usedorderlist : function(){
+             return $resource(usedorderlist, {}, {});
         },
         findhelplist : function(){
              return $resource(findhelplist, {}, {});

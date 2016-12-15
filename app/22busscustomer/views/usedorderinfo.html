@@ -1,0 +1,103 @@
+
+
+<div class="modal-header">
+    <h4 class="modal-title">订单详情</h4>
+</div>
+<div class="modal-body">
+
+    <div class="container-fluid form-horizontal ">
+        <div class="col-xs-6">
+        <div class="form-group">
+            <label class="col-xs-6 control-label">订单编号</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.code}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">订单标题</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.title}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">支付金额</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.pay_price  * 0.01 | currency : '￥'}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">支付状态</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.statename}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">支付时间</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.pay_time}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">支付流水号</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.pay_no}}</p>
+            </div>
+        </div>
+        </div>
+
+        <div class="col-xs-6">
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">验证码</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.verification_code}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">结算金额</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.balance_price * 0.01 | currency : '￥'}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">不参与折扣金额</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.un_discount_price * 0.01 | currency : '￥'}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">折扣后金额</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.discount_after_price * 0.01 | currency : '￥'}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">下单时间</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.create_time}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">用户id</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.create_by}}</p>
+            </div>
+        </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+</div>
+

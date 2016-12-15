@@ -132,7 +132,22 @@ var router = function($urlRouterProvider, $stateProvider){
 		             return utilservice.getDate;
 		      }
          }    
-       })
+        })
+
+        //在线支付订单列表
+        .state('app.usedorderlist', {
+         url: '/usedorderlist',
+         controller : 'usedorderlist',
+         template: require('./views/usedorderlist.html'),
+         resolve:{
+	          usedorderlist : function(busscustomerservice){
+	                 return busscustomerservice.usedorderlist();
+	          },
+	          getDate : function(utilservice){
+		             return utilservice.getDate;
+		      }
+         }    
+        })
 
         // 义买义卖
         .state('app.friendly', {
