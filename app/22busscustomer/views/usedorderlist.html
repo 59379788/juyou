@@ -86,6 +86,16 @@
           <a ng-click="usedorderinfo(obj)" class="btn btn-info btn-xs">订单详情</a>
         </th>
       </tr>
+      <tr >
+        <td class=""><b>居游结算价：</b></td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+        <td class="text-center"></td>
+        <td class="text-center">{{total.total * 0.01 | currency : '￥'}}</td>
+        <td class="text-center"></td>
+      </tr>
     </tbody>
   </table>
 

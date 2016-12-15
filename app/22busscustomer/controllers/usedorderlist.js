@@ -4,6 +4,8 @@ module.exports = function($scope, $stateParams, ITEMS_PERPAGE, getDate, $uibModa
 
     $scope.searchform.verification_code = $stateParams.code;
 
+    
+
     //有效区间
     $scope.section = {};
     $scope.section.start = {};
@@ -23,6 +25,10 @@ module.exports = function($scope, $stateParams, ITEMS_PERPAGE, getDate, $uibModa
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
     
     $scope.load = function () {
+
+    	$scope.total = {
+	        'total' : 0
+	    };
         
         var para = {
             pageNo:$scope.bigCurrentPage, 
@@ -41,6 +47,11 @@ module.exports = function($scope, $stateParams, ITEMS_PERPAGE, getDate, $uibModa
             {
                 $scope.objs = res.data.results;
                 $scope.bigTotalItems = res.data.totalRecord;
+
+                for(var i = 0, j = res.data.results.length; i < j; i++)
+		        {
+		            $scope.total.total += res.data.results[i].pay_price
+	            }
             }
             else
             {
