@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModalInstance, code, voucherinfo){
+module.exports = function($scope, $state, $uibModalInstance, code, voucherinfo){
 
 
 	voucherinfo.get({'order_code' : code}, function(res){
@@ -19,6 +19,11 @@ module.exports = function($scope, $uibModalInstance, code, voucherinfo){
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };
+
+    $scope.usedinfo = function(code) {
+	  	$state.go('app.usedorderlist', {'code' : code});
+	  	$uibModalInstance.dismiss('cancel');
+	}
 
 
 

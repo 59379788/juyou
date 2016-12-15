@@ -136,7 +136,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
         //在线支付订单列表
         .state('app.usedorderlist', {
-         url: '/usedorderlist',
+         url: '/usedorderlist/:code',
          controller : 'usedorderlist',
          template: require('./views/usedorderlist.html'),
          resolve:{

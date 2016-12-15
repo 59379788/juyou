@@ -1,6 +1,8 @@
-module.exports = function($scope, ITEMS_PERPAGE, getDate, $uibModal, usedorderlist){
+module.exports = function($scope, $stateParams, ITEMS_PERPAGE, getDate, $uibModal, usedorderlist){
     
     $scope.searchform = {};
+
+    $scope.searchform.verification_code = $stateParams.code;
 
     //有效区间
     $scope.section = {};
