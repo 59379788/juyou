@@ -235,9 +235,9 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'charitylist',
          template: require('./views/charitylist.html'),
          resolve:{
-            findactivityforadminlist : function(busscustomerservice){
-                 return busscustomerservice.findactivityforadminlist();
-            }
+            // findactivityforadminlist : function(busscustomerservice){
+            //      return busscustomerservice.findactivityforadminlist();
+            // }
 
          }
         })
@@ -248,9 +248,9 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'donatelist',
          template: require('./views/donatelist.html'),
          resolve:{
-            findactivityforadminlist : function(busscustomerservice){
-                 return busscustomerservice.findactivityforadminlist();
-            }
+            // findactivityforadminlist : function(busscustomerservice){
+            //      return busscustomerservice.findactivityforadminlist();
+            // }
 
          }
         })
