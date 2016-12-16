@@ -115,6 +115,26 @@ var router = function($urlRouterProvider, $stateProvider){
          }
         })
 
+        //一元券销售品列表
+        .state('app.vouchersalelist', {
+         url: '/vouchersalelist',
+         controller : 'vouchersalelist',
+         template: require('./views/vouchersalelist.html'),
+         resolve:{
+	          vouchersalelist : function(busscustomerservice){
+	                 return busscustomerservice.vouchersalelist();
+	          },
+	          vouchersalecreate : function(busscustomerservice){
+	                 return busscustomerservice.vouchersalecreate();
+	          },
+	          businesslist : function(busscustomerservice){
+	                 return busscustomerservice.businesslist;
+	          },
+	          typelist : function(busscustomerservice){
+	                 return busscustomerservice.typelist;
+	          }
+         }    
+        })
 
         //一元券订单列表
         .state('app.voucherorderlist', {

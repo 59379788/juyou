@@ -13,6 +13,8 @@ App.controller('assignauthority',require('./controllers/assignauthority'));
 
 
 //一元券
+App.controller('vouchersalelist',require('./controllers/vouchersalelist'));
+App.controller('vouchersalecreate',require('./controllers/vouchersalecreate'));
 App.controller('voucherorderlist',require('./controllers/voucherorderlist'));
 App.controller('voucherorderinfo',require('./controllers/voucherorderinfo'));
 App.controller('voucherinfo',require('./controllers/voucherinfo'));
