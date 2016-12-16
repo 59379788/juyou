@@ -21,5 +21,6 @@ App.controller('lovedonateapply',require('./controllers/lovedonateapply'));
 App.controller('goodsforyou',require('./controllers/goodsforyou'));
 App.controller('loveactionlist',require('./controllers/loveactionlist'));
 App.controller('addgoodtype',require('./controllers/addgoodtype'));
+App.controller('comment',require('./controllers/comment'));
 
 module.exports = App;

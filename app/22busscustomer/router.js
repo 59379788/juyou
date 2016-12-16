@@ -237,6 +237,17 @@ var router = function($urlRouterProvider, $stateProvider){
         })
 
 
+        // 评价模块
+        .state('app.comment', {
+         url: '/comment',
+         controller : 'comment',
+         template: require('./views/comment.html'),
+         resolve:{
+            
+
+         }
+        })
+
        
 }
 module.exports = router;
