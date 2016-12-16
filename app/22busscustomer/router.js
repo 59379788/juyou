@@ -115,6 +115,40 @@ var router = function($urlRouterProvider, $stateProvider){
          }
         })
 
+
+        //一元券订单列表
+        .state('app.voucherorderlist', {
+         url: '/voucherorderlist',
+         controller : 'voucherorderlist',
+         template: require('./views/voucherorderlist.html'),
+         resolve:{
+	          orderlist : function(busscustomerservice){
+	                 return busscustomerservice.orderlist();
+	          },
+	          voucherinfo : function(busscustomerservice){
+	                 return busscustomerservice.voucherinfo();
+	          },
+	          getDate : function(utilservice){
+		             return utilservice.getDate;
+		      }
+         }    
+        })
+
+        //在线支付订单列表
+        .state('app.usedorderlist', {
+         url: '/usedorderlist/:code',
+         controller : 'usedorderlist',
+         template: require('./views/usedorderlist.html'),
+         resolve:{
+	          usedorderlist : function(busscustomerservice){
+	                 return busscustomerservice.usedorderlist();
+	          },
+	          getDate : function(utilservice){
+		             return utilservice.getDate;
+		      }
+         }    
+        })
+
         // 义买义卖
         .state('app.friendly', {
          url: '/friendly',
@@ -247,7 +281,5 @@ var router = function($urlRouterProvider, $stateProvider){
 
          }
         })
-
-       
 }
 module.exports = router;
