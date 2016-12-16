@@ -19,7 +19,7 @@ App.controller('voucherinfo',require('./controllers/voucherinfo'));
 App.controller('usedorderlist',require('./controllers/usedorderlist'));
 App.controller('usedorderinfo',require('./controllers/usedorderinfo'));
 
-
+// 爱心义卖 易卖
 App.controller('friendly',require('./controllers/friendly'));
 App.controller('change',require('./controllers/change'));
 App.controller('onshelf',require('./controllers/onshelf'));
@@ -29,7 +29,18 @@ App.controller('lovedonateapply',require('./controllers/lovedonateapply'));
 App.controller('goodsforyou',require('./controllers/goodsforyou'));
 App.controller('loveactionlist',require('./controllers/loveactionlist'));
 App.controller('addgoodtype',require('./controllers/addgoodtype'));
+App.controller('charitylist',require('./controllers/charitylist'));
+App.controller('donatelist',require('./controllers/donatelist'));
+App.controller('expandlist',require('./controllers/expandlist'));
+
+// 说明
+App.controller('instruction',require('./controllers/instruction'));
+App.controller('instructionlist',require('./controllers/instructionlist'));
+App.controller('addinstruction',require('./controllers/addinstruction'));
+
+// 评价
 App.controller('comment',require('./controllers/comment'));
+
 
 
 module.exports = App;
