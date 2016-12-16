@@ -3,24 +3,25 @@
     <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-2 text-center">用户姓名</th>
-        <th class="col-md-2 text-center">用户身份证号</th>
-        <th class="col-md-2 text-center">用户电话</th>
+        <th class="col-md-2 text-center">操作人姓名</th>
+        <th class="col-md-2 text-center">操作人手机</th>
+        <th class="col-md-2 text-center">活动编号</th>
+        <th class="col-md-2 text-center">支出物品数量</th>
         <th class="col-md-2 text-center">备注</th>
         <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
-        <td class="text-center">{{obj.user_name}}</td>
-        <td class="text-center">{{obj.user_idcard}}</td>
-        <td class="text-center">{{obj.user_mobile}}</td>
-        <td class="text-center">{{obj.remark}}</td>
+        <td class="text-center">{{obj.insert_user_name}}</td>
+        <td class="text-center">{{obj.insert_user_mobile}}</td>
+        <td class="text-center">{{obj.activity_id}}</td>
+        <td class="text-center">{{objobjects_num}}</td>
+        <td class="text-center">{{obj.sremark}remark}</td>
         <td class="text-center">
-          <a ng-show="obj.state == 0" ng-click="agree(obj.id)" class="btn btn-danger btn-xs">同意</a>
-          <a ng-show="obj.state == 0" ng-click="disagree(obj.id)" class="btn btn-warning btn-xs">不同意</a>
-          <a ng-show="obj.state == 1" ng-click="creatactivity(obj.id)" class="btn btn-success btn-xs">发布活动</a>
-          <a ng-show="obj.state == 2" class="btn btn-info btn-xs">未通过</a>
+          <a ng-show="" ng-click="agree(obj.id)" class="btn btn-danger btn-xs">通过</a>
+          <a ng-show="" ng-click="agree(obj.id)" class="btn btn-danger btn-xs">不通过</a>
+          <a ng-show="" ng-click="agree(obj.id)" class="btn btn-danger btn-xs">已上架</a>
         </td>
       </tr>
     </tbody>

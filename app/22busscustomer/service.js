@@ -45,6 +45,12 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
 
   // 查看活动申请人列表
   var findhelplist = BASEURL38985 + '/api/as/mc/meraskhelpdao/findhelplist';
+  // 爱心活动列表
+  var findactivityforadminlist = BASEURL38985 + '/api/as/mc/merloveactivedao/findactivityforadminlist';
+  // 爱心活动下的支出列表
+  var findinfobyidlist = BASEURL38985 + '/api/as/mc/merloveactiveoutdao/findinfobyidlist';
+  // 添加支出记录
+  var saverecord = BASEURL38985 + '/api/ac/mc/merloveactivityoutservice/save';
   // 更改活动状态为已开始
   var updateactivitystateztoone = BASEURL38985 + '/api/as/mc/merloveactivedao/updateactivitystateztoone';
   // 更改活动状态为未通过
@@ -54,11 +60,26 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   // 审核捐献记录
   var updateronationstate = BASEURL38985 + '/api/as/mc/merloveactivityrecordserviceimpl/updateronationstate';
   // 求援审核
-  var updatestate = BASEURL38985 + '/api/us/mc/meraskhelpdao/updatestate';
+  var updatestate = BASEURL38985 + '/api/as/mc/meraskhelpdao/updatestate';
   // 新建活动
   var saveactivity = BASEURL38985 + '/api/ac/mc/merloveactivityserviceimpl/save';
   // 添加商品到为你推荐
-  var savegood = BASEURL38985 + '/api/us/mc/merrecommendforyoudao/save';
+  var savegood = BASEURL38985 + '/api/as/mc/merrecommendforyoudao/insertrecommend';
+  // 添加商品类型
+  var savetype = BASEURL38985 + '/api/as/mc/mertradetypedao/save';
+
+
+  // 查看商品上架申请列表
+  var findtradelist = BASEURL38985 + '/api/us/mc/mertradedao/findtradelist';
+
+  // 查看全部说明
+  var findExplainList = BASEURL38985 + '/api/as/mc/merexplaindao/findExplainList';
+  // 保存说明
+  var saveExplain = BASEURL38985 + '/api/as/mc/merexplaindao/saveExplain';
+  // 修改说明
+  var updateExplain = BASEURL38985 + '/api/as/mc/merexplaindao/updateExplain';
+  // 删除说明
+  var updateDel = BASEURL38985 + '/api/as/mc/merexplaindao/updateDel';
   
 
 
@@ -173,6 +194,33 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         savegood : function(){
              return $resource(savegood, {}, {});
+        },
+        savetype : function(){
+             return $resource(savetype, {}, {});
+        },
+        findtradelist : function(){
+             return $resource(findtradelist, {}, {});
+        },
+        findExplainList : function(){
+             return $resource(findExplainList, {}, {});
+        },
+        saveExplain : function(){
+             return $resource(saveExplain, {}, {});
+        },
+        updateExplain : function(){
+             return $resource(updateExplain, {}, {});
+        },
+        updateDel : function(){
+             return $resource(updateDel, {}, {});
+        },
+        findactivityforadminlist : function(){
+             return $resource(findactivityforadminlist, {}, {});
+        },
+        findinfobyidlist : function(){
+             return $resource(findinfobyidlist, {}, {});
+        },
+        saverecord : function(){
+             return $resource(saverecord, {}, {});
         }
         
     }

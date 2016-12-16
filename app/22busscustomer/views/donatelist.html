@@ -1,0 +1,71 @@
+
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                  
+                  <input type="text" class="form-control" ng-model="info.insert_user_name" placeholder="">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="info.insert_user_mobile" placeholder="">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="info.activity_id" placeholder="">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="info.objects_num" placeholder="">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="info.sum_rmb" placeholder="">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="info.remark" placeholder="">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="save()">补录</button>
+
+
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+<div class="col-md-12 panel panel-default table-responsive">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-2 text-center">操作人姓名</th>
+        <th class="col-md-2 text-center">操作人手机</th>
+        <th class="col-md-2 text-center">活动编号</th>
+        <th class="col-md-2 text-center">支出物品数量</th>
+        <th class="col-md-2 text-center">备注</th>
+        <th class="col-md-2 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.insert_user_name}}</td>
+        <td class="text-center">{{obj.insert_user_mobile}}</td>
+        <td class="text-center">{{obj.activity_id}}</td>
+        <td class="text-center">{{objobjects_num}}</td>
+        <td class="text-center">{{obj.sremark}remark}</td>
+        <td class="text-center">
+          <a ng-show="" ng-click="" class="btn btn-danger btn-xs">通过</a>
+          <a ng-show="" ng-click="" class="btn btn-danger btn-xs">不通过</a>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+</div>
+
+<div class="text-right">
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="getlist()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+</div>
+</div>
