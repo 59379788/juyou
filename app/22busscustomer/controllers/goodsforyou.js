@@ -10,6 +10,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
                 return;
             }
             console.log(res);
+            alert('添加成功');
         });
     };
 

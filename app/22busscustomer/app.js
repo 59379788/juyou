@@ -21,5 +21,10 @@ App.controller('lovedonateapply',require('./controllers/lovedonateapply'));
 App.controller('goodsforyou',require('./controllers/goodsforyou'));
 App.controller('loveactionlist',require('./controllers/loveactionlist'));
 App.controller('addgoodtype',require('./controllers/addgoodtype'));
-
+App.controller('instruction',require('./controllers/instruction'));
+App.controller('instructionlist',require('./controllers/instructionlist'));
+App.controller('addinstruction',require('./controllers/addinstruction'));
+App.controller('expandlist',require('./controllers/expandlist'));
+App.controller('charitylist',require('./controllers/charitylist'));
+App.controller('donatelist',require('./controllers/donatelist'));
 module.exports = App;

@@ -143,7 +143,9 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'onshelf',
          template: require('./views/onshelf.html'),
          resolve:{
-            
+            findtradelist : function(busscustomerservice){
+                 return busscustomerservice.findtradelist();
+            }
 
          }
         })
@@ -220,7 +222,51 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'loveactionlist',
          template: require('./views/loveactionlist.html'),
          resolve:{
-            
+            findactivityforadminlist : function(busscustomerservice){
+                 return busscustomerservice.findactivityforadminlist();
+            }
+
+         }
+        })
+
+        // 义卖列表
+        .state('app.charitylist', {
+         url: '/charitylist',
+         controller : 'charitylist',
+         template: require('./views/charitylist.html'),
+         resolve:{
+            findactivityforadminlist : function(busscustomerservice){
+                 return busscustomerservice.findactivityforadminlist();
+            }
+
+         }
+        })
+
+        // 捐物列表
+        .state('app.donatelist', {
+         url: '/donatelist',
+         controller : 'donatelist',
+         template: require('./views/donatelist.html'),
+         resolve:{
+            findactivityforadminlist : function(busscustomerservice){
+                 return busscustomerservice.findactivityforadminlist();
+            }
+
+         }
+        })
+
+         // 支出列表
+        .state('app.expandlist', {
+         url: '/expandlist',
+         controller : 'expandlist',
+         template: require('./views/expandlist.html'),
+         resolve:{
+            findinfobyidlist : function(busscustomerservice){
+                 return busscustomerservice.findinfobyidlist();
+            },
+            saverecord : function(busscustomerservice){
+                 return busscustomerservice.saverecord();
+            }
 
          }
         })
@@ -231,10 +277,79 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'addgoodtype',
          template: require('./views/addgoodtype.html'),
          resolve:{
-            
+            savetype : function(busscustomerservice){
+                 return busscustomerservice.savetype();
+            }
 
          }
         })
+
+        // 说明
+        .state('app.instruction', {
+         url: '/instruction',
+         controller : 'instruction',
+         template: require('./views/instruction.html'),
+         resolve:{
+            findExplainList : function(busscustomerservice){
+                 return busscustomerservice.findExplainList();
+            },
+            saveExplain : function(busscustomerservice){
+                 return busscustomerservice.saveExplain();
+            },
+            updateExplain : function(busscustomerservice){
+                 return busscustomerservice.updateExplain();
+            },
+            updateDel : function(busscustomerservice){
+                 return busscustomerservice.updateDel();
+            }
+
+         }
+        })
+
+        // 说明列表
+        .state('app.instructionlist', {
+         url: '/instructionlist',
+         controller : 'instructionlist',
+         template: require('./views/instructionlist.html'),
+         resolve:{
+            findExplainList : function(busscustomerservice){
+                 return busscustomerservice.findExplainList();
+            },
+            saveExplain : function(busscustomerservice){
+                 return busscustomerservice.saveExplain();
+            },
+            updateExplain : function(busscustomerservice){
+                 return busscustomerservice.updateExplain();
+            },
+            updateDel : function(busscustomerservice){
+                 return busscustomerservice.updateDel();
+            }
+
+         }
+        })
+
+        // 添加说明
+        .state('app.addinstruction', {
+         url: '/addinstruction/:id',
+         controller : 'addinstruction',
+         template: require('./views/addinstruction.html'),
+         resolve:{
+            findExplainList : function(busscustomerservice){
+                 return busscustomerservice.findExplainList();
+            },
+            saveExplain : function(busscustomerservice){
+                 return busscustomerservice.saveExplain();
+            },
+            updateExplain : function(busscustomerservice){
+                 return busscustomerservice.updateExplain();
+            },
+            updateDel : function(busscustomerservice){
+                 return busscustomerservice.updateDel();
+            }
+
+         }
+        })
+
 
 
        
