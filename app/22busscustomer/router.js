@@ -191,6 +191,17 @@ var router = function($urlRouterProvider, $stateProvider){
          }
         })
 
+        // 宜买宜卖
+        .state('app.should', {
+         url: '/should',
+         controller : 'should',
+         template: require('./views/should.html'),
+         resolve:{
+            
+
+         }
+        })
+
         // 上架
         .state('app.onshelf', {
          url: '/onshelf',
