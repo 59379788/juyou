@@ -1,4 +1,4 @@
-var service = function($resource, BASEURL38985, SYS){
+var service = function($resource, BASEURL38985, SYS, $q, $http){
    // 商客列表
    var customerlist = BASEURL38985 + '/api/as/tc/tktdealerapplydao/finddealerapplylist';
    // 通过审核
@@ -25,6 +25,14 @@ var service = function($resource, BASEURL38985, SYS){
    var hostlists = BASEURL38985 + '/api/as/sc/syssigndao/getByAppid';
 
 
+   //一元券销售品列表
+   var vouchersalelist = BASEURL38985 + '/api/as/tc/vouchersale/list';
+   //一元券销售品创建
+   var vouchersalecreate = BASEURL38985 + '/api/as/tc/vouchersale/create';
+   //商家列表
+   var businesslist = BASEURL38985 + '/api/as/tc/vouchersale/businesslist';
+   //类别列表
+   var typelist = BASEURL38985 + '/api/as/sc/dict/dictbytypelist';
    //一元券订单列表
    var orderlist = BASEURL38985 + '/api/as/tc/voucherorder/orderlist';
    //一元券码信息
@@ -167,6 +175,34 @@ var service = function($resource, BASEURL38985, SYS){
         },
         hostlists : function(){
              return $resource(hostlists, {}, {});
+        },
+        vouchersalelist : function(){
+             return $resource(vouchersalelist, {}, {});
+        },
+        vouchersalecreate : function(){
+             return $resource(vouchersalecreate, {}, {});
+        },
+        businesslist : function(obj){
+            var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  
+            $http({method: 'GET', params: obj, url: businesslist}).  
+            success(function(data, status, headers, config) {  
+                deferred.resolve(data);  // 声明执行成功，即http请求数据成功，可以返回数据了  
+            }).  
+            error(function(data, status, headers, config) {  
+                deferred.reject(data);   // 声明执行失败，即服务器返回错误  
+            });  
+            return deferred.promise;   // 返回承诺，这里并不是最终数据，而是访问最终数据的API 
+        },
+        typelist : function(obj){
+            var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  
+            $http({method: 'GET', params: obj, url: typelist}).  
+            success(function(data, status, headers, config) {  
+                deferred.resolve(data);  // 声明执行成功，即http请求数据成功，可以返回数据了  
+            }).  
+            error(function(data, status, headers, config) {  
+                deferred.reject(data);   // 声明执行失败，即服务器返回错误  
+            });  
+            return deferred.promise;   // 返回承诺，这里并不是最终数据，而是访问最终数据的API 
         },
         orderlist : function(){
              return $resource(orderlist, {}, {});

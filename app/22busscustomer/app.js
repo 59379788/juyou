@@ -12,7 +12,10 @@ App.controller('supplyremark',require('./controllers/supplyremark'));
 App.controller('assignauthority',require('./controllers/assignauthority'));
 
 
-//一元券
+//宜卖宜卖
+App.controller('should',require('./controllers/should'));
+App.controller('vouchersalelist',require('./controllers/vouchersalelist'));
+App.controller('vouchersalecreate',require('./controllers/vouchersalecreate'));
 App.controller('voucherorderlist',require('./controllers/voucherorderlist'));
 App.controller('voucherorderinfo',require('./controllers/voucherorderinfo'));
 App.controller('voucherinfo',require('./controllers/voucherinfo'));
