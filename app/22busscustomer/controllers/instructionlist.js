@@ -16,7 +16,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             return;
         }
         console.log(res);
-        $scope.objs = res.data;
+        $scope.objs = res.data.results;
         $scope.bigTotalItems = res.data.totalRecord;
         });
     };
@@ -25,9 +25,10 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
 
     $scope.change = function(id){
         $state.go('app.addinstruction',{'id':id});
+
     };
     $scope.delete = function(id){
-        updateDel.save({},function(res){
+        updateDel.save({'id' : id},function(res){
             if (res.errcode != 0) {
                 alert(res.errmsg);
                 return;
@@ -37,5 +38,14 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             $scope.getlist();
         });
     };
+
+    $scope.detail = function(id,title_identifier){
+        $state.go('app.addinstruction',{'id':id, 'title_identifier':title_identifier});
+    };
+     
+   
+
+
+   
    
 };

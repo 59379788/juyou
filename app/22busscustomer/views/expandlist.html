@@ -3,13 +3,10 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="form-group form-inline">
-            <div class="col-sm-12">
-                  
+            <div class="col-sm-12">                  
                   <input type="text" class="form-control" ng-model="info.insert_user_name" placeholder="操作人姓名">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <input type="text" class="form-control" ng-model="info.insert_user_mobile" placeholder="操作人手机号">
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="info.activity_id" placeholder="活动编号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <input type="text" class="form-control" ng-model="info.objects_num" placeholder="支出物品数量">
                   &nbsp;&nbsp;&nbsp;&nbsp;
@@ -18,8 +15,6 @@
                   <input type="text" class="form-control" ng-model="info.remark" placeholder="备注">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <button type="button" class="btn btn-primary search pull-right" ng-click="save()">保存</button>
-
-
             </div>
         </div>
     </div>
@@ -41,9 +36,9 @@
         <td class="text-center">{{obj.insert_user_name}}</td>
         <td class="text-center">{{obj.insert_user_mobile}}</td>
         <td class="text-center">{{obj.activity_id}}</td>
-        <td class="text-center">{{objobjects_num}}</td>
+        <td class="text-center">{{obj.objects_num}}</td>
         <td class="text-center">{{obj.sum_rmb}}</td>
-        <td class="text-center">{{obj.sremark}remark}</td>
+        <td class="text-center">{{obj.remark}}</td>
       </tr>
     </tbody>
     </table>

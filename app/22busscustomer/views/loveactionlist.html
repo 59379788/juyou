@@ -4,10 +4,10 @@
     <thead>
       <tr>
         <th class="col-md-2 text-center">活动标题</th>
-        <th class="col-md-2 text-center">活动编号</th>
-        <th class="col-md-2 text-center">活动类型</th>
+        <th class="col-md-2 text-center">活动编号</th>        
         <th class="col-md-2 text-center">创建活动的管理员编号</th>
         <th class="col-md-2 text-center">活动详情</th>
+        <th class="col-md-2 text-center">活动类型</th>
         <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
@@ -15,13 +15,13 @@
       <tr ng-repeat="obj in objs">
         <td class="text-center">{{obj.activity_titlle}}</td>
         <td class="text-center">{{obj.love_activity_id}}</td>
-        <td class="text-center">{{obj.active_type}}</td>
         <td class="text-center">{{obj.admin_id}}</td>
         <td class="text-center">{{obj.activity_info}}</td>
+        <td class="text-center">{{obj.active_type_name}}</td>
         <td class="text-center">
-          <a ng-click="charitylist(obj.id)" class="btn btn-info btn-xs">义卖</a>
-          <a ng-click="donatelist(obj.id)" class="btn btn-info btn-xs">捐物</a>
-          <a ng-click="expandlist(obj.id)" class="btn btn-info btn-xs">支出列表</a>
+          <a ng-click="charitylist(obj.love_activity_id)" class="btn btn-info btn-xs">义卖</a>
+          <a ng-click="donatelist(obj.love_activity_id)" class="btn btn-info btn-xs">捐物</a>
+          <a ng-click="expandlist(obj.love_activity_id)" class="btn btn-info btn-xs">支出列表</a>
           <a ng-show="obj.state == 2" class="btn btn-info btn-xs"></a>
         </td>
       </tr>

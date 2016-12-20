@@ -28,22 +28,23 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     $scope.getlist();
 
     $scope.agree = function(id) {
-        alert('agree');
-        updatestate.save({'state':'1','id':id},function(res) {
-            console.log({'state':'1','id':id});
-            if (res.errcode !== 0) {
-                alert(res.errmsg);
-                return;
-            } 
-            console.log(res);
-            alert('成功');
-            $scope.getlist();
-        });
+        if (confirm('您确定同意吗？')) {
+            updatestate.save({'state':'1','id':id},function(res) {
+                console.log({'state':'1','id':id});
+                if (res.errcode !== 0) {
+                    alert(res.errmsg);
+                    return;
+                } 
+                console.log(res);
+                alert('申请成功！');
+                $scope.getlist();
+            });
+            return;
+        } 
         
     };
 
     $scope.disagree = function(id) {
-        alert('disagree');
         updatestate.save({'state':'2','id':id},function(res) {
             console.log({'state':'2','id':id});
             if (res.errcode !== 0) {
@@ -58,7 +59,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     };
 
     $scope.creatactivity = function(id) {
-        $state.go('app.loveactionapply');
+        $state.go('app.loveactionapply',{'id':id});
     };
 
 

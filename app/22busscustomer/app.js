@@ -32,6 +32,7 @@ App.controller('addgoodtype',require('./controllers/addgoodtype'));
 App.controller('charitylist',require('./controllers/charitylist'));
 App.controller('donatelist',require('./controllers/donatelist'));
 App.controller('expandlist',require('./controllers/expandlist'));
+App.controller('changelist',require('./controllers/changelist'));
 
 // 说明
 App.controller('instruction',require('./controllers/instruction'));

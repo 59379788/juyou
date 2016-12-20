@@ -167,7 +167,7 @@ var router = function($urlRouterProvider, $stateProvider){
         })
         // 爱心行动申请
         .state('app.loveactionapply', {
-         url: '/loveactionapply',
+         url: '/loveactionapply/:id',
          controller : 'loveactionapply',
          template: require('./views/loveactionapply.html'),
          resolve:{
@@ -209,6 +209,9 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'goodsforyou',
          template: require('./views/goodsforyou.html'),
          resolve:{
+            findgoodsforadminlist : function(busscustomerservice){
+                 return busscustomerservice.findgoodsforadminlist();
+            },
             savegood : function(busscustomerservice){
                  return busscustomerservice.savegood();
             }
@@ -231,33 +234,42 @@ var router = function($urlRouterProvider, $stateProvider){
 
         // 义卖列表
         .state('app.charitylist', {
-         url: '/charitylist',
+         url: '/charitylist/:love_activity_id',
          controller : 'charitylist',
          template: require('./views/charitylist.html'),
          resolve:{
-            // findactivityforadminlist : function(busscustomerservice){
-            //      return busscustomerservice.findactivityforadminlist();
-            // }
+            findrecordforadminlist : function(busscustomerservice){
+                 return busscustomerservice.findrecordforadminlist();
+            },
+            updateronationstate : function(busscustomerservice){
+                return busscustomerservice.updateronationstate();
+            }
 
          }
         })
 
         // 捐物列表
         .state('app.donatelist', {
-         url: '/donatelist',
+         url: '/donatelist/:love_activity_id',
          controller : 'donatelist',
          template: require('./views/donatelist.html'),
          resolve:{
-            // findactivityforadminlist : function(busscustomerservice){
-            //      return busscustomerservice.findactivityforadminlist();
-            // }
+            findrecordforadminlist : function(busscustomerservice){
+                 return busscustomerservice.findrecordforadminlist();
+            },
+            savedonate : function(busscustomerservice){
+                return busscustomerservice.savedonate();
+            },
+            updateronationstate : function(busscustomerservice){
+                return busscustomerservice.updateronationstate();
+            }
 
          }
         })
 
          // 支出列表
         .state('app.expandlist', {
-         url: '/expandlist',
+         url: '/expandlist/:love_activity_id',
          controller : 'expandlist',
          template: require('./views/expandlist.html'),
          resolve:{
@@ -270,6 +282,23 @@ var router = function($urlRouterProvider, $stateProvider){
 
          }
         })
+
+        // 易买列表
+        .state('app.changelist', {
+         url: '/changelist',
+         controller : 'changelist',
+         template: require('./views/changelist.html'),
+         resolve:{
+            findgoodscantlist : function(busscustomerservice){
+                 return busscustomerservice.findgoodscantlist();
+            },
+            updatetraddestate : function(busscustomerservice){
+                 return busscustomerservice.updatetraddestate();
+            }
+
+         }
+        })
+
 
          // 易买添加商品类型
         .state('app.addgoodtype', {
@@ -330,7 +359,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
         // 添加说明
         .state('app.addinstruction', {
-         url: '/addinstruction/:id',
+         url: '/addinstruction/:id/:title_identifier',
          controller : 'addinstruction',
          template: require('./views/addinstruction.html'),
          resolve:{
@@ -345,10 +374,26 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             updateDel : function(busscustomerservice){
                  return busscustomerservice.updateDel();
+            },
+            getAdminExplain : function(busscustomerservice){
+                return busscustomerservice.getAdminExplain();
             }
 
          }
         })
+
+        // 评价列表
+        .state('app.comment', {
+         url: '/comment',
+         controller : 'comment',
+         template: require('./views/comment.html'),
+         resolve:{
+            findReplyList : function(busscustomerservice){
+                 return busscustomerservice.findReplyList();
+            }
+         }
+        })
+
 
 
 
