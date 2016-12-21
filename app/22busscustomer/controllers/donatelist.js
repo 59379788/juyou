@@ -47,15 +47,20 @@ module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,
       'ronation_rmb' : ''
   	};
   	$scope.save = function(){
-  		savedonate.save($scope.addinfo, function(res){
-        console.log($scope.addinfo);
-  			if (res.errcode !== 0) {
-  				alert(res.errmsg);
-  				return;
-  			}
-  			console.log(res);
-  			$scope.getlist();
-  		});
+      if ($scope.addinfo.ronation_user_name!==''&&$scope.addinfo.ronation_user_card!==''&&$scope.addinfo.ronation_user_mobile!==''&&$scope.addinfo.ronation_goods_title!==''&&$scope.addinfo.ronation_goods_number!=='') {
+            savedonate.save($scope.addinfo, function(res){
+            console.log($scope.addinfo);
+            if (res.errcode !== 0) {
+              alert(res.errmsg);
+              return;
+            }
+            console.log(res);
+            $scope.getlist();
+            });
+      } else {
+        alert('信息填写不完全！');
+      }
+  		
   	};
 
     $scope.agree = function(love_record_id){
