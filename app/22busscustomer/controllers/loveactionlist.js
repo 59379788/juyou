@@ -12,14 +12,14 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     };
     $scope.getlist();
 
-    $scope.charitylist = function(){
-        $state.go('app.charitylist');
+    $scope.charitylist = function(love_activity_id){
+        $state.go('app.charitylist',{'love_activity_id':love_activity_id});
     };
-    $scope.donatelist = function(){
-        $state.go('app.donatelist');
+    $scope.donatelist = function(love_activity_id){
+        $state.go('app.donatelist',{'love_activity_id':love_activity_id});
     };
-    $scope.expandlist = function(){
-        $state.go('app.expandlist');
+    $scope.expandlist = function(love_activity_id){
+        $state.go('app.expandlist',{'love_activity_id' : love_activity_id});
     };
 
 };

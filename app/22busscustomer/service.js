@@ -40,13 +40,20 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
    //在线支付订单列表
    var usedorderlist = BASEURL38985 + '/api/as/tc/voucherorder/usedorderlist';
 
-  //------商客app------//
+  
 
 
   // 查看活动申请人列表
   var findhelplist = BASEURL38985 + '/api/as/mc/meraskhelpdao/findhelplist';
   // 爱心活动列表
   var findactivityforadminlist = BASEURL38985 + '/api/as/mc/merloveactivedao/findactivityforadminlist';
+  // 义卖，捐助列表
+  var findrecordforadminlist = BASEURL38985 + '/api/as/mc/merloveactivityrecorddao/findrecordforadminlist';
+  // 我要捐物
+  var savedonate = BASEURL38985 + '/api/uc/mc/merloveactivityrecordserviceimpl/save';
+  // 审核义捐
+  var updateronationstate = BASEURL38985 + '/api/ac/mc/merloveactivityrecordserviceimpl/updateronationstate';
+
   // 爱心活动下的支出列表
   var findinfobyidlist = BASEURL38985 + '/api/as/mc/merloveactiveoutdao/findinfobyidlist';
   // 添加支出记录
@@ -57,23 +64,33 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var updateactivitystatetothree = BASEURL38985 + '/api/as/mc/merloveactivedao/updateactivitystatetothree';
   // 捐献记录申请列表
   var findloveactivercordlist = BASEURL38985 + '/api/us/mc/merloveactivityrecorddao/findloveactivercordlist';
-  // 审核捐献记录
-  var updateronationstate = BASEURL38985 + '/api/as/mc/merloveactivityrecordserviceimpl/updateronationstate';
+  // // 审核捐献记录
+  // var updateronationstate = BASEURL38985 + '/api/as/mc/merloveactivityrecordserviceimpl/updateronationstate';
   // 求援审核
   var updatestate = BASEURL38985 + '/api/as/mc/meraskhelpdao/updatestate';
   // 新建活动
   var saveactivity = BASEURL38985 + '/api/ac/mc/merloveactivityserviceimpl/save';
+
+
+  
+  // 易买列表
+  var findgoodscantlist = BASEURL38985 + '/api/ac/mc/mertradeserviceimpl/findgoodscantlist';
+  // 审核易卖
+  var updatetraddestate = BASEURL38985 + '/api/ac/mc/mertradeserviceimpl/updatetraddestate';
+  // 商品列表
+  var findgoodsforadminlist =  BASEURL38985 + '/api/as/mc/mergoodsinfodao/findgoodsforadminlist';
   // 添加商品到为你推荐
   var savegood = BASEURL38985 + '/api/as/mc/merrecommendforyoudao/insertrecommend';
   // 添加商品类型
   var savetype = BASEURL38985 + '/api/as/mc/mertradetypedao/save';
 
 
-  // 查看商品上架申请列表
-  var findtradelist = BASEURL38985 + '/api/us/mc/mertradedao/findtradelist';
+ 
 
   // 查看全部说明
   var findExplainList = BASEURL38985 + '/api/as/mc/merexplaindao/findExplainList';
+  // 查看单条说明
+  var getAdminExplain = BASEURL38985 + '/api/as/mc/merexplaindao/getAdminExplain';
   // 保存说明
   var saveExplain = BASEURL38985 + '/api/as/mc/merexplaindao/saveExplain';
   // 修改说明
@@ -82,22 +99,47 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var updateDel = BASEURL38985 + '/api/as/mc/merexplaindao/updateDel';
   
 
-
-  //------评价模块------//
-  
-
-
-
-
-
-  //------评价模块------//
-
-  //------商客app------//
-
-
+  // 评价列表
+  var findReplyList = BASEURL38985 + '/api/us/rc/remreplydao/findReplyList';
+  // 更改评价审核状态
+  var updateStatus = BASEURL38985 + '/api/as/rc/remreplydao/updateStatus';
 
 
     return {
+        //模型
+        model : function(){
+            return { 
+                trip_info : ""
+            };
+        },
+
+        triparray : [],
+
+         //初始化信息
+         init : function(){
+           var trip = this.triparray[i];
+                    trip.uploader = new FileUploader({
+                        url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=line&selfdir=trip'
+                    });
+                    trip.uploader.dlq = trip;
+                    trip.uploader.onSuccessItem = function(fileItem, response, status, headers) {
+                        this.dlq.img = response.savename;
+                    };
+                    trip.uploader.filters.push({
+                        name: 'imageFilter',
+                        fn: function(item /*{File|FileLikeObject}*/, options) {
+                            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+                        }
+                    });
+                    return $resource(init, {}, {});
+                  },
+
+        //绑定图片控件。
+        bindimgcom : function(){
+                
+        },    
+
         customerlist : function(){
              return $resource(customerlist, {}, {});
         },
@@ -233,6 +275,30 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         saverecord : function(){
              return $resource(saverecord, {}, {});
+        },
+        findReplyList : function(){
+             return $resource(findReplyList, {}, {});
+        },
+        updateStatus : function(){
+             return $resource(updateStatus, {}, {});
+        },
+        findrecordforadminlist : function(){
+             return $resource(findrecordforadminlist, {}, {});
+        },
+        savedonate : function(){
+             return $resource(savedonate, {}, {});
+        },
+        findgoodscantlist : function(){
+             return $resource(findgoodscantlist, {}, {});
+        },
+        updatetraddestate : function(){
+             return $resource(updatetraddestate, {}, {});
+        },
+        findgoodsforadminlist : function(){
+             return $resource(findgoodsforadminlist, {}, {});
+        },
+        getAdminExplain : function(){
+             return $resource(getAdminExplain, {}, {});
         }
         
     }

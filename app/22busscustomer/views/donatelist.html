@@ -1,25 +1,33 @@
-
 <div class="col-sm-12">
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
-                  
-                  <input type="text" class="form-control" ng-model="info.insert_user_name" placeholder="">
+                <div class="row">
+                  <!-- <input type="text" class="form-control" ng-model="addinfo.activity_id" placeholder="活动编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp; -->
+                  <input type="text" class="form-control" ng-model="addinfo.ronation_user_name" placeholder="捐献人姓名">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="info.insert_user_mobile" placeholder="">
+                  <input type="text" class="form-control" ng-model="addinfo.ronation_user_card" placeholder="捐助人身份证号码">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="info.activity_id" placeholder="">
+                  <input type="text" class="form-control" ng-model="addinfo.ronation_user_mobile" placeholder="捐助人手机号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="info.objects_num" placeholder="">
+                  <input type="text" class="form-control" ng-model="addinfo.ronation_goods_title" placeholder="物品标题">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="info.sum_rmb" placeholder="">
+                </div>
+                <div class="row mt10">
+                  <input type="text" class="form-control" ng-model="addinfo.ronation_goods_number" placeholder="物品数量">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="info.remark" placeholder="">
+                  <input type="text" class="form-control" ng-model="addinfo.ronation_goods_info" placeholder="物品详情">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="addinfo.ronation_goods_befor_price" placeholder="物品原价">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="addinfo.ronation_goods_price" placeholder="物品现价">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="addinfo.ronation_rmb" placeholder="物品金额">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <button type="button" class="btn btn-primary search pull-right" ng-click="save()">补录</button>
-
-
+                </div>
             </div>
         </div>
     </div>
@@ -28,24 +36,30 @@
     <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-2 text-center">操作人姓名</th>
-        <th class="col-md-2 text-center">操作人手机</th>
-        <th class="col-md-2 text-center">活动编号</th>
-        <th class="col-md-2 text-center">支出物品数量</th>
-        <th class="col-md-2 text-center">备注</th>
+        <th class="col-md-1 text-center">捐助人姓名</th>
+        <th class="col-md-2 text-center">捐助人身份证号码</th>
+        <th class="col-md-1 text-center">捐助人手机号</th>
+        <th class="col-md-1 text-center">物品标题</th>
+        <th class="col-md-1 text-center">物品数量</th>
+        <th class="col-md-2 text-center">物品详情</th>
+        <th class="col-md-1 text-center">审核状态</th>
+        <th class="col-md-1 text-center">捐赠状态</th>
         <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
-        <td class="text-center">{{obj.insert_user_name}}</td>
-        <td class="text-center">{{obj.insert_user_mobile}}</td>
-        <td class="text-center">{{obj.activity_id}}</td>
-        <td class="text-center">{{objobjects_num}}</td>
-        <td class="text-center">{{obj.sremark}remark}</td>
+        <td class="text-center">{{obj.ronation_user_name}}</td>
+        <td class="text-center">{{obj.ronation_user_card}}</td>
+        <td class="text-center">{{obj.ronation_user_mobile}}</td>
+        <td class="text-center">{{obj.ronation_goods_title}}</td>
+        <td class="text-center">{{obj.ronation_goods_number}}</td>
+        <td class="text-center">{{obj.ronation_goods_info}}</td>
+        <td class="text-center">{{obj.ronation_state}}</td>
+        <td class="text-center">{{obj.ronation_time}}</td>
         <td class="text-center">
-          <a ng-show="" ng-click="" class="btn btn-danger btn-xs">通过</a>
-          <a ng-show="" ng-click="" class="btn btn-danger btn-xs">不通过</a>
+          <a ng-show="obj.ronation_state == 0" ng-click="agree(obj.love_record_id)" class="btn btn-danger btn-xs">通过</a>
+          <a ng-show="obj.ronation_state == 0" ng-click="disagree(obj.love_record_id)" class="btn btn-info btn-xs">不通过</a>
         </td>
       </tr>
     </tbody>

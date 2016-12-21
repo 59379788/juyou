@@ -1,4 +1,25 @@
 <div class="col-sm-12">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="form-group form-inline">
+        <div class="col-sm-12">                  
+          <input type="text" class="form-control" ng-model="info.insert_user_name" placeholder="">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="text" class="form-control" ng-model="info.insert_user_mobile" placeholder="">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="text" class="form-control" ng-model="info.activity_id" placeholder="">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="text" class="form-control" ng-model="info.objects_num" placeholder="">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="text" class="form-control" ng-model="info.sum_rmb" placeholder="">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="text" class="form-control" ng-model="info.remark" placeholder="">
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="button" class="btn btn-primary search pull-right" ng-click="save()">保存</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- searchArea -->
   <div class="col-md-12 panel panel-default table-responsive">
       <table class="table table-bordered">
       <thead>

@@ -1,7 +1,6 @@
 module.exports = function($scope, $state, $stateParams, $uibModal){
-  $scope.loveactionapply = function () {
-    alert('ssss');
-    $state.go('app.applyuserlist');
+  $scope.changeapplylist = function () {
+    $state.go('app.changelist');
   }
 
   $scope.addgoods = function() {
@@ -9,7 +8,6 @@ module.exports = function($scope, $state, $stateParams, $uibModal){
   }
 
   $scope.addgoodtype = function() {
-  	alert('leixing');
   	$state.go('app.addgoodtype');
   }
 
