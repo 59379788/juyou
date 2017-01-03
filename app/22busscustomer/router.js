@@ -132,7 +132,10 @@ var router = function($urlRouterProvider, $stateProvider){
 	          },
 	          typelist : function(busscustomerservice){
 	                 return busscustomerservice.typelist;
-	          }
+	          },
+	          getDate : function(utilservice){
+                	 return utilservice.getDate;
+              }
          }    
         })
 

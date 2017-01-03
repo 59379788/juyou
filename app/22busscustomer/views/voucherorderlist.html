@@ -46,6 +46,7 @@
                   <select class="form-control" ng-model="searchform.pay_state">
                     <option label="未支付" value="0"></option>
                     <option label="已支付" value="1"></option>
+                    <option label="已过期" value="2"></option>
                     <option label="查询全部" value=""></option>
                   </select>
                   &nbsp;&nbsp;&nbsp;&nbsp;
@@ -91,7 +92,7 @@
         <td class="text-center">{{obj.create_time}}</td>
         <td class="text-center">{{obj.statename}}</td>
         <th class="text-center">
-          <a ng-click="voucherinfo(obj.code)" class="btn btn-success btn-xs" ng-show="obj.pay_state=='1'">码信息</a>
+          <a ng-click="voucherinfo(obj.code)" class="btn btn-success btn-xs" ng-show="obj.pay_state=='1' || obj.pay_state=='2'">码信息</a>
           <a ng-click="orderinfo(obj)" class="btn btn-info btn-xs">订单详情</a>
         </th>
       </tr>
