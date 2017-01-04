@@ -18,8 +18,9 @@
 					<div style="float:left;" ng-show="obj.type_month=='1'">
 						<label>评价月份</label>&nbsp;&nbsp;
 						<select class="form-control" ng-model="obj.type_year" ng-disabled="isable=='1'">
-							<option value="2016"> 2016 </option>
 							<option value="2017"> 2017 </option>
+							<option value="2018"> 2018 </option>
+							<option value="2019"> 2019 </option>
 						</select>
 						&nbsp;&nbsp;
 						<select class="form-control" ng-model="obj.type_playtime_start" ng-disabled="isable=='1'">
@@ -88,6 +89,14 @@
 		                  </div>
 		                  &nbsp;&nbsp;
 		                  <select class="form-control" ng-model="obj.starthour" ng-disabled="isable=='1'">
+		                  		<option value="00:00">00:00</option>
+		                  		<option value="01:00">01:00</option>
+		                  		<option value="02:00">02:00</option>
+		                  		<option value="03:00">03:00</option>
+		                  		<option value="04:00">04:00</option>
+		                  		<option value="05:00">05:00</option>
+		                  		<option value="06:00">06:00</option>
+		                  		<option value="07:00">07:00</option>
 								<option value="08:00">08:00</option>
 								<option value="09:00">09:00</option>
 								<option value="10:00">10:00</option>
@@ -102,6 +111,8 @@
 								<option value="19:00">19:00</option>
 								<option value="20:00">20:00</option>
 								<option value="21:00">21:00</option>
+								<option value="22:00">22:00</option>
+								<option value="23:00">23:00</option>
 						  </select>
 		                        &nbsp;&nbsp;到&nbsp;&nbsp;            
 		                  <div class="input-group">
@@ -115,6 +126,14 @@
 		                  </div>
 		                  &nbsp;&nbsp;
 		                  <select class="form-control" ng-model="obj.endhour" ng-disabled="isable=='1'">
+								<option value="00:00">00:00</option>
+		                  		<option value="01:00">01:00</option>
+		                  		<option value="02:00">02:00</option>
+		                  		<option value="03:00">03:00</option>
+		                  		<option value="04:00">04:00</option>
+		                  		<option value="05:00">05:00</option>
+		                  		<option value="06:00">06:00</option>
+		                  		<option value="07:00">07:00</option>
 								<option value="08:00">08:00</option>
 								<option value="09:00">09:00</option>
 								<option value="10:00">10:00</option>
@@ -129,9 +148,17 @@
 								<option value="19:00">19:00</option>
 								<option value="20:00">20:00</option>
 								<option value="21:00">21:00</option>
+								<option value="22:00">22:00</option>
+								<option value="23:00">23:00</option>
 						  </select>
 						  &nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
+					<select class="form-control" ng-model="obj.evaluate_type">
+	                    <option label="满意度评价" value="1"></option>
+	                    <option label="订单评价" value="2"></option>
+	                    <option label="全部评价" value=""></option>
+	                  </select>
+	                  &nbsp;&nbsp;
 
 					<button type="button" class="btn btn-default search pull-right" 
 						ng-click="load()" ng-disabled="isable=='1'">立即搜索</button>

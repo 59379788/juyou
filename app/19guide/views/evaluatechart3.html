@@ -13,9 +13,15 @@
 	            </select>
 				&nbsp;&nbsp;
 
-				
-
 				<button type="button" class="btn btn-default search " ng-click="add()">追加</button>
+
+				&nbsp;&nbsp;
+				<select class="form-control" ng-model="obj.evaluate_type" ng-change="change()">
+                    <option label="满意度评价" value="1"></option>
+                    <option label="订单评价" value="2"></option>
+                    <option label="全部评价" value=""></option>
+                  </select>
+                  
 
 			</div>
 
