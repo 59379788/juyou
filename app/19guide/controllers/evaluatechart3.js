@@ -88,7 +88,28 @@ module.exports = function($scope, shakecompanyinfolist, questionhpllist){
 		}
     }
 
+    $scope.change = function() {
+    	questionhpllist.get($scope.obj, function(res){
+            //console.log(res);
+	        if(res.errcode !== 0)
+	        {
+	            alert(res.errmsg);
+	            return ;
+	        }
+	        $scope.totalobjs.splice(0,$scope.totalobjs.length);
+	        $scope.totalobjs.push(res.data);
 
+	        var r = [];
+	        $scope.labels.splice(0,$scope.labels.length);
+	        for(var i=0; i<res.data.list.length; i++){
+	        	r.push(res.data.list[i].hpl);
+	        	$scope.labels.push(res.data.list[i].question);
+	        }
+	        $scope.data.splice(0,$scope.data.length);
+	        $scope.data.push(r);
+	        
+	    });
+    }
 
 
 

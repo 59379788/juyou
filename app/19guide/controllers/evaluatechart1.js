@@ -62,11 +62,11 @@ module.exports = function($scope, shakegroupinfolist, shakecompanyinfolist, tota
 
     //设置默认值
     $scope.obj.type_month = '1';				
-    $scope.obj.type_year = '2016';					
+    $scope.obj.type_year = '2017';					
     $scope.obj.type_playtime_start = '1';		
     $scope.obj.type_playtime_end = '12';
-    $scope.obj.starthour = '08:00';		
-    $scope.obj.endhour = '21:00';
+    $scope.obj.starthour = '00:00';		
+    $scope.obj.endhour = '23:00';
     $scope.isable = '0';
 
     shakegroupinfolist.get({}, function(res){
@@ -206,8 +206,8 @@ module.exports = function($scope, shakegroupinfolist, shakecompanyinfolist, tota
 		}else if($scope.obj.type_month == '3'){
 			$scope.section.starttime.date = new Date();
 			$scope.section.endtime.date = new Date();
-			$scope.obj.starthour = '08:00';		
-    		$scope.obj.endhour = '21:00';
+			$scope.obj.starthour = '00:00';		
+    		$scope.obj.endhour = '23:00';
 		}
     }
 

@@ -1,10 +1,19 @@
-module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, obj, what, vouchersalecreate, businesslist, typelist){
+module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, getDate, obj, what, vouchersalecreate, businesslist, typelist){
 
 	$scope.obj = obj;
 	$scope.what = what;
 
 	$scope.obj.star = '5';
 	$scope.obj.voucher_price = 100;
+
+	//有效区间
+    $scope.section = {};
+    $scope.section.start = {};
+    $scope.section.start.date = obj.period;
+
+    $scope.open = function(obj) {
+        obj.opened = true;
+    };
 
 	businesslist().then(function(res) {
         if(res.errcode === 0)
@@ -93,7 +102,8 @@ module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, ob
 		{
 			alert('销售品名称不能为空');
 			return;
-		}console.log($scope.obj);
+		}
+		$scope.obj.period = getDate(new Date($scope.section.start.date));
 		vouchersalecreate.save($scope.obj, function(res){
 
 			console.log(res);

@@ -40,7 +40,16 @@
 					  </span>
 					</div>
 					&nbsp;&nbsp;
+					<div style='float:left;'>
+						<select class="form-control" ng-model="obj.evaluate_type">
+		                    <option label="满意度评价" value="1"></option>
+		                    <option label="订单评价" value="2"></option>
+		                    <option label="全部评价" value=""></option>
+		                  </select>
+		                  &nbsp;&nbsp;
 					</div>
+					</div>
+	                  
 
 				<button type="button" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
 

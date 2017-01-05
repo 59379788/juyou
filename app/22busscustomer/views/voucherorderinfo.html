@@ -95,7 +95,7 @@
         </div>
 
         <div class="form-group">
-            <label class="col-xs-6 control-label">定值商品原价</label>
+            <label class="col-xs-6 control-label">定值商品价格</label>
             <div class="col-xs-6">
                 <p class="form-control-static">{{obj.guide_price * 0.01 | currency : '￥'}}</p>
             </div>
@@ -140,6 +140,13 @@
             <label class="col-xs-6 control-label">用户id</label>
             <div class="col-xs-6">
                 <p class="form-control-static">{{obj.create_by}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">有效期</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.period}}</p>
             </div>
         </div>
         </div>
