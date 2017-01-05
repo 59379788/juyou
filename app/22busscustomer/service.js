@@ -81,6 +81,8 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var findgoodsforadminlist =  BASEURL38985 + '/api/as/mc/mergoodsinfodao/findgoodsforadminlist';
   // 添加商品到为你推荐
   var savegood = BASEURL38985 + '/api/as/mc/merrecommendforyoudao/insertrecommend';
+  // 取消为你推荐
+  var updatestateztoone = BASEURL38985 + '/api/as/mc/merrecommendforyoudao/updatestateztoone';
   // 添加商品类型
   var savetype = BASEURL38985 + '/api/as/mc/mertradetypedao/save';
 
@@ -104,6 +106,16 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   // 更改评价审核状态
   var updateStatus = BASEURL38985 + '/api/as/rc/remreplydao/updateStatus';
 
+  // 积分商城商品列表
+  var findSaleList = BASEURL38985 + '/api/as/mc/merintegralmal/findSaleList';
+  // 积分商城商品详情
+  var getInfoBySaleCode = BASEURL38985 + '/api/as/mc/merintegralmal/getInfoBySaleCode';
+  // 保存商品
+  var saveIntegralGood = BASEURL38985 + '/api/as/mc/merintegralmal/save';
+  // 删除商品
+  var updateIntegral = BASEURL38985 + '/api/as/mc/merintegralmal/updateDel';
+  // 修改商品详情
+  var updateMal = BASEURL38985 + '/api/as/mc/merintegralmal/updateMal';
 
     return {
         //模型
@@ -299,6 +311,24 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         getAdminExplain : function(){
              return $resource(getAdminExplain, {}, {});
+        },
+        findSaleList : function(){
+             return $resource(findSaleList, {}, {});
+        },
+        getInfoBySaleCode : function(){
+             return $resource(getInfoBySaleCode, {}, {});
+        },
+        saveIntegralGood : function(){
+             return $resource(saveIntegralGood, {}, {});
+        },
+        updateIntegral : function(){
+             return $resource(updateIntegral, {}, {});
+        },
+        updateMal : function(){
+             return $resource(updateMal, {}, {});
+        },
+        updatestateztoone : function(){
+             return $resource(updatestateztoone, {}, {});
         }
         
     }

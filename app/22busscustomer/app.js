@@ -45,6 +45,7 @@ App.controller('addinstruction',require('./controllers/addinstruction'));
 // 评价
 App.controller('comment',require('./controllers/comment'));
 
-
-
+// 积分
+App.controller('integral',require('./controllers/integral'));
+App.controller('addintegralgoods',require('./controllers/addintegralgoods'));
 module.exports = App;

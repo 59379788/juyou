@@ -5,14 +5,30 @@
 <div class="container-fluid form-horizontal ">
 	<div class="col-xs-12 form-horizontal" >
 	    <div class="form-group">
-		<label class="col-xs-3 control-label">商品类型:</label>
-		<div class="col-xs-7">
-			<input type="text" class="form-control" 
-			ng-model="info.label"
-			>
+			<label class="col-xs-3 control-label">商品类型:</label>
+			<div class="col-xs-7">
+				<input type="text" class="form-control" ng-model="info.label">
+			</div>
+			<button type="button" class="btn btn-info" ng-click="addtype()">确定<button>
 		</div>
-		<button type="button" class="btn btn-info" ng-click="addtype()">确定<button>
-		</div>
+
+		<div class="form-group">
+ 			<label for="inputDate" class="col-sm-3 control-label">图标：</label>
+ 			<div class="col-md-6">
+      		<img ng-src="{{info.img}}" width="50%" height="100" ng-model="info.activity_main_picture">
+        	<input type="file" nv-file-select uploader="uploader" / ng-hide="hide===true" ><br/>
+        	<ul class="list-group">
+          		<li class="list-group-item" ng-repeat="item in uploader.queue">
+            	文件名: <span ng-bind="item.file.name"></span>
+            	<button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+           		 <div class="progress mt10">
+             	 <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+            	</div>
+          		</li>
+        	</ul>
+ 		</div>
+ 		</div>
+
 	</div>
 </div>
 </div>

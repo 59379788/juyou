@@ -64,8 +64,8 @@ module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,
   	};
 
     $scope.agree = function(love_record_id){
-      updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'1'},function(res){
-        console.log({'love_record_id':love_record_id,'ronation_state':'1'});
+      updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'1','ronation_type' : '1'},function(res){
+        console.log({'love_record_id':love_record_id,'ronation_state':'1','ronation_type' : '1'});
         if (res.errcode !== 0) {
           alert(res.errmsg);
           return;
@@ -76,8 +76,8 @@ module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,
     };
 
     $scope.disagree = function(love_record_id){
-      updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'1'},function(res){
-        console.log({'love_record_id':love_record_id,'ronation_state':'2'});
+      updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'2','ronation_type' : '1'},function(res){
+        console.log({'love_record_id':love_record_id,'ronation_state':'2','ronation_type' : '1'});
         if (res.errcode !== 0) {
           alert(res.errmsg);
           return;

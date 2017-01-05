@@ -279,6 +279,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             savegood : function(busscustomerservice){
                  return busscustomerservice.savegood();
+            },
+            updatestateztoone : function(busscustomerservice){
+                return busscustomerservice.updatestateztoone();
             }
 
          }
@@ -459,6 +462,38 @@ var router = function($urlRouterProvider, $stateProvider){
          }
         })
 
+        // 积分商城商品列表
+        .state('app.integral', {
+         url: '/integral',
+         controller : 'integral',
+         template: require('./views/integral.html'),
+         resolve:{
+            findSaleList : function(busscustomerservice){
+                 return busscustomerservice.findSaleList();
+            },
+            updateIntegral : function(busscustomerservice){
+                 return busscustomerservice.updateIntegral();
+            }
+         }
+        })
+
+        // 添加商品
+         .state('app.addintegralgoods', {
+         url: '/addintegralgoods/:id',
+         controller : 'addintegralgoods',
+         template: require('./views/addintegralgoods.html'),
+         resolve:{
+            saveIntegralGood : function(busscustomerservice){
+                 return busscustomerservice.saveIntegralGood();
+            },
+            updateMal : function(busscustomerservice){
+                 return busscustomerservice.updateMal();
+            },
+            getInfoBySaleCode : function(busscustomerservice){
+                return busscustomerservice.getInfoBySaleCode();
+            }
+         }
+        })
 
 
 

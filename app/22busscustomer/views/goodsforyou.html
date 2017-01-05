@@ -8,7 +8,8 @@
         <th class="col-md-1 text-center">区域</th>
         <th class="col-md-2 text-center">原价</th>
         <th class="col-md-2 text-center">现价</th>
-        <th class="col-md-2 text-center">备注</th>
+        <th class="col-md-1 text-center">备注</th>
+        <th class="col-md-1 text-center">状态</th>
         <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
@@ -21,7 +22,14 @@
         <td class="text-center">{{obj.goods_price}}</td>
         <td class="text-center">{{obj.remark}}</td>
         <td class="text-center">
-          <a ng-click="add(obj.goods_id)" class="btn btn-info btn-xs">添加到为你推荐</a>
+          <span ng-show="obj.foryoustate==0">已添加</span>
+          <span ng-show="obj.foryoustate==1">已取消</span>
+          <span ng-show="obj.foryoustate!=0 && obj.foryoustate!=1">未添加</span>
+        </td>
+        
+        <td class="text-center">
+          <a ng-show="obj.foryoustate!=0" ng-click="add(obj.goods_id)" class="btn btn-info btn-xs">添加到为你推荐</a>
+          <a ng-show="obj.foryoustate==0" ng-click="console(obj.id)" class="btn btn-success btn-xs">取消</a>
         </td>
       </tr>
     </tbody>

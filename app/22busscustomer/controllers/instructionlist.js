@@ -22,6 +22,9 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     };
     $scope.getlist();
 
+    $scope.addinstruction = function(){
+        $state.go('app.addinstruction');
+    };
 
     $scope.change = function(id){
         $state.go('app.addinstruction',{'id':id});
