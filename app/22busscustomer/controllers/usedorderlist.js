@@ -20,9 +20,9 @@ module.exports = function($scope, $stateParams, ITEMS_PERPAGE, getDate, $uibModa
 
     /* 分页
      * ========================================= */
-    $scope.maxSize = 5;            //最多显示多少个按钮
-    $scope.bigCurrentPage = 1;      //当前页码
-    $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+    //$scope.maxSize = 5;            //最多显示多少个按钮
+    //$scope.bigCurrentPage = 1;      //当前页码
+    //$scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
     
     $scope.load = function () {
 
@@ -31,8 +31,8 @@ module.exports = function($scope, $stateParams, ITEMS_PERPAGE, getDate, $uibModa
 	    };
         
         var para = {
-            pageNo:$scope.bigCurrentPage, 
-            pageSize:$scope.itemsPerPage,
+            //pageNo:$scope.bigCurrentPage, 
+            //pageSize:$scope.itemsPerPage,
             start_time : getDate($scope.section.start.date) + " 00:00:00",
             end_time : getDate($scope.section.end.date) + " 23:59:59"
         };
@@ -45,12 +45,13 @@ module.exports = function($scope, $stateParams, ITEMS_PERPAGE, getDate, $uibModa
 
             if(res.errcode === 0)
             {
-                $scope.objs = res.data.results;
-                $scope.bigTotalItems = res.data.totalRecord;
+            	$scope.objs = res.data;
+                //$scope.objs = res.data.results;
+                //$scope.bigTotalItems = res.data.totalRecord;
 
-                for(var i = 0, j = res.data.results.length; i < j; i++)
+                for(var i = 0, j = res.data.length; i < j; i++)
 		        {
-		            $scope.total.total += res.data.results[i].pay_price
+		            $scope.total.total += res.data[i].pay_price;
 	            }
             }
             else
