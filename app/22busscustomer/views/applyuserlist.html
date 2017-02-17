@@ -7,6 +7,7 @@
         <th class="col-md-2 text-center">用户身份证号</th>
         <th class="col-md-2 text-center">用户电话</th>
         <th class="col-md-2 text-center">备注</th>
+        <th class="col-md-2 text-center">状态</th>
         <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
@@ -16,6 +17,7 @@
         <td class="text-center">{{obj.user_idcard}}</td>
         <td class="text-center">{{obj.user_mobile}}</td>
         <td class="text-center">{{obj.remark}}</td>
+        <td class="text-center">{{obj.state_name}}</td>
         <td class="text-center">
           <a ng-show="obj.state == 0" ng-click="agree(obj.id)" class="btn btn-danger btn-xs">同意</a>
           <a ng-show="obj.state == 0" ng-click="disagree(obj.id)" class="btn btn-warning btn-xs">不同意</a>

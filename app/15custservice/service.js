@@ -34,7 +34,7 @@ var service = function($resource, BASEURL38985){
 
     var orderbacklist = BASEURL38985 + "/api/as/tc/ticketorderback/orderbacklist";
 
-    var orderback = BASEURL38985 + "/api/ac/tc/ticketOrderService/backmoneybycode";
+    var orderback = BASEURL38985 + "/api/ac/tc/ticketOrderService/updatebackmoneybycode";
 
     var updateCardPass = BASEURL38985 + "/api/as/uc/jyu/updateCardPass";
 

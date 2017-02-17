@@ -23,7 +23,7 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findinfobyidli
   				return;
   			}
   			console.log(res);
-  			$scope.objs = res.data;
+  			$scope.objs = res.data.results;
   			$scope.bigTotalItems = res.data.totalRecord;
   		});	
   	};

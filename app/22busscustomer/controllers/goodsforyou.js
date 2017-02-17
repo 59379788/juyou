@@ -37,9 +37,9 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         });
     };
 
-    $scope.console = function(id){
-        updatestateztoone.save({'id' : id}, function(res){
-            console.log({'id' : id});
+    $scope.console = function(goods_id){
+        updatestateztoone.save({'goods_id' : goods_id}, function(res){
+            console.log({'goods_id' : goods_id});
             if (res.errcode !== 0) {
                 alert(res.errmsg);
                 return;

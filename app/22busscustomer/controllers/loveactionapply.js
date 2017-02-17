@@ -9,11 +9,20 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,s
         'activity_main_picture' : '',
         'activity_picture' : '',
         'activity_info' : '',
-        'activity_estimate_rmb' : '',
+        //'activity_estimate_rmb' : '',
         'active_type' : ''
     };
-
+    var types = '';
     $scope.selection = function(type){
+        types = type;
+        if (type==0) {
+            $scope.info.activity_estimate_rmb = '';
+        } else if (type==1) {
+            $scope.info.activity_estimate_num = '';
+        } else if (type==2) {
+            $scope.info.activity_estimate_rmb = '';
+            $scope.info.activity_estimate_num = '';
+        }
     };
     // 主图
     var uploader = $scope.uploader = new FileUploader({
@@ -70,7 +79,10 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,s
             start_time : getDate($scope.section.start.date) + " 00:00:00",
             end_time : getDate($scope.section.end.date) + " 23:59:59"
         };
-        if ($scope.info.id!==''&& $scope.info.activity_proposer_name!==''&&$scope.info.activity_proposer_card!==''&&$scope.info.activity_proposer_mobile!==''&&$scope.info.activity_titlle!==''&&$scope.info.activity_main_picture!==''&&$scope.info.activity_picture!==''&&$scope.info.activity_info!==''&&$scope.info.activity_estimate_rmb!==''&&$scope.info.active_type!=='') {
+        alert(types);
+        if (types==0&&$scope.info.id!==''&& $scope.info.activity_proposer_name!==''&&$scope.info.activity_proposer_card!==''&&$scope.info.activity_proposer_mobile!==''
+            &&$scope.info.activity_titlle!==''&&$scope.info.activity_main_picture!==''&&$scope.info.activity_picture!==''&&$scope.info.activity_info!==''&&$scope.info.active_type!==''&&$scope.info.activity_estimate_rmb!=='') {
+            $scope.info.activity_estimate_rmb = ($scope.info.activity_estimate_rmb) * 100;
             para = angular.extend($scope.info, para);
             saveactivity.save(para, function(res) {
                 console.log(para);
@@ -82,9 +94,36 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,s
                 alert('恭喜您，活动创建成功！');
                 $state.go('app.loveactionlist');
             });
-        }
 
-        else {
+        } else if (types==1&&$scope.info.id!==''&& $scope.info.activity_proposer_name!==''&&$scope.info.activity_proposer_card!==''&&$scope.info.activity_proposer_mobile!==''
+            &&$scope.info.activity_titlle!==''&&$scope.info.activity_main_picture!==''&&$scope.info.activity_picture!==''&&$scope.info.activity_info!==''&&$scope.info.active_type!==''&&$scope.info.activity_estimate_num!=='') {
+            para = angular.extend($scope.info, para);
+            saveactivity.save(para, function(res) {
+                console.log(para);
+                if (res.errcode !== 0) {
+                    alert(res.errmsg);
+                    return;
+                }
+                console.log(res);
+                alert('恭喜您，活动创建成功！');
+                $state.go('app.loveactionlist');
+            });
+        } else if (types==2&&$scope.info.id!==''&& $scope.info.activity_proposer_name!==''&&$scope.info.activity_proposer_card!==''&&$scope.info.activity_proposer_mobile!==''
+            &&$scope.info.activity_titlle!==''&&$scope.info.activity_main_picture!==''&&$scope.info.activity_picture!==''&&$scope.info.activity_info!==''&&$scope.info.active_type!==''&&$scope.info.activity_estimate_num!==''&&$scope.info.activity_estimate_rmb!=='') {
+            $scope.info.activity_estimate_rmb = ($scope.info.activity_estimate_rmb) * 100;
+            para = angular.extend($scope.info, para);
+            saveactivity.save(para, function(res) {
+                console.log(para);
+                if (res.errcode !== 0) {
+                    alert(res.errmsg);
+                    return;
+                }
+                console.log(res);
+                alert('恭喜您，活动创建成功！');
+                $state.go('app.loveactionlist');
+            });
+
+        } else {
             alert('活动信息填写不完全！');
         }
        

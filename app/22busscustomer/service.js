@@ -50,7 +50,7 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   // 义卖，捐助列表
   var findrecordforadminlist = BASEURL38985 + '/api/as/mc/merloveactivityrecorddao/findrecordforadminlist';
   // 我要捐物
-  var savedonate = BASEURL38985 + '/api/uc/mc/merloveactivityrecordserviceimpl/save';
+  var savedonate = BASEURL38985 + '/api/ac/mc/merloveactivityrecordserviceimpl/saveadmin';
   // 审核义捐
   var updateronationstate = BASEURL38985 + '/api/ac/mc/merloveactivityrecordserviceimpl/updateronationstate';
 
@@ -82,7 +82,7 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   // 添加商品到为你推荐
   var savegood = BASEURL38985 + '/api/as/mc/merrecommendforyoudao/insertrecommend';
   // 取消为你推荐
-  var updatestateztoone = BASEURL38985 + '/api/as/mc/merrecommendforyoudao/updatestateztoone';
+  var updatestateztoone = BASEURL38985 + '/api/as/mc/merrecommendforyoudao/delforyou';
   // 添加商品类型
   var savetype = BASEURL38985 + '/api/as/mc/mertradetypedao/save';
 
