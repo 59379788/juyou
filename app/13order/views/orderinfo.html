@@ -24,14 +24,15 @@
         <div class="form-group">
             <label class="col-xs-6 control-label">支付金额</label>
             <div class="col-xs-6">
-                <p class="form-control-static">{{obj.pay_fee}}</p>
+                <p class="form-control-static">{{obj.pay_fee/100}}</p>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-xs-6 control-label">支付状态</label>
             <div class="col-xs-6">
-                <p class="form-control-static">{{obj.pay_state}}</p>
+                <p ng-show="obj.pay_state==0" class="form-control-static">未支付</p>
+                <p ng-show="obj.pay_state==1" class="form-control-static">支付完成(无需支付)</p>
             </div>
         </div>
 
@@ -52,21 +53,30 @@
         <div class="form-group">
             <label class="col-xs-6 control-label">支付类型</label>
             <div class="col-xs-6">
-                <p class="form-control-static">{{obj.payment_type}}</p>
+                <p ng-show="obj.payment_type==1" class="form-control-static">支付宝支付</p>
+                <p ng-show="obj.payment_type==2" class="form-control-static">微信支付</p>
+                <p ng-show="obj.payment_type==3" class="form-control-static">网银在线</p>
+                <p ng-show="obj.payment_type==4" class="form-control-static">账户余额</p>
+                <p ng-show="obj.payment_type==5" class="form-control-static">现金支付</p>
+                <p ng-show="obj.payment_type==8" class="form-control-static">同业支付</p>
+                <p ng-show="obj.payment_type==9" class="form-control-static">半价支付</p>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-xs-6 control-label">系统确定状态</label>
             <div class="col-xs-6">
-                <p class="form-control-static">{{obj.sys_affirm_state}}</p>
+                <p ng-show="obj.sys_affirm_state==0" class="form-control-static">等待系统处理</p>
+                <p ng-show="obj.sys_affirm_state==1" class="form-control-static">系统处理完成（或无需处理）
+</p>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-xs-6 control-label">订单取消状态</label>
             <div class="col-xs-6">
-                <p class="form-control-static">{{obj.cancel_state}}</p>
+                <p ng-show="obj.cancel_state==0" class="form-control-static">未取消</p>
+                <p ng-show="obj.cancel_state==1" class="form-control-static">已取消</p>
             </div>
         </div>
 
@@ -87,7 +97,11 @@
         <div class="form-group">
             <label class="col-xs-6 control-label">票状态</label>
             <div class="col-xs-6">
-                <p class="form-control-static">{{obj.ticket_state}}</p>
+                <p ng-show="obj.ticket_state==0" class="form-control-static">未出票</p>
+                <p ng-show="obj.ticket_state==1" class="form-control-static">等待出票</p>
+                <p ng-show="obj.ticket_state==2" class="form-control-static">全部出票完成</p>
+                <p ng-show="obj.ticket_state==8" class="form-control-static">无需出票</p>
+                <p ng-show="obj.ticket_state==9" class="form-control-static">出票失败</p>
             </div>
         </div>
 
@@ -105,7 +119,9 @@
         <div class="form-group">
             <label class="col-xs-6 control-label">短信发送状态</label>
             <div class="col-xs-6">
-                <p class="form-control-static">{{obj.sms_state}}</p>
+                <p ng-show="obj.sms_state==0" class="form-control-static">不发送</p>
+                <p ng-show="obj.sms_state==1" class="form-control-static">未发送</p>
+                <p ng-show="obj.sms_state==2" class="form-control-static">已发送</p>
             </div>
         </div>
 
