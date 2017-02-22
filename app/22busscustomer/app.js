@@ -48,4 +48,11 @@ App.controller('comment',require('./controllers/comment'));
 // 积分
 App.controller('integral',require('./controllers/integral'));
 App.controller('addintegralgoods',require('./controllers/addintegralgoods'));
+
+// 商客头条
+App.controller('headline',require('./controllers/headline'));
+App.controller('addheadline',require('./controllers/addheadline'));
+
+// 杀价帮
+App.controller('bargain',require('./controllers/bargain'));
 module.exports = App;

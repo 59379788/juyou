@@ -117,6 +117,12 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   // 修改商品详情
   var updateMal = BASEURL38985 + '/api/as/mc/merintegralmal/updateMal';
 
+
+  // 商客头条列表
+  var headlinelist = BASEURL38985 + '/api/us/gc/news/findTitleInfolist';
+  // 添加商客头条
+  var saveheadline = BASEURL38985 + '/api/as/gc/news/saveinfo';
+
     return {
         //模型
         model : function(){
@@ -329,8 +335,13 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         updatestateztoone : function(){
              return $resource(updatestateztoone, {}, {});
+        },
+        headlinelist : function(){
+             return $resource(headlinelist, {}, {});
+        },
+        saveheadline : function(){
+             return $resource(saveheadline, {}, {});
         }
-        
     }
 };
 module.exports = service;

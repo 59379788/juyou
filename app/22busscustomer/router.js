@@ -498,6 +498,33 @@ var router = function($urlRouterProvider, $stateProvider){
          }
         })
 
+         // 商客头条
+         .state('app.headline', {
+         url: '/headline/:id',
+         controller : 'headline',
+         template: require('./views/headline.html'),
+         resolve:{
+            headlinelist : function(busscustomerservice){
+                 return busscustomerservice.headlinelist();
+            }
+         }
+        })
+
+         // 添加商客头条
+         .state('app.bargain', {
+         url: '/bargain/:id',
+         controller : 'bargain',
+         template: require('./views/bargain.html'),
+         resolve:{
+            // saveheadline : function(busscustomerservice){
+            //      return busscustomerservice.saveheadline();
+            // }
+
+         }
+        })
+
+         // 
+
 
 
        

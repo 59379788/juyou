@@ -1,0 +1,56 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                  <label for="inputLottry" class="control-label">商客头条</label>
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="addheadline()">添加头条文章</button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 panel panel-default table-responsive">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-3 text-center">文章标题</th>
+        <th class="col-md-3 text-center">创建人</th>
+        <th class="col-md-3 text-center">创建时间</th>
+        <th class="col-md-3 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.title}}</td>
+        <td class="text-center">{{obj.creat_by}}</td>
+        <td class="text-center">{{obj.creat_time}}</td>
+        <td class="text-center">
+          <a ng-click="change(obj.id)" class="btn btn-info btn-xs">修改</a>
+          <a ng-click="delete(obj.id)" class="btn btn-info btn-xs">删除</a>
+          <a ng-click="detail(obj.id,obj.title_identifier)" class="btn btn-info btn-xs">查看详情</a>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+</div>
+
+<div class="text-right">
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="getlist()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+</div>
+</div>
