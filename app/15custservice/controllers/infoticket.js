@@ -1,74 +1,99 @@
-module.exports = function($scope, infoticket, destoryticket, ITEMS_PERPAGE){
+module.exports = function ($scope, infoticket, destoryticket, ITEMS_PERPAGE,$uibModal) {
 
 	$scope.searchform = {};
 
 	/* 分页
      * ========================================= */
-    $scope.maxSize = 10;            //最多显示多少个按钮
-    $scope.bigCurrentPage = 1;      //当前页码
-    $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
-    
-    $scope.load = function () {
+	$scope.maxSize = 10;            //最多显示多少个按钮
+	$scope.bigCurrentPage = 1;      //当前页码
+	$scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
 
-    	if($scope.searchform.para.length == '8'){
-    		$scope.searchform.code = $scope.searchform.para;
-    	}else if($scope.searchform.para.length == '11'){
-    		$scope.searchform.mobile = $scope.searchform.para;
-    	}else{
-    		alert("位数错误");
-    		return;
-    	}
+	$scope.load = function () {
 
-    	var para = {
-            pageNo:$scope.bigCurrentPage, 
-            pageSize:$scope.itemsPerPage
-        };
+		if ($scope.searchform.para.length == '8') {
+			$scope.searchform.code = $scope.searchform.para;
+		} else if ($scope.searchform.para.length == '11') {
+			$scope.searchform.mobile = $scope.searchform.para;
+		} else {
+			alert("位数错误");
+			return;
+		}
 
-        para = angular.extend($scope.searchform, para);
-        infoticket.save(para, function(res){
+		var para = {
+			pageNo: $scope.bigCurrentPage,
+			pageSize: $scope.itemsPerPage
+		};
 
-         	console.log(res);
+		para = angular.extend($scope.searchform, para);
+		infoticket.save(para, function (res) {
 
-         	if(res.errcode !== 0)
-         	{
-         		alert("数据获取失败");
-         		return;
-         	}
+			console.log(res);
 
-         	$scope.objs = res.data.results;
-            $scope.bigTotalItems = res.data.totalRecord;
+			if (res.errcode !== 0) {
+				alert("数据获取失败");
+				return;
+			}
 
-        });
+			$scope.objs = res.data.results;
+			$scope.bigTotalItems = res.data.totalRecord;
 
-    };
-    //$scope.load();
+		});
 
-    $scope.destory = function (code) {
+	};
+	//$scope.load();
 
-    	var destorypara = {
-            code:code, 
-            num:1,
-            device:'hdsw88888888'
-        };
+	$scope.destory = function (code) {
 
-        /*var para = '{"body":{"code":"' + code + '", "num":"1", "device":"hdsw88888888"},"head":{}}';*/
+		var destorypara = {
+			code: code,
+			num: 1,
+			device: 'hdsw88888888'
+		};
 
-    	if(confirm("确定要销票？")){
-    		destoryticket.save(destorypara, function(res){
+		/*var para = '{"body":{"code":"' + code + '", "num":"1", "device":"hdsw88888888"},"head":{}}';*/
 
-	         	console.log(res);
+		if (confirm("确定要销票？")) {
+			destoryticket.save(destorypara, function (res) {
 
-	         	if(res.errcode == 0)
-	         	{
-	         		alert("销票成功");
-	         		$scope.load();
-	         	}else{
-	         		alert(res.errmsg);
-	         	}
+				console.log(res);
 
-	        });
-    	}
-    	
-    }
+				if (res.errcode == 0) {
+					alert("销票成功");
+					$scope.load();
+				} else {
+					alert(res.errmsg);
+				}
+
+			});
+		}
+
+	}
+
+	$scope.ticketInfo = function (id) {
+
+
+
+
+			var modalInstance = $uibModal.open({
+				template: require('../user/ticketInfo.html'),
+				controller: 'ticketInfo',
+				size: 'lg',
+				resolve: {
+					id: function () {
+						return id;
+					},
+					getinfobyid: function (custservice) {
+						return custservice.getinfobyid();
+					}
+				}
+			});
+
+			modalInstance.result.then(function () {
+				//load();
+			}, function () {
+				//$log.info('Modal dismissed at: ' + new Date());
+			});
+
+	}
 
 };

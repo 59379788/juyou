@@ -32,6 +32,7 @@
         <td class="text-center">{{obj.ticket_out_time}}</td>
         <td class="text-center">
         	<a ng-show="obj.used == '0'" ng-click="destory(obj.code)" class="btn btn-success btn-xs">销票</a>
+        	<a ng-click="ticketInfo(obj.id)" class="btn btn-success btn-xs">详情</a>
         </td>
       </tr>
     </tbody>

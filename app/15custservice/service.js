@@ -55,6 +55,9 @@ var service = function($resource, BASEURL38985){
 
     //查看激活码
     var getActiveCodeByMobile = BASEURL38985 + '/api/ac/uc/userActiveService/getActiveCodeByMobile';
+
+    //查看票信息
+    var getinfobyid = BASEURL38985 + '/api/as/tc/ticket/getinfobyid';
     
     return {
 
@@ -131,6 +134,9 @@ var service = function($resource, BASEURL38985){
         },
         getActiveCodeByMobile : function(){
              return $resource(getActiveCodeByMobile, {}, {});
+        },
+        getinfobyid : function(){
+             return $resource(getinfobyid, {}, {});
         }
 
        

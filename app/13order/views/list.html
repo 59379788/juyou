@@ -106,6 +106,7 @@
         <th class="col-md-2 text-center">游客信息</th>
         <th class="col-md-1 text-center">数量</th>
         <th class="col-md-1 text-center">购买时间</th>
+        <th class="col-md-1 text-center">销售品分类</th>
         <th class="col-md-1 text-center">出票状态</th>
         <th class="col-md-1 text-center">分销商</th>
         <th class="col-md-1 text-center">操作</th>
@@ -125,6 +126,7 @@
           <span>使用{{obj.used}}</span>
         </td>
         <td class="text-center">{{obj.create_time}}</td>
+        <td class="text-center">{{obj.sale_category_name}}</td>
         <td class="text-center">
           {{obj.ticket_state_name}}<br>
           <span ng-show="obj.ticket_state == 9">
