@@ -9,6 +9,7 @@ module.exports = function ($scope, id, $uibModalInstance, getinfobyid) {
 
 		if (res.errcode == 0) {
 			$scope.obj = res.data;
+			$scope.obj.pay_fee = $scope.obj.pay_fee * 0.01;
 		} else {
 			alert(res.errmsg);
 		}
