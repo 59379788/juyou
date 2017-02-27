@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktupdate,
+module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktupdate,updateTicketPeriod,
  str2date){
 
 	$scope.searchform = {};
@@ -122,6 +122,15 @@ module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktup
 		tktupdate.get({'id' : id, 'used_state' : '1'}, function(res){
 			if(res.errcode === 0){
 				$scope.load();
+			}else{
+				alert(res.errmsg);
+			}
+		});
+	}
+	$scope.updateTicket = function(code) {
+		updateTicketPeriod.get({'code' : code}, function(res){
+			if(res.errcode === 0){
+				alert(res.data.num);
 			}else{
 				alert(res.errmsg);
 			}

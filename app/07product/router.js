@@ -22,6 +22,9 @@ var router = function($urlRouterProvider, $stateProvider){
             tktupdate : function(productservice){
                 return productservice.tktupdate();
             },
+            updateTicketPeriod : function(productservice){
+                return productservice.updateTicketPeriod();
+            },
             getDate : function(utilservice){
                 return utilservice.getDate;
             },

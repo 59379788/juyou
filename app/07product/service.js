@@ -213,6 +213,9 @@ var service = function($resource, BASEURL38985, $q, $http){
     // 积分配置
     var saveSaleInteral = BASEURL38985 + '/api/uc/tc/ticketSaleIntegralService/saveSaleInteral';
 
+    
+    var updateTicketPeriod = BASEURL38985 + '/api/ac/tc/updateTicketPeriodService/updateTicketPeriod';
+
 
     return {
         middlebusiness : function(){
@@ -488,6 +491,9 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         affirmupdate : function(){
             return $resource(affirmupdate, {}, {});
+        },
+        updateTicketPeriod : function(){
+            return $resource(updateTicketPeriod, {}, {});
         },
         smstmplist : function(){
             return $resource(smstmplist, {}, {});
