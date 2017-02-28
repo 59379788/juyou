@@ -1,4 +1,13 @@
-module.exports = function($scope, $stateParams, $uibModal,confirmauthority,hostlists,ITEMS_PERPAGE){
+module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE){
+  $scope.seelist = function () {
+    $state.go('app.bargainlist');
+  };
+  $scope.seeuser = function () {
+    $state.go('app.bargainuser');
+  };
+  $scope.seewinuser = function () {
+    $state.go('app.winuser');
+  };
   
   // $scope.info = {
   //      'appid':'shangke' 

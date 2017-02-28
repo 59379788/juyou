@@ -55,4 +55,24 @@ App.controller('addheadline',require('./controllers/addheadline'));
 
 // 杀价帮
 App.controller('bargain',require('./controllers/bargain'));
+
+// 轮播图列表页
+App.controller('newsrollinglist',require('./controllers/newsrollinglist'));
+// 添加轮播图
+App.controller('addnewsrolling',require('./controllers/addnewsrolling'));
+
+// 活动列表
+App.controller('bargainlist',require('./controllers/bargainlist'));
+// 参与用户列表
+App.controller('bargainuser',require('./controllers/bargainuser'));
+// 中奖用户列表
+App.controller('winuser',require('./controllers/winuser'));
+// 创建活动
+App.controller('creatbargain',require('./controllers/creatbargain'));
+// 奖品列表
+App.controller('prizelist',require('./controllers/prizelist'));
+// 添加活动
+App.controller('addprize',require('./controllers/addprize'));
+
+
 module.exports = App;

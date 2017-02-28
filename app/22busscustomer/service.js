@@ -122,6 +122,47 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var headlinelist = BASEURL38985 + '/api/us/gc/news/findTitleInfolist';
   // 添加商客头条
   var saveheadline = BASEURL38985 + '/api/as/gc/news/saveinfo';
+  // 删除头条
+  var delheadline = BASEURL38985 + '/api/as/gc/news/del';
+
+  // 轮播图列表
+  var findNewsRollinginfolist = BASEURL38985 + '/api/us/gc/rollingpicture/findNewsRollinginfolist';
+  // 添加轮播图
+  var saveNewsPhoto = BASEURL38985 + '/api/as/gc/rollingpicture/saveNewsPhoto';
+  // 删除轮播图
+  var delNewsPhoto = BASEURL38985 + '/api/as/gc/rollingpicture/del';
+
+  /****** 杀价帮 *******/
+
+  // 活动列表
+  var findManageActiveList = BASEURL38985 + '/api/as/ac/aactactive/findManageActiveList';
+  // 查询活动
+  var findCheckActiveList = BASEURL38985 + '/api/as/ac/aactactive/findCheckActiveList';
+  // 创建活动
+  var saveActive = BASEURL38985 + '/api/as/ac/aactactive/saveActive';
+  // 编辑活动
+  var updateActiveInfo = BASEURL38985 + '/api/as/ac/aactactive/updateActiveInfo';
+  // 参与用户列表
+  var findJoinUserList = BASEURL38985 + '/api/as/ac/aactactive/findJoinUserList';
+  // 查询用户列表接口
+  var getJoinUser = BASEURL38985 + '/api/as/ac/aactactive/getJoinUser';
+  // 奖品列表
+  var findPrizeList = BASEURL38985 + '/api/as/ac/aactactive/findPrizeList';
+  // 添加奖品
+  var savePrize = BASEURL38985 + '/api/as/ac/aactactive/savePrize';
+  // 删除奖品
+  var updateDel = BASEURL38985 + '/api/as/ac/aactactive/updateDel';
+  // 编辑奖品
+  var updatePrize = BASEURL38985 + '/api/as/ac/aactactive/updatePrize';
+  // 奖品详情
+  var getPrize = BASEURL38985 + '/api/as/ac/aactactive/getPrize';
+  // 中奖用户列表
+  var findWinPrizeUserList = BASEURL38985 + '/api/as/ac/aactactive/findWinPrizeUserList';
+  // 查询中奖用户
+  var getWinPrizeUser = BASEURL38985 + '/api/as/ac/aactactive/getWinPrizeUser';
+
+  /****** 杀价帮 *******/
+
 
     return {
         //模型
@@ -341,7 +382,61 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         saveheadline : function(){
              return $resource(saveheadline, {}, {});
+        },
+        findNewsRollinginfolist : function(){
+             return $resource(findNewsRollinginfolist, {}, {});
+        },
+        saveNewsPhoto : function(){
+             return $resource(saveNewsPhoto, {}, {});
+        },
+        findManageActiveList : function(){
+             return $resource(findManageActiveList, {}, {});
+        },
+        findCheckActiveList : function(){
+             return $resource(findCheckActiveList, {}, {});
+        },
+        saveActive : function(){
+             return $resource(saveActive, {}, {});
+        },
+        updateActiveInfo : function(){
+             return $resource(updateActiveInfo, {}, {});
+        },
+        findJoinUserList : function(){
+             return $resource(findJoinUserList, {}, {});
+        },
+        getJoinUser : function(){
+             return $resource(getJoinUser, {}, {});
+        },
+        findPrizeList : function(){
+             return $resource(findPrizeList, {}, {});
+        },
+        savePrize : function(){
+             return $resource(savePrize, {}, {});
+        },
+        updateDel : function(){
+             return $resource(updateDel, {}, {});
+        },
+        updatePrize : function(){
+             return $resource(updatePrize, {}, {});
+        },
+        getPrize : function(){
+             return $resource(getPrize, {}, {});
+        },
+        findWinPrizeUserList : function(){
+             return $resource(findWinPrizeUserList, {}, {});
+        },
+        getWinPrizeUser : function(){
+             return $resource(getWinPrizeUser, {}, {});
+        },
+        delheadline : function(){
+             return $resource(delheadline, {}, {});
+        },
+        delNewsPhoto : function(){
+             return $resource(delNewsPhoto, {}, {});
         }
+        
+
+
     }
 };
 module.exports = service;
