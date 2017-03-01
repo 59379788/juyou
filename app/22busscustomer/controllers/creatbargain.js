@@ -1,6 +1,6 @@
-module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,getDate,FileUploader,saveActive){
+module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,getDate,FileUploader,saveActive,getActiveInfo,updateActiveInfo){
     var id = $stateParams.id;
-    console.log(id); 
+    //console.log(id); 
     //有效区间
     $scope.section = {};
     $scope.section.start = {};
@@ -39,18 +39,51 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,g
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
         $scope.info.img = response.savename;
     };
+    if (id) {
+        //alert(id);
+        getActiveInfo.save({'id':id},function(res) {
+            if (res.errcode != 0) {
+                alert(res.errmsg);
+                return;
+            }
+            console.log(res);
+            $scope.info = res.data;
+        });
 
+    } else {
+        alert('无id');
+    }
 
     
     $scope.save = function () {
-        saveActive.save($scope.info,function (res) {
+        if (id) {
+            var para = {
+                'id' : id
+            };
+            para = angular.extend($scope.info,para);
+            updateActiveInfo.save(para,function (res) {
+            console.log(para);
+            if (res.errcode != 0) {
+                alert(res.errmsg);
+                return;
+            }
+            alert('💐你，修改成功！');
+            $state.go('app.bargainlist');
+            })
+        
+
+        } else {
+            saveActive.save($scope.info,function (res) {
+            console.log(para);
             if (res.errcode != 0) {
                 alert(res.errmsg);
                 return;
             }
             alert('💐你，创建成功！');
             $state.go('app.bargainlist');
-        })
+            })
+        
+        }
         
     };
 

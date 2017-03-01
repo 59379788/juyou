@@ -124,7 +124,8 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var saveheadline = BASEURL38985 + '/api/as/gc/news/saveinfo';
   // 删除头条
   var delheadline = BASEURL38985 + '/api/as/gc/news/del';
-
+  // 头条详情
+  var getContentsInfo = BASEURL38985 + '/api/as/gc/news/getContentsInfo';
   // 轮播图列表
   var findNewsRollinginfolist = BASEURL38985 + '/api/us/gc/rollingpicture/findNewsRollinginfolist';
   // 添加轮播图
@@ -142,6 +143,8 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var saveActive = BASEURL38985 + '/api/as/ac/aactactive/saveActive';
   // 编辑活动
   var updateActiveInfo = BASEURL38985 + '/api/as/ac/aactactive/updateActiveInfo';
+  // 根据活动id查询活动详情接口
+  var getActiveInfo = BASEURL38985 + '/api/as/ac/aactactive/getActiveInfo';
   // 参与用户列表
   var findJoinUserList = BASEURL38985 + '/api/as/ac/aactactive/findJoinUserList';
   // 查询用户列表接口
@@ -154,12 +157,14 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var updateDel = BASEURL38985 + '/api/as/ac/aactactive/updateDel';
   // 编辑奖品
   var updatePrize = BASEURL38985 + '/api/as/ac/aactactive/updatePrize';
-  // 奖品详情
-  var getPrize = BASEURL38985 + '/api/as/ac/aactactive/getPrize';
+  // // 奖品详情
+  // var getPrize = BASEURL38985 + '/api/as/ac/aactactive/getPrize';
   // 中奖用户列表
   var findWinPrizeUserList = BASEURL38985 + '/api/as/ac/aactactive/findWinPrizeUserList';
   // 查询中奖用户
   var getWinPrizeUser = BASEURL38985 + '/api/as/ac/aactactive/getWinPrizeUser';
+  // 根据奖品id获取奖品详情
+  var getPrize = BASEURL38985 + '/api/as/ac/aactactive/getPrize';
 
   /****** 杀价帮 *******/
 
@@ -395,6 +400,9 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         findCheckActiveList : function(){
              return $resource(findCheckActiveList, {}, {});
         },
+        getActiveInfo : function(){
+             return $resource(getActiveInfo, {}, {});
+        },
         saveActive : function(){
              return $resource(saveActive, {}, {});
         },
@@ -434,6 +442,7 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         delNewsPhoto : function(){
              return $resource(delNewsPhoto, {}, {});
         }
+
         
 
 

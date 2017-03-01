@@ -634,6 +634,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             saveActive : function (busscustomerservice) {
                 return busscustomerservice.saveActive();
+            },
+            getActiveInfo : function(busscustomerservice) {
+                return busscustomerservice.getActiveInfo();
+            },
+            updateActiveInfo :function(busscustomerservice) {
+                return busscustomerservice.updateActiveInfo();
             }
 
          }
@@ -653,24 +659,27 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             updateDel : function(busscustomerservice){
                      return busscustomerservice.updateDel();
+            },
+            getPrize : function(busscustomerservice) {
+                return busscustomerservice.getPrize();
             }
 
 
          }
         })
 
-        //  // 添加奖品
-        //  .state('app.addprize', {
-        //  url: '/addprize/:id',
-        //  controller : 'addprize',
-        //  template: require('./views/addprize.html'),
-        //  resolve:{
-        //     // savePrize : function(utilservice){
-        //     //          return utilservice.getDate;
-        //     // }
+         // 添加奖品
+         .state('app.addprize', {
+         url: '/addprize/:id/:prizeId',
+         controller : 'addprize',
+         template: require('./views/addprize.html'),
+         resolve:{
+            // savePrize : function(utilservice){
+            //          return utilservice.getDate;
+            // }
 
-        //  }
-        // })
+         }
+        })
 
 
 

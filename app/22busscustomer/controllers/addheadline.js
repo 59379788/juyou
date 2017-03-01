@@ -1,11 +1,12 @@
 module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,saveheadline,FileUploader){  
     $scope.info = {
         'title' : '',
-        'header_photo' : '',
-        'drawing_photo' : '',
+        // 'header_photo' : '',
+        // 'drawing_photo' : '',
         'publisher' : '',
         'creat_by' : '',
-        'content' : ''
+        'content' : '',
+        'url' : ''
     };
     var uploader = $scope.uploader = new FileUploader({
         url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'

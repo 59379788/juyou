@@ -1,5 +1,6 @@
-module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,savePrize,ITEMS_PERPAGE,updateDel){
+module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,savePrize,ITEMS_PERPAGE,updateDel,getPrize){
   var id = $stateParams.id;
+  //var prizeId = $stateParams.prizeId;
   $scope.info = {
     'id' : id
   };
@@ -36,25 +37,17 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,
             id : function(){
                 return id;
             },
-            // what : function(){
-            //     return 'info';
-            // },
             savePrize : function(){
                 return savePrize;
+            },
+            getPrize : function(){
+                return getPrize;
             }
-            // businesslist : function(){
-            //     return businesslist;
-            // },
-            // typelist : function(){
-            //     return typelist;
-            // },
-            // getDate : function(){
-            //     return getDate;
-            // }
           }
         });
 
         modalInstance.result.then(function () {
+          $scope.getlist();
           
         }, function () {
           //$scope.load();
@@ -62,8 +55,31 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,
 
   };
 
-  $scope.edit = function (id) {
-    $state.go('app.addprize');
+  $scope.edit = function (prizeId) {
+   // console.log(prizeId);
+    var modalInstance = $uibModal.open({
+          template: require('../views/addprize.html'),
+          controller: 'addprize',
+          size: 'lg',
+          resolve: {
+            prizeId : function(){
+                return prizeId;
+            },
+            savePrize : function(){
+                return savePrize;
+            },
+            getPrize : function(){
+                return getPrize;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          $scope.getlist();
+          
+        }, function () {
+          //$scope.load();
+        });
   };
   $scope.delete = function (id) {
     updateDel.save({'id' : id},function (res) {

@@ -1,5 +1,7 @@
-module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInstance, ITEMS_PERPAGE,FileUploader,savePrize){ 
+module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInstance, ITEMS_PERPAGE,FileUploader,savePrize,getPrize){ 
     var id = $stateParams.id;
+    var pr = $stateParams.prizeId;
+    alert(pr);
     //alert(id);
     $scope.info = {
         'id' : id,
@@ -10,7 +12,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
         'description' : '',
         'img' : '',
         'title' : '',
-        'activeId' : '',
+        'activeId' : id,
         'totalnum' : '',
         'sellnum' : ''
 
@@ -67,8 +69,19 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
         console.log($scope.datas);  
     }; 
  
-    //
-
+    // 
+    if (pr) {
+        //console.log(prizeId);
+        getPrize.save({'id':pr},function(res) {
+            //console.log(prizeId);
+            if (res.errcode!=0) {
+                alert(res.errmsg);
+                return;
+            }
+            console.log(res);
+            $scope.info = res.data;
+        })
+    }
 
     $scope.ok = function () {
         alert('okkkk');
@@ -77,9 +90,11 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
                 alert(res.errmsg);
                 return;
             }
+            console.log($scope.info);
             console.log(res);
             alert('添加成功！');
             $uibModalInstance.close();
+
             //$state.go('app.prizelist');
         });
         
