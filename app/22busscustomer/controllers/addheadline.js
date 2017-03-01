@@ -1,4 +1,5 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,saveheadline,FileUploader){  
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,saveheadline,FileUploader,getContentsInfo,updateNews){  
+    var id = $stateParams.id;
     $scope.info = {
         'title' : '',
         // 'header_photo' : '',
@@ -42,32 +43,45 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     uploader1.onSuccessItem = function(fileItem, response, status, headers) {
         $scope.info.drawing_photo = response.savename;
     };
-	// $scope.addtype = function() {
- //        if ($scope.info.label!=='') {
- //            savetype.save($scope.info,function(res){
- //            console.log($scope.info);
- //            if (res.errcode !== 0) {
- //                alert(res.errmsg);
- //                return;
- //            }
- //            console.log(res);
- //            alert('添加成功！');
- //            });
- //        } else {
- //            alert('类型名不能为空！');
- //        }
-        
- //    };
-    $scope.save = function () {
-        saveheadline.save($scope.info,function (res) {
+	
+    if (id) {
+        getContentsInfo.save({'id' : id},function(res) {
             if (res.errcode !== 0) {
                 alert(res.errmsg);
                 return;
             }
             console.log(res);
-            alert('添加成功!')
-            $state.go('app.headline');
-        })
+            $scope.info = res.data;
+        });
+    } 
+    $scope.save = function () {
+        if (id) {
+            var para = {
+                'id':id
+            },
+            para = angular.extend($scope.info,para);
+            updateNews.save(para,function(res) {
+                if (res.errcode !== 0) {
+                    alert(res.errmsg);
+                    return;
+                }
+                console.log(para);
+                console.log(res);
+                alert('修改成功！');
+                $state.go('app.headline');
+            });
+        } else {
+            saveheadline.save($scope.info,function (res) {
+                if (res.errcode !== 0) {
+                    alert(res.errmsg);
+                    return;
+                }
+                console.log(res);
+                alert('添加成功!')
+                $state.go('app.headline');
+            });
+        }
+        
         
     }
 

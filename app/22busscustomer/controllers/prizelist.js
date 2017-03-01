@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,savePrize,ITEMS_PERPAGE,updateDel,getPrize){
+module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,savePrize,ITEMS_PERPAGE,updateDel,getPrize,updatePrize){
   var id = $stateParams.id;
   //var prizeId = $stateParams.prizeId;
   $scope.info = {
@@ -27,7 +27,7 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,
     
   };
   $scope.getlist();
-  $scope.add = function(id){
+  $scope.add = function(id,prizeId){
 
         var modalInstance = $uibModal.open({
           template: require('../views/addprize.html'),
@@ -42,6 +42,12 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,
             },
             getPrize : function(){
                 return getPrize;
+            },
+            prizeId : function(){
+                return prizeId;
+            },
+            updatePrize : function(){
+                return updatePrize;
             }
           }
         });
@@ -70,6 +76,9 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,
             },
             getPrize : function(){
                 return getPrize;
+            },
+            updatePrize : function(){
+                return updatePrize;
             }
           }
         });

@@ -26,7 +26,8 @@
         <td class="text-center">{{obj.sale_category}}</td>
         <td class="text-center">{{obj.supplier_profile}}</td>
         
-        <td class="text-center">{{obj.assist_sign_name}}</td>
+        <td ng-show="obj.assist_sign==0" class="text-center">单店</td>
+        <td ng-show="obj.assist_sign==1" class="text-center">连锁</td>
         <td class="text-center">{{obj.apply_name}}<br>{{obj.apply_date}}
         </td>
         <td class="text-center">{{obj.update_date}}</td>

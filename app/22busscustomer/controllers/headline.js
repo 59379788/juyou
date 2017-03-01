@@ -27,7 +27,6 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     };
 
     $scope.delete = function(id) {
-       // alert('shanchu');
         delheadline.save({'id':id}, function (res) {
             console.log({'id':id});
             if (res.errcode !== 0) {
@@ -37,7 +36,13 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             console.log(res);
             $scope.getlist();
         })
-    }
+    }; 
+    $scope.edit = function(id) {
+        $state.go('app.addheadline',{'id' : id});
+    };
+    // $scope.seeinfo = function(id) {
+    //     $state.go('app.')
+    // }
 
  //    $scope.info = {
  //        'goods_id' : ''

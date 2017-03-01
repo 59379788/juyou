@@ -126,6 +126,9 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var delheadline = BASEURL38985 + '/api/as/gc/news/del';
   // 头条详情
   var getContentsInfo = BASEURL38985 + '/api/as/gc/news/getContentsInfo';
+  // 编辑头条
+  var updateNews = BASEURL38985 + '/api/as/gc/news/updateNews';
+  
   // 轮播图列表
   var findNewsRollinginfolist = BASEURL38985 + '/api/us/gc/rollingpicture/findNewsRollinginfolist';
   // 添加轮播图
@@ -441,6 +444,12 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         delNewsPhoto : function(){
              return $resource(delNewsPhoto, {}, {});
+        },
+        updateNews : function(){
+             return $resource(updateNews, {}, {});
+        },
+        getContentsInfo : function() {
+          return $resource(getContentsInfo, {}, {});
         }
 
         

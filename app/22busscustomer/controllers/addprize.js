@@ -1,7 +1,7 @@
-module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInstance, ITEMS_PERPAGE,FileUploader,savePrize,getPrize){ 
+module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInstance, ITEMS_PERPAGE,FileUploader,savePrize,getPrize,prizeId,updatePrize){ 
     var id = $stateParams.id;
-    var pr = $stateParams.prizeId;
-    alert(pr);
+    alert($stateParams.prizeId);
+   // alert(pr);
     //alert(id);
     $scope.info = {
         'id' : id,
@@ -70,9 +70,9 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
     }; 
  
     // 
-    if (pr) {
+    if (prizeId) {
         //console.log(prizeId);
-        getPrize.save({'id':pr},function(res) {
+        getPrize.save({'id':prizeId,},function(res) {
             //console.log(prizeId);
             if (res.errcode!=0) {
                 alert(res.errmsg);
@@ -85,7 +85,25 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
 
     $scope.ok = function () {
         alert('okkkk');
-        savePrize.save($scope.info,function (res) {
+        if (prizeId) {
+            var para = {
+                'id' : prizeId
+            }
+            para = angular.extend($scope.info,para);
+            console.log(para);
+            updatePrize.save(para,function(res) {
+                if (res.errcode!=0) {
+                alert(res.errmsg);
+                return;
+            }
+            console.log(para);
+            console.log(res);
+            alert('修改成功！');
+            $uibModalInstance.close();
+            });
+
+        } else {
+            savePrize.save($scope.info,function (res) {
             if (res.errcode!=0) {
                 alert(res.errmsg);
                 return;
@@ -97,6 +115,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
 
             //$state.go('app.prizelist');
         });
+        
+        }
         
         // console.log($scope.obj);
         // if ($scope.obj.off_reason !== '') { 

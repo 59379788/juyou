@@ -514,7 +514,6 @@ var router = function($urlRouterProvider, $stateProvider){
         })
 
          // 添加商客头条
-         // 商客头条
          .state('app.addheadline', {
          url: '/addheadline/:id',
          controller : 'addheadline',
@@ -522,6 +521,12 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
             saveheadline : function(busscustomerservice){
                  return busscustomerservice.saveheadline();
+            },
+            updateNews : function(busscustomerservice) {
+                return busscustomerservice.updateNews();
+            },
+            getContentsInfo : function(busscustomerservice) {
+                return busscustomerservice.getContentsInfo();
             }
          }
         })
@@ -662,6 +667,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getPrize : function(busscustomerservice) {
                 return busscustomerservice.getPrize();
+            },
+            updatePrize : function(busscustomerservice) {
+                return busscustomerservice.updatePrize();
             }
 
 
