@@ -74,5 +74,12 @@ App.controller('prizelist',require('./controllers/prizelist'));
 // 添加活动
 App.controller('addprize',require('./controllers/addprize'));
 
+// 看广告
+App.controller('adlist',require('./controllers/adlist'));
+// 添加广告
+App.controller('addad',require('./controllers/addad'));
+
+// 景区管理
+App.controller('scenic',require('./controllers/scenic'));
 
 module.exports = App;

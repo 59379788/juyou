@@ -138,6 +138,8 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
 
   /****** 杀价帮 *******/
 
+  //查询销售品（全部）
+  var salelist = BASEURL38985 + '/api/as/tc/sale/alllist';
   // 活动列表
   var findManageActiveList = BASEURL38985 + '/api/as/ac/aactactive/findManageActiveList';
   // 查询活动
@@ -168,8 +170,15 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var getWinPrizeUser = BASEURL38985 + '/api/as/ac/aactactive/getWinPrizeUser';
   // 根据奖品id获取奖品详情
   var getPrize = BASEURL38985 + '/api/as/ac/aactactive/getPrize';
-
   /****** 杀价帮 *******/
+
+  /****** 看广告 *******/
+  // 广告列表
+  var findViewList = BASEURL38985 + '/api/as/gc/viewad/findViewList';
+  // 添加广告
+  var saveAd = BASEURL38985 + '/api/as/gc/viewad/saveinfo';
+
+  /****** 看广告 *******/
 
 
     return {
@@ -450,6 +459,15 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         getContentsInfo : function() {
           return $resource(getContentsInfo, {}, {});
+        },
+        saveAd : function() {
+          return $resource(saveAd, {}, {});
+        },
+        findViewList : function() {
+          return $resource(findViewList, {}, {});
+        },
+        salelist : function() {
+          return $resource(salelist, {}, {});
         }
 
         

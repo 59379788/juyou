@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,savePrize,ITEMS_PERPAGE,updateDel,getPrize,updatePrize){
+module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,savePrize,ITEMS_PERPAGE,updateDel,getPrize,updatePrize,salelist){
   var id = $stateParams.id;
   //var prizeId = $stateParams.prizeId;
   $scope.info = {
@@ -48,6 +48,9 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,
             },
             updatePrize : function(){
                 return updatePrize;
+            },
+            salelist : function(){
+                return salelist;
             }
           }
         });
@@ -79,6 +82,9 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,
             },
             updatePrize : function(){
                 return updatePrize;
+            },
+            salelist : function(){
+                return salelist;
             }
           }
         });

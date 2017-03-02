@@ -670,6 +670,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             updatePrize : function(busscustomerservice) {
                 return busscustomerservice.updatePrize();
+            },
+            salelist : function(busscustomerservice) {
+                return busscustomerservice.salelist();
             }
 
 
@@ -689,6 +692,43 @@ var router = function($urlRouterProvider, $stateProvider){
          }
         })
 
+        // 广告列表
+         .state('app.adlist', {
+         url: '/adlist/:id',
+         controller : 'adlist',
+         template: require('./views/adlist.html'),
+         resolve:{
+            findViewList : function(busscustomerservice){
+                     return busscustomerservice.findViewList();
+            }
+
+         }
+        })
+         // 添加广告
+         .state('app.addad', {
+         url: '/addad/:id',
+         controller : 'addad',
+         template: require('./views/addad.html'),
+         resolve:{
+            saveAd : function(busscustomerservice){
+                     return busscustomerservice.saveAd();
+            }
+
+         }
+        })
+
+         // 景区管理
+         .state('app.scenic', {
+         url: '/scenic/:id',
+         controller : 'scenic',
+         template: require('./views/scenic.html'),
+         resolve:{
+            // saveAd : function(busscustomerservice){
+            //          return busscustomerservice.saveAd();
+            // }
+
+         }
+        })
 
 
 
