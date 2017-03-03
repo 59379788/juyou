@@ -4,7 +4,7 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                   
-                  <input type="text" class="form-control" ng-model="info.title" placeholder="活动名称">
+                  <!-- <input type="text" class="form-control" ng-model="info.title" placeholder="活动名称">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <div class="input-group">
                   <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
@@ -19,9 +19,9 @@
                         <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
                       </span>
                   </div>
-                  &nbsp;&nbsp;
+                  &nbsp;&nbsp; -->
                   <div class="form-group pull-right">
-                      <button type="button" class="btn btn-primary" ng-click="search()">立即查询</button>
+                      <!-- <button type="button" class="btn btn-primary" ng-click="search()">立即查询</button> -->
                       <button type="button" class="btn btn-success" ng-click="creatad()">添加广告</button>
                       &nbsp;&nbsp;&nbsp;&nbsp;
                   </div>
@@ -36,12 +36,12 @@
     <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-2 text-center">广告商名称</th>
-        <th class="col-md-2 text-center">广告标题</th>
+        <th class="col-md-3 text-center">广告商名称</th>
+        <th class="col-md-3 text-center">广告标题</th>
         <th class="col-md-1 text-center">积分类型</th>
         <th class="col-md-1 text-center">最大参与人数</th>
-        <th class="col-md-2 text-center">总积分</th>
-        <th class="col-md-2 text-center">每次可获积分</th>
+        <th class="col-md-1 text-center">总积分</th>
+        <th class="col-md-1 text-center">每次可获积分</th>
         <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
@@ -53,9 +53,9 @@
         <td class="text-center" ng-show="obj.integral_type==2">提现积分</td>
         <td class="text-center">{{obj.max_people}}</td>
         <td class="text-center">{{obj.max_integral}}</td>
-        <td class="text-center">{{obj.integral_num}}</td>
+        <td class="text-center">{{obj.max_integral/obj.max_people}}</td>
         <td class="text-center">
-          <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑广告</a>
+          <!-- <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑广告</a> -->
           <a ng-click="delete(obj.ad_id)" class="btn btn-info btn-xs">删除</a>
         </td>
       </tr>

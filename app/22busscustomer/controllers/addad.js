@@ -69,6 +69,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
          $scope.form.picture1 = response.savename;
         // console.log(response.savename);
         urlArray.push(response.savename);
+        str = urlArray.join(","); 
+        $scope.info.content = str; 
     };
 
    // 广告图片（2）
@@ -89,6 +91,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
          $scope.form.picture2 = response.savename;
         // console.log(response.savename);
         urlArray.push(response.savename);
+        str = urlArray.join(","); 
+        $scope.info.content = str; 
 
     };
 
