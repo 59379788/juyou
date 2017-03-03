@@ -1,4 +1,9 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,saveAd,FileUploader){  
+    module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,saveAd,FileUploader){  
+    
+    //编辑器初始化
+    var editor = new UE.ui.Editor();
+    editor.render("editor1");
+    
     $scope.info = {
         'advertiser':'',
         'logo' : '',
