@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE,FileUploader,findViewList){ 
+module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE,FileUploader,findViewList,deletead){ 
     var id = $stateParams.id;
     // $scope.info = {
     //     'id' : id,
@@ -40,6 +40,25 @@ module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE
         })
     };
     $scope.getlist();
+    $scope.delete = function(ad_id) {
+        if (confirm('确定要删除吗')) {
+            deletead.save({'ad_id':ad_id},function (res) {
+                console.log(ad_id);
+                if (res.errcode!=0) {
+                    alert(res.errmsg);
+                    return;
+                }
+                console.log(res);
+                alert('删除成功');
+                $scope.getlist();
+
+            });
+        } else {
+
+        }
+        
+        
+    };
 
     
 

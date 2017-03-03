@@ -41,19 +41,6 @@
  </div>
 
  <div class="form-group">
-   <label for="inputDate" class="col-md-4 control-label">广告类型：</label>
-   <div class="col-md-6">
-   <select class="form-control" ng-model="info.ad_type" ng-change="selection(info.ad_type)">
-   <option value="">请选择</option>
-   <option value="1">图片</option>
-   <option value="2">视频</option>
-    <option value="3">文字</option>
-   </select>
-   </div>    
- </div>
-
-
- <div class="form-group">
  <label for="inputDate" class="col-sm-4 control-label">标头图片：</label>
  <div class="col-md-6">
       <img ng-src="{{info.head_photo}}" width="100%" height="200" ng-model="info.head_photo">
@@ -69,6 +56,73 @@
         </ul>
  </div>
  </div>
+
+ <div class="form-group">
+   <label for="inputDate" class="col-md-4 control-label">广告类型：</label>
+   <div class="col-md-6">
+   <select class="form-control" ng-model="info.ad_type" ng-change="selection(info.ad_type)">
+   <option value="">请选择</option>
+   <option value="1">图片</option>
+   <option value="2">视频</option>
+    <option value="3">文字</option>
+   </select>
+   </div>    
+ </div>
+
+ <div class="form-group" ng-show="info.ad_type==1">
+ <label for="inputDate" class="col-sm-4 control-label">广告图片：</label>
+ <div class="col-md-2">
+      <img ng-src="{{form.picture1}}" width="100%" height="200" ng-model="form.picture1">
+        <input type="file" nv-file-select uploader="uploader2" / ng-hide="hide===true" ><br/>
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="item in uploader2.queue">
+            文件名: <span ng-bind="item.file.name"></span>
+            <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+            <div class="progress mt10">
+              <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader2.progress + '%' }"></div>
+            </div>
+          </li>
+        </ul>
+ </div>
+ <div class="col-md-2">
+      <img ng-src="{{form.picture2}}" width="100%" height="200" ng-model="form.picture2">
+        <input type="file" nv-file-select uploader="uploader3" / ng-hide="hide===true" ><br/>
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="item in uploader3.queue">
+            文件名: <span ng-bind="item.file.name"></span>
+            <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+            <div class="progress mt10">
+              <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader3.progress + '%' }"></div>
+            </div>
+          </li>
+        </ul>
+ </div>
+ <div class="col-md-2">
+      <img ng-src="{{form.picture3}}" width="100%" height="200" ng-model="form.picture3">
+        <input type="file" nv-file-select uploader="uploader4" / ng-hide="hide===true" ><br/>
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="item in uploader4.queue">
+            文件名: <span ng-bind="item.file.name"></span>
+            <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+            <div class="progress mt10">
+              <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader4.progress + '%' }"></div>
+            </div>
+          </li>
+        </ul>
+ </div>
+ </div>
+ 
+
+ <div class="form-group" ng-show="info.ad_type==2 || info.ad_type==3">
+  <label for="inputDate" class="col-sm-4 control-label">广告内容：</label>
+  <div class="col-md-6">
+  <input type="text" class="form-control" id="inputpoolname" placeholder=""
+      ng-model="info.content">
+  </div>    
+ </div>
+
+
+ 
 
 
  <div class="form-group">
@@ -99,13 +153,9 @@
   </div>    
  </div>
 
- <div class="form-group">
-  <label for="inputDate" class="col-sm-4 control-label">新闻内容：</label>
-  <div class="col-md-6">
-  <input type="text" class="form-control" id="inputpoolname" placeholder=""
-      ng-model="info.content">
-  </div>    
- </div>
+ 
+
+ 
 
  <div class="form-group">
   <label for="inputDate" class="col-sm-4 control-label">创建人：</label>

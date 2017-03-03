@@ -700,6 +700,9 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
             findViewList : function(busscustomerservice){
                      return busscustomerservice.findViewList();
+            },
+            deletead : function(busscustomerservice){
+                     return busscustomerservice.deletead();
             }
 
          }

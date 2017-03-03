@@ -2,16 +2,23 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,g
     var id = $stateParams.id;
     //console.log(id); 
     //有效区间
-    $scope.section = {};
+    $scope.section = {
+        'title' : '',
+        'everyoneDayTimes' : '',
+        'activeTimes' : '',
+        'img' : '',
+        'description' : ''
+    };
     $scope.section.start = {};
-    $scope.section.start.date = new Date();
+    $scope.section.startTime = new Date();
  
     $scope.section.end = {};
-    $scope.section.end.date = new Date();
+    $scope.section.endTime = new Date();
 
     $scope.open = function(obj) {
         obj.opened = true;
     };
+
 
     $scope.info = {
         'title' : '',

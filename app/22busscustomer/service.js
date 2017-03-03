@@ -177,6 +177,8 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var findViewList = BASEURL38985 + '/api/as/gc/viewad/findViewList';
   // 添加广告
   var saveAd = BASEURL38985 + '/api/as/gc/viewad/saveinfo';
+  // 删除广告
+  var deletead = BASEURL38985 + '/api/as/gc/viewad/del';
 
   /****** 看广告 *******/
 
@@ -468,6 +470,9 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         salelist : function() {
           return $resource(salelist, {}, {});
+        },
+        deletead : function() {
+          return $resource(deletead, {}, {});
         }
 
         
