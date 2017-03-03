@@ -21,7 +21,6 @@ module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
 
     $scope.creatad = function() {
-        alert('aaaa');
         $state.go('app.addad');
     };
     $scope.getlist = function () {
