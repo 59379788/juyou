@@ -176,7 +176,7 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   // 广告列表
   var findViewList = BASEURL38985 + '/api/as/gc/viewad/findViewList';
   // 添加广告
-  var saveAd = BASEURL38985 + '/api/as/gc/viewad/saveinfo';
+  var saveAd = BASEURL38985 + '/api/ac/gc/viewadService/saveView';
   // 删除广告
   var deletead = BASEURL38985 + '/api/as/gc/viewad/del';
 
