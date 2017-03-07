@@ -40,6 +40,13 @@ require('./style/app.css');
 //=================[ 权限模块加载 ]===========================//
 
 
+// ui-select start
+require('ui-select');
+require('../node_modules/ui-select/dist/select.min.css');
+// ui-select end
+
+// 日期汉化
+require('../libs/angular-locale_zh');
 
 //=================[ 子模块加载 ]===========================//
 
@@ -128,7 +135,9 @@ var App = angular.module('juyouApp', [
     'ui.tree',
     'textAngular',
     'chart.js',
-    'constant'
+    'constant',
+    'ui.select',
+    'ngSanitize',
 ]);
 
 App.config(['$urlRouterProvider', '$stateProvider', 

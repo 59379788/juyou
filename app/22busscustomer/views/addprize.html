@@ -19,22 +19,14 @@
 					<div class="form-group">
 						<label class="col-xs-3 control-label">奖品名称</label>
    						<div class="col-md-6">
-
-   							<div>  
-    							<input type = 'test' ng-change="changeKeyValue(searchField)" ng-model="searchField" style = 'display:block;width:200px' ng-click = 'hidden=!hidden' value="{{searchField}}"/></input>  
-    							<div  ng-hide="hidden">  
-        							<select style = 'width:200px' ng-change="change(x)"" ng-model="x" multiple>  
-            							<option ng-repeat="data in datas" >{{data}}</option>  
-        							</select>  
-    							</div>  
-							</div>
-
-   							<!-- <select ngc-select-search class="form-control" ng-model="info.active_type" ng-change="selection(info.active_type)">
-   								<option value="">请选择</option>
-   								<option value="0">钱</option>
-   								<option value="1">物</option>
-   								<option value="2">钱+物</option>
-   							</select> -->
+		   					<ui-select ng-model="searchform.selected" theme="bootstrap">
+								<ui-select-match placeholder="请选择一个销售品作为奖品">{{$select.selected.name}}</ui-select-match>
+								<ui-select-choices group-by="'place_name'" repeat="item in datas | filter: $select.search" on-click="aaa()">
+									<span ng-bind-html="item.name | highlight: $select.search"></span>
+									<small ng-bind-html="item.code | highlight: $select.search"></small>
+								</ui-select-choices>
+		                    </ui-select>
+   							
    						</div>    
  					</div>
 
@@ -115,6 +107,13 @@
 							<input type="text" class="form-control" placeholder="请输入商品原价"
 							ng-model="info.sellnum"
 							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">购买须知</label>
+						<div class="col-xs-6">
+						<textarea rows="4" class="form-control" placeholder="购买须知" ng-model="info.buy_tips"></textarea>
 						</div>
 					</div>
 					 			

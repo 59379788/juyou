@@ -3,7 +3,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         'type' : '',
         'title' : '',
         'photo' : '',
-        'remark' : ''
+        'remark' : '',
+        'url' : ''
     };
     var uploader = $scope.uploader = new FileUploader({
         url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'

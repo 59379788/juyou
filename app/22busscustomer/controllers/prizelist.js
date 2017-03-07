@@ -1,34 +1,33 @@
-module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,savePrize,ITEMS_PERPAGE,updateDel,getPrize,updatePrize,salelist){
-  var id = $stateParams.id;
-  //var prizeId = $stateParams.prizeId;
-  $scope.info = {
-    'id' : id
-  };
-  /* 分页
+module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,savePrize,ITEMS_PERPAGE,updateDel,getPrize,updatePrize,salelist){   
+    var id = $stateParams.id;// 活动id
+    $scope.info = {
+        'id' : id
+    };
+    /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
-  $scope.getlist = function () {
-    var para = {
-        pageNo:$scope.bigCurrentPage, 
-        pageSize:$scope.itemsPerPage,
+    $scope.getlist = function () {
+        var para = {
+            pageNo:$scope.bigCurrentPage, 
+            pageSize:$scope.itemsPerPage,
+        };
+        para = angular.extend($scope.info,para); 
+        findPrizeList.save(para,function (res) {
+            if (res.errcode != 0) {
+                alert(res.errmsg);
+                return;
+            }
+            console.log(res);
+            $scope.objs = res.data.results;
+            $scope.bigTotalItems = res.data.totalRecord;
+        });   
     };
-    para = angular.extend($scope.info,para); 
-    findPrizeList.save(para,function (res) {
-      if (res.errcode != 0) {
-        alert(res.errmsg);
-        return;
-      }
-      console.log(res);
-      $scope.objs = res.data.results;
-      $scope.bigTotalItems = res.data.totalRecord;
-    });
-    
-  };
-  $scope.getlist();
-  $scope.add = function(id,prizeId){
+    $scope.getlist();
 
+    // 添加奖品
+    $scope.add = function(id,prizeId){
         var modalInstance = $uibModal.open({
           template: require('../views/addprize.html'),
           controller: 'addprize',
@@ -56,17 +55,15 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,
         });
 
         modalInstance.result.then(function () {
-          $scope.getlist();
-          
+            $scope.getlist();         
         }, function () {
           //$scope.load();
         });
+    };
 
-  };
-
-  $scope.edit = function (prizeId) {
-   // console.log(prizeId);
-    var modalInstance = $uibModal.open({
+    // 编辑奖品
+    $scope.edit = function (prizeId) {
+        var modalInstance = $uibModal.open({
           template: require('../views/addprize.html'),
           controller: 'addprize',
           size: 'lg',
@@ -95,14 +92,20 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,
         }, function () {
           //$scope.load();
         });
-  };
-  $scope.delete = function (id) {
-    updateDel.save({'id' : id},function (res) {
-      if (res.errcode != 0) {
-        alert(res.errmsg);
-        return;
+    };
+
+    // 删除奖品
+    $scope.delete = function (prizeId) {
+      if (confirm('确定删除该奖品吗？')) {
+          updateDel.save({'id' : prizeId},function (res) {
+            if (res.errcode != 0) {
+              alert(res.errmsg);
+              return;
+            }
+            console.log(res);
+            $scope.getlist();
+        })
       }
-      console.log(res);
-    })
-  };
+        
+    };
 };

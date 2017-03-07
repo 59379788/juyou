@@ -1,14 +1,7 @@
-module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,getDate,FileUploader,saveActive,getActiveInfo,updateActiveInfo){
+module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,getDate,FileUploader,saveActive,getActiveInfo,updateActiveInfo,str2date,date2str){
     var id = $stateParams.id;
-    //console.log(id); 
     //有效区间
-    $scope.section = {
-        'title' : '',
-        'everyoneDayTimes' : '',
-        'activeTimes' : '',
-        'img' : '',
-        'description' : ''
-    };
+    $scope.section = {};
     $scope.section.start = {};
     $scope.section.startTime = new Date();
  
@@ -18,17 +11,17 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,g
     $scope.open = function(obj) {
         obj.opened = true;
     };
-
-
+    
     $scope.info = {
         'title' : '',
-        'startTime' : getDate($scope.section.start.date) + " 00:00:00",
-        'endTime' : getDate($scope.section.end.date) + " 23:59:59",
         'everyoneDayTimes' : '',
         'activeTimes' :　'',
         'img' : '',
-        'description' : ''
+        'description' : '',
+        'startTime' : getDate($scope.section.startTime) + " 00:00:00",
+        'endTime': getDate($scope.section.endTime) + " 23:59:59"
     };
+
     // 主图
     var uploader = $scope.uploader = new FileUploader({
         url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
@@ -47,108 +40,69 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,g
         $scope.info.img = response.savename;
     };
     if (id) {
-        //alert(id);
         getActiveInfo.save({'id':id},function(res) {
             if (res.errcode != 0) {
                 alert(res.errmsg);
                 return;
             }
+            if(res.data.startTime != null){
+                $scope.section.startTime = str2date(res.data.startTime);
+                $scope.section.endTime = str2date(res.data.endTime);
+            }else{
+            }
             console.log(res);
             $scope.info = res.data;
         });
-
-    } else {
-        alert('无id');
-    }
-
+    } 
     
     $scope.save = function () {
+        // 修改
         if (id) {
+            if ($scope.info.title!=''&&$scope.info.everyoneDayTimes!=''&&$scope.info.activeTimes!=''&&$scope.info.img!=''
+                &&$scope.info.description!=''&&$scope.info.startTime!=''&&$scope.info.endTime!='') {
+                var para = {
+                    'id' : id,
+                    'startTime' : date2str($scope.section.startTime),
+                    'endTime' : date2str($scope.section.endTime),
+                };
+                para = angular.extend($scope.info,para);
+                updateActiveInfo.save(para,function (res) {
+                    console.log(para);
+                    if (res.errcode != 0) {
+                        alert(res.errmsg);
+                        return;
+                    }
+                    alert('💐你，修改成功！');
+                    $state.go('app.bargainlist');
+                })
+            } else {
+                alert('请将活动数据补充完整!');
+            }     
+        // 添加活动
+        } else {
             var para = {
-                'id' : id
+                'startTime' : date2str($scope.section.startTime),
+                'endTime' : date2str($scope.section.endTime),
             };
             para = angular.extend($scope.info,para);
-            updateActiveInfo.save(para,function (res) {
-            console.log(para);
-            if (res.errcode != 0) {
-                alert(res.errmsg);
-                return;
-            }
-            alert('💐你，修改成功！');
-            $state.go('app.bargainlist');
-            })
-        
+            if ($scope.info.title!=''&&$scope.info.everyoneDayTimes!=''&&$scope.info.activeTimes!=''&&$scope.info.img!=''
+                &&$scope.info.description!=''&&$scope.info.startTime!=''&&$scope.info.endTime!='') {
+                saveActive.save(para,function (res) {
+                    console.log(para);
+                    if (res.errcode != 0) {
+                        alert(res.errmsg);
+                            return;
+                    }
+                    alert('💐你，创建成功！');
+                    $state.go('app.bargainlist');
+                })
 
-        } else {
-            saveActive.save($scope.info,function (res) {
-            console.log(para);
-            if (res.errcode != 0) {
-                alert(res.errmsg);
-                return;
-            }
-            alert('💐你，创建成功！');
-            $state.go('app.bargainlist');
-            })
+            } else {
+                alert('请将活动数据补充完整!');
+            }    
         
         }
         
-    };
-
-    
-
-    // $scope.saveactivity = function() {
-    //     var para = {
-    //         start_time : getDate($scope.section.start.date) + " 00:00:00",
-    //         end_time : getDate($scope.section.end.date) + " 23:59:59"
-    //     };
-    //     alert(types);
-    //     if (types==0&&$scope.info.id!==''&& $scope.info.activity_proposer_name!==''&&$scope.info.activity_proposer_card!==''&&$scope.info.activity_proposer_mobile!==''
-    //         &&$scope.info.activity_titlle!==''&&$scope.info.activity_main_picture!==''&&$scope.info.activity_picture!==''&&$scope.info.activity_info!==''&&$scope.info.active_type!==''&&$scope.info.activity_estimate_rmb!=='') {
-    //         $scope.info.activity_estimate_rmb = ($scope.info.activity_estimate_rmb) * 100;
-    //         para = angular.extend($scope.info, para);
-    //         saveactivity.save(para, function(res) {
-    //             console.log(para);
-    //             if (res.errcode !== 0) {
-    //                 alert(res.errmsg);
-    //                 return;
-    //             }
-    //             console.log(res);
-    //             alert('恭喜您，活动创建成功！');
-    //             $state.go('app.loveactionlist');
-    //         });
-
-    //     } else if (types==1&&$scope.info.id!==''&& $scope.info.activity_proposer_name!==''&&$scope.info.activity_proposer_card!==''&&$scope.info.activity_proposer_mobile!==''
-    //         &&$scope.info.activity_titlle!==''&&$scope.info.activity_main_picture!==''&&$scope.info.activity_picture!==''&&$scope.info.activity_info!==''&&$scope.info.active_type!==''&&$scope.info.activity_estimate_num!=='') {
-    //         para = angular.extend($scope.info, para);
-    //         saveactivity.save(para, function(res) {
-    //             console.log(para);
-    //             if (res.errcode !== 0) {
-    //                 alert(res.errmsg);
-    //                 return;
-    //             }
-    //             console.log(res);
-    //             alert('恭喜您，活动创建成功！');
-    //             $state.go('app.loveactionlist');
-    //         });
-    //     } else if (types==2&&$scope.info.id!==''&& $scope.info.activity_proposer_name!==''&&$scope.info.activity_proposer_card!==''&&$scope.info.activity_proposer_mobile!==''
-    //         &&$scope.info.activity_titlle!==''&&$scope.info.activity_main_picture!==''&&$scope.info.activity_picture!==''&&$scope.info.activity_info!==''&&$scope.info.active_type!==''&&$scope.info.activity_estimate_num!==''&&$scope.info.activity_estimate_rmb!=='') {
-    //         $scope.info.activity_estimate_rmb = ($scope.info.activity_estimate_rmb) * 100;
-    //         para = angular.extend($scope.info, para);
-    //         saveactivity.save(para, function(res) {
-    //             console.log(para);
-    //             if (res.errcode !== 0) {
-    //                 alert(res.errmsg);
-    //                 return;
-    //             }
-    //             console.log(res);
-    //             alert('恭喜您，活动创建成功！');
-    //             $state.go('app.loveactionlist');
-    //         });
-
-    //     } else {
-    //         alert('活动信息填写不完全！');
-    //     }
-       
-    // };
+    };    
 
 };
