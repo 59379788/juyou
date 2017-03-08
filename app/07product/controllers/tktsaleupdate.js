@@ -7,13 +7,16 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
     smstmplist,
     //限时购模块
     flashsalecreate, flashsaleinfo, flashsaleupdate,
-    getDate, str2date, date2str
+    getDate, str2date, date2str,
+    $resource, attrlistsel
     ){
 
 	//销售品对象
 	$scope.saleobj = {};	
 	//商品列表对象
 	$scope.goodsobj = {};
+	//票种列表对象
+	$scope.tickettypeobj = {};
 	//销售品积分对象
 	$scope.salejfobj = {};
 	$scope.salejfobj.list = new Array();
@@ -195,10 +198,14 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			$scope.saleobj.cost_price *= 0.01;
 			
 			//初始化商品列表
-			getsaledetail($scope.saleobj.code);
+			//getsaledetail($scope.saleobj.code);
+			//初始化票种列表
+			gettickettypedetail($scope.saleobj.code);
 
-			$scope.goodsobj.place_code = $scope.saleobj.place_code;
-			getgoodslist($scope.goodsobj.place_code);
+			//$scope.goodsobj.place_code = $scope.saleobj.place_code;
+			//getgoodslist($scope.goodsobj.place_code);
+			$scope.tickettypeobj.place_code = $scope.saleobj.place_code;
+			gettickettypelist($scope.tickettypeobj.place_code);
 
 			//获取功能模块
 			getfun($scope.saleobj.sale_category, $scope.saleobj.code);
@@ -804,4 +811,151 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	$scope.deldate = function(id){
 		$scope.arrdate.splice(id,1);
 	}
+
+
+	//---------- 20170306 ---- 销售品添加票种 ------------------//
+
+	$scope.section.periodstart = {};
+    $scope.section.periodend = {};
+    $scope.section.periodstart.date = new Date();
+    $scope.section.periodend.date = new Date();
+	// $scope.tickettypeobj.periodstart = new Date();
+	// $scope.tickettypeobj.periodend = new Date();
+
+	//获取票种详情
+	function gettickettypedetail(code){
+
+		$resource('/api/as/tc/salettype/list', {}, {})
+		.save({'sale_code' : code}, function(res){
+			console.log('获取票种详情');
+			console.log(res);
+        	if(res.errcode !== 0)
+			{
+				alert(res.errmsg);
+				return;
+			}
+
+			for(var i = 0; i < res.data.length; i++){
+				var tmp = res.data[i];
+				tmp.section = {
+					'periodstart' : {
+						'date' : str2date(tmp.periodstart)
+					},
+					'periodend' : {
+						'date' : str2date(tmp.periodend)
+					}
+				}
+			}
+			$scope.objs1 = res.data;
+			console.log($scope.objs1);
+        });
+	}
+	
+
+	function checkAdd1(obj){
+
+		if(obj.ticket_type_code == null)
+		{
+			alert('请选择票种');
+			return false;
+		}
+
+		if(!angular.isArray($scope.objs1)) return false;
+
+		for(var i = 0; i < $scope.objs1.length; i++)
+		{
+			var tmp = $scope.objs1[i];
+			if(tmp.ticket_type_code === obj.ticket_type_code)
+			{
+				alert('不能添加重复票种！');
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	//添加票种
+	$scope.add1 = function(){
+		if(!checkAdd1($scope.tickettypeobj))
+		{
+			return;
+		}
+		$scope.tickettypeobj.sale_code = $scope.saleobj.code;
+
+		$scope.tickettypeobj.periodstart = date2str($scope.start_time);
+		$scope.tickettypeobj.periodend = date2str($scope.end_time);
+
+		console.log($scope.tickettypeobj);
+		$resource('/api/as/tc/salettype/save', {}, {})
+		.save($scope.tickettypeobj, function(res){
+			console.log('保存票种信息');
+			console.log(res);
+        	if(res.errcode !== 0)
+			{
+				alert(res.errmsg);
+				return;
+			}
+			gettickettypedetail($scope.saleobj.code);
+        });
+	};
+
+	$scope.change1 = function(code){
+		gettickettypelist(code);
+	}
+
+	function gettickettypelist(place_code)
+	{
+		//详细信息 通过景区编号获取商品下拉
+		$resource('/api/as/tc/goods/typelist', {}, {})
+		.save({'view' : place_code}, function(res){
+			console.log('查询景区下的票种信息');
+			console.log(res);
+        	if(res.errcode !== 0)
+			{
+				alert(res.errmsg);
+				return;
+			}
+			$scope.tickettypearr = res.data;
+			if(res.data.length > 0) $scope.tickettypeobj.ticket_type_code = res.data[0].code;
+        });
+	}
+
+	//详细信息	删除
+	$scope.del1 = function(id){
+		if (!confirm("确定要删除该票种吗，亲！！～～")) {
+            return false;
+        }
+        $resource('/api/as/tc/salettype/delete', {}, {})
+		.save({'id' : id}, function(res){
+			console.log('删除景区下的票种信息');
+			console.log(res);
+        	if(res.errcode !== 0)
+			{
+				alert(res.errmsg);
+				return;
+			}
+			gettickettypedetail($scope.saleobj.code);
+        });
+	}
+
+	//详细信息 票种属性下拉
+	attrlistsel().then(function(res) {
+		console.log(res);
+        if(res.errcode === 0)
+        {
+        	$scope.tktarr = res.data;
+        	$scope.tickettypeobj.ticket_type_attr = $scope.tktarr[0].ticket_attr_id;
+        	//console.log($scope.goodsobj.ticketattr);
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
+
+    $scope.save1 = function(id){
+    	console.log(id);
+    };
+	//---------- 20170306 ---- 销售品添加票种 ------------------//
 };

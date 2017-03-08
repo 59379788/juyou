@@ -345,7 +345,11 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             date2str : function(utilservice){
                 return utilservice.date2str;
-            }
+            },
+
+            attrlistsel : function(productservice){
+               return productservice.attrlistsel;
+            },
             
         }
       })
@@ -497,7 +501,11 @@ var router = function($urlRouterProvider, $stateProvider){
             
             saveSaleInteral : function(productservice){
                 return productservice.saveSaleInteral();
-            }
+            },
+
+            attrlistsel : function(productservice){
+               return productservice.attrlistsel;
+            },
         }
       })
 
@@ -593,7 +601,29 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
-
+    .state('app.newproduct', {
+        url: '/product/new',
+        controller : 'newproduct',
+        templateUrl : 'product.html',
+        template: require('./views/product.html'),
+        resolve:{
+            // viewlist : function(productservice){
+            //     return productservice.viewlist;
+            // },
+            // tktlist : function(productservice){
+            //     return productservice.tktlist();
+            // },
+            // tktupdate : function(productservice){
+            //     return productservice.tktupdate();
+            // },
+            // getDate : function(utilservice){
+            //     return utilservice.getDate;
+            // },
+            // str2date : function(utilservice){
+            //     return utilservice.str2date;
+            // }
+        }
+      })
 };
 
 module.exports = router;

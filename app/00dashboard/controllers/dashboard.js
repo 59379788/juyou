@@ -14,21 +14,21 @@ module.exports = function($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticein
             pageSize:$scope.itemsPerPage
         };
         
-        noticelist.get(para, function(res){
+        // noticelist.get(para, function(res){
 
-            console.log(res);
+        //     console.log(res);
 
-            if(res.errcode === 0)
-            {
-                $scope.objs = res.data.results;
-                $scope.bigTotalItems = res.data.totalRecord;
-            }
-            else
-            {
-                alert(res.errmsg);
-            }
+        //     if(res.errcode === 0)
+        //     {
+        //         $scope.objs = res.data.results;
+        //         $scope.bigTotalItems = res.data.totalRecord;
+        //     }
+        //     else
+        //     {
+        //         alert(res.errmsg);
+        //     }
 
-        });
+        // });
 
     };
     $scope.load();

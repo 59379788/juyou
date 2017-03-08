@@ -128,37 +128,38 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
                 //--- 从结果里搜索出结果里有的景区 -- end
 
 
-                govsubsidygoodscodelist.get({}, function(res1){
+                //----- 不统计政府补贴了 ------------------//
+                // govsubsidygoodscodelist.get({}, function(res1){
 
-                    //console.log(res1);
-                    if(res1.errcode === 0)
-                    {
-                        $scope.subsidy = res1.data;
-                        //console.log($scope.objs);
-                        for(var i = 0, j = $scope.objs.length; i < j; i++)
-                        {
-                            var tmp = $scope.objs[i];
-                            tmp.check = true;
+                //     //console.log(res1);
+                //     if(res1.errcode === 0)
+                //     {
+                //         $scope.subsidy = res1.data;
+                //         //console.log($scope.objs);
+                //         for(var i = 0, j = $scope.objs.length; i < j; i++)
+                //         {
+                //             var tmp = $scope.objs[i];
+                //             tmp.check = true;
                             
-                            tmp.gov = 0;
-                            for(var m = 0, n = $scope.subsidy.length; m < n; m++)
-                            {
-                                if($scope.subsidy[m]['goods_code'] == tmp.goods_code)
-                                {
-                                    tmp.gov = $scope.subsidy[m]['govsubsidy_price'];
-                                    break;
-                                }
-                            }
+                //             tmp.gov = 0;
+                //             for(var m = 0, n = $scope.subsidy.length; m < n; m++)
+                //             {
+                //                 if($scope.subsidy[m]['goods_code'] == tmp.goods_code)
+                //                 {
+                //                     tmp.gov = $scope.subsidy[m]['govsubsidy_price'];
+                //                     break;
+                //                 }
+                //             }
                             
-                        }
+                //         }
 
-                        calcTotal();
-                    }
-                    else
-                    {
-                        alert(res1.errmsg);
-                    }
-                });
+                //         calcTotal();
+                //     }
+                //     else
+                //     {
+                //         alert(res1.errmsg);
+                //     }
+                // });
                 //$scope.bigTotalItems = res.data.totalRecord;
             }
             else

@@ -48,6 +48,9 @@ module.exports = function($){
       }
       else if(res.errcode === 1001)
       {
+        console.log(res);
+
+        console.log('12123123213123');
         window.location = "/manager/login";
       }
       else if(res.errcode === 1002)
@@ -57,6 +60,7 @@ module.exports = function($){
       }
       else
       {
+        console.log(res);
         alert(res.errmsg);
         //window.location = "/manager/login";
       }
