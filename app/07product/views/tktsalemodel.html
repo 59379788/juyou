@@ -539,7 +539,7 @@
 </div>
 
 
-<div class="col-xs-12" ng-show="saleobj.id" >
+<!-- <div class="col-xs-12" ng-show="saleobj.id" >
 	<div class="panel panel-default form-horizontal">
 		<div class="panel-heading">
 			详情信息
@@ -594,6 +594,143 @@
 		</div>
 	</div>
 </div>
+
+ -->
+
+
+
+<div class="col-xs-12" ng-show="saleobj.id" >
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			票种信息
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				<div class="col-xs-12" >
+
+					<div class="form-group">
+						<label class="col-xs-1 control-label">景区</label>
+						<div class="col-xs-3">
+							<select class="form-control" ng-model="tickettypeobj.place_code" ng-change="change1(tickettypeobj.place_code)" 
+				              ng-options="view.code as view.name for view in viewarr"
+				            >
+				            </select>
+				        </div>
+				        <label class="col-xs-1 control-label">票种</label>
+				        <div class="col-xs-3">
+							<select class="form-control" ng-model="tickettypeobj.ticket_type_code" 
+				              ng-options="tickettype.code as tickettype.name for tickettype in tickettypearr"
+				            >
+				            </select>
+						</div>
+						<label class="col-xs-1 control-label">属性</label>
+						<div class="col-xs-2">
+							<select class="form-control" ng-model="tickettypeobj.ticket_type_attr" 
+				              ng-options="attr.ticket_attr_id as attr.type_attr_name for attr in tktarr"
+				            >
+				            </select>
+						</div>
+						<div class="col-xs-1">
+							<a ng-click="add1()" class="btn btn-success btn-sm"
+							ng-show="saleobj.state == '0'"
+							>添加</a>
+						</div>
+					</div>
+					
+
+					<table class="table table-bordered">
+					    <thead>
+					      <tr>
+					      	
+					      	<th class="col-md-4 text-center">景区名称</th>
+					        <th class="col-md-4 text-center">票种名称</th>
+					        <th class="col-md-1 text-center">票种属性</th>
+					        <th class="col-md-2 text-center">有效期</th>
+					        <th class="col-md-1 text-center">操作</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr ng-repeat="obj in objs1">
+					      <td class="text-center">{{obj.view_name}}</td>
+					      	<td class="text-center">{{obj.name}}</td>
+					        <td class="text-center">{{obj.ticket_type_attr_name}}</td>
+					        <td class="text-center">
+					        	<div class="input-group">
+				                  	<input 	type="text" 
+											class="form-control"
+											ng-model="obj.section.periodstart.date"
+											uib-datepicker-popup="yyyy-MM-dd" 
+											is-open="obj.section.periodstart.opened" 
+											ng-required="true" 
+											close-text="Close" 
+											readonly/>
+									 <span 	class="input-group-btn">
+											<button type="button" 
+												class="btn btn-default"
+												ng-click="open(section.periodstart)">
+											<i class="glyphicon glyphicon-calendar"></i>
+										</button>
+									</span>
+								</div>
+								<div class="input-group">
+				                  	<input 	type="text" 
+											class="form-control"
+											ng-model="obj.section.periodend.date"
+											uib-datepicker-popup="yyyy-MM-dd" 
+											is-open="obj.section.periodend.opened" 
+											ng-required="true" 
+											close-text="Close" 
+											readonly/>
+									 <span 	class="input-group-btn">
+											<button type="button" 
+												class="btn btn-default"
+												ng-click="open(section.periodstart)">
+											<i class="glyphicon glyphicon-calendar"></i>
+										</button>
+									</span>
+								</div>
+					        </td>
+					        <!-- <td class="text-center">
+					        	<div class="input-group">
+				                  	<input 	type="text" 
+											class="form-control"
+											ng-model="section.periodstart.date"
+											uib-datepicker-popup="yyyy-MM-dd" 
+											is-open="section.periodstart.opened" 
+											ng-required="true" 
+											close-text="Close" 
+											readonly/>
+									 <span 	class="input-group-btn">
+											<button type="button" 
+												class="btn btn-default"
+												ng-click="open(section.periodstart)">
+											<i class="glyphicon glyphicon-calendar"></i>
+										</button>
+									</span>
+								</div>
+					        </td> -->
+					        <td class="text-center">
+					          <a ng-click="save1(obj.id)" 
+					          class="btn btn-warning btn-xs"
+					          ng-show="saleobj.state == '0'"
+					          >保存</a>
+					          <a ng-click="del1(obj.id)" 
+					          class="btn btn-warning btn-xs"
+					          ng-show="saleobj.state == '0'"
+					          >删除</a>
+					        </td>
+					      </tr>
+					    </tbody>
+				  	</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
 
 
 

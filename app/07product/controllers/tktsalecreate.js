@@ -8,7 +8,7 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
     smstmplist,
     //限时购模块
     flashsalecreate, flashsaleinfo, flashsaleupdate,
-    getDate, str2date, date2str
+    getDate, str2date, date2str, findSaleFenRun, saveSaleFenRun, attrlistsel
 	){
 
 	$scope.saleobj = {};
@@ -338,6 +338,15 @@ module.exports = function($scope, $state, viewlist, salecreate, dictbytypelist, 
 		            },
 		            date2str : function(){
 		                return date2str;
+		            },
+		            findSaleFenRun : function(){
+		                return findSaleFenRun;
+		            },
+		            saveSaleFenRun : function(){
+		                return saveSaleFenRun;
+		            },
+		            attrlistsel : function(){
+		                return attrlistsel;
 		            }
 		          }
 		        });

@@ -36,7 +36,8 @@ module.exports = function($scope, getDate, groupcountlist){
 
             $scope.total = {
 		        'book_count' : 0,
-		        'total' : 0
+                'actual_count' : 0,
+		        'total' : 0 
 		    };
 
             if(res.errcode === 0)
@@ -44,6 +45,7 @@ module.exports = function($scope, getDate, groupcountlist){
                 for(var i = 0, j = res.data.length; i < j; i++)
                 {
                     $scope.total.book_count += parseInt(res.data[i].book_count);
+                    $scope.total.actual_count += parseInt(res.data[i].actual_count);
                     $scope.total.total += parseInt(res.data[i].book_count * res.data[i].cost_price);
                 }
                 $scope.objs = res.data;

@@ -126,7 +126,7 @@ var router = function($urlRouterProvider, $stateProvider){
       .state('app.statisticsgroupjqlist', {
         url: '/statisticsgroupjqlist',
         controller : 'statisticsgroupjqlist',
-        template: require('./views/statisticsgrouplist.html'),
+        template: require('./views/statisticsgroupjqlist.html'),
         resolve:{
             getDate : function(utilservice){
                 return utilservice.getDate;

@@ -11,7 +11,7 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     smstmplist,
     //限时购模块
     flashsalecreate, flashsaleinfo, flashsaleupdate,
-    getDate, str2date, date2str
+    getDate, str2date, date2str, attrlistsel
     ){
     
 
@@ -117,6 +117,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             date2str : function(){
                 return date2str;
+            },
+            attrlistsel : function(){
+                return attrlistsel;
             }
           }
         });
@@ -359,6 +362,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             date2str : function(){
                 return date2str;
+            },
+            attrlistsel : function(){
+                return attrlistsel;
             }
           }
         });
@@ -498,7 +504,16 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             date2str : function(){
                 return date2str;
-            }
+            },
+            attrlistsel : function(){
+                return attrlistsel;
+            },
+            findSaleFenRun : function(){
+                return findSaleFenRun;
+            },
+            saveSaleFenRun : function(){
+                return saveSaleFenRun;
+            },
           }
         });
 

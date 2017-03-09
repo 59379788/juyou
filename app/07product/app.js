@@ -30,4 +30,9 @@ App.controller('insurance',require('./controllers/insurance'));
 App.controller('awardpolicy',require('./controllers/awardpolicy'));
 App.controller('middlebusiness',require('./controllers/middlebusiness'));
 
+
+App.controller('newproduct',require('./controllers/newproduct'));
+App.directive('productbaseinfo',require('./directives/baseinfo'));
+App.directive('producttickettype',require('./directives/tickettype'));
+
 module.exports = App;

@@ -3,24 +3,24 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 
 	$scope.placeid = '';
 	//有效区间
-	$scope.section = {};
-	$scope.section.start = {};
-	$scope.section.start.date = {};
+	// $scope.section = {};
+	// $scope.section.start = {};
+	// $scope.section.start.date = {};
 
-	$scope.section.end = {};
-	$scope.section.end.date = {};
+	// $scope.section.end = {};
+	// $scope.section.end.date = {};
 
-	$scope.today = function() {
-		$scope.section.start.date = $scope.section.end.date = new Date();
-	};
-	$scope.today();
-	$scope.open = function(obj) {
-		obj.opened = true;
-	};
+	// $scope.today = function() {
+	// 	$scope.section.start.date = $scope.section.end.date = new Date();
+	// };
+	// $scope.today();
+	// $scope.open = function(obj) {
+	// 	obj.opened = true;
+	// };
 
 	$scope.objs = [];
-	$scope.midstart = new Date();
-	$scope.midend = new Date();
+	//$scope.midstart = new Date();
+	//$scope.midend = new Date();
 	
 	$scope.flag = true;
 	
@@ -41,8 +41,8 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 		if(res.errcode === 0)
 		{
 			$scope.objt = res.data;
-			$scope.midstart = str2date( $scope.objt.start_date);
-			$scope.midend = str2date($scope.objt.end_date);
+			//$scope.midstart = str2date( $scope.objt.start_date);
+			//$scope.midend = str2date($scope.objt.end_date);
 			$scope.objs = makeArr(res.data.print_setup);
 			//getplaceinfo();
 		}
@@ -85,15 +85,15 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 
 		console.log($scope.objt);
 		$scope.objt['print_setup'] = makeStr($scope.objs);
-		$scope.objt.start_date =  getDate($scope.midstart);
-		$scope.objt.end_date =  getDate($scope.midend);
-		if ( parseInt($scope.objt.start_date.substring(0,4)+$scope.objt.start_date.substring(5,7)+$scope.objt.start_date.substring(8,10)) > parseInt($scope.objt.end_date.substring(0,4)+$scope.objt.end_date.substring(5,7)+$scope.objt.end_date.substring(8,10)) ) {
-			alert('有效时间的初始日期应早于末尾日期');
-			return;
-		}
-		console.log(parseInt($scope.objt.start_date.substring(0,4)+$scope.objt.start_date.substring(5,7)+$scope.objt.start_date.substring(8,10)));
-		console.log('hhhhhhhhhh');
-		console.log(parseInt($scope.objt.end_date.substring(0,4)+$scope.objt.end_date.substring(5,7)+$scope.objt.end_date.substring(8,10)));
+		// $scope.objt.start_date =  getDate($scope.midstart);
+		// $scope.objt.end_date =  getDate($scope.midend);
+		// if ( parseInt($scope.objt.start_date.substring(0,4)+$scope.objt.start_date.substring(5,7)+$scope.objt.start_date.substring(8,10)) > parseInt($scope.objt.end_date.substring(0,4)+$scope.objt.end_date.substring(5,7)+$scope.objt.end_date.substring(8,10)) ) {
+		// 	alert('有效时间的初始日期应早于末尾日期');
+		// 	return;
+		// }
+		// console.log(parseInt($scope.objt.start_date.substring(0,4)+$scope.objt.start_date.substring(5,7)+$scope.objt.start_date.substring(8,10)));
+		// console.log('hhhhhhhhhh');
+		// console.log(parseInt($scope.objt.end_date.substring(0,4)+$scope.objt.end_date.substring(5,7)+$scope.objt.end_date.substring(8,10)));
 		tktupdate.save($scope.objt, function(res){
 
 			console.log(res);
