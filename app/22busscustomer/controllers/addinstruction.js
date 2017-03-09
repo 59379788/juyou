@@ -7,7 +7,11 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         'title' : '',
         'explain_content' : ''
     };
+    $scope.editinfo = {
+        'flag' : ''
+    }
     if (id) {
+        $scope.editinfo.flag = '0';
         getAdminExplain.save({'id' : id}, function(res){
             if (res.errcode !== 0) {
                     alert(res.errmsg);

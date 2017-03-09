@@ -311,7 +311,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 
 	//添加销售品积分及金额
 	$scope.addjf = function(){
-
+		alert('设置积分');
 		if(!checkAddJf($scope.salejfobj.addtype))
 		{
 			return;

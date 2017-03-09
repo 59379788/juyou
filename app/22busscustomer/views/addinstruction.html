@@ -10,8 +10,7 @@
   <label for="inputDate" class="col-sm-2 control-label">说明标识</label>
   <div class="col-md-9">
   <input type="text" class="form-control" id="inputpoolname" placeholder=""
-      ng-model="saveinfo.title_identifier"
-      >
+      ng-model="saveinfo.title_identifier" ng-disabled="editinfo.flag == '0'">
   </div>    
  </div>
 

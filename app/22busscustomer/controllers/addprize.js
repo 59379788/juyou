@@ -11,7 +11,6 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
         'title' : '',
         'activeId' : id,
         'totalnum' : '',
-        'sellnum' : '',
         'buy_tips' : ''
     }
 
@@ -40,6 +39,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
                     }           
                     //$scope.searchform.selected.name = res.data.saleId;
                     $scope.info = res.data;
+                    $scope.info.oldPrice = (res.data.oldPrice) / 100;
+                    $scope.info.targetPrice = (res.data.targetPrice) / 100;
                     console.log('--------');
                     //console.log(array);
                     for (var i = 0; i < array.length ; i++) {
@@ -86,10 +87,12 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
         // 编辑奖品
         if (prizeId) {
             if ($scope.info.oldPrice!=''&&$scope.info.targetPrice!=''&&$scope.info.allowableNumber!=''&&$scope.info.description!=''
-                &&$scope.info.img!=''&&$scope.info.activeId!=''&&$scope.info.totalnum!=''&&$scope.info.sellnum!=''&&$scope.info.buy_tips!='') {
+                &&$scope.info.img!=''&&$scope.info.activeId!=''&&$scope.info.totalnum!=''&&$scope.info.buy_tips!='') {
                 var para = {
                     'id' : prizeId
                 }
+                $scope.info.oldPrice = $scope.info.oldPrice * 100;
+                $scope.info.targetPrice = $scope.info.targetPrice * 100;
                 $scope.info.saleId = $scope.searchform.selected.code;
                 para = angular.extend($scope.info,para);
                 console.log(para);
@@ -110,7 +113,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
             // 赋值saleID
             $scope.info.saleId = $scope.searchform.selected.code;
             if ($scope.info.oldPrice!=''&&$scope.info.targetPrice!=''&&$scope.info.allowableNumber!=''&&$scope.info.description!=''
-                &&$scope.info.img!=''&&$scope.info.activeId!=''&&$scope.info.totalnum!=''&&$scope.info.sellnum!=''&&$scope.info.buy_tips!='') {
+                &&$scope.info.img!=''&&$scope.info.activeId!=''&&$scope.info.totalnum!=''&&$scope.info.buy_tips!='') {
                 // 添加奖品
                 savePrize.save($scope.info,function (res) {
                     console.log($scope.info);

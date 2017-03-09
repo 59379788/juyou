@@ -445,6 +445,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getAdminExplain : function(busscustomerservice){
                 return busscustomerservice.getAdminExplain();
+            },
+            updateExplain : function(busscustomerservice){
+                 return busscustomerservice.updateExplain();
             }
 
          }
