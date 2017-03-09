@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams){
+module.exports = function($scope, $stateParams, FileUploader){
 
       $scope.tabs = [
     { title:'Dynamic Title 1', content:'Dynamic content 1' },
@@ -29,5 +29,7 @@ module.exports = function($scope, $stateParams){
         'obj' : {},     //当前选择的票种
         'list' : [],    //选好的列表
     };
+
+    $scope.FileUploader = FileUploader;
     
 };

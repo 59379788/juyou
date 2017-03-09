@@ -1,0 +1,133 @@
+
+
+<div class="modal-header">
+    <h4 class="modal-title">奖品信息</h4>
+</div>
+<div class="modal-body">
+    <div class="container-fluid form-horizontal ">
+
+<div class="col-xs-12 " >
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			基本信息
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				
+				<div class="col-xs-12 col-md-12" >
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">奖品名称</label>
+   						<div class="col-md-6">
+		   					<ui-select ng-model="searchform.selected" theme="bootstrap">
+								<ui-select-match placeholder="请选择一个销售品作为奖品">{{$select.selected.name}}</ui-select-match>
+								<ui-select-choices group-by="'place_name'" repeat="item in datas | filter: $select.search" on-click="aaa()">
+									<span ng-bind-html="item.name | highlight: $select.search"></span>
+									<small ng-bind-html="item.code | highlight: $select.search"></small>
+								</ui-select-choices>
+		                    </ui-select>
+   							
+   						</div>    
+ 					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">奖品原价</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入商品原价"
+							ng-model="info.oldPrice"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">砍价目标</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入商品原价"
+							ng-model="info.targetPrice"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">允许最大参与人数</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入商品原价"
+							ng-model="info.allowableNumber"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">奖品说明</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入商品原价"
+							ng-model="info.description"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+					 <label for="inputDate" class="col-sm-3 control-label">奖品图片：</label>
+					 <div class="col-md-6">
+					      <img ng-src="{{info.img}}" width="100%" height="200" ng-model="info.img">
+					        <input type="file" nv-file-select uploader="uploader" / ng-hide="hide===true" ><br/>
+					        <ul class="list-group">
+					          <li class="list-group-item" ng-repeat="item in uploader.queue">
+					            文件名: <span ng-bind="item.file.name"></span>
+					            <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+					            <div class="progress mt10">
+					              <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+					            </div>
+					          </li>
+					        </ul>
+					 </div>
+					 </div>	
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">奖品标题</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入商品原价"
+							ng-model="info.title"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">奖品总数量</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入商品原价"
+							ng-model="info.totalnum"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">卖出去的数量</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入商品原价"
+							ng-model="info.sellnum"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">购买须知</label>
+						<div class="col-xs-6">
+						<textarea rows="4" class="form-control" placeholder="购买须知" ng-model="info.buy_tips"></textarea>
+						</div>
+					</div>
+					 			
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+</div>
+
+

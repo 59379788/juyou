@@ -132,7 +132,10 @@ var router = function($urlRouterProvider, $stateProvider){
 	          },
 	          typelist : function(busscustomerservice){
 	                 return busscustomerservice.typelist;
-	          }
+	          },
+	          getDate : function(utilservice){
+                	 return utilservice.getDate;
+              }
          }    
         })
 
@@ -279,6 +282,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             savegood : function(busscustomerservice){
                  return busscustomerservice.savegood();
+            },
+            updatestateztoone : function(busscustomerservice){
+                return busscustomerservice.updatestateztoone();
             }
 
          }
@@ -458,6 +464,282 @@ var router = function($urlRouterProvider, $stateProvider){
             }
          }
         })
+
+        // 积分商城商品列表
+        .state('app.integral', {
+         url: '/integral',
+         controller : 'integral',
+         template: require('./views/integral.html'),
+         resolve:{
+            findSaleList : function(busscustomerservice){
+                 return busscustomerservice.findSaleList();
+            },
+            updateIntegral : function(busscustomerservice){
+                 return busscustomerservice.updateIntegral();
+            }
+         }
+        })
+
+        // 添加商品
+         .state('app.addintegralgoods', {
+         url: '/addintegralgoods/:id',
+         controller : 'addintegralgoods',
+         template: require('./views/addintegralgoods.html'),
+         resolve:{
+            saveIntegralGood : function(busscustomerservice){
+                 return busscustomerservice.saveIntegralGood();
+            },
+            updateMal : function(busscustomerservice){
+                 return busscustomerservice.updateMal();
+            },
+            getInfoBySaleCode : function(busscustomerservice){
+                return busscustomerservice.getInfoBySaleCode();
+            }
+         }
+        })
+
+         // 商客头条
+         .state('app.headline', {
+         url: '/headline/:id',
+         controller : 'headline',
+         template: require('./views/headline.html'),
+         resolve:{
+            headlinelist : function(busscustomerservice){
+                 return busscustomerservice.headlinelist();
+            },
+            delheadline : function(busscustomerservice){
+                 return busscustomerservice.delheadline();
+            }
+         }
+        })
+
+         // 添加商客头条
+         .state('app.addheadline', {
+         url: '/addheadline/:id',
+         controller : 'addheadline',
+         template: require('./views/addheadline.html'),
+         resolve:{
+            saveheadline : function(busscustomerservice){
+                 return busscustomerservice.saveheadline();
+            },
+            updateNews : function(busscustomerservice) {
+                return busscustomerservice.updateNews();
+            },
+            getContentsInfo : function(busscustomerservice) {
+                return busscustomerservice.getContentsInfo();
+            }
+         }
+        })
+
+        // 沙杀价帮
+         .state('app.bargain', {
+         url: '/bargain/:id',
+         controller : 'bargain',
+         template: require('./views/bargain.html'),
+         resolve:{
+            // saveheadline : function(busscustomerservice){
+            //      return busscustomerservice.saveheadline();
+            // }
+
+         }
+        })
+
+         // 轮播图列表
+         .state('app.newsrollinglist', {
+         url: '/newsrollinglist/:id',
+         controller : 'newsrollinglist',
+         template: require('./views/newsrollinglist.html'),
+         resolve:{
+            findNewsRollinginfolist : function(busscustomerservice){
+                 return busscustomerservice.findNewsRollinginfolist();
+            },
+            delNewsPhoto : function(busscustomerservice){
+                 return busscustomerservice.delNewsPhoto();
+            }
+
+         }
+        })
+
+         // 添加轮播图
+         .state('app.addnewsrolling', {
+         url: '/addnewsrolling/:id',
+         controller : 'addnewsrolling',
+         template: require('./views/addnewsrolling.html'),
+         resolve:{
+            saveNewsPhoto : function(busscustomerservice){
+                 return busscustomerservice.saveNewsPhoto();
+            }
+
+         }
+        })
+
+         // 活动列表
+         .state('app.bargainlist', {
+         url: '/bargainlist/:id',
+         controller : 'bargainlist',
+         template: require('./views/bargainlist.html'),
+         resolve:{
+            findManageActiveList : function(busscustomerservice){
+                 return busscustomerservice.findManageActiveList();
+            },
+            getDate : function(utilservice){
+                     return utilservice.getDate;
+            },
+            findCheckActiveList : function(busscustomerservice){
+                     return busscustomerservice.findCheckActiveList();
+            }
+
+         }
+        })
+
+         // 参与用户列表
+         .state('app.bargainuser', {
+         url: '/bargainuser/:id',
+         controller : 'bargainuser',
+         template: require('./views/bargainuser.html'),
+         resolve:{
+            findJoinUserList : function(busscustomerservice){
+                 return busscustomerservice.findJoinUserList();
+            },
+            getJoinUser : function(busscustomerservice){
+                 return busscustomerservice.getJoinUser();
+            }
+
+
+         }
+        })
+
+         // 中奖用户列表
+         .state('app.winuser', {
+         url: '/winuser/:id',
+         controller : 'winuser',
+         template: require('./views/winuser.html'),
+         resolve:{
+            findWinPrizeUserList : function(busscustomerservice){
+                 return busscustomerservice.findWinPrizeUserList();
+            },
+            getWinPrizeUser : function(busscustomerservice){
+                 return busscustomerservice.getWinPrizeUser();
+            },
+            getWinPrizeUser : function(busscustomerservice) {
+                return busscustomerservice.getWinPrizeUser();
+            }
+
+         }
+        })
+
+         // 创建活动
+         .state('app.creatbargain', {
+         url: '/creatbargain/:id',
+         controller : 'creatbargain',
+         template: require('./views/creatbargain.html'),
+         resolve:{
+            getDate : function(utilservice){
+                     return utilservice.getDate;
+            },
+            saveActive : function (busscustomerservice) {
+                return busscustomerservice.saveActive();
+            },
+            getActiveInfo : function(busscustomerservice) {
+                return busscustomerservice.getActiveInfo();
+            },
+            updateActiveInfo :function(busscustomerservice) {
+                return busscustomerservice.updateActiveInfo();
+            }
+            ,
+            str2date : function(utilservice){
+                return utilservice.str2date;
+            },
+            date2str : function(utilservice) {
+                return utilservice.date2str;
+            }
+
+         }
+        })
+
+         // 奖品列表
+         .state('app.prizelist', {
+         url: '/prizelist/:id',
+         controller : 'prizelist',
+         template: require('./views/prizelist.html'),
+         resolve:{
+            findPrizeList : function(busscustomerservice){
+                     return busscustomerservice.findPrizeList();
+            },
+            savePrize : function(busscustomerservice){
+                     return busscustomerservice.savePrize();
+            },
+            updateDel : function(busscustomerservice){
+                     return busscustomerservice.updateDel();
+            },
+            getPrize : function(busscustomerservice) {
+                return busscustomerservice.getPrize();
+            },
+            updatePrize : function(busscustomerservice) {
+                return busscustomerservice.updatePrize();
+            },
+            salelist : function(busscustomerservice) {
+                return busscustomerservice.salelist();
+            }
+
+
+         }
+        })
+
+         // 添加奖品
+         .state('app.addprize', {
+         url: '/addprize/:id/:prizeId',
+         controller : 'addprize',
+         template: require('./views/addprize.html'),
+         resolve:{
+            // savePrize : function(utilservice){
+            //          return utilservice.getDate;
+            // }
+
+         }
+        })
+
+        // 广告列表
+         .state('app.adlist', {
+         url: '/adlist/:id',
+         controller : 'adlist',
+         template: require('./views/adlist.html'),
+         resolve:{
+            findViewList : function(busscustomerservice){
+                     return busscustomerservice.findViewList();
+            },
+            deletead : function(busscustomerservice){
+                     return busscustomerservice.deletead();
+            }
+
+         }
+        })
+         // 添加广告
+         .state('app.addad', {
+         url: '/addad/:id',
+         controller : 'addad',
+         template: require('./views/addad.html'),
+         resolve:{
+            saveAd : function(busscustomerservice){
+                     return busscustomerservice.saveAd();
+            }
+
+         }
+        })
+
+         // 景区管理
+         .state('app.scenic', {
+         url: '/scenic/:id',
+         controller : 'scenic',
+         template: require('./views/scenic.html'),
+         resolve:{
+            // saveAd : function(busscustomerservice){
+            //          return busscustomerservice.saveAd();
+            // }
+
+         }
+        })
+
 
 
 

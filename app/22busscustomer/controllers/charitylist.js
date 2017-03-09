@@ -1,5 +1,6 @@
 module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,findrecordforadminlist,updateronationstate){
   var love_activity_id = $stateParams.love_activity_id;
+  alert(love_activity_id);
 	/* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -44,7 +45,7 @@ module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,
     };
 
     $scope.disagree = function(love_record_id){
-      updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'1'},function(res){
+      updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'2'},function(res){
         console.log({'love_record_id':love_record_id,'ronation_state':'2'});
         if (res.errcode !== 0) {
           alert(res.errmsg);

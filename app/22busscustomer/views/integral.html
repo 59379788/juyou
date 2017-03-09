@@ -1,0 +1,66 @@
+  
+  
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                  <label for="inputLottry" class="control-label">积分商城商品列表</label>
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="addgoods()">添加商品</button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="col-md-12 panel panel-default table-responsive">
+    <table ng-click="getlist()" class="table table-bordered">
+	    <thead>
+	      <tr>
+	        <th class="col-md-2 text-center">标题</th>
+	        <th class="col-md-1 text-center">门市价</th>
+	        <th class="col-md-3 text-center">商品简介</th>
+	        <th class="col-md-2 text-center">积分</th>
+	        <th class="col-md-2 text-center">库存</th>
+          <th class="col-md-2 text-center">操作</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	    	<tr ng-repeat = "obj in objs">
+	        <td class="col-md-2 text-center">{{obj.title}}</td>
+	        <td class="col-md-1 text-center">{{obj.market_price}}</td>
+	        <td class="col-md-3 text-center">{{obj.introduction}}</td>
+          <td class="col-md-2 text-center">{{obj.integral}}</td>
+          <td class="col-md-2 text-center">{{obj.integra_num}}</td>
+	        <td class="col-md-2 text-center">	        	
+	        	<a ng-click="delete(obj.id)" class="btn btn-info btn-xs">删除</a>
+	        	<a ng-click="update(obj.id)" class="btn btn-danger btn-xs">修改</a>
+	        </td>
+	      </tr>
+	    </tbody>
+	</table>
+    </div>	    
+
+
+
+    <div class="text-right">
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="getlist()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+    </div> 
+  
+
+

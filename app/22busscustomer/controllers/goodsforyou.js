@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,savegood,findgoodsforadminlist){  
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,savegood,findgoodsforadminlist,updatestateztoone){  
     /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -33,6 +33,20 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             }
             console.log(res);
             alert('添加成功');
+            $scope.getlist();
+        });
+    };
+
+    $scope.console = function(goods_id){
+        updatestateztoone.save({'goods_id' : goods_id}, function(res){
+            console.log({'goods_id' : goods_id});
+            if (res.errcode !== 0) {
+                alert(res.errmsg);
+                return;
+            }
+            console.log(res);
+            alert('取消成功');
+            $scope.getlist();
         });
     };
 

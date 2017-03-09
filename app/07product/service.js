@@ -213,6 +213,15 @@ var service = function($resource, BASEURL38985, $q, $http){
     // 积分配置
     var saveSaleInteral = BASEURL38985 + '/api/uc/tc/ticketSaleIntegralService/saveSaleInteral';
 
+    
+    var updateTicketPeriod = BASEURL38985 + '/api/ac/tc/updateTicketPeriodService/updateTicketPeriod';
+
+    //搜索销售品分润信息
+    var findSaleFenRun = BASEURL38985 + '/api/as/tc/saleshangkeprice/getinfo';
+
+    //销售品分润设置
+    var saveSaleFenRun = BASEURL38985 + '/api/as/tc/saleshangkeprice/save';
+
 
     return {
         middlebusiness : function(){
@@ -349,6 +358,12 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         saveSaleInteral : function(){
             return $resource(saveSaleInteral, {}, {});
+        },
+        findSaleFenRun : function(){
+            return $resource(findSaleFenRun, {}, {});
+        },
+        saveSaleFenRun : function(){
+            return $resource(saveSaleFenRun, {}, {});
         },
         findsaleintegrallist : function(){
             return $resource(findsaleintegrallist, {}, {});
@@ -488,6 +503,9 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         affirmupdate : function(){
             return $resource(affirmupdate, {}, {});
+        },
+        updateTicketPeriod : function(){
+            return $resource(updateTicketPeriod, {}, {});
         },
         smstmplist : function(){
             return $resource(smstmplist, {}, {});

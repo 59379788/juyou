@@ -1,7 +1,7 @@
 module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupdate, goodlist, 
 	saledetailcreate, saledetaillist, saledetaildelete, dictbytypelist, FileUploader,
 	salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
-	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, what,saveSaleInteral,findsaleintegrallist,
+	salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, what,saveSaleInteral,findsaleintegrallist,findSaleFenRun,saveSaleFenRun,
 	//系统确认模块
     affirmcreate, affirminfo, affirmupdate,
     smstmplist,
@@ -20,6 +20,10 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	//销售品积分对象
 	$scope.salejfobj = {};
 	$scope.salejfobj.list = new Array();
+
+	//销售品分润
+	$scope.salefrobj = {};
+
 
 	$scope.section = {};
     $scope.section.start = {};
@@ -218,6 +222,11 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			findsaleintegrallist.save({'integral_sale_code':$scope.saleobj.code},function(res){
 				$scope.salejfobj.list = res.data;
 			});
+			
+			//加载销售品分润设置
+			findSaleFenRun.save({'sale_code':$scope.saleobj.code},function(res){
+				$scope.salefrobj = res.data;
+			});
 
 		}
 		else
@@ -267,6 +276,26 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	
 	
 	
+	$scope.saleFrSetSave = function(){
+		if(parseInt($scope.salefrobj.profit_ratio) >= 0 && (parseInt($scope.salefrobj.profit_ratio) <= 100)){
+			$scope.salefrobj.sale_code = $scope.saleobj.code;
+			saveSaleFenRun.save($scope.salefrobj, function(res){
+		     	if(res.errcode === 0)
+		     	{
+		     		alert('保存成功');
+		     	}
+	     		else
+				{
+					alert(res.errmsg);
+				}
+	
+		    });
+		} else {
+			alert('设置正确的利润率(0-100)');
+			return;
+		}
+	}
+
 	$scope.salejfsave = function(){
 		if($scope.salejfobj.list.length > 0){
 			$scope.salejfobj.integral_sale_code = $scope.saleobj.code;

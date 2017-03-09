@@ -58,20 +58,20 @@ module.exports = function($scope, $state, code, plan_count, goodlist, infolist,
 			{
 				var tmp = res.data[i];
 				if(i === 0) sale_code = tmp.sale_code;
-				if(tmp.type_attr === '98')
-				{
-					//补贴额
-					goodssubsidy = tmp.govsubsidy_price;
-					goodscodegov = tmp.goods_code;
-					paypricegov = tmp.cost_price - tmp.govsubsidy_price;
-					goods[goodscodegov] = paypricegov;
-				}
-				else
-				{
+				// if(tmp.type_attr === '98')
+				// {
+				// 	//补贴额
+				// 	goodssubsidy = tmp.govsubsidy_price;
+				// 	goodscodegov = tmp.goods_code;
+				// 	paypricegov = tmp.cost_price - tmp.govsubsidy_price;
+				// 	goods[goodscodegov] = paypricegov;
+				// }
+				// else
+				// {
 					goodscode = tmp.goods_code;
 					payprice = tmp.cost_price;
 					goods[goodscode] = payprice;
-				}
+				// }
 
 			}
 			console.log($scope.goodarr);

@@ -1,0 +1,58 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                  
+                  <input type="text" class="form-control" ng-model="info.userName" placeholder="用户名称">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="info.mobile" placeholder="联系电话">
+                  &nbsp;&nbsp;
+                  <div class="form-group pull-right">
+                      <button type="button" class="btn btn-primary" ng-click="search()">立即查询</button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                  </div>
+
+
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+<div class="col-md-12 panel panel-default table-responsive">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-3 text-center">用户昵称</th>
+        <th class="col-md-3 text-center">姓名</th>
+        <th class="col-md-3 text-center">联系电话</th>
+        <th class="col-md-3 text-center">参与时间</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.userNick}}</td>
+        <td class="text-center">{{obj.userName}}</td>
+        <td class="text-center">{{obj.mobile}}</td>
+        <td class="text-center">{{obj.otime}}</td>
+      </tr>
+    </tbody>
+    </table>
+</div>
+
+    <div class="text-right">
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="search()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+    </div> 

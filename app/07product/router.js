@@ -22,6 +22,9 @@ var router = function($urlRouterProvider, $stateProvider){
             tktupdate : function(productservice){
                 return productservice.tktupdate();
             },
+            updateTicketPeriod : function(productservice){
+                return productservice.updateTicketPeriod();
+            },
             getDate : function(utilservice){
                 return utilservice.getDate;
             },
@@ -305,6 +308,12 @@ var router = function($urlRouterProvider, $stateProvider){
             saveSaleInteral : function(productservice){
                 return productservice.saveSaleInteral();
             },
+            findSaleFenRun : function(productservice){
+                return productservice.findSaleFenRun();
+            },
+            saveSaleFenRun : function(productservice){
+                return productservice.saveSaleFenRun();
+            },
             findsaleintegrallist : function(productservice){
                 return productservice.findsaleintegrallist();
             },
@@ -436,7 +445,13 @@ var router = function($urlRouterProvider, $stateProvider){
             
             saveSaleInteral : function(productservice){
                 return productservice.saveSaleInteral();
-            }
+            },
+            findSaleFenRun : function(productservice){
+                return productservice.findSaleFenRun();
+            },
+            saveSaleFenRun : function(productservice){
+                return productservice.saveSaleFenRun();
+            },
         }
       })
 
@@ -506,6 +521,12 @@ var router = function($urlRouterProvider, $stateProvider){
             attrlistsel : function(productservice){
                return productservice.attrlistsel;
             },
+            findSaleFenRun :  function(productservice){
+                return productservice.findSaleFenRun();
+            },
+            saveSaleFenRun :  function(productservice){
+                return productservice.saveSaleFenRun();
+            }
         }
       })
 

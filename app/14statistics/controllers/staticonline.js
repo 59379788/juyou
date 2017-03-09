@@ -15,6 +15,8 @@ module.exports = function($scope, staticonline, getDate){
 
     $scope.section.end = {};
     $scope.section.end.date = new Date();
+
+    $scope.card_sum = 0;
     
     //初始化
     $scope.load = function() {
@@ -32,6 +34,9 @@ module.exports = function($scope, staticonline, getDate){
             if(res.errcode === 0) {
         		$scope.objs = res.data.results;
         		$scope.bigTotalItems = res.data.totalRecord;
+                if (res.data.results.length) {
+                     $scope.card_sum = res.data.results[0].card_sum;
+                }
             } else {
                 alert(res.errmsg);
             }

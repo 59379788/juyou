@@ -33,6 +33,7 @@
 						</div>
 					</div>
 
+
 					<div class="form-group">
 						<label class="col-xs-2 control-label">地址</label>
 						<div class="col-xs-10">
@@ -289,6 +290,34 @@
 					</div>
 
 					<div class="form-group">
+						<label class="col-xs-3 control-label">电话</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control" placeholder="请输入电话"
+							ng-model="viewobj.tel"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+   						<label for="inputDate" class="col-xs-3 control-label">产品分类</label>
+   						<div class="col-xs-9">
+   							<select class="form-control" ng-model="viewobj.view_type" ng-change="selection(viewobj.view_type)">
+   								<option value="">请选择</option>
+   								<option value="1">景区</option>
+  								<option value="2">美食</option>
+    							<option value="3">体检</option>
+    							<option value="4">健康</option>
+    							<option value="5">汽车</option>
+    							<option value="6">美发</option>
+    							<option value="7">保险</option>
+    							<option value="8">亲子</option>
+    							<option value="9">休闲</option>
+    							<option value="10">摄影</option>
+   							</select>
+   						</div>    
+ 					</div>
+
+					<div class="form-group">
 						<label class="col-xs-3 control-label">开放日期</label>
 						<div class="col-xs-9">
 							<input type="text" class="form-control" 
@@ -433,6 +462,30 @@
 							<p class="form-control-static">{{viewobj.subname}}</p>
 						</div>
 					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">电话</label>
+						<div class="col-xs-9">
+							<p class="form-control-static">{{viewobj.tel}}</p>
+						</div>
+					</div>
+
+					<div class="form-group">
+   						<label for="inputDate" class="col-xs-3 control-label">产品分类</label>
+   						<div class="col-xs-9">
+   							<p class="form-control-static" ng-show="viewobj.view_type==1">景区</p>
+   							<p class="form-control-static" ng-show="viewobj.view_type==2">美食</p>
+   							<p class="form-control-static" ng-show="viewobj.view_type==3">体检</p>
+   							<p class="form-control-static" ng-show="viewobj.view_type==4">健康</p>
+   							<p class="form-control-static" ng-show="viewobj.view_type==5">汽车</p>
+   							<p class="form-control-static" ng-show="viewobj.view_type==6">美发</p>
+   							<p class="form-control-static" ng-show="viewobj.view_type==7">保险</p>
+   							<p class="form-control-static" ng-show="viewobj.view_type==8">亲子</p>
+   							<p class="form-control-static" ng-show="viewobj.view_type==9">休闲</p>
+   							<p class="form-control-static" ng-show="viewobj.view_type==10">摄影</p>
+   						</div>    
+ 					</div>
+
 
 					<div class="form-group">
 						<label class="col-xs-3 control-label">开放日期</label>

@@ -37,8 +37,8 @@
 		          <th class="text-center col-xs-2">身份证</th>
 		          <th class="text-center col-xs-2">票种</th>
 		          <th class="text-center col-xs-1">价格</th>
-		          <th class="text-center col-xs-1">用户补贴余额</th>
-		          <th class="text-center col-xs-1">本次使用</th>
+		          <!-- <th class="text-center col-xs-1">用户补贴余额</th>
+		          <th class="text-center col-xs-1">本次使用</th> -->
 		          <th class="text-center col-xs-1">操作</th>
 		        </tr>
 		      </thead>
@@ -74,7 +74,7 @@
 		          		{{obj.pay_price * 0.01 | currency : '￥'}}
 		          	</p>
 				  </td>
-				  <td class="text-center">
+				  <!-- <td class="text-center">
 		          	<p style="line-height: 32px;">
 		          		{{obj.subsidy * 0.01 | currency : '￥'}}
 		          	</p>
@@ -83,7 +83,7 @@
 		          	<p style="line-height: 32px;">
 		          		{{obj.usesubsidy * 0.01 | currency : '￥'}}
 		          	</p>
-				  </td>
+				  </td> -->
 				  <td class="text-center">
 		          	<a ng-click="del($index)" class="btn" style="color: red; padding:0px; padding-top: 5px;">
 				        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>

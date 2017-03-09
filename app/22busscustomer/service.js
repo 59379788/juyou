@@ -50,7 +50,7 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   // 义卖，捐助列表
   var findrecordforadminlist = BASEURL38985 + '/api/as/mc/merloveactivityrecorddao/findrecordforadminlist';
   // 我要捐物
-  var savedonate = BASEURL38985 + '/api/uc/mc/merloveactivityrecordserviceimpl/save';
+  var savedonate = BASEURL38985 + '/api/ac/mc/merloveactivityrecordserviceimpl/saveadmin';
   // 审核义捐
   var updateronationstate = BASEURL38985 + '/api/ac/mc/merloveactivityrecordserviceimpl/updateronationstate';
 
@@ -81,6 +81,8 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var findgoodsforadminlist =  BASEURL38985 + '/api/as/mc/mergoodsinfodao/findgoodsforadminlist';
   // 添加商品到为你推荐
   var savegood = BASEURL38985 + '/api/as/mc/merrecommendforyoudao/insertrecommend';
+  // 取消为你推荐
+  var updatestateztoone = BASEURL38985 + '/api/as/mc/merrecommendforyoudao/delforyou';
   // 添加商品类型
   var savetype = BASEURL38985 + '/api/as/mc/mertradetypedao/save';
 
@@ -103,6 +105,82 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var findReplyList = BASEURL38985 + '/api/us/rc/remreplydao/findReplyList';
   // 更改评价审核状态
   var updateStatus = BASEURL38985 + '/api/as/rc/remreplydao/updateStatus';
+
+  // 积分商城商品列表
+  var findSaleList = BASEURL38985 + '/api/as/mc/merintegralmal/findSaleList';
+  // 积分商城商品详情
+  var getInfoBySaleCode = BASEURL38985 + '/api/as/mc/merintegralmal/getInfoBySaleCode';
+  // 保存商品
+  var saveIntegralGood = BASEURL38985 + '/api/as/mc/merintegralmal/save';
+  // 删除商品
+  var updateIntegral = BASEURL38985 + '/api/as/mc/merintegralmal/updateDel';
+  // 修改商品详情
+  var updateMal = BASEURL38985 + '/api/as/mc/merintegralmal/updateMal';
+
+
+  // 商客头条列表
+  var headlinelist = BASEURL38985 + '/api/us/gc/news/findTitleInfolist';
+  // 添加商客头条
+  var saveheadline = BASEURL38985 + '/api/as/gc/news/saveinfo';
+  // 删除头条
+  var delheadline = BASEURL38985 + '/api/as/gc/news/del';
+  // 头条详情
+  var getContentsInfo = BASEURL38985 + '/api/as/gc/news/getContentsInfo';
+  // 编辑头条
+  var updateNews = BASEURL38985 + '/api/as/gc/news/updateNews';
+  
+  // 轮播图列表
+  var findNewsRollinginfolist = BASEURL38985 + '/api/us/gc/rollingpicture/findNewsRollinginfolist';
+  // 添加轮播图
+  var saveNewsPhoto = BASEURL38985 + '/api/as/gc/rollingpicture/saveNewsPhoto';
+  // 删除轮播图
+  var delNewsPhoto = BASEURL38985 + '/api/as/gc/rollingpicture/del';
+
+  /****** 杀价帮 *******/
+
+  //查询销售品（全部）
+  var salelist = BASEURL38985 + '/api/as/tc/sale/alllist';
+  // 活动列表
+  var findManageActiveList = BASEURL38985 + '/api/as/ac/aactactive/findManageActiveList';
+  // 查询活动
+  var findCheckActiveList = BASEURL38985 + '/api/as/ac/aactactive/findCheckActiveList';
+  // 创建活动
+  var saveActive = BASEURL38985 + '/api/as/ac/aactactive/saveActive';
+  // 编辑活动
+  var updateActiveInfo = BASEURL38985 + '/api/as/ac/aactactive/updateActiveInfo';
+  // 根据活动id查询活动详情接口
+  var getActiveInfo = BASEURL38985 + '/api/as/ac/aactactive/getActiveInfo';
+  // 参与用户列表
+  var findJoinUserList = BASEURL38985 + '/api/as/ac/aactactive/findJoinUserList';
+  // 查询用户列表接口
+  var getJoinUser = BASEURL38985 + '/api/as/ac/aactactive/getJoinUser';
+  // 奖品列表
+  var findPrizeList = BASEURL38985 + '/api/as/ac/aactactive/findPrizeList';
+  // 添加奖品
+  var savePrize = BASEURL38985 + '/api/as/ac/aactactive/savePrize';
+  // 删除奖品
+  var updateDel = BASEURL38985 + '/api/as/ac/aactactive/updateDel';
+  // 编辑奖品
+  var updatePrize = BASEURL38985 + '/api/as/ac/aactactive/updatePrize';
+  // // 奖品详情
+  // var getPrize = BASEURL38985 + '/api/as/ac/aactactive/getPrize';
+  // 中奖用户列表
+  var findWinPrizeUserList = BASEURL38985 + '/api/as/ac/aactactive/findWinPrizeUserList';
+  // 查询中奖用户
+  var getWinPrizeUser = BASEURL38985 + '/api/as/ac/aactactive/getWinPrizeUser';
+  // 根据奖品id获取奖品详情
+  var getPrize = BASEURL38985 + '/api/as/ac/aactactive/getPrize';
+  /****** 杀价帮 *******/
+
+  /****** 看广告 *******/
+  // 广告列表
+  var findViewList = BASEURL38985 + '/api/as/gc/viewad/findViewList';
+  // 添加广告
+  var saveAd = BASEURL38985 + '/api/ac/gc/viewadService/saveView';
+  // 删除广告
+  var deletead = BASEURL38985 + '/api/as/gc/viewad/del';
+
+  /****** 看广告 *******/
 
 
     return {
@@ -299,8 +377,107 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         getAdminExplain : function(){
              return $resource(getAdminExplain, {}, {});
+        },
+        findSaleList : function(){
+             return $resource(findSaleList, {}, {});
+        },
+        getInfoBySaleCode : function(){
+             return $resource(getInfoBySaleCode, {}, {});
+        },
+        saveIntegralGood : function(){
+             return $resource(saveIntegralGood, {}, {});
+        },
+        updateIntegral : function(){
+             return $resource(updateIntegral, {}, {});
+        },
+        updateMal : function(){
+             return $resource(updateMal, {}, {});
+        },
+        updatestateztoone : function(){
+             return $resource(updatestateztoone, {}, {});
+        },
+        headlinelist : function(){
+             return $resource(headlinelist, {}, {});
+        },
+        saveheadline : function(){
+             return $resource(saveheadline, {}, {});
+        },
+        findNewsRollinginfolist : function(){
+             return $resource(findNewsRollinginfolist, {}, {});
+        },
+        saveNewsPhoto : function(){
+             return $resource(saveNewsPhoto, {}, {});
+        },
+        findManageActiveList : function(){
+             return $resource(findManageActiveList, {}, {});
+        },
+        findCheckActiveList : function(){
+             return $resource(findCheckActiveList, {}, {});
+        },
+        getActiveInfo : function(){
+             return $resource(getActiveInfo, {}, {});
+        },
+        saveActive : function(){
+             return $resource(saveActive, {}, {});
+        },
+        updateActiveInfo : function(){
+             return $resource(updateActiveInfo, {}, {});
+        },
+        findJoinUserList : function(){
+             return $resource(findJoinUserList, {}, {});
+        },
+        getJoinUser : function(){
+             return $resource(getJoinUser, {}, {});
+        },
+        findPrizeList : function(){
+             return $resource(findPrizeList, {}, {});
+        },
+        savePrize : function(){
+             return $resource(savePrize, {}, {});
+        },
+        updateDel : function(){
+             return $resource(updateDel, {}, {});
+        },
+        updatePrize : function(){
+             return $resource(updatePrize, {}, {});
+        },
+        getPrize : function(){
+             return $resource(getPrize, {}, {});
+        },
+        findWinPrizeUserList : function(){
+             return $resource(findWinPrizeUserList, {}, {});
+        },
+        getWinPrizeUser : function(){
+             return $resource(getWinPrizeUser, {}, {});
+        },
+        delheadline : function(){
+             return $resource(delheadline, {}, {});
+        },
+        delNewsPhoto : function(){
+             return $resource(delNewsPhoto, {}, {});
+        },
+        updateNews : function(){
+             return $resource(updateNews, {}, {});
+        },
+        getContentsInfo : function() {
+          return $resource(getContentsInfo, {}, {});
+        },
+        saveAd : function() {
+          return $resource(saveAd, {}, {});
+        },
+        findViewList : function() {
+          return $resource(findViewList, {}, {});
+        },
+        salelist : function() {
+          return $resource(salelist, {}, {});
+        },
+        deletead : function() {
+          return $resource(deletead, {}, {});
         }
+
         
+
+
     }
 };
 module.exports = service;

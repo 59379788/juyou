@@ -48,6 +48,9 @@ module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,
   	};
   	$scope.save = function(){
       if ($scope.addinfo.ronation_user_name!==''&&$scope.addinfo.ronation_user_card!==''&&$scope.addinfo.ronation_user_mobile!==''&&$scope.addinfo.ronation_goods_title!==''&&$scope.addinfo.ronation_goods_number!=='') {
+             $scope.addinfo.ronation_goods_price = ($scope.addinfo.ronation_goods_price)* 100;
+             $scope.addinfo.ronation_goods_befor_price = ($scope.addinfo.ronation_goods_befor_price) * 100;
+             $scope.addinfo.ronation_rmb = ($scope.addinfo.ronation_rmb) * 100;
             savedonate.save($scope.addinfo, function(res){
             console.log($scope.addinfo);
             if (res.errcode !== 0) {
@@ -64,8 +67,8 @@ module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,
   	};
 
     $scope.agree = function(love_record_id){
-      updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'1'},function(res){
-        console.log({'love_record_id':love_record_id,'ronation_state':'1'});
+      updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'1','ronation_type' : '1'},function(res){
+        console.log({'love_record_id':love_record_id,'ronation_state':'1','ronation_type' : '1'});
         if (res.errcode !== 0) {
           alert(res.errmsg);
           return;
@@ -76,8 +79,8 @@ module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,
     };
 
     $scope.disagree = function(love_record_id){
-      updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'1'},function(res){
-        console.log({'love_record_id':love_record_id,'ronation_state':'2'});
+      updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'2','ronation_type' : '1'},function(res){
+        console.log({'love_record_id':love_record_id,'ronation_state':'2','ronation_type' : '1'});
         if (res.errcode !== 0) {
           alert(res.errmsg);
           return;

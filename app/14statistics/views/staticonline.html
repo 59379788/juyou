@@ -40,6 +40,9 @@
 		            </div>
 	              	&nbsp;&nbsp;
 	              	<button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+	              	<div class="input-group pull-right">
+	              		总卡数：{{card_sum}}
+	              	</div>
 	            </div>
 	        </div>
 	    </div>
@@ -48,29 +51,29 @@
 	
 	
 	<table class="table table-bordered">
-    <thead>
-      	<tr>
-	        <th class="col-md-1 text-center">姓名</th>
-	        <th class="col-md-2 text-center">手机</th>
-	        <th class="col-md-1 text-center">卡片数量</th>
-	        <th class="col-md-2 text-center">申请时间</th>
-	        <th class="col-md-2 text-center">支付时间</th>
-	        <th class="col-md-2 text-center">订单名称</th>
-	        <th class="col-md-2 text-center">订单编号</th>
-      	</tr>
-    </thead>
-    <tbody>
-      	<tr ng-repeat="obj in objs">
-	        <td class="text-center">{{obj.username}}</td>
-	        <td class="text-center">{{obj.mobile}}</td>
-	        <td class="text-center">{{obj.cardamount}}</td>
-	        <td class="text-center">{{obj.appdate}}</td>
-	        <td class="text-center">{{obj.paytime}}</td>
-	        <td class="text-center">{{obj.ordername}}</td>
-	        <td class="text-center">{{obj.systradeno}}</td>
-      	</tr>
-    </tbody>
-  </table>
+	    <thead>
+	      	<tr>
+		        <th class="col-md-1 text-center">姓名</th>
+		        <th class="col-md-2 text-center">手机</th>
+		        <th class="col-md-1 text-center">卡片数量</th>
+		        <th class="col-md-2 text-center">申请时间</th>
+		        <th class="col-md-2 text-center">支付时间</th>
+		        <th class="col-md-2 text-center">订单名称</th>
+		        <th class="col-md-2 text-center">订单编号</th>
+	      	</tr>
+	    </thead>
+	    <tbody>
+	      	<tr ng-repeat="obj in objs">
+		        <td class="text-center">{{obj.username}}</td>
+		        <td class="text-center">{{obj.mobile}}</td>
+		        <td class="text-center">{{obj.cardamount}}</td>
+		        <td class="text-center">{{obj.appdate}}</td>
+		        <td class="text-center">{{obj.paytime}}</td>
+		        <td class="text-center">{{obj.ordername}}</td>
+		        <td class="text-center">{{obj.systradeno}}</td>
+	      	</tr>
+	    </tbody>
+  	</table>
 </div>
 
 

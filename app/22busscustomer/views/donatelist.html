@@ -43,7 +43,7 @@
         <th class="col-md-1 text-center">物品数量</th>
         <th class="col-md-2 text-center">物品详情</th>
         <th class="col-md-1 text-center">审核状态</th>
-        <th class="col-md-1 text-center">捐赠状态</th>
+        <th class="col-md-1 text-center">捐赠时间</th>
         <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
@@ -55,7 +55,7 @@
         <td class="text-center">{{obj.ronation_goods_title}}</td>
         <td class="text-center">{{obj.ronation_goods_number}}</td>
         <td class="text-center">{{obj.ronation_goods_info}}</td>
-        <td class="text-center">{{obj.ronation_state}}</td>
+        <td class="text-center">{{obj.ronation_state_name}}</td>
         <td class="text-center">{{obj.ronation_time}}</td>
         <td class="text-center">
           <a ng-show="obj.ronation_state == 0" ng-click="agree(obj.love_record_id)" class="btn btn-danger btn-xs">通过</a>

@@ -80,13 +80,13 @@
       	</th> -->
         <th class="col-md-2 text-center">时间</th>
         <th class="col-md-2 text-center">景区名称</th>
-        <th class="col-md-2 text-center">商品信息</th>
+        <th class="col-md-3 text-center">商品信息</th>
         <!-- <th class="col-md-1 text-center">商品编号</th> -->
         <!-- <th class="col-md-2 text-center">数量</th> -->
         <th class="col-md-1 text-center">购买数量</th>
         <th class="col-md-1 text-center">使用数量</th>
         <th class="col-md-1 text-center">退票数量</th>
-        <th class="col-md-1 text-center">政府补贴</th>
+        <!-- <th class="col-md-1 text-center">政府补贴</th> -->
         <th class="col-md-1 text-center">居游结算价</th>
         <th class="col-md-1 text-center">操作</th>
       </tr>
@@ -108,9 +108,9 @@
         <td class="text-center">{{obj.buy}}</td>
         <td class="text-center">{{obj.used}}</td>
         <td class="text-center">{{obj.back}}</td>
-        <td class="text-center">
+        <!-- <td class="text-center">
             {{(subsidy | arrfilter:'goods_code':'govsubsidy_price':obj.goods_code) * 0.01 | currency : '￥'}}
-        </td>	
+        </td> -->	
         <td class="text-center">{{obj.cost_price * obj.used  * 0.01 | currency : '￥'}}</td>
         <td class="text-center">
         	<a ng-click="detail(obj)" ng-hide="obj.used == 0" class="btn btn-success btn-sm">使用详情</a>
@@ -127,7 +127,7 @@
         <td class="text-center">{{total.buy}}</td>
         <td class="text-center">{{total.used}}</td>
         <td class="text-center">{{total.back}}</td>
-        <td class="text-center">{{total.gov * 0.01 | currency : '￥'}}</td>
+        <!-- <td class="text-center">{{total.gov * 0.01 | currency : '￥'}}</td> -->
         <td class="text-center">{{total.total * 0.01 | currency : '￥'}}</td>
         <td class="text-center"></td>
       </tr>

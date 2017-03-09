@@ -13,6 +13,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     $scope.getlist();
 
     $scope.charitylist = function(love_activity_id){
+        alert('义卖');
         $state.go('app.charitylist',{'love_activity_id':love_activity_id});
     };
     $scope.donatelist = function(love_activity_id){

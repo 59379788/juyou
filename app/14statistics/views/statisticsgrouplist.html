@@ -1,3 +1,6 @@
+
+
+
 <div class="col-sm-12">
 <div class="panel panel-default">
     <div class="panel-body">
@@ -30,6 +33,9 @@
     </div>
 </div><!-- searchArea -->
 
+<div class="col-sm-12">
+  <p style="color: red;">* 预订人数与实际人数不符时，请尽快去团队订单中修改预订人数，以免多扣的预存无法退回。</p>
+</div>
 
   <table class="table table-bordered">
     <thead>
@@ -38,6 +44,7 @@
         <th class="text-center">商品名称</th>
         <th class="text-center">分销商</th>
         <th class="text-center">预订人数</th>
+        <th class="text-center">实际人数</th>
         <th class="text-center">单价</th>
         <th class="text-center">总计</th>
       </tr>
@@ -48,6 +55,7 @@
         <td class="">{{obj.order_name}}</td>
         <td class="text-center">{{obj.seller_code}}<br>{{obj.seller_name}}</td>
         <td class="text-center">{{obj.book_count}}</td>
+        <td class="text-center">{{obj.actual_count}}</td>
         <td class="text-center">{{obj.cost_price * 0.01 | currency : '￥'}}</td>
         <td class="text-center">{{obj.book_count * obj.cost_price * 0.01 | currency : '￥'}}</td>
       </tr>
@@ -55,8 +63,9 @@
         <td class="text-center">总计</td>
         <td class="text-center"></td>
         <td class="text-center"></td>
-
+        
         <td class="text-center">{{total.book_count}}</td>
+        <td class="text-center">{{total.actual_count}}</td>
         <td class="text-center"></td>
         <td class="text-center">{{total.total * 0.01 | currency : '￥'}}</td>
       </tr>

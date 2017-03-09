@@ -51,7 +51,7 @@
 					</div>
 
 					<div class="form-group" >
-						<label class="col-xs-3 control-label">销售品分类</label>
+						<label class="col-xs-3 control-label">销售品类别</label>
 						<div class="col-xs-9" >
 							<select class="form-control" ng-model="obj.type"
 				              ng-options="type1.value as type1.label for type1 in typearr"
@@ -82,6 +82,34 @@
 								<option value='4'>4</option>
 								<option value='5'>5</option>
 				            </select>
+						</div>
+					</div>
+
+					<div class="form-group" >
+						<label class="col-xs-3 control-label">有效期</label>
+	                    <div class="col-xs-2 input-group">
+		                	<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+		                    <span class="input-group-btn">
+		                      <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+		                    </span>
+		                </div>
+                    </div>
+
+                    <div class="form-group">
+						<label class="col-xs-3 control-label">关注度</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control" placeholder="排序用" value="0"
+							ng-model="obj.attention_degree"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">颜色</label>
+						<div class="col-xs-9">
+							<input type="text" class="form-control" placeholder=""
+							ng-model="obj.color"
+							>
 						</div>
 					</div>
 
@@ -150,24 +178,6 @@
 					</div>
 
 					<div class="form-group">
-						<label class="col-xs-3 control-label">销售品简介</label>
-						<div class="col-xs-9">
-							<textarea class="form-control" rows="3"
-							ng-model="obj.content"
-							></textarea>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<label class="col-xs-3 control-label">购买须知</label>
-						<div class="col-xs-9">
-							<textarea class="form-control" rows="3"
-							ng-model="obj.notice"
-							></textarea>
-						</div>
-					</div>
-
-					<div class="form-group">
 						<label class="col-xs-3 control-label">一元券描述</label>
 						<div class="col-xs-9">
 							<textarea class="form-control" rows="3"
@@ -202,6 +212,30 @@
 					    </div>
 				  	</div>
 
+				  	<div class="form-group" ng-show = "obj.voucher_type == 2">
+						<label class="col-xs-3 control-label">商品定值价</label>
+						<div class="col-xs-9">
+							<div class="input-group">
+								<input type="number" class="form-control"  min='0'
+								ng-model="obj.guide_price"
+								>
+								<span class="input-group-addon">分</span>
+							</div>
+						</div>
+					</div>
+
+				  	<div class="form-group" ng-show = "obj.voucher_type == 3">
+						<label class="col-xs-3 control-label">一元券满金</label>
+						<div class="col-xs-9">
+							<div class="input-group">
+								<input type="number" class="form-control"  placeholder="例如:满100减20 则输入10000" min='0' 
+								ng-model="obj.voucher_full_price"
+								>
+								<span class="input-group-addon">分</span>
+							</div>
+						</div>
+					</div>
+
 				  	<div class="form-group">
 						<label class="col-xs-3 control-label">一元券优惠</label>
 						<div class="col-xs-9">
@@ -211,10 +245,26 @@
 						</div>
 					</div>
 
+					<div class="form-group">
+						<label class="col-xs-3 control-label">销售品简介</label>
+						<div class="col-xs-9">
+							<textarea class="form-control" rows="3"
+							ng-model="obj.content"
+							></textarea>
+						</div>
+					</div>
+
 				  	<div class="form-group">
 						<label class="col-xs-3 control-label">图文详情</label>
 						<div class="col-xs-9">
 							<div text-angular ng-model="obj.detail"></div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">购买须知</label>
+						<div class="col-xs-9">
+							<div text-angular ng-model="obj.notice"></div>
 						</div>
 					</div>
 

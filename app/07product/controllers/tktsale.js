@@ -4,7 +4,7 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     salegovsubsidycreate, salegovsubsidyupdate, salegovsubsidyinfo, salecategorylist, 
     salejuyousubsidycreate, salejuyousubsidyupdate, salejuyousubsidyinfo, talist,
     sellerList, tstcreate, tststart, tststop,
-    sellerListno, tstcreateno, tststartno, tststopno,saveSaleInteral,findsaleintegrallist,
+    sellerListno, tstcreateno, tststartno, tststopno,saveSaleInteral,findsaleintegrallist,findSaleFenRun,saveSaleFenRun,
     //系统确认模块
     affirmcreate, affirminfo, affirmupdate,
     //短信模版
@@ -53,6 +53,12 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             findsaleintegrallist : function(){
                 return findsaleintegrallist;
+            },
+            findSaleFenRun : function(){
+                return findSaleFenRun;
+            },
+            saveSaleFenRun : function(){
+                return saveSaleFenRun;
             },
             //政府补贴
             salegovsubsidycreate : function(){
@@ -111,6 +117,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             date2str : function(){
                 return date2str;
+            },
+            attrlistsel : function(){
+                return attrlistsel;
             }
           }
         });
@@ -290,6 +299,12 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             findsaleintegrallist : function(){
                 return findsaleintegrallist;
             },
+            findSaleFenRun : function(){
+                return findSaleFenRun;
+            },
+            saveSaleFenRun : function(){
+                return saveSaleFenRun;
+            },
             //政府补贴
             salegovsubsidycreate : function(){
                 return salegovsubsidycreate;
@@ -426,6 +441,12 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             findsaleintegrallist : function(){
                 return findsaleintegrallist;
             },
+             findSaleFenRun : function(){
+                return findSaleFenRun;
+            },
+            saveSaleFenRun : function(){
+                return saveSaleFenRun;
+            },
             //政府补贴
             salegovsubsidycreate : function(){
                 return salegovsubsidycreate;
@@ -483,7 +504,16 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             },
             date2str : function(){
                 return date2str;
-            }
+            },
+            attrlistsel : function(){
+                return attrlistsel;
+            },
+            findSaleFenRun : function(){
+                return findSaleFenRun;
+            },
+            saveSaleFenRun : function(){
+                return saveSaleFenRun;
+            },
           }
         });
 

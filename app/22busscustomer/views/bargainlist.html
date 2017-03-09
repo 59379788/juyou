@@ -1,0 +1,77 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                  
+                  <input type="text" class="form-control" ng-model="info.title" placeholder="活动名称">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <div class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                  </div>
+                        &nbsp;&nbsp;到&nbsp;&nbsp;            
+                  <div class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                  </div>
+                  &nbsp;&nbsp;
+                  <div class="form-group pull-right">
+                      <button type="button" class="btn btn-primary" ng-click="search()">立即查询</button>
+                      <button type="button" class="btn btn-success" ng-click="createactivity()">创建活动</button>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                  </div>
+
+
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+<div class="col-md-12 panel panel-default table-responsive">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-3 text-center">活动名称</th>
+        <th class="col-md-4 text-center">活动时间</th>
+        <th class="col-md-2 text-center">活动状态</th>
+        <th class="col-md-3 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.title}}</td>
+        <td class="text-center">{{obj.startTime}}-{{obj.endTime}}</td>
+        <td class="text-center" ng-show="obj.status==0">开始</td>
+        <td class="text-center" ng-show="obj.status==1">结束</td>
+        <td class="text-center">
+          <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑活动</a>
+          <a ng-click="seeprizelist(obj.id)" class="btn btn-info btn-xs">奖品列表</a>
+          <a ng-click="seepbargainuser(obj.id)" class="btn btn-info btn-xs">参与用户</a>
+          <a ng-click="seewinuser(obj.id)" class="btn btn-info btn-xs">中奖用户</a>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+</div>
+
+    <div class="text-right">
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="search()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+    </div> 
