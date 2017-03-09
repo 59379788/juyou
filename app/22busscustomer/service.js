@@ -186,7 +186,7 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   // 根据id获取广告详情
   var getViewInfoById = BASEURL38985 + '/api/as/gc/viewad/getViewInfoById';
   // 编辑广告
-  var updateView = BASEURL38985 + '/api/as/gc/viewad/updateView';
+  var updateView = BASEURL38985 + '/api/ac/gc/viewadService/updateView';
 
   /****** 看广告 *******/
 
