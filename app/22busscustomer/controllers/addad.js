@@ -2,8 +2,8 @@
     var ad_id = $stateParams.ad_id;
     //console.log(ad_id);
     //编辑器初始化
-    var editor = new UE.ui.Editor();
-    editor.render("editor1");
+    // var editor = new UE.ui.Editor();
+    // editor.render("editor1");
     
     $scope.info = {
         'advertiser':'',
