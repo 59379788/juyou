@@ -1,9 +1,9 @@
 module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, getDate, obj, what, vouchersalecreate, businesslist, typelist){
 
-	if(obj == '') {
+	
+	$scope.obj = obj;
+	if($scope.obj == '') {
 		$scope.obj = {};
-	}else{
-		$scope.obj = obj;
 	}
 	
 	$scope.what = what;
