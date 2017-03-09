@@ -25,7 +25,6 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     };
 
     if (id) {
-        alert(id);
         getNewsRollingInfoById.save({'id':id},function(res) {
             if (res.errcode!=0) {
                 alert(res.errmsg);
