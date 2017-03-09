@@ -1,5 +1,6 @@
 module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInstance, ITEMS_PERPAGE,FileUploader,savePrize,getPrize,prizeId,updatePrize,salelist){  
     var id = $stateParams.id;
+    $scope.salelists = [];
     $scope.info = {
         'saleId' : '',
         'oldPrice' : '',
@@ -14,7 +15,11 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
         'buy_tips' : ''
     }
 
-    $scope.searchform = {};
+    $scope.searchform = {
+        'selected' :{
+            'name' : ''
+        }
+    };
 
     $scope.getsalelist = function() {
         salelist.save($scope.searchform,function(res) {
@@ -22,13 +27,39 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
                 alert(res.errmsg);
                 return;
             }
+            console.log(res);
             $scope.datas = res.data;
-        })
+            var array = res.data;
+            // 获得奖品详情
+            if (prizeId) {
+                getPrize.save({'id':prizeId,},function(res) {
+                    //console.log(prizeId);
+                    if (res.errcode!=0) {
+                        alert(res.errmsg);
+                        return;
+                    }           
+                    //$scope.searchform.selected.name = res.data.saleId;
+                    $scope.info = res.data;
+                    console.log('--------');
+                    //console.log(array);
+                    for (var i = 0; i < array.length ; i++) {
+                        var codeStr = array[i].code;
+                        //console.log(codeStr);
+                        if (res.data.saleId==codeStr) {
+                            $scope.searchform.selected.name = array[i].name;
+                            return;
+                        }
+                    }
+                    
+                })
+            } 
+        });
+        
     
     };
 
     $scope.getsalelist();
-    
+
     // 主图
     var uploader = $scope.uploader = new FileUploader({
         url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
@@ -48,20 +79,10 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
     };
 
     
-    // 获得奖品详情
-    if (prizeId) {
-        getPrize.save({'id':prizeId,},function(res) {
-            //console.log(prizeId);
-            if (res.errcode!=0) {
-                alert(res.errmsg);
-                return;
-            }
-            console.log(res.data.title);
-            $scope.info = res.data;
-        })
-    } 
+    
+    
+
     $scope.ok = function () {
-        alert('okkkk');
         // 编辑奖品
         if (prizeId) {
             if ($scope.info.oldPrice!=''&&$scope.info.targetPrice!=''&&$scope.info.allowableNumber!=''&&$scope.info.description!=''

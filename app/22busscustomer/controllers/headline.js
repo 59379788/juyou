@@ -22,55 +22,26 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     $scope.getlist();
 
     $scope.addheadline = function () {
-        alert('aaa');
         $state.go('app.addheadline');
     };
 
     $scope.delete = function(id) {
-        delheadline.save({'id':id}, function (res) {
-            console.log({'id':id});
-            if (res.errcode !== 0) {
-                alert(res.errmsg);
-                return;
-            }
-            console.log(res);
-            $scope.getlist();
-        })
+        if (confirm('确定要删除吗?')) {
+            delheadline.save({'id':id}, function (res) {
+                console.log({'id':id});
+                if (res.errcode !== 0) {
+                    alert(res.errmsg);
+                    return;
+                }
+                console.log(res);
+                $scope.getlist();
+            });
+            return;
+        } 
+        
     }; 
     $scope.edit = function(id) {
         $state.go('app.addheadline',{'id' : id});
     };
-    // $scope.seeinfo = function(id) {
-    //     $state.go('app.')
-    // }
-
- //    $scope.info = {
- //        'goods_id' : ''
- //    };
-	// $scope.add = function(goods_id) {
- //        savegood.save({'goods_id' : goods_id},function(res){
- //            console.log($scope.info);
- //            if (res.errcode !== 0) {
- //                alert(res.errmsg);
- //                return;
- //            }
- //            console.log(res);
- //            alert('添加成功');
- //            $scope.getlist();
- //        });
- //    };
-
- //    $scope.console = function(goods_id){
- //        updatestateztoone.save({'goods_id' : goods_id}, function(res){
- //            console.log({'goods_id' : goods_id});
- //            if (res.errcode !== 0) {
- //                alert(res.errmsg);
- //                return;
- //            }
- //            console.log(res);
- //            alert('取消成功');
- //            $scope.getlist();
- //        });
- //    };
-
+    
 };

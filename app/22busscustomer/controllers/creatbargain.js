@@ -58,14 +58,14 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,g
     $scope.save = function () {
         // 修改
         if (id) {
+            var para = {
+                'id' : id,
+                'startTime' : date2str($scope.section.startTime) + " 00:00:00",
+                'endTime' : date2str($scope.section.endTime)+ " 23:59:59",
+            };
+            para = angular.extend($scope.info,para);
             if ($scope.info.title!=''&&$scope.info.everyoneDayTimes!=''&&$scope.info.activeTimes!=''&&$scope.info.img!=''
-                &&$scope.info.description!=''&&$scope.info.startTime!=''&&$scope.info.endTime!='') {
-                var para = {
-                    'id' : id,
-                    'startTime' : date2str($scope.section.startTime),
-                    'endTime' : date2str($scope.section.endTime),
-                };
-                para = angular.extend($scope.info,para);
+                &&$scope.info.description!=''&&$scope.info.startTime!=''&&$scope.info.endTime!='') {               
                 updateActiveInfo.save(para,function (res) {
                     console.log(para);
                     if (res.errcode != 0) {
@@ -81,8 +81,8 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,g
         // 添加活动
         } else {
             var para = {
-                'startTime' : date2str($scope.section.startTime),
-                'endTime' : date2str($scope.section.endTime),
+                'startTime' : date2str($scope.section.startTime) + " 00:00:00",
+                'endTime' : date2str($scope.section.endTime) + " 23:59:59",
             };
             para = angular.extend($scope.info,para);
             if ($scope.info.title!=''&&$scope.info.everyoneDayTimes!=''&&$scope.info.activeTimes!=''&&$scope.info.img!=''

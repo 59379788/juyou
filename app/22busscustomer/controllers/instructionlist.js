@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findExplainList,updateExplain,updateDel){ 
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findExplainList,updateExplain,updateDelIns){ 
     /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -31,15 +31,19 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
 
     };
     $scope.delete = function(id){
-        updateDel.save({'id' : id},function(res){
-            if (res.errcode != 0) {
-                alert(res.errmsg);
-                return;
-            }
-            console.log(res);
-            alert('删除成功！');
-            $scope.getlist();
-        });
+        if (confirm('确定删除吗?')) {
+            updateDelIns.save({'id' : id},function(res){
+                if (res.errcode != 0) {
+                    alert(res.errmsg);
+                    return;
+                }
+                console.log(res);
+                alert('删除成功！');
+                $scope.getlist();
+            });
+            return;
+        }
+        
     };
 
     $scope.detail = function(id,title_identifier){

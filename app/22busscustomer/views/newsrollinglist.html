@@ -29,11 +29,14 @@
         <td class="text-center">{{obj.remark}}</td>
         <td class="text-center">
           <p ng-show="obj.type==0">宜买宜卖</p>
+          <p ng-show="obj.type==1">评价送积分</p>
+          <p ng-show="obj.type==3">义买义卖</p>
+          <p ng-show="obj.type==4">爱心义卖</p>
+          <p ng-show="obj.type==5">积分商城</p>
         </td>
         <td class="text-center">
-          <a ng-click="change(obj.id)" class="btn btn-info btn-xs">修改</a>
+          <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑</a>
           <a ng-click="delete(obj.id)" class="btn btn-info btn-xs">删除</a>
-          <a ng-click="detail(obj.id,obj.title_identifier)" class="btn btn-info btn-xs">查看详情</a>
         </td>
       </tr>
     </tbody>

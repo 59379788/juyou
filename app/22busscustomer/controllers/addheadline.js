@@ -54,35 +54,46 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             $scope.info = res.data;
         });
     } 
+
     $scope.save = function () {
-        if (id) {
-            var para = {
-                'id':id
-            },
-            para = angular.extend($scope.info,para);
-            updateNews.save(para,function(res) {
-                if (res.errcode !== 0) {
-                    alert(res.errmsg);
-                    return;
+            if (id) {
+                var para = {
+                    'id':id
+                }    
+                if ($scope.info.title!=''&& $scope.info.content!=''&& $scope.info.url!='') {
+                    para = angular.extend($scope.info,para);
+                    updateNews.save(para,function(res) {
+                        if (res.errcode !== 0) {
+                            alert(res.errmsg);
+                            return;
+                        }
+                        alert('修改成功！');
+                        $state.go('app.headline');
+                    });
+                } else {
+                    alert('请将数据补充完整!');
                 }
-                console.log(para);
-                console.log(res);
-                alert('修改成功！');
-                $state.go('app.headline');
-            });
-        } else {
-            saveheadline.save($scope.info,function (res) {
-                if (res.errcode !== 0) {
-                    alert(res.errmsg);
-                    return;
+                
+            } else {
+                if ($scope.info.title!=''&&$scope.info.content!=''&&$scope.info.url!='') {
+                    saveheadline.save($scope.info,function (res) {
+                        if (res.errcode !== 0) {
+                            alert(res.errmsg);
+                            return;
+                        }
+                        console.log(res);
+                        alert('添加成功!')
+                        $state.go('app.headline');
+                    });
+                } else {
+                    alert('请将数据补充完整!');
                 }
-                console.log(res);
-                alert('添加成功!')
-                $state.go('app.headline');
-            });
-        }
+                
+            }
+
         
         
-    }
+        
+    };
 
 };
