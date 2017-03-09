@@ -421,8 +421,8 @@ var router = function($urlRouterProvider, $stateProvider){
             updateExplain : function(busscustomerservice){
                  return busscustomerservice.updateExplain();
             },
-            updateDel : function(busscustomerservice){
-                 return busscustomerservice.updateDel();
+            updateDelIns : function(busscustomerservice){
+                 return busscustomerservice.updateDelIns();
             }
 
          }
@@ -440,11 +440,8 @@ var router = function($urlRouterProvider, $stateProvider){
             saveExplain : function(busscustomerservice){
                  return busscustomerservice.saveExplain();
             },
-            updateExplain : function(busscustomerservice){
-                 return busscustomerservice.updateExplain();
-            },
-            updateDel : function(busscustomerservice){
-                 return busscustomerservice.updateDel();
+            updateDelIns : function(busscustomerservice){
+                 return busscustomerservice.updateDelIns();
             },
             getAdminExplain : function(busscustomerservice){
                 return busscustomerservice.getAdminExplain();
@@ -568,6 +565,12 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
             saveNewsPhoto : function(busscustomerservice){
                  return busscustomerservice.saveNewsPhoto();
+            },
+            getNewsRollingInfoById : function(busscustomerservice){
+                 return busscustomerservice.getNewsRollingInfoById();
+            },
+            updateRolling : function(busscustomerservice){
+                 return busscustomerservice.updateRolling();
             }
 
          }
@@ -716,13 +719,20 @@ var router = function($urlRouterProvider, $stateProvider){
         })
          // 添加广告
          .state('app.addad', {
-         url: '/addad/:id',
+         url: '/addad/:ad_id',
          controller : 'addad',
          template: require('./views/addad.html'),
          resolve:{
             saveAd : function(busscustomerservice){
                      return busscustomerservice.saveAd();
+            },
+            getViewInfoById : function(busscustomerservice){
+                     return busscustomerservice.getViewInfoById();
+            },
+            updateView : function(busscustomerservice){
+                     return busscustomerservice.updateView();
             }
+
 
          }
         })

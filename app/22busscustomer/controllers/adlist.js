@@ -59,6 +59,10 @@ module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE
         
     };
 
+    $scope.edit = function(ad_id) {
+        $state.go('app.addad',{'ad_id':ad_id});
+    }
+
     
 
 };

@@ -34,28 +34,26 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         $state.go('app.addnewsrolling');
     };
     $scope.delete = function(id) {
-        delNewsPhoto.save({'id':id},function(res) {
-            console.log({'id':id});
-            if (res.errcode !== 0) {
-                alert(res.errmsg);
-                return;
-            }           
-            console.log(res);
-            //alert('删除成功！');
-            $scope.getlist();
-        })
-    }
+        if (confirm('确定要删除吗?')) {
+            delNewsPhoto.save({'id':id},function(res) {
+                console.log({'id':id});
+                if (res.errcode !== 0) {
+                    alert(res.errmsg);
+                    return;
+                }           
+                alert('删除成功！');
+                $scope.getlist();
+            })
+            return;
+        } 
+        
+    };
 
- //    $scope.disagreeapply = function(love_record_id) {
- //        updateronationstate.save({'love_record_id':love_record_id, 'ronation_state':'2'},function(res) {
- //            if (res.errcode !== 0) {
- //                alert(res.errmsg);
- //                return;
- //            }
- //            console.log(res);
- //            $scope.getlist();
+    $scope.edit = function(id) {
+        $state.go('app.addnewsrolling',{'id':id});
+    };
 
- //        });
-  //  };
+
+ 
 
 };

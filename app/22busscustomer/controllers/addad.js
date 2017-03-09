@@ -1,5 +1,6 @@
-    module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,saveAd,FileUploader){  
-    
+    module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,saveAd,FileUploader,getViewInfoById,updateView){  
+    var ad_id = $stateParams.ad_id;
+    //console.log(ad_id);
     //编辑器初始化
     var editor = new UE.ui.Editor();
     editor.render("editor1");
@@ -20,6 +21,8 @@
     $scope.form = {};
     var urlArray = [];
     var str = '';
+    var getstr = '';
+    var getArray = [];
     // logo
     var uploader = $scope.uploader = new FileUploader({
         url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
@@ -123,20 +126,55 @@
         $scope.info.content = str;   
     };
     
-
-    
-	$scope.save = function() {
-        if ($scope.info.advertiser!=''&&$scope.info.logo!=''&&$scope.info.title!=''&&$scope.info.ad_type!=''&&$scope.info.head_photo!=''&&$scope.info.integral_type!=''
-            &&$scope.info.max_integral!=''&&$scope.info.max_people!=''&&$scope.info.content!='') {
-            saveAd.save($scope.info,function(res){
-            console.log($scope.info);
-            if (res.errcode !== 0) {
+    if (ad_id) {
+        getViewInfoById.save({'ad_id':ad_id},function(res) {
+            if (res.errcode!=0) {
                 alert(res.errmsg);
                 return;
             }
             console.log(res);
-            alert('添加成功！');
-            $state.go('app.adlist');
+            $scope.info = res.data;
+            
+            urlArray = $scope.info.content.split(",");
+            console.log(urlArray);
+            $scope.form.picture1 = urlArray[0];
+            $scope.form.picture2 = urlArray[1];
+            $scope.form.picture3 = urlArray[2];
+
+
+        })
+
+    }
+    
+	$scope.save = function() {
+        if (ad_id && $scope.info.advertiser!=''&&$scope.info.logo!=''&&$scope.info.title!=''&&$scope.info.ad_type!=''&&$scope.info.head_photo!=''&&$scope.info.integral_type!=''
+            &&$scope.info.max_integral!=''&&$scope.info.max_people!=''&&$scope.info.content!='') {
+            var para = {
+                'ad_id' : ad_id
+            }
+            para = angular.extend($scope.info,para);
+            updateView.save(para,function(res) {
+                if (res.errcode !== 0) {
+                    alert(res.errmsg);
+                    return;
+                }
+                console.log(res);
+                alert('添加成功！');
+                $state.go('app.adlist');
+
+            })
+
+        } else if ($scope.info.advertiser!=''&&$scope.info.logo!=''&&$scope.info.title!=''&&$scope.info.ad_type!=''&&$scope.info.head_photo!=''&&$scope.info.integral_type!=''
+            &&$scope.info.max_integral!=''&&$scope.info.max_people!=''&&$scope.info.content!='') {
+            saveAd.save($scope.info,function(res){
+                console.log($scope.info);
+                if (res.errcode !== 0) {
+                    alert(res.errmsg);
+                    return;
+                }
+                console.log(res);
+                alert('添加成功！');
+                $state.go('app.adlist');
             });
         } else {
             alert('请将数据补充完整');

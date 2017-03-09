@@ -98,7 +98,7 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   // 修改说明
   var updateExplain = BASEURL38985 + '/api/as/mc/merexplaindao/updateExplain';
   // 删除说明
-  var updateDel = BASEURL38985 + '/api/as/mc/merexplaindao/updateDel';
+  var updateDelIns = BASEURL38985 + '/api/as/mc/merexplaindao/updateDel';
   
 
   // 评价列表
@@ -135,6 +135,10 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var saveNewsPhoto = BASEURL38985 + '/api/as/gc/rollingpicture/saveNewsPhoto';
   // 删除轮播图
   var delNewsPhoto = BASEURL38985 + '/api/as/gc/rollingpicture/del';
+  // 根据id获取轮播图详情
+  var getNewsRollingInfoById = BASEURL38985 + '/api/as/gc/rollingpicture/getNewsRollingInfoById';
+  // 修改轮播图
+  var updateRolling = BASEURL38985 + '/api/as/gc/rollingpicture/updateRolling';
 
   /****** 杀价帮 *******/
 
@@ -179,6 +183,10 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var saveAd = BASEURL38985 + '/api/ac/gc/viewadService/saveView';
   // 删除广告
   var deletead = BASEURL38985 + '/api/as/gc/viewad/del';
+  // 根据id获取广告详情
+  var getViewInfoById = BASEURL38985 + '/api/as/gc/viewad/getViewInfoById';
+  // 编辑广告
+  var updateView = BASEURL38985 + '/api/as/gc/viewad/updateView';
 
   /****** 看广告 *******/
 
@@ -342,8 +350,8 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         updateExplain : function(){
              return $resource(updateExplain, {}, {});
         },
-        updateDel : function(){
-             return $resource(updateDel, {}, {});
+        updateDelIns : function(){
+             return $resource(updateDelIns, {}, {});
         },
         findactivityforadminlist : function(){
              return $resource(findactivityforadminlist, {}, {});
@@ -473,6 +481,18 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         deletead : function() {
           return $resource(deletead, {}, {});
+        },
+        getNewsRollingInfoById : function() {
+          return $resource(getNewsRollingInfoById, {}, {});
+        },
+        updateRolling : function() {
+          return $resource(updateRolling, {}, {});
+        },
+        getViewInfoById : function() {
+          return $resource(getViewInfoById, {}, {});
+        },
+        updateView : function() {
+          return $resource(updateView, {}, {});
         }
 
         
