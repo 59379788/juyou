@@ -26,7 +26,6 @@
                       &nbsp;&nbsp;&nbsp;&nbsp;
                   </div>
 
-
             </div>
         </div>
     </div>
@@ -36,9 +35,10 @@
     <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-3 text-center">活动名称</th>
+        <th class="col-md-2 text-center">活动名称</th>
         <th class="col-md-4 text-center">活动时间</th>
-        <th class="col-md-2 text-center">活动状态</th>
+        <th class="col-md-1 text-center">活动状态</th>
+        <th class="col-md-2 text-center">开启关闭活动</th>
         <th class="col-md-3 text-center">操作</th>
       </tr>
     </thead>
@@ -48,6 +48,15 @@
         <td class="text-center">{{obj.startTime}}--{{obj.endTime}}</td>
         <td class="text-center" ng-show="obj.status==0">开始</td>
         <td class="text-center" ng-show="obj.status==1">结束</td>
+        <td class="text-center">
+          <input
+    bs-switch
+    type="checkbox" 
+    ng-model="obj.isSelected"
+    switch-size="mini"
+    ng-change = "onChange(obj.isSelected,obj.id,obj.status)"
+    > 
+        </td>
         <td class="text-center">
           <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑活动</a>
           <a ng-click="seeprizelist(obj.id)" class="btn btn-info btn-xs">奖品列表</a>

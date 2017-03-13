@@ -1,3 +1,4 @@
+var webpack = require('webpack');
 module.exports = {
   entry : [
     //'webpack-dev-server/client?http://0.0.0.0:8080',
@@ -31,6 +32,13 @@ module.exports = {
     // proxy: {
     //   "*": "http://localhost:9000"
     // }
-  }
+  },
+  plugins: [
+        new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery"
+        })
+    ],
 
 };

@@ -1,4 +1,5 @@
-module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE, findManageActiveList, getDate, findCheckActiveList){
+module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE, findManageActiveList, getDate, findCheckActiveList,updateActiveStart,updateActiveEnd){
+
   /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -57,11 +58,13 @@ module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE
        			if (res.errcode != 0) {
          				alert(res.errmsg);
          				return;
-       			}
-       			console.log(res);
+       			}                
        			$scope.objs = res.data.results;
-       			$scope.bigTotalItems = res.data.totalRecord;
-
+                $scope.bigTotalItems = res.data.totalRecord;
+                $scope.objs.forEach(function(element) {
+                    element.isSelected = element.status=='1'?false:true;
+                }, this);
+                console.log($scope.objs);
      		})
    	};
    	$scope.getlist();
@@ -78,6 +81,38 @@ module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE
    	$scope.seewinuser = function (id) {
    		 $state.go('app.winuser',{'id' : id});
    	};
+
+    
+    // 开关状态
+    $scope.onChange = function(isSelected,id,status){  
+        console.log(isSelected);    
+       if(isSelected==false){
+            updateActiveEnd.save({'id':id},function(res){
+                if(res.errcode!=0){
+                        alert(res.errmsg);
+                        return;
+                }
+                console.log(res);
+                $scope.getlist();
+                return;
+            });
+       } else {
+            updateActiveStart.save({'id':id},function(res){
+                if(res.errcode!=0){
+                    alert(res.errmsg);
+                    return;
+                }
+                console.log(res);
+                $scope.getlist();
+                return;
+            });                           
+            
+       }
+    
+     };
+
+    
+    
 
 
 };
