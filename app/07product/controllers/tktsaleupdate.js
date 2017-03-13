@@ -277,6 +277,9 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	
 	
 	$scope.saleFrSetSave = function(){
+		if(parseInt($scope.salefrobj.rebate_unlimited) < 0){
+			alert('iiiiiiiii');
+		}
 		if(parseInt($scope.salefrobj.profit_ratio) >= 0 && parseInt($scope.salefrobj.profit_ratio) <= 100 && parseInt($scope.salefrobj.rebate_unlimited) >= 0){
 			$scope.salefrobj.sale_code = $scope.saleobj.code;
 			saveSaleFenRun.save($scope.salefrobj, function(res){
@@ -290,7 +293,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 				}
 	
 		    });
-		} else if($scope.salefrobj.rebate_unlimited < 0){
+		} else if($scope.salefrobj.rebate_unlimited <= 0){
 			alert('请设置正确的红包上限');
 			//return;
 		} else {
