@@ -277,7 +277,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 	
 	
 	$scope.saleFrSetSave = function(){
-		if(parseInt($scope.salefrobj.profit_ratio) >= 0 && (parseInt($scope.salefrobj.profit_ratio) <= 100)){
+		if(parseInt($scope.salefrobj.profit_ratio) >= 0 && parseInt($scope.salefrobj.profit_ratio) <= 100 && parseInt($scope.salefrobj.rebate_unlimited) >= 0){
 			$scope.salefrobj.sale_code = $scope.saleobj.code;
 			saveSaleFenRun.save($scope.salefrobj, function(res){
 		     	if(res.errcode === 0)
@@ -290,9 +290,11 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 				}
 	
 		    });
+		} else if($scope.salefrobj.rebate_unlimited < 0){
+			alert('请设置正确的红包上限');
+			//return;
 		} else {
 			alert('设置正确的利润率(0-100)');
-			return;
 		}
 	}
 
@@ -328,19 +330,19 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 			console.log('ooooooooooooooo');
 		console.log($scope.salejfobj);
 			console.log('ooooooooooooooo');
-//		$scope.salejfobj.code = $scope.saleobj.code;
-//		saledetailcreate.save($scope.salejfobj, function(res){
-//
-//	     	if(res.errcode === 0)
-//	     	{
-//	     		getsaledetail($scope.saleobj.code);
-//	     	}
-//   		else
-//			{
-//				alert(res.errmsg);
-//			}
-//
-//	    });
+		$scope.salejfobj.code = $scope.saleobj.code;
+		saledetailcreate.save($scope.salejfobj, function(res){
+
+	     	if(res.errcode === 0)
+	     	{
+	     		getsaledetail($scope.saleobj.code);
+	     	}
+  		else
+			{
+				alert(res.errmsg);
+			}
+
+	    });
 
 	};
 	
