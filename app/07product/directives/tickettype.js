@@ -36,15 +36,6 @@ module.exports = function($resource, $state, $http, $q){
 	        'method' : 'GET', 
 	        'url': '/api/as/tc/attr/list',
 	    }),
-	    // //销售品包含的票种列表
-	    // 'saletickettypelist' :
-	    // $http({
-	    //     'method' : 'GET', 
-	    //     'url': '/api/as/tc/salettype/list',
-	    //     'params' : {
-	    //         'sale_code' : scope.saleobj.code
-	    //     }
-	    // }),
 	};
 
 
@@ -66,13 +57,6 @@ module.exports = function($resource, $state, $http, $q){
 	        return ;
 	    }
 
-        // if(res.saletickettypelist.data.errcode === 0){
-        //     console.log(res.saletickettypelist.data);
-        // }else{
-        //     alert('/api/as/tc/salettype/list' + res.saletickettypelist.data.errmsg);
-        //     return ;
-        // }
-
         gettickettypedetail();
 
 	    scope.page = {
@@ -88,8 +72,8 @@ module.exports = function($resource, $state, $http, $q){
 	scope.changeview = function(){
 		$resource('/api/as/tc/goods/typelist', {}, {})
 		.save({'view' : scope.tickettypeobj.place_code}, function(res){
-			console.log('查询景区下的票种信息');
-			console.log(res);
+			//console.log('查询景区下的票种信息');
+			//console.log(res);
         	if(res.errcode !== 0)
 			{
 				alert(res.errmsg);
@@ -110,11 +94,10 @@ module.exports = function($resource, $state, $http, $q){
 		scope.tickettypeobj.periodstart = scope.saleobj.periodstart;
 		scope.tickettypeobj.periodend = scope.saleobj.periodend;
 
-		console.log(scope.tickettypeobj);
 		$resource('/api/as/tc/salettype/save', {}, {})
 		.save(scope.tickettypeobj, function(res){
-			console.log('保存票种信息');
-			console.log(res);
+			//console.log('保存票种信息');
+			//console.log(res);
         	if(res.errcode !== 0)
 			{
 				alert(res.errmsg);
@@ -130,7 +113,7 @@ module.exports = function($resource, $state, $http, $q){
 		console.log(item);
 
 		return ;
-		
+
 		scope.tickettypeobj.sale_code = scope.saleobj.code;
 		scope.tickettypeobj.periodstart = scope.saleobj.periodstart;
 		scope.tickettypeobj.periodend = scope.saleobj.periodend;
@@ -157,8 +140,6 @@ module.exports = function($resource, $state, $http, $q){
         }
         $resource('/api/as/tc/salettype/delete', {}, {})
 		.save({'id' : id}, function(res){
-			console.log('删除景区下的票种信息');
-			console.log(res);
         	if(res.errcode !== 0)
 			{
 				alert(res.errmsg);
@@ -197,8 +178,8 @@ module.exports = function($resource, $state, $http, $q){
 
 		$resource('/api/as/tc/salettype/list', {}, {})
 		.save({'sale_code' : scope.saleobj.code}, function(res){
-			console.log('获取票种详情');
-			console.log(res);
+			//console.log('获取票种详情');
+			//console.log(res);
         	if(res.errcode !== 0)
 			{
 				alert(res.errmsg);
@@ -220,7 +201,6 @@ module.exports = function($resource, $state, $http, $q){
 				}
 			}
 			scope.page.saletickettypelist = res.data;
-			console.log(scope.page.saletickettypelist);
         });
 	}
 

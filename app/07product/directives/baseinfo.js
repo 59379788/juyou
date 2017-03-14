@@ -91,21 +91,21 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 		console.log(res);
 		//分类信息
 	    if(res.categorylist.data.errcode === 0){
-	        console.log(res.categorylist.data);
+	        //console.log(res.categorylist.data);
 	    }else{
 	        alert('/api/as/sc/dict/dictbytypelist?type=sale_category' + res.categorylist.data.errmsg);
 	        return ;
 	    }
 	    //销售品所属列表
 	    if(res.salebelonglist.data.errcode === 0){
-	        console.log(res.salebelonglist.data);
+	        //console.log(res.salebelonglist.data);
 	    }else{
 	        alert('/api/as/sc/dict/dictbytypelist?type=ticket_sale_belong' + res.salebelonglist.data.errmsg);
 	        return ;
 	    }
 	    //短信列表
 	    if(res.smslist.data.errcode === 0){
-	        console.log(res.smslist.data);
+	        //console.log(res.smslist.data);
 	    }else{
 	        alert('/api/as/tc/salesmstemplate/list' + res.smslist.data.errmsg);
 	        return ;
@@ -114,7 +114,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 	    if(angular.isDefined(res.saleinfo)){
 	    	//销售品信息
             if(res.saleinfo.data.errcode === 0){
-                console.log(res.saleinfo.data);
+                //console.log(res.saleinfo.data);
                 //赋值给销售品对象。
                 angular.extend(scope.saleobj, res.saleinfo.data.data);
                 scope.baseinfo.dateshow.periodstart.date = scope.util.str2date(scope.saleobj.periodstart);
@@ -162,8 +162,8 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
         //获取功能列表
         $resource('/api/as/tc/salecategory/list', {}, {})
         .get({'sale_category_code' : scope.saleobj.sale_category}, function(res){
-        	console.log('功能列表');
-        	console.log(res);
+        	//console.log('功能列表');
+        	//console.log(res);
         	if(res.errcode !== 0){
         		alert(res.errmsg);
         		return;
@@ -196,7 +196,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 		scope.saleobj.periodstart = scope.util.date2str(scope.baseinfo.dateshow.periodstart.date);
 		scope.saleobj.periodend = scope.util.date2str(scope.baseinfo.dateshow.periodend.date);
 
-		console.log(scope.saleobj);
+		//console.log(scope.saleobj);
 
 		var url = '';
 		if(scope.saleobj.id == ''){
@@ -206,7 +206,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 		}
 
 		$resource(url, {}, {}).save(scope.saleobj, function(res){
-			console.log(res);
+			//console.log(res);
 			if(res.errcode != 0){
 				alert(res.errmsg);
 				return;
