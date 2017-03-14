@@ -34,5 +34,7 @@ App.controller('middlebusiness',require('./controllers/middlebusiness'));
 App.controller('newproduct',require('./controllers/newproduct'));
 App.directive('productbaseinfo',require('./directives/baseinfo'));
 App.directive('producttickettype',require('./directives/tickettype'));
+App.directive('productaffirm',require('./directives/affirm'));
+App.directive('productintegral',require('./directives/integral'));
 
 module.exports = App;

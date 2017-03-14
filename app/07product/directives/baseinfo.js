@@ -7,6 +7,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 		replace:true,
 		scope:{
 			'saleobj' : '=',
+			'funobj' : '=',
 			'baseinfo' : '=',
 			'util' : '=',
 		},
@@ -88,21 +89,21 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 	$q.all(beforedata).then(function(res){
 
 		console.log(res);
-
+		//分类信息
 	    if(res.categorylist.data.errcode === 0){
 	        console.log(res.categorylist.data);
 	    }else{
 	        alert('/api/as/sc/dict/dictbytypelist?type=sale_category' + res.categorylist.data.errmsg);
 	        return ;
 	    }
-
+	    //销售品所属列表
 	    if(res.salebelonglist.data.errcode === 0){
 	        console.log(res.salebelonglist.data);
 	    }else{
 	        alert('/api/as/sc/dict/dictbytypelist?type=ticket_sale_belong' + res.salebelonglist.data.errmsg);
 	        return ;
 	    }
-
+	    //短信列表
 	    if(res.smslist.data.errcode === 0){
 	        console.log(res.smslist.data);
 	    }else{
@@ -111,6 +112,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 	    }
 
 	    if(angular.isDefined(res.saleinfo)){
+	    	//销售品信息
             if(res.saleinfo.data.errcode === 0){
                 console.log(res.saleinfo.data);
                 //赋值给销售品对象。
@@ -155,6 +157,24 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
         	scope.saleobj.sms_template_id = res.smslist.data.data[0].sms_template_id;
         	scope.saleobj.sms_diy = res.smslist.data.data[0].sms_diy;
         }
+
+
+        //获取功能列表
+        $resource('/api/as/tc/salecategory/list', {}, {})
+        .get({'sale_category_code' : scope.saleobj.sale_category}, function(res){
+        	console.log('功能列表');
+        	console.log(res);
+        	if(res.errcode !== 0){
+        		alert(res.errmsg);
+        		return;
+        	}
+
+        	for(var i = 0; i < res.data.length; i++){
+        		var tmp = res.data[i];
+        		scope.funobj[tmp.sub_table_code] = tmp;
+        	}
+
+        });
 
 	});
 

@@ -12,6 +12,8 @@ module.exports = function($scope, $stateParams, $http, $q, FileUploader, str2dat
         'str2date' : str2date,
         'date2str' : date2str,
     }
+    //销售品功能列表
+    $scope.funobj = {};
 
     //基本信息中需要提前弄好的信息。
     $scope.baseinfo = {
