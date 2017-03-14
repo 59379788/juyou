@@ -623,7 +623,7 @@ var router = function($urlRouterProvider, $stateProvider){
       })
 
     .state('app.newproduct', {
-        url: '/product/new/:id',
+        url: '/product/new.html',
         controller : 'newproduct',
         templateUrl : 'product.html',
         template: require('./views/product.html'),
@@ -644,7 +644,24 @@ var router = function($urlRouterProvider, $stateProvider){
                 return utilservice.str2date;
             }
         }
-      })
+    })
+
+
+    .state('app.editproduct', {
+        url: '/product/edit/:id',
+        controller : 'newproduct',
+        templateUrl : 'product.html',
+        template: require('./views/product.html'),
+        resolve:{
+            date2str : function(utilservice){
+                return utilservice.getDate;
+            },
+            str2date : function(utilservice){
+                return utilservice.str2date;
+            }
+        }
+    })
+
 };
 
 module.exports = router;

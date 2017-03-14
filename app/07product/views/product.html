@@ -24,7 +24,6 @@
         ></producttickettype>
       </uib-tab>
 
-
       <uib-tab index="2" heading="系统确认项" 
       ng-if="saleobj.code !== '' && saleobj.sys_affirm_type == 0">
         <productaffirm
@@ -32,9 +31,16 @@
           util="util"
         ></productaffirm>
       </uib-tab>
+      
+      <uib-tab index="3" heading="限时购" 
+      ng-if="saleobj.code !== '' && funobj.hasOwnProperty('flashsale')">
+        <productflashsale
+          saleobj="saleobj"
+          util="util"
+        ></productflashsale>
+      </uib-tab>
 
-
-      <uib-tab index="3" heading="配置积分" 
+      <uib-tab index="4" heading="配置积分" 
       ng-if="saleobj.code !== '' && funobj.hasOwnProperty('integral')">
         <productintegral
           saleobj="saleobj"

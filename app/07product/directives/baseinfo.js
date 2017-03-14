@@ -19,7 +19,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 		'market_price' : 0,
 		'guide_price' : 0,
 		'cost_price' : 0,
-		'sale_category' : '',
+		'sale_category' : 'F10',
 		'sms_template_id' : '',
 		'sms_diy' : '',
 		'sms_type' : 1,
@@ -216,7 +216,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 				scope.saleobj.id = res.data.uuid;
 			}
 			
-			$state.go('app.newproduct', {'id' : scope.saleobj.id});
+			$state.go('app.editproduct', {'id' : scope.saleobj.id});
 
 		});
 
