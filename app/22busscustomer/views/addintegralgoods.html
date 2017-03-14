@@ -7,11 +7,17 @@
  <div class="form-group">
 
  <div class="form-group">
-  <label for="inputDate" class="col-sm-4 control-label">销售品编号：</label>
+  <label for="inputDate" class="col-sm-4 control-label">销售品：</label>
   <div class="col-md-6">
-  <input type="text" class="form-control" id="inputpoolname" placeholder=""
-      ng-model="info.sale_code"
-      >
+    <ui-select ng-model="searchform.selected" theme="bootstrap">
+					<ui-select-match placeholder="请选择一个销售品作为奖品">{{$select.selected.name}}</ui-select-match>
+					<ui-select-choices group-by="'place_name'" repeat="item in datas | filter: $select.search">
+							<span ng-bind-html="item.name | highlight: $select.search"></span>
+							<small ng-bind-html="item.code | highlight: $select.search"></small>
+					</ui-select-choices>
+		</ui-select>
+  <!--<input type="text" class="form-control" id="inputpoolname" placeholder=""
+      ng-model="info.sale_code">-->
   </div>    
  </div>
 

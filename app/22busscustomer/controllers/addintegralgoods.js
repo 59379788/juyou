@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,FileUploader,saveIntegralGood,updateMal,getInfoBySaleCode){  
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,FileUploader,saveIntegralGood,updateMal,getInfoBySaleCode,salelist){  
     var id = $stateParams.id;
     //alert(id);
     $scope.info = {
@@ -48,22 +48,56 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         $scope.info.photos = response.savename;
     };
 
-    if (id) {
-        alert('ididiid');
-        getInfoBySaleCode.save({'id' : id}, function(res){
-            if (res.errcode !== 0) {
+    $scope.searchform = {
+        'selected' :{
+            'name' : ''
+        }
+    };
+
+    // 获取销售品列表和商品信息
+    $scope.getsalelist = function() {
+        salelist.save($scope.searchform,function(res) {
+            if (res.errcode!=0) {
                 alert(res.errmsg);
                 return;
             }
             console.log(res);
-            $scope.info = res.data;
+            $scope.datas = res.data;
+            var array = res.data;
+            if (id) {
+                alert(id);
+                getInfoBySaleCode.save({'id' : id}, function(res){
+                    if (res.errcode !== 0) {
+                        alert(res.errmsg);
+                        return;
+                    }
+                    console.log(res);
+                    $scope.info = res.data;
+                    for (var i = 0; i < array.length ; i++) {
+                        var codeStr = array[i].code;
+                        //console.log(codeStr);
+                        if (res.data.sale_code==codeStr) {
+                            $scope.searchform.selected.name = array[i].name;
+                            return;
+                        }
+                    }
 
+                });
+            } 
+
+           
         });
-    } 
+        
+    
+    };
+
+    $scope.getsalelist();
 
 
 	$scope.savegoods = function() {
-        if(id){
+        if(id&&$scope.info.sale_code!=''&&$scope.info.title!=''&&$scope.info.picture!=''&&$scope.info.photos!=''
+           &&$scope.info.content!=''&&$scope.info.market_price!=''&&$scope.info.integral!=''&&$scope.info.integra_num!=''){
+            $scope.info.sale_code = $scope.searchform.selected.code;
              updateMal.save($scope.info, function(res){
                 console.log($scope.info);
                 if (res.errcode !== 0) {
@@ -75,7 +109,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
                 $state.go('app.integral');
             });
 
-        } else {           
+        } else {   
+            $scope.info.sale_code = $scope.searchform.selected.code;        
             saveIntegralGood.save($scope.info, function(res){
                 console.log($scope.info);
                 if (res.errcode !== 0) {

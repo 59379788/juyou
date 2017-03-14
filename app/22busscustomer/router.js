@@ -494,6 +494,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getInfoBySaleCode : function(busscustomerservice){
                 return busscustomerservice.getInfoBySaleCode();
+            },
+            salelist : function(busscustomerservice){
+                     return busscustomerservice.salelist();
             }
          }
         })
@@ -704,8 +707,8 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'addprize',
          template: require('./views/addprize.html'),
          resolve:{
-            // savePrize : function(utilservice){
-            //          return utilservice.getDate;
+            // salelist : function(busscustomerservice){
+            //          return busscustomerservice.salelist;
             // }
 
          }
@@ -751,6 +754,19 @@ var router = function($urlRouterProvider, $stateProvider){
          url: '/scenic/:id',
          controller : 'scenic',
          template: require('./views/scenic.html'),
+         resolve:{
+            // saveAd : function(busscustomerservice){
+            //          return busscustomerservice.saveAd();
+            // }
+
+         }
+        })
+
+        // 热搜
+         .state('app.hotsearch', {
+         url: '/hotsearch/:id',
+         controller : 'hotsearch',
+         template: require('./views/hotsearch.html'),
          resolve:{
             // saveAd : function(busscustomerservice){
             //          return busscustomerservice.saveAd();
