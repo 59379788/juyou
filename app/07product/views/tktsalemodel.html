@@ -769,23 +769,23 @@
 					      <tr>
 					        <th class="col-md-6 text-center">销售品类型</th>
 					        <th class="col-md-2 text-center">积分</th>
-					        <th class="col-md-2 text-center" ng-show="funobj.hasOwnProperty('integral')">操作</th>
+					        <!--<th class="col-md-2 text-center" ng-show="funobj.hasOwnProperty('integral')">操作</th>-->
 					      </tr>
 					    </thead>
 					    <tbody>
 					      <tr ng-repeat="obj in salejfobj.list">
-					        <td class="text-center" ng-show="obj.integral_type == 0">最高可用积分</td>
+					        <td class="text-center">最高可用积分</td>
 					        <!-- <td class="text-center" ng-show="obj.integral_type == 0">提现积分</td>
 					        <td class="text-center" ng-show="obj.integral_type == 1">抵值积分</td> -->
 					        <td class="text-center">
-					          <input type="text" class="btn btn-block btn-default" placeholder="积分" ng-model="obj.integral_price" />
+					          <input type="number" min="0" class="btn btn-block btn-default" placeholder="积分" ng-model="obj.integral_price" />
 					        </td>
-					        <td class="text-center" ng-show="funobj.hasOwnProperty('integral')">
+					        <!--<td class="text-center" ng-show="funobj.hasOwnProperty('integral')">
 					          	<a 	ng-click="deljf(obj.id)" 
 					          		class="btn btn-warning btn-xs">
 					          		删除
 					        	</a>
-					        </td>
+					        </td>-->
 					      </tr>
 					    </tbody>
 				  	</table>
@@ -809,8 +809,8 @@
 			</button>
 		</div>
 		<div class="panel-body">
-			<div class="container-fluid">
-				<div class="col-xs-12" >
+			<div class="container-fluid form-group">
+				<div class="col-xs-12 form-group" >
 					<!--<div class="col-xs-1"></div>-->
 					<div class="col-xs-2">
 						<label for="fxbt" class="pull-right text-right mt10">分享标题&nbsp;&nbsp;&nbsp;&nbsp;</label>
@@ -821,20 +821,26 @@
 				</div>
 					<br/>
 					<br/>
-				<div class="col-xs-12" >
+				<div class="col-xs-12 form-group" >
 					<!--<div class="col-xs-1"></div>-->
 					<div class="col-xs-2">
 						<label for="lrl" class="pull-right text-right mt10">利润率&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
-					<div class="col-xs-2 text-right">
+					<div class="col-xs-8">
+						<div class="input-group">							
+							<input type="number" class="form-control" placeholder="利润率" min='0'
+							ng-model="salefrobj.profit_ratio">
+							<span class="input-group-addon">%</span>
+						</div>
+					</div>
+					<!--<div class="col-xs-2 text-right">
 						<input type="number" min="0" max="100" name="lrl" class="form-control" placeholder="利润率" ng-model="salefrobj.profit_ratio" />
 					</div>
-					<div class="col-xs-1 mt10">(%)</div>
+					<div class="col-xs-1 mt10">(%)</div>-->
 				</div>
+					<!--<br/>
 					<br/>
-					<br/>
-				<div class="col-xs-12" >
-					<!--<div class="col-xs-1"></div>-->
+				<div class="col-xs-12 form-group" >
 					<div class="col-xs-2">
 						<label for="lrl" class="pull-right text-right mt10">宜买说&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
@@ -842,18 +848,22 @@
 						<textarea rows="4" class="form-control" placeholder="商品描述" ng-model="salefrobj.sk_shop_info">	
 						</textarea>
 					</div>
-				</div>
+				</div>-->
 					<br/>
 					<br/>
-				<div class="col-xs-12" >
-					<!--<div class="col-xs-1"></div>-->
+				<div class="col-xs-12 form-group">
 					<div class="col-xs-2">
-						<label for="lrl" class="pull-right text-right mt10">红包上线&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<label for="lrl" class="pull-right text-right mt10">红包上限&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
-					<div class="col-xs-8 text-right">
-						<textarea rows="4" class="form-control" placeholder="商品描述" ng-model="salefrobj.rebate_unlimited">	
-						</textarea>
+					<div class="col-xs-8">
+						<div class="input-group">
+							<span class="input-group-addon">¥</span>
+							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0'
+							ng-model="salefrobj.rebate_unlimited"
+								>
+						</div>
 					</div>
+					
 				</div>
 
 			</div>

@@ -80,6 +80,9 @@ App.controller('adlist',require('./controllers/adlist'));
 App.controller('addad',require('./controllers/addad'));
 
 // 景区管理
-App.controller('scenic',require('./controllers/scenic'));
+// App.controller('scenic',require('./controllers/scenic'));
+
+// 热搜
+App.controller('hotsearch',require('./controllers/hotsearch'));
 
 module.exports = App;

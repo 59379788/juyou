@@ -120,7 +120,6 @@
     
     uploader4.onSuccessItem = function(fileItem, response, status, headers) {
          $scope.form.picture3 = response.savename;
-        // console.log(response.savename);
         urlArray.push(response.savename);
         str = urlArray.join(","); 
         $scope.info.content = str;   
@@ -134,7 +133,6 @@
             }
             console.log(res);
             $scope.info = res.data;
-            
             urlArray = $scope.info.content.split(",");
             console.log(urlArray);
             $scope.form.picture1 = urlArray[0];

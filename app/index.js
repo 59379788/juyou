@@ -5,6 +5,7 @@
 
 
 var angular = require('angular');
+
 require('angular-resource');
 require('angular-ui-router');
 require('angular-ui-bootstrap');
@@ -44,6 +45,13 @@ require('./style/app.css');
 require('ui-select');
 require('../node_modules/ui-select/dist/select.min.css');
 // ui-select end
+
+// frapontillo.bootstrap-switch 依赖 bootstrap-switch
+require('angular-bootstrap-switch');
+
+// bootstrap-switch
+require('bootstrap-switch');
+require('../node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css');
 
 // 日期汉化
 require('../libs/angular-locale_zh');
@@ -138,6 +146,7 @@ var App = angular.module('juyouApp', [
     'constant',
     'ui.select',
     'ngSanitize',
+    'frapontillo.bootstrap-switch',
 ]);
 
 App.config(['$urlRouterProvider', '$stateProvider', 

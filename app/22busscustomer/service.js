@@ -154,6 +154,10 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var updateActiveInfo = BASEURL38985 + '/api/as/ac/aactactive/updateActiveInfo';
   // 根据活动id查询活动详情接口
   var getActiveInfo = BASEURL38985 + '/api/as/ac/aactactive/getActiveInfo';
+  // 开启活动
+  var updateActiveStart = BASEURL38985 + '/api/as/ac/aactactive/updateActiveStart';
+  // 结束活动
+  var updateActiveEnd = BASEURL38985 + '/api/as/ac/aactactive/updateActiveEnd';
   // 参与用户列表
   var findJoinUserList = BASEURL38985 + '/api/as/ac/aactactive/findJoinUserList';
   // 查询用户列表接口
@@ -493,6 +497,12 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         updateView : function() {
           return $resource(updateView, {}, {});
+        },
+        updateActiveStart : function() {
+          return $resource(updateActiveStart, {}, {}); // 开启活动
+        },
+        updateActiveEnd : function() {
+          return $resource(updateActiveEnd, {}, {}); // 结束活动
         }
 
         

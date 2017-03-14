@@ -445,6 +445,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             getAdminExplain : function(busscustomerservice){
                 return busscustomerservice.getAdminExplain();
+            },
+            updateExplain : function(busscustomerservice){
+                 return busscustomerservice.updateExplain();
             }
 
          }
@@ -576,7 +579,7 @@ var router = function($urlRouterProvider, $stateProvider){
          }
         })
 
-         // 活动列表
+         // 杀价帮活动列表
          .state('app.bargainlist', {
          url: '/bargainlist/:id',
          controller : 'bargainlist',
@@ -590,6 +593,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             findCheckActiveList : function(busscustomerservice){
                      return busscustomerservice.findCheckActiveList();
+            },
+            updateActiveStart : function(busscustomerservice){
+                     return busscustomerservice.updateActiveStart();
+            },
+            updateActiveEnd : function(busscustomerservice){
+                     return busscustomerservice.updateActiveEnd();
             }
 
          }
