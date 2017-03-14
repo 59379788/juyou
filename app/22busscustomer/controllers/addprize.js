@@ -39,8 +39,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
                     }           
                     //$scope.searchform.selected.name = res.data.saleId;
                     $scope.info = res.data;
-                    $scope.info.oldPrice = (res.data.oldPrice) / 100;
-                    $scope.info.targetPrice = (res.data.targetPrice) / 100;
+                    $scope.info.oldPrice = (res.data.oldPrice);
+                    $scope.info.targetPrice = (res.data.targetPrice);
                     console.log('--------');
                     //console.log(array);
                     for (var i = 0; i < array.length ; i++) {
