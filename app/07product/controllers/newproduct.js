@@ -1,35 +1,66 @@
-module.exports = function($scope, $stateParams, FileUploader){
-
-      $scope.tabs = [
-    { title:'Dynamic Title 1', content:'Dynamic content 1' },
-    { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
-  ];
-
-  $scope.alertMe = function() {
-    setTimeout(function() {
-      $window.alert('You\'ve selected the alert tab!');
-    });
-  };
-
-  $scope.model = {
-    name: 'Tabs'
-  };
-
+module.exports = function($scope, $stateParams, $http, $q, FileUploader, str2date, date2str){
 
     var id = $stateParams.id;
+    console.log('id');
+    console.log(id);
     //产品对象，保存着产品的基本信息
-    $scope.productobj = {
-        'name' : '',
-        'market_price' : 0,
-        'guide_price' : 0,
-        'cost_price' : 0,
+    $scope.saleobj = {
+        'id' : id || '',
     };
-    //产品的票种信息
-    $scope.ttypeobj = {
-        'obj' : {},     //当前选择的票种
-        'list' : [],    //选好的列表
+  
+    $scope.util = {
+        'str2date' : str2date,
+        'date2str' : date2str,
+    }
+
+    //基本信息中需要提前弄好的信息。
+    $scope.baseinfo = {
+        'imageshow' : {},
+        'dateshow' : {},
     };
 
-    $scope.FileUploader = FileUploader;
+    var uploader1 = $scope.uploader1 = new FileUploader({
+        url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
+    });
+    uploader1.filters.push({
+        name: 'imageFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    }); 
+    uploader1.onSuccessItem = function(fileItem, response, status, headers) {
+        $scope.saleobj.top_pic = response.savename;
+    };
+
+    var uploader2 = $scope.uploader2 = new FileUploader({
+        url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
+    });
+    uploader2.filters.push({
+        name: 'imageFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    }); 
+    uploader2.onSuccessItem = function(fileItem, response, status, headers) {
+        $scope.saleobj.logo = response.savename;
+    };
+  
+    $scope.baseinfo.imageshow.uploader1 = uploader1;
+    $scope.baseinfo.imageshow.uploader2 = uploader2;
+
+
+    $scope.baseinfo.dateshow.periodstart = {
+        'date' : new Date(),
+    };
+
+    $scope.baseinfo.dateshow.periodend = {
+        'date' : new Date($scope.baseinfo.dateshow.periodstart.date.getFullYear(),11,31),
+    };
+
+    $scope.baseinfo.dateshow.open = function(obj) {
+        obj.opened = true;
+    };
     
 };

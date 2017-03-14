@@ -6,16 +6,28 @@
 
 <div class="col-sm-12">
     <uib-tabset active="activeForm">
+
+      <uib-tab index="1" heading="票种信息" ng-if="saleobj.id !== '' && saleobj.code !== ''">
+        <producttickettype
+          saleobj="saleobj"
+          util="util"
+        ></producttickettype>
+      </uib-tab>
+
       <uib-tab index="0" heading="基本信息">
         <productbaseinfo
-          model="productobj"
-          FileUploader="FileUploader"
+          saleobj="saleobj"
+          baseinfo="baseinfo"
+          util="util"
         ></productbaseinfo>
       </uib-tab>
-      <uib-tab index="1" heading="票种信息">
-        <producttickettype></producttickettype>
-      </uib-tab>
-      <uib-tab index="2" heading="系统确认项">
+
+
+
+
+
+      <uib-tab index="2" heading="系统确认项" 
+      ng-show="saleobj.id !== '' && saleobj.sys_affirm_type == 0">
         More Tab Content
       </uib-tab>
     </uib-tabset>

@@ -857,6 +857,7 @@ module.exports = function($scope, $stateParams, id, viewlist, saleinfo, saleupda
 		$resource('/api/as/tc/salettype/list', {}, {})
 		.save({'sale_code' : code}, function(res){
 			console.log('获取票种详情');
+			
 			console.log(res);
         	if(res.errcode !== 0)
 			{

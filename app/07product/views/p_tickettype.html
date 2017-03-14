@@ -1,119 +1,111 @@
 <div class="container-fluid form-horizontal">
 <div class="col-xs-12" >
 
-	<div class="form-group">
-		<label class="col-xs-2 control-label">添加票种</label>
-		<div class="col-xs-4">
-			<select class="form-control" ng-model="tickettypeobj.place_code" ng-change="change1(tickettypeobj.place_code)" 
-              ng-options="view.code as view.name for view in viewarr"
-            >
-            </select>
+	<div class="form-group mt10">
+		<label class="col-xs-1 control-label">添加票种</label>
+		<div class="col-xs-3">
+			<ui-select ng-model="tickettypeobj.place_code" theme="bootstrap"
+	          ng-change="changeview()"
+	          >
+	            <ui-select-match placeholder="请选择一个景区">{{$select.selected.name}}</ui-select-match>
+	            <ui-select-choices 
+	            repeat="item.code as item in page.viewlist | filter: $select.search">
+	              <span ng-bind-html="item.name | highlight: $select.search"></span>
+	            </ui-select-choices>
+	        </ui-select>
         </div>
-        <div class="col-xs-4">
-			<select class="form-control" ng-model="tickettypeobj.ticket_type_code" 
-              ng-options="tickettype.code as tickettype.name for tickettype in tickettypearr"
-            >
-            </select>
+        <label class="col-xs-1 control-label">票种</label>
+        <div class="col-xs-3">
+        	<ui-select ng-model="tickettypeobj.ticket_type_code" theme="bootstrap"
+	          >
+	            <ui-select-match placeholder="请选择一个票种">{{$select.selected.name}}</ui-select-match>
+	            <ui-select-choices 
+	            repeat="item.code as item in page.tickettypelist | filter: $select.search">
+	              <span ng-bind-html="item.name | highlight: $select.search"></span>
+	            </ui-select-choices>
+	        </ui-select>
 		</div>
+		<label class="col-xs-1 control-label">属性</label>
 		<div class="col-xs-2">
-			<a ng-click="add1()" class="btn btn-success btn-sm"
-			ng-show="saleobj.state == '0'"
+			<ui-select ng-model="tickettypeobj.ticket_type_attr" theme="bootstrap"
+	          >
+	            <ui-select-match placeholder="请选择一个票种">
+	            	{{$select.selected.type_attr_name}}
+	            </ui-select-match>
+	            <ui-select-choices 
+	            repeat="item.ticket_attr_id as item in page.attrlist | filter: $select.search">
+	              <span ng-bind-html="item.type_attr_name | highlight: $select.search"></span>
+	            </ui-select-choices>
+	        </ui-select>
+		</div>
+		<!-- ng-show="saleobj.state == '0'" -->
+		<div class="col-xs-1">
+			<a ng-click="add()" class="btn btn-success btn-sm"
+			
 			>添加</a>
 		</div>
-	</div>
-	<div class="form-group">
-		<form class="form-inline">
-		<label class="col-xs-2 control-label">有效期</label>&nbsp;&nbsp;
-      	<div class="input-group">
-          	<input 	type="text" 
-					class="form-control"
-					ng-model="section.periodstart.date"
-					uib-datepicker-popup="yyyy-MM-dd" 
-					is-open="section.periodstart.opened" 
-					ng-required="true" 
-					close-text="Close" 
-					readonly/>
-			 <span 	class="input-group-btn">
-					<button type="button" 
-						class="btn btn-default"
-						ng-click="open(section.periodstart)">
-					<i class="glyphicon glyphicon-calendar"></i>
-				</button>
-			</span>
-		</div>
-		 &nbsp;&nbsp;至&nbsp;&nbsp;            
-		<div class="input-group">
-			<input 	type="text" 
-					class="form-control"
-					ng-model="section.periodend.date"
-					uib-datepicker-popup="yyyy-MM-dd" 
-					is-open="section.periodend.opened" 
-					ng-required="true" 
-					close-text="Close" 
-					readonly/>
-			<span class="input-group-btn">
-				<button type="button" 
-            			class="btn btn-default" 
-            			ng-click="open(section.periodend)">
-            		<i class="glyphicon glyphicon-calendar"></i>
-            	</button>
-          </span>
-  		</div>
-  		</form>
-  		&nbsp;&nbsp;&nbsp;&nbsp;
 	</div>
 
 	<table class="table table-bordered">
 	    <thead>
 	      <tr>
-	        <th class="col-md-4 text-center">票种名称</th>
-	        <th class="col-md-3 text-center">有效期开始</th>
-	        <th class="col-md-3 text-center">有效期结束</th>
-	        <th class="col-md-2 text-center">操作</th>
+	      	
+	      	<th class="col-md-3 text-center">景区名称</th>
+	        <th class="col-md-3 text-center">票种名称</th>
+	        <th class="col-md-1 text-center">票种属性</th>
+	        <th class="col-md-2 text-center">有效期开始</th>
+	        <th class="col-md-2 text-center">有效期结束</th>
+	        <th class="col-md-1 text-center">操作</th>
 	      </tr>
 	    </thead>
 	    <tbody>
-	      <tr ng-repeat="obj in objs1">
-	        <td class="text-center">{{obj.name}}</td>
+	      <tr ng-repeat="obj in page.saletickettypelist">
+	      	<td class="text-center">{{obj.view_name}}</td>
+	      	<td class="text-center">{{obj.name}}</td>
+	        <td class="text-center">{{obj.ticket_type_attr_name}}</td>
 	        <td class="text-center">
 	        	<div class="input-group">
                   	<input 	type="text" 
 							class="form-control"
-							ng-model="section.periodstart.date"
+							ng-model="obj.section.periodstart.date"
 							uib-datepicker-popup="yyyy-MM-dd" 
-							is-open="section.periodstart.opened" 
+							is-open="obj.section.periodstart.opened" 
 							ng-required="true" 
 							close-text="Close" 
 							readonly/>
 					 <span 	class="input-group-btn">
 							<button type="button" 
 								class="btn btn-default"
-								ng-click="open(section.periodstart)">
+								ng-click="obj.section.open(obj.section.periodstart)">
 							<i class="glyphicon glyphicon-calendar"></i>
 						</button>
 					</span>
 				</div>
-	        </td>
-	        <td class="text-center">
-	        	<div class="input-group">
+			</td>
+			<td class="text-center">
+				<div class="input-group">
                   	<input 	type="text" 
 							class="form-control"
-							ng-model="section.periodstart.date"
+							ng-model="obj.section.periodend.date"
 							uib-datepicker-popup="yyyy-MM-dd" 
-							is-open="section.periodstart.opened" 
+							is-open="obj.section.periodend.opened" 
 							ng-required="true" 
 							close-text="Close" 
 							readonly/>
 					 <span 	class="input-group-btn">
 							<button type="button" 
 								class="btn btn-default"
-								ng-click="open(section.periodstart)">
+								ng-click="obj.section.open(obj.section.periodend)">
 							<i class="glyphicon glyphicon-calendar"></i>
 						</button>
 					</span>
 				</div>
 	        </td>
 	        <td class="text-center">
+	          <a ng-click="save(obj)" 
+	          class="btn btn-warning btn-xs"
+	          ng-show="saleobj.state == '0'"
+	          >保存</a><br>
 	          <a ng-click="del1(obj.id)" 
 	          class="btn btn-warning btn-xs"
 	          ng-show="saleobj.state == '0'"
