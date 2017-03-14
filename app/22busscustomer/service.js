@@ -194,6 +194,8 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
 
   /****** 看广告 *******/
 
+  
+
 
     return {
         //模型
