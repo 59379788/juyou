@@ -117,9 +117,14 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
                 //console.log(res.saleinfo.data);
                 //赋值给销售品对象。
                 angular.extend(scope.saleobj, res.saleinfo.data.data);
-                scope.baseinfo.dateshow.periodstart.date = scope.util.str2date(scope.saleobj.periodstart);
-                scope.baseinfo.dateshow.periodend.date = scope.util.str2date(scope.saleobj.periodend);
-
+                if(scope.saleobj.periodstart != ''){
+                	scope.baseinfo.dateshow.periodstart.date = scope.util.str2date(scope.saleobj.periodstart);
+                }
+                if(scope.saleobj.periodend != ''){
+                	scope.baseinfo.dateshow.periodend.date = scope.util.str2date(scope.saleobj.periodend);
+                }
+                console.log('销售品详情赋值');
+                console.log(scope.saleobj);
             }else{
                 alert('/api/as/tc/sale/info' + res.saleinfo.data.errmsg);
                 return ;
