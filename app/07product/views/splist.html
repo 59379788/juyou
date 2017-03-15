@@ -1,0 +1,77 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-10">
+                <label>景区名称</label>&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="searchform.name" >
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <label>景区编号</label>&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="searchform.code" >
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+            </div>
+            <div class="col-sm-2 text-right">
+                <button type="button" class="btn btn-info new" ng-click="create()">创建产品</button>
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-5 text-center">景区名称</th>
+        <th class="col-md-1 text-center">景区编号</th>
+        <th class="col-md-1 text-center">星级</th>
+        <th class="col-md-2 text-center">排序</th>
+        <th class="col-md-3 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="">{{obj.name}}</td>
+        <td class="text-center">{{obj.code}}</td>
+        <td class="text-center">{{obj.star}}</td>
+        <td class="form-horizontal ">
+          <div class="col-sm-6">
+            <input class="form-control input-sm" 
+            style="height:22px;" 
+            type="text" 
+            value="{{obj.asort}}" 
+            ng-model="obj.asort">
+          </div>
+          <a ng-click="asort(obj.id, obj.asort)" class="btn btn-info btn-xs">gogo</a> 
+        </td>
+        <td class="text-center">
+          <a ng-click="edit(obj.id)" class="btn btn-success btn-xs">编辑</a>
+          <a ng-click="type(obj.code)" class="btn btn-danger btn-xs">票种管理</a>
+          <a ng-click="device(obj.code)" class="btn btn-primary btn-xs">配置设备</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div>
+  
+
+</div>

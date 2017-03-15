@@ -1,7 +1,7 @@
 <div class="container-fluid form-horizontal">
 <div class="col-xs-12" >
 
-	<div class="form-group mt10">
+	<div class="form-group mt10" ng-if="saleobj.state == '0'">
 		<label class="col-xs-1 control-label">添加票种</label>
 		<div class="col-xs-3">
 			<ui-select ng-model="tickettypeobj.place_code" theme="bootstrap"
@@ -38,15 +38,14 @@
 	            </ui-select-choices>
 	        </ui-select>
 		</div>
-		<!-- ng-show="saleobj.state == '0'" -->
 		<div class="col-xs-1">
 			<a ng-click="add()" class="btn btn-success btn-sm"
-			
+			ng-if="saleobj.state == '0'"
 			>添加</a>
 		</div>
 	</div>
 
-	<table class="table table-bordered">
+	<table class="table table-bordered mt10">
 	    <thead>
 	      <tr>
 	      	
@@ -55,7 +54,7 @@
 	        <th class="col-md-1 text-center">票种属性</th>
 	        <th class="col-md-2 text-center">有效期开始</th>
 	        <th class="col-md-2 text-center">有效期结束</th>
-	        <th class="col-md-1 text-center">操作</th>
+	        <th class="col-md-1 text-center" ng-if="saleobj.state == '0'">操作</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -101,14 +100,14 @@
 					</span>
 				</div>
 	        </td>
-	        <td class="text-center">
+	        <td class="text-center" ng-if="saleobj.state == '0'">
 	          <a ng-click="save(obj)" 
 	          class="btn btn-warning btn-xs"
-	          ng-show="saleobj.state == '0'"
+	          ng-if="saleobj.state == '0'"
 	          >保存</a><br>
 	          <a ng-click="del1(obj.id)" 
 	          class="btn btn-warning btn-xs"
-	          ng-show="saleobj.state == '0'"
+	          ng-if="saleobj.state == '0'"
 	          >删除</a>
 	        </td>
 	      </tr>

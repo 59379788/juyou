@@ -1,14 +1,19 @@
-module.exports = function($scope, $stateParams, $http, $q, FileUploader, str2date, date2str){
+module.exports = function($scope, $stateParams, $http, $q, productid, what, FileUploader, str2date, date2str){
 
-    var id = $stateParams.id;
+    var id = $stateParams.id || productid;
+
     console.log('id');
     console.log(id);
+
+    console.log('what');
+    console.log(what);
     //产品对象，保存着产品的基本信息
     $scope.saleobj = {
         'id' : id || '',
     };
   
     $scope.util = {
+        'what' : what,
         'str2date' : str2date,
         'date2str' : date2str,
     }

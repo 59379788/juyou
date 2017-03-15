@@ -17,120 +17,126 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
 
 	$scope.searchform = {};
 
-	$scope.create = function(){
+	// $scope.create = function(){
 
-		var modalInstance = $uibModal.open({
-          template: require('../views/tktsalemodel.html'),
-          controller: 'tktsalecreate',
-          size: 'lg',
-          resolve: {
-            salecreate : function(){
-                return salecreate;
-            },
-            viewlist : function(){
-                return viewlist;
-            },
-            saleinfo : function(){
-                return saleinfo;
-            },
-            saleupdate : function(){
-                return saleupdate;
-            },
-            goodlist : function(){
-                return goodlist;
-            },
-            saledetailcreate : function(){
-                return saledetailcreate;
-            },
-            saledetaillist : function(){
-                return saledetaillist;
-            },
-            saledetaildelete : function(){
-                return saledetaildelete;
-            },
-            saveSaleInteral : function(){
-                return saveSaleInteral;
-            },
-            findsaleintegrallist : function(){
-                return findsaleintegrallist;
-            },
-            findSaleFenRun : function(){
-                return findSaleFenRun;
-            },
-            saveSaleFenRun : function(){
-                return saveSaleFenRun;
-            },
-            //政府补贴
-            salegovsubsidycreate : function(){
-                return salegovsubsidycreate;
-            },
-            salegovsubsidyupdate : function(){
-                return salegovsubsidyupdate;
-            },
-            salegovsubsidyinfo : function(){
-                return salegovsubsidyinfo;
-            },
-            //居游补贴
-            salejuyousubsidycreate : function(){
-                return salejuyousubsidycreate;
-            },
-            salejuyousubsidyupdate : function(){
-                return salejuyousubsidyupdate;
-            },
-            salejuyousubsidyinfo : function(){
-                return salejuyousubsidyinfo;
-            },
-            //销售品类型查询功能模块
-            salecategorylist : function(){
-                return salecategorylist;
-            },
-            dictbytypelist : function(){
-                return dictbytypelist;
-            },
-            //系统确认模块
-            affirmcreate : function(){
-                return affirmcreate;
-            },
-            affirminfo : function(){
-                return affirminfo;
-            }, 
-            affirmupdate : function(){
-                return affirmupdate;
-            },
-            smstmplist : function(){
-                return smstmplist;
-            },
-            flashsalecreate : function(){
-                return flashsalecreate;
-            },
-            flashsaleinfo : function(){
-                return flashsaleinfo;
-            },
-            flashsaleupdate : function(){
-                return flashsaleupdate;
-            },
-            getDate : function(){
-                return getDate;
-            },
-            str2date : function(){
-                return str2date;
-            },
-            date2str : function(){
-                return date2str;
-            },
-            attrlistsel : function(){
-                return attrlistsel;
-            }
-          }
-        });
+	// 	var modalInstance = $uibModal.open({
+ //          template: require('../views/tktsalemodel.html'),
+ //          controller: 'tktsalecreate',
+ //          size: 'lg',
+ //          resolve: {
+ //            salecreate : function(){
+ //                return salecreate;
+ //            },
+ //            viewlist : function(){
+ //                return viewlist;
+ //            },
+ //            saleinfo : function(){
+ //                return saleinfo;
+ //            },
+ //            saleupdate : function(){
+ //                return saleupdate;
+ //            },
+ //            goodlist : function(){
+ //                return goodlist;
+ //            },
+ //            saledetailcreate : function(){
+ //                return saledetailcreate;
+ //            },
+ //            saledetaillist : function(){
+ //                return saledetaillist;
+ //            },
+ //            saledetaildelete : function(){
+ //                return saledetaildelete;
+ //            },
+ //            saveSaleInteral : function(){
+ //                return saveSaleInteral;
+ //            },
+ //            findsaleintegrallist : function(){
+ //                return findsaleintegrallist;
+ //            },
+ //            findSaleFenRun : function(){
+ //                return findSaleFenRun;
+ //            },
+ //            saveSaleFenRun : function(){
+ //                return saveSaleFenRun;
+ //            },
+ //            //政府补贴
+ //            salegovsubsidycreate : function(){
+ //                return salegovsubsidycreate;
+ //            },
+ //            salegovsubsidyupdate : function(){
+ //                return salegovsubsidyupdate;
+ //            },
+ //            salegovsubsidyinfo : function(){
+ //                return salegovsubsidyinfo;
+ //            },
+ //            //居游补贴
+ //            salejuyousubsidycreate : function(){
+ //                return salejuyousubsidycreate;
+ //            },
+ //            salejuyousubsidyupdate : function(){
+ //                return salejuyousubsidyupdate;
+ //            },
+ //            salejuyousubsidyinfo : function(){
+ //                return salejuyousubsidyinfo;
+ //            },
+ //            //销售品类型查询功能模块
+ //            salecategorylist : function(){
+ //                return salecategorylist;
+ //            },
+ //            dictbytypelist : function(){
+ //                return dictbytypelist;
+ //            },
+ //            //系统确认模块
+ //            affirmcreate : function(){
+ //                return affirmcreate;
+ //            },
+ //            affirminfo : function(){
+ //                return affirminfo;
+ //            }, 
+ //            affirmupdate : function(){
+ //                return affirmupdate;
+ //            },
+ //            smstmplist : function(){
+ //                return smstmplist;
+ //            },
+ //            flashsalecreate : function(){
+ //                return flashsalecreate;
+ //            },
+ //            flashsaleinfo : function(){
+ //                return flashsaleinfo;
+ //            },
+ //            flashsaleupdate : function(){
+ //                return flashsaleupdate;
+ //            },
+ //            getDate : function(){
+ //                return getDate;
+ //            },
+ //            str2date : function(){
+ //                return str2date;
+ //            },
+ //            date2str : function(){
+ //                return date2str;
+ //            },
+ //            attrlistsel : function(){
+ //                return attrlistsel;
+ //            }
+ //          }
+ //        });
 
-        modalInstance.result.then(function () {
-          //load();
-        }, function () {
-          //$log.info('Modal dismissed at: ' + new Date());
-        });
+ //        modalInstance.result.then(function () {
+ //          //load();
+ //        }, function () {
+ //          //$log.info('Modal dismissed at: ' + new Date());
+ //        });
 		
-	};
+	// };
+
+    $scope.create = function(){
+
+        $state.go('app.newproduct');
+    };
+
 
     $scope.load = function () {
         console.log('$scope.searchform = '+$scope.searchform);
@@ -257,126 +263,161 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
 	}
 
 
+    // $scope.edit = function(id){
+
+    // 	//$state.go('app.editsale', {'id' : id});
+
+    //     var modalInstance = $uibModal.open({
+    //       template: require('../views/tktsalemodel.html'),
+    //       controller: 'tktsaleupdate',
+    //       size: 'lg',
+    //       resolve: {
+    //         id : function(){
+    //             return id;
+    //         },
+    //         what : function(){
+    //             return 'edit';
+    //         },
+    //         viewlist : function(){
+    //             return viewlist;
+    //         },
+    //         saleinfo : function(){
+    //             return saleinfo;
+    //         },
+    //         saleupdate : function(){
+    //             return saleupdate;
+    //         },
+    //         goodlist : function(){
+    //             return goodlist;
+    //         },
+    //         saledetailcreate : function(){
+    //             return saledetailcreate;
+    //         },
+    //         saledetaillist : function(){
+    //             return saledetaillist;
+    //         },
+    //         saledetaildelete : function(){
+    //             return saledetaildelete;
+    //         },
+    //         saveSaleInteral : function(){
+    //             return saveSaleInteral;
+    //         },
+    //         findsaleintegrallist : function(){
+    //             return findsaleintegrallist;
+    //         },
+    //         findSaleFenRun : function(){
+    //             return findSaleFenRun;
+    //         },
+    //         saveSaleFenRun : function(){
+    //             return saveSaleFenRun;
+    //         },
+    //         //政府补贴
+    //         salegovsubsidycreate : function(){
+    //             return salegovsubsidycreate;
+    //         },
+    //         salegovsubsidyupdate : function(){
+    //             return salegovsubsidyupdate;
+    //         },
+    //         salegovsubsidyinfo : function(){
+    //             return salegovsubsidyinfo;
+    //         },
+    //         //居游补贴
+    //         salejuyousubsidycreate : function(){
+    //             return salejuyousubsidycreate;
+    //         },
+    //         salejuyousubsidyupdate : function(){
+    //             return salejuyousubsidyupdate;
+    //         },
+    //         salejuyousubsidyinfo : function(){
+    //             return salejuyousubsidyinfo;
+    //         },
+    //         //销售品类型查询功能模块
+    //         salecategorylist : function(){
+    //             return salecategorylist;
+    //         },
+    //         dictbytypelist : function(){
+    //             return dictbytypelist;
+    //         },
+    //         //系统确认模块
+    //         affirmcreate : function(){
+    //             return affirmcreate;
+    //         },
+    //         affirminfo : function(){
+    //             return affirminfo;
+    //         }, 
+    //         affirmupdate : function(){
+    //             return affirmupdate;
+    //         },
+    //         smstmplist : function(){
+    //             return smstmplist;
+    //         },
+    //         flashsalecreate : function(){
+    //             return flashsalecreate;
+    //         },
+    //         flashsaleinfo : function(){
+    //             return flashsaleinfo;
+    //         },
+    //         flashsaleupdate : function(){
+    //             return flashsaleupdate;
+    //         },
+    //         getDate : function(){
+    //             return getDate;
+    //         },
+    //         str2date : function(){
+    //             return str2date;
+    //         },
+    //         date2str : function(){
+    //             return date2str;
+    //         },
+    //         attrlistsel : function(){
+    //             return attrlistsel;
+    //         }
+    //       }
+    //     });
+
+    //     modalInstance.result.then(function () {
+    //       //$scope.load();
+    //     }, function () {
+    //         $scope.load();
+    //       //$log.info('Modal dismissed at: ' + new Date());
+    //     });
+
+    // };
+
     $scope.edit = function(id){
 
-    	//$state.go('app.editsale', {'id' : id});
+        //$state.go('app.editsale', {'id' : id});
 
         var modalInstance = $uibModal.open({
-          template: require('../views/tktsalemodel.html'),
-          controller: 'tktsaleupdate',
+          template: require('../views/product.html'),
+          controller: 'newproduct',
+          url: '/product/edit/:id',
           size: 'lg',
           resolve: {
-            id : function(){
+            'productid' : function(){
                 return id;
             },
             what : function(){
                 return 'edit';
             },
-            viewlist : function(){
-                return viewlist;
-            },
-            saleinfo : function(){
-                return saleinfo;
-            },
-            saleupdate : function(){
-                return saleupdate;
-            },
-            goodlist : function(){
-                return goodlist;
-            },
-            saledetailcreate : function(){
-                return saledetailcreate;
-            },
-            saledetaillist : function(){
-                return saledetaillist;
-            },
-            saledetaildelete : function(){
-                return saledetaildelete;
-            },
-            saveSaleInteral : function(){
-                return saveSaleInteral;
-            },
-            findsaleintegrallist : function(){
-                return findsaleintegrallist;
-            },
-            findSaleFenRun : function(){
-                return findSaleFenRun;
-            },
-            saveSaleFenRun : function(){
-                return saveSaleFenRun;
-            },
-            //政府补贴
-            salegovsubsidycreate : function(){
-                return salegovsubsidycreate;
-            },
-            salegovsubsidyupdate : function(){
-                return salegovsubsidyupdate;
-            },
-            salegovsubsidyinfo : function(){
-                return salegovsubsidyinfo;
-            },
-            //居游补贴
-            salejuyousubsidycreate : function(){
-                return salejuyousubsidycreate;
-            },
-            salejuyousubsidyupdate : function(){
-                return salejuyousubsidyupdate;
-            },
-            salejuyousubsidyinfo : function(){
-                return salejuyousubsidyinfo;
-            },
-            //销售品类型查询功能模块
-            salecategorylist : function(){
-                return salecategorylist;
-            },
-            dictbytypelist : function(){
-                return dictbytypelist;
-            },
-            //系统确认模块
-            affirmcreate : function(){
-                return affirmcreate;
-            },
-            affirminfo : function(){
-                return affirminfo;
-            }, 
-            affirmupdate : function(){
-                return affirmupdate;
-            },
-            smstmplist : function(){
-                return smstmplist;
-            },
-            flashsalecreate : function(){
-                return flashsalecreate;
-            },
-            flashsaleinfo : function(){
-                return flashsaleinfo;
-            },
-            flashsaleupdate : function(){
-                return flashsaleupdate;
-            },
-            getDate : function(){
-                return getDate;
-            },
             str2date : function(){
                 return str2date;
             },
             date2str : function(){
-                return date2str;
+                return getDate;
             },
-            attrlistsel : function(){
-                return attrlistsel;
-            }
+            
           }
         });
 
         modalInstance.result.then(function () {
-          //$scope.load();
+          //load();
         }, function () {
-            $scope.load();
           //$log.info('Modal dismissed at: ' + new Date());
         });
 
     };
+
 
     $scope.asort = function(id, asort){
 
@@ -399,121 +440,155 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
     };
 
 
+    // $scope.info = function(id){
+
+    //     //$state.go('app.editsale', {'id' : id, 'type' : 'info'});
+
+    //     var modalInstance = $uibModal.open({
+    //       template: require('../views/tktsalemodel.html'),
+    //       controller: 'tktsaleupdate',
+    //       size: 'lg',
+    //       resolve: {
+    //         id : function(){
+    //             return id;
+    //         },
+    //         what : function(){
+    //             return 'info';
+    //         },
+    //         viewlist : function(){
+    //             return viewlist;
+    //         },
+    //         saleinfo : function(){
+    //             return saleinfo;
+    //         },
+    //         saleupdate : function(){
+    //             return saleupdate;
+    //         },
+    //         goodlist : function(){
+    //             return goodlist;
+    //         },
+    //         saledetailcreate : function(){
+    //             return saledetailcreate;
+    //         },
+    //         saledetaillist : function(){
+    //             return saledetaillist;
+    //         },
+    //         saledetaildelete : function(){
+    //             return saledetaildelete;
+    //         },
+    //         saveSaleInteral : function(){
+    //             return saveSaleInteral;
+    //         },
+    //         findsaleintegrallist : function(){
+    //             return findsaleintegrallist;
+    //         },
+    //          findSaleFenRun : function(){
+    //             return findSaleFenRun;
+    //         },
+    //         saveSaleFenRun : function(){
+    //             return saveSaleFenRun;
+    //         },
+    //         //政府补贴
+    //         salegovsubsidycreate : function(){
+    //             return salegovsubsidycreate;
+    //         },
+    //         salegovsubsidyupdate : function(){
+    //             return salegovsubsidyupdate;
+    //         },
+    //         salegovsubsidyinfo : function(){
+    //             return salegovsubsidyinfo;
+    //         },
+    //         //居游补贴
+    //         salejuyousubsidycreate : function(){
+    //             return salejuyousubsidycreate;
+    //         },
+    //         salejuyousubsidyupdate : function(){
+    //             return salejuyousubsidyupdate;
+    //         },
+    //         salejuyousubsidyinfo : function(){
+    //             return salejuyousubsidyinfo;
+    //         },
+    //         //销售品类型查询功能模块
+    //         salecategorylist : function(){
+    //             return salecategorylist;
+    //         },
+    //         dictbytypelist : function(){
+    //             return dictbytypelist;
+    //         },
+    //         //系统确认模块
+    //         affirmcreate : function(){
+    //             return affirmcreate;
+    //         },
+    //         affirminfo : function(){
+    //             return affirminfo;
+    //         }, 
+    //         affirmupdate : function(){
+    //             return affirmupdate;
+    //         },
+    //         smstmplist : function(){
+    //             return smstmplist;
+    //         },
+    //         flashsalecreate : function(){
+    //             return flashsalecreate;
+    //         },
+    //         flashsaleinfo : function(){
+    //             return flashsaleinfo;
+    //         },
+    //         flashsaleupdate : function(){
+    //             return flashsaleupdate;
+    //         },
+    //         getDate : function(){
+    //             return getDate;
+    //         },
+    //         str2date : function(){
+    //             return str2date;
+    //         },
+    //         date2str : function(){
+    //             return date2str;
+    //         },
+    //         attrlistsel : function(){
+    //             return attrlistsel;
+    //         },
+    //         findSaleFenRun : function(){
+    //             return findSaleFenRun;
+    //         },
+    //         saveSaleFenRun : function(){
+    //             return saveSaleFenRun;
+    //         },
+    //       }
+    //     });
+
+    //     modalInstance.result.then(function () {
+    //       //load();
+    //     }, function () {
+    //       //$log.info('Modal dismissed at: ' + new Date());
+    //     });
+
+    // };
+
     $scope.info = function(id){
 
         //$state.go('app.editsale', {'id' : id, 'type' : 'info'});
 
         var modalInstance = $uibModal.open({
-          template: require('../views/tktsalemodel.html'),
-          controller: 'tktsaleupdate',
+          template: require('../views/product.html'),
+          controller: 'newproduct',
+          url: '/product/edit/:id',
           size: 'lg',
           resolve: {
-            id : function(){
+            'productid' : function(){
                 return id;
             },
             what : function(){
                 return 'info';
             },
-            viewlist : function(){
-                return viewlist;
-            },
-            saleinfo : function(){
-                return saleinfo;
-            },
-            saleupdate : function(){
-                return saleupdate;
-            },
-            goodlist : function(){
-                return goodlist;
-            },
-            saledetailcreate : function(){
-                return saledetailcreate;
-            },
-            saledetaillist : function(){
-                return saledetaillist;
-            },
-            saledetaildelete : function(){
-                return saledetaildelete;
-            },
-            saveSaleInteral : function(){
-                return saveSaleInteral;
-            },
-            findsaleintegrallist : function(){
-                return findsaleintegrallist;
-            },
-             findSaleFenRun : function(){
-                return findSaleFenRun;
-            },
-            saveSaleFenRun : function(){
-                return saveSaleFenRun;
-            },
-            //政府补贴
-            salegovsubsidycreate : function(){
-                return salegovsubsidycreate;
-            },
-            salegovsubsidyupdate : function(){
-                return salegovsubsidyupdate;
-            },
-            salegovsubsidyinfo : function(){
-                return salegovsubsidyinfo;
-            },
-            //居游补贴
-            salejuyousubsidycreate : function(){
-                return salejuyousubsidycreate;
-            },
-            salejuyousubsidyupdate : function(){
-                return salejuyousubsidyupdate;
-            },
-            salejuyousubsidyinfo : function(){
-                return salejuyousubsidyinfo;
-            },
-            //销售品类型查询功能模块
-            salecategorylist : function(){
-                return salecategorylist;
-            },
-            dictbytypelist : function(){
-                return dictbytypelist;
-            },
-            //系统确认模块
-            affirmcreate : function(){
-                return affirmcreate;
-            },
-            affirminfo : function(){
-                return affirminfo;
-            }, 
-            affirmupdate : function(){
-                return affirmupdate;
-            },
-            smstmplist : function(){
-                return smstmplist;
-            },
-            flashsalecreate : function(){
-                return flashsalecreate;
-            },
-            flashsaleinfo : function(){
-                return flashsaleinfo;
-            },
-            flashsaleupdate : function(){
-                return flashsaleupdate;
-            },
-            getDate : function(){
-                return getDate;
-            },
             str2date : function(){
                 return str2date;
             },
             date2str : function(){
-                return date2str;
+                return getDate;
             },
-            attrlistsel : function(){
-                return attrlistsel;
-            },
-            findSaleFenRun : function(){
-                return findSaleFenRun;
-            },
-            saveSaleFenRun : function(){
-                return saveSaleFenRun;
-            },
+            
           }
         });
 
@@ -524,6 +599,7 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
         });
 
     };
+
 
 
     //flag:1,分配经销商

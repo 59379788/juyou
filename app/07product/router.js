@@ -625,18 +625,14 @@ var router = function($urlRouterProvider, $stateProvider){
     .state('app.newproduct', {
         url: '/product/new.html',
         controller : 'newproduct',
-        templateUrl : 'product.html',
         template: require('./views/product.html'),
         resolve:{
-            // viewlist : function(productservice){
-            //     return productservice.viewlist;
-            // },
-            // tktlist : function(productservice){
-            //     return productservice.tktlist();
-            // },
-            // tktupdate : function(productservice){
-            //     return productservice.tktupdate();
-            // },
+            productid : function(){
+                return '';
+            },
+            what : function(){
+                return 'edit';
+            },
             date2str : function(utilservice){
                 return utilservice.getDate;
             },
@@ -650,8 +646,28 @@ var router = function($urlRouterProvider, $stateProvider){
     .state('app.editproduct', {
         url: '/product/edit/:id',
         controller : 'newproduct',
-        templateUrl : 'product.html',
         template: require('./views/product.html'),
+        resolve:{
+            productid : function(){
+                return '';
+            },
+            what : function(){
+                return 'edit';
+            },
+            date2str : function(utilservice){
+                return utilservice.getDate;
+            },
+            str2date : function(utilservice){
+                return utilservice.str2date;
+            }
+        }
+    })
+
+    //Supplier
+    .state('app.supplierProductList', {
+        url: '/product/splist',
+        controller : 'splist',
+        template: require('./views/splist.html'),
         resolve:{
             date2str : function(utilservice){
                 return utilservice.getDate;
@@ -661,6 +677,7 @@ var router = function($urlRouterProvider, $stateProvider){
             }
         }
     })
+
 
 };
 
