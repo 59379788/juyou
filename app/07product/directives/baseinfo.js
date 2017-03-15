@@ -14,7 +14,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 		link : function(scope, elements, attrs){
 
 	var obj = {
-		'name' : '',
+		'name' : '123',
 		'code' : '',
 		'market_price' : 0,
 		'guide_price' : 0,
