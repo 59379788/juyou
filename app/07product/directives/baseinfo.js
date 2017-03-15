@@ -22,7 +22,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 		'sale_category' : 'F10',
 		'sms_template_id' : '',
 		'sms_diy' : '',
-		'sms_type' : 1,
+		'sms_type' : '1',
 		'top_pic' : '',
 		'logo' : '',
 		'periodstart' : '',
