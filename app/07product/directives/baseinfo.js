@@ -28,18 +28,18 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 		'periodstart' : '',
 		'periodend' : '',
 		'sale_belong' : 'juyou',	//产品所属
-		'sys_affirm_type' : 1,	//系统确认
-		'pay_type' : 0, 	//支付类型
-		'stock_type' : 0,	//库存类型
-		'sale_target_type' : 0,	//销售目标
-		'take_effect_type' : 0,	//生效时间
+		'sys_affirm_type' : '1',	//系统确认
+		'pay_type' : '0', 	//支付类型
+		'stock_type' : '0',	//库存类型
+		'sale_target_type' : '0',	//销售目标
+		'take_effect_type' : '0',	//生效时间
 		'max_limit' : 0,	//最大购买数量
 		'order_num_limit' : 0,	//每单最大购买数量限制
 		'tour_date_type' : '0',	//是否启用出游时间
-		'back_type' : 0,	//是否允许退票
-		'ticket_type' : 0,	//是否出票
-		'user_status' : 0,	//是否实名制
-		'sms_ticketcode_type' : 0,	//短信票码类型
+		'back_type' : '0',	//是否允许退票
+		'ticket_type' : '0',	//是否出票
+		'user_status' : '0',	//是否实名制
+		'sms_ticketcode_type' : '0',	//短信票码类型
 		'bookingnotes' : '',	//团产品预订须知
 		'detail' : '',	//销售品简介
 	};
@@ -158,7 +158,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 	    };
 
 	    //发短信时，默认短息模板里第一个短信模板。
-        if(scope.saleobj.sms_type == 1){
+        if(scope.saleobj.sms_type == '1'){
         	scope.saleobj.sms_template_id = res.smslist.data.data[0].sms_template_id;
         	scope.saleobj.sms_diy = res.smslist.data.data[0].sms_diy;
         }
@@ -191,7 +191,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 			alert('销售品名称不能为空');
 			return;
 		}
-		if(scope.saleobj.sms_type == 1
+		if(scope.saleobj.sms_type == '1'
 		&& (scope.saleobj.sms_diy == undefined || scope.saleobj.sms_diy == ''))
 		{
 			alert('请配置短信内容');
