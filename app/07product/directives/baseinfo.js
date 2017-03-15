@@ -31,6 +31,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 		'sys_affirm_type' : '1',	//系统确认
 		'pay_type' : '0', 	//支付类型
 		'stock_type' : '0',	//库存类型
+		'current_stock_num' : 0,
 		'sale_target_type' : '0',	//销售目标
 		'take_effect_type' : 0,	//生效时间
 		'max_limit' : 0,	//最大购买数量
