@@ -32,7 +32,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 		'pay_type' : '0', 	//支付类型
 		'stock_type' : '0',	//库存类型
 		'sale_target_type' : '0',	//销售目标
-		'take_effect_type' : '0',	//生效时间
+		'take_effect_type' : 0,	//生效时间
 		'max_limit' : 0,	//最大购买数量
 		'order_num_limit' : 0,	//每单最大购买数量限制
 		'tour_date_type' : '0',	//是否启用出游时间
