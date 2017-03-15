@@ -74,9 +74,9 @@
     
     
     uploader2.onSuccessItem = function(fileItem, response, status, headers) {
-         $scope.form.picture1 = response.savename;
-        // console.log(response.savename);
-        urlArray.push(response.savename);
+        urlArray.splice(0,1,response.savename);
+        console.log(urlArray);
+        $scope.form.picture1 = response.savename;
         str = urlArray.join(","); 
         $scope.info.content = str; 
     };
@@ -96,9 +96,9 @@
     
     
     uploader3.onSuccessItem = function(fileItem, response, status, headers) {
-         $scope.form.picture2 = response.savename;
-        // console.log(response.savename);
-        urlArray.push(response.savename);
+        urlArray.splice(1,1,response.savename);
+        console.log(urlArray);
+        $scope.form.picture2 = response.savename;
         str = urlArray.join(","); 
         $scope.info.content = str; 
 
@@ -119,8 +119,9 @@
     
     
     uploader4.onSuccessItem = function(fileItem, response, status, headers) {
-         $scope.form.picture3 = response.savename;
-        urlArray.push(response.savename);
+        urlArray.splice(2,1,response.savename);
+        $scope.form.picture3 = response.savename;
+        console.log(urlArray);
         str = urlArray.join(","); 
         $scope.info.content = str;   
     };

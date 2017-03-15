@@ -20,6 +20,11 @@ module.exports = function($scope, $uibModalInstance,$stateParams, id, viewlist, 
 	//销售品积分对象
 	$scope.salejfobj = {};
 	$scope.salejfobj.list = new Array();
+	// 设置积分
+	$scope.getobj = {};
+	$scope.obj = {
+		'integral_price' : 0
+	}
 
 	//销售品分润
 	$scope.salefrobj = {};
@@ -165,6 +170,8 @@ module.exports = function($scope, $uibModalInstance,$stateParams, id, viewlist, 
     };
 
 	saleinfo.get({'id' : id}, function(res){
+		console.log('yyyyyyyyyyyy');
+		console.log(res);
 
 		if(res.errcode === 0)
 		{
@@ -221,7 +228,13 @@ module.exports = function($scope, $uibModalInstance,$stateParams, id, viewlist, 
 			//加载积分配置
 			findsaleintegrallist.save({'integral_sale_code':$scope.saleobj.code},function(res){
 				$scope.salejfobj.list = res.data;
-			});
+				$scope.obj = res.data[0];
+				//console.log(res.data);
+				if(res.data == ''){
+					console.log('7777777777');
+					//$scope.obj.integral_price = 0;
+				}
+			 });
 			
 			//加载销售品分润设置
 			findSaleFenRun.save({'sale_code':$scope.saleobj.code},function(res){
@@ -296,25 +309,42 @@ module.exports = function($scope, $uibModalInstance,$stateParams, id, viewlist, 
 		}
 	}
 
+	// 保存积分配置
 	$scope.salejfsave = function(){
-		if($scope.salejfobj.list.length > 0){
-			$scope.salejfobj.integral_sale_code = $scope.saleobj.code;
-			saveSaleInteral.save($scope.salejfobj, function(res){
-		     	if(res.errcode === 0)
-		     	{
-		     		alert('保存成功');
-					 $uibModalInstance.close();
-		     	}
-	     		else
-				{
-					alert(res.errmsg);
-				}
+		alert('甚至');
+		
+			 
+			// $scope.salejfobj.integral_sale_code = $scope.saleobj.code;
+			// $scope.salejfobj.integral_price = $scope.obj.integral_price;
+			// saveSaleInteral.save($scope.salejfobj, function(res){
+			// 	console.log($scope.salejfobj);
+		    //  	if(res.errcode === 0)
+		    //  	{
+		    //  		alert('保存成功');
+			// 		 $uibModalInstance.close();
+		    //  	}
+	     	// 	else
+			// 	{
+			// 		alert(res.errmsg);
+			// 	}
 	
-		    });
-		} else {
-			alert('请添加积分配置');
-			return;
-		}
+		    // });
+			$scope.obj.integral_sale_code = $scope.saleobj.code;
+			$scope.obj.integral_type = '0';
+			var array = [];
+			array.push($scope.obj);
+			
+			console.log(array);
+			saveSaleInteral.save({'integral_sale_code':$scope.obj.integral_sale_code,'integral_price':$scope.obj.integral_price,'list' : array},function(res){
+				if(res.errcode!=0){
+					alert(res.errmsg);
+					return;
+				}
+				console.log(res);
+				alert('保存成功!');
+			})
+		
+		
 	}
 
 	//添加销售品积分及金额

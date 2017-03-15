@@ -194,6 +194,22 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
 
   /****** 看广告 *******/
 
+  /****** 热搜 *******/ 
+
+  //热搜列表
+  var findHotSearchList = BASEURL38985 + '/api/as/mc/merhotsearchdao/findHotSearchList';
+  // 热搜详情
+  var getHotSearchById = BASEURL38985 + '/api/as/mc/merhotsearchdao/getHotSearchById';
+  // 编辑热搜
+  var updateHotSearch = BASEURL38985 + '/api/as/mc/merhotsearchdao/updateHotSearch';
+  // 删除热搜
+  var deleteHotSearch = BASEURL38985 + '/api/as/mc/merhotsearchdao/updatedel';
+  // 添加热搜
+  var saveHotSearch = BASEURL38985 + '/api/as/mc/merhotsearchdao/save';
+  
+  /****** 热搜 *******/ 
+
+
   
 
 
@@ -505,7 +521,23 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         updateActiveEnd : function() {
           return $resource(updateActiveEnd, {}, {}); // 结束活动
+        },
+        findHotSearchList : function() {
+          return $resource(findHotSearchList, {}, {}); // 结束活动
+        },
+        getHotSearchById : function() {
+          return $resource(getHotSearchById, {}, {}); // 结束活动
+        },
+        updateHotSearch : function() {
+          return $resource(updateHotSearch, {}, {}); // 结束活动
+        },
+        deleteHotSearch : function() {
+          return $resource(deleteHotSearch, {}, {}); // 结束活动
+        },
+        saveHotSearch : function() {
+          return $resource(saveHotSearch, {}, {}); // 结束活动
         }
+
 
         
 
