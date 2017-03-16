@@ -663,9 +663,9 @@ var router = function($urlRouterProvider, $stateProvider){
         }
     })
 
-    //Supplier
+    //供应商产品列表
     .state('app.supplierProductList', {
-        url: '/product/splist',
+        url: '/product/splist.html',
         controller : 'splist',
         template: require('./views/splist.html'),
         resolve:{
@@ -674,7 +674,79 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             str2date : function(utilservice){
                 return utilservice.str2date;
-            }
+            },
+            saleupdate : function(productservice){
+                return productservice.saleupdate();
+            },
+            saleup : function(productservice){
+                return productservice.saleup();
+            },
+            saledown : function(productservice){
+                return productservice.saledown();
+            },
+            talist : function(depositservice){
+                return depositservice.talist;
+            },
+
+            sellerListno : function(productservice){
+                return productservice.sellerListno();
+            },
+            tstcreateno : function(productservice){
+                return productservice.tstcreateno();
+            },
+            tststartno : function(productservice){
+                return productservice.tststartno();
+            },
+            tststopno : function(productservice){
+                return productservice.tststopno();
+            },
+
+
+        }
+    })
+
+
+
+
+    //待审核产品列表
+    .state('app.applyProductList', {
+        url: '/product/aplist.html',
+        controller : 'aplist',
+        template: require('./views/aplist.html'),
+        resolve:{
+            date2str : function(utilservice){
+                return utilservice.getDate;
+            },
+            str2date : function(utilservice){
+                return utilservice.str2date;
+            },
+            saleupdate : function(productservice){
+                return productservice.saleupdate();
+            },
+            saleup : function(productservice){
+                return productservice.saleup();
+            },
+            saledown : function(productservice){
+                return productservice.saledown();
+            },
+            talist : function(depositservice){
+                return depositservice.talist;
+            },
+
+            sellerListno : function(productservice){
+                return productservice.sellerListno();
+            },
+            tstcreateno : function(productservice){
+                return productservice.tstcreateno();
+            },
+            tststartno : function(productservice){
+                return productservice.tststartno();
+            },
+            tststopno : function(productservice){
+                return productservice.tststopno();
+            },
+
+
         }
     })
 

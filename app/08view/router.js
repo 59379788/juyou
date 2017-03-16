@@ -39,25 +39,42 @@ var router = function($urlRouterProvider, $stateProvider){
       })
 
 
-      .state('app.editview', {
-        url: '/view/:placeid',
-        controller : 'viewedit',
-        template: require('./views/viewmodel.html'),
+      // .state('app.editview', {
+      //   url: '/view/:placeid',
+      //   controller : 'viewedit',
+      //   template: require('./views/viewmodel.html'),
+      //   resolve:{
+      //       placeinfo : function(placeservice){
+      //           return placeservice.info();
+      //       },
+      //       placeupdate : function(placeservice){
+      //           return placeservice.update();
+      //       },
+      //       viewinfo : function(viewservice){
+      //           return viewservice.info();
+      //       },
+      //       viewupdate : function(viewservice){
+      //           return viewservice.update();
+      //       },
+      //       city : function(viewservice){
+      //           return viewservice.city;
+      //       }
+      //   }
+      // })
+
+
+
+      //商户列表
+      .state('app.storelist', {
+        url: '/store/list.html',
+        controller : 'storelist',
+        template: require('./views/viewlist.html'),
         resolve:{
-            placeinfo : function(placeservice){
-                return placeservice.info();
-            },
-            placeupdate : function(placeservice){
-                return placeservice.update();
-            },
-            viewinfo : function(viewservice){
-                return viewservice.info();
-            },
             viewupdate : function(viewservice){
                 return viewservice.update();
             },
-            city : function(viewservice){
-                return viewservice.city;
+            list : function(viewservice){
+                return viewservice.list();
             }
         }
       })

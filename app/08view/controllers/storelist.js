@@ -5,7 +5,7 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE){
 
 	$scope.create = function(){
 
-		$state.go('app.newView');
+		$state.go('app.newStore');
 	};
 
 	/* 分页
@@ -17,9 +17,9 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE){
     $scope.load = function () {
         
         var para = {
-            pageNo:$scope.bigCurrentPage, 
+            pageNo:$scope.bigCurrentPage,
             pageSize:$scope.itemsPerPage,
-            'type' : 'J',
+            'type' : 'S',
         };
 
         para = angular.extend($scope.searchform, para);
@@ -71,10 +71,7 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE){
     };
 
     $scope.type = function(id){
-
-
     	$state.go('app.tkttype', {'placeid' : id});
-
     };
 
 

@@ -1,9 +1,11 @@
-module.exports = function($scope, $state, $resource, ITEMS_PERPAGE){
+module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,str2date,date2str,
+        saleup, saledown, saleupdate, talist, sellerListno, tstcreateno, tststartno, tststopno
+
+    ){
 
     $scope.searchform = {};
 
     $scope.create = function(){
-
         $state.go('app.newproduct');
     };
 
@@ -40,21 +42,67 @@ module.exports = function($scope, $state, $resource, ITEMS_PERPAGE){
     };
     $scope.load();
 
+    //申请上架
+    $scope.start = function(id) {
+        saleup.get({'id' : id}, function(res){
+            console.log(res);
+            if(res.errcode === 0){
+                $scope.load();
+            }else{
+                alert(res.errmsg);
+            }
+        });
+    }
+
+    //下架
+    $scope.stop = function(id) {
+        saledown.get({'id' : id}, function(res){
+            console.log(res);
+            if(res.errcode === 0){
+                $scope.load();
+            }else{
+                alert(res.errmsg);
+            }
+        });
+    }
 
     $scope.edit = function(id){
 
-        $state.go('app.editview', {'placeid' : id});
+        //$state.go('app.editsale', {'id' : id});
 
+        var modalInstance = $uibModal.open({
+          template: require('../views/product.html'),
+          controller: 'newproduct',
+          url: '/product/edit/:id',
+          size: 'lg',
+          resolve: {
+            'productid' : function(){
+                return id;
+            },
+            what : function(){
+                return 'edit';
+            },
+            str2date : function(){
+                return str2date;
+            },
+            date2str : function(){
+                return date2str;
+            },
+          }
+        });
+
+        modalInstance.result.then(function () {
+          //load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
     };
 
 
     $scope.asort = function(id, asort){
-
-        console.log({'place_id' : id, 'asort' : asort});
-        viewupdate.save({'place_id' : id, 'asort' : asort}, function(res){
-
+        console.log({'id' : id, 'asort' : asort});
+        saleupdate.save({'id' : id, 'asort' : asort}, function(res){
             console.log(res);
-
             if(res.errcode === 0)
             {
                 $scope.load();
@@ -63,116 +111,145 @@ module.exports = function($scope, $state, $resource, ITEMS_PERPAGE){
             {
                 alert(res.errmsg);
             }
+        });
+    };
 
+
+    $scope.info = function(id){
+
+        //$state.go('app.editsale', {'id' : id, 'type' : 'info'});
+
+        var modalInstance = $uibModal.open({
+          template: require('../views/product.html'),
+          controller: 'newproduct',
+          url: '/product/edit/:id',
+          size: 'lg',
+          resolve: {
+            'productid' : function(){
+                return id;
+            },
+            what : function(){
+                return 'info';
+            },
+            str2date : function(){
+                return str2date;
+            },
+            date2str : function(){
+                return getDate;
+            },
+            
+          }
+        });
+
+        modalInstance.result.then(function () {
+          //load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
         });
 
     };
 
-    $scope.type = function(id){
 
 
-        $state.go('app.tkttype', {'placeid' : id});
+    //flag:1,分配经销商
+    //flga:0,不允许销售
+    $scope.distribution = function(code, flag){
+
+        var modalInstance;
+
+        if(flag == 1)
+        {
+            modalInstance = $uibModal.open({
+              template: require('../views/distribution.html'),
+              controller: 'distribution',
+              //size: 'lg',
+              resolve: {
+                code : function(){
+                    return code;
+                },
+                talist : function(){
+                    return talist;
+                },
+                sellerList : function(){
+                    return sellerList;
+                },
+                tstcreate : function(){
+                    return tstcreate;
+                },
+                tststart : function(){
+                    return tststart;
+                },
+                tststop : function(){
+                    return tststop;
+                },
+                title : function(){
+                    return '分配经销商';
+                }
+              }
+            });
+        }
+        else if(flag == 0)
+        {
+            modalInstance = $uibModal.open({
+              template: require('../views/distribution.html'),
+              controller: 'distribution',
+              //size: 'lg',
+              resolve: {
+                code : function(){
+                    return code;
+                },
+                talist : function(){
+                    return talist;
+                },
+                sellerList : function(){
+                    return sellerListno;
+                },
+                tstcreate : function(){
+                    return tstcreateno;
+                },
+                tststart : function(){
+                    return tststartno;
+                },
+                tststop : function(){
+                    return tststopno;
+                },
+                title : function(){
+                    return '分配不允许销售经销商';
+                }
+              }
+            });
+        }
+
+
+        modalInstance.result.then(function () {
+          //load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
 
     };
 
+    $scope.del = function(id){
 
-    $scope.createtkttype = function(id){
-        $state.go('app.tkttypecreate', {'placeid' : id});
-    }
+        if(confirm("您确认要删除吗？")){
 
-    $scope.device = function(code){
-        $state.go('app.devicelist', {'placecode' : code});
-    }
+             saleupdate.save({'id' : id, 'del_flg' : '1'}, function(res){
 
+                console.log(res);
 
+                if(res.errcode === 0)
+                {
+                    alert("删除成功");
+                    $scope.load();
+                }
+                else
+                {
+                    alert(res.errmsg);
+                }
 
+            });
 
-	//$scope.searchform = {};
-
-
-	// $scope.create = function(){
-
-	// 	$state.go('app.creategoods');
-		
-	// };
-
- //    $scope.load = function () {
- //        goodslist.save($scope.searchform, function(res){
-
- //            /* 门票存储结构
- //             * ========================================= */
- //            var tkt = new Object();
- //            var restkt = new Array();
-
- //            console.log(res);
-
- //            if(res.errcode !== 0)
- //            {
- //                alert("数据获取失败");
- //                return;
- //            }
-
- //            //用景区编号作为存储结构的属性，值是数组
- //            for(var i = 0, j = res.data.length; i < j; i++)
- //            {
- //                var tt = res.data[i];
- //                var v = tt.place_code;
-
- //                if(!tkt.hasOwnProperty(v))
- //                {
- //                    tkt[v] = new Object();
- //                    tkt[v].ticketarr = new Array();
- //                    tkt[v].viewname = tt.place_name;
- //                    tkt[v].viewcode = tt.place_code;
- //                }
- //                tkt[v].ticketarr.push(tt);
- //            }
-
- //            for(var key in tkt)
- //            {
- //                var o = tkt[key];
- //                restkt.push(o);
- //            }
-
-
- //            // console.log("------------");
- //            // console.log(restkt);
- //            // console.log("------------");
-
- //            $scope.objs = restkt;
- //            console.log($scope.objs);
-
- //        });
-
- //    };
- //    $scope.load();
-
- //    $scope.start = function(id) {
-	// 	goodsup.get({'id' : id}, function(res){
-	// 		if(res.errcode === 0){
-	// 			$scope.load();
-	// 		}else{
-	// 			alert(res.errmsg);
-	// 		}
-	// 	});
-	// }
-
-	// $scope.stop = function(id) {
-	// 	goodsdown.get({'id' : id}, function(res){
-	// 		if(res.errcode === 0){
-	// 			$scope.load();
-	// 		}else{
-	// 			alert(res.errmsg);
-	// 		}
-	// 	});
-	// }
-
-
- //    $scope.edit = function(id){
-
- //    	$state.go('app.editgoods', {'id' : id});
-
- //    };
-
+        }
+    };
 
 };

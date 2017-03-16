@@ -7,24 +7,50 @@ var router = function($urlRouterProvider, $stateProvider){
 
  	$stateProvider
 
- 	  // .state('app.createplace', {
-    //     url: '/place',
-    //     controller : 'createplace',
-    //     views: {
-    //         "place" : { template: require('./views/place.html') },
-    //         "view"  : { template: require('./views/view.html') }
-    //     },
-    //     //template: require('./views/createplace.html'),
-    //     resolve:{
-    //         // view : function(productservice){
-    //         //     return productservice.slist;
-    //         // },
-    //         // list : function(productservice){
-    //         //     return productservice.list();
-    //         // }
-    //     }
-        
-    //   })
+        .state('app.newStore', {
+            url: '/newstore.html',
+            controller : 'createplace',
+            template: require('./views/place.html'),
+            resolve:{
+                'type' : function(){
+                    return 'S';
+                },
+                'placeid' : function(){
+                    return '';
+                }
+            }
+        })
+
+
+
+        .state('app.newView', {
+            url: '/newview.html',
+            controller : 'createplace',
+            template: require('./views/place.html'),
+            resolve:{
+                'type' : function(){
+                    return 'J';
+                },
+                'placeid' : function(){
+                    return '';
+                }
+            }
+        })
+
+
+        .state('app.editview', {
+            url: '/view/:placeid',
+            controller : 'createplace',
+            template: require('./views/place.html'),
+            resolve:{
+               'type' : function(){
+                    return 'J';
+                },
+                'placeid' : function(){
+                    return '';
+                }
+            }
+          })
 
       
 
