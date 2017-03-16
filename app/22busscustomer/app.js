@@ -85,4 +85,10 @@ App.controller('addad',require('./controllers/addad'));
 // 热搜
 App.controller('hotsearch',require('./controllers/hotsearch'));
 
+//数据字典管理
+App.controller('dictionary_managed',require('./controllers/dictionary_managed'));
+//修改/添加数据字典
+App.controller('dictionaryinfo',require('./controllers/dictionaryinfo'));
+
+
 module.exports = App;

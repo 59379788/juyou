@@ -39,8 +39,17 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
    var voucherinfo = BASEURL38985 + '/api/as/tc/voucherorder/voucherlist';
    //在线支付订单列表
    var usedorderlist = BASEURL38985 + '/api/as/tc/voucherorder/usedorderlist';
+   
+   /*******数据字典管理*******/
+   //保存修改字典
+   var dictionary = BASEURL38985 + '/api/as/mc/mertradetypedao/save';
+   //字典列表
+   var findtradetypelist = BASEURL38985 + '/api/as/mc/mertradetypedao/findtradetypelist';
+   //获取字典信息
+   var getInfoById = BASEURL38985 + '/api/as/mc/mertradetypedao/getInfoById';
+   //删除字典信息
+   var deldictionary = BASEURL38985 + '/api/as/mc/mertradetypedao/del';
 
-  
 
 
   // 查看活动申请人列表

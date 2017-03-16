@@ -1,0 +1,60 @@
+<div class="col-sm-12">
+  <div class="panel panel-default">
+      <div class="panel-body">
+          <div class="form-group form-inline">
+              <div class="col-sm-12">
+                    <label for="inputLottry" class="control-label">商客字典管理</label>
+                    <input type="text" class="form-control" ng-model="info.type" placeholder="类型">&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="text" class="form-control" ng-model="info.info" placeholder="描述">&nbsp;&nbsp;
+                    <div class="form-group">
+                      <button type="button" class="btn btn-primary" ng-click="search()">立即查询</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <button type="button" class="btn btn-primary search pull-right" ng-click="adddic()">添加字典</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="col-md-12 panel panel-default table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th class="col-md-1 text-center">键值</th>
+            <th class="col-md-2 text-center">标签</th>
+            <th class="col-md-2 text-center">类型</th>
+            <th class="col-md-3 text-center">描述</th>
+            <th class="col-md-1 text-center">排序</th>
+            <th class="col-md-3 text-center">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="obj in objs">
+            <td class="text-center">{{obj.code}}</td>
+            <td class="text-center">{{obj.label}}</td>
+            <td class="text-center">{{obj.type}}</td>
+            <td class="text-center">{{obj.info}}</td>
+            <td class="text-center">{{obj.asort}}</td>
+            <td class="text-center">
+              <a ng-click="change(obj.id)" class="btn btn-info btn-xs">修改</a>
+              <a ng-click="delete(obj.id)" class="btn btn-info btn-xs">删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="text-right">
+      <uib-pagination 
+        total-items="bigTotalItems" 
+        ng-model="bigCurrentPage" 
+        max-size="maxSize" 
+        class="pagination-sm" 
+        boundary-links="true" 
+        ng-change="getlist()"
+        items-per-page="itemsPerPage"
+        previous-text="上一页"
+        next-text="下一页"
+        first-text="首页"
+        last-text="末页"
+        rotate="false">
+      </uib-pagination>
+  </div>
+</div>

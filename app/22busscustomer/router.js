@@ -781,10 +781,35 @@ var router = function($urlRouterProvider, $stateProvider){
          }
         })
 
+        //数据字典列表
+        .state('app.dictionary_managed',{
+            url: '/dictionary_managed',
+            controller : 'dictionary_managed',
+            template: require('./views/dictionary_managed.html'),
+            resolve:{
+                findtradetypelist : function(busscustomerservice){
+                    return busscustomerservice.findtradetypelist();
+                },
+                deldictionary : function(busscustomerservice){
+                    return busscustomerservice.deldictionary();
+                }
+            }
+        })
 
-
-
-
-       
+        //添加/修改数据字典
+        .state('app.dictionaryinfo',{
+            url: '/dictionaryinfo/:id',
+            controller : 'dictionaryinfo',
+            template: require('./views/dictionaryinfo.html'),
+            resolve:{
+                dictionary : function(busscustomerservice){
+                    return busscustomerservice.dictionary();
+                },
+                getInfoById : function(busscustomerservice){
+                    return busscustomerservice.getInfoById();
+                }
+            }
+        })
+ 
 }
 module.exports = router;
