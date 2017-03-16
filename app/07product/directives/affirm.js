@@ -88,9 +88,18 @@ module.exports = function($resource, $state, $http, $q){
 					alert('保存成功');
 				});
 			};
-		   
+
+			
 		}
 
+		
+
+
+
+
 	};
+
+	
+		   
 };
 

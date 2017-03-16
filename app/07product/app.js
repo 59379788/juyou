@@ -39,5 +39,6 @@ App.directive('producttickettype',require('./directives/tickettype'));
 App.directive('productaffirm',require('./directives/affirm'));
 App.directive('productintegral',require('./directives/integral'));
 App.directive('productflashsale',require('./directives/flashsale'));
+App.directive('productshareprofit',require('./directives/shareprofit'));
 
 module.exports = App;

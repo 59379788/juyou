@@ -67,7 +67,7 @@
 					</div>
 
 					<div class="form-group">
-					 <label for="inputDate" class="col-sm-3 control-label">奖品图片：</label>
+					 <label for="inputDate" class="col-sm-3 control-label">奖品图片</label>
 					 <div class="col-md-6">
 					      <img ng-src="{{info.img}}" width="100%" height="200" ng-model="info.img">
 					        <input type="file" nv-file-select uploader="uploader" / ng-hide="hide===true" ><br/>
@@ -98,6 +98,31 @@
 							<input type="text" class="form-control" placeholder="请输入奖品总数量"
 							ng-model="info.totalnum"
 							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">虚拟参与人数</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入虚拟参与人数"
+							ng-model="info.fictitious_participate_num"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">分享标题</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入分享标题"
+							ng-model="info.share_title"
+							>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">分享内容</label>
+						<div class="col-xs-6">
+							<textarea rows="4" class="form-control" placeholder="请输入分享内容" ng-model="info.share_content"></textarea>
 						</div>
 					</div>
 

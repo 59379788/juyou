@@ -11,7 +11,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
         'title' : '',
         'activeId' : id,
         'totalnum' : '',
-        'buy_tips' : ''
+        'buy_tips' : '',
+        'fictitious_participate_num' : ''
     }
 
     $scope.searchform = {
@@ -87,7 +88,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
         // 编辑奖品
         if (prizeId) {
             if ($scope.info.oldPrice!=''&&$scope.info.targetPrice!=''&&$scope.info.allowableNumber!=''&&$scope.info.description!=''
-                &&$scope.info.img!=''&&$scope.info.activeId!=''&&$scope.info.totalnum!=''&&$scope.info.buy_tips!='') {
+                &&$scope.info.img!=''&&$scope.info.activeId!=''&&$scope.info.totalnum!=''&&$scope.info.buy_tips!=''&&$scope.info.fictitious_participate_num!='') {
                 var para = {
                     'id' : prizeId
                 }
@@ -113,7 +114,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
             // 赋值saleID
             $scope.info.saleId = $scope.searchform.selected.code;
             if ($scope.info.oldPrice!=''&&$scope.info.targetPrice!=''&&$scope.info.allowableNumber!=''&&$scope.info.description!=''
-                &&$scope.info.img!=''&&$scope.info.activeId!=''&&$scope.info.totalnum!=''&&$scope.info.buy_tips!='') {
+                &&$scope.info.img!=''&&$scope.info.activeId!=''&&$scope.info.totalnum!=''&&$scope.info.buy_tips!=''&&$scope.info.fictitious_participate_num!='') {
                 // 添加奖品
                 savePrize.save($scope.info,function (res) {
                     console.log($scope.info);

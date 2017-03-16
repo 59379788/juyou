@@ -1,0 +1,68 @@
+<div class="col-xs-12" ng-show="funobj.hasOwnProperty('skprice')" >
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			销售品分润设置<button type="button" 
+				class="btn btn-xs btn-info pull-right"
+				ng-show="what == 'edit' || saleobj.id == ''"
+				ng-click="saleFrSetSave()"
+			>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid form-group">
+				<div class="col-xs-12 form-group" >
+					<div class="col-xs-2">
+						<label for="fxbt" class="pull-right text-right mt10">分享标题&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+					<div class="col-xs-8">
+						<input type="text" name="fxbt" class="form-control form-inline" placeholder="分享标题" ng-model="salefrobj.share_title" />
+					</div>
+				</div>
+					<br/>
+					<br/>
+				<div class="col-xs-12 form-group" >
+					<div class="col-xs-2">
+						<label for="lrl" class="pull-right text-right mt10">利润率&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+					<div class="col-xs-8">
+						<div class="input-group">							
+							<input type="number" class="form-control" placeholder="利润率" min='0'
+							ng-model="salefrobj.profit_ratio">
+							<span class="input-group-addon">%</span>
+						</div>
+					</div>
+				</div>
+					<!--<br/>
+					<br/>
+				<div class="col-xs-12 form-group" >
+
+					<div class="col-xs-2">
+						<label for="lrl" class="pull-right text-right mt10">宜买说&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+					<div class="col-xs-8 text-right">
+						<textarea rows="4" class="form-control" placeholder="商品描述" ng-model="salefrobj.sk_shop_info">	
+						</textarea>
+					</div>
+				</div>-->
+					<br/>
+					<br/>
+				<div class="col-xs-12 form-group">
+					<div class="col-xs-2">
+						<label for="lrl" class="pull-right text-right mt10">红包上限&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+					<div class="col-xs-8">
+						<div class="input-group">
+							<span class="input-group-addon">¥</span>
+							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0'
+							ng-model="salefrobj.rebate_unlimited"
+								>
+						</div>
+					</div>
+					
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>

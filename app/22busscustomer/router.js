@@ -762,15 +762,21 @@ var router = function($urlRouterProvider, $stateProvider){
          }
         })
 
-        // 热搜
+        // 热搜列表
          .state('app.hotsearch', {
          url: '/hotsearch/:id',
          controller : 'hotsearch',
          template: require('./views/hotsearch.html'),
          resolve:{
-            // saveAd : function(busscustomerservice){
-            //          return busscustomerservice.saveAd();
-            // }
+            findHotSearchList : function(busscustomerservice){
+                     return busscustomerservice.findHotSearchList();
+            },
+            deleteHotSearch : function(busscustomerservice){
+                     return busscustomerservice.deleteHotSearch();
+            },
+            saveHotSearch : function(busscustomerservice){
+                     return busscustomerservice.deleteHotSearch();
+            }
 
          }
         })
