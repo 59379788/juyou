@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $uibModal,confirmauthority,hostlists,ITEMS_PERPAGE){
+module.exports = function($scope, $stateParams, $uibModal,confirmauthority,hostlists,ITEMS_PERPAGE,toaster){
   
   $scope.info = {
        'appid':'shangke' 

@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE,FileUploader,findViewList,deletead){ 
+module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE,FileUploader,findViewList,deletead,toaster){ 
     var id = $stateParams.id;
     // $scope.info = {
     //     'id' : id,

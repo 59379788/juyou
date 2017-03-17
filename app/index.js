@@ -59,7 +59,7 @@ require('../libs/angular-locale_zh');
 // 弹出框
 require('angularjs-toaster');
 require('../node_modules/angularjs-toaster/toaster.min.css');
-require('angular-animate');
+// require('angular-animate');
 
 
 //=================[ 子模块加载 ]===========================//
@@ -154,7 +154,7 @@ var App = angular.module('juyouApp', [
     'ngSanitize',
     'frapontillo.bootstrap-switch',
     'toaster', 
-    'ngAnimate',
+    // 'ngAnimate',
 ]);
 
 App.config(['$urlRouterProvider', '$stateProvider', 

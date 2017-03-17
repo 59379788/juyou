@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,FileUploader,saveIntegralGood,updateMal,getInfoBySaleCode,salelist){  
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,FileUploader,saveIntegralGood,updateMal,getInfoBySaleCode,salelist,toaster){  
     var id = $stateParams.id;
     $scope.info = {
         'sale_code' : '',

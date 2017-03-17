@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findhelplist,updatestate){   
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findhelplist,updatestate,toaster){   
 	/* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
