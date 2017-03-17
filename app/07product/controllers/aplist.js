@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,str2date,date2str
+module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,str2date,date2str,toaster
         
 
     ){
@@ -30,7 +30,7 @@ module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,st
             console.log(res);
             if(res.errcode !== 0)
             {
-                alert("数据获取失败");
+                toaster.error({title: "提示", body:res.errmsg});
                 return;
             }
 

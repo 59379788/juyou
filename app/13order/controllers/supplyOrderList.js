@@ -1,4 +1,4 @@
-module.exports = function ($scope, $state, supplyOrderList, getDate) {
+module.exports = function ($scope, $state, supplyOrderList, getDate, toaster) {
 
 
 	$scope.searchform = {};
@@ -35,7 +35,7 @@ module.exports = function ($scope, $state, supplyOrderList, getDate) {
 				$scope.bigTotalItems = res.data.totalRecord;
 			}
 			else {
-				alert(res.errmsg);
+				toaster.error({title: "提示", body:res.errmsg});
 			}
 
 		});

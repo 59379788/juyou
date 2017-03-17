@@ -1,4 +1,4 @@
-module.exports = function ($scope, $state, areaOrderList, getDate) {
+module.exports = function ($scope, $state, areaOrderList, getDate,toaster) {
 	$scope.searchform = {};
 
 	//有效区间
@@ -33,7 +33,7 @@ module.exports = function ($scope, $state, areaOrderList, getDate) {
 				$scope.bigTotalItems = res.data.totalRecord;
 			}
 			else {
-				alert(res.errmsg);
+				toaster.error({title: "提示", body:res.errmsg});
 			}
 		});
 	};

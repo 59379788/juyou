@@ -1,5 +1,5 @@
 module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, str2date, date2str,
-	saleup, saledown, saleupdate, talist, sellerListno, tstcreateno, tststartno, tststopno
+	saleup, saledown, saleupdate, talist, sellerListno, tstcreateno, tststartno, tststopno,toaster
 
 ) {
 
@@ -29,7 +29,7 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 
 				console.log(res);
 				if (res.errcode !== 0) {
-					alert("数据获取失败");
+					toaster.error({title: "提示", body:res.errmsg});
 					return;
 				}
 
