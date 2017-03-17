@@ -168,7 +168,7 @@ App.config(['$urlRouterProvider', '$stateProvider',
 .config(function($qProvider, $httpProvider, ChartJsProvider) {
   $httpProvider.interceptors.push('httpInjector');
 
-  //$qProvider.errorOnUnhandledRejections(false);
+  $qProvider.errorOnUnhandledRejections(false);
 
   // Configure all charts
   ChartJsProvider.setOptions({

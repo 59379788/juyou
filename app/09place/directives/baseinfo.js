@@ -86,7 +86,6 @@ module.exports = function($resource, $state, $http, $q){
 			        return ;
 			    }
 
-
 			    if(angular.isDefined(res.placeinfo)){
 			    	//地点信息
 		            if(res.placeinfo.data.errcode === 0){
