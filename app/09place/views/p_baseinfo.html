@@ -1,0 +1,220 @@
+
+
+<div class="container-fluid form-horizontal">
+
+<style type="text/css">
+	
+	.mr10{margin-right: 10px;}
+</style>
+
+
+	<div class="col-xs-12 col-md-12 mt10" >
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">名称</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control" placeholder="请输入名称" 
+				ng-model="placeobj.name"
+				>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">子名称</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control" placeholder="请输入子名称" 
+				ng-model="placeobj.subname"
+				>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">地址</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control"
+				ng-model="placeobj.address"
+				>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">简介</label>
+			<div class="col-sm-9 col-xs-12">
+				<textarea class="form-control" rows="4"
+				ng-model="placeobj.content"
+				></textarea>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">地点</label>
+			<div class="col-sm-9  col-xs-12" >
+				<div class="fl">
+					<ui-select ng-model="placeobj.province" theme="bootstrap"
+					style="width: 150px; margin-right: 5px;"
+			        >
+			            <ui-select-match placeholder="省">{{$select.selected.label}}</ui-select-match>
+			            <ui-select-choices 
+			            repeat="item.value as item in page.categorylist | filter: $select.search">
+			              <span ng-bind-html="item.label | highlight: $select.search"></span>
+			            </ui-select-choices>
+			        </ui-select>
+		        </div>
+		        <div class="fl">
+					<ui-select ng-model="placeobj.city" theme="bootstrap"
+					style="width: 150px; margin-right: 5px;"
+			          >
+			            <ui-select-match placeholder="市">{{$select.selected.label}}</ui-select-match>
+			            <ui-select-choices 
+			            repeat="item.value as item in page.categorylist | filter: $select.search">
+			              <span ng-bind-html="item.label | highlight: $select.search"></span>
+			            </ui-select-choices>
+			        </ui-select>
+		        </div>
+		        <div class="fl">
+					<ui-select ng-model="placeobj.district" theme="bootstrap"
+					style="width: 150px; margin-right: 5px;"
+			          >
+			            <ui-select-match placeholder="区">{{$select.selected.label}}</ui-select-match>
+			            <ui-select-choices 
+			            repeat="item.value as item in page.categorylist | filter: $select.search">
+			              <span ng-bind-html="item.label | highlight: $select.search"></span>
+			            </ui-select-choices>
+			        </ui-select>
+		        </div>
+		        <div class="fl">
+					<ui-select ng-model="placeobj.business_district" theme="bootstrap"
+					style="width: 150px;"
+			          >
+			            <ui-select-match placeholder="商圈">{{$select.selected.label}}</ui-select-match>
+			            <ui-select-choices 
+			            repeat="item.value as item in page.categorylist | filter: $select.search">
+			              <span ng-bind-html="item.label | highlight: $select.search"></span>
+			            </ui-select-choices>
+			        </ui-select>
+		        </div>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">时间</label>
+			<div class="col-sm-9 col-xs-12">
+				<p class="form-control-static fl mr10">开放日期</p>
+				<div class="fl mr10">
+					<input type="text" class="form-control" 
+					ng-model="placeobj.open_date"
+					>
+				</div>
+				<p class="form-control-static fl mr10">营业时间</p>
+				<div class="fl mr10">
+					<input type="text" class="form-control" 
+					ng-model="placeobj.open_time"
+					>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">坐标</label>
+			<div class="col-sm-9 col-xs-12">
+				<p class="form-control-static fl mr10">经度坐标</p>
+				<div class="fl mr10">
+					<input type="text" class="form-control" 
+					ng-model="placeobj.longitude"
+					>
+				</div>
+				<p class="form-control-static fl mr10">纬度坐标</p>
+				<div class="fl mr10">
+					<input type="text" class="form-control" 
+					ng-model="placeobj.latitude"
+					>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">排序</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control"
+				ng-model="placeobj.asort"
+				>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">主题</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control"
+				ng-model="placeobj.theme"
+				>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">星级</label>
+			<div class="col-sm-9 col-xs-12">
+				<select class="form-control" ng-model="placeobj.star" >
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+	            </select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 col-xs-12 control-label">顶图</label>
+			<div class="col-sm-3 col-xs-12">
+				<img ng-src="{{placeobj.img}}" width="250" height="150" ng-model="placeobj.img">
+				<input type="file" nv-file-select uploader="baseinfo.imageshow.img" />
+				<br>
+				<ul class="list-group">
+				    <li class="list-group-item" 
+				    ng-repeat="item in baseinfo.imageshow.img.queue">
+				        文件名: <span ng-bind="item.file.name"></span>
+				        <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+				        <div class="progress mt10">
+				            <div class="progress-bar" role="progressbar" ng-style="{ 'width': baseinfo.imageshow.img.progress + '%' }"></div>
+				        </div>
+				    </li>
+				</ul>
+			</div>
+			<label class="col-sm-1 col-xs-12 control-label">logo</label>
+			<div class="col-sm-3  col-xs-12">
+				<img ng-src="{{placeobj.logo}}" width="250" height="150" ng-model="placeobj.logo">
+				<input type="file" nv-file-select uploader="baseinfo.imageshow.logo" />
+				<br>
+				<ul class="list-group">
+				    <li class="list-group-item" 
+				    ng-repeat="item in baseinfo.imageshow.logo.queue">
+				        文件名: <span ng-bind="item.file.name"></span>
+				        <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+				        <div class="progress mt10">
+				            <div class="progress-bar" role="progressbar" ng-style="{ 'width': baseinfo.imageshow.logo.progress + '%' }"></div>
+				        </div>
+				    </li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">预订须知</label>
+			<div class="col-sm-9 col-xs-12">
+				<div text-angular ng-model="placeobj.book_info"></div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 col-xs-12 control-label"></label>
+			<div class="col-sm-9 col-xs-12">
+				<button type="button" class="btn btn-primary btn-lg btn-block"
+				ng-click="save()"
+				>保存</button>
+			</div>
+		</div>
+
+
+	</div>
+
+</div>

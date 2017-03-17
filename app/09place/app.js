@@ -8,10 +8,10 @@ var App = angular.module('place', []);
 App.config(require('./router'));
 App.factory('placeservice', require('./service'));
 
-//App.controller('createplace',require('./controllers/createplace'));
-// App.controller('doccreate',require('./controllers/module'));
-// App.controller('doc',require('./controllers/doc'));
-// App.controller('info',require('./controllers/info'));
+App.controller('createplace',require('./controllers/create'));
 
+App.directive('placebaseinfo',require('./directives/baseinfo'));
+App.directive('placeview',require('./directives/view'));
+App.directive('placestore',require('./directives/store'));
 
 module.exports = App;

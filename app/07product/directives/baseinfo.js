@@ -38,6 +38,7 @@ module.exports = function($resource, $state, $http, $q, FileUploader){
 		'order_num_limit' : 0,	//每单最大购买数量限制
 		'tour_date_type' : '0',	//是否启用出游时间
 		'back_type' : '0',	//是否允许退票
+		'apply_state' : '0',	//退票是否需要审核
 		'ticket_type' : '0',	//是否出票
 		'user_status' : '0',	//是否实名制
 		'sms_ticketcode_type' : '0',	//短信票码类型

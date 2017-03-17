@@ -11,13 +11,20 @@
 			</div>
 		</div> -->
 
-		<div class="form-group">
+		<div class="form-group" >
 			<label class="col-sm-3 col-xs-12 control-label">销售品名称</label>
 			<div class="col-sm-9 col-xs-12">
 				<input type="text" class="form-control" placeholder="请输入销售品名称" 
 				ng-disabled="model.id != undefined"
 				ng-model="saleobj.name"
 				>
+			</div>
+		</div>
+
+		<div class="form-group" ng-if="saleobj.code != ''">
+			<label class="col-sm-3 col-xs-12 control-label">销售品编号</label>
+			<div class="col-sm-9 col-xs-12">
+				<p class="form-control-static">{{saleobj.code}}</p>
 			</div>
 		</div>
 
@@ -438,6 +445,22 @@
 				  <input type="radio" name="back_type" value="1"
 				  ng-model="saleobj.back_type"
 				  > 不允许
+				</label>
+		    </div>
+	  	</div>
+
+	  	<div class="form-group">
+		    <label class="col-sm-3 col-xs-12 control-label">退票审核</label>
+		    <div class="col-sm-9 col-xs-12">
+		    	<label class="radio-inline">
+				  <input type="radio" name="apply_state" value="0"
+				  ng-model="saleobj.apply_state"
+				  > 不需要
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="apply_state" value="1"
+				  ng-model="saleobj.apply_state"
+				  > 需要
 				</label>
 		    </div>
 	  	</div>

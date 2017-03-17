@@ -1,1 +1,32 @@
-place
+<style type="text/css">
+  form.tab-form-demo .tab-pane {
+    margin: 20px 20px;
+  }
+</style>
+
+<div class="col-sm-12" style="background: #fff; padding-top: 15px;">
+    <uib-tabset active="activeForm">
+
+      <uib-tab index="0" heading="基本信息">
+        <placebaseinfo
+          placeobj='placeobj'
+          baseinfo='baseinfo'
+        ></placebaseinfo>
+      </uib-tab>
+
+      <uib-tab index="1" heading="景区信息" 
+      ng-if="placeobj.id != '' && placeobj.type === 'J'">
+        <placeview
+          placeobj='placeobj'
+        ></placeview>
+      </uib-tab>
+
+      <uib-tab index="2" heading="商户信息" 
+      ng-if="placeobj.id != '' && placeobj.type === 'S'">
+        <placestore
+        ></placestore>
+      </uib-tab>
+
+    </uib-tabset>
+
+</div>

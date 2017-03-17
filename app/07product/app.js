@@ -33,6 +33,7 @@ App.controller('middlebusiness',require('./controllers/middlebusiness'));
 
 App.controller('newproduct',require('./controllers/newproduct'));
 App.controller('splist',require('./controllers/splist'));
+App.controller('aplist',require('./controllers/aplist'));
 App.directive('productbaseinfo',require('./directives/baseinfo'));
 App.directive('producttickettype',require('./directives/tickettype'));
 App.directive('productaffirm',require('./directives/affirm'));
