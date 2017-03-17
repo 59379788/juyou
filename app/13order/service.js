@@ -2,7 +2,7 @@
  * 子模块service
  * dlq
  */
-var service = function($resource, BASEURL38985){
+var service = function ($resource, BASEURL38985) {
 
     var create = BASEURL38985 + '/api/ac/tc/ticketOrderService/createOrder';
     //买补贴销售品订单
@@ -37,18 +37,27 @@ var service = function($resource, BASEURL38985){
     //转发短信 廊道
     var getRedCorridorTrSendSms = BASEURL38985 + '/api/ac/tc/ticketRedCorridorService/getRedCorridorTrSendSms';
 
-    
+
     //北京票联  红海滩廊道
     var getOrderSimInfo = BASEURL38985 + '/api/ac/dc/huaxiapl/getOrderSimInfo';
+    
     //重发短信
     var agencyOrderRepeatECode = BASEURL38985 + '/api/ac/dc/huaxiapl/agencyOrderRepeatECode';
-
 
     //皇家极地海洋馆信息
     var getroyalocOrdersState = BASEURL38985 + '/api/ac/dc/royaloc/getOrdersState';
 
     //生效时间
     var updateTicketEffectTime = BASEURL38985 + '/api/as/tc/ticket2/updateTicketEffectTime';
+    
+    //供应商订单列表（分页）
+    var supplyOrderList = BASEURL38985 + '/api/as/tc/ticketorder/supplyOrderList';
+
+    //运营商订单列表（分页）
+    var areaOrderList = BASEURL38985 + '/api/as/tc/ticketorder/areaOrderList';
+
+    //分销商订单列表（分页）
+    var marketOrderList = BASEURL38985 + '/api/as/tc/ticketorder/marketOrderList';
 
 
 
@@ -56,62 +65,71 @@ var service = function($resource, BASEURL38985){
 
     return {
 
-        createorder : function(){
+        createorder: function () {
             return $resource(create, {}, {});
         },
-        createSubsidyOrder : function(){
+        createSubsidyOrder: function () {
             return $resource(createSubsidyOrder, {}, {});
         },
-        list : function(){
+        list: function () {
             return $resource(list, {}, {});
         },
-        alllist : function(){
+        alllist: function () {
             return $resource(alllist, {}, {});
         },
-        ticketlist : function(){
+        ticketlist: function () {
             return $resource(ticketlist, {}, {});
         },
-        grouplist : function(){
+        grouplist: function () {
             return $resource(grouplist, {}, {});
         },
-        grouporderlist : function(){
+        grouporderlist: function () {
             return $resource(grouporderlist, {}, {});
         },
-        groupalllist : function(){
+        groupalllist: function () {
             return $resource(groupalllist, {}, {});
         },
-        createBackOrder : function(){
+        createBackOrder: function () {
             return $resource(createBackOrder, {}, {});
         },
-        resend : function(){
+        resend: function () {
             return $resource(resend, {}, {});
         },
-        getRedCorridorOrderList : function(){
+        getRedCorridorOrderList: function () {
             return $resource(getRedCorridorOrderList, {}, {});
         },
-        getRedCorridorResentMsg : function(){
+        getRedCorridorResentMsg: function () {
             return $resource(getRedCorridorResentMsg, {}, {});
         },
-        orderbacklist : function(){
+        orderbacklist: function () {
             return $resource(orderbacklist, {}, {});
         },
-        relay : function(){
+        relay: function () {
             return $resource(relay, {}, {});
         },
-        getRedCorridorTrSendSms : function(){
+        getRedCorridorTrSendSms: function () {
             return $resource(getRedCorridorTrSendSms, {}, {});
         },
-        getOrderSimInfo : function(){
+        getOrderSimInfo: function () {
             return $resource(getOrderSimInfo, {}, {});
         },
-        agencyOrderRepeatECode : function(){
+        agencyOrderRepeatECode: function () {
             return $resource(agencyOrderRepeatECode, {}, {});
         },
-        getroyalocOrdersState : function(){
+        getroyalocOrdersState: function () {
             return $resource(getroyalocOrdersState, {}, {});
         },
-        updateTicketEffectTime : function(){
+        updateTicketEffectTime: function () {
             return $resource(updateTicketEffectTime, {}, {});
+        },
+        supplyOrderList: function () {
+            return $resource(supplyOrderList, {}, {});
+        },
+        areaOrderList: function () {
+            return $resource(areaOrderList, {}, {});
+        },
+        marketOrderList: function () {
+            return $resource(marketOrderList, {}, {});
         }
 
     };

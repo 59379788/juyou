@@ -1,0 +1,181 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+
+                <div class="row ">
+
+                  <input type="text" class="form-control" ng-model="searchform.code" placeholder="订单编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.keyword" placeholder="订单标题" 
+                  >
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.cardno"  placeholder="身份证号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.name"
+                   placeholder="姓名"
+                   >
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <!-- <input type="text" class="form-control" ng-model="searchform.ticket_state" placeholder="票状态"> -->
+                  <!-- <select class="form-control" 
+                  ng-model="searchform.ticket_state" 
+                  ng-options="label for value in tic"
+                  >
+                  </select> -->
+                  
+
+                    
+
+                </div>
+
+ 
+                <div class="row mt10">
+                  
+                  
+                  
+
+                  
+
+                  <input type="text" class="form-control" ng-model="searchform.company_code" placeholder="机构编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.login_name" placeholder="登录帐号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.note" placeholder="备注">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <input type="text" class="form-control" ng-model="searchform.mobile" placeholder="电话">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                </div>
+
+                <div class="row mt10">
+
+                  <label>下单时间</label>&nbsp;&nbsp;
+                  <div class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                  </div>
+                        &nbsp;&nbsp;到&nbsp;&nbsp;            
+                  <div class="input-group">
+                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                  </div>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <label class="control-label">票状态：</label>
+                  <select class="form-control" ng-model="searchform.ticket_state" 
+                   placeholder="票状态" >
+                    <option label="未出票" value="0"></option>
+                    <option label="等待出票" value="1"></option>
+                    <option label="出票完成" value="2"></option>
+                    <option label="无需出票" value="8"></option>
+                    <option label="出票失败" value="9"></option>
+                    <option label="查询全部" value=""></option>
+                  </select>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <button type="button btn" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
+
+                </div>
+
+
+                
+                
+            </div>
+        </div>
+    </div>
+</div><!-- searchArea -->
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-3 text-center">订单名称</th>
+        <th class="col-md-2 text-center">订单编号</th>
+        <th class="col-md-2 text-center">游客信息</th>
+        <th class="col-md-1 text-center">数量</th>
+        <th class="col-md-1 text-center">购买时间</th>
+        <th class="col-md-1 text-center">销售品分类</th>
+        <th class="col-md-1 text-center">出票状态</th>
+        <th class="col-md-1 text-center">分销商</th>
+        <th class="col-md-1 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="">{{obj.title}}</td>
+        <td class="text-center">
+          <br>{{obj.code}}<br>
+          <span ng-show="obj.out_order_id">外部分销：{{obj.out_order_id}}</span>
+          <br> <span ng-show="obj.supply_order_id">供应商：{{obj.supply_order_id}}</span>
+        </td>
+        <td class="text-center">{{obj.name}}<br>{{obj.mobile}}<br>{{obj.cardno}}</td>
+        <td class="text-center">
+          <span>购买{{obj.num}}</span><br>
+          <span>退票{{obj.back}}</span><br>
+          <span>使用{{obj.used}}</span>
+        </td>
+        <td class="text-center">{{obj.create_time}}</td>
+        <td class="text-center">{{obj.sale_category_name}}</td>
+        <td class="text-center">
+          {{obj.ticket_state_name}}<br>
+          <span ng-show="obj.ticket_state == 9">
+            {{obj.cancel_reason}}
+          </span>
+        </td>
+        <td class="text-center">{{obj.company_name}}<br>{{obj.company_code}}<br>{{obj.operation_login_name}}</td>
+        <th class="text-center">
+          <a ng-click="ticketlist(obj)" class="btn btn-success btn-xs">票信息</a>
+          <br>
+          <a ng-click="orderinfo(obj)" class="btn btn-info btn-xs"
+          has-permission='orderinfo' 
+          >订单详情</a>
+          <br>
+          <a ng-click="resend(obj)" class="btn btn-danger btn-xs"
+          ng-show="obj.sale_belong != 'juyou' || (obj.ticket_state == '2' && obj.sms_state == '2')"
+          >重发短信</a>
+          <a ng-click="relay(obj)" class="btn btn-warning btn-xs"
+          ng-show="obj.sale_belong != 'juyou' || (obj.ticket_state == '2' && obj.sms_state == '2')"
+          >转发短信</a>
+          <a ng-click="back(obj)" class="btn btn-primary btn-xs"
+          ng-show="(obj.num > obj.back + obj.used) && ((obj.sale_belong != 'langdao' && obj.ticket_state == '2') || obj.ticket_state == '9') "
+          >退多张票</a>
+          
+        </th>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <div class="text-right">
+
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="load()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+
+  </div>
+  
+
+</div>
