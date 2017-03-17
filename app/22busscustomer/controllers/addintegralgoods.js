@@ -65,7 +65,6 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             $scope.datas = res.data;
             var array = res.data;
             if (id) {
-                alert(id);
                 getInfoBySaleCode.save({'id' : id}, function(res){
                     if (res.errcode !== 0) {
                         alert(res.errmsg);
@@ -73,6 +72,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
                     }
                     console.log(res);
                     $scope.info = res.data;
+                    $scope.info.market_price = $scope.info.market_price/100;
+                    $scope.info.integra_num = parseInt($scope.info.integra_num);
                     for (var i = 0; i < array.length ; i++) {
                         var codeStr = array[i].code;
                         //console.log(codeStr);
@@ -98,6 +99,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         if(id&&$scope.info.sale_code!=''&&$scope.info.title!=''&&$scope.info.picture!=''&&$scope.info.photos!=''
            &&$scope.info.content!=''&&$scope.info.market_price!=''&&$scope.info.integral!=''&&$scope.info.integra_num!=''){
             $scope.info.sale_code = $scope.searchform.selected.code;
+            $scope.info.market_price = $scope.info.market_price*100;
              updateMal.save($scope.info, function(res){
                 console.log($scope.info);
                 if (res.errcode !== 0) {

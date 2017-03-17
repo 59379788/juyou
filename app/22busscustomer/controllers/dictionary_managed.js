@@ -1,10 +1,13 @@
-module.exports = function($scope, $stateParams, $state,ITEMS_PERPAGE,findtradetypelist,deldictionary){
-      var id = $stateParams.id;
+module.exports = function($scope, $stateParams, $state,ITEMS_PERPAGE,findtradetypelist,deldictionary,findTypeList){
       $scope.info = {
-        'id' : id,
         'type' : '',
         'info' : ''
       }
+      $scope.searchform = {
+        'selected' :{
+            'type' : ''
+        }
+    };
     /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -12,23 +15,34 @@ module.exports = function($scope, $stateParams, $state,ITEMS_PERPAGE,findtradety
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
 
     $scope.search = function () {
+        $scope.info.type=$scope.searchform.selected.type;
         var para = {
                 pageNo:$scope.bigCurrentPage, 
                 pageSize:$scope.itemsPerPage,
             };
         para = angular.extend($scope.info,para); 
         findtradetypelist.save(para, function (res) {
-            console.log(para);
             if (res.errcode != 0) {
                 alert(res.errmsg);
                 return;
             }
-            console.log(res);
             $scope.objs = res.data.results;
             $scope.bigTotalItems = res.data.totalRecord;
         });
       };
 
+    $scope.gettypelist = function (){
+        findTypeList.save($scope.searchform,function(res){
+            if (res.errcode!=0) {
+                alert(res.errmsg);
+                return;
+            }
+            console.log(res);
+            $scope.datas = res.data;
+
+        })
+    };
+    $scope.gettypelist();
     $scope.getlist = function(){
         var para = {
             pageNo:$scope.bigCurrentPage, 
@@ -53,15 +67,28 @@ module.exports = function($scope, $stateParams, $state,ITEMS_PERPAGE,findtradety
 
     };
     $scope.delete = function(id){
-        deldictionary.save({'id' : id},function(res){
-            if (res.errcode != 0) {
-                alert(res.errmsg);
-                return;
-            }
-            console.log(res);
-            alert('删除成功！');
-            $scope.getlist();
-        });
+        if (confirm('确定删除吗?')) {
+            deldictionary.save({'id' : id},function(res){
+                if (res.errcode != 0) {
+                    alert(res.errmsg);
+                    return;
+                }
+                console.log(res);
+                alert('删除成功！');
+                $scope.getlist();
+            });
+            return;
+        }
+        // deldictionary.save({'id' : id},function(res){
+        //     if (res.errcode != 0) {
+        //         alert(res.errmsg);
+        //         return;
+        //     }
+
+        //     console.log(res);
+        //     alert('删除成功！');
+        //     $scope.getlist();
+        // });
     };
 
 };

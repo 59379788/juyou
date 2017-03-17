@@ -1,17 +1,38 @@
 <div class="col-sm-12">
   <div class="panel panel-default">
       <div class="panel-body">
-          <div class="form-group form-inline">
-              <div class="col-sm-12">
-                    <label for="inputLottry" class="control-label">商客字典管理</label>
-                    <input type="text" class="form-control" ng-model="info.type" placeholder="类型">&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" class="form-control" ng-model="info.info" placeholder="描述">&nbsp;&nbsp;
-                    <div class="form-group">
-                      <button type="button" class="btn btn-primary" ng-click="search()">立即查询</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </div>
-                    <button type="button" class="btn btn-primary search pull-right" ng-click="adddic()">添加字典</button>
-              </div>
+        <ui-select ng-model="searchform.selected" theme="bootstrap" class="col-sm-2">
+          <ui-select-match placeholder="类型">{{$select.selected.type}}</ui-select-match>
+          <ui-select-choices repeat="item in datas | filter: $select.search">
+            <span ng-bind-html="item.type | highlight: $select.search"></span>
+          </ui-select-choices>
+        </ui-select>
+        <div class="col-sm-2">
+          <div class="input-group">
+            <input type="text" class="form-control" ng-model="info.info" placeholder="描述">
           </div>
+        </div>
+        <!-- <div class="input-group ">
+         <input type="text" class="col-sm-2 form-control" ng-model="info.info" placeholder="描述">
+                     <button type="button" class="btn btn-primary form-control col-sm-1" ng-click="search()">立即查询</button>
+         </div>-->
+         <button class="btn btn-primary" ng-click="search()" type="button">立即查询</button>
+         <button type="button" class="btn btn-primary search pull-right" ng-click="adddic()">添加字典</button>
+
+          
+          <!-- <div class="form-group form-inline"> -->
+                    <!-- <label for="inputLottry" class="control-label pull-left">商客字典管理</label> -->
+                    <!-- <div class="form-control"> -->
+                      <!-- <ui-select ng-model="searchform.selected" theme="bootstrap" class="form-control">
+                        <ui-select-match placeholder="类型">{{$select.selected.type}}</ui-select-match>
+                        <ui-select-choices repeat="item in datas | filter: $select.search">
+                          <span ng-bind-html="item.type | highlight: $select.search"></span>
+                        </ui-select-choices>
+                      </ui-select>
+ -->                    <!-- </div> -->
+                    <!-- <input type="text" class="form-control" ng-model="info.type" placeholder="类型"> -->
+         
+          <!-- </div> -->
       </div>
   </div>
   <div class="col-md-12 panel panel-default table-responsive">

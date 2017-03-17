@@ -1,71 +1,65 @@
-module.exports = function($scope, $stateParams, $state,ITEMS_PERPAGE,dictionary,getInfoById){ 
-    var id = $stateParams.id;
-    var title_identifier = $stateParams.title_identifier;
+module.exports = function($scope, $stateParams, $state,FileUploader,ITEMS_PERPAGE,dictionary,getInfoById,findTypeList){ 
+   var id = $stateParams.id;
+   $scope.info={
+    'id':'',
+    'code':'',
+    'label':'',
+    'type':'',
+    'info':'',
+    'asort':'',
+    'img': '',
+    'remark':''
+   }
+    $scope.searchform = {
+        'selected' :{
+            'type' : ''
+        }
+    };
 
-    $scope.saveinfo = {
-        'title_identifier' : '',
-        'title' : '',
-        'explain_content' : ''
+    // 主图
+    var uploader = $scope.uploader = new FileUploader({
+        url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
+    });
+    uploader.filters.push({
+        name: 'imageFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    });    
+    uploader.onSuccessItem = function(fileItem, response, status, headers) {
+        $scope.info.img = response.savename;
     };
     if (id) {
-        getAdminExplain.save({'id' : id}, function(res){
-            if (res.errcode !== 0) {
-                    alert(res.errmsg);
-                    return;
-                }
-                console.log(res);
-                $scope.saveinfo = res.data;
-
-        });
-    }
-
-    if (title_identifier) {
-        $scope.title_identifier = title_identifier;
-    }
-
-    
-    
-    $scope.saveinstruction = function(){
-        if (id) {
-            // 修改
-            var para = {
-                id : id
-            };
-            para = angular.extend($scope.saveinfo, para);
-            if ($scope.saveinfo.title_identifier!==''&&$scope.saveinfo.title!==''&&$scope.saveinfo.explain_content!=='') {
-                updateExplain.save(para, function(res){
-                console.log(para);
-                if (res.errcode !== 0) {
-                    alert(res.errmsg);
-                    return;
-                }
-                console.log(res);
-                alert('修改成功');
-                $state.go('app.instructionlist');
-                });
-            } else {
-                alert('信息填写不完全！');
+        getInfoById.save({'id':id},function(res){
+            if (res.errcode != 0) {
+                alert(res.errmsg);
+                return;
             }
-            
-        } else {
-            alert('添加说明');
-            if ($scope.saveinfo.title_identifier!==''&&$scope.saveinfo.title!==''&&$scope.saveinfo.explain_content!=='') {
-                saveExplain.save($scope.saveinfo, function(res){
-                console.log($scope.saveinfo);
-                if (res.errcode !== 0) {
-                    alert(res.errmsg);
-                    return;
-                }
-                console.log(res);
-                alert('添加成功');
-                $state.go('app.instructionlist');
-                });
-            } else {
-                alert('信息填写不完全！');
-        }
-            
-        }
-        
+            $scope.info = res.data;
+        })
+    }
+    $scope.gettypelist = function (){
+        findTypeList.save($scope.searchform,function(res){
+            if (res.errcode!=0) {
+                alert(res.errmsg);
+                return;
+            }
+            console.log(res);
+            $scope.datas = res.data;
+
+        })
     };
-   
+    $scope.gettypelist();
+    $scope.save = function () {
+        dictionary.save($scope.info, function (res) {
+            $scope.info.type=$scope.searchform.selected.type;
+            if (res.errcode != 0) {
+                alert(res.errmsg);
+                return;
+            }
+            $state.go('app.dictionary_managed');
+    });
+  };
+
 };

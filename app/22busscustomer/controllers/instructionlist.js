@@ -1,9 +1,30 @@
 module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findExplainList,updateExplain,updateDelIns){ 
+    $scope.somepara = {
+        'title_identifier' : '',
+        'title' :''
+    }
+
     /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+
+    $scope.search = function(){
+        var para = {
+            pageNo:$scope.bigCurrentPage, 
+            pageSize:$scope.itemsPerPage
+        };
+        para = angular.extend($scope.somepara,para); 
+        findExplainList.save(para,function(res){
+        if (res.errcode !== 0) {
+            console.log(res.errmsg);
+            return;
+        }
+        console.log(res);
+        $scope.objs = res.data.results;
+        });
+    }
 
     $scope.getlist = function(){
         var para = {

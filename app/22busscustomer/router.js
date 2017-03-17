@@ -792,6 +792,9 @@ var router = function($urlRouterProvider, $stateProvider){
                 },
                 deldictionary : function(busscustomerservice){
                     return busscustomerservice.deldictionary();
+                },
+                findTypeList : function(busscustomerservice){
+                    return busscustomerservice.findTypeList();
                 }
             }
         })
@@ -807,6 +810,9 @@ var router = function($urlRouterProvider, $stateProvider){
                 },
                 getInfoById : function(busscustomerservice){
                     return busscustomerservice.getInfoById();
+                },
+                findTypeList : function(busscustomerservice){
+                    return busscustomerservice.findTypeList();
                 }
             }
         })

@@ -8,7 +8,7 @@
 							<label for="inputDate" class="col-sm-4 control-label">键值</label>
 							<div class="col-md-6">
 								<input type="text" class="form-control" id="inputpoolname" placeholder=""
-									ng-model="saveinfo.title_identifier"
+									ng-model="info.code"
 								>
 							</div>    
 						</div>
@@ -17,16 +17,28 @@
 							<label for="inputDate" class="col-sm-4 control-label">标签</label>
 							<div class="col-md-6">
 								<input type="text" class="form-control" id="inputpoolname" placeholder=""
-									ng-model="saveinfo.title"
+									ng-model="info.label"
 								>
 							</div>
 						</div>
 
+						<!-- <div class="form-group">
+							<label class="col-xs-4 control-label">类型</label>
+	   						<div class="col-md-6">
+			   					<ui-select ng-model="searchform.selected" theme="bootstrap" ng-change="change()">
+									<ui-select-match placeholder="选择类型">{{$select.selected.type}}</ui-select-match>
+									<ui-select-choices repeat="item in datas | filter: $select.search">
+										<span ng-bind-html="item.type | highlight: $select.search"></span>
+									</ui-select-choices>
+			                    </ui-select>
+	   						</div>    
+	 					</div> -->
+						
 						<div class="form-group">
 							<label for="inputDate" class="col-sm-4 control-label">类型</label>
 							<div class="col-md-6">
 								<input type="text" class="form-control" id="inputpoolname" placeholder=""
-									ng-model="saveinfo.title"
+									ng-model="info.type"
 								>
 							</div>
 						</div>
@@ -35,7 +47,7 @@
 							<label for="inputDate" class="col-sm-4 control-label">描述</label>
 							<div class="col-md-6">
 								<input type="text" class="form-control" id="inputpoolname" placeholder=""
-									ng-model="saveinfo.title"
+									ng-model="info.info"
 								>
 							</div>
 						</div>
@@ -44,7 +56,7 @@
 							<label for="inputDate" class="col-sm-4 control-label">排序</label>
 							<div class="col-md-6">
 								<input type="text" class="form-control" id="inputpoolname" placeholder=""
-									ng-model="saveinfo.title"
+									ng-model="info.asort"
 								>
 							</div>
 						</div>
@@ -52,7 +64,7 @@
 						<div class="form-group">
 							<label for="inputDate" class="col-sm-4 control-label">图片</label>
 							<div class="col-md-6">
-						        <img ng-src="{{info.photo}}" width="50%" height="150" ng-model="info.photo">
+						        <img ng-src="{{info.img}}" width="50%" height="150" ng-model="info.img">
 							        <input type="file" nv-file-select uploader="uploader" / ng-hide="hide===true" ><br/>
 							        <ul class="list-group">
 							          <li class="list-group-item" ng-repeat="item in uploader.queue">
@@ -68,11 +80,11 @@
 						<div class="form-group">
 							<label for="inputDate" class="col-sm-4 control-label">备注</label>
 							<div class="col-sm-6">
-								<textarea class="form-control col-sm-2" cols="15" rows="5" ng-model="saveinfo.explain_content"></textarea>
+								<textarea class="form-control col-sm-2" cols="15" rows="5" ng-model="info.remark"></textarea>
 							</div>
 						</div>
 
-					<button ng-show="title_identifier == undefined" type="button" class="col-md-2 col-md-offset-6 btn btn-primary" ng-click="saveinstruction()">保存</button>
+					<button type="button" class="col-md-2 col-md-offset-6 btn btn-primary" ng-click="save()">保存</button>
 				</div>
 			</div>
 		</div>

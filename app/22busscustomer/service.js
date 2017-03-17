@@ -49,8 +49,8 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
    var getInfoById = BASEURL38985 + '/api/as/mc/mertradetypedao/getInfoById';
    //删除字典信息
    var deldictionary = BASEURL38985 + '/api/as/mc/mertradetypedao/del';
-
-
+   //获取type列表
+   var findTypeList = BASEURL38985 + '/api/us/mc/mertradetypedao/findTypeList';
 
   // 查看活动申请人列表
   var findhelplist = BASEURL38985 + '/api/as/mc/meraskhelpdao/findhelplist';
@@ -545,11 +545,22 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         saveHotSearch : function() {
           return $resource(saveHotSearch, {}, {}); // 结束活动
+        },
+        dictionary : function(){
+          return $resource(dictionary,{},{});
+        },
+        findtradetypelist : function(){
+          return $resource(findtradetypelist,{},{});
+        },
+        getInfoById : function(){
+          return $resource(getInfoById,{},{});
+        },
+        deldictionary : function(){
+          return $resource(deldictionary,{},{});
+        },
+        findTypeList : function(){
+          return $resource(findTypeList,{},{});
         }
-
-
-        
-
 
     }
 };
