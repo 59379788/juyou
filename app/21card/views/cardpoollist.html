@@ -5,8 +5,19 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
-                  <label for="inputLottry" class="control-label">卡池列表</label>
-                  <button type="button" class="btn btn-primary search pull-right" ng-click="addcardpool()">添加卡池</button>
+                  <input type="text" class="form-control" ng-model="searchform.pool_code" placeholder="卡池编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="searchform.pool_name" placeholder="卡池名称">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="searchform.company_code" placeholder="机构编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <label class="control-label">卡池类型</label>&nbsp;&nbsp;
+                  <select class="form-control" ng-model="searchform.pool_type"
+		              ng-options="type.value as type.label for type in typearr">
+		            	<option label="查询全部" value=""></option>
+	              </select>
+                  <button type="button" class="btn btn-default search pull-right" ng-click="search()">立即搜索</button>
+                  <button type="button" class="btn btn-default search pull-right" ng-click="addcardpool()">创建卡池</button>
 
 
             </div>
@@ -20,22 +31,27 @@
 	    <thead>
 	      <tr>
 	        <th class="col-md-2 text-center">卡池编号</th>
-	        <th class="col-md-2 text-center">卡池名称</th>
-	        <th class="col-md-2 text-center">卡池类型</th>
-	        <th class="col-md-2 text-center">修改卡池信息</th>
-	        <th class="col-md-4 text-center">操作</th>
+	        <th class="col-md-3 text-center">卡池名称</th>
+	        <th class="col-md-1 text-center">卡池类型</th>
+	        <th class="col-md-2 text-center">操作时间</th>
+	        <th class="col-md-1 text-center">所属机构</th>
+	        <th class="col-md-3 text-center">操作</th>
 	      </tr>
 	    </thead>
 	    <tbody>
 	    	<tr ng-repeat = "cardpool in cardpoollists">
-	        <td class="col-md-2 text-center">{{cardpool.pool_code}}</td>
-	        <td class="col-md-2 text-center">{{cardpool.pool_name}}</td>
-	        <td class="col-md-2 text-center">{{cardpool.pool_type_name}}</td>
-	        <td class="col-md-2 text-center">
-	        	<button type="button" class="btn btn-info btn-xs" ng-click="resivepoolinfo(cardpool.pool_code, cardpool.pool_name,cardpool.pool_type_name)">修改</button>
+	        <td class="text-center">{{cardpool.pool_code}}</td>
+	        <td class="text-center">{{cardpool.pool_name}}</td>
+	        <td class="text-center">{{cardpool.pool_type_name}}</td>
+	        <td class="text-center">
+	        	{{cardpool.update_time}}
 	        </td>
-	        <td class="col-md-4 text-center">
-	        	
+	        <td class="text-center">
+	        	{{cardpool.company_name}}<br>
+         		{{cardpool.company_code}}
+	        </td>
+	        <td class="text-center">
+	        	<button type="button" class="btn btn-warning btn-xs" ng-click="addcardpool(cardpool)">编辑</button>
 	        	<a ng-click="add(cardpool.pool_code)" class="btn btn-info btn-xs">添加卡</a>
 	        	<a ng-click="relief(cardpool.pool_code)" class="btn btn-danger btn-xs">释放卡</a>
 	        	<a ng-click="release(cardpool.pool_code)" class="btn btn-success btn-xs">卡池详情</a>

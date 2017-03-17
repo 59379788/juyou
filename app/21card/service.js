@@ -1,6 +1,8 @@
 
 var service = function($resource, BASEURL38985){
     //------------------ 卡基本信息 -----------------------//
+    //添加卡段
+    var insertCard = BASEURL38985 + '/api/ac/uc/cardBaseService/insertCard';
     //卡基本信息列表
     var cardbaselist = BASEURL38985 + 'api/uc/uc/cardBaseService/getAllCardInfo';
     // 设置批次号
@@ -123,6 +125,9 @@ var service = function($resource, BASEURL38985){
     //----- 拿卡人管理 -----------------------//
 
     return {
+    	insertCard : function(){
+             return $resource(insertCard, {}, {});
+        },
         cardpoollist : function(){
              return $resource(cardpoollist, {}, {});
         },

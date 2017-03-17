@@ -1,4 +1,17 @@
-module.exports = function($scope, $state, cardpoollist, $uibModal,addcard,unusedcard,addcard,releasecard,canrelease,ITEMS_PERPAGE){
+module.exports = function($scope, $state, cardpoollist, $uibModal,addcard,unusedcard,addcard,
+	releasecard,canrelease,ITEMS_PERPAGE,addcardpool,dictbytypelist){
+
+	dictbytypelist({'type' : 'user_pool_type'}).then(function(res) {
+        if(res.errcode === 0)
+        {
+            $scope.typearr = res.data;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
+
     $scope.delete = function(){
         $state.go('app.deletecard');
     }
@@ -37,8 +50,32 @@ module.exports = function($scope, $state, cardpoollist, $uibModal,addcard,unused
  
     }
     // 添加卡池
-    $scope.addcardpool = function(){
-        $state.go('app.addcardpool');
+    $scope.addcardpool = function(cardpool){
+        var modalInstance = $uibModal.open({
+          template: require('../views/addcardpool.html'),
+          controller: 'addcardpool',
+          size: 'xs',
+          resolve: {
+          	cardpool : function(){
+                return cardpool;
+            },
+            addcardpool : function(){
+                return addcardpool;
+            },
+            dictbytypelist : function(){
+                return dictbytypelist;
+            }
+            
+          }
+        });
+
+        modalInstance.result.then(function () {
+
+          $scope.search();
+        }, function () {
+           
+          //$log.info('Modal dismissed at: ' + new Date());
+        });   
     }
     // 卡池详情
     $scope.release = function(poolcode) {   
@@ -91,11 +128,12 @@ module.exports = function($scope, $state, cardpoollist, $uibModal,addcard,unused
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
     
-    $scope.getlist = function(){ 
+    $scope.search = function(){
     	var para = {
             pageNo:$scope.bigCurrentPage, 
             pageSize:$scope.itemsPerPage
         };
+        para = angular.extend($scope.searchform, para);
 
         cardpoollist.save(para, function(res){ 
         	console.log(para);
@@ -108,5 +146,5 @@ module.exports = function($scope, $state, cardpoollist, $uibModal,addcard,unused
 	        }
         });
     };	
-    $scope.getlist();  
+    $scope.search();  
 };

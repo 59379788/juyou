@@ -23,6 +23,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             canrelease : function(cardservice){
                  return cardservice.canrelease();
+            },
+            addcardpool : function(cardservice){
+                 return cardservice.addcardpool();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
             }
          }
        })
@@ -51,6 +57,9 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
             addcardpool : function(cardservice){
                  return cardservice.addcardpool();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
             }
          }
        })
@@ -62,6 +71,9 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
             addcardpool : function(cardservice){
                  return cardservice.addcardpool();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
             }
          }
        })
@@ -181,6 +193,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             goodoffsale : function(cardservice){
                  return cardservice.goodoffsale();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
             }
          }
        })
@@ -304,7 +319,9 @@ var router = function($urlRouterProvider, $stateProvider){
          controller : 'basecardlist',
          template: require('./views/basecardlist.html'),
          resolve:{
-
+         	insertCard : function(cardservice){
+                 return cardservice.insertCard();
+            },
             cardbaselist : function(cardservice){
                  return cardservice.cardbaselist();
             },

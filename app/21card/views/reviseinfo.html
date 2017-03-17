@@ -13,10 +13,10 @@
 		</div>
 		<label for="inputDate" class="col-md-3 control-label">卡池类型</label>
 		<div class="col-md-3">
-            <select class="form-control" ng-model="cardinfo.pool_type">
-               <option value="0">基本</option>
-               <option value="1">金卡</option>
-            <select>  
+            <select class="form-control" ng-model="cardinfo.pool_type"
+              ng-options="type.value as type.label for type in typearr"
+            >
+          </select>  
         </div>
         <button type="button" class="btn btn-info  pull-right" ng-click="savecardpool()" style="width:100px;">修改<button>
          

@@ -4,25 +4,34 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                   
+              <div class="row ">
                   <input type="text" class="form-control" ng-model="searchform.startcard" placeholder="起始卡号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <input type="text" class="form-control" ng-model="searchform.endcard" placeholder="结束卡号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <input type="text" class="form-control" ng-model="searchform.cardbatch" placeholder="批次号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="searchform.company_code" placeholder="机构编号">
+                  <button type="button" class="btn btn-default search pull-right" ng-click="add()">添加卡段</button>
+          	   </div>
+
+          	   <div class="row mt10">
+          	   	  <label class="control-label">发放状态：</label>
                   <select class="form-control" ng-model="searchform.cardgivetatus">
                     <option value="">全部</option>
                     <option value="0">未发放</option>
                     <option value="1">已发放</option>
                   </select>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <label class="control-label">制作状态：</label>
                   <select class="form-control" ng-model="searchform.cardmakestatus">
                     <option value="">全部</option>
                     <option value="0">未制作</option>
                     <option value="2">制作中</option>
                     <option value="1">已制作</option>
                   </select>
-                  <button type="button" class="btn btn-primary search pull-right" ng-click="search(searchform.startcard, searchform.endcard, searchform.cardmakestatus, searchform.cardbatch, searchform.cardgivetatus)">立即搜索</button>
-
+                   <button type="button" class="btn btn-default search pull-right" ng-click="search(searchform.startcard, searchform.endcard, searchform.cardmakestatus, searchform.cardbatch, searchform.cardgivetatus)">立即搜索</button>
+          	   </div>
 
             </div>
         </div>
@@ -34,10 +43,12 @@
     <thead>
       <tr>
         <th class="col-md-3 text-center">卡段</th>
-        <th class="col-md-3 text-center">批次</th>
-        <th class="col-md-2 text-center">卡状态</th>
+        <th class="col-md-2 text-center">批次</th>
+        <th class="col-md-2 text-center">发放状态</th>
         <th class="col-md-2 text-center">制作状态</th>
-        <th class="col-md-2 text-center">操作</th>
+        <th class="col-md-1 text-center">添加时间</th>
+        <th class="col-md-1 text-center">所属机构</th>
+        <th class="col-md-1 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -46,17 +57,26 @@
         <td class="text-center">{{obj.card_make_batch}}</td>
         <td class="text-center">
           {{obj.card_giveout_status}}<br>
-          {{obj.card_add_time}}
+          {{obj.card_giveout_time}}
         </td>
         <td class="text-center">
           {{obj.card_make_status}}<br>
           {{obj.card_make_time}}
         </td>
         <td class="text-center">
+          {{obj.card_add_time}}
+        </td>
+        <td class="text-center">
+          {{obj.company_name}}<br>
+          {{obj.company_code}}
+        </td>
+        <td class="text-center">
           <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='未制作'" ng-click="batchnumber(obj.mincard,obj.maxcard)" class="btn btn-info btn-xs">设置批次号</a>
 
           <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='制作中'"
-          ng-click="cardcomplete(obj.card_make_batch,obj.mincard,obj.maxcard)" class="btn btn-success btn-xs">制卡完成</a>  
+          ng-click="cardcomplete(obj.card_make_batch,obj.mincard,obj.maxcard)" class="btn btn-success btn-xs">制卡完成</a>
+          <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='制作中'"
+          ng-click="" class="btn btn-warning btn-xs">导出excel</a>    
         </td>
       </tr>
     </tbody>
