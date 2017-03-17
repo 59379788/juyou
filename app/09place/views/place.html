@@ -22,8 +22,9 @@
       </uib-tab>
 
       <uib-tab index="2" heading="商户信息" 
-      ng-if="placeobj.id != '' && placeobj.type === 'S'">
+      ng-if="placeobj.id != '' && placeobj.type === 'M'">
         <placestore
+        placeobj='placeobj'
         ></placestore>
       </uib-tab>
 

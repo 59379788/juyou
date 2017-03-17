@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,savePrize,ITEMS_PERPAGE,updateDel,getPrize,updatePrize,salelist){   
+module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,savePrize,ITEMS_PERPAGE,updateDel,getPrize,updatePrize,salelist,toaster){   
     var id = $stateParams.id;// 活动id
     $scope.info = {
         'id' : id
@@ -28,6 +28,7 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,
 
     // 添加奖品
     $scope.add = function(id,prizeId){
+        console.log('111');
         var modalInstance = $uibModal.open({
           template: require('../views/addprize.html'),
           controller: 'addprize',

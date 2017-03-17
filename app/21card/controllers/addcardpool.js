@@ -1,22 +1,41 @@
-module.exports = function($scope, $state, $stateParams, addcardpool){
-    $scope.cardinfo = {
-	    'pool_name' : '',
-	    'pool_type' : '0'
-	};  
+module.exports = function($scope, $state, $stateParams, cardpool, addcardpool, dictbytypelist, $uibModalInstance){
+
+	$scope.cardinfo = {};
+
+	dictbytypelist({'type' : 'user_pool_type'}).then(function(res) {
+        console.log(res);
+        if(res.errcode === 0)
+        {
+            $scope.typearr = res.data;
+            if(cardpool === undefined) {
+				$scope.cardinfo.pool_type = '0';
+            } else {
+				$scope.cardinfo = cardpool;
+            }
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
 
 	$scope.savecardpool = function(){
-        var cardparem = {'pool_name':$scope.cardinfo.pool_name,'pool_type':$scope.cardinfo.pool_type};
-        console.log(cardparem);
-		addcardpool.save(cardparem, function(res){
+		addcardpool.save($scope.cardinfo, function(res){
 			console.log(res);
-			    if (res.errcode !== 0) {
-                    alert(res.errmsg);
-			    } else {
-			    	alert('添加卡池成功');
-			    	$state.go('app.cardpool');
-			    }
+		    if (res.errcode !== 0) {
+                alert(res.errmsg);
+		    } else {
+		    	//alert('添加成功');
+		    	$uibModalInstance.close();
+		    }
 			
      	});                
 	};
+
+	$scope.cancel = function(){
+
+		$uibModalInstance.close();
+
+	}
 
 };

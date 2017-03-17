@@ -56,6 +56,12 @@ require('../node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.c
 // 日期汉化
 require('../libs/angular-locale_zh');
 
+// 弹出框
+require('angularjs-toaster');
+require('../node_modules/angularjs-toaster/toaster.min.css');
+// require('angular-animate');
+
+
 //=================[ 子模块加载 ]===========================//
 
 require('./00dashboard/app');
@@ -147,6 +153,8 @@ var App = angular.module('juyouApp', [
     'ui.select',
     'ngSanitize',
     'frapontillo.bootstrap-switch',
+    'toaster', 
+    // 'ngAnimate',
 ]);
 
 App.config(['$urlRouterProvider', '$stateProvider', 
@@ -157,8 +165,10 @@ App.config(['$urlRouterProvider', '$stateProvider',
 }])
 
 //拦截器
-.config(function($httpProvider, ChartJsProvider) {
+.config(function($qProvider, $httpProvider, ChartJsProvider) {
   $httpProvider.interceptors.push('httpInjector');
+
+  $qProvider.errorOnUnhandledRejections(false);
 
   // Configure all charts
   ChartJsProvider.setOptions({

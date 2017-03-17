@@ -1,9 +1,126 @@
-<div>
 
 
+<div class="container-fluid form-horizontal">
+
+<style type="text/css">
+	
+	.mr10{margin-right: 10px;}
+</style>
 
 
-stroe
+	<div class="col-xs-12 col-md-12 mt10" >
 
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">商户类型</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control" placeholder="请输入商户类型" 
+				ng-model="storeobj.merchant_label"
+				>
+			</div>
+		</div>
+
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">类型</label>
+			<div class="col-sm-9 col-xs-12">
+				<select class="form-control" ng-model="viewobj.view_type" ng-change="selection(viewobj.view_type)" ng-options="data.value as data.type for data in typedatas">
+					<option value="">请选择</option>
+				</select>
+			</div>
+		</div>
+
+        <div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">频道(行业）</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control" 
+				ng-model="storeobj.merchant_channel"
+				>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">商铺活动</label>
+			<div class="col-sm-9 col-xs-12">
+				<textarea class="form-control" rows="3"
+				ng-model="storeobj.merchant_shop_activity"
+				></textarea>
+			</div>
+		</div>
+
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">活动简介</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control" 
+				ng-model="storeobj.merchant_activity_profile"
+				>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">标签</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control" 
+				ng-model="storeobj.merchant_label_marking"
+				>
+			</div>
+		</div>
+        
+        <div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">付款方式</label>
+			<div class="col-sm-9 col-xs-12">
+				<label class="radio-inline">
+				  <input type="radio" name="sms_type" value="1"
+				  ng-model="storeobj.merchant_pay_method"
+				  > 到店付
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="sms_type" value="0"
+				  ng-model="storeobj.merchant_pay_method"
+				  > 即使付
+				</label>
+			</div>
+		</div>
+
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">人均消费</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control" 
+				ng-model="storeobj.merchant_per_average_consume"
+				>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">备注</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control" 
+				ng-model="storeobj.merchant_remarks"
+				>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">排序</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control" 
+				ng-model="storeobj.merchant_asort"
+				>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label class="col-sm-3 col-xs-12 control-label"></label>
+			<div class="col-sm-9 col-xs-12">
+				<button type="button" class="btn btn-primary btn-lg btn-block"
+				ng-click="save()"
+				>保存</button>
+			</div>
+		</div>
+
+
+	</div>
 
 </div>

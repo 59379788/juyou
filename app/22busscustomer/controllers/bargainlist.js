@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE, findManageActiveList, getDate, findCheckActiveList,updateActiveStart,updateActiveEnd){
+module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE, findManageActiveList, getDate, findCheckActiveList,updateActiveStart,updateActiveEnd,toaster){
 
   /* 分页
      * ========================================= */
@@ -38,8 +38,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE
         findCheckActiveList.save(para, function (res) {
           	console.log(para);
           	if (res.errcode != 0) {
-         				alert(res.errmsg);
-         				return;
+         			//toaster.success({title: "", body:res.errmsg});
+         			return;
        			}
        			console.log(res);
        			$scope.objs = res.data.results;
@@ -56,7 +56,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE
      		findManageActiveList.save(para, function (res) {
        			console.log(para);
        			if (res.errcode != 0) {
-         				alert(res.errmsg);
+         				toaster.success({title: "", body:res.errmsg});
          				return;
        			}                
        			$scope.objs = res.data.results;
@@ -89,7 +89,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE
        if(isSelected==false){
             updateActiveEnd.save({'id':id},function(res){
                 if(res.errcode!=0){
-                        alert(res.errmsg);
+                        toaster.success({title: "", body:res.errmsg});
                         return;
                 }
                 console.log(res);
@@ -99,7 +99,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE
        } else {
             updateActiveStart.save({'id':id},function(res){
                 if(res.errcode!=0){
-                    alert(res.errmsg);
+                    toaster.success({title: "", body:res.errmsg});
                     return;
                 }
                 console.log(res);

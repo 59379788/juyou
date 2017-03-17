@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInstance, ITEMS_PERPAGE,FileUploader,savePrize,getPrize,prizeId,updatePrize,salelist){  
+module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInstance, ITEMS_PERPAGE,FileUploader,savePrize,getPrize,prizeId,updatePrize,salelist,toaster){  
     var id = $stateParams.id;
     $scope.salelists = [];
     $scope.info = {
@@ -24,7 +24,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
     $scope.getsalelist = function() {
         salelist.save($scope.searchform,function(res) {
             if (res.errcode!=0) {
-                alert(res.errmsg);
+                toaster.success({title: "", body:res.errmsg});
                 return;
             }
             console.log(res);
@@ -35,7 +35,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
                 getPrize.save({'id':prizeId,},function(res) {
                     //console.log(prizeId);
                     if (res.errcode!=0) {
-                        alert(res.errmsg);
+                        toaster.success({title: "", body:res.errmsg});
                         return;
                     }           
                     //$scope.searchform.selected.name = res.data.saleId;
@@ -99,16 +99,16 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
                 console.log(para);
                 updatePrize.save(para,function(res) {
                     if (res.errcode!=0) {
-                        alert(res.errmsg);
+                        toaster.success({title: "", body:res.errmsg});
                         return;
                     }
                     console.log(para);
                     console.log(res);
-                    alert('修改成功！');
+                    toaster.success({title: "", body:"修改成功"});
                     $uibModalInstance.close();
                 });
             } else {
-                alert('请将数据补充完整!');
+                toaster.success({title: "", body:"请将数据补充完整"});
             }           
         } else {
             // 赋值saleID
@@ -119,18 +119,18 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
                 savePrize.save($scope.info,function (res) {
                     console.log($scope.info);
                     if (res.errcode!=0) {
-                        alert(res.errmsg);
+                        toaster.success({title: "", body:res.errmsg});
                         return;
                     }
                     console.log($scope.info);
                     console.log(res);
-                    alert('添加成功！');
+                    toaster.success({title: "", body:"添加成功"});
                     $uibModalInstance.close();
 
                     //$state.go('app.prizelist');
                 });
             } else {
-                alert('请将数据补充完整!');
+                toaster.success({title: "", body:"请将数据补充完整"});
             }
             
         

@@ -20,6 +20,9 @@ App.controller('orderinfo',require('./controllers/orderinfo'));
 App.controller('backnum',require('./controllers/backnum'));
 App.controller('relaymessage',require('./controllers/relaymessage'));
 App.controller('backticket',require('./controllers/backticket'));
+App.controller('supplyOrderList',require('./controllers/supplyOrderList'));
+App.controller('areaOrderList',require('./controllers/areaOrderList'));
+App.controller('marketOrderList',require('./controllers/marketOrderList'));
 
 
 module.exports = App;

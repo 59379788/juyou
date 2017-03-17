@@ -26,6 +26,7 @@
     "angular-ui-bootstrap": "^1.2.1",
     "angular-ui-router": "^0.2.18",
     "angular-ui-tree": "^2.14.0",
+    "angularjs-toaster": "^2.1.0",
     "bootstrap": "^3.3.6",
     "bootstrap-switch": "^3.3.4",
     "file-loader": "^0.10.1",

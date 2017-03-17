@@ -54,7 +54,7 @@ App.controller('headline',require('./controllers/headline'));
 App.controller('addheadline',require('./controllers/addheadline'));
 
 // 杀价帮
-App.controller('bargain',require('./controllers/bargain'));
+//App.controller('bargain',require('./controllers/bargain'));
 
 // 轮播图列表页
 App.controller('newsrollinglist',require('./controllers/newsrollinglist'));

@@ -1,6 +1,5 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,FileUploader,saveIntegralGood,updateMal,getInfoBySaleCode,salelist){  
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,FileUploader,saveIntegralGood,updateMal,getInfoBySaleCode,salelist,toaster){  
     var id = $stateParams.id;
-    //alert(id);
     $scope.info = {
         'sale_code' : '',
         'title' : '',
@@ -58,7 +57,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     $scope.getsalelist = function() {
         salelist.save($scope.searchform,function(res) {
             if (res.errcode!=0) {
-                alert(res.errmsg);
+                toaster.success({title: "", body:res.errmsg});
                 return;
             }
             console.log(res);
@@ -67,7 +66,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             if (id) {
                 getInfoBySaleCode.save({'id' : id}, function(res){
                     if (res.errcode !== 0) {
-                        alert(res.errmsg);
+                        toaster.success({title: "", body:res.errmsg});
                         return;
                     }
                     console.log(res);
@@ -103,11 +102,11 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
              updateMal.save($scope.info, function(res){
                 console.log($scope.info);
                 if (res.errcode !== 0) {
-                alert(res.errmsg);
+                toaster.success({title: "", body:res.errmsg});
                 return;
                 }
                 console.log(res);
-                alert('修改成功！');
+                toaster.success({title: "", body:"修改成功!"});
                 $state.go('app.integral');
             });
 
@@ -116,11 +115,11 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             saveIntegralGood.save($scope.info, function(res){
                 console.log($scope.info);
                 if (res.errcode !== 0) {
-                alert(res.errmsg);
+                toaster.success({title: "", body:res.errmsg});
                 return;
                 }
                 console.log(res);
-                alert('添加成功！');
+                toaster.success({title: "", body:"添加成功!"});
                 $state.go('app.integral');
             });
         }

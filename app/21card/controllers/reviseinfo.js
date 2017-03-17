@@ -1,10 +1,22 @@
-module.exports = function($scope, $state, $stateParams, addcardpool){
+module.exports = function($scope, $state, $stateParams, addcardpool, dictbytypelist){
     var poolcode = $stateParams.poolcode;
     var poolname = $stateParams.poolname;
     var pooltype = $stateParams.pooltype;
     console.log(poolname);
     console.log(poolcode);
     console.log(pooltype);
+
+    dictbytypelist({'type' : 'user_pool_type'}).then(function(res) {
+        console.log(res);
+        if(res.errcode === 0)
+        {
+            $scope.typearr = res.data;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
 
     $scope.cardinfo = {
 	    'pool_name' : poolname,

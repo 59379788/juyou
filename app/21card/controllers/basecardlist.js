@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, cardbaselist, cardproductlist,searchcard,ITEMS_PERPAGE){
+module.exports = function($scope, $state, cardbaselist, cardproductlist,searchcard,ITEMS_PERPAGE, insertCard, $uibModal){
     /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -63,5 +63,25 @@ module.exports = function($scope, $state, cardbaselist, cardproductlist,searchca
 			
 	};
     $scope.search();
+
+    $scope.add = function(obj){
+        
+    	var modalInstance = $uibModal.open({
+          template: require('../views/insertcard.html'),
+          controller: 'insertcard',
+          size: 'xs',
+          resolve: {
+            insertCard : function(){
+                return insertCard;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+            $scope.search();
+        }, function () {
+            
+        });
+    }
 
 };

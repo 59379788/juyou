@@ -1,4 +1,26 @@
-module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, goodoffsale,ITEMS_PERPAGE){
+module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, goodoffsale,ITEMS_PERPAGE, dictbytypelist){
+
+	dictbytypelist({'type' : 'bookline_type'}).then(function(res) {
+        if(res.errcode === 0)
+        {
+            $scope.typearr = res.data;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
+
+    dictbytypelist({'type' : 'sale_state_type'}).then(function(res) {
+        if(res.errcode === 0)
+        {
+            $scope.statearr = res.data;
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });
 
 	$scope.searchform = {};
 	$scope.productinfo = {

@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findhelplist,updatestate){   
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findhelplist,updatestate,toaster){   
 	/* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -17,7 +17,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     	findhelplist.save(para,function(res){
     		console.log(para);
     		if (res.errcode !== 0) {
-    			alert(res.errmsg);
+    			toaster.success({title: "", body:res.errmsg});
     			return;
     		}
  			console.log(res);
@@ -32,11 +32,11 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             updatestate.save({'state':'1','id':id},function(res) {
                 console.log({'state':'1','id':id});
                 if (res.errcode !== 0) {
-                    alert(res.errmsg);
+                    toaster.success({title: "", body:res.errmsg});
                     return;
                 } 
                 console.log(res);
-                alert('申请成功！');
+                toaster.success({title: "", body:"申请成功"});
                 $scope.getlist();
             });
             return;
@@ -48,11 +48,11 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         updatestate.save({'state':'2','id':id},function(res) {
             console.log({'state':'2','id':id});
             if (res.errcode !== 0) {
-                alert(res.errmsg);
+                toaster.success({title: "", body:res.errmsg});
                 return;
             } 
             console.log(res);
-            alert('成功');
+            toaster.success({title: "", body:"成功!"});
             $scope.getlist();
         });
         

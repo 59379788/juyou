@@ -15,6 +15,9 @@ var service = function($resource, BASEURL38985, $q, $http){
     var slist = BASEURL38985 + "/api/as/tc/placeview/jlist";
 
     var city = BASEURL38985 + "/api/us/sc/city/citylist";
+
+    var updateplacemerchant = BASEURL38985 + "/api/as/tc/placemerchant/update";
+
     
     return {
 
@@ -29,6 +32,9 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         update : function(){
             return $resource(update, {}, {});
+        },
+        updateplacemerchant : function(){
+            return $resource(updateplacemerchant, {}, {});
         },
         slist : function(obj){
             var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  

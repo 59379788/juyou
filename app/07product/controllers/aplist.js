@@ -1,5 +1,5 @@
-module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,str2date,date2str,
-        saleup, saledown, saleupdate, talist, sellerListno, tstcreateno, tststartno, tststopno
+module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,str2date,date2str,toaster
+        
 
     ){
 
@@ -24,13 +24,13 @@ module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,st
 
         para = angular.extend($scope.searchform, para);
 
-        $resource('/api/ac/tc/ticketSaleService/getSaleList', {}, {})
+        $resource('/api/ac/tc/ticketSaleService/getApplySaleList', {}, {})
         .save(para, function(res){
 
             console.log(res);
             if(res.errcode !== 0)
             {
-                alert("数据获取失败");
+                toaster.error({title: "提示", body:res.errmsg});
                 return;
             }
 
@@ -65,7 +65,7 @@ module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,st
                 return str2date;
             },
             date2str : function(){
-                return getDate;
+                return date2str;
             },
             
           }
@@ -77,6 +77,31 @@ module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,st
           //$log.info('Modal dismissed at: ' + new Date());
         });
 
+    };
+
+
+    $scope.pass = function(id){
+        console.log(id);
+        $resource('/api/ac/tc/ticketSaleService/updateSaleApplyPass', {}, {})
+        .save({'id' : id}, function(res){
+            console.log(res);
+            if(res.errcode !== 0){
+                alert(res.errmsg);
+                return;
+            }
+        });
+    };
+
+    $scope.nopass = function(id){
+        console.log(id);
+        $resource('/api/ac/tc/ticketSaleService/updateSaleApplyNoPass', {}, {})
+        .save({'id' : id}, function(res){
+            console.log(res);
+            if(res.errcode !== 0){
+                alert(res.errmsg);
+                return;
+            }
+        });
     };
 
 

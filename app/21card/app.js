@@ -7,6 +7,8 @@ var App = angular.module('card', []);
 
 App.config(require('./router'));
 App.factory('cardservice', require('./service'));
+//添加卡池
+App.controller('insertcard',require('./controllers/insertcard'));
 //卡池列表
 App.controller('cardpoollist',require('./controllers/cardpoollist'));
 //添加卡池信息、修改卡池信息

@@ -52,33 +52,36 @@
 				<div class="fl">
 					<ui-select ng-model="placeobj.province" theme="bootstrap"
 					style="width: 150px; margin-right: 5px;"
+					ng-change="changeprovince(placeobj.province)"
 			        >
-			            <ui-select-match placeholder="省">{{$select.selected.label}}</ui-select-match>
+			            <ui-select-match placeholder="省">{{$select.selected.name}}</ui-select-match>
 			            <ui-select-choices 
-			            repeat="item.value as item in page.categorylist | filter: $select.search">
-			              <span ng-bind-html="item.label | highlight: $select.search"></span>
+			            repeat="item.code as item in page.provincelist | filter: $select.search">
+			              <span ng-bind-html="item.name | highlight: $select.search"></span>
 			            </ui-select-choices>
 			        </ui-select>
 		        </div>
 		        <div class="fl">
 					<ui-select ng-model="placeobj.city" theme="bootstrap"
 					style="width: 150px; margin-right: 5px;"
+					ng-change="changecity(placeobj.city)"
 			          >
-			            <ui-select-match placeholder="市">{{$select.selected.label}}</ui-select-match>
+			            <ui-select-match placeholder="市">{{$select.selected.name}}</ui-select-match>
 			            <ui-select-choices 
-			            repeat="item.value as item in page.categorylist | filter: $select.search">
-			              <span ng-bind-html="item.label | highlight: $select.search"></span>
+			            repeat="item.code as item in page.citylist | filter: $select.search">
+			              <span ng-bind-html="item.name | highlight: $select.search"></span>
 			            </ui-select-choices>
 			        </ui-select>
 		        </div>
 		        <div class="fl">
 					<ui-select ng-model="placeobj.district" theme="bootstrap"
 					style="width: 150px; margin-right: 5px;"
+					ng-change="changedistrict(placeobj.district)"
 			          >
-			            <ui-select-match placeholder="区">{{$select.selected.label}}</ui-select-match>
+			            <ui-select-match placeholder="区">{{$select.selected.name}}</ui-select-match>
 			            <ui-select-choices 
-			            repeat="item.value as item in page.categorylist | filter: $select.search">
-			              <span ng-bind-html="item.label | highlight: $select.search"></span>
+			            repeat="item.code as item in page.districtlist | filter: $select.search">
+			              <span ng-bind-html="item.name | highlight: $select.search"></span>
 			            </ui-select-choices>
 			        </ui-select>
 		        </div>
@@ -86,10 +89,10 @@
 					<ui-select ng-model="placeobj.business_district" theme="bootstrap"
 					style="width: 150px;"
 			          >
-			            <ui-select-match placeholder="商圈">{{$select.selected.label}}</ui-select-match>
+			            <ui-select-match placeholder="商圈">{{$select.selected.name}}</ui-select-match>
 			            <ui-select-choices 
-			            repeat="item.value as item in page.categorylist | filter: $select.search">
-			              <span ng-bind-html="item.label | highlight: $select.search"></span>
+			            repeat="item.code as item in page.business_districtlist | filter: $select.search">
+			              <span ng-bind-html="item.name | highlight: $select.search"></span>
 			            </ui-select-choices>
 			        </ui-select>
 		        </div>
