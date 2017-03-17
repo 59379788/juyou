@@ -13,11 +13,12 @@ var router = function($urlRouterProvider, $stateProvider){
             template: require('./views/place.html'),
             resolve:{
                 'type' : function(){
-                    return 'S';
+                    return 'M';
                 },
                 'placeid' : function(){
                     return '';
                 }
+            
             }
         })
 

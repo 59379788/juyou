@@ -33,6 +33,7 @@ module.exports = function($resource, $state, $http, $q){
 			}
 
 			angular.extend(scope.placeobj, obj);
+			console.log('99999999');
 			console.log(scope.placeobj.id);
 
 			scope.page = {};
@@ -73,7 +74,8 @@ module.exports = function($resource, $state, $http, $q){
 
 
 			$q.all(beforedata).then(function(res){
-
+				console.log('8888888');
+				// 地址信息
 				console.log(res);
 				//分类信息
 			    if(res.provincelist.data.errcode === 0){
@@ -127,7 +129,7 @@ module.exports = function($resource, $state, $http, $q){
 			});
 
 			scope.save = function(){
-
+				console.log('9999999');
 				console.log(scope.placeobj);
 
 				var url = '';

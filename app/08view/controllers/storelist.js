@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE){
+module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE,updateplacemerchant){
 
 	$scope.searchform = {};
 
@@ -19,7 +19,7 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE){
         var para = {
             pageNo:$scope.bigCurrentPage,
             pageSize:$scope.itemsPerPage,
-            'type' : 'S',
+            'type' : 'M',
         };
 
         para = angular.extend($scope.searchform, para);
@@ -51,9 +51,10 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE){
 
 
     $scope.asort = function(id, asort){
+        
 
-    	console.log({'place_id' : id, 'asort' : asort});
-    	viewupdate.save({'place_id' : id, 'asort' : asort}, function(res){
+    	console.log({'merchant_id' : id, 'merchant_asort' : asort});
+    	updateplacemerchant.save({'merchant_id' : id, 'merchant_asort' : asort}, function(res){
 
 			console.log(res);
 

@@ -10,6 +10,9 @@ var service = function($resource, BASEURL38985, $q, $http){
 
     var update = BASEURL38985 + "/api/as/tc/place/update";
 
+    // 类型列表
+    var typelist = BASEURL38985 + '/api/us/mc/mertradetypedao/findTypeList';
+
     
     return {
         create : function(){
@@ -20,6 +23,9 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         update : function(){
             return $resource(update, {}, {});
+        },
+        typelist : function(){
+            return $resource(typelist, {}, {});
         }
        
     };

@@ -68,13 +68,16 @@ var router = function($urlRouterProvider, $stateProvider){
       .state('app.storelist', {
         url: '/store/list.html',
         controller : 'storelist',
-        template: require('./views/viewlist.html'),
+        template: require('./views/storelist.html'),
         resolve:{
             viewupdate : function(viewservice){
                 return viewservice.update();
             },
             list : function(viewservice){
                 return viewservice.list();
+            },
+            updateplacemerchant : function(viewservice){
+                return viewservice.updateplacemerchant();
             }
         }
       })
