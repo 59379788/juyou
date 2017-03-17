@@ -534,18 +534,18 @@ var router = function($urlRouterProvider, $stateProvider){
          }
         })
 
-        // 沙杀价帮
-         .state('app.bargain', {
-         url: '/bargain/:id',
-         controller : 'bargain',
-         template: require('./views/bargain.html'),
-         resolve:{
-            // saveheadline : function(busscustomerservice){
-            //      return busscustomerservice.saveheadline();
-            // }
+        // // 沙杀价帮
+        //  .state('app.bargain', {
+        //  url: '/bargain/:id',
+        //  controller : 'bargain',
+        //  template: require('./views/bargain.html'),
+        //  resolve:{
+        //     // saveheadline : function(busscustomerservice){
+        //     //      return busscustomerservice.saveheadline();
+        //     // }
 
-         }
-        })
+        //  }
+        // })
 
          // 轮播图列表
          .state('app.newsrollinglist', {
