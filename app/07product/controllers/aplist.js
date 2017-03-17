@@ -24,7 +24,7 @@ module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,st
 
         para = angular.extend($scope.searchform, para);
 
-        $resource('/api/ac/tc/ticketSaleService/getSaleList', {}, {})
+        $resource('/api/ac/tc/ticketSaleService/getApplySaleList', {}, {})
         .save(para, function(res){
 
             console.log(res);
