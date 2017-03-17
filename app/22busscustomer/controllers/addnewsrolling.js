@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,FileUploader,saveNewsPhoto,getNewsRollingInfoById,updateRolling){  
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,FileUploader,saveNewsPhoto,getNewsRollingInfoById,updateRolling,toaster){  
     var id = $stateParams.id;
     $scope.info = {
         'type' : '',

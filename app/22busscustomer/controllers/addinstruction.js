@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,saveExplain,updateExplain,getAdminExplain){ 
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,saveExplain,updateExplain,getAdminExplain,toaster){ 
     var id = $stateParams.id;
     var title_identifier = $stateParams.title_identifier;
 
