@@ -39,20 +39,65 @@ module.exports = function($resource, $state, $http, $q){
 			angular.extend(scope.placeobj, obj);
 			console.log(scope.placeobj.id);
 
+
+			var beforedata = {
+			    //省份列表
+			    'provincelist' :
+			    $http({
+			        'method' : 'GET', 
+			        'url': '/api/us/sc/city/arealist',
+			    }),
+			};
+
+
+
 			if(scope.placeobj.id !== ''){
-				$resource('/api/as/tc/place/info', {}, {})
-				.get({'id' : scope.placeobj.id}, function(res){
+				// $resource('/api/as/tc/place/info', {}, {})
+				// .get({'id' : scope.placeobj.id}, function(res){
 
-					console.log(res);
-					if(res.errcode !== 0){
-						alert(res.errmsg);
-						return;
-					}
+				// 	console.log(res);
+				// 	if(res.errcode !== 0){
+				// 		alert(res.errmsg);
+				// 		return;
+				// 	}
 
-					angular.extend(scope.placeobj, res.data);
-					console.log(scope.placeobj);
-				});
+				// 	angular.extend(scope.placeobj, res.data);
+				// 	console.log(scope.placeobj);
+				// });
+
+				beforedata['placeinfo'] = $http({
+			        'method' : 'GET', 
+			        'url': '/api/as/tc/place/info',
+			        'params' : {
+			            'id' : scope.placeobj.id
+			        }
+			    });
 			}
+
+
+			$q.all(beforedata).then(function(res){
+
+				console.log(res);
+				//分类信息
+			    if(res.provincelist.data.errcode === 0){
+			        //console.log(res.categorylist.data);
+			    }else{
+			        alert(res.provincelist.data.errmsg);
+			        return ;
+			    }
+
+
+			    if(angular.isDefined(res.placeinfo)){
+			    	//地点信息
+		            if(res.placeinfo.data.errcode === 0){
+		            	angular.extend(scope.placeobj, res.placeinfo.data.data);
+		            }else{
+		            	alert(res.placeinfo.data.errmsg);
+		            	return
+		            }
+		        }
+
+			});
 			
 
 

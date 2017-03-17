@@ -165,8 +165,10 @@ App.config(['$urlRouterProvider', '$stateProvider',
 }])
 
 //拦截器
-.config(function($httpProvider, ChartJsProvider) {
+.config(function($qProvider, $httpProvider, ChartJsProvider) {
   $httpProvider.interceptors.push('httpInjector');
+
+  //$qProvider.errorOnUnhandledRejections(false);
 
   // Configure all charts
   ChartJsProvider.setOptions({
