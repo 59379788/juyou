@@ -27,7 +27,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     if (id) {
         getNewsRollingInfoById.save({'id':id},function(res) {
             if (res.errcode!=0) {
-                alert(res.errmsg);
+                toaster.success({title: "", body:res.errmsg});
                 return;
             }
             console.log(res);
@@ -44,11 +44,11 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             updateRolling.save(para,function(res){
                 console.log(para);
                 if (res.errcode !== 0) {
-                    alert(res.errmsg);
+                    toaster.success({title: "", body:res.errmsg});
                     return;
                 }
                 console.log(res.data);
-                alert('添加成功！');
+                toaster.success({title: "", body:"修改成功"});
                 $state.go('app.newsrollinglist');
             });
 
@@ -57,16 +57,16 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             saveNewsPhoto.save($scope.info,function(res){
                 console.log($scope.info);
                 if (res.errcode !== 0) {
-                    alert(res.errmsg);
+                    toaster.success({title: "", body:res.errmsg});
                     return;
                 }
                 console.log(res.data);
-                alert('添加成功！');
+                toaster.success({title: "", body:"添加成功"});
                 $state.go('app.newsrollinglist');
             });
 
         } else {
-            alert('请将数据补充完整!');
+            toaster.success({title: "", body:"请将数据补充完整"});
         }
             
         

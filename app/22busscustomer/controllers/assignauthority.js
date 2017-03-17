@@ -7,7 +7,7 @@ module.exports = function($scope, $stateParams, $uibModal,confirmauthority,hostl
   $scope.geylists = function () {
       hostlists.save($scope.info,function (res) {
           if (res.errcode !== 0) { 
-            alert(res.errmsg);
+            toaster.success({title: "", body:res.errmsg});
             return;
           } 
           console.log(res);
@@ -24,7 +24,7 @@ module.exports = function($scope, $stateParams, $uibModal,confirmauthority,hostl
   // 分配权限
   $scope.saveauthority = function(){
     if ($scope.searchinfo.bind_company_code === '') {
-        alert('请输入一级商客账号！');
+        toaster.success({title: "", body:"请输入一级商客账号"});
         return; 
     }
       array.push($scope.searchinfo.bind_company_code);
@@ -32,10 +32,10 @@ module.exports = function($scope, $stateParams, $uibModal,confirmauthority,hostl
       confirmauthority.save({'appid' : 'shangke','bind_company_code':str},function(res){
         console.log({'appid' : 'shangke','bind_company_code':str});
           if (res.errcode !== 0) { 
-            alert(res.errmsg);
+            toaster.success({title: "", body:res.errmsg});
             return;
           } 
-          alert('恭喜你,成为一级商客！');
+          toaster.success({title: "", body:"恭喜你成为一级商客!"});
       }); 
   };
 

@@ -12,6 +12,8 @@
 
   </head>
   <!-- <body ng-app="juyouApp"> -->
+    <!--弹出框-->
+    <toaster-container toaster-options="{'close-button':false, 'time-out':{ 'toast-success': 2500, 'toast-warning': 3000, 'toast-error': 2500 } }"></toaster-container>
   <body>
 
 	<div ui-view></div>
@@ -21,9 +23,10 @@
   <script src="http://localhost:8080/webpack-dev-server.js"></script>
   <script src="http://localhost:8080/bundle.js"></script>
   <!-- 编辑器配置文件 -->
-    <script type="text/javascript" src="ueditor/ueditor.config.js"></script>
+    <!--<script type="text/javascript" src="ueditor/ueditor.config.js"></script>-->
 <!-- 编辑器核心配置文件 -->    
-    <script type="text/javascript" src="ueditor/ueditor.all.js"></script>
+    <!--<script type="text/javascript" src="ueditor/ueditor.all.js"></script>-->
+
 
      <!-- 引用ui-select -->
   <!-- require('ui-select');

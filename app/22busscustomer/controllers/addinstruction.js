@@ -14,7 +14,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         $scope.editinfo.flag = '0';
         getAdminExplain.save({'id' : id}, function(res){
             if (res.errcode !== 0) {
-                    alert(res.errmsg);
+                    toaster.success({title: "", body:res.errmsg});
                     return;
                 }
                 console.log(res);
@@ -40,32 +40,31 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
                 updateExplain.save(para, function(res){
                 console.log(para);
                 if (res.errcode !== 0) {
-                    alert(res.errmsg);
+                    toaster.success({title: "", body:res.errmsg});
                     return;
                 }
                 console.log(res);
-                alert('修改成功');
+                toaster.success({title: "", body:"修改成功!"});
                 $state.go('app.instructionlist');
                 });
             } else {
-                alert('信息填写不完全！');
+                toaster.success({title: "", body:"信息填写不完全!"});
             }
             
         } else {
-            alert('添加说明');
             if ($scope.saveinfo.title_identifier!==''&&$scope.saveinfo.title!==''&&$scope.saveinfo.explain_content!=='') {
                 saveExplain.save($scope.saveinfo, function(res){
                 console.log($scope.saveinfo);
                 if (res.errcode !== 0) {
-                    alert(res.errmsg);
+                    toaster.success({title: "", body:res.errmsg});
                     return;
                 }
                 console.log(res);
-                alert('添加成功');
+                toaster.success({title: "", body:"添加成功!"});
                 $state.go('app.instructionlist');
                 });
             } else {
-                alert('信息填写不完全！');
+                toaster.success({title: "", body:"信息填写不完全!"});
         }
             
         }

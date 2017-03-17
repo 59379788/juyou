@@ -1,4 +1,4 @@
-    module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,saveAd,FileUploader,getViewInfoById,updateView){  
+    module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,saveAd,FileUploader,getViewInfoById,updateView,toaster){  
     var ad_id = $stateParams.ad_id;
     //console.log(ad_id);
     //编辑器初始化
@@ -129,7 +129,7 @@
     if (ad_id) {
         getViewInfoById.save({'ad_id':ad_id},function(res) {
             if (res.errcode!=0) {
-                alert(res.errmsg);
+                toaster.success({title: "", body:res.errmsg});
                 return;
             }
             console.log(res);
@@ -146,6 +146,7 @@
     }
     
 	$scope.save = function() {
+        //toaster.success({title: "title", body:"text1"});
         if (ad_id && $scope.info.advertiser!=''&&$scope.info.logo!=''&&$scope.info.title!=''&&$scope.info.ad_type!=''&&$scope.info.head_photo!=''&&$scope.info.integral_type!=''
             &&$scope.info.max_integral!=''&&$scope.info.max_people!=''&&$scope.info.content!='') {
             var para = {
@@ -154,11 +155,11 @@
             para = angular.extend($scope.info,para);
             updateView.save(para,function(res) {
                 if (res.errcode !== 0) {
-                    alert(res.errmsg);
+                    toaster.success({title: "", body:res.errmsg});
                     return;
                 }
                 console.log(res);
-                alert('添加成功！');
+                toaster.success({title: "", body:"修改成功!"});
                 $state.go('app.adlist');
 
             })
@@ -168,15 +169,15 @@
             saveAd.save($scope.info,function(res){
                 console.log($scope.info);
                 if (res.errcode !== 0) {
-                    alert(res.errmsg);
+                    toaster.success({title: "", body:res.errmsg});
                     return;
                 }
                 console.log(res);
-                alert('添加成功！');
+                toaster.success({title: "", body:"添加成功!"});
                 $state.go('app.adlist');
             });
         } else {
-            alert('请将数据补充完整');
+            toaster.success({title: "", body:"请将数据补充完整!"});
         }
             
         
