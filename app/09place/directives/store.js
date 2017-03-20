@@ -24,7 +24,6 @@ module.exports = function($resource, $state, $http, $q){
 				'view_type' : ''
 			}
 
-
 			// 获取类型列表
 			$resource('/api/us/mc/mertradetypedao/findByTypeList', {}, {})
 			.get({'type':'cheap_menu'},function(res){				
@@ -50,7 +49,7 @@ module.exports = function($resource, $state, $http, $q){
 				console.log(res);
 				if(res.errcode === 0){
 					angular.extend(scope.storeobj, res.data);
-					console.log(scope.viewobj);
+					console.log(scope.storeobj);
 				}else if(res.errcode === 10003){
 
 				}else{
@@ -62,7 +61,7 @@ module.exports = function($resource, $state, $http, $q){
 
 				console.log(scope.storeobj);
 
-				//var url = '/api/as/tc/placemerchant/create';
+				
 				if(scope.placeobj.id == ''){
 					url = '/api/as/tc/placemerchant/create';
 				}else{
