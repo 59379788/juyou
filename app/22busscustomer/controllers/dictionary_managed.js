@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state,ITEMS_PERPAGE,findtradetypelist,deldictionary,findTypeList){
+module.exports = function($scope, $stateParams, $state,ITEMS_PERPAGE,findtradetypelist,deldictionary,findTypeList,toaster){
       $scope.info = {
         'type' : '',
         'info' : ''
@@ -74,7 +74,7 @@ module.exports = function($scope, $stateParams, $state,ITEMS_PERPAGE,findtradety
                     return;
                 }
                 console.log(res);
-                alert('删除成功！');
+                toaster.success({title: "",body : "删除成功!"});
                 $scope.getlist();
             });
             return;
