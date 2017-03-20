@@ -23,17 +23,26 @@
 		<div class="form-group" >
 			<label class="col-sm-3 col-xs-12 control-label">类型</label>
 			<div class="col-sm-9 col-xs-12">
-				<select class="form-control" ng-model="viewobj.view_type" ng-change="selection(viewobj.view_type)" ng-options="data.value as data.type for data in typedatas">
+				<select class="form-control" ng-model="storeobj.view_type" ng-change="selection(data.code)" ng-options="data.code as data.label for data in typedatas">
 					<option value="">请选择</option>
 				</select>
 			</div>
 		</div>
 
         <div class="form-group" >
-			<label class="col-sm-3 col-xs-12 control-label">频道(行业）</label>
+			<label class="col-sm-3 col-xs-12 control-label">频道(行业)</label>
 			<div class="col-sm-9 col-xs-12">
 				<input type="text" class="form-control" 
 				ng-model="storeobj.merchant_channel"
+				>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">电话</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control" 
+				ng-model="storeobj.tel"
 				>
 			</div>
 		</div>
@@ -89,6 +98,20 @@
 				<input type="text" class="form-control" 
 				ng-model="storeobj.merchant_per_average_consume"
 				>
+			</div>
+		</div>
+
+		<!--<div class="form-group">
+			<label class="col-xs-2  control-label">宜买说</label>
+			<div class="col-xs-9">
+				<div text-angular ng-model="storeobj.merchant_say"></div>
+			</div>
+		</div> -->
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">宜买说</label>
+			<div class="col-sm-9 col-xs-12">
+				<textarea name="" id="" cols="30" rows="3" class="form-control" 
+				ng-model="storeobj.merchant_say"></textarea>
 			</div>
 		</div>
 

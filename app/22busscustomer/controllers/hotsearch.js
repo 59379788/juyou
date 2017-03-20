@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findHotSearchList,deleteHotSearch,saveHotSearch){  
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findHotSearchList,deleteHotSearch,saveHotSearch,getHotSearchById,updateHotSearch,toaster){  
     /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -31,13 +31,16 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             console.log($scope.info);
             saveHotSearch.save($scope.info,function(res){
                 if(res.errcode!=0){
-                    alert(res.errmsg);
+                    toaster.success({title: "", body:res.errmsg});
                     return;
                 }
                 console.log(res);
                 $scope.getlist();
 
             })
+        } else {
+            toaster.success({title: "", body:"请将数据补充完整"});
+
         }
         
     };
@@ -56,6 +59,35 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         } 
         
     };
+
+    $scope.edit = function(id){
+        var modalInstance = $uibModal.open({
+          template: require('../views/addhotsearch.html'),
+          controller: 'addhotsearch',
+          size: '',
+          resolve: {
+            id : function(){
+                return id;
+            },
+            getHotSearchById : function(){
+                return getHotSearchById;
+            },
+            updateHotSearch : function(){
+                return updateHotSearch;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          $scope.getlist();
+          
+        }, function () {
+          //$scope.load();
+        });
+
+    };
+
+        
     
     
 };

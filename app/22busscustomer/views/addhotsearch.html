@@ -1,0 +1,53 @@
+
+
+<div class="modal-header">
+    <h4 class="modal-title">奖品信息</h4>
+</div>
+<div class="modal-body">
+    <div class="container-fluid form-horizontal ">
+
+<div class="col-xs-12 " >
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			基本信息
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				
+				<div class="col-xs-12 col-md-12" >
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">热搜名词</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入热搜名词"
+							ng-model="info.value"
+							>
+						</div>
+					</div>
+
+                    <div class="form-group">
+                        <label for="inputDate" class="col-md-3 control-label">热搜类型</label>
+                        <div class="col-md-6">
+                            <select class="form-control" ng-model="info.type" ng-change="selection(info.type)">
+                                <option value="">请选择</option>
+                                <option value="1">义买义卖</option>
+                                <option value="3">积分商城</option>  
+                                <option value="4">宜买宜卖</option>
+                            </select>
+                        </div>    
+                    </div>
+					
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+</div>
+
+
