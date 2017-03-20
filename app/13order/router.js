@@ -54,6 +54,9 @@ var router = function ($urlRouterProvider, $stateProvider) {
                 getroyalocOrdersState: function (orderservice) {
                     return orderservice.getroyalocOrdersState();
                 },
+                testCreateBackOrder: function (orderservice) {
+                    return orderservice.testCreateBackOrder();
+                },
                 str2date: function (utilservice) {
                     return utilservice.str2date;
                 }
