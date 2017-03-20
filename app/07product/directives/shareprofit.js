@@ -41,7 +41,9 @@ module.exports = function($resource, $state, $http, $q){
                         console.log('添加成功');
 
                         })
-                }
+                } else {
+					alert('设置正确的利润率(0-100),红包上限不能为负数');
+				}
 				
                 
 				// .save({'integral_sale_code':scope.obj.integral_sale_code,'integral_price':scope.obj.integral_price,'list' : array}, function(res){
@@ -59,25 +61,25 @@ module.exports = function($resource, $state, $http, $q){
 
 			};
 
-            $scope.saleFrSetSave = function(){
-		if(parseInt($scope.salefrobj.profit_ratio) >= 0 && parseInt($scope.salefrobj.profit_ratio) <= 100 && parseInt($scope.salefrobj.rebate_unlimited) >= 0){
-			$scope.salefrobj.sale_code = $scope.saleobj.code;
-			saveSaleFenRun.save($scope.salefrobj, function(res){
-		     	if(res.errcode === 0)
-		     	{
-		     		alert('保存成功');
-					$uibModalInstance.close();
-		     	}
-	     		else
-				{
-					alert(res.errmsg);
-				}
+    //         $scope.saleFrSetSave = function(){
+	// 	if(parseInt(scope.salefrobj.profit_ratio) >= 0 && parseInt(scope.salefrobj.profit_ratio) <= 100 && parseInt(scope.salefrobj.rebate_unlimited) >= 0){
+	// 		scope.salefrobj.sale_code = scope.saleobj.code;
+	// 		saveSaleFenRun.save(scope.salefrobj, function(res){
+	// 	     	if(res.errcode === 0)
+	// 	     	{
+	// 	     		alert('保存成功');
+	// 				$uibModalInstance.close();
+	// 	     	}
+	//      		else
+	// 			{
+	// 				alert(res.errmsg);
+	// 			}
 	
-		    });
-		} else {
-			alert('设置正确的利润率(0-100),红包上限不能为负数');
-		}
-	}
+	// 	    });
+	// 	} else {
+	// 		alert('设置正确的利润率(0-100),红包上限不能为负数');
+	// 	}
+	// }
 
 		 	
 

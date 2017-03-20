@@ -26,22 +26,36 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         'type' : ''
     }
 
-    $scope.add = function(){
-        if($scope.info.value!=''&&$scope.info.type!=''){
-            console.log($scope.info);
-            saveHotSearch.save($scope.info,function(res){
-                if(res.errcode!=0){
-                    toaster.success({title: "", body:res.errmsg});
-                    return;
-                }
-                console.log(res);
-                $scope.getlist();
+    $scope.add = function(id){
+        var modalInstance = $uibModal.open({
+          template: require('../views/addhotsearch.html'),
+          controller: 'addhotsearch',
+          size: '',
+          resolve: {
+            id : function(){
+                return id;
+            },
+            getHotSearchById : function(){
+                return getHotSearchById;
+            },
+            updateHotSearch : function(){
+                return updateHotSearch;
+            },
+            saveHotSearch : function(){
+                return saveHotSearch;
+            }
 
-            })
-        } else {
-            toaster.success({title: "", body:"请将数据补充完整"});
 
-        }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          $scope.getlist();
+          
+        }, function () {
+          //$scope.load();
+        });
+        
         
     };
     
@@ -74,6 +88,9 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             },
             updateHotSearch : function(){
                 return updateHotSearch;
+            },
+            saveHotSearch : function(){
+                return saveHotSearch;
             }
           }
         });

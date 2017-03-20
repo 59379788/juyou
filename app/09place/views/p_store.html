@@ -78,16 +78,15 @@
         <div class="form-group" >
 			<label class="col-sm-3 col-xs-12 control-label">付款方式</label>
 			<div class="col-sm-9 col-xs-12">
-				<label class="radio-inline">
-				  <input type="radio" name="sms_type" value="1"
-				  ng-model="storeobj.merchant_pay_method"
-				  > 到店付
+				<!--<label class="checkbox-inline">
+				<input type="checkbox" ng-model="strobj.checkstr1" ng-true-value="2"ng-false-value="" ng-click="checkcardinfo()">到店付
 				</label>
-				<label class="radio-inline">
-				  <input type="radio" name="sms_type" value="0"
-				  ng-model="storeobj.merchant_pay_method"
-				  > 即使付
-				</label>
+				<label class="checkbox-inline">
+				  <input type="checkbox" ng-model="strobj.checkstr2" ng-true-value="1"ng-false-value="" ng-click="checkcardinfo()">即时付
+				</label>-->
+				<input type="text" class="form-control" 
+				ng-model="storeobj.merchant_pay_method"
+				>
 			</div>
 		</div>
 
