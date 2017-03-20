@@ -86,9 +86,12 @@ module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,st
         .save({'id' : id}, function(res){
             console.log(res);
             if(res.errcode !== 0){
-                alert(res.errmsg);
+                // alert(res.errmsg);
+                toaster.error({title: "提示", body:res.errmsg});
                 return;
             }
+            toaster.success({title: "提示", body:"操作成功!"});
+            $scope.load();
         });
     };
 
@@ -98,9 +101,12 @@ module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,st
         .save({'id' : id}, function(res){
             console.log(res);
             if(res.errcode !== 0){
-                alert(res.errmsg);
+                // alert(res.errmsg);
+                toaster.error({title: "提示", body:res.errmsg});
                 return;
             }
+            toaster.success({title: "提示", body:"操作成功!"});
+            $scope.load();
         });
     };
 

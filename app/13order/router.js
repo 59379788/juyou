@@ -204,8 +204,47 @@ var router = function ($urlRouterProvider, $stateProvider) {
                 supplyOrderList: function (orderservice) {
                     return orderservice.supplyOrderList();
                 },
+                ticketlist: function (orderservice) {
+                    return orderservice.ticketlist();
+                },
                 getDate: function (utilservice) {
                     return utilservice.getDate;
+                },
+                createBackOrder: function (orderservice) {
+                    return orderservice.createBackOrder();
+                },
+                resend: function (orderservice) {
+                    return orderservice.resend();
+                },
+                getRedCorridorOrderList: function (orderservice) {
+                    return orderservice.getRedCorridorOrderList();
+                },
+                getRedCorridorResentMsg: function (orderservice) {
+                    return orderservice.getRedCorridorResentMsg();
+                },
+                orderbacklist: function (orderservice) {
+                    return orderservice.orderbacklist();
+                },
+                relay: function (orderservice) {
+                    return orderservice.relay();
+                },
+                getRedCorridorTrSendSms: function (orderservice) {
+                    return orderservice.getRedCorridorTrSendSms();
+                },
+                getOrderSimInfo: function (orderservice) {
+                    return orderservice.getOrderSimInfo();
+                },
+                agencyOrderRepeatECode: function (orderservice) {
+                    return orderservice.agencyOrderRepeatECode();
+                },
+                updateTicketEffectTime: function (orderservice) {
+                    return orderservice.updateTicketEffectTime();
+                },
+                getroyalocOrdersState: function (orderservice) {
+                    return orderservice.getroyalocOrdersState();
+                },
+                str2date: function (utilservice) {
+                    return utilservice.str2date;
                 }
             }
 
@@ -221,6 +260,48 @@ var router = function ($urlRouterProvider, $stateProvider) {
                 },
                 getDate: function (utilservice) {
                     return utilservice.getDate;
+                },
+                ticketlist: function (orderservice) {
+                    return orderservice.ticketlist();
+                },
+                getDate: function (utilservice) {
+                    return utilservice.getDate;
+                },
+                createBackOrder: function (orderservice) {
+                    return orderservice.createBackOrder();
+                },
+                resend: function (orderservice) {
+                    return orderservice.resend();
+                },
+                getRedCorridorOrderList: function (orderservice) {
+                    return orderservice.getRedCorridorOrderList();
+                },
+                getRedCorridorResentMsg: function (orderservice) {
+                    return orderservice.getRedCorridorResentMsg();
+                },
+                orderbacklist: function (orderservice) {
+                    return orderservice.orderbacklist();
+                },
+                relay: function (orderservice) {
+                    return orderservice.relay();
+                },
+                getRedCorridorTrSendSms: function (orderservice) {
+                    return orderservice.getRedCorridorTrSendSms();
+                },
+                getOrderSimInfo: function (orderservice) {
+                    return orderservice.getOrderSimInfo();
+                },
+                agencyOrderRepeatECode: function (orderservice) {
+                    return orderservice.agencyOrderRepeatECode();
+                },
+                updateTicketEffectTime: function (orderservice) {
+                    return orderservice.updateTicketEffectTime();
+                },
+                getroyalocOrdersState: function (orderservice) {
+                    return orderservice.getroyalocOrdersState();
+                },
+                str2date: function (utilservice) {
+                    return utilservice.str2date;
                 }
             }
 
@@ -236,6 +317,48 @@ var router = function ($urlRouterProvider, $stateProvider) {
                 },
                 getDate: function (utilservice) {
                     return utilservice.getDate;
+                },
+                ticketlist: function (orderservice) {
+                    return orderservice.ticketlist();
+                },
+                getDate: function (utilservice) {
+                    return utilservice.getDate;
+                },
+                createBackOrder: function (orderservice) {
+                    return orderservice.createBackOrder();
+                },
+                resend: function (orderservice) {
+                    return orderservice.resend();
+                },
+                getRedCorridorOrderList: function (orderservice) {
+                    return orderservice.getRedCorridorOrderList();
+                },
+                getRedCorridorResentMsg: function (orderservice) {
+                    return orderservice.getRedCorridorResentMsg();
+                },
+                orderbacklist: function (orderservice) {
+                    return orderservice.orderbacklist();
+                },
+                relay: function (orderservice) {
+                    return orderservice.relay();
+                },
+                getRedCorridorTrSendSms: function (orderservice) {
+                    return orderservice.getRedCorridorTrSendSms();
+                },
+                getOrderSimInfo: function (orderservice) {
+                    return orderservice.getOrderSimInfo();
+                },
+                agencyOrderRepeatECode: function (orderservice) {
+                    return orderservice.agencyOrderRepeatECode();
+                },
+                updateTicketEffectTime: function (orderservice) {
+                    return orderservice.updateTicketEffectTime();
+                },
+                getroyalocOrdersState: function (orderservice) {
+                    return orderservice.getroyalocOrdersState();
+                },
+                str2date: function (utilservice) {
+                    return utilservice.str2date;
                 }
             }
 
