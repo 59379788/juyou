@@ -23,7 +23,7 @@ module.exports = function($scope, $stateParams, $state,ITEMS_PERPAGE,findtradety
         para = angular.extend($scope.info,para); 
         findtradetypelist.save(para, function (res) {
             if (res.errcode != 0) {
-                alert(res.errmsg);
+                toaster.success({title:"",body : res.errmsg});
                 return;
             }
             $scope.objs = res.data.results;
@@ -34,7 +34,7 @@ module.exports = function($scope, $stateParams, $state,ITEMS_PERPAGE,findtradety
     $scope.gettypelist = function (){
         findTypeList.save($scope.searchform,function(res){
             if (res.errcode!=0) {
-                alert(res.errmsg);
+                toaster.success({title:"",body : res.errmsg});
                 return;
             }
             console.log(res);
@@ -50,7 +50,7 @@ module.exports = function($scope, $stateParams, $state,ITEMS_PERPAGE,findtradety
         };
         findtradetypelist.save(para,function(res){
         if (res.errcode !== 0) {
-            console.log(res.errmsg);
+            toaster.success({title:"",body : res.errmsg});
             return;
         }
         console.log(res);
@@ -70,7 +70,7 @@ module.exports = function($scope, $stateParams, $state,ITEMS_PERPAGE,findtradety
         if (confirm('确定删除吗?')) {
             deldictionary.save({'id' : id},function(res){
                 if (res.errcode != 0) {
-                    alert(res.errmsg);
+                    toaster.success({title:"",body : res.errmsg});
                     return;
                 }
                 console.log(res);
@@ -79,16 +79,6 @@ module.exports = function($scope, $stateParams, $state,ITEMS_PERPAGE,findtradety
             });
             return;
         }
-        // deldictionary.save({'id' : id},function(res){
-        //     if (res.errcode != 0) {
-        //         alert(res.errmsg);
-        //         return;
-        //     }
-
-        //     console.log(res);
-        //     alert('删除成功！');
-        //     $scope.getlist();
-        // });
     };
 
 };

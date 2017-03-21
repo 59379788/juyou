@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams,customerlist,review, $uibModal,role,create,message,userinfo,insertnops,failed,confirmauthority){
+module.exports = function($scope, $stateParams,customerlist,review, $uibModal,role,create,message,userinfo,insertnops,failed,confirmauthority,toaster){
     // 获取用户信息
     userinfo.save({}, function(res){ 
     	console.log(res);
@@ -12,7 +12,7 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
 	$scope.getlist = function(){ 
 	 customerlist.save({}, function(res){ 
       if (res.errcode !== 0) { 
-    		alert(res.errmsg);
+    		toaster.success({title:"",body:res.errmsg});
     		return;
     	} else { 
           $scope.objs = res.data;
@@ -30,7 +30,7 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
         if (confirm("你确定要通过吗?")) {
                 review.save({'id' : id}, function(res){ 
 	                if (res.errcode !== 0) { 
-    		            alert(res.errmsg);
+                        toaster.success({title:"",body:res.errmsg});
     	            } else { 
                         $scope.objss = res.data;
                         console.log($scope.objss);
@@ -48,8 +48,8 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
       if (confirm("你确定要拒绝吗?")) {
         failed.save({'id' : id}, function(res){ 
         if (res.errcode !== 0) { 
-          alert(res.errmsg);
-          return;
+            toaster.success({title:"",body:res.errmsg});
+            return;
         }  
         $scope.getlist();
         }); 
@@ -63,10 +63,10 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
 	$scope.assignauthority = function(){
 	    confirmauthority.save({'appid' : 'shangke'},function(res){
 	        if (res.errcode !== 0) { 
-	        	alert(res.errmsg);
+	        	toaster.success({title:"",body:res.errmsg});
 	        	return;
 	        } 
-	        alert('恭喜你，获取到权限！');
+	        toaster.success({title:"",body:"💐你,获取到权限!"});
 	        //$scope.getlist();
 	    }); 
 	};

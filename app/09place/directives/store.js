@@ -1,4 +1,4 @@
-module.exports = function($resource, $state, $http, $q){
+module.exports = function($resource, $state, $http, $q,toaster){
 
 	return {
 
@@ -57,31 +57,30 @@ module.exports = function($resource, $state, $http, $q){
 				}else if(res.errcode === 10003){
 
 				}else{
-					alert(res.errmsg);
+					toaster.success({title:"",body:res.errmsg});
 				}
 			});
 
 			scope.save = function(){
 
 				console.log(scope.storeobj);
-
-				
-				if(scope.placeobj.id == ''){
-					url = '/api/as/tc/placemerchant/create';
-				}else{
-					url = '/api/as/tc/placemerchant/update';
-				}
+				url = '/api/as/tc/placemerchant/save';
 
 				scope.storeobj['merchant_id'] = scope.placeobj.id;
-				$resource(url, {}, {}).save(scope.storeobj, function(res){
-					console.log(res);
-					if(res.errcode != 0){
-						alert(res.errmsg);
-						return;
-					}
-					
-					alert('修改成功');
-				});
+				if(scope.storeobj.merchant_per_average_consume != ''){
+					$resource(url, {}, {}).save(scope.storeobj, function(res){
+						console.log(res);
+						if(res.errcode != 0){
+							alert(res.errmsg);
+							return;
+						}
+						
+						toaster.success({title:"",body:"修改成功!"})
+					});
+				} else {
+					toaster.success({title:"",body:"人均消费不能为空!"})
+				}
+				
 			};
 
 			

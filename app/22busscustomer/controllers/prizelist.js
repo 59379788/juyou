@@ -16,7 +16,7 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,
         para = angular.extend($scope.info,para); 
         findPrizeList.save(para,function (res) {
             if (res.errcode != 0) {
-                alert(res.errmsg);
+                toaster.success({title:"",body:res.errmsg});
                 return;
             }
             console.log(res);
@@ -100,7 +100,7 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findPrizeList,
       if (confirm('确定删除该奖品吗？')) {
           updateDel.save({'id' : prizeId},function (res) {
             if (res.errcode != 0) {
-              alert(res.errmsg);
+              toaster.success({title:"",body:res.errmsg});
               return;
             }
             console.log(res);

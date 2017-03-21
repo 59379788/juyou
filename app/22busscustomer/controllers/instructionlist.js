@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findExplainList,updateExplain,updateDelIns){ 
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findExplainList,updateExplain,updateDelIns,toaster){ 
     $scope.somepara = {
         'title_identifier' : '',
         'title' :''
@@ -55,11 +55,11 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         if (confirm('确定删除吗?')) {
             updateDelIns.save({'id' : id},function(res){
                 if (res.errcode != 0) {
-                    alert(res.errmsg);
+                    toaster.success({title:"",body:res.errmsg});
                     return;
                 }
                 console.log(res);
-                alert('删除成功！');
+                toaster.success({title:"",body:"删除成功"});
                 $scope.getlist();
             });
             return;

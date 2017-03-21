@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,getDate,FileUploader,saveActive,getActiveInfo,updateActiveInfo,str2date,date2str){
+module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,getDate,FileUploader,saveActive,getActiveInfo,updateActiveInfo,str2date,date2str,toaster){
     var id = $stateParams.id;
     //有效区间
     $scope.section = {};
@@ -42,7 +42,7 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,g
     if (id) {
         getActiveInfo.save({'id':id},function(res) {
             if (res.errcode != 0) {
-                alert(res.errmsg);
+                toaster.success({title:"",body : res.errmsg});
                 return;
             }
             if(res.data.startTime != null){
@@ -69,14 +69,14 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,g
                 updateActiveInfo.save(para,function (res) {
                     console.log(para);
                     if (res.errcode != 0) {
-                        alert(res.errmsg);
+                        toaster.success({title:"",body : res.errmsg});
                         return;
                     }
-                    alert('💐你，修改成功！');
+                    toaster.success({title:"",body : "💐你，修改成功！"});
                     $state.go('app.bargainlist');
                 })
             } else {
-                alert('请将活动数据补充完整!');
+                toaster.success({title:"",body : "💐你，请将活动数据补充完整！"});
             }     
         // 添加活动
         } else {
@@ -90,16 +90,16 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,g
                 saveActive.save(para,function (res) {
                     console.log(para);
                     if (res.errcode != 0) {
-                        alert(res.errmsg);
+                        toaster.success({title:"",body : res.errmsg});
                             return;
                     }
-                    alert('💐你，创建成功！');
+                    toaster.success({title:"",body : "💐你，修改成功！"});
                     $state.go('app.bargainlist');
                 })
 
             } else {
-                alert('请将活动数据补充完整!');
-            }    
+                toaster.success({title:"",body : "💐你，请将活动数据补充完整！"});
+            }
         
         }
         
