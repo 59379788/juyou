@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $uibModalInstance, code, voucherinfo){
+module.exports = function($scope, $state, $uibModalInstance, code, voucherinfo,toaster){
 
 
 	voucherinfo.get({'order_code' : code}, function(res){
@@ -11,7 +11,7 @@ module.exports = function($scope, $state, $uibModalInstance, code, voucherinfo){
         }
         else
         {
-            alert(res.errmsg);
+            toaster.success({title:"",body:res.errmsg});
         }
 
     });

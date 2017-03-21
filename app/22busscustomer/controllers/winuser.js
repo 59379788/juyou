@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $stateParams, $uibModal,findWinPrizeUserList,getWinPrizeUser,ITEMS_PERPAGE){
+module.exports = function($scope, $state, $stateParams, $uibModal,findWinPrizeUserList,getWinPrizeUser,ITEMS_PERPAGE,toaster){
   var id = $stateParams.id;
   $scope.info = {
     'id' : id
@@ -21,7 +21,7 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findWinPrizeUs
     para = angular.extend($scope.info,para); 
     findWinPrizeUserList.save(para,function (res) {
       if (res.errcode != 0) {
-        alert(res.errmsg);
+        toaster.success({title:"",body:res.errmsg});
         return;
       }
       console.log(res);
@@ -41,7 +41,7 @@ module.exports = function($scope, $state, $stateParams, $uibModal,findWinPrizeUs
     getWinPrizeUser.save(para,function(res) {
       console.log(para);
       if (res.errcode != 0) {
-        alert(res.errmsg);
+        toaster.success({title:"",body:res.errmsg});
         return;
       }
       console.log(res);

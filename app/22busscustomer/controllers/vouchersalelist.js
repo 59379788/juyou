@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModal, getDate, vouchersalelist, vouchersalecreate, businesslist, typelist){
+module.exports = function($scope, $uibModal, getDate, vouchersalelist, vouchersalecreate, businesslist, typelist,toaster){
 
 	$scope.searchform = {};
 
@@ -14,7 +14,7 @@ module.exports = function($scope, $uibModal, getDate, vouchersalelist, vouchersa
 
             if(res.errcode !== 0)
             {
-                alert("数据获取失败");
+                toaster.success({title:"",body:"数据获取失败"});
                 return;
             }
 
@@ -41,10 +41,6 @@ module.exports = function($scope, $uibModal, getDate, vouchersalelist, vouchersa
             }
 
 
-            // console.log("------------");
-            // console.log(restkt);
-            // console.log("------------");
-
             $scope.objs = restkt;
             console.log($scope.objs);
 
@@ -59,7 +55,7 @@ module.exports = function($scope, $uibModal, getDate, vouchersalelist, vouchersa
 			if(res.errcode === 0){
 				$scope.load();
 			}else{
-				alert(res.errmsg);
+				toaster.success({title:"",body:res.errmsg});
 			}
 		});
 	}
@@ -70,7 +66,7 @@ module.exports = function($scope, $uibModal, getDate, vouchersalelist, vouchersa
 			if(res.errcode === 0){
 				$scope.load();
 			}else{
-				alert(res.errmsg);
+				toaster.success({title:"",body:res.errmsg});
 			}
 		});
 	}
@@ -88,7 +84,7 @@ module.exports = function($scope, $uibModal, getDate, vouchersalelist, vouchersa
             }
             else
             {
-                alert(res.errmsg);
+                toaster.success({title:"",body:res.errmsg});
             }
 
         });

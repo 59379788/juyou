@@ -74,7 +74,6 @@ module.exports = function($resource, $state, $http, $q,toaster){
 							alert(res.errmsg);
 							return;
 						}
-						
 						toaster.success({title:"",body:"修改成功!"})
 					});
 				} else {
