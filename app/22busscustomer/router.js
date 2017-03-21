@@ -764,8 +764,24 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             saveHotSearch : function(busscustomerservice){
                      return busscustomerservice.saveHotSearch();
+            },
+            getHotSearchById : function(busscustomerservice){
+                return busscustomerservice.getHotSearchById();
+            },
+            updateHotSearch : function(busscustomerservice){
+                return busscustomerservice.updateHotSearch();
             }
 
+         }
+        })
+
+        // 编辑热搜
+         .state('app.addhotsearch', {
+         url: '/addhotsearch/:id',
+         controller : 'addhotsearch',
+         template: require('./views/addhotsearch.html'),
+         resolve:{
+            
          }
         })
 

@@ -51,6 +51,7 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE){
 
 
     $scope.asort = function(id, asort){
+        
 
     	console.log({'place_id' : id, 'asort' : asort});
     	viewupdate.save({'place_id' : id, 'asort' : asort}, function(res){

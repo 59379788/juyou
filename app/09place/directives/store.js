@@ -17,11 +17,15 @@ module.exports = function($resource, $state, $http, $q){
 				'merchant_shop_activity' : '',
 				'merchant_activity_profile' : '',
 				'merchant_label_marking' : '',
-				'merchant_pay_method' : 0,
+				'merchant_pay_method' : '',
 				'merchant_per_average_consume' : '',
 				'merchant_remarks': '',
 				'merchant_asort' : '',
 				'view_type' : ''
+			}
+			scope.strobj = {
+				'checkstr1' : '',
+				'checkstr2' : ''
 			}
 
 
@@ -29,7 +33,6 @@ module.exports = function($resource, $state, $http, $q){
 			$resource('/api/us/mc/mertradetypedao/findByTypeList', {}, {})
 			.get({'type':'cheap_menu'},function(res){				
 				if(res.errcode === 0){
-					console.log('5555555555');
 					console.log(res);
 					scope.typedatas = res.data;
 					//ScopedCredential.storeobj.view_type = res.data
@@ -46,11 +49,11 @@ module.exports = function($resource, $state, $http, $q){
 
 			$resource('/api/as/tc/placemerchant/info', {}, {})
 			.get({'merchant_id' : scope.placeobj.id}, function(res){
-
+				console.log('rrrrrrr');
 				console.log(res);
 				if(res.errcode === 0){
 					angular.extend(scope.storeobj, res.data);
-					console.log(scope.viewobj);
+					console.log(scope.storeobj);
 				}else if(res.errcode === 10003){
 
 				}else{
@@ -62,7 +65,7 @@ module.exports = function($resource, $state, $http, $q){
 
 				console.log(scope.storeobj);
 
-				//var url = '/api/as/tc/placemerchant/create';
+				
 				if(scope.placeobj.id == ''){
 					url = '/api/as/tc/placemerchant/create';
 				}else{
@@ -70,7 +73,6 @@ module.exports = function($resource, $state, $http, $q){
 				}
 
 				scope.storeobj['merchant_id'] = scope.placeobj.id;
-
 				$resource(url, {}, {}).save(scope.storeobj, function(res){
 					console.log(res);
 					if(res.errcode != 0){

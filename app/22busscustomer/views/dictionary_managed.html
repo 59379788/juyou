@@ -2,7 +2,8 @@
   <div class="panel panel-default">
       <div class="panel-body">
         <ui-select ng-model="searchform.selected" theme="bootstrap" class="col-sm-2">
-          <ui-select-match placeholder="类型">{{$select.selected.type}}</ui-select-match>
+          <ui-select-match placeholder="类型">{{$select.selected.type}}            
+          </ui-select-match>
           <ui-select-choices repeat="item in datas | filter: $select.search">
             <span ng-bind-html="item.type | highlight: $select.search"></span>
           </ui-select-choices>

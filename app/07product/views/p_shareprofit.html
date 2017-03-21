@@ -23,6 +23,18 @@
 					<br/>
 				<div class="col-xs-12 form-group" >
 					<div class="col-xs-2">
+						<label for="lrl" class="pull-right text-right mt10">标签&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+					<div class="col-xs-8">					
+						<input type="text" class="form-control" placeholder="标签之间请以逗号分隔开"
+							ng-model="salefrobj.label">
+					</div>
+				</div>
+			
+					<br/>
+					<br/>
+				<div class="col-xs-12 form-group" >
+					<div class="col-xs-2">
 						<label for="lrl" class="pull-right text-right mt10">利润率&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
 					<div class="col-xs-8">
@@ -44,11 +56,33 @@
 						<div class="input-group">
 							<span class="input-group-addon">¥</span>
 							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0'
-							ng-model="salefrobj.rebate_unlimited"
-								>
+							ng-model="salefrobj.rebate_unlimited">
 						</div>
+					</div>					
+				</div>
+
+				<br/>
+					<br/>
+				<div class="col-xs-12 form-group">
+					<div class="col-xs-2">
+						<label for="lrl" class="pull-right text-right mt10">推荐&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
-					
+					<div class="col-xs-8">
+						<div class="input-group">
+							<input class=""
+							bs-switch
+							type="checkbox" 
+							ng-model="obj.isSelected"
+							switch-size=""
+							ng-change = "onChange(obj.isSelected)"
+							> 
+						<!--<div class="input-group">
+							<span class="input-group-addon">¥</span>
+							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0'
+							ng-model="salefrobj.rebate_unlimited">
+						</div>-->
+						</div>
+					</div>					
 				</div>
 
 			</div>

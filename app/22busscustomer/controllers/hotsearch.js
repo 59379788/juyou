@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findHotSearchList,deleteHotSearch,saveHotSearch){  
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findHotSearchList,deleteHotSearch,saveHotSearch,getHotSearchById,updateHotSearch,toaster){  
     /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -26,19 +26,36 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         'type' : ''
     }
 
-    $scope.add = function(){
-        if($scope.info.value!=''&&$scope.info.type!=''){
-            console.log($scope.info);
-            saveHotSearch.save($scope.info,function(res){
-                if(res.errcode!=0){
-                    alert(res.errmsg);
-                    return;
-                }
-                console.log(res);
-                $scope.getlist();
+    $scope.add = function(id){
+        var modalInstance = $uibModal.open({
+          template: require('../views/addhotsearch.html'),
+          controller: 'addhotsearch',
+          size: '',
+          resolve: {
+            id : function(){
+                return id;
+            },
+            getHotSearchById : function(){
+                return getHotSearchById;
+            },
+            updateHotSearch : function(){
+                return updateHotSearch;
+            },
+            saveHotSearch : function(){
+                return saveHotSearch;
+            }
 
-            })
-        }
+
+          }
+        });
+
+        modalInstance.result.then(function () {
+          $scope.getlist();
+          
+        }, function () {
+          //$scope.load();
+        });
+        
         
     };
     
@@ -56,6 +73,38 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         } 
         
     };
+
+    $scope.edit = function(id){
+        var modalInstance = $uibModal.open({
+          template: require('../views/addhotsearch.html'),
+          controller: 'addhotsearch',
+          size: '',
+          resolve: {
+            id : function(){
+                return id;
+            },
+            getHotSearchById : function(){
+                return getHotSearchById;
+            },
+            updateHotSearch : function(){
+                return updateHotSearch;
+            },
+            saveHotSearch : function(){
+                return saveHotSearch;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          $scope.getlist();
+          
+        }, function () {
+          //$scope.load();
+        });
+
+    };
+
+        
     
     
 };

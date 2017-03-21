@@ -6,6 +6,7 @@ module.exports = function($scope, $stateParams, $state,FileUploader,ITEMS_PERPAG
     'label':'',
     'type':'',
     'info':'',
+    'url' : '',
     'asort':'',
     'img': '',
     'remark':''
@@ -36,7 +37,9 @@ module.exports = function($scope, $stateParams, $state,FileUploader,ITEMS_PERPAG
                 alert(res.errmsg);
                 return;
             }
+            console.log(res.data);
             $scope.info = res.data;
+
         })
     }
     $scope.gettypelist = function (){
@@ -53,6 +56,7 @@ module.exports = function($scope, $stateParams, $state,FileUploader,ITEMS_PERPAG
     $scope.gettypelist();
     $scope.save = function () {
         dictionary.save($scope.info, function (res) {
+            console.log($scope.info);
             $scope.info.type=$scope.searchform.selected.type;
             if (res.errcode != 0) {
                 alert(res.errmsg);
