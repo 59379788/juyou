@@ -24,12 +24,13 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-5 text-center">产品</th>
+        <th class="col-md-3 text-center">产品</th>
+        <th class="col-md-2 text-center">运营商</th>
         <th class="col-md-2 text-center">产品分类</th>
         <th class="col-md-1 text-center">成本价</th>
         <th class="col-md-1 text-center">指导价</th>
         <th class="col-md-1 text-center">市场价</th>
-        <th class="col-md-2 text-center">操作</th>
+        <th class="col-md-1 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -38,14 +39,15 @@
           产品名称：{{obj.name}}<br>
           产品编号：{{obj.code}}<br>
         </td>
+        <td class="text-center">{{obj.create_company_code}}</td>
         <td class="text-center">{{obj.sale_category_name}}</td>
         <td class="text-center">{{obj.cost_price}}</td>
         <td class="text-center">{{obj.guide_price}}</td>
         <td class="text-center">{{obj.market_price}}</td>
         <td class="text-center">
           <a ng-click="info(obj.id)" class="btn btn-warning btn-xs">详情</a>
-          <a ng-click="pass(obj.id)" class="btn btn-success btn-xs">审核通过</a>
-          <a ng-click="nopass(obj.id)" class="btn btn-danger btn-xs">审核不通过</a>
+          <!--<a ng-click="pass(obj.id)" class="btn btn-success btn-xs">审核通过</a>
+          <a ng-click="nopass(obj.id)" class="btn btn-danger btn-xs">审核不通过</a>-->
         </td>
       </tr>
     </tbody>

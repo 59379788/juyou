@@ -1,0 +1,35 @@
+<style type="text/css">
+  form.tab-form-demo .tab-pane {
+    margin: 20px 20px;
+  }
+</style>
+
+<div class="col-sm-12" style="background: #fff; padding-top: 15px;">
+   
+    <uib-tabset active="activeForm">
+
+      <uib-tab index="0" heading="基本信息">
+        <productbaseinfo
+          saleobj="saleobj"
+          baseinfo="baseinfo"
+          util="util"
+          funobj="funobj"
+        ></productbaseinfo>
+      </uib-tab>
+
+
+    </uib-tabset>
+
+<div class="col-xs-12 text-center">
+
+    <a ng-click="pass()" class="btn btn-success btn-lg">审核通过</a>
+          <a ng-click="nopass()" class="btn btn-danger btn-lg">审核不通过</a>
+</div>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+
+</div>

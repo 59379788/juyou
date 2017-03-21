@@ -16,7 +16,27 @@
         ></productbaseinfo>
       </uib-tab>
 
-      <uib-tab index="1" heading="票种信息" 
+      <uib-tab index="1" heading="限制信息"
+      ng-if="saleobj.id !== '' && saleobj.code !== ''">
+        <restrictrule
+          saleobj="saleobj"
+          baseinfo="baseinfo"
+          util="util"
+          funobj="funobj"
+        ></restrictrule>
+      </uib-tab>
+
+      <uib-tab index="2" heading="图文信息"
+      ng-if="saleobj.id !== '' && saleobj.code !== ''">
+        <imgtextinfo
+          saleobj="saleobj"
+          baseinfo="baseinfo"
+          util="util"
+          funobj="funobj"
+        ></imgtextinfo>
+      </uib-tab>
+
+      <uib-tab index="3" heading="票种信息" 
       ng-if="saleobj.id !== '' && saleobj.code !== ''">
         <producttickettype
           saleobj="saleobj"
@@ -24,7 +44,7 @@
         ></producttickettype>
       </uib-tab>
 
-      <uib-tab index="2" heading="系统确认项" 
+      <uib-tab index="4" heading="系统确认项" 
       ng-if="saleobj.code !== '' && saleobj.sys_affirm_type == 0">
         <productaffirm
           saleobj="saleobj"
@@ -32,7 +52,7 @@
         ></productaffirm>
       </uib-tab>
       
-      <uib-tab index="3" heading="限时购" 
+      <uib-tab index="5" heading="限时购" 
       ng-if="saleobj.code !== '' && funobj.hasOwnProperty('flashsale')">
         <productflashsale
           saleobj="saleobj"
@@ -40,7 +60,7 @@
         ></productflashsale>
       </uib-tab>
 
-      <uib-tab index="4" heading="配置积分" 
+      <uib-tab index="6" heading="配置积分" 
       ng-if="saleobj.code !== '' && funobj.hasOwnProperty('integral')">
         <productintegral
           saleobj="saleobj"
@@ -48,7 +68,7 @@
         ></productintegral>
       </uib-tab>
 
-      <uib-tab index="5" heading="销售品分润设置" 
+      <uib-tab index="7" heading="销售品分润设置" 
       ng-if="saleobj.id !== '' && funobj.hasOwnProperty('skprice')">
         <productshareprofit
           saleobj="saleobj"

@@ -161,7 +161,7 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 					return str2date;
 				},
 				date2str: function () {
-					return getDate;
+					return date2str;
 				},
 
 			}

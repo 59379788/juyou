@@ -1,0 +1,212 @@
+<div class="container-fluid form-horizontal">
+
+	<div class="col-xs-12 col-md-12 mt10" >
+
+		
+			
+	  	<div class="form-group">
+		    <label class="col-sm-3 col-xs-12 control-label">支付类型</label>
+		    <div class="col-sm-9 col-xs-12">
+		    	<label class="radio-inline">
+				  <input type="radio" name="pay_type" value="0"
+				  ng-model="saleobj.pay_type" ng-disabled="util.what == 'info'" 
+				  > 其他方式支付
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="pay_type" value="1"
+				  ng-model="saleobj.pay_type"
+				  > 预存支付
+				</label>
+		    </div>
+	  	</div>
+
+	  	<div class="form-group">
+		    <label class="col-sm-3 col-xs-12 control-label">库存类型</label>
+		    <div class="col-sm-2 col-xs-12">
+		    	<label class="radio-inline">
+				  <input type="radio" name="stock_type" value="0"
+				  ng-model="saleobj.stock_type" ng-disabled="util.what == 'info'" 
+				  > 不启用
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="stock_type" value="1"
+				  ng-model="saleobj.stock_type"
+				  > 启用
+				</label>
+		    </div>
+		    <div class="col-sm-2 col-xs-12" ng-show="saleobj.stock_type == 1">
+		    	<input type="number" class="form-control" placeholder="预存数量" min='0' ng-model="saleobj.current_stock_num"
+					>
+		    </div>
+	  	</div>
+
+	  	<div class="form-group">
+		    <label class="col-sm-3 col-xs-12 control-label">销售目标</label>
+		    <div class="col-sm-9 col-xs-12">
+		    	<label class="radio-inline">
+				  <input type="radio" name="sale_target_type" value="0"
+				  ng-model="saleobj.sale_target_type" ng-disabled="util.what == 'info'"
+				  > 公开销售
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="sale_target_type" value="1"
+				  ng-model="saleobj.sale_target_type"
+				  > 独立授权销售
+				</label>
+		    </div>
+	  	</div>
+
+	  	<div class="form-group">
+		    <label class="col-sm-3 col-xs-12 control-label">生效时间</label>
+		    <div class="col-sm-5 col-xs-12">
+		    	<select class="form-control" 
+		    	  ng-model="saleobj.take_effect_type"  ng-disabled="util.what == 'info'" 
+	              ng-options="take_effect_type.value as take_effect_type.name for take_effect_type in page.take_effect_typearr"
+	            >
+	            </select>
+		    </div>
+	  	</div>
+
+	  	<div class="form-group">
+		    <label class="col-sm-3 col-xs-12 control-label">最大购买数量限制</label>
+		    <div class="col-sm-2 col-xs-12">
+		    	<input type="number" class="form-control" 
+				ng-model="saleobj.max_limit"  ng-disabled="util.what == 'info'" 
+				>
+				
+		    </div>
+		    <div class="col-sm-5 col-xs-12">
+		      <p class="form-control-static text-danger" >0:不限，其他数字:限制购买个数</p>
+		    </div>
+	  	</div>
+
+	  	<div class="form-group">
+		    <label class="col-sm-3 col-xs-12 control-label">每单最大购买数量限制</label>
+		    <div class="col-sm-2 col-xs-12">
+		    	<input type="number" class="form-control" 
+				ng-model="saleobj.order_num_limit"  ng-disabled="util.what == 'info'" 
+				>
+				
+		    </div>
+		    <div class="col-sm-5 col-xs-12">
+		      <p class="form-control-static text-danger" >0:不限，其他数字:限制购买个数</p>
+		    </div>
+	  	</div>
+
+	  	<div class="form-group">
+		    <label class="col-sm-3 col-xs-12 control-label">是否启用出游时间</label>
+		    <div class="col-sm-2 col-xs-12">
+		    	<label class="radio-inline">
+				  <input type="radio" name="tour_date_type" value="0"
+				  ng-model="saleobj.tour_date_type"  ng-disabled="util.what == 'info'"
+				  > 不启用
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="tour_date_type" value="1"
+				  ng-model="saleobj.tour_date_type"
+				  > 启用
+				</label>
+		    </div>
+		    <div class="col-sm-7 col-xs-12">
+		      <p class="form-control-static text-danger" >
+		      启用出游时间后，该销售品只能在出游日期当天使用</p>
+		    </div>
+	  	</div>
+
+	  	<div class="form-group">
+		    <label class="col-sm-3 col-xs-12 control-label">是否允许退票</label>
+		    <div class="col-sm-9 col-xs-12">
+		    	<label class="radio-inline">
+				  <input type="radio" name="back_type" value="0"
+				  ng-model="saleobj.back_type" ng-disabled="util.what == 'info'"
+				  > 允许
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="back_type" value="1"
+				  ng-model="saleobj.back_type"
+				  > 不允许
+				</label>
+		    </div>
+	  	</div>
+
+	  	<div class="form-group">
+		    <label class="col-sm-3 col-xs-12 control-label">退票审核</label>
+		    <div class="col-sm-9 col-xs-12">
+		    	<label class="radio-inline">
+				  <input type="radio" name="apply_state" value="0"
+				  ng-model="saleobj.apply_state" ng-disabled="util.what == 'info'"
+				  > 不需要
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="apply_state" value="1"
+				  ng-model="saleobj.apply_state"
+				  > 需要
+				</label>
+		    </div>
+	  	</div>
+
+	  	<div class="form-group">
+		    <label class="col-sm-3 col-xs-12 control-label">是否出票</label>
+		    <div class="col-sm-2 col-xs-12">
+		    	<label class="radio-inline">
+				  <input type="radio" name="ticket_type" value="0"
+				  ng-model="saleobj.ticket_type" ng-disabled="util.what == 'info'"
+				  > 出票
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="ticket_type" value="8"
+				  ng-model="saleobj.ticket_type"
+				  > 不出票
+				</label>
+		    </div>
+		    <div class="col-sm-7 col-xs-12">
+		      <p class="form-control-static text-danger" >
+		      该选项请慎重使用，如果选择’不出票‘该销售品将不会出票也不发短信！</p>
+		    </div>
+	  	</div>
+
+	  	<div class="form-group">
+		    <label class="col-sm-3 col-xs-12 control-label">是否实名制</label>
+		    <div class="col-sm-9 col-xs-12">
+		    	<label class="radio-inline">
+				  <input type="radio" name="user_status" value="0"
+				  ng-model="saleobj.user_status" ng-disabled="util.what == 'info'"
+				  > 不实名制
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="user_status" value="1"
+				  ng-model="saleobj.user_status"
+				  > 实名制
+				</label>
+		    </div>
+	  	</div>
+
+	  	<div class="form-group">
+		    <label class="col-sm-3 col-xs-12 control-label">短信票码类型</label>
+		    <div class="col-sm-9 col-xs-12">
+		    	<label class="radio-inline">
+				  <input type="radio" name="sms_ticketcode_type" value="0"
+				  ng-model="saleobj.sms_ticketcode_type" ng-disabled="util.what == 'info'"
+				  > 票码
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="sms_ticketcode_type" value="1"
+				  ng-model="saleobj.sms_ticketcode_type"
+				  > 订单唯一码
+				</label>
+		    </div>
+	  	</div>
+
+		<div class="form-group" ng-if="util.what == 'edit'">
+			<label class="col-sm-3 col-xs-12 control-label"></label>
+			<div class="col-sm-9 col-xs-12">
+				<button type="button" class="btn btn-primary btn-lg btn-block"
+				ng-click="save()"
+				>保存</button>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>

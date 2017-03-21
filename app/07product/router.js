@@ -638,7 +638,10 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             str2date : function(utilservice){
                 return utilservice.str2date;
-            }
+            }, 
+            $uibModalInstance : function(){
+                return undefined;
+            },
         }
     })
 
@@ -659,7 +662,10 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             str2date : function(utilservice){
                 return utilservice.str2date;
-            }
+            },
+             $uibModalInstance : function(){
+                return undefined;
+            },
         }
     })
 

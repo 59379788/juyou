@@ -72,7 +72,7 @@ module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,st
         });
 
         modalInstance.result.then(function () {
-          //load();
+          $scope.load();
         }, function () {
           //$log.info('Modal dismissed at: ' + new Date());
         });
@@ -80,35 +80,7 @@ module.exports = function($scope, $state, $resource, ITEMS_PERPAGE, $uibModal,st
     };
 
 
-    $scope.pass = function(id){
-        console.log(id);
-        $resource('/api/ac/tc/ticketSaleService/updateSaleApplyPass', {}, {})
-        .save({'id' : id}, function(res){
-            console.log(res);
-            if(res.errcode !== 0){
-                // alert(res.errmsg);
-                toaster.error({title: "提示", body:res.errmsg});
-                return;
-            }
-            toaster.success({title: "提示", body:"操作成功!"});
-            $scope.load();
-        });
-    };
-
-    $scope.nopass = function(id){
-        console.log(id);
-        $resource('/api/ac/tc/ticketSaleService/updateSaleApplyNoPass', {}, {})
-        .save({'id' : id}, function(res){
-            console.log(res);
-            if(res.errcode !== 0){
-                // alert(res.errmsg);
-                toaster.error({title: "提示", body:res.errmsg});
-                return;
-            }
-            toaster.success({title: "提示", body:"操作成功!"});
-            $scope.load();
-        });
-    };
+    
 
 
 
