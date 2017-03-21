@@ -12,6 +12,10 @@ module.exports = function($resource, $state, $http, $q){
 		link : function(scope, elements, attrs){
 			scope.salefrobj = {};
 
+			scope.obj = {
+				'isSelected' : false
+			}
+
 
 			console.log('积分code');
 			console.log(scope.saleobj.code);
@@ -21,11 +25,26 @@ module.exports = function($resource, $state, $http, $q){
 				console.log('分润信息');
 				
 				scope.salefrobj = res.data;
+				if(scope.salefrobj.search_type == 0){
+					scope.obj.isSelected = true;
+				} else if(scope.salefrobj.search_type == 1){
+					scope.obj.isSelected = false;
+				}
                 console.log(res);
 
 
 			});
 
+			
+			scope.salefrobj.search_type = scope.obj.isSelected;
+			scope.onChange = function(isSelected){
+				console.log(isSelected);
+				if(isSelected == true) {
+					scope.salefrobj.search_type = '0'; 
+				} else {
+					scope.salefrobj.search_type = '1';
+				}
+			}
             scope.saleFrSetSave = function(){
 				alert('添加分润');
                 scope.salefrobj.sale_code = scope.saleobj.code;
@@ -45,45 +64,7 @@ module.exports = function($resource, $state, $http, $q){
 					alert('设置正确的利润率(0-100),红包上限不能为负数');
 				}
 				
-                
-				// .save({'integral_sale_code':scope.obj.integral_sale_code,'integral_price':scope.obj.integral_price,'list' : array}, function(res){
-				// 	console.log('bbbbbbb');
-				// 	console.log(res);
-				// 	if(res.errcode !== 0)
-				// 	{
-				// 		alert(res.errmsg);
-				// 		return;
-				// 	}
-				// 	console.log('添加成功');
-
-					
-				// });
-
 			};
-
-    //         $scope.saleFrSetSave = function(){
-	// 	if(parseInt(scope.salefrobj.profit_ratio) >= 0 && parseInt(scope.salefrobj.profit_ratio) <= 100 && parseInt(scope.salefrobj.rebate_unlimited) >= 0){
-	// 		scope.salefrobj.sale_code = scope.saleobj.code;
-	// 		saveSaleFenRun.save(scope.salefrobj, function(res){
-	// 	     	if(res.errcode === 0)
-	// 	     	{
-	// 	     		alert('保存成功');
-	// 				$uibModalInstance.close();
-	// 	     	}
-	//      		else
-	// 			{
-	// 				alert(res.errmsg);
-	// 			}
-	
-	// 	    });
-	// 	} else {
-	// 		alert('设置正确的利润率(0-100),红包上限不能为负数');
-	// 	}
-	// }
-
-		 	
-
-			
 		   
 		}
 
