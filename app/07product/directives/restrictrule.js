@@ -225,7 +225,8 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 					if (angular.isDefined(res.data.uuid)) {
 						scope.saleobj.id = res.data.uuid;
 					}
-					toaster.success({ title: "提示", body: '操作成功' });
+					alert('操作成功');
+					// toaster.success({ title: "提示", body: '操作成功' });
 					if (scope.util.$uibModalInstance == undefined) {
 						$state.go('app.editproduct', { 'id': scope.saleobj.id });
 					} else {
