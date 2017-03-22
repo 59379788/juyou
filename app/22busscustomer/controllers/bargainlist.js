@@ -44,6 +44,9 @@ module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE
        			console.log(res);
        			$scope.objs = res.data.results;
        			$scope.bigTotalItems = res.data.totalRecord;
+                $scope.objs.forEach(function(element) {
+                    element.isSelected = element.status=='1'?false:true;
+                }, this);
         });
     };
 
