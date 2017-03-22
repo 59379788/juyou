@@ -90,49 +90,58 @@
 			</div>
 		</div>
 
-
 		<div class="form-group">
-			<!--<label class="col-sm-3 col-xs-12 control-label">短信发送类型</label>-->
-			<label class="col-sm-2 col-xs-12 control-label">发送类型</label>
+			<label class="col-sm-2 col-xs-12 control-label">短信配置</label>
 			<div class="col-sm-4 col-xs-12">
-				<label class="radio-inline">
+			</div>
+			<div class="col-sm-6 mt10">
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="form-group">
+				<!--<label class="col-sm-3 col-xs-12 control-label">短信发送类型</label>-->
+				<label class="col-sm-2 col-xs-12 control-label">发送类型</label>
+				<div class="col-sm-4 col-xs-12">
+					<label class="radio-inline">
 				  <input type="radio" name="sms_type" value="1"
 				  ng-model="saleobj.sms_type" ng-disabled="util.what == 'info'"
 				  > 发送短信
 				</label>
-				<label class="radio-inline">
+					<label class="radio-inline">
 				  <input type="radio" name="sms_type" value="0"
 				  ng-model="saleobj.sms_type" ng-disabled="util.what == 'info'"
 				  > 不发短信
 				</label>
+				</div>
+				<div class="col-sm-6 mt10">
+					<font face="Courier" class="text-danger">下单出票之后是否发送短信</font>
+				</div>
 			</div>
-			<div class="col-sm-6 mt10">
-				<font face="Courier" class="text-danger">下单出票之后是否发送短信</font>
-			</div>
-		</div>
 
-		<div class="form-group" ng-show="saleobj.sms_type == 1">
-			<!--<label class="col-sm-3 col-xs-12 control-label">短信模板编号</label>-->
-			<label class="col-sm-2 col-xs-12 control-label">模板编号</label>
-			<div class="col-sm-4 col-xs-12">
-				<select class="form-control" ng-model="saleobj.sms_template_id" ng-change="changeSms(saleobj)" ng-disabled="util.what == 'info'"
-				 ng-options="sms.sms_template_id as sms.sms_template_id for sms in page.smslist">
+			<div class="form-group" ng-show="saleobj.sms_type == 1">
+				<!--<label class="col-sm-3 col-xs-12 control-label">短信模板编号</label>-->
+				<label class="col-sm-2 col-xs-12 control-label">模板编号</label>
+				<div class="col-sm-4 col-xs-12">
+					<select class="form-control" ng-model="saleobj.sms_template_id" ng-change="changeSms(saleobj)" ng-disabled="util.what == 'info'"
+					 ng-options="sms.sms_template_id as sms.sms_template_id for sms in page.smslist">
 	            	<option value="">  -- 空 --  </option>
 	            </select>
+				</div>
+				<div class="col-sm-6 mt10">
+					<font face="Courier" class="text-danger">发送短信内容模板</font>
+				</div>
 			</div>
-			<div class="col-sm-6 mt10">
-				<font face="Courier" class="text-danger">发送短信内容模板</font>
-			</div>
-		</div>
 
-		<div class="form-group" ng-show="saleobj.sms_type == 1">
-			<!--<label class="col-sm-3 col-xs-12 control-label">短信追加内容</label>-->
-			<label class="col-sm-2 col-xs-12 control-label">补充内容</label>
-			<div class="col-sm-4 col-xs-12">
-				<textarea class="form-control" rows="3" ng-model="saleobj.sms_diy" ng-disabled="util.what == 'info'"></textarea>
-			</div>
-			<div class="col-sm-6 mt10">
-				<font face="Courier" class="text-danger">短信补充自定义内容</font>
+			<div class="form-group" ng-show="saleobj.sms_type == 1">
+				<!--<label class="col-sm-3 col-xs-12 control-label">短信追加内容</label>-->
+				<label class="col-sm-2 col-xs-12 control-label">补充内容</label>
+				<div class="col-sm-4 col-xs-12">
+					<textarea class="form-control" rows="3" ng-model="saleobj.sms_diy" ng-disabled="util.what == 'info'"></textarea>
+				</div>
+				<div class="col-sm-6 mt10">
+					<font face="Courier" class="text-danger">短信补充自定义内容</font>
+				</div>
 			</div>
 		</div>
 
