@@ -7,24 +7,18 @@
             <div class="row">
                 <label for="inputLottry" class="control-label">总卡片数量</label>
                 <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.allcard" style="width:150px">
-
-                <label for="inputLottry" class="control-label">未使用数量</label>
-		        <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.can_use_card" style="width:150px">
             </div>
             <div class="row mt10">
-		        <label for="inputLottry" class="control-label">已锁定数量</label>
-		        <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.lock_card" style="width:150px">
-                
-                
+		        <label for="inputLottry" class="control-label">未使用数量</label>
+		        <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.can_use_card" style="width:150px">
                 <label for="inputLottry" class="control-label">已使用数量</label>
                 <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.used_card" style="width:150px">
             </div>
             <div class="row mt10">
-		        <label for="inputLottry" class="control-label">已失效数量</label>
+	            <label for="inputLottry" class="control-label">已锁定数量</label>
+			    <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.lock_card" style="width:150px">
+		        <label for="inputLottry" class="control-label">已挂失数量</label>
 		        <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.not_avail_card" style="width:150px">
-            
-                <label for="inputLottry" class="control-label">已释放数量</label>
-                <input class="form-control text-center" id="disabledInput" type="text" placeholder="" disabled ng-model="cardinfo.release_card" style="width:150px">
             </div>
               
 
@@ -42,15 +36,19 @@
         <div class="form-group form-inline">
             <div class="col-sm-12" style="height:120px">
                 <div class="row mt20">
-                    <input type="text" class="form-control" ng-model="typecard.startnum" placeholder="起始卡号" style="width:200px">
-                    <input type="text" class="form-control" ng-model="typecard.endnum" placeholder="结束卡号"  style="width:200px">
+                    <input type="text" class="form-control" ng-model="typecard.startnum" placeholder="起始卡号">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="text" class="form-control" ng-model="typecard.endnum" placeholder="结束卡号">
                 </div>
                 <div class="row mt10">
-                    <select class="form-control" ng-model="typecard.card_status" ng-options="state.code as state.name for state in state" style="width:200px"></select>
-			        <select class=" form-control" ng-model="typecard.card_giveout_target" ng-options = "info.card_giveout_target as info.card_giveout_target for info in targetinfo" style="width:200px"> 
+                	<label class="control-label">卡状态</label>&nbsp;&nbsp;
+                    <select class="form-control" ng-model="typecard.card_status" ng-options="state.code as state.name for state in state"></select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="control-label">发放目标</label>&nbsp;&nbsp;
+			        <select class=" form-control" ng-model="typecard.card_giveout_target" ng-options = "info.card_giveout_target as info.card_giveout_target for info in targetinfo"> 
 			        <option value="">全部</option>  
                     </select>
-                    <button type="button" class="btn btn-info new" ng-click="search()" style="width:90px">搜索</button>    
+                    <button type="button" class="btn btn-default new pull-right" ng-click="search()">立即搜索</button>    
                 </div>
             </div>
         </div>
@@ -78,22 +76,22 @@
 	    </table>
 	    <div class="text-right">
 
-    <uib-pagination 
-      total-items="bigTotalItems" 
-      ng-model="bigCurrentPage" 
-      max-size="maxSize" 
-      class="pagination-sm" 
-      boundary-links="true" 
-      ng-change="getcardlist()"
-      items-per-page="itemsPerPage"
-      previous-text="上一页"
-      next-text="下一页"
-      first-text="首页"
-      last-text="末页"
-      rotate="false">
-    </uib-pagination>
+		    <uib-pagination 
+		      total-items="bigTotalItems" 
+		      ng-model="bigCurrentPage" 
+		      max-size="maxSize" 
+		      class="pagination-sm" 
+		      boundary-links="true" 
+		      ng-change="getcardlist()"
+		      items-per-page="itemsPerPage"
+		      previous-text="上一页"
+		      next-text="下一页"
+		      first-text="首页"
+		      last-text="末页"
+		      rotate="false">
+		    </uib-pagination>
 
-  </div>
+		  </div>
     </div>
 
     <div class="col-md-6">
@@ -101,8 +99,8 @@
 	     <thead>
 	      <tr>
 	        <th class="col-md-2 text-center">卡段</th>
-	        <th class="col-md-1 text-center">状态</th>
-	        <th class="col-md-1 text-center">种类</th>
+	        <th class="col-md-1 text-center">卡状态</th>
+	        <th class="col-md-1 text-center">卡种类</th>
 	        <th class="col-md-1 text-center">发放时间</th>
 	        <th class="col-md-1 text-center">发放目标</th>
 	      </tr>
@@ -118,22 +116,75 @@
 	    </tbody>
 	    </table>
 
-	<div class="text-right">
-    <uib-pagination 
-      total-items="nbigTotalItems" 
-      ng-model="nbigCurrentPage" 
-      max-size="nmaxSize" 
-      class="pagination-sm" 
-      boundary-links="true" 
-      ng-change="search()"
-      items-per-page="nitemsPerPage"
-      previous-text="上一页"
-      next-text="下一页"
-      first-text="首页"
-      last-text="末页"
-      rotate="false">
-    </uib-pagination>
-    </div>
+		<div class="text-right">
+	    <uib-pagination 
+	      total-items="nbigTotalItems" 
+	      ng-model="nbigCurrentPage" 
+	      max-size="nmaxSize" 
+	      class="pagination-sm" 
+	      boundary-links="true" 
+	      ng-change="search()"
+	      items-per-page="nitemsPerPage"
+	      previous-text="上一页"
+	      next-text="下一页"
+	      first-text="首页"
+	      last-text="末页"
+	      rotate="false">
+	    </uib-pagination>
+	    </div>
     </div>
 
+   
+
+<div class="form-group">
+    <div class="col-md-12">
+	 <div class="panel panel-info" >
+	      <div class="panel-heading">操作记录
+	      </div>
+
+	      <table class="table table-bordered">
+	        <thead>
+	          <tr>
+	            <th class="col-md-2 text-center">卡池编码</th>
+	            <th class="col-md-1 text-center">操作</th>
+	            <th class="col-md-5 text-center">操作卡号</th>
+	            <th class="col-md-1 text-center">所属机构</th>
+	            <th class="col-md-2 text-center">操作时间</th>
+	            <th class="col-md-1 text-center">操作账号</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          <tr ng-repeat="record in recordlist">
+	            <td class="text-center">{{record.pool_code}}</td>
+	            <td class="text-center">{{record.statename}}</td>
+	            <td class="text-center">{{record.card_num}}</td>
+            	<td class="text-center">
+            		{{record.company_name}}<br>
+            		{{record.company_code}}
+        		</td>
+	            <td class="text-center">{{record.update_time}}</td>
+	            <td class="text-center">{{record.update_by}}</td>
+	          </tr>
+	        </tbody>
+	      </table>
+
+	      <div class="text-right">
+		    <uib-pagination 
+		      total-items="nbigTotalItems" 
+		      ng-model="nbigCurrentPage" 
+		      max-size="nmaxSize" 
+		      class="pagination-sm" 
+		      boundary-links="true" 
+		      ng-change="getrecordlist()"
+		      items-per-page="nitemsPerPage"
+		      previous-text="上一页"
+		      next-text="下一页"
+		      first-text="首页"
+		      last-text="末页"
+		      rotate="false">
+		    </uib-pagination>
+		    </div>
+	      
+	    </div>
+	</div>
 </div>

@@ -12,6 +12,16 @@ module.exports = function($scope, $stateParams, used, lost, cardnumuser){
     };
     // 用卡号查询用户信息
     $scope.queryuser = function(cardno){
+
+    	if(cardno == '') {
+    		alert("请输入卡号！");
+    		return;
+    	}
+
+    	if(cardno.length != 12) {
+    		alert("位数错误！");
+    		return;
+    	}
     	
     	cardnumuser.save({'cardno' : $scope.cardinfo.cardno}, function(res){
     		console.log($scope.cardinfo.cardno);

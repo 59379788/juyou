@@ -37,7 +37,7 @@ module.exports = function($scope, $state, $stateParams,  $uibModalInstance,poolc
     $scope.ok = function () {
         //console.log($scope.obj);
         var array = [];
-		var cardparem = {'pool_code' : poolcode,'status':$scope.cardinfo.status};
+		var cardparem = {'status':$scope.cardinfo.status};
         if ($scope.cardinfo.status === '1') {
         	array.push(cardparem);
         } else if ($scope.cardinfo.status === '2'){
@@ -51,9 +51,8 @@ module.exports = function($scope, $state, $stateParams,  $uibModalInstance,poolc
         	for (var i = 0; i < $scope.releasecardinfo.length; i++) {
         	    var tmp = $scope.releasecardinfo[i];
                 if (tmp.value == 1) { 
-                   var arrayObj = { 
-              	       'pool_code' : poolcode,
-               	       'type' : '3',
+                   var arrayObj = {
+               	       'status' : '3',
               	       'startnum' : tmp.mincard,
               	       'endnum' : tmp.maxcard
                     };
@@ -67,7 +66,11 @@ module.exports = function($scope, $state, $stateParams,  $uibModalInstance,poolc
         	alert('卡号不能为空!');
         	return;
         } 	
-		releasecard.save({'list' : array}, function(res){
+        var para = {'poolcode' : poolcode};
+        para['list'] = array;
+        console.log(para);
+        
+		releasecard.save(para, function(res){
 			console.log({'list' : array});
 			    if (res.errcode !== 0) {
                     alert(res.errmsg);

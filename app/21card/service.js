@@ -37,6 +37,8 @@ var service = function($resource, BASEURL38985){
     var canrelease = BASEURL38985 + '/api/as/uc/cardpooldao/getcardcanreleaselist';
     // 卡池详情获取发卡目标
     var targetcard = BASEURL38985 + '/api/as/uc/cardpooldao/findgivetargtlist';
+    //卡池详情 查询操作记录
+    var operationrecordlist = BASEURL38985 + '/api/as/uc/cardpoolinfodao/operationrecordlist';
     //------------------ 卡池管理 -----------------------//
 
 
@@ -233,10 +235,9 @@ var service = function($resource, BASEURL38985){
         statename:{ 
         	state:[
     			{name : "未使用" , code : '0' },
-    			{name : "锁定" , code : '1' },
+    			{name : "已锁定" , code : '1' },
     			{name : "已使用" , code : '2' },
-    			{name : "已失效" , code : '3' },
-    			{name : "已释放" , code : '4' },
+    			{name : "已挂失" , code : '3' },
     			{name : "全部" , code : '' },
         	]
         },
@@ -261,6 +262,9 @@ var service = function($resource, BASEURL38985){
         },
         targetcard : function(){
              return $resource(targetcard, {}, {});
+        },
+        operationrecordlist : function(){
+             return $resource(operationrecordlist, {}, {});
         },
         takecardlist : function(){
              return $resource(takecardlist, {}, {});

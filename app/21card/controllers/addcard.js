@@ -38,38 +38,39 @@ module.exports = function($scope, $state, $stateParams, $uibModalInstance,addcar
     };
 
     $scope.ok = function () {
-        console.log($scope.obj);
         var array = [];
 		// 声明一个要传的参数变量
-		var cardparem = {'pool_code' : poolcode,'type':$scope.cardinfo.type};
+		var cardparem = {'type':$scope.cardinfo.type};
 		// 根据type类型不同参数的属性是不同的
         if ($scope.cardinfo.type === '2') {
         	cardparem['cardnum'] = $scope.cardinfo.cardnum;
         	array.push(cardparem);
+        	
         } else if ($scope.cardinfo.type === '1'){
         	cardparem['startnum'] = $scope.cardinfo.startnum;
         	cardparem['endnum'] = $scope.cardinfo.endnum;
         	array.push(cardparem);
         } 
-        	for (var i = 0; i < $scope.cardinfos.length; i++) {
-        	    var tmp = $scope.cardinfos[i];
-                if (tmp.value == 1) { 
-                    var arrayObj = { 
-               	        'pool_code' : poolcode,
-               	        'type' : '1',
-              	        'startnum' : tmp.mincard,
-              	        'endnum' : tmp.maxcard
-                    };
-                    array.push(arrayObj);	
-                }
-            };
         
-
+    	for (var i = 0; i < $scope.cardinfos.length; i++) {
+    	    var tmp = $scope.cardinfos[i];
+            if (tmp.value == 1) { 
+                var arrayObj = {
+           	        'type' : '1',
+          	        'startnum' : tmp.mincard,
+          	        'endnum' : tmp.maxcard
+                };
+                array.push(arrayObj);	
+            }
+        };
         if (array.length === 0) { 
-        	alert('卡号为空');
+        	alert('卡号不能为空!');
         	return;
-        }
-		addcard.save({'list':array}, function(res){
+        } 
+        var para = {'poolcode' : poolcode};
+        para['list'] = array;
+        console.log(para);
+		addcard.save(para, function(res){
 			console.log({'list':array});
 			    if (res.errcode !== 0) {
                     alert(res.errmsg);

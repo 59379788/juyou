@@ -10,12 +10,15 @@
                   <input type="text" class="form-control" ng-model="searchform.endcard" placeholder="结束卡号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <input type="text" class="form-control" ng-model="searchform.cardbatch" placeholder="批次号">
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="searchform.company_code" placeholder="机构编号">
+                  
                   <button type="button" class="btn btn-default search pull-right" ng-click="add()">添加卡段</button>
           	   </div>
 
           	   <div class="row mt10">
+                  <input type="text" class="form-control" ng-model="searchform.company_code" placeholder="机构编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="searchform.update_by" placeholder="登录账号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
           	   	  <label class="control-label">发放状态：</label>
                   <select class="form-control" ng-model="searchform.cardgivetatus">
                     <option value="">全部</option>
@@ -47,7 +50,7 @@
         <th class="col-md-2 text-center">发放状态</th>
         <th class="col-md-2 text-center">制作状态</th>
         <th class="col-md-1 text-center">添加时间</th>
-        <th class="col-md-1 text-center">所属机构</th>
+        <th class="col-md-1 text-center">操作账号</th>
         <th class="col-md-1 text-center">操作</th>
       </tr>
     </thead>
@@ -68,7 +71,8 @@
         </td>
         <td class="text-center">
           {{obj.company_name}}<br>
-          {{obj.company_code}}
+          {{obj.company_code}}<br>
+          {{obj.update_by}}
         </td>
         <td class="text-center">
           <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='未制作'" ng-click="batchnumber(obj.mincard,obj.maxcard)" class="btn btn-info btn-xs">设置批次号</a>

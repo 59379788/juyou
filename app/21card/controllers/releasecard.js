@@ -1,4 +1,5 @@
-module.exports = function($scope,  $stateParams, getcardlist, cardinpool, statename, listinpool, targetcard,ITEMS_PERPAGE){
+module.exports = function($scope,  $stateParams, getcardlist, cardinpool, 
+	statename, listinpool, targetcard,ITEMS_PERPAGE, operationrecordlist){
   var poolcode = $stateParams.poolcode;
   $scope.typecard = {
     'pool_code' : poolcode,
@@ -96,6 +97,24 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool, staten
      	  }); 
     }       
 	};
+
+	//$scope.recordlist = [];
+	$scope.getrecordlist = function(){ 
+		var para = {
+	      pageNo:$scope.bigCurrentPage, 
+	      pageSize:$scope.itemsPerPage,
+	      'pool_code' : poolcode
+	    };
+		operationrecordlist.save(para, function(res){	
+			if (res.errcode !== 0) {
+	    		alert(res.errmsg);
+			} else {
+			  $scope.recordlist = res.data.results;
+			  $scope.bigTotalItems = res.data.totalRecord;
+			}
+		}); 
+	}
+    $scope.getrecordlist();
 
 
 };

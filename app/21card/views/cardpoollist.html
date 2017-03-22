@@ -11,6 +11,8 @@
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <input type="text" class="form-control" ng-model="searchform.company_code" placeholder="机构编号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="searchform.update_by" placeholder="登录账号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
                   <label class="control-label">卡池类型</label>&nbsp;&nbsp;
                   <select class="form-control" ng-model="searchform.pool_type"
 		              ng-options="type.value as type.label for type in typearr">
@@ -34,8 +36,8 @@
 	        <th class="col-md-3 text-center">卡池名称</th>
 	        <th class="col-md-1 text-center">卡池类型</th>
 	        <th class="col-md-2 text-center">操作时间</th>
-	        <th class="col-md-1 text-center">所属机构</th>
-	        <th class="col-md-3 text-center">操作</th>
+	        <th class="col-md-2 text-center">操作账号</th>
+	        <th class="col-md-2 text-center">操作</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -48,13 +50,14 @@
 	        </td>
 	        <td class="text-center">
 	        	{{cardpool.company_name}}<br>
-         		{{cardpool.company_code}}
+         		{{cardpool.company_code}}<br>
+         		{{cardpool.update_by}}
 	        </td>
 	        <td class="text-center">
+	        	<a ng-click="add(cardpool.pool_code)" class="btn btn-success btn-xs">添加卡</a>
+	        	<a ng-click="relief(cardpool.pool_code)" class="btn btn-danger btn-xs">释放卡</a><br>
 	        	<button type="button" class="btn btn-warning btn-xs" ng-click="addcardpool(cardpool)">编辑</button>
-	        	<a ng-click="add(cardpool.pool_code)" class="btn btn-info btn-xs">添加卡</a>
-	        	<a ng-click="relief(cardpool.pool_code)" class="btn btn-danger btn-xs">释放卡</a>
-	        	<a ng-click="release(cardpool.pool_code)" class="btn btn-success btn-xs">卡池详情</a>
+	        	<a ng-click="release(cardpool.pool_code)" class="btn btn-info btn-xs">卡池详情</a>
 	        </td>
 	      </tr>
 	    </tbody>

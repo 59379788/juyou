@@ -104,13 +104,16 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             targetcard : function(cardservice){
                  return cardservice.targetcard();
+            },
+            operationrecordlist : function(cardservice){
+                 return cardservice.operationrecordlist();
             }
             
          }
        })
        // 记录发卡信息
        .state('app.issuecard', {
-         url: '/issuecard/:poolcode',
+         url: '/issuecard',
          controller : 'issuecard',
          template: require('./views/issuecard.html'),
          resolve:{
