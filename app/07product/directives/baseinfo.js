@@ -20,6 +20,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				'market_price': 0,
 				'guide_price': 0,
 				'cost_price': 0,
+				'asort' : '0',
 				'sale_category': 'F10',
 				'sms_template_id': '',
 				'sms_diy': '',
@@ -229,8 +230,8 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 					if (angular.isDefined(res.data.uuid)) {
 						scope.saleobj.id = res.data.uuid;
 					}
-
-					toaster.success({ title: "提示", body: '操作成功' });
+					alert('操作成功');
+					// toaster.success({ title: "提示", body: '操作成功' });
 					if (scope.util.$uibModalInstance == undefined) {
 						$state.go('app.editproduct', { 'id': scope.saleobj.id });
 					} else {
