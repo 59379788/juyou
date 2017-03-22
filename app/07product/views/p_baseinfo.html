@@ -97,12 +97,12 @@
 			<div class="col-sm-4 col-xs-12">
 				<label class="radio-inline">
 				  <input type="radio" name="sms_type" value="1"
-				  ng-model="saleobj.sms_type"
+				  ng-model="saleobj.sms_type" ng-disabled="util.what == 'info'"
 				  > 发送短信
 				</label>
 				<label class="radio-inline">
 				  <input type="radio" name="sms_type" value="0"
-				  ng-model="saleobj.sms_type"
+				  ng-model="saleobj.sms_type" ng-disabled="util.what == 'info'"
 				  > 不发短信
 				</label>
 			</div>
