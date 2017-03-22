@@ -588,6 +588,9 @@ module.exports = function($scope, $state, salelist, ITEMS_PERPAGE, saleup, $wind
             date2str : function(){
                 return getDate;
             },
+            auditing: function () {
+                return false;
+            }
             
           }
         });
