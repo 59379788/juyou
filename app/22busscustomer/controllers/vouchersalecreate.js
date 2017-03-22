@@ -1,4 +1,4 @@
-module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, getDate, obj, what, vouchersalecreate, businesslist, typelist){
+module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, getDate, obj, what, vouchersalecreate, businesslist, typelist,toaster){
 
 	
 	$scope.obj = obj;
@@ -28,7 +28,7 @@ module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, ge
         }
         else
         {
-            alert(res.errmsg);
+            toaster.success({title:"",body:res.errmsg});
         }
     });
 
@@ -40,7 +40,7 @@ module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, ge
         }
         else
         {
-            alert(res.errmsg);
+            toaster.success({title:"",body:res.errmsg});
         }
     });
 
@@ -105,7 +105,7 @@ module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, ge
 
 		if($scope.obj.name === undefined || $scope.obj.name == '')
 		{
-			alert('销售品名称不能为空');
+			toaster.success({title:"",body:"销售品名称不能为空!"});
 			return;
 		}
 		$scope.obj.period = getDate(new Date($scope.section.start.date));
@@ -119,7 +119,7 @@ module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, ge
 			}
 			else
 			{
-				alert(res.errmsg);
+				toaster.success({title:"",body:res.errmsg});
 			}
 		});
 

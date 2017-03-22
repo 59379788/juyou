@@ -1,4 +1,4 @@
-module.exports = function($scope, ITEMS_PERPAGE, getDate, $uibModal, orderlist, voucherinfo){
+module.exports = function($scope, ITEMS_PERPAGE, getDate, $uibModal, orderlist, voucherinfo,toaster){
     
     $scope.searchform = {};
 
@@ -43,7 +43,7 @@ module.exports = function($scope, ITEMS_PERPAGE, getDate, $uibModal, orderlist, 
             }
             else
             {
-                alert(res.errmsg);
+                toaster.success({title:"",body:res.errmsg});
             }
 
         });

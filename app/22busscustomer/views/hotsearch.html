@@ -26,9 +26,10 @@
     <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-4 text-center">热搜名词</th>
-        <th class="col-md-4 text-center">热搜类型</th>
-        <th class="col-md-4 text-center">操作</th>
+        <th class="col-md-3 text-center">热搜名词</th>
+        <th class="col-md-3 text-center">热搜类型</th>
+        <th class="col-md-3 text-center">排序因子</th>
+        <th class="col-md-3 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -39,7 +40,7 @@
             <p ng-show="obj.type==3">积分商城</p>
             <p ng-show="obj.type==4">宜买宜卖</p>
         </td>
-        
+        <td class="text-center">{{obj.asort}}</td>
         <td class="text-center">
           <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">修改</a>
           <a ng-click="delete(obj.id)" class="btn btn-info btn-xs">删除</a>

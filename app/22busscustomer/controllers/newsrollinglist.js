@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findNewsRollinginfolist,delNewsPhoto){   
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findNewsRollinginfolist,delNewsPhoto,toaster){   
 	/* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -16,7 +16,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         findNewsRollinginfolist.save(para,function(res) {
             console.log(para);
             if (res.errcode !== 0) {
-                alert(res.errmsg);
+                toaster.success({title:"",body:res.errmsg});
                 return;
             }
             console.log(para);
@@ -38,10 +38,10 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             delNewsPhoto.save({'id':id},function(res) {
                 console.log({'id':id});
                 if (res.errcode !== 0) {
-                    alert(res.errmsg);
+                    toaster.success({title:"",body:res.errmsg});
                     return;
                 }           
-                alert('删除成功！');
+                toaster.success({title:"",body:"删除成功!"});
                 $scope.getlist();
             })
             return;

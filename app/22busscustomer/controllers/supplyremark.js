@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams,id,state,confirm_name,saveconfirm,$uibModalInstance){
+module.exports = function($scope, $stateParams,id,state,confirm_name,saveconfirm,$uibModalInstance,toaster){
 	console.log(id);
 	$scope.confirminfo = {
 	    'id' : id,
@@ -8,7 +8,7 @@ module.exports = function($scope, $stateParams,id,state,confirm_name,saveconfirm
 	};
     $scope.ok = function () {
         saveconfirm.save($scope.confirminfo, function(res){
-        		console.log($scope.confirminfo);
+        	console.log($scope.confirminfo);
             if(res.errcode !== 0)
             {
                 alert(res.errmsg);
@@ -17,7 +17,7 @@ module.exports = function($scope, $stateParams,id,state,confirm_name,saveconfirm
             }
             else
             {
-              alert('确认成功');
+              toaster.success({title:"",body:"确认成功!"});
               $uibModalInstance.close();
             }
         });

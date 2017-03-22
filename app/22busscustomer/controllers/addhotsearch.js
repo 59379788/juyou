@@ -1,7 +1,8 @@
 module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInstance, ITEMS_PERPAGE,id,getHotSearchById,updateHotSearch,saveHotSearch,toaster){  
     $scope.info = {
         'value' : '',
-        'type' : ''
+        'type' : '',
+        'asort' : ''
     }
     if(id){
         getHotSearchById.save({'id' : id},function(res){

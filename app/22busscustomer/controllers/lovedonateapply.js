@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findloveactivercordlist,updateronationstate){   
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findloveactivercordlist,updateronationstate,toaster){   
 	/* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -15,7 +15,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         para = angular.extend($scope.parameters, para);
         findloveactivercordlist.save(para, function(res) {
             if (res.errcode !== 0) {
-                alert(res.errmsg);
+                toaster.success({title:"",body:res.errmsg});
                 return;
             }
             console.log(res);
@@ -31,7 +31,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     $scope.agreeapply = function(love_record_id) {
         updateronationstate.save({'love_record_id':love_record_id, 'ronation_state':'1'},function(res) {
             if (res.errcode !== 0) {
-                alert(res.errmsg);
+                toaster.success({title:"",body:res.errmsg});
                 return;
             }
             console.log(res);
@@ -43,7 +43,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     $scope.disagreeapply = function(love_record_id) {
         updateronationstate.save({'love_record_id':love_record_id, 'ronation_state':'2'},function(res) {
             if (res.errcode !== 0) {
-                alert(res.errmsg);
+                toaster.success({title:"",body:res.errmsg});
                 return;
             }
             console.log(res);

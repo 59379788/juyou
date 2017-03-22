@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,findgoodscantlist,updatetraddestate){
+module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,findgoodscantlist,updatetraddestate,toaster){
   /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -11,7 +11,7 @@ module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,
         };
         findgoodscantlist.save(para,function(res){
             if (res.errcode !== 0) {
-                alert(res.errmsg);
+                toaster.success({title:"",body : res.errmsg});
                 return;
             };
             console.log(res);
@@ -26,11 +26,11 @@ module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,
     $scope.agree = function(trade_goods_id){
         updatetraddestate.save({'trade_goods_id' : trade_goods_id,'tradde_state':'1'},function(res){
             if (res.errcode !== 0) {
-                alert(res.errmsg);
+            toaster.success({title:"",body : res.errmsg});
                 return;
             }
             console.log(res);
-            alert('成功!');
+            toaster.success({title:"",body : "成功!"});
             $scope.getlist();
         });
     };
@@ -38,11 +38,11 @@ module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,
     $scope.disagree = function(trade_goods_id){
         updatetraddestate.save({'trade_goods_id' : trade_goods_id,'tradde_state':'2'},function(res){
             if (res.errcode !== 0) {
-                alert(res.errmsg);
+                toaster.success({title:"",body : res.errmsg});
                 return;
             }
             console.log(res);
-            alert('成功!');
+            toaster.success({title:"",body : "成功!"});
             $scope.getlist();
         });
     };

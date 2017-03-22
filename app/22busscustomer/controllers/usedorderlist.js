@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, ITEMS_PERPAGE, getDate, $uibModal, usedorderlist){
+module.exports = function($scope, $stateParams, ITEMS_PERPAGE, getDate, $uibModal, usedorderlist,toaster){
     
     $scope.searchform = {};
 
@@ -56,7 +56,7 @@ module.exports = function($scope, $stateParams, ITEMS_PERPAGE, getDate, $uibModa
             }
             else
             {
-                alert(res.errmsg);
+                toaster.success({title:"",body:res.errmsg});
             }
 
         });

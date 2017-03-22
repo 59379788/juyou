@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,saveactivity,getDate,FileUploader){
+module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,saveactivity,getDate,FileUploader,toaster){
     var id = $stateParams.id;
     $scope.info = {
         'id' : id,
@@ -79,7 +79,6 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,s
             start_time : getDate($scope.section.start.date) + " 00:00:00",
             end_time : getDate($scope.section.end.date) + " 23:59:59"
         };
-        alert(types);
         if (types==0&&$scope.info.id!==''&& $scope.info.activity_proposer_name!==''&&$scope.info.activity_proposer_card!==''&&$scope.info.activity_proposer_mobile!==''
             &&$scope.info.activity_titlle!==''&&$scope.info.activity_main_picture!==''&&$scope.info.activity_picture!==''&&$scope.info.activity_info!==''&&$scope.info.active_type!==''&&$scope.info.activity_estimate_rmb!=='') {
             $scope.info.activity_estimate_rmb = ($scope.info.activity_estimate_rmb) * 100;
@@ -87,11 +86,11 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,s
             saveactivity.save(para, function(res) {
                 console.log(para);
                 if (res.errcode !== 0) {
-                    alert(res.errmsg);
+                    toaster.success({title:"",body:res.errmsg});
                     return;
                 }
                 console.log(res);
-                alert('恭喜您，活动创建成功！');
+                toaster.success({title:"",body:"💐你,活动创建成功"});
                 $state.go('app.loveactionlist');
             });
 
@@ -101,11 +100,11 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,s
             saveactivity.save(para, function(res) {
                 console.log(para);
                 if (res.errcode !== 0) {
-                    alert(res.errmsg);
+                    toaster.success({title:"",body:res.errmsg});
                     return;
                 }
                 console.log(res);
-                alert('恭喜您，活动创建成功！');
+                toaster.success({title:"",body:"💐你,活动创建成功"});
                 $state.go('app.loveactionlist');
             });
         } else if (types==2&&$scope.info.id!==''&& $scope.info.activity_proposer_name!==''&&$scope.info.activity_proposer_card!==''&&$scope.info.activity_proposer_mobile!==''
@@ -119,12 +118,12 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,s
                     return;
                 }
                 console.log(res);
-                alert('恭喜您，活动创建成功！');
+                toaster.success({title:"",body:"恭喜您，活动创建成功！"});
                 $state.go('app.loveactionlist');
             });
 
         } else {
-            alert('活动信息填写不完全！');
+            toaster.success({title:"",body:"活动信息填写不完全！"});
         }
        
     };
