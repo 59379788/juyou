@@ -1,4 +1,4 @@
-module.exports = function($resource, $state, $http, $q){
+module.exports = function($resource, $state, $http, $q,toaster){
 
 	return {
 
@@ -16,6 +16,10 @@ module.exports = function($resource, $state, $http, $q){
 				'isSelected' : false
 			}
 
+			scope.hb = {
+				'isSelected' : false
+			}
+
 
 			console.log('积分code');
 			console.log(scope.saleobj.code);
@@ -29,6 +33,12 @@ module.exports = function($resource, $state, $http, $q){
 					scope.obj.isSelected = true;
 				} else if(scope.salefrobj.search_type == 1){
 					scope.obj.isSelected = false;
+				}
+
+				if(scope.salefrobj.rebate_type == 0){
+					scope.hb.isSelected = true;
+				} else if(scope.salefrobj.rebate_type == 1){
+					scope.hb.isSelected = false;
 				}
                 console.log(res);
 
@@ -45,8 +55,17 @@ module.exports = function($resource, $state, $http, $q){
 					scope.salefrobj.search_type = '1';
 				}
 			}
+			scope.onHbChange = function(isSelected){
+				console.log(isSelected);
+				if(isSelected == true) {
+					scope.salefrobj.rebate_type = '0'; 
+				} else {
+					scope.salefrobj.rebate_type = '1';
+				}
+			}
+
             scope.saleFrSetSave = function(){
-				alert('添加分润');
+				//alert('添加分润');
                 scope.salefrobj.sale_code = scope.saleobj.code;
                 if(parseInt(scope.salefrobj.profit_ratio) >= 0 && parseInt(scope.salefrobj.profit_ratio) <= 100 && parseInt(scope.salefrobj.rebate_unlimited) >= 0){
                     $resource('/api/as/tc/saleshangkeprice/save', {}, {})
@@ -54,14 +73,14 @@ module.exports = function($resource, $state, $http, $q){
                         console.log(scope.salefrobj);
                         if(res.errcode !== 0)
                         {
-                            alert(res.errmsg);
+                            toaster.success({title:"",body:res.errmsg});
                             return;
                         }
                         console.log('添加成功');
 
                         })
                 } else {
-					alert('设置正确的利润率(0-100),红包上限不能为负数');
+					toaster.success({title:"",body:"设置正确的利润率(0-100),红包上限不能为负数"});
 				}
 				
 			};

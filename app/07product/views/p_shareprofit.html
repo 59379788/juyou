@@ -61,7 +61,7 @@
 					</div>					
 				</div>
 
-				<br/>
+					<br/>
 					<br/>
 				<div class="col-xs-12 form-group">
 					<div class="col-xs-2">
@@ -81,6 +81,25 @@
 							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0'
 							ng-model="salefrobj.rebate_unlimited">
 						</div>-->
+						</div>
+					</div>					
+				</div>
+
+				<br/>
+					<br/>
+				<div class="col-xs-12 form-group">
+					<div class="col-xs-2">
+						<label for="lrl" class="pull-right text-right mt10">参与评价景区领红包&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+					<div class="col-xs-8">
+						<div class="input-group">
+							<input class=""
+							bs-switch
+							type="checkbox" 
+							ng-model="hb.isSelected"
+							switch-size=""
+							ng-change = "onHbChange(hb.isSelected)"
+							> 
 						</div>
 					</div>					
 				</div>
