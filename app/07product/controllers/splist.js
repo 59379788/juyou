@@ -1,5 +1,5 @@
 module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, str2date, date2str,
-	saleup, saledown, saleupdate, talist, sellerListno, tstcreateno, tststartno, tststopno,toaster
+	saleup, saledown, saleupdate, talist, sellerListno, tstcreateno, tststartno, tststopno, toaster
 
 ) {
 
@@ -29,7 +29,7 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 
 				console.log(res);
 				if (res.errcode !== 0) {
-					toaster.error({title: "提示", body:res.errmsg});
+					toaster.error({ title: "提示", body: res.errmsg });
 					return;
 				}
 
@@ -116,6 +116,9 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 				date2str: function () {
 					return date2str;
 				},
+				auditing: function () {
+					return false;
+				}
 			}
 		});
 
@@ -163,6 +166,9 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 				date2str: function () {
 					return date2str;
 				},
+				auditing: function () {
+					return false;
+				}
 
 			}
 		});

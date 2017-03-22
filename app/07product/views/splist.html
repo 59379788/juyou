@@ -38,8 +38,14 @@
           产品编号：{{obj.code}}<br>
           成本价：{{obj.cost_price}} 元 / 指导价：{{obj.guide_price}} 元 / 市场价：{{obj.market_price}} 元
         </td>
-        <td class="text-center">{{obj.sale_category_name}}</td>
-        <td class="text-center">{{obj.state_name}}<br/>
+        <td class="text-center">
+          <br/>
+          {{obj.sale_category_name}}
+          </td>
+        <td class="text-center">
+          <span ng-show="obj.sale_apply_state_name == ''" ><br/></span>
+            {{obj.state_name}}
+            <br/>
           <span ng-show="obj.sale_apply_state_name != ''" ng-bind="obj.sale_apply_state_name"></span>
         </td>
         <!--<td class="form-horizontal ">

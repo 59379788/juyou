@@ -12,7 +12,9 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			'util': '=',
 		},
 		link: function (scope, elements, attrs) {
-
+			scope.auditing = scope.util.auditing;
+			console.log('scope.util.auditing');
+			console.log(scope.util.auditing);
 			var obj = {
 				'id': scope.saleobj.id,
 				'name': '',
@@ -20,7 +22,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				'market_price': 0,
 				'guide_price': 0,
 				'cost_price': 0,
-				'asort' : '0',
+				'asort': '0',
 				'sale_category': 'F10',
 				'sms_template_id': '',
 				'sms_diy': '',
@@ -259,6 +261,43 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 					}
 				}
 			};
+
+
+
+
+			scope.pass = function () {
+				console.log(scope.saleobj.id);
+				$resource('/api/ac/tc/ticketSaleService/updateSaleApplyPass', {}, {})
+					.save({ 'id': scope.saleobj.id }, function (res) {
+						console.log(res);
+						if (res.errcode !== 0) {
+							alert(res.errmsg);
+							// toaster.error({ title: "提示", body: res.errmsg });
+							return;
+						}
+						// toaster.success({ title: "提示", body: "操作成功!" });
+						alert("操作成功!");
+						scope.util.$uibModalInstance.close();
+					});
+			};
+
+			scope.nopass = function () {
+				console.log(scope.saleobj.id);
+				$resource('/api/ac/tc/ticketSaleService/updateSaleApplyNoPass', {}, {})
+					.save({ 'id': scope.saleobj.id }, function (res) {
+						console.log(res);
+						if (res.errcode !== 0) {
+							alert(res.errmsg);
+							// toaster.error({ title: "提示", body: res.errmsg });
+							return;
+						}
+						// toaster.success({ title: "提示", body: "操作成功!" });
+						alert("操作成功!");
+						scope.util.$uibModalInstance.close();
+					});
+			};
+
+
 
 
 		}

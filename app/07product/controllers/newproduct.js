@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $http, $q, productid, what, FileUploader, str2date, date2str, $resource,toaster,$uibModalInstance){
+module.exports = function($scope, $stateParams, $http, $q, productid, what, FileUploader, str2date, date2str, $resource,toaster,$uibModalInstance,auditing){
 
     var id = $stateParams.id || productid;
 
@@ -16,7 +16,8 @@ module.exports = function($scope, $stateParams, $http, $q, productid, what, File
         'what' : what,
         'str2date' : str2date,
         'date2str' : date2str,
-        '$uibModalInstance' : $uibModalInstance
+        '$uibModalInstance' : $uibModalInstance,
+        'auditing' : auditing
     }
     //销售品功能列表
     $scope.funobj = {};
@@ -69,36 +70,6 @@ module.exports = function($scope, $stateParams, $http, $q, productid, what, File
 
     $scope.baseinfo.dateshow.open = function(obj) {
         obj.opened = true;
-    };
-
-
-
-    $scope.pass = function(){
-        console.log(id);
-        $resource('/api/ac/tc/ticketSaleService/updateSaleApplyPass', {}, {})
-        .save({'id' : id}, function(res){
-            console.log(res);
-            if(res.errcode !== 0){
-                // alert(res.errmsg);
-                toaster.error({title: "提示", body:res.errmsg});
-                return;
-            }
-            toaster.success({title: "提示", body:"操作成功!"});
-        });
-    };
-
-    $scope.nopass = function(){
-        console.log(id);
-        $resource('/api/ac/tc/ticketSaleService/updateSaleApplyNoPass', {}, {})
-        .save({'id' : id}, function(res){
-            console.log(res);
-            if(res.errcode !== 0){
-                // alert(res.errmsg);
-                toaster.error({title: "提示", body:res.errmsg});
-                return;
-            }
-            toaster.success({title: "提示", body:"操作成功!"});
-        });
     };
 
 
