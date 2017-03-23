@@ -233,8 +233,9 @@
 
 		<div class="form-group" ng-if="util.what == 'edit'">
 			<label class="col-sm-2 col-xs-12 control-label"></label>
-			<div class="col-sm-4 col-xs-12">
-				<button type="button" class="btn btn-primary btn-lg" ng-click="save()">保存</button>
+			<div class="col-sm-4 col-xs-12 text-center">
+				<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="save()" ng-if="saleobj.id == '' || util.$uibModalInstance == undefined">保存</button>
+				<button type="button" class="btn btn-primary btn-lg" ng-click="save()" ng-if="(saleobj.id != '') && (util.$uibModalInstance != undefined)">保&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存</button>
 				<button type="button" class="btn btn-primary btn-lg" ng-click="saveAndBack()" ng-if="(saleobj.id != '') && (util.$uibModalInstance != undefined)">保存并返回</button>
 			</div>
 			<div class="col-sm-4">
