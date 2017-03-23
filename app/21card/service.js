@@ -97,9 +97,11 @@ var service = function($resource, BASEURL38985){
 
     //----- 卡订单管理 -----------------------//
     //卡订单列表
-    var cardproductorderlist = BASEURL38985 + '/api/us/uc/cardproductorder/cardProductOrderList';
+    var cardproductorderlist = BASEURL38985 + '/api/as/uc/cardproductorder/cardProductOrderList';
     //卡订单详情
     var cardproductorderinfo = BASEURL38985 + '/api/us/uc/cardproductorder/cardProductOrderInfo';
+	//票信息
+    var ticketinfo = BASEURL38985 + '/api/as/uc/cardproductorder/ticketinfolist';
     //----- 卡订单管理 -----------------------//
 
     
@@ -230,6 +232,9 @@ var service = function($resource, BASEURL38985){
         },
         cardproductorderinfo : function(){
              return $resource(cardproductorderinfo, {}, {});
+        },
+        ticketinfo : function(){
+             return $resource(ticketinfo, {}, {});
         },
        
         statename:{ 

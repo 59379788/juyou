@@ -280,9 +280,13 @@ var router = function($urlRouterProvider, $stateProvider){
             cardproductorderlist : function(cardservice){
                  return cardservice.cardproductorderlist();
             },
+            ticketinfo : function(cardservice){
+                 return cardservice.ticketinfo();
+            },
             getDate : function(utilservice){
                 return utilservice.getDate;
             }
+
          }
        })
 

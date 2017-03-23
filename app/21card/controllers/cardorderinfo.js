@@ -1,19 +1,9 @@
-/**
-*卡订单详情
-*ml
-*/
+module.exports = function($scope, obj, $uibModalInstance){
 
-module.exports = function($scope, $stateParams, cardproductorderinfo){
+    $scope.obj = obj;
 
-	//参数code
-	var code = $stateParams.code;
-    console.log(code);
-	cardproductorderinfo.save({'code' : code}, function(res){
-	    if (res.errcode !== 0) {
-           alert(res.errmsg);
-           return;
-	    }
-	    $scope.obj = res.data;
-	    console.log($scope.obj);
- 	}); 
+    $scope.cancel = function () {
+    	$uibModalInstance.close();
+    }
+
 };

@@ -3,14 +3,14 @@ module.exports = function($scope, $state, code, $uibModalInstance, goodoffsale){
     console.log(code);
 
     $scope.obj = {
-    	'off_reason' : ''
+    	'code' : code
     };
     
     $scope.ok = function () {
     	
         console.log($scope.obj);
         if ($scope.obj.off_reason !== '') { 
-        	goodoffsale.save($scope.obj, {'code' : code}, function(res){
+        	goodoffsale.save($scope.obj, function(res){
             if(res.errcode === 0)
             {
                 alert('下架成功');

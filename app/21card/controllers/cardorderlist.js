@@ -3,7 +3,7 @@
 *ml
 */
 
-module.exports = function($scope, cardproductorderlist, ITEMS_PERPAGE, getDate, $state, $stateParams){
+module.exports = function($scope, $uibModal, ticketinfo, cardproductorderlist, ITEMS_PERPAGE, getDate, $state, $stateParams){
 
     $scope.searchform = {};
    // $scope.searchform.usetype = "1";
@@ -58,9 +58,42 @@ module.exports = function($scope, cardproductorderlist, ITEMS_PERPAGE, getDate, 
     };
     $scope.load();
 
-    $scope.orderinfo = function (code) {
-       // alert('dfak');
-        $state.go('app.cardorderinfo',{'code':code});
-    }
+    $scope.orderinfo = function(obj){
+
+	    var modalInstance = $uibModal.open({
+	      template: require('../views/cardorderinfo.html'),
+	      controller: 'cardorderinfo',
+	      size: 'lg',
+	      resolve: {
+	        obj : function(){
+	            return obj;
+	        }
+	      }
+		});
+	}
+
+    $scope.ticketinfo = function(code){
+
+        var modalInstance = $uibModal.open({
+          template: require('../views/ticketinfo.html'),
+          controller: 'ticketinfo',
+          size: 'xs',
+          resolve: {
+            code : function(){
+                return code;
+            },
+            ticketinfo : function(){
+                return ticketinfo;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          //load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
+    };
 
 };
