@@ -401,11 +401,16 @@ module.exports = function ($scope, $state, salelist, ITEMS_PERPAGE, saleup, $win
 			}
 		});
 
-		modalInstance.result.then(function () {
-			//load();
-		}, function () {
-			//$log.info('Modal dismissed at: ' + new Date());
-		});
+		modalInstance.opened.then(function () {// 模态窗口打开之后执行的函数  
+            // $scope.load();
+        });
+        modalInstance.result.then(function (showResult) {
+            $scope.load();
+        }, function (reason) {
+			$scope.load();
+            // // click，点击取消，则会暑促cancel  
+            // $log.info('Modal dismissed at: ' + new Date());
+        });
 
 	};
 
@@ -662,11 +667,16 @@ module.exports = function ($scope, $state, salelist, ITEMS_PERPAGE, saleup, $win
 		}
 
 
-		modalInstance.result.then(function () {
-			//load();
-		}, function () {
-			//$log.info('Modal dismissed at: ' + new Date());
-		});
+		modalInstance.opened.then(function () {// 模态窗口打开之后执行的函数  
+            // $scope.load();
+        });
+        modalInstance.result.then(function (showResult) {
+            $scope.load();
+        }, function (reason) {
+			$scope.load();
+            // // click，点击取消，则会暑促cancel  
+            // $log.info('Modal dismissed at: ' + new Date());
+        });
 
 	};
 

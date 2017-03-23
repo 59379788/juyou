@@ -234,12 +234,59 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 					}
 					alert('操作成功');
 					// toaster.success({ title: "提示", body: '操作成功' });
+
+					//新建
 					if (scope.util.$uibModalInstance == undefined) {
 						$state.go('app.editproduct', { 'id': scope.saleobj.id });
-					} else {
-						// $state.go('app.editproduct', { 'id': scope.saleobj.id });
-						scope.util.$uibModalInstance.close();
 					}
+				});
+
+			};
+
+			scope.saveAndBack = function () {
+
+				if (scope.saleobj.name === undefined || scope.saleobj.name == '') {
+					alert('销售品名称不能为空');
+					return;
+				}
+				if (scope.saleobj.sms_type == '1'
+					&& (scope.saleobj.sms_diy == undefined || scope.saleobj.sms_diy == '')) {
+					alert('请配置短信内容');
+					return;
+				}
+
+				scope.saleobj.periodstart = scope.util.date2str(scope.baseinfo.dateshow.periodstart.date);
+				scope.saleobj.periodend = scope.util.date2str(scope.baseinfo.dateshow.periodend.date);
+
+				//console.log(scope.saleobj);
+
+				var url = '';
+				var para = {};
+				if (scope.saleobj.id == '') {
+					url = '/api/as/tc/sale/create';
+					//创建时默认所有字段
+					para = scope.saleobj;
+				} else {
+					url = '/api/as/tc/sale/update';
+					//只更新本页字段
+					for (var key in obj) {
+						para[key] = scope.saleobj[key];
+					}
+				}
+
+
+				$resource(url, {}, {}).save(para, function (res) {
+					//console.log(res);
+					if (res.errcode != 0) {
+						toaster.error({ title: "提示", body: res.errmsg });
+						return;
+					}
+
+					if (angular.isDefined(res.data.uuid)) {
+						scope.saleobj.id = res.data.uuid;
+					}
+					alert('操作成功');
+						scope.util.$uibModalInstance.close();
 
 				});
 
