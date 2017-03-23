@@ -235,14 +235,27 @@
 			<label class="col-sm-2 col-xs-12 control-label"></label>
 			<div class="col-sm-4 col-xs-12">
 				<button type="button" class="btn btn-primary btn-lg" ng-click="save()">保存</button>
-				<button type="button" class="btn btn-primary btn-lg" ng-click="saveAndBack()" 
-						ng-if="(saleobj.id != '') && (util.$uibModalInstance != undefined)">保存并返回</button>
+				<button type="button" class="btn btn-primary btn-lg" ng-click="saveAndBack()" ng-if="(saleobj.id != '') && (util.$uibModalInstance != undefined)">保存并返回</button>
 			</div>
 			<div class="col-sm-4">
 
 			</div>
 		</div>
 
+	</div>
+
+
+
+	<div class="col-xs-12 text-center" ng-if="auditing || util.what == 'info'">
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">审核意见</label>
+			<div class="col-sm-8 col-xs-12">
+				<textarea class="form-control" rows="3" ng-model="saleobj.apply_note" placeholder="审核意见,必填" ng-disabled="!auditing"></textarea>
+			</div>
+			<!--<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger"></font>
+			</div>-->
+		</div>
 	</div>
 
 
