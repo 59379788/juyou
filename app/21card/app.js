@@ -59,4 +59,6 @@ App.controller('takecard',require('./controllers/takecard'));
 App.controller('changecarduser',require('./controllers/changecarduser'));
 // 查看卡产品信息
 App.controller('cardproductinfo',require('./controllers/cardproductinfo'));
+// 发卡统计
+App.controller('cardreleaselist',require('./controllers/cardreleaselist'));
 module.exports = App;

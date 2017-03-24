@@ -128,6 +128,9 @@ var service = function($resource, BASEURL38985){
     var deletetakecarduser = BASEURL38985 + '/api/ac/uc/cardreleaseservice/deluser';
     //----- 拿卡人管理 -----------------------//
 
+    // 发卡统计
+    var cardreleaselist = BASEURL38985 + '/api/as/uc/cardreleasedao/cardreleaselist';
+
     return {
     	insertCard : function(){
              return $resource(insertCard, {}, {});
@@ -282,6 +285,9 @@ var service = function($resource, BASEURL38985){
         },
         deletetakecarduser : function(){
              return $resource(deletetakecarduser, {}, {});
+        },
+        cardreleaselist : function(){
+             return $resource(cardreleaselist, {}, {});
         }
 
     };

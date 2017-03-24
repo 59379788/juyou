@@ -447,25 +447,37 @@ var router = function($urlRouterProvider, $stateProvider){
 
         // 查看卡产品信息
         .state('app.cardproductinfo', {
-         url: '/cardproductinfo/:id',
-         controller : 'cardproductinfo',
-         template: require('./views/cardproductinfo.html'),
-         resolve:{
-           cardproductinfo : function(cardservice){
-                 return cardservice.cardproductinfo();
-           },
-           cardresources : function(cardservice){
-                 return cardservice.cardresources();
-           },
-           cardproduct_cardpoollist : function(cardservice){
-                 return cardservice.cardproduct_cardpoollist();
-           },
-           cardproduct_ticketlist : function(cardservice){
-                 return cardservice.cardproduct_ticketlist();
-           }
-           
+	         url: '/cardproductinfo/:id',
+	         controller : 'cardproductinfo',
+	         template: require('./views/cardproductinfo.html'),
+	         resolve:{
+	           cardproductinfo : function(cardservice){
+	                 return cardservice.cardproductinfo();
+	           },
+	           cardresources : function(cardservice){
+	                 return cardservice.cardresources();
+	           },
+	           cardproduct_cardpoollist : function(cardservice){
+	                 return cardservice.cardproduct_cardpoollist();
+	           },
+	           cardproduct_ticketlist : function(cardservice){
+	                 return cardservice.cardproduct_ticketlist();
+	           }
+	         }
+       })
 
-           
+        //发卡统计
+       .state('app.cardstatistics', {
+         url: '/cardreleaselist',
+         controller : 'cardreleaselist',
+         template: require('./views/cardreleaselist.html'),
+         resolve:{
+            cardreleaselist : function(cardservice){
+                 return cardservice.cardreleaselist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            }
 
          }
        })
