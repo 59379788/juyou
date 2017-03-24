@@ -1,4 +1,7 @@
-module.exports = function($scope, $state, $stateParams, cardproductinfo,cardresources,cardproduct_cardpoollist,cardproduct_ticketlist){
+module.exports = function($scope, $state, $stateParams, cardproductinfo,
+	cardresources,cardproduct_cardpoollist,cardproduct_ticketlist,
+	$uibModal, saleticketinfo
+	){
 	var id = $stateParams.id;
 	
     cardproductinfo.save({'id': id}, function(res){ 
@@ -100,6 +103,30 @@ module.exports = function($scope, $state, $stateParams, cardproductinfo,cardreso
     	});
 
 	}
+
+	$scope.ticketinfo = function(code){
+
+        var modalInstance = $uibModal.open({
+          template: require('../views/saleticketinfo.html'),
+          controller: 'saleticketinfo',
+          size: 'lg',
+          resolve: {
+            code : function(){
+                return code;
+            },
+            saleticketinfo : function(){
+                return saleticketinfo;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          //load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
+    };
 
 	
 

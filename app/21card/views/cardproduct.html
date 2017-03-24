@@ -359,7 +359,7 @@
 		<table class="table">
         <tbody>
           <tr ng-repeat="ticket in cardproduct_ticketarr">
-            <td>{{ticket.ticket_code}}</td>
+            <td><a ng-click="ticketinfo(ticket.ticket_code)" style="cursor:pointer">{{ticket.ticket_code}}</a></td>
             <td>
 	           	<a ng-click="ticketdel(ticket.ticket_code)" class="btn pull-right" style="color: red; padding:0px;" >
 	        	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>

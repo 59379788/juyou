@@ -264,6 +264,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             cardproductticketdel : function(cardservice){
                 return cardservice.cardproductticketdel();
+            },
+            saleticketinfo : function(cardservice){
+                return cardservice.saleticketinfo();
             }
          }
        })
@@ -462,7 +465,11 @@ var router = function($urlRouterProvider, $stateProvider){
 	           },
 	           cardproduct_ticketlist : function(cardservice){
 	                 return cardservice.cardproduct_ticketlist();
-	           }
+	           },
+		       saleticketinfo : function(cardservice){
+		           return cardservice.saleticketinfo();
+		       }
+
 	         }
        })
 

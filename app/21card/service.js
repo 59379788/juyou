@@ -62,6 +62,8 @@ var service = function($resource, BASEURL38985){
     
 
     //----- 卡产品 -----------------------//
+    //查询票种信息
+    var saleticketinfo = BASEURL38985 + '/api/as/tc/salettype/list';
     //列表
     var cardproductlist = BASEURL38985 + '/api/as/uc/cardproduct/productList';
     //创建，修改卡产品
@@ -288,6 +290,9 @@ var service = function($resource, BASEURL38985){
         },
         cardreleaselist : function(){
              return $resource(cardreleaselist, {}, {});
+        },
+        saleticketinfo : function(){
+             return $resource(saleticketinfo, {}, {});
         }
 
     };

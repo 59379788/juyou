@@ -27,6 +27,8 @@ App.controller('reviseinfo',require('./controllers/reviseinfo'));
 App.controller('resivecardinfo',require('./controllers/resivecardinfo'));
 //卡产品列表
 App.controller('cardproductlist',require('./controllers/cardproductlist'));
+//票种详情
+App.controller('saleticketinfo',require('./controllers/saleticketinfo'));
 //添加，修改卡产品
 App.controller('cardproduct',require('./controllers/cardproduct'));
 //卡订单列表
