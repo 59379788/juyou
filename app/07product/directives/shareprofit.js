@@ -67,7 +67,10 @@ module.exports = function($resource, $state, $http, $q,toaster){
             scope.saleFrSetSave = function(){
 				//alert('添加分润');
                 scope.salefrobj.sale_code = scope.saleobj.code;
-                if(parseInt(scope.salefrobj.profit_ratio) >= 0 && parseInt(scope.salefrobj.profit_ratio) <= 100 && parseInt(scope.salefrobj.rebate_unlimited) >= 0){
+				if(scope.salefrobj.rebate_lower > scope.salefrobj.rebate_unlimited){
+					toaster.success({title:"",body:"红包下限不能大于红包上限"});
+				} else 
+                if(parseInt(scope.salefrobj.profit_ratio) >= 0 && parseInt(scope.salefrobj.profit_ratio) <= 100 && parseInt(scope.salefrobj.rebate_unlimited) >= 0 && scope.salefrobj.rebate_lower <= scope.salefrobj.rebate_unlimited){
                     $resource('/api/as/tc/saleshangkeprice/save', {}, {})
                     .save(scope.salefrobj,function(res){
                         console.log(scope.salefrobj);
@@ -79,7 +82,9 @@ module.exports = function($resource, $state, $http, $q,toaster){
                         console.log('添加成功');
 
                         })
-                } else {
+                } else if(scope.salefrobj.rebate_lower > scope.salefrobj.rebate_unlimited){
+					toaster.success({title:"",body:"hongnann"});
+				} else {
 					toaster.success({title:"",body:"设置正确的利润率(0-100),红包上限不能为负数"});
 				}
 				

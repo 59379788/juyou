@@ -91,5 +91,11 @@ App.controller('dictionary_managed',require('./controllers/dictionary_managed'))
 //修改/添加数据字典
 App.controller('dictionaryinfo',require('./controllers/dictionaryinfo'));
 
+/*** 预约模块 ***/
+App.controller('appointmentlist',require('./controllers/appointmentlist'));
+App.controller('setappointment',require('./controllers/setappointment'));
+App.controller('customerlist',require('./controllers/customerlist'));
+/*** 预约模块 ***/
+
 
 module.exports = App;

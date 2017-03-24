@@ -1,0 +1,105 @@
+
+
+<div class="modal-header">
+    <h4 class="modal-title">奖品信息</h4>
+</div>
+<div class="modal-body">
+    <div class="container-fluid form-horizontal ">
+
+<div class="col-xs-12 " >
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			基本信息
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				
+				<div class="col-xs-12 col-md-12" >
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">产品名称</label>
+   						<div class="col-md-6">
+		   					<ui-select ng-model="searchform.selected"  ng-change="change()" theme="bootstrap">
+								<ui-select-match placeholder="请选择一个销售品作为奖品">{{$select.selected.name}}</ui-select-match>
+								<ui-select-choices group-by="'place_name'" repeat="item in datas | filter: $select.search">
+									<span ng-bind-html="item.name | highlight: $select.search"></span>
+									<!--<small ng-bind-html="item.code | highlight: $select.search"></small>-->
+								</ui-select-choices>
+		                    </ui-select>
+   							
+   						</div>    
+ 					</div>
+
+                     <div class="form-group">
+						<label class="col-xs-3 control-label">票种名称</label>
+   						<div class="col-md-6">
+		   					<ui-select ng-model="ticketsearchform.selected" ng-change="ticketChange()" theme="bootstrap">
+								<ui-select-match placeholder="请选择一个票种">{{$select.selected.name}}</ui-select-match>
+								<ui-select-choices group-by="'place_name'" repeat="item in ticketdatas | filter: $select.search">
+									<span ng-bind-html="item.name | highlight: $select.search"></span>
+									<!--<small ng-bind-html="item.code | highlight: $select.search"></small>-->
+								</ui-select-choices>
+		                    </ui-select>
+   							
+   						</div>    
+ 					</div>
+
+                     <div class="form-group">
+                        <label for="inputDate" class="col-sm-3 control-label">开始时间</label>
+                        <div class="col-md-6">
+                            <div class="input-group col-sm-12">
+                            <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.startTime" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                        </div>
+                    </div>
+      
+                    <div class="form-group">
+                        <label for="inputDate" class="col-sm-3 control-label">结束时间</label>
+                        <div class="col-md-6">
+                            <div class="input-group col-sm-12">
+                            <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.endTime" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                        </div>
+                    </div>
+
+
+					
+					<div class="form-group">
+						<label class="col-xs-3 control-label">标题</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入标题"
+							ng-model="info.title"
+							>
+						</div>
+					</div>
+
+                    <div class="form-group">
+						<label class="col-xs-3 control-label">库存</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入库存"
+							ng-model="info.stock_num"
+							>
+						</div>
+					</div>
+
+					
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+</div>
+
+
