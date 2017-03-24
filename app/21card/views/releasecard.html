@@ -120,7 +120,7 @@
 	    <uib-pagination 
 	      total-items="nbigTotalItems" 
 	      ng-model="nbigCurrentPage" 
-	      max-size="nmaxSize" 
+	      max-size="maxSize" 
 	      class="pagination-sm" 
 	      boundary-links="true" 
 	      ng-change="search()"
@@ -170,13 +170,13 @@
 
 	      <div class="text-right">
 		    <uib-pagination 
-		      total-items="nbigTotalItems" 
-		      ng-model="nbigCurrentPage" 
-		      max-size="nmaxSize" 
+		      total-items="mbigTotalItems" 
+		      ng-model="mbigCurrentPage" 
+		      max-size="maxSize" 
 		      class="pagination-sm" 
 		      boundary-links="true" 
 		      ng-change="getrecordlist()"
-		      items-per-page="nitemsPerPage"
+		      items-per-page="mitemsPerPage"
 		      previous-text="上一页"
 		      next-text="下一页"
 		      first-text="首页"

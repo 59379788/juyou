@@ -69,7 +69,6 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool,
     $scope.cardlists = [];
      /* 卡池详情列表分页
      * ========================================= */
-        $scope.nmaxSize = 5;            //最多显示多少个按钮
         $scope.nbigCurrentPage = 1;      //当前页码
         $scope.nitemsPerPage = ITEMS_PERPAGE;         //每页显示几条
     // 根据起始卡号 状态 发卡目标查询卡池中的卡
@@ -99,10 +98,12 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool,
 	};
 
 	//$scope.recordlist = [];
+	$scope.mbigCurrentPage = 1;      //当前页码
+    $scope.mitemsPerPage = ITEMS_PERPAGE;         //每页显示几条
 	$scope.getrecordlist = function(){ 
 		var para = {
-	      pageNo:$scope.bigCurrentPage, 
-	      pageSize:$scope.itemsPerPage,
+	      pageNo:$scope.mbigCurrentPage, 
+	      pageSize:$scope.mitemsPerPage,
 	      'pool_code' : poolcode
 	    };
 		operationrecordlist.save(para, function(res){	
@@ -110,7 +111,7 @@ module.exports = function($scope,  $stateParams, getcardlist, cardinpool,
 	    		alert(res.errmsg);
 			} else {
 			  $scope.recordlist = res.data.results;
-			  $scope.bigTotalItems = res.data.totalRecord;
+			  $scope.mbigTotalItems = res.data.totalRecord;
 			}
 		}); 
 	}
