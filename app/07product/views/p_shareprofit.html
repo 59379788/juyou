@@ -1,4 +1,4 @@
-<div class="col-xs-12">
+<div class="col-xs-12 mt10">
 	<div class="panel panel-default form-horizontal">
 		<div class="panel-heading">
 			销售品分润设置<button type="button" 
@@ -60,12 +60,26 @@
 						</div>
 					</div>					
 				</div>
+				<br/>
+					<br/>
+				<div class="col-xs-12 form-group">
+					<div class="col-xs-2">
+						<label for="lrl" class="pull-right text-right mt10">红包下限&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+					<div class="col-xs-8">
+						<div class="input-group">
+							<span class="input-group-addon">¥</span>
+							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0'
+							ng-model="salefrobj.rebate_lower">
+						</div>
+					</div>					
+				</div>
 
 					<br/>
 					<br/>
 				<div class="col-xs-12 form-group">
 					<div class="col-xs-2">
-						<label for="lrl" class="pull-right text-right mt10">推荐&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<label for="lrl" class="pull-right text-right mt10">推荐到搜索列表&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
 					<div class="col-xs-8">
 						<div class="input-group">
