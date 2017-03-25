@@ -5,7 +5,7 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE){
 
 	$scope.create = function(){
 
-		$state.go('app.newView');
+		$state.go('app.createview');
 	};
 
 	/* 分页

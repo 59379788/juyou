@@ -16,6 +16,7 @@ module.exports = function($scope, $stateParams, $http, $q, productid, what, File
         'what' : what,
         'str2date' : str2date,
         'date2str' : date2str,
+
     }
     //销售品功能列表
     $scope.funobj = {};
