@@ -59,6 +59,9 @@ var service = function ($resource, BASEURL38985) {
     //分销商订单列表（分页）
     var marketOrderList = BASEURL38985 + '/api/as/tc/ticketorder/marketOrderList';
 
+    //测试退票
+    var testCreateBackOrder = BASEURL38985 + '/api/ac/tc/ticketOrderBackService/createBackOrder';
+
 
 
 
@@ -130,6 +133,9 @@ var service = function ($resource, BASEURL38985) {
         },
         marketOrderList: function () {
             return $resource(marketOrderList, {}, {});
+        },
+        testCreateBackOrder: function () {
+            return $resource(testCreateBackOrder, {}, {});
         }
 
     };

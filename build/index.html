@@ -11,9 +11,11 @@
   </head>
   <!-- <body ng-app="juyouApp"> -->
   <body>
-	<div ui-view></div>
+    <!--弹出框-->
+    <toaster-container toaster-options="{'close-button':false, 'time-out':{ 'toast-success': 2500, 'toast-warning': 3000, 'toast-error': 2500 } }"></toaster-container>
+	  <div ui-view></div>
 
-  <script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+  <!--<script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>-->
   <script src="./bundle.js"></script>
 
 </body>

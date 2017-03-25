@@ -40,5 +40,7 @@ App.directive('productaffirm',require('./directives/affirm'));
 App.directive('productintegral',require('./directives/integral'));
 App.directive('productflashsale',require('./directives/flashsale'));
 App.directive('productshareprofit',require('./directives/shareprofit'));
+App.directive('restrictrule',require('./directives/restrictrule'));
+App.directive('imgtextinfo',require('./directives/imgtextinfo'));
 
 module.exports = App;

@@ -4,29 +4,33 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
               <div class="row">
-                  <input type="text" class="form-control" ng-model="searchform.mobile" placeholder="电话">
+              	  <input type="text" class="form-control" ng-model="searchform.username" placeholder="姓名">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-
-                  <input type="text" class="form-control" ng-model="searchform.username" placeholder="姓名">
+                  <input type="text" class="form-control" ng-model="searchform.mobile" placeholder="手机号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-
                   <input type="text" class="form-control" ng-model="searchform.paperno" placeholder="身份证">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-
-                  <input type="text" class="form-control" ng-model="searchform.code" 
-                  placeholder="订单编号">
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-
-                  <input type="text" class="form-control" ng-model="searchform.product_code" placeholder="销售品编号">
+                  <input type="text" class="form-control" ng-model="searchform.cardno" placeholder="卡号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
               </div>
               <div class="row mt10">
-                  <input type="text" class="form-control" ng-model="searchform.cardno" placeholder="卡号">
+              	  <input type="text" class="form-control" ng-model="searchform.code" 
+                  placeholder="订单编号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-
-                  <input type="text" class="form-control" ng-model="searchform.seller_code" placeholder="销售者编号">
+                  <input type="text" class="form-control" ng-model="searchform.product_code" placeholder="销售品编号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
-
+                  <input type="text" class="form-control" ng-model="searchform.seller_code" placeholder="分销商编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+              </div>
+              <div class="row mt10">
+                  <label class="control-label">订单类型</label>&nbsp;&nbsp;
+                  <select class="form-control" ng-model="searchform.order_type">
+		            	<option label="查询全部" value=""></option>
+		            	<option label="激活" value="1"></option>
+		            	<option label="购买" value="2"></option>
+	              </select>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+				<label class="control-label">下单时间</label>&nbsp;&nbsp;
                   <div class="input-group">
                   <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
                       <span class="input-group-btn">
@@ -43,7 +47,7 @@
                   &nbsp;&nbsp;
 
 
-                  <button type="button" class="btn btn-primary search pull-right" ng-click="load()">立即搜索</button>
+                  <button type="button" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
 
               </div>   
 
@@ -62,26 +66,35 @@
 <table class="table table-hover table-bordered">
   <thead>
     <tr>
-      <th class="col-xs-1 text-center">姓名</th>
-      <th class="col-xs-1 text-center">电话</th>
-      <th class="col-xs-2 text-center">身份证</th>
-      <th class="col-xs-3 text-center">卡号</th>
-      <th class="col-xs-2 text-center">订单编码</th>
-      <th class="col-xs-2 text-center">创建时间</th>
-      <th class="col-xs-1 text-center">操作</th>
+    	<th class="col-xs-2 text-center">订单编号</th>
+    	<th class="col-xs-1 text-center">销售品编号</th>
+    	<th class="col-xs-1 text-center">姓名</th>
+    	<th class="col-xs-1 text-center">手机号</th>
+    	<th class="col-xs-1 text-center">身份证号</th>
+    	<th class="col-xs-1 text-center">卡号</th>
+    	<th class="col-xs-1 text-center">订单类型</th>
+    	<th class="col-xs-1 text-center">下单时间</th>
+    	<th class="col-xs-1 text-center">分销商</th>
+     	<th class="col-xs-1 text-center">操作</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="obj in objs">
-      <td class="text-center">{{obj.username}}</td>
-      <td class="text-center">{{obj.mobile}}</td>
-      <td class="text-center">{{obj.papersno}}</td>
-      <td class="text-center">{{obj.cardno}}</td>
-      <td class="text-center">{{obj.code}}</td>
-      <td class="text-center">{{obj.create_time}}</td>
-      <td class="text-center">
-      <a ng-click="orderinfo(obj.code)" class="btn btn-success btn-xs">查看详情</a>
-      </td>
+    	<td class="text-center">{{obj.code}}</td>
+    	<td class="text-center">{{obj.product_code}}</td>
+     	<td class="text-center">
+     		{{obj.username}}
+     	</td>
+     	<td class="text-center">{{obj.mobile}}</td>
+     	<td class="text-center">{{obj.papersno}}</td>
+     	<td class="text-center">{{obj.cardno}}</td>
+        <td class="text-center">{{obj.order_typename}}</td>
+     	<td class="text-center">{{obj.create_time}}</td>
+     	<td class="text-center">{{obj.seller_code}}</td>
+	    <td class="text-center">
+	    	<a ng-click="ticketinfo(obj.code)" class="btn btn-success btn-xs">票信息</a><br>
+	      	<a ng-click="orderinfo(obj)" class="btn btn-info btn-xs">订单详情</a>
+	    </td>
     </tr>
     
   </tbody>

@@ -27,12 +27,16 @@ App.controller('reviseinfo',require('./controllers/reviseinfo'));
 App.controller('resivecardinfo',require('./controllers/resivecardinfo'));
 //卡产品列表
 App.controller('cardproductlist',require('./controllers/cardproductlist'));
+//票种详情
+App.controller('saleticketinfo',require('./controllers/saleticketinfo'));
 //添加，修改卡产品
 App.controller('cardproduct',require('./controllers/cardproduct'));
 //卡订单列表
 App.controller('cardorderlist',require('./controllers/cardorderlist'));
 //卡订单详情
 App.controller('cardorderinfo',require('./controllers/cardorderinfo'));
+//票信息
+App.controller('ticketinfo',require('./controllers/ticketinfo'));
 //激活卡
 App.controller('activationcard',require('./controllers/activationcard'));
 //卡基本信息列表
@@ -57,4 +61,6 @@ App.controller('takecard',require('./controllers/takecard'));
 App.controller('changecarduser',require('./controllers/changecarduser'));
 // 查看卡产品信息
 App.controller('cardproductinfo',require('./controllers/cardproductinfo'));
+// 发卡统计
+App.controller('cardreleaselist',require('./controllers/cardreleaselist'));
 module.exports = App;

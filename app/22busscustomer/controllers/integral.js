@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findSaleList,updateIntegral){   
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findSaleList,updateIntegral,toaster){   
 	/* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -17,7 +17,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     	findSaleList.save(para,function(res){
     		console.log(para);
     		if (res.errcode !== 0) {
-    			alert(res.errmsg);
+    			toaster.success({title:"",body:res.errmsg});
     			return;
     		}
  			console.log(res);
@@ -35,10 +35,10 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
     $scope.delete = function(id){
         updateIntegral.save({'id': id},function(){
             if (res.errcode !== 0) {
-                alert(res.errmsg);
+                toaster.success({title:"",body:res.errmsg});
                 return;
             }
-            alert('删除成功！');
+            toaster.success({title:"",body:"删除成功"});
             $scope.getlist();
         });
     };

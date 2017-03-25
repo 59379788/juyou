@@ -269,7 +269,7 @@
 	    </thead>
         <tbody>
           <tr ng-repeat="ticket in cardproduct_ticketarr">
-            <td>{{ticket.ticket_code}}</td>
+            <td><a ng-click="ticketinfo(ticket.ticket_code)" style="cursor:pointer">{{ticket.ticket_code}}</a></td>
             
           </tr>
         </tbody>

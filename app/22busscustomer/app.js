@@ -71,7 +71,7 @@ App.controller('winuser',require('./controllers/winuser'));
 App.controller('creatbargain',require('./controllers/creatbargain'));
 // 奖品列表
 App.controller('prizelist',require('./controllers/prizelist'));
-// 添加活动
+// 添加奖品
 App.controller('addprize',require('./controllers/addprize'));
 
 // 看广告
@@ -84,11 +84,18 @@ App.controller('addad',require('./controllers/addad'));
 
 // 热搜
 App.controller('hotsearch',require('./controllers/hotsearch'));
-
+// 编辑热搜
+App.controller('addhotsearch',require('./controllers/addhotsearch'));
 //数据字典管理
 App.controller('dictionary_managed',require('./controllers/dictionary_managed'));
 //修改/添加数据字典
 App.controller('dictionaryinfo',require('./controllers/dictionaryinfo'));
+
+/*** 预约模块 ***/
+App.controller('appointmentlist',require('./controllers/appointmentlist'));
+App.controller('setappointment',require('./controllers/setappointment'));
+App.controller('customerlist',require('./controllers/customerlist'));
+/*** 预约模块 ***/
 
 
 module.exports = App;

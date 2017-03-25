@@ -3,11 +3,18 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
+            	<div class="row">
                    <input type="text" class="form-control" ng-model="searchform.code" placeholder="产品编号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <input type="text" class="form-control" ng-model="searchform.name" placeholder="产品名称">
                   &nbsp;&nbsp;&nbsp;&nbsp;
+                  <button type="button" class="btn btn-default search pull-right" ng-click="create()">创建产品</button>
+                </div>
+
+                <div class="row mt10">
                   <input type="text" class="form-control" ng-model="searchform.company_code" placeholder="机构编号">
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="searchform.update_by" placeholder="登录账号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <label class="control-label">产品类型</label>&nbsp;&nbsp;
                   <select class="form-control" ng-model="searchform.card_type"
@@ -21,7 +28,7 @@
 		            	<option label="查询全部" value=""></option>
 	              </select>
                   <button type="button" class="btn btn-default search pull-right" ng-click="search()">立即搜索</button>
-                  <button type="button" class="btn btn-default search pull-right" ng-click="create()">创建产品</button>
+                </div>
             </div>
         </div>
     </div>
@@ -32,14 +39,15 @@
     <thead>
       <tr>
       	<th class="col-md-2 text-center">产品编号</th>
-        <th class="col-md-4 text-center">产品名称</th>
+        <th class="col-md-3 text-center">产品名称</th>
         <th class="col-md-1 text-center">产品类型</th>
         <th class="col-md-1 text-center">市场价格</th>
         <th class="col-md-1 text-center">指导价格</th>
         <!--<th class="col-md-2 text-center">绑定卡池名称</th>
         <th class="col-md-2 text-center">绑定票销售品编号</th>-->
         <th class="col-md-1 text-center">产品状态</th>
-        <th class="col-md-1 text-center">所属机构</th>
+        <th class="col-md-1 text-center">操作时间</th>
+        <th class="col-md-1 text-center">操作账号</th>
         <th class="col-md-1 text-center">操作</th>
       </tr>
     </thead>
@@ -53,9 +61,11 @@
         <!--<<td class="text-center">{{obj.pool_name}}</td>
         <td class="text-center">{{obj.ticket_code}}</td>-->
         <td class="text-center">{{obj.state_name}}</td>
+        <td class="text-center">{{obj.update_date}}</td>
         <td class="text-center">
         	{{obj.company_name}}<br>
-     		{{obj.company_code}}
+     		{{obj.company_code}}<br>
+     		{{obj.update_by}}
         </td>
         <td class="text-center">
         	<a ng-show="obj.state=='0' || obj.state=='2'"

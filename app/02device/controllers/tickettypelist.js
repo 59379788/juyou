@@ -32,7 +32,7 @@ module.exports = function($scope, $uibModalInstance, view, typelist, device_code
 
 		var para = {
 			'device_code' : device_code,
-			'ticket_type' : obj.code,
+			'ticket_type' : obj.CODE,
 			'ticket_type_attr' : obj.type_attr
 
 		};

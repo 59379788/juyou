@@ -1,4 +1,4 @@
-module.exports = function($scope, talist, sellerList, code, tstcreate, tststart, tststop, title){
+module.exports = function($scope, talist, sellerList, code, tstcreate, tststart, tststop, title, $uibModalInstance){
 
 	$scope.obj = {
 		'title' : title
@@ -74,5 +74,11 @@ module.exports = function($scope, talist, sellerList, code, tstcreate, tststart,
 			}
 		});
 	};
+
+
+	$scope.cancel = function(){
+		$uibModalInstance.close();
+	}
+	
 	
 };

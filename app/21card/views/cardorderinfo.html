@@ -1,56 +1,151 @@
-<div class="col-xs-12">
 
-  <div class="col-xs-3"></div>
-  <div class="col-xs-6">
-    <table class="table table-hover table-borderde col-xs-6 text-center">
-      <tr>
-        <td class="col-xs-1">姓名</td>
-        <td class="col-xs-4">{{obj.username}}</td>
-      </tr>
-      <tr>
-        <td class="col-xs-1">电话</td>
-        <td class="col-xs-4">{{obj.mobile}}</td>
-      </tr>
-      <tr>
-        <td class="col-xs-1">身份证</td>
-        <td class="col-xs-4">{{obj.papersno}}</td>
-      </tr>
-      <tr>
-        <td class="col-xs-1">卡号</td>
-        <td class="col-xs-4">{{obj.cardno}}</td>
-      </tr>
-      <tr>
-        <td class="col-xs-1">订单编码</td>
-        <td class="col-xs-4">{{obj.code}}</td>
-      </tr>
-      <tr>
-        <td class="col-xs-1">创建时间</td>
-        <td class="col-xs-4">{{obj.create_time}}</td>
-      </tr>
-      <tr>
-        <td class="col-xs-1">类型</td>
-        <td class="col-xs-4">{{obj.order_type}}</td>
-      </tr>
-      <tr>
-        <td class="col-xs-1">销售人员信息</td>
-        <td class="col-xs-4">{{obj.seller_code}}</td>
-      </tr>
-      <tr>
-        <td class="col-xs-1">区域</td>
-        <td class="col-xs-4">{{obj.sys_area}}</td>
-      </tr>
-      <tr>
-        <td class="col-xs-1">用户ID</td>
-        <td class="col-xs-4">{{obj.userid}}</td>
-      </tr>
-      <tr>
-        <td class="col-xs-1">生产编号</td>
-        <td class="col-xs-4">{{obj.product_code}}</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
-    </table>
-  </div>
+
+<div class="modal-header">
+    <h4 class="modal-title">订单详情</h4>
 </div>
+<div class="modal-body">
+
+    <div class="container-fluid form-horizontal ">
+        <div class="col-xs-6">
+        <div class="form-group">
+            <label class="col-xs-6 control-label">订单编号</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.code}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">产品编号</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.product_code}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">支付类型</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.pay_statusname}}</p>
+            </div>
+        </div>
+
+        <div ng-show = "obj.pay_status == 0">
+	        <div class="form-group">
+	            <label class="col-xs-6 control-label">支付金额</label>
+	            <div class="col-xs-6">
+	                <p class="form-control-static">{{obj.pay_fee/100}}</p>
+	            </div>
+	        </div>
+
+	        <div class="form-group">
+	            <label class="col-xs-6 control-label">支付状态</label>
+	            <div class="col-xs-6">
+	                <p class="form-control-static">{{obj.pay_statename}}</p>
+	            </div>
+	        </div>
+
+	        <div class="form-group">
+	            <label class="col-xs-6 control-label">支付时间</label>
+	            <div class="col-xs-6">
+	                <p class="form-control-static">{{obj.pay_time}}</p>
+	            </div>
+	        </div>
+
+	        <div class="form-group">
+	            <label class="col-xs-6 control-label">支付流水号</label>
+	            <div class="col-xs-6">
+	                <p class="form-control-static">{{obj.pay_no}}</p>
+	            </div>
+	        </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">订单取消状态</label>
+            <div class="col-xs-6">
+                <p ng-show="obj.cannel_status==0" class="form-control-static">未取消</p>
+                <p ng-show="obj.cannel_status==1" class="form-control-static">已取消</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">订单取消时间</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.cancel_time}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">订单取消原因</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.cancel_reason}}</p>
+            </div>
+        </div>
+</div>
+        <div class="col-xs-6">
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">订单类型</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.order_typename}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">分销商</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.seller_code}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">姓名</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.username}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">电话</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.mobile}}</p>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-xs-6 control-label">身份证</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.papersno}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">绑定卡号</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.cardno}}</p>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">下单时间</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.create_time}}</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">用户id</label>
+            <div class="col-xs-6">
+                <p class="form-control-static">{{obj.userid}}</p>
+            </div>
+        </div>
+
+        
+        </div>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+</div>
+

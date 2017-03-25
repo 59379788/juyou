@@ -37,6 +37,8 @@ var service = function($resource, BASEURL38985){
     var canrelease = BASEURL38985 + '/api/as/uc/cardpooldao/getcardcanreleaselist';
     // 卡池详情获取发卡目标
     var targetcard = BASEURL38985 + '/api/as/uc/cardpooldao/findgivetargtlist';
+    //卡池详情 查询操作记录
+    var operationrecordlist = BASEURL38985 + '/api/as/uc/cardpoolinfodao/operationrecordlist';
     //------------------ 卡池管理 -----------------------//
 
 
@@ -60,6 +62,8 @@ var service = function($resource, BASEURL38985){
     
 
     //----- 卡产品 -----------------------//
+    //查询票种信息
+    var saleticketinfo = BASEURL38985 + '/api/as/tc/salettype/list';
     //列表
     var cardproductlist = BASEURL38985 + '/api/as/uc/cardproduct/productList';
     //创建，修改卡产品
@@ -95,9 +99,11 @@ var service = function($resource, BASEURL38985){
 
     //----- 卡订单管理 -----------------------//
     //卡订单列表
-    var cardproductorderlist = BASEURL38985 + '/api/us/uc/cardproductorder/cardProductOrderList';
+    var cardproductorderlist = BASEURL38985 + '/api/as/uc/cardproductorder/cardProductOrderList';
     //卡订单详情
     var cardproductorderinfo = BASEURL38985 + '/api/us/uc/cardproductorder/cardProductOrderInfo';
+	//票信息
+    var ticketinfo = BASEURL38985 + '/api/as/uc/cardproductorder/ticketinfolist';
     //----- 卡订单管理 -----------------------//
 
     
@@ -123,6 +129,9 @@ var service = function($resource, BASEURL38985){
     // 删除拿卡人信息
     var deletetakecarduser = BASEURL38985 + '/api/ac/uc/cardreleaseservice/deluser';
     //----- 拿卡人管理 -----------------------//
+
+    // 发卡统计
+    var cardreleaselist = BASEURL38985 + '/api/as/uc/cardreleasedao/cardreleaselist';
 
     return {
     	insertCard : function(){
@@ -229,14 +238,16 @@ var service = function($resource, BASEURL38985){
         cardproductorderinfo : function(){
              return $resource(cardproductorderinfo, {}, {});
         },
+        ticketinfo : function(){
+             return $resource(ticketinfo, {}, {});
+        },
        
         statename:{ 
         	state:[
     			{name : "未使用" , code : '0' },
-    			{name : "锁定" , code : '1' },
+    			{name : "已锁定" , code : '1' },
     			{name : "已使用" , code : '2' },
-    			{name : "已失效" , code : '3' },
-    			{name : "已释放" , code : '4' },
+    			{name : "已挂失" , code : '3' },
     			{name : "全部" , code : '' },
         	]
         },
@@ -262,6 +273,9 @@ var service = function($resource, BASEURL38985){
         targetcard : function(){
              return $resource(targetcard, {}, {});
         },
+        operationrecordlist : function(){
+             return $resource(operationrecordlist, {}, {});
+        },
         takecardlist : function(){
              return $resource(takecardlist, {}, {});
         },
@@ -273,6 +287,12 @@ var service = function($resource, BASEURL38985){
         },
         deletetakecarduser : function(){
              return $resource(deletetakecarduser, {}, {});
+        },
+        cardreleaselist : function(){
+             return $resource(cardreleaselist, {}, {});
+        },
+        saleticketinfo : function(){
+             return $resource(saleticketinfo, {}, {});
         }
 
     };

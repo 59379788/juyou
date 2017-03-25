@@ -1,9 +1,9 @@
-module.exports = function($scope, $stateParams, $uibModal,supplierlist,saveconfirm){
+module.exports = function($scope, $stateParams, $uibModal,supplierlist,saveconfirm,toaster){
     // 获取申请人列表信息
     $scope.getlist = function(){
         supplierlist.save({}, function(res){
             if (res.errcode !== 0) {
-                alert(res.errmsg);
+                toaster.success({title:"",body:res.errmsg});
                 return; 
             }
             $scope.objs = res.data;

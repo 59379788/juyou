@@ -3,14 +3,14 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
-                  <input type="text" class="form-control" ng-model="info.value" placeholder="热搜名词">
+                  <!--<input type="text" class="form-control" ng-model="info.value" placeholder="热搜名词">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <select class="form-control" ng-model="info.type" ng-change="selection(info.type)">
                     <option value="">请选择</option>
                     <option value="1">义买义卖</option>
                     <option value="3">积分商城</option>  
                     <option value="4">宜买宜卖</option>
-                    </select>
+                    </select>-->
                   <div class="form-group pull-right">
                       <button type="button" class="btn btn-primary" ng-click="add()">添加热搜</button>
                       &nbsp;&nbsp;&nbsp;&nbsp;
@@ -26,9 +26,10 @@
     <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-4 text-center">热搜名词</th>
-        <th class="col-md-4 text-center">热搜类型</th>
-        <th class="col-md-4 text-center">操作</th>
+        <th class="col-md-3 text-center">热搜名词</th>
+        <th class="col-md-3 text-center">热搜类型</th>
+        <th class="col-md-3 text-center">排序因子</th>
+        <th class="col-md-3 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
@@ -39,9 +40,9 @@
             <p ng-show="obj.type==3">积分商城</p>
             <p ng-show="obj.type==4">宜买宜卖</p>
         </td>
-        
+        <td class="text-center">{{obj.asort}}</td>
         <td class="text-center">
-          <a ng-click="change(obj.id)" class="btn btn-info btn-xs">修改</a>
+          <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">修改</a>
           <a ng-click="delete(obj.id)" class="btn btn-info btn-xs">删除</a>
         </td>
       </tr>

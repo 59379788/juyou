@@ -11,7 +11,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         };
         headlinelist.save(para, function(res){
             if (res.errcode !== 0) {
-                alert(res.errmsg);
+                toaster.success({title:"",body:res.errmsg});
                 return;
             }
             console.log(res);
@@ -30,7 +30,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             delheadline.save({'id':id}, function (res) {
                 console.log({'id':id});
                 if (res.errcode !== 0) {
-                    alert(res.errmsg);
+                    toaster.success({title:"",body:res.errmsg});
                     return;
                 }
                 console.log(res);

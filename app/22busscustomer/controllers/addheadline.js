@@ -62,6 +62,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
                 }    
                 if ($scope.info.title!=''&& $scope.info.content!=''&& $scope.info.url!='') {
                     para = angular.extend($scope.info,para);
+                    console.log(para);
                     updateNews.save(para,function(res) {
                         if (res.errcode !== 0) {
                             toaster.success({title: "", body:res.errmsg});
@@ -76,6 +77,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
                 
             } else {
                 if ($scope.info.title!=''&&$scope.info.content!=''&&$scope.info.url!='') {
+                    console.log(para);
                     saveheadline.save($scope.info,function (res) {
                         if (res.errcode !== 0) {
                             toaster.success({title: "", body:res.errmsg});

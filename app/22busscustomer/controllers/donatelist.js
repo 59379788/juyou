@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,findrecordforadminlist,savedonate,updateronationstate){
+module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,findrecordforadminlist,savedonate,updateronationstate,toaster){
    var love_activity_id = $stateParams.love_activity_id;
 	/* 分页
      * ========================================= */
@@ -21,14 +21,14 @@ module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,
 
       para = angular.extend($scope.info, para); 
   		findrecordforadminlist.save(para, function(res){
-        console.log(para);
-  			if (res.errcode !== 0) {
-  				alert(res.errmsg);
-  				return;
-  			}
-  			console.log(res);
-  			$scope.objs = res.data.results;
-  			$scope.bigTotalItems = res.data.totalRecord;
+          console.log(para);
+          if (res.errcode !== 0) {
+              toaster.success({title:"",body : res.errmsg});
+              return;
+          }
+          console.log(res);
+          $scope.objs = res.data.results;
+          $scope.bigTotalItems = res.data.totalRecord;
   		});	
   	};
   	$scope.getlist();
@@ -52,42 +52,42 @@ module.exports = function($scope, $state, $stateParams, $uibModal,ITEMS_PERPAGE,
              $scope.addinfo.ronation_goods_befor_price = ($scope.addinfo.ronation_goods_befor_price) * 100;
              $scope.addinfo.ronation_rmb = ($scope.addinfo.ronation_rmb) * 100;
             savedonate.save($scope.addinfo, function(res){
-            console.log($scope.addinfo);
-            if (res.errcode !== 0) {
-              alert(res.errmsg);
-              return;
-            }
-            console.log(res);
-            $scope.getlist();
+                console.log($scope.addinfo);
+                if (res.errcode !== 0) {
+                    toaster.success({title:"",body : res.errmsg});
+                    return;
+                }
+                console.log(res);
+                $scope.getlist();
             });
       } else {
-        alert('信息填写不完全！');
+          toaster.success({title:"",body : "信息填写不完全"});
       }
   		
   	};
 
     $scope.agree = function(love_record_id){
-      updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'1','ronation_type' : '1'},function(res){
-        console.log({'love_record_id':love_record_id,'ronation_state':'1','ronation_type' : '1'});
-        if (res.errcode !== 0) {
-          alert(res.errmsg);
-          return;
-        }
-        console.log(res);
-        $scope.getlist();
-      });
+        updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'1','ronation_type' : '1'},function(res){
+            console.log({'love_record_id':love_record_id,'ronation_state':'1','ronation_type' : '1'});
+            if (res.errcode !== 0) {
+                toaster.success({title:"",body : res.errmsg});
+                return;
+            }
+            console.log(res);
+            $scope.getlist();
+        });
     };
 
     $scope.disagree = function(love_record_id){
-      updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'2','ronation_type' : '1'},function(res){
-        console.log({'love_record_id':love_record_id,'ronation_state':'2','ronation_type' : '1'});
-        if (res.errcode !== 0) {
-          alert(res.errmsg);
-          return;
-        }
-        console.log(res);
-        $scope.getlist();
-      });
+        updateronationstate.save({'love_record_id':love_record_id,'ronation_state':'2','ronation_type' : '1'},function(res){
+            console.log({'love_record_id':love_record_id,'ronation_state':'2','ronation_type' : '1'});
+            if (res.errcode !== 0) {
+                toaster.success({title:"",body : res.errmsg});
+                return;
+            }
+            console.log(res);
+            $scope.getlist();
+        });
     };
 
 };

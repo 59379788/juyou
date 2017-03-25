@@ -104,13 +104,16 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             targetcard : function(cardservice){
                  return cardservice.targetcard();
+            },
+            operationrecordlist : function(cardservice){
+                 return cardservice.operationrecordlist();
             }
             
          }
        })
        // 记录发卡信息
        .state('app.issuecard', {
-         url: '/issuecard/:poolcode',
+         url: '/issuecard',
          controller : 'issuecard',
          template: require('./views/issuecard.html'),
          resolve:{
@@ -261,6 +264,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             cardproductticketdel : function(cardservice){
                 return cardservice.cardproductticketdel();
+            },
+            saleticketinfo : function(cardservice){
+                return cardservice.saleticketinfo();
             }
          }
        })
@@ -277,9 +283,13 @@ var router = function($urlRouterProvider, $stateProvider){
             cardproductorderlist : function(cardservice){
                  return cardservice.cardproductorderlist();
             },
+            ticketinfo : function(cardservice){
+                 return cardservice.ticketinfo();
+            },
             getDate : function(utilservice){
                 return utilservice.getDate;
             }
+
          }
        })
 
@@ -440,25 +450,41 @@ var router = function($urlRouterProvider, $stateProvider){
 
         // 查看卡产品信息
         .state('app.cardproductinfo', {
-         url: '/cardproductinfo/:id',
-         controller : 'cardproductinfo',
-         template: require('./views/cardproductinfo.html'),
-         resolve:{
-           cardproductinfo : function(cardservice){
-                 return cardservice.cardproductinfo();
-           },
-           cardresources : function(cardservice){
-                 return cardservice.cardresources();
-           },
-           cardproduct_cardpoollist : function(cardservice){
-                 return cardservice.cardproduct_cardpoollist();
-           },
-           cardproduct_ticketlist : function(cardservice){
-                 return cardservice.cardproduct_ticketlist();
-           }
-           
+	         url: '/cardproductinfo/:id',
+	         controller : 'cardproductinfo',
+	         template: require('./views/cardproductinfo.html'),
+	         resolve:{
+	           cardproductinfo : function(cardservice){
+	                 return cardservice.cardproductinfo();
+	           },
+	           cardresources : function(cardservice){
+	                 return cardservice.cardresources();
+	           },
+	           cardproduct_cardpoollist : function(cardservice){
+	                 return cardservice.cardproduct_cardpoollist();
+	           },
+	           cardproduct_ticketlist : function(cardservice){
+	                 return cardservice.cardproduct_ticketlist();
+	           },
+		       saleticketinfo : function(cardservice){
+		           return cardservice.saleticketinfo();
+		       }
 
-           
+	         }
+       })
+
+        //发卡统计
+       .state('app.cardstatistics', {
+         url: '/cardreleaselist',
+         controller : 'cardreleaselist',
+         template: require('./views/cardreleaselist.html'),
+         resolve:{
+            cardreleaselist : function(cardservice){
+                 return cardservice.cardreleaselist();
+            },
+            getDate : function(utilservice){
+                return utilservice.getDate;
+            }
 
          }
        })

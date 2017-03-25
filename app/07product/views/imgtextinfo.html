@@ -1,0 +1,67 @@
+<div class="container-fluid form-horizontal">
+
+	<div class="col-xs-12 col-md-12 mt10">
+
+
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">销售品图片</label>
+			<div class="col-sm-4 col-xs-12 ">
+				<img ng-src="{{saleobj.top_pic}}" width="300" height="200" ng-model="saleobj.top_pic">
+				<input type="file" nv-file-select uploader="baseinfo.imageshow.uploader1" ng-disabled="util.what == 'info'" />
+				<br>
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="item in baseinfo.imageshow.uploader1.queue">
+						文件名: <span ng-bind="item.file.name"></span>
+						<button type="button" class="btn btn-default btn-xs" ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+						<div class="progress mt10">
+							<div class="progress-bar" role="progressbar" ng-style="{ 'width': baseinfo.imageshow.uploader1.progress + '%' }"></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<label class="col-sm-1 col-xs-12 control-label">logo</label>
+			<div class="col-sm-4  col-xs-12">
+				<img ng-src="{{saleobj.logo}}" width="300" height="200" ng-model="saleobj.logo">
+				<input type="file" nv-file-select uploader="baseinfo.imageshow.uploader2" ng-disabled="util.what == 'info'" />
+				<br>
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="item in baseinfo.imageshow.uploader2.queue">
+						文件名: <span ng-bind="item.file.name"></span>
+						<button type="button" class="btn btn-default btn-xs" ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+						<div class="progress mt10">
+							<div class="progress-bar" role="progressbar" ng-style="{ 'width': baseinfo.imageshow.uploader2.progress + '%' }"></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">团产品-预定须知</label>
+			<div class="col-sm-9 col-xs-12">
+				<textarea class="form-control" rows="3" ng-disabled="util.what == 'info'" ng-model="saleobj.bookingnotes"></textarea>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">销售品简介</label>
+			<div class="col-sm-9 col-xs-12">
+				<div text-angular ng-model="saleobj.detail" ng-disabled="util.what == 'info'"></div>
+			</div>
+		</div>
+
+		<div class="form-group" ng-if="util.what == 'edit'">
+			<label class="col-sm-2 col-xs-12 control-label"></label>
+			<div class="col-sm-4 col-xs-12">
+				<button type="button" class="btn btn-primary btn-lg" ng-click="save()">保存</button>
+				<button type="button" class="btn btn-primary btn-lg" ng-click="saveAndBack()" 
+						ng-if="(saleobj.id != '') && (util.$uibModalInstance != undefined)">保存并返回</button>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>

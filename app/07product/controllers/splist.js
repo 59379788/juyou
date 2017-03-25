@@ -1,5 +1,5 @@
 module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, str2date, date2str,
-	saleup, saledown, saleupdate, talist, sellerListno, tstcreateno, tststartno, tststopno,toaster
+	saleup, saledown, saleupdate, talist, sellerListno, sellerList, tstcreateno, tstcreate, tststartno, tststart, tststopno, tststop, toaster
 
 ) {
 
@@ -29,7 +29,7 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 
 				console.log(res);
 				if (res.errcode !== 0) {
-					toaster.error({title: "提示", body:res.errmsg});
+					toaster.error({ title: "提示", body: res.errmsg });
 					return;
 				}
 
@@ -116,14 +116,22 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 				date2str: function () {
 					return date2str;
 				},
+				auditing: function () {
+					return false;
+				}
 			}
 		});
 
-		modalInstance.result.then(function () {
-			//load();
-		}, function () {
-			//$log.info('Modal dismissed at: ' + new Date());
-		});
+		modalInstance.opened.then(function () {// 模态窗口打开之后执行的函数  
+            // $scope.load();
+        });
+        modalInstance.result.then(function (showResult) {
+            $scope.load();
+        }, function (reason) {
+			$scope.load();
+            // // click，点击取消，则会暑促cancel  
+            // $log.info('Modal dismissed at: ' + new Date());
+        });
 	};
 
 
@@ -161,8 +169,11 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 					return str2date;
 				},
 				date2str: function () {
-					return getDate;
+					return date2str;
 				},
+				auditing: function () {
+					return false;
+				}
 
 			}
 		});
@@ -245,11 +256,16 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 		}
 
 
-		modalInstance.result.then(function () {
-			//load();
-		}, function () {
-			//$log.info('Modal dismissed at: ' + new Date());
-		});
+		modalInstance.opened.then(function () {// 模态窗口打开之后执行的函数  
+            // $scope.load();
+        });
+        modalInstance.result.then(function (showResult) {
+            $scope.load();
+        }, function (reason) {
+			$scope.load();
+            // // click，点击取消，则会暑促cancel  
+            // $log.info('Modal dismissed at: ' + new Date());
+        });
 
 	};
 

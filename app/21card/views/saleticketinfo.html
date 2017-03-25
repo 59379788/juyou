@@ -1,0 +1,52 @@
+
+
+
+<div class="modal-header">
+    <h4 class="modal-title">票种信息</h4>
+</div>
+<div class="modal-body">
+
+    <div class="container-fluid form-horizontal ">
+        
+      <div class="col-sm-12">
+
+        
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th class="col-md-3 text-center">景区名称</th>
+                <th class="col-md-3 text-center">票种名称</th>
+                <th class="col-md-1 text-center">票种属性</th>
+                <th class="col-md-2 text-center">有效期开始</th>
+                <th class="col-md-2 text-center">有效期结束</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="ticket in ticketarr">
+                <td class="text-center">{{ticket.view_name}}</td>
+                <td class="text-center">{{ticket.name}}</td>
+                <td class="text-center">{{ticket.ticket_type_attr_name}}</td>
+                <td class="text-center">{{ticket.periodstart}}</td>
+                <td class="text-center">{{ticket.periodend}}</td>
+              </tr>
+            </tbody>
+          </table>
+          
+
+
+
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+</div>
+
+
+
+
+
+
+
+  

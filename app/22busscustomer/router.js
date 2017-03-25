@@ -764,8 +764,24 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             saveHotSearch : function(busscustomerservice){
                      return busscustomerservice.saveHotSearch();
+            },
+            getHotSearchById : function(busscustomerservice){
+                return busscustomerservice.getHotSearchById();
+            },
+            updateHotSearch : function(busscustomerservice){
+                return busscustomerservice.updateHotSearch();
             }
 
+         }
+        })
+
+        // 编辑热搜
+         .state('app.addhotsearch', {
+         url: '/addhotsearch/:id',
+         controller : 'addhotsearch',
+         template: require('./views/addhotsearch.html'),
+         resolve:{
+            
          }
         })
 
@@ -801,6 +817,76 @@ var router = function($urlRouterProvider, $stateProvider){
                 },
                 findTypeList : function(busscustomerservice){
                     return busscustomerservice.findTypeList();
+                }
+            }
+        })
+
+        //商家发布的可预约产品列表
+        .state('app.appointmentlist',{
+            url: '/appointmentlist/:id',
+            controller : 'appointmentlist',
+            template: require('./views/appointmentlist.html'),
+            resolve:{
+                findMakeAppointmentList : function(busscustomerservice){
+                    return busscustomerservice.findMakeAppointmentList();
+                },
+                insertMakeAppointment : function(busscustomerservice){
+                    return busscustomerservice.insertMakeAppointment();
+                },
+                updateMakeAppointment : function(busscustomerservice){
+                    return busscustomerservice.updateMakeAppointment();
+                },
+                getMakeAppointmentById : function(busscustomerservice){
+                    return busscustomerservice.getMakeAppointmentById();
+                },
+                delMakeAppointment : function(busscustomerservice){
+                    return busscustomerservice.delMakeAppointment();
+                },
+                ticketlist : function(busscustomerservice){
+                    return busscustomerservice.ticketlist();
+                },
+                salelist : function(busscustomerservice){
+                    return busscustomerservice.salelist();
+                },
+                getDate : function(utilservice){
+                	 return utilservice.getDate;
+                },
+                str2date : function(utilservice){
+                return utilservice.str2date;
+                },
+                date2str : function(utilservice) {
+                    return utilservice.date2str;
+                }
+                
+            }
+        })
+
+        //商家设置预约
+        .state('app.setappointment',{
+            url: '/setappointment/:id',
+            controller : 'setappointment',
+            template: require('./views/setappointment.html'),
+            resolve:{
+                // dictionary : function(busscustomerservice){
+                //     return busscustomerservice.dictionary();
+                // },
+                // getInfoById : function(busscustomerservice){
+                //     return busscustomerservice.getInfoById();
+                // },
+                // findTypeList : function(busscustomerservice){
+                //     return busscustomerservice.findTypeList();
+                // }
+            }
+        })
+
+        //预约人列表
+        .state('app.customerlist',{
+            url: '/customerlist/:id',
+            controller : 'customerlist',
+            template: require('./views/customerlist.html'),
+            resolve:{
+                findUserInfoList : function(busscustomerservice){
+                    return busscustomerservice.findUserInfoList();
                 }
             }
         })
