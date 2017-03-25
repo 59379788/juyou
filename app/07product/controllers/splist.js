@@ -1,5 +1,5 @@
 module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, str2date, date2str,
-	saleup, saledown, saleupdate, talist, sellerListno, tstcreateno, tststartno, tststopno, toaster
+	saleup, saledown, saleupdate, talist, sellerListno, sellerList, tstcreateno, tstcreate, tststartno, tststart, tststopno, tststop, toaster
 
 ) {
 

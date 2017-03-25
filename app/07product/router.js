@@ -703,14 +703,27 @@ var router = function ($urlRouterProvider, $stateProvider) {
 				sellerListno: function (productservice) {
 					return productservice.sellerListno();
 				},
+
+				sellerList: function (productservice) {
+					return productservice.sellerList();
+				},
 				tstcreateno: function (productservice) {
 					return productservice.tstcreateno();
+				},
+				tstcreate: function (productservice) {
+					return productservice.tstcreate();
 				},
 				tststartno: function (productservice) {
 					return productservice.tststartno();
 				},
+				tststart: function (productservice) {
+					return productservice.tststart();
+				},
 				tststopno: function (productservice) {
 					return productservice.tststopno();
+				},
+				tststop: function (productservice) {
+					return productservice.tststop();
 				},
 
 
