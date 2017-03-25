@@ -117,6 +117,12 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 					return;
 				}
 
+				//发短信时，默认短息模板里第一个短信模板。
+				if (scope.saleobj.sms_type == '1') {
+					scope.saleobj.sms_template_id = res.smslist.data.data[0].sms_template_id;
+					scope.saleobj.sms_diy = res.smslist.data.data[0].sms_diy;
+				}
+
 				if (angular.isDefined(res.saleinfo)) {
 					//销售品信息
 					if (res.saleinfo.data.errcode === 0) {
@@ -162,12 +168,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 						{ 'name': '12小时之后', 'value': 12 }
 					],
 				};
-
-				//发短信时，默认短息模板里第一个短信模板。
-				if (scope.saleobj.sms_type == '1') {
-					scope.saleobj.sms_template_id = res.smslist.data.data[0].sms_template_id;
-					scope.saleobj.sms_diy = res.smslist.data.data[0].sms_diy;
-				}
 
 
 				//获取功能列表
