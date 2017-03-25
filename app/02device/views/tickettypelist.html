@@ -1,4 +1,3 @@
-
 <div class="modal-header">
     <h4 class="modal-title">门票信息</h4>
 </div>
@@ -6,12 +5,18 @@
 
     <div class="">
         <div class="checkbox" ng-repeat="obj in objs">
-          <label>
-            <input type="checkbox" value="{{obj.CODE}}"
-            ng-checked="obj.iselected == 1"
-            ng-click="selection($event,obj)">
-            {{obj.NAME}}
-          </label>
+            <div class="col-xs-2 text-right">
+				{{obj.name}}
+			</div>
+            <span class="form-inline" ng-repeat="item in obj.arr">
+				&nbsp;&nbsp;&nbsp;&nbsp;
+                <label>
+                    <input type="checkbox" value="{{item.name.CODE}}"
+                    ng-checked="item.name.iselected == 1"
+                    ng-click="selection($event,item.name)">
+				{{item.name.type_attr_name}}
+                </label>
+            </span>
         </div>
     </div>
 </div>

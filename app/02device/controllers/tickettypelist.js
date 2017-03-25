@@ -17,7 +17,28 @@ module.exports = function($scope, $uibModalInstance, view, typelist, device_code
 
 		if(res.errcode === 0)
 		{
-			$scope.objs = res.data;
+			$scope.objs = [];
+			$scope.objsKeyTemp = {};
+			for (var index = 0; index < res.data.length; index++) {
+				$scope.objsKeyTemp[res.data[index].CODE] = 1;
+			}
+			var count = 0;
+			for(var key in $scope.objsKeyTemp){
+				$scope.objs.push({name:'',arr:[]})
+				for (var indexResData = 0; indexResData < res.data.length; indexResData++) {
+					if(key == res.data[indexResData].CODE){
+						if($scope.objs[count].arr.length < 1){
+							$scope.objs[count].name = res.data[indexResData].NAME;
+							$scope.objs[count].arr.push({name:res.data[indexResData]})
+						}else{
+							$scope.objs[count].arr.push({name:res.data[indexResData]})
+						}
+
+					}
+				}
+				count++;
+			}
+			console.log($scope.objs);
 		}
 		else
 		{
@@ -46,6 +67,9 @@ module.exports = function($scope, $uibModalInstance, view, typelist, device_code
         	add.save(para, function(res){
 
         		console.log(res);
+				if(res.errcode != 0){
+					alert(res.errmsg);
+				}
 
         	});
 
@@ -55,6 +79,9 @@ module.exports = function($scope, $uibModalInstance, view, typelist, device_code
         	del.save(para, function(res){
 
         		console.log(res);
+				if(res.errcode != 0){
+					alert(res.errmsg);
+				}
 
         	});
         	//alert('22222222');

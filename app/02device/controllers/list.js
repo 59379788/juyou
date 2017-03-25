@@ -29,6 +29,7 @@ module.exports = function($scope, $uibModal, typelist, devicelist, add, del, $st
 		var modalInstance = $uibModal.open({
 	      template: require('../views/tickettypelist.html'),
 	      controller: 'tickettypelist',
+		  size:'lg',
 	      resolve: {
 	      	view : function(){
 	      		return place_code;
