@@ -7,10 +7,16 @@
     	<div class="form-group" >
 			<label class="col-xs-4 control-label">经销商</label>
 			<div class="col-xs-6" >
-				<select class="form-control" ng-model="obj.seller_code" 
+				<!--<select class="form-control" ng-model="obj.seller_code" 
 	              ng-options="view.CODE as view.NAME for view in taarr"
 	            >
-	            </select>
+	            </select>-->
+				<ui-select ng-model="obj.seller_code" theme="bootstrap">
+					<ui-select-match placeholder="请选择一个景区">{{$select.selected.NAME}}</ui-select-match>
+					<ui-select-choices repeat="item.CODE as item in taarr | filter: $select.search">
+						<span ng-bind-html="item.NAME | highlight: $select.search"></span>
+					</ui-select-choices>
+				</ui-select>
 			</div>
 			<button class="btn btn-success col-xs-2" type="button" ng-click="create()">添加</button>
 		</div>	
