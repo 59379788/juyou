@@ -1,7 +1,7 @@
 <div class="container-fluid form-horizontal">
 	<div class="col-xs-12">
 
-		<div class="form-group mt10" ng-if="saleobj.state == '0'">
+		<div class="form-group mt10" ng-if="(saleobj.state == '0') && (util.what != 'info')">
 			<label class="col-xs-1 control-label">添加票种</label>
 			<div class="col-xs-3">
 				<ui-select ng-model="tickettypeobj.place_code" theme="bootstrap" ng-change="changeview()">
