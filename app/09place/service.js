@@ -13,6 +13,7 @@ var service = function($resource, BASEURL38985, $q, $http){
     // 类型列表
     var typelist = BASEURL38985 + '/api/us/mc/mertradetypedao/findTypeList';
 
+
     
     return {
         create : function(){

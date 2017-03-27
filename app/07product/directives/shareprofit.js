@@ -10,7 +10,9 @@ module.exports = function($resource, $state, $http, $q,toaster){
 			'util' : '=',
 		},
 		link : function(scope, elements, attrs){
-			scope.salefrobj = {};
+			scope.salefrobj = {
+				'rebate_lower' : ''
+			};
 
 			scope.obj = {
 				'isSelected' : false
@@ -44,6 +46,19 @@ module.exports = function($resource, $state, $http, $q,toaster){
 
 
 			});
+			console.log(scope.saleobj.id,scope.saleobj.id);
+			$resource('/api/as/tc/sale/info', {}, {})
+			.save({'id' : scope.saleobj.id}, function(res){
+
+				console.log('基本信息');               
+				scope.infodata = res.data;
+				console.log(scope.infodata);
+				console.log(scope.infodata.guide_price,scope.infodata.cost_price);
+				scope.profit = (scope.infodata.guide_price - scope.infodata.cost_price) * scope.salefrobj.profit_ratio * 0.01;
+				console.log(scope.profit);
+
+			});
+
 
 			
 			scope.salefrobj.search_type = scope.obj.isSelected;
@@ -65,12 +80,16 @@ module.exports = function($resource, $state, $http, $q,toaster){
 			}
 
             scope.saleFrSetSave = function(){
-				//alert('添加分润');
+				console.log(scope.profit);
+				console.log(scope.salefrobj.rebate_lower);
+				var aaa = parseInt(scope.salefrobj.rebate_lower - scope.profit);
+				
+				 console.log(aaa);
                 scope.salefrobj.sale_code = scope.saleobj.code;
 				if(scope.salefrobj.rebate_lower > scope.salefrobj.rebate_unlimited){
 					toaster.success({title:"",body:"红包下限不能大于红包上限"});
 				} else 
-                if(parseInt(scope.salefrobj.profit_ratio) >= 0 && parseInt(scope.salefrobj.profit_ratio) <= 100 && parseInt(scope.salefrobj.rebate_unlimited) >= 0 && scope.salefrobj.rebate_lower <= scope.salefrobj.rebate_unlimited){
+                if(parseInt(scope.salefrobj.profit_ratio) >= 0 && parseInt(scope.salefrobj.profit_ratio) <= 100 && parseInt(scope.salefrobj.rebate_unlimited) >= 0 && scope.salefrobj.rebate_lower <= scope.salefrobj.rebate_unlimited &&(scope.salefrobj.rebate_lower<=scope.profit)){
                     $resource('/api/as/tc/saleshangkeprice/save', {}, {})
                     .save(scope.salefrobj,function(res){
                         console.log(scope.salefrobj);
@@ -83,12 +102,16 @@ module.exports = function($resource, $state, $http, $q,toaster){
 
                         })
                 } else if(scope.salefrobj.rebate_lower > scope.salefrobj.rebate_unlimited){
-					toaster.success({title:"",body:"hongnann"});
+					toaster.success({title:"",body:"红包下限金额不能大于红包上限金额"});
+				} else if(scope.salefrobj.rebate_lower>scope.profit){
+					toaster.success({title:"",body:"红包下限金额不能大于利润"});
 				} else {
 					toaster.success({title:"",body:"设置正确的利润率(0-100),红包上限不能为负数"});
 				}
 				
 			};
+
+			// 基本信息
 		   
 		}
 
