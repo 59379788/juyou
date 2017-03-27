@@ -1,4 +1,5 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findMakeAppointmentList, insertMakeAppointment, updateMakeAppointment,getMakeAppointmentById,delMakeAppointment,ticketlist,salelist, getDate,str2date,date2str,toaster){   
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findMakeAppointmentList, insertMakeAppointment, 
+updateMakeAppointment,getMakeAppointmentById,delMakeAppointment,ticketlist,salelist, getDate,str2date,date2str,toaster){   
    /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -11,7 +12,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         'title' : ''
     }
 
-    $scope.search = function(){
+    $scope.getlist = function(){
         var para = {
             pageNo:$scope.bigCurrentPage, 
             pageSize:$scope.itemsPerPage
@@ -25,12 +26,13 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             console.log(res.data);
             $scope.objs = res.data.results;
             $scope.bigTotalItems = res.data.totalRecord;
-        })
 
-    }
-    $scope.search();
+        });
 
-    $scope.add = function(){
+    };
+    $scope.getlist();
+
+    $scope.add = function(id){
         var modalInstance = $uibModal.open({
           template: require('../views/setappointment.html'),
           controller: 'setappointment',
@@ -74,7 +76,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         });
 
         modalInstance.result.then(function () {
-          $scope.search();
+          $scope.getlist();
           
         }, function () {
           //$scope.load();
@@ -124,15 +126,30 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
         });
 
         modalInstance.result.then(function () {
-          $scope.search();
+          $scope.getlist();
           
         }, function () {
           //$scope.load();
         });
-    }
+    };
+    $scope.delete = function(id){
+        if(confirm('确定要删除吗?')){
+            delMakeAppointment.save({'id' : id},function(res){
+                if(res.errcode!=0){
+                    toaster.success({title:"",body:res.errmsg});
+                    return;
+                }
+                console.log(res.data);
+                $scope.getlist();
+                toaster.success({title:"",body:"删除成功!"});
+            })
+        }
+        
+    };
     $scope.seelist = function(){
         $state.go('app.customerlist');
-    }
+    };
+
 
     
 

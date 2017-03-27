@@ -79,7 +79,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
                             toaster.success({title:"",body:res.errmsg});
                             return;
                         }
-                        console.log('添加成功');
+						toaster.success({title:"",body:"添加成功"});
 
                         })
                 } else if(scope.salefrobj.rebate_lower > scope.salefrobj.rebate_unlimited){

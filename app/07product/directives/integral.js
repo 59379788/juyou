@@ -1,4 +1,4 @@
-module.exports = function($resource, $state, $http, $q){
+module.exports = function($resource, $state, $http, $q,toaster){
 
 	return {
 
@@ -29,7 +29,6 @@ module.exports = function($resource, $state, $http, $q){
 		 	
 
 			scope.salejfsave = function(){
-				alert('添加积分');
 				scope.obj.integral_sale_code = scope.saleobj.code;
 				scope.obj.integral_type = '0';
 				var array = [];
@@ -43,9 +42,7 @@ module.exports = function($resource, $state, $http, $q){
 						alert(res.errmsg);
 						return;
 					}
-					console.log('添加成功');
-
-					
+					toaster.success({title:"",body:"操作成功!"});					
 				});
 
 			};

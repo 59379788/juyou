@@ -1,27 +1,19 @@
-<div class="col-xs-12 mt10" >
-
-	<div class="panel panel-default form-horizontal">
-		<div class="panel-heading">
-			积分配置<button type="button" 
-				class="btn btn-xs btn-info pull-right"
-				ng-click="salejfsave()">
-				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-			</button>
-		</div>
-		<div class="panel-body">
-			<div class="container-fluid">
-				<div class="col-xs-12" >
-					<div class="col-xs-12 form-group" >
-						<div class="col-xs-2">
-							<label for="fxbt" class="pull-right text-right mt10">最高可用积分&nbsp;&nbsp;&nbsp;&nbsp;</label>
-						</div>
-						<div class="col-xs-8">
-							<input type="number" min="0" name="fxbt" class="form-control form-inline" placeholder="积分" ng-model="obj.integral_price" />
-						</div>
-				</div>
-				</div>
+<div class="container-fluid form-horizontal">
+	<div class="col-xs-12 col-md-12 mt10">
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">最高可用积分</label>
+			<div class="col-sm-4 col-xs-12">
+				<input type="number" min="0" name="fxbt" class="form-control form-inline" placeholder="积分" ng-model="obj.integral_price" />
+			</div>
+			<div class="col-sm-5 mt10">
+				<font face="Courier" class="text-danger">此名称用于设置最高返还积分</font>
 			</div>
 		</div>
-	</div>
+		<div class="form-group">
+			<div class="col-sm-2 col-xs-12 col-md-offset-4 text-center">
+				<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="salejfsave()">保存</button>
+			</div>
+		</div>
 
+	</div>	
 </div>
