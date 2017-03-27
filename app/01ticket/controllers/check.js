@@ -121,13 +121,13 @@ module.exports = function ($scope, $uibModal,
 			controller: 'ticketinfo',
 			resolve: {
 				info: function () {
-					return info;
+					return {ticketList:[]};
 				},
 				para: function () {
-					return para;
+					return 1;
 				},
 				func: function () {
-					return func;
+					return 1;
 				}
 			}
 		});
