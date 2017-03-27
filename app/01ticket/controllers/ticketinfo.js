@@ -1,7 +1,7 @@
 module.exports = function($scope, $uibModalInstance, info, para, func){
 
 	// console.log('-------');
-	// console.log(info);
+	console.log(info);
 	// console.log('-------');
 
 	$scope.objs = info.ticketList;
