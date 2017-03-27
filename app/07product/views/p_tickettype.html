@@ -55,7 +55,7 @@
 					<td class="text-center">{{obj.ticket_type_attr_name}}</td>
 					<td class="text-center">
 						<div class="input-group">
-							<input type="text" class="form-control" ng-model="obj.section.periodstart.date" uib-datepicker-popup="yyyy-MM-dd" is-open="obj.section.periodstart.opened"
+							<input type="text" class="form-control" ng-model="obj.section.periodstart.date" uib-datepicker-popup="yyyy-MM-dd" is-open="obj.section.periodstart.opened" ng-disabled="util.what == 'info'"
 							 ng-required="true" close-text="Close" readonly/>
 							<span class="input-group-btn">
 							<button type="button" 
@@ -68,7 +68,7 @@
 					</td>
 					<td class="text-center">
 						<div class="input-group">
-							<input type="text" class="form-control" ng-model="obj.section.periodend.date" uib-datepicker-popup="yyyy-MM-dd" is-open="obj.section.periodend.opened"
+							<input type="text" class="form-control" ng-model="obj.section.periodend.date" uib-datepicker-popup="yyyy-MM-dd" is-open="obj.section.periodend.opened" ng-disabled="util.what == 'info'"
 							 ng-required="true" close-text="Close" readonly/>
 							<span class="input-group-btn">
 							<button type="button" 
