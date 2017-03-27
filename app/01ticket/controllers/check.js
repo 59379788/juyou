@@ -120,9 +120,9 @@ module.exports = function ($scope, $uibModal,
 			resolve: {
 				items: function () {
 					return {
-						info: info,
-						para: para,
-						func: func
+						'info': info,
+						'para': para,
+						'func': func
 
 					};
 				}
