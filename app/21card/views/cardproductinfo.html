@@ -19,9 +19,11 @@
 	<div class="form-group">
 		<label class="col-xs-3 control-label">卡产品类型</label>
 		<div class="col-xs-9">
-			<input type="text" class="form-control" 
-			disabled ng-model="obj.card_type"
-			>
+			<select class="form-control" ng-model="obj.card_type" 
+              ng-options="cardtype.value as cardtype.label for cardtype in cardtypearr"
+            >
+            <option value="">请选择</option>
+            </select>
 		</div>
 	</div>
 
