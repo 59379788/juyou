@@ -1,4 +1,4 @@
-module.exports = function ($scope, $uibModal,
+module.exports = function ($scope, $uibModal, $modal, 
 	checkcode, checkcard, checkid, checkgroupcode, useticketbyid, useticketbycode,
 	useticketbycard, useticketbygroupcode, devicenamelist, list, ITEMS_PERPAGE, devicelist) {
 
