@@ -115,20 +115,29 @@ module.exports = function ($scope, $uibModal,
 	function openticketinfo(info) {
 
 		var modalInstance = $uibModal.open({
-			template: require('../views/ticketinfo.html'),
-			controller: 'ticketinfo',
-			resolve: {
-				info: function () {
-					return info;
-				},
-				para: function () {
-					return para;
-				},
-				func: function () {
-					return func;
-				}
-			}
-		});
+            template: require('../views/ticketinfo.html'),
+            controller: 'ticketinfo',
+            url: '/ticketinfo',
+            size: 'lg',
+            resolve: {
+                'productid': function () {
+                    return id;
+                },
+                what: function () {
+                    return 'info';
+                },
+                str2date: function () {
+                    return str2date;
+                },
+                date2str: function () {
+                    return date2str;
+                },
+                auditing: function () {
+                    return true;
+                }
+
+            }
+        });
 
 
 		modalInstance.result.then(function () {
