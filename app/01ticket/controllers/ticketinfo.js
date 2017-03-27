@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModalInstance){
+module.exports = function($scope, $state, $resource, $stateParams, $modalInstance, $http, items){
 
 	// // console.log('-------');
 	// console.log(info);
