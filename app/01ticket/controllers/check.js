@@ -115,9 +115,9 @@ module.exports = function ($scope, $uibModal,
 	function openticketinfo(info) {
 
 		var modalInstance = $uibModal.open({
-			// template: require('../views/ticketinfo.html'),
-			template: '<p>../views/ticketinfo.html</p>',
-			controller: 'ticketinfo',
+			template: require('../views/ticketinfo.html'),
+			// template: '<p>../views/ticketinfo.html</p>',
+			// controller: 'ticketinfo',
 			resolve: {
 				info: function () {
 					return info;
