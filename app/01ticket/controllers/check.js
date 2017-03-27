@@ -131,26 +131,7 @@ module.exports = function ($scope, $uibModal,
 				}
 			}
 		});
-		// var modalInstance = $uibModal.open({
-		//     template: require('../views/ticketinfo.html'),
-		//     controller: 'ticketinfo',
-		//     url: '/ticketinfo',
-		//     size: 'lg',
-		//     resolve: {
-		//         info: function () {
-		// 			return info;
-		// 		},
-		// 		para: function () {
-		// 			return para;
-		// 		},
-		// 		func: function () {
-		// 			return func;
-		// 		}
-
-		//     }
-		// });
-
-
+		
 		modalInstance.result.then(function () {
 			//load();
 			console.log('-------');
