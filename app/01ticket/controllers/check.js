@@ -114,20 +114,29 @@ module.exports = function ($scope, $uibModal,
 	//打开模态框
 	function openticketinfo(info) {
 
-		var modalInstance = $uibModal.open({
+
+		var modalInstance = $modal.open({
 			template: require('../views/ticketinfo.html'),
 			controller: 'ticketinfo',
+			size: 'lg',
 			resolve: {
 				items: function () {
 					return {
 						'info': info,
 						'para': para,
 						'func': func
-
 					};
 				}
 			}
-
+		});
+		modalInstance.opened.then(function () {// 模态窗口打开之后执行的函数  
+			
+		});
+		modalInstance.result.then(function (showResult) {
+			
+		}, function (reason) {
+			// click，点击取消，则会暑促cancel  
+			$log.info('Modal dismissed at: ' + new Date());
 		});
 	}
 
