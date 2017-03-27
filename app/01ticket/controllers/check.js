@@ -115,7 +115,8 @@ module.exports = function ($scope, $uibModal,
 	function openticketinfo(info) {
 
 		var modalInstance = $uibModal.open({
-			template: require('../views/ticketinfo.html'),
+			// template: require('../views/ticketinfo.html'),
+			template: '<p>../views/ticketinfo.html</p>',
 			controller: 'ticketinfo',
 			resolve: {
 				info: function () {
@@ -129,24 +130,24 @@ module.exports = function ($scope, $uibModal,
 				}
 			}
 		});
-		var modalInstance = $uibModal.open({
-            template: require('../views/ticketinfo.html'),
-            controller: 'ticketinfo',
-            url: '/ticketinfo',
-            size: 'lg',
-            resolve: {
-                info: function () {
-					return info;
-				},
-				para: function () {
-					return para;
-				},
-				func: function () {
-					return func;
-				}
+		// var modalInstance = $uibModal.open({
+        //     template: require('../views/ticketinfo.html'),
+        //     controller: 'ticketinfo',
+        //     url: '/ticketinfo',
+        //     size: 'lg',
+        //     resolve: {
+        //         info: function () {
+		// 			return info;
+		// 		},
+		// 		para: function () {
+		// 			return para;
+		// 		},
+		// 		func: function () {
+		// 			return func;
+		// 		}
 
-            }
-        });
+        //     }
+        // });
 
 
 		modalInstance.result.then(function () {
