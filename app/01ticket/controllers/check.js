@@ -1,6 +1,6 @@
 module.exports = function ($scope, $uibModal,
 	checkcode, checkcard, checkid, checkgroupcode, useticketbyid, useticketbycode,
-	useticketbycard, useticketbygroupcode, devicenamelist, list, ITEMS_PERPAGE, devicelist) {
+	useticketbycard, useticketbygroupcode, devicenamelist, list, ITEMS_PERPAGE, devicelist, $uibModalInstance) {
 
 	//票码
 	$scope.code = "";
