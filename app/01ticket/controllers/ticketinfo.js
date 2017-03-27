@@ -1,10 +1,10 @@
-module.exports = function($scope, $uibModalInstance, $uibModal, info, para, func){
+module.exports = function($scope, $uibModalInstance, $uibModal, items){
 
 	// console.log('-------');
 	console.log(info);
 	// console.log('-------');
 
-	$scope.objs = info.ticketList;
+	$scope.objs = items.info.ticketList;
 
 
 	//var fun = func;
