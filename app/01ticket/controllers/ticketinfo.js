@@ -1,41 +1,41 @@
-module.exports = function($scope, $uibModalInstance){
+module.exports = function($scope, $uibModalInstance, info, para, func){
 
-	// // console.log('-------');
-	// // console.log(info);
-	// // console.log('-------');
+	// console.log('-------');
+	// console.log(info);
+	// console.log('-------');
 
-	// $scope.objs = info.ticketList;
+	$scope.objs = info.ticketList;
 
 
-	// //var fun = func;
+	//var fun = func;
 
-	// //delete para.fun;
+	//delete para.fun;
 
-	// $scope.cancel = function () {
-	// 	$uibModalInstance.dismiss('cancel');
-	// };
+	$scope.cancel = function () {
+		$uibModalInstance.dismiss('cancel');
+	};
 
-	// $scope.use = function(type, num, type_attr, goods_code){
+	$scope.use = function(type, num, type_attr, goods_code){
 
-	// 	angular.extend(para, {"num" : num, "type" : type, "type_attr" : type_attr, "reqkey" : info.reqkey, 'goods_code' : goods_code});
+		angular.extend(para, {"num" : num, "type" : type, "type_attr" : type_attr, "reqkey" : info.reqkey, 'goods_code' : goods_code});
 
-	// 	console.log(para);
+		console.log(para);
 
-	// 	func.get(para, function(res){
+		func.get(para, function(res){
 
-	// 		console.log(res);
+			console.log(res);
 
-	// 		if(res.errcode === 0)
-	// 		{
-	// 			alert("消票成功");
-	// 			$uibModalInstance.dismiss('cancel');
-	// 		}
-	// 		else
-	// 		{
-	// 			alert(res.errmsg);
-	// 		}
+			if(res.errcode === 0)
+			{
+				alert("消票成功");
+				$uibModalInstance.dismiss('cancel');
+			}
+			else
+			{
+				alert(res.errmsg);
+			}
 
-	// 	});
+		});
 
-	// };
+	};
 };
