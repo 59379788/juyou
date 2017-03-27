@@ -23,11 +23,11 @@
                   &nbsp;&nbsp;&nbsp;&nbsp;
               </div>
               <div class="row mt10">
-                  <label class="control-label">订单类型</label>&nbsp;&nbsp;
-                  <select class="form-control" ng-model="searchform.order_type">
+                  <label class="control-label">操作方式</label>&nbsp;&nbsp;
+                  <select class="form-control" ng-model="searchform.operation">
 		            	<option label="查询全部" value=""></option>
 		            	<option label="激活" value="1"></option>
-		            	<option label="购买" value="2"></option>
+		            	<option label="绑定" value="2"></option>
 	              </select>
                   &nbsp;&nbsp;&nbsp;&nbsp;
 				<label class="control-label">下单时间</label>&nbsp;&nbsp;
@@ -72,7 +72,7 @@
     	<th class="col-xs-1 text-center">手机号</th>
     	<th class="col-xs-1 text-center">身份证号</th>
     	<th class="col-xs-1 text-center">卡号</th>
-    	<th class="col-xs-1 text-center">订单类型</th>
+    	<th class="col-xs-1 text-center">操作方式</th>
     	<th class="col-xs-1 text-center">下单时间</th>
     	<th class="col-xs-1 text-center">分销商</th>
      	<th class="col-xs-1 text-center">操作</th>
@@ -85,10 +85,12 @@
      	<td class="text-center">
      		{{obj.username}}
      	</td>
-     	<td class="text-center">{{obj.mobile}}</td>
+
+     	<td class="text-center" ng-show="obj.operation == '1'">{{obj.active_mobile}}</td>
+     	<td class="text-center" ng-show="obj.operation == '2'">{{obj.mobile}}</td>
      	<td class="text-center">{{obj.papersno}}</td>
      	<td class="text-center">{{obj.cardno}}</td>
-        <td class="text-center">{{obj.order_typename}}</td>
+        <td class="text-center">{{obj.operationname}}</td>
      	<td class="text-center">{{obj.create_time}}</td>
      	<td class="text-center">{{obj.seller_code}}</td>
 	    <td class="text-center">

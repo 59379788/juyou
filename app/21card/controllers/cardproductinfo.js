@@ -1,6 +1,6 @@
 module.exports = function($scope, $state, $stateParams, cardproductinfo,
 	cardresources,cardproduct_cardpoollist,cardproduct_ticketlist,
-	$uibModal, saleticketinfo
+	$uibModal, saleticketinfo, dictbytypelist
 	){
 	var id = $stateParams.id;
 	
@@ -16,17 +16,22 @@ module.exports = function($scope, $state, $stateParams, cardproductinfo,
         
         
 
-        if ($scope.obj.card_type === "1") { 
-        	$scope.obj.card_type = '散客拼团';
-        } else if ($scope.obj.card_type === "2") {
-            $scope.obj.card_type = '独立成团'; 
-        } else if ($scope.obj.card_type === "3") { 
-        	$scope.obj.card_type = '自由行';
-        } else if ($scope.obj.card_type === "4") { 
-        	$scope.obj.card_type = '自由驾';
+        
+
+
+    });
+
+    dictbytypelist({'type' : 'bookline_type'}).then(function(res) {
+    	//console.log(res);
+        if(res.errcode === 0)
+        {
+        	$scope.cardtypearr = res.data;
+        //	console.log($scope.cardtypearr);
         }
-
-
+        else
+        {
+            alert(res.errmsg);
+        }
     });
     
     $scope.resourcesflag = {};

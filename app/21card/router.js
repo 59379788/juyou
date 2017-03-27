@@ -468,7 +468,10 @@ var router = function($urlRouterProvider, $stateProvider){
 	           },
 		       saleticketinfo : function(cardservice){
 		           return cardservice.saleticketinfo();
-		       }
+		       },
+		       dictbytypelist : function(productservice){
+	                return productservice.dictbytypelist;
+	            }
 
 	         }
        })
