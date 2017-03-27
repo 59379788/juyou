@@ -11,6 +11,8 @@ App.controller('supplierlist',require('./controllers/supplierlist'));
 App.controller('supplyremark',require('./controllers/supplyremark'));
 App.controller('assignauthority',require('./controllers/assignauthority'));
 
+//添加商客账户管理
+App.controller('addskaccount',require('./controllers/addskaccount'));
 
 //宜卖宜卖
 App.controller('should',require('./controllers/should'));

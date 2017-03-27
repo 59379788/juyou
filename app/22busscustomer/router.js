@@ -890,6 +890,36 @@ var router = function($urlRouterProvider, $stateProvider){
                 }
             }
         })
+
+        //添加商客账户管理
+        .state('app.addskaccount',{
+            url: '/addskaccount',
+            controller : 'addskaccount',
+            template: require('./views/addskaccount.html'),
+            resolve:{
+                mechanism : function(accountservice){
+                return accountservice.mechanism();
+                },
+                create : function(accountservice){
+                    return accountservice.create();
+                },
+                list : function(accountservice){
+                    return accountservice.list();
+                },
+                role : function(accountservice){
+                    return accountservice.role();
+                },
+                info : function(accountservice){
+                    return accountservice.info();
+                },
+                createmechanism : function(accountservice){
+                    return accountservice.createmechanism();
+                },
+                createdeposit : function(depositservice){
+                    return depositservice.create();
+                }
+            }
+        })
  
 }
 module.exports = router;

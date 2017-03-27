@@ -139,7 +139,7 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var updateNews = BASEURL38985 + '/api/as/gc/news/updateNews';
   
   // 轮播图列表
-  var findNewsRollinginfolist = BASEURL38985 + '/api/us/gc/rollingpicture/findNewsRollinginfolist';
+  var findNewsRollinginfolist = BASEURL38985 + '/api/as/gc/rollingpicture/findNewsRollinginfolist';
   // 添加轮播图
   var saveNewsPhoto = BASEURL38985 + '/api/as/gc/rollingpicture/saveNewsPhoto';
   // 删除轮播图
@@ -234,7 +234,12 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
 
   /****** 预约 *******/ 
 
+  /****** 添加商客账户管理 *******/ 
+  var mechanism = SYS + '/a/sys/office/treeData';
 
+  var list = SYS + '/a/sys/user/ajaxlist';
+
+  var createmechanism = SYS + '/a/sys/office/ajaxsave';
   
 
 
@@ -597,6 +602,15 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         ticketlist : function(){
           return $resource(ticketlist,{},{});
+        },
+        mechanism : function(){
+          return $resource(mechanism,{},{});
+        },
+        list : function(){
+          return $resource(list,{},{});
+        },
+        createmechanism : function(){
+          return $resource(createmechanism,{},{});
         }
 
 
