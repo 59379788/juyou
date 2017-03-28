@@ -11,7 +11,9 @@ module.exports = function($resource, $state, $http, $q,toaster){
 		},
 		link : function(scope, elements, attrs){
 			scope.salefrobj = {
-				'rebate_lower' : ''
+				'rebate_lower' : '',
+				'scope.saleobj.profit_ratio' : 0,
+				'share_title' : ''
 			};
 
 			scope.obj = {
@@ -53,9 +55,13 @@ module.exports = function($resource, $state, $http, $q,toaster){
 				console.log('基本信息');               
 				scope.infodata = res.data;
 				console.log(scope.infodata);
-				console.log(scope.infodata.guide_price,scope.infodata.cost_price);
-				scope.profit = (scope.infodata.guide_price - scope.infodata.cost_price) * scope.salefrobj.profit_ratio * 0.01;
-				console.log(scope.profit);
+				// console.log(scope.infodata.guide_price,scope.infodata.cost_price);
+				// 利润金额
+				if(scope.saleobj.profit_ratio == undefined){
+					console.log('kongkongkong');
+				}
+				 scope.salefrobj.profit = (scope.infodata.guide_price - scope.infodata.cost_price) * (scope.salefrobj.profit_ratio * 0.01+1);
+				// console.log(scope.profit);
 
 			});
 

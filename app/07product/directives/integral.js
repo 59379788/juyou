@@ -16,7 +16,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
 
 			console.log('积分code');
 			console.log(scope.saleobj.code);
-			$resource('/api/us/tc/saleintegral/findsaleintegrallist', {}, {})
+			$resource('/api/as/tc/saleintegral/findsaleintegrallist', {}, {})
 			.save({'integral_sale_code' : scope.saleobj.code}, function(res){
 
 				console.log('积分信息');
