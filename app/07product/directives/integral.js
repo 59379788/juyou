@@ -16,7 +16,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
 
 			console.log('积分code');
 			console.log(scope.saleobj.code);
-			$resource('/api/as/tc/saleintegral/findsaleintegrallist', {}, {})
+			$resource('/api/us/tc/saleintegral/findsaleintegrallist', {}, {})
 			.save({'integral_sale_code' : scope.saleobj.code}, function(res){
 
 				console.log('积分信息');
@@ -33,7 +33,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
 				scope.obj.integral_type = '0';
 				var array = [];
 				array.push(scope.obj);
-				$resource('/api/uc/tc/ticketSaleIntegralService/saveSaleInteral', {}, {})
+				$resource('/api/ac/tc/ticketSaleIntegralService/saveSaleInteral', {}, {})
 				.save({'integral_sale_code':scope.obj.integral_sale_code,'integral_price':scope.obj.integral_price,'list' : array}, function(res){
 					console.log('bbbbbbb');
 					console.log(res);
