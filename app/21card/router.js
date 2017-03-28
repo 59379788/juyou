@@ -332,6 +332,9 @@ var router = function($urlRouterProvider, $stateProvider){
          	insertCard : function(cardservice){
                  return cardservice.insertCard();
             },
+            exExcel : function(cardservice){
+                 return cardservice.exExcel();
+            },
             cardbaselist : function(cardservice){
                  return cardservice.cardbaselist();
             },

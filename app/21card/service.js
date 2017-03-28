@@ -11,6 +11,8 @@ var service = function($resource, BASEURL38985){
     var changestatus = BASEURL38985 + '/api/ac/uc/cardBaseService/updateNewCardFinStatu';
     // 根据条件查询基本卡
     var searchcard = BASEURL38985 + '/api/ac/uc/cardBaseService/getCardBaseList';
+    // 导出excel
+    var exExcel = BASEURL38985 + '/api/ac/uc/cardBaseService/exExcel';
     //------------------ 卡基本信息 -----------------------//
 
     
@@ -136,6 +138,9 @@ var service = function($resource, BASEURL38985){
     return {
     	insertCard : function(){
              return $resource(insertCard, {}, {});
+        },
+        exExcel : function(){
+             return $resource(exExcel, {}, {});
         },
         cardpoollist : function(){
              return $resource(cardpoollist, {}, {});

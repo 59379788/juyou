@@ -80,7 +80,7 @@
           <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='制作中'"
           ng-click="cardcomplete(obj.card_make_batch,obj.mincard,obj.maxcard)" class="btn btn-success btn-xs">制卡完成</a>
           <a ng-show="obj.card_giveout_status=='未发放' && obj.card_make_status=='制作中'"
-          ng-click="" class="btn btn-warning btn-xs">导出excel</a>    
+          ng-click="exExcel(obj)" class="btn btn-warning btn-xs">导出excel</a>    
         </td>
       </tr>
     </tbody>
