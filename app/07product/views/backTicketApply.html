@@ -1,0 +1,97 @@
+<div class="col-sm-12">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group form-inline">
+                <div class="col-sm-10 row">
+                    <div class="col-xs-12">
+                        <label>订单编号</label>&nbsp;&nbsp;
+                        <input type="text" class="form-control" ng-model="searchform.order_code"> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>手机号</label>&nbsp;&nbsp;
+                        <input type="text" class="form-control" ng-model="searchform.mobile"> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>审核状态</label>&nbsp;&nbsp;
+                        <select class="form-control" ng-model="searchform.ticket_state">
+                            <option value="">--全部--</option>
+                            <option value="5">待审核</option>
+                            <option value="1">审核通过</option>
+                            <option value="2">审核不通过</option>
+                        </select>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="col-xs-12">
+                        <label>申请时间</label>&nbsp;&nbsp;
+                        <div class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened"
+                                ng-required="true" close-text="Close" readonly/>
+                            <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                        </div>
+                        &nbsp;&nbsp;到&nbsp;&nbsp;
+                        <div class="input-group">
+                            <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened"
+                                ng-required="true" close-text="Close" readonly/>
+                            <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                        </div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+                <div class="col-sm-2 text-right">
+                    <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+                    <!--<button type="button" class="btn btn-info new" ng-click="create()">创建产品</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- searchArea -->
+
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="col-md-3 text-center">订单编号</th>
+                <th class="col-md-2 text-center">订单名称</th>
+                <th class="col-md-2 text-center">订单信息</th>
+                <th class="col-md-1 text-center">游客信息</th>
+                <th class="col-md-1 text-center">申请退票数量</th>
+                <th class="col-md-1 text-center">申请时间</th>
+                <th class="col-md-1 text-center">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="obj in objs">
+                <td class="text-center">{{obj.order_code}}</td>
+                <td class="text-center">{{obj.title}}</td>
+                <td class="text-center">
+                    购买数量：{{obj.num}}<br/> 使用数量：{{obj.used}}
+                    <br/> 退票数量：{{obj.back}}
+                </td>
+                <td class="text-center">
+                    姓名：{{obj.name}}<br/> 手机号码：{{obj.mobile}}
+                    <br/> 身份证：{{obj.cardno}}
+                </td>
+                <td class="text-center">{{obj.back_count}}</td>
+                <td class="text-center">{{obj.create_time}}</td>
+                <td class="text-center">
+                    <!--<a ng-click="pass(obj)" class="btn btn-success btn-xs">审核通过</a>
+                    <a ng-click="nopass(obj)" class="btn btn-danger btn-xs">审核不通过</a>-->
+                    <a ng-click="info(obj)" class="btn btn-warning btn-xs">详情</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <div class="text-right">
+
+        <uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"
+            ng-change="load()" items-per-page="itemsPerPage" previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页"
+            rotate="false">
+        </uib-pagination>
+
+    </div>
+
+
+</div>

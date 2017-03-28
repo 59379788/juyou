@@ -1,0 +1,106 @@
+<div class="modal-header">
+    <h4 class="modal-title">详情</h4>
+</div>
+<div class="modal-body">
+
+    <div class="container-fluid form-horizontal ">
+        <div class="col-xs-6">
+            <div class="form-group">
+                <label class="col-xs-6 control-label">订单编号</label>
+                <div class="col-xs-6">
+                    <p class="form-control-static">{{obj.order_code}}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-6 control-label">订单标题</label>
+                <div class="col-xs-6">
+                    <p class="form-control-static">{{obj.title}}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-6 control-label">订单购买数量</label>
+                <div class="col-xs-6">
+                    <p class="form-control-static">{{obj.num}}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-6 control-label">订单使用数量</label>
+                <div class="col-xs-6">
+                    <p class="form-control-static">{{obj.used}}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-6 control-label">订单退票数量</label>
+                <div class="col-xs-6">
+                    <p class="form-control-static">{{obj.back}}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-6 control-label">游客姓名</label>
+                <div class="col-xs-6">
+                    <p class="form-control-static">{{obj.name}}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-6 control-label">游客手机号码</label>
+                <div class="col-xs-6">
+                    <p class="form-control-static">{{obj.mobile}}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-6 control-label">游客身份证</label>
+                <div class="col-xs-6">
+                    <p class="form-control-static">{{obj.cardno}}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-6 control-label">申请退票数量</label>
+                <div class="col-xs-6">
+                    <p class="form-control-static">{{obj.back_count}}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-6 control-label">申请时间</label>
+                <div class="col-xs-6">
+                    <p class="form-control-static">{{obj.create_time}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-6 control-label">审核意见</label>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <div class="">
+                        <textarea class="form-control" rows="3" ng-model="saleobj.apply_note" placeholder="审核意见,必填"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="col-xs-12 text-center" ng-if="auditing">
+		<br/>
+		<br/>
+		<button class="btn btn-success" ng-click="pass()">审核&nbsp;通过</button>
+		<button class="btn btn-danger" ng-click="nopass()">审核不通过</button>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+	</div>
+<div class="modal-footer">
+    <!--<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>-->
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+</div>

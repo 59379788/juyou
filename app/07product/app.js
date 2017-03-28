@@ -29,6 +29,8 @@ App.controller('distribution',require('./controllers/distribution'));
 App.controller('insurance',require('./controllers/insurance'));
 App.controller('awardpolicy',require('./controllers/awardpolicy'));
 App.controller('middlebusiness',require('./controllers/middlebusiness'));
+App.controller('backTicketApply',require('./controllers/backTicketApply'));
+App.controller('backTickketApplyDetails',require('./controllers/backTickketApplyDetails'));
 
 
 App.controller('newproduct',require('./controllers/newproduct'));

@@ -17,6 +17,7 @@ module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktup
         if(res.errcode === 0)
         {
         	$scope.viewarr = res.data;
+			$scope.viewarr.unshift({name:'----全部----',code:''});
         }
         else
         {
