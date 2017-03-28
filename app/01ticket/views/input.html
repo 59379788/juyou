@@ -39,7 +39,7 @@
 					<div class="col-sm-6">
 						<!--<select class="form-control" ng-model="obj" ng-options="obj.code as obj.name for obj in objs" ng-change="tktmachine(obj)">
 	            </select>-->
-						<ui-select ng-model="obj" theme="bootstrap">
+						<ui-select ng-model="obj" theme="bootstrap" ng-change="tktmachine(obj)">
 							<ui-select-match placeholder="请选择一个票种">
 								{{$select.selected.name}}
 							</ui-select-match>
