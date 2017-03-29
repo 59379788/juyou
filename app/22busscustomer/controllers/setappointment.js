@@ -68,7 +68,9 @@ salelist,ticketlist,toaster,insertMakeAppointment,getMakeAppointmentById,updateM
      
     };
     $scope.ticketChange = function(){
-        $scope.info.ticket_code = $scope.ticketsearchform.selected.code;
+        console.log($scope.ticketsearchform.selected.ticket_type_code);
+        console.log($scope.ticketsearchform.selected.name);
+        $scope.info.ticket_code = $scope.ticketsearchform.selected.ticket_type_code;
         $scope.info.ticket_name = $scope.ticketsearchform.selected.name;
     };
      //取详情
@@ -78,12 +80,25 @@ salelist,ticketlist,toaster,insertMakeAppointment,getMakeAppointmentById,updateM
                 toaster.success({title:"",body:res.errmsg});
                 return;
             }
+            console.log('预约详情');
             console.log(res);
             $scope.section.startTime = str2date(res.data.startTime);
             $scope.section.endTime = str2date(res.data.endTime);
             $scope.info = res.data;
             $scope.searchform.selected.name = $scope.info.sale_name;
             $scope.ticketsearchform.selected.name = $scope.info.ticket_name;
+            // 取出该销售品对应的票种
+            
+            ticketlist.save({'sale_code':res.data.sale_code},function(res){
+            if(res.errcode!=0){
+                toaster.success({title:"",body:res.errmsg});
+                return;
+            }
+            console.log('票种');
+            console.log(res);
+            $scope.ticketdatas = res.data;
+        });
+
      
         });
 
