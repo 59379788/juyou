@@ -14,6 +14,26 @@
 				<div class="col-sm-2 text-right">
 					<button type="button" class="btn btn-info new" ng-click="create()">创建产品</button>
 				</div>
+				<br/>
+				<br/>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-12">
+					<label class="control-label pull-left">销售品分类</label>
+					<div class="col-sm-2 ">
+						<select class="form-control" ng-model="searchform.sale_category" ng-options="item.value as item.label for item in dictbytypelist" >
+							<option value="">----全部----</option>
+	            		</select>
+						<!--<ui-select ng-model="searchform.sale_category" theme="bootstrap">
+							<ui-select-match placeholder="请选择一个分类">
+								{{$select.selected.label}}
+							</ui-select-match>
+							<ui-select-choices repeat="item.value as item in dictbytypelist | filter: $select.search">
+								<span ng-bind-html="item.label | highlight: $select.search"></span>
+							</ui-select-choices>
+						</ui-select>-->
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

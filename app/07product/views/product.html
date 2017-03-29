@@ -39,6 +39,14 @@
 			<productshareprofit saleobj="saleobj" util="util"></productshareprofit>
 		</uib-tab>
 
+		<uib-tab index="8" heading="政府补贴" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('govsubsidy')">
+			<govsubsidy saleobj="saleobj" util="util"></govsubsidy>
+		</uib-tab>
+
+		<uib-tab index="7" heading="居游补贴" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('juyousubsidy')">
+			<juyousubsidy saleobj="saleobj" util="util"></juyousubsidy>
+		</uib-tab>
+
 	</uib-tabset>
 
 </div>

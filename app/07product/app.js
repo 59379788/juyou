@@ -34,6 +34,7 @@ App.controller('backTickketApplyDetails',require('./controllers/backTickketApply
 
 
 App.controller('newproduct',require('./controllers/newproduct'));
+App.controller('productInfo',require('./controllers/productInfo'));
 App.controller('splist',require('./controllers/splist'));
 App.controller('aplist',require('./controllers/aplist'));
 App.directive('productbaseinfo',require('./directives/baseinfo'));
@@ -44,5 +45,16 @@ App.directive('productflashsale',require('./directives/flashsale'));
 App.directive('productshareprofit',require('./directives/shareprofit'));
 App.directive('restrictrule',require('./directives/restrictrule'));
 App.directive('imgtextinfo',require('./directives/imgtextinfo'));
+App.directive('govsubsidy',require('./directives/govsubsidy'));
+App.directive('juyousubsidy',require('./directives/juyousubsidy'));
+
+App.directive('productinfobaseinfo',require('./directives/productinfobaseinfo'));
+App.directive('productinfotickettype',require('./directives/productinfotickettype'));
+App.directive('productinfoaffirm',require('./directives/productinfoaffirm'));
+App.directive('productinfointegral',require('./directives/productinfointegral'));
+App.directive('productinfoflashsale',require('./directives/productinfoflashsale'));
+App.directive('productinfoshareprofit',require('./directives/productinfoshareprofit'));
+App.directive('productinforestrictrule',require('./directives/productinforestrictrule'));
+App.directive('productinfoimgtextinfo',require('./directives/productinfoimgtextinfo'));
 
 module.exports = App;

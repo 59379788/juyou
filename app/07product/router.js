@@ -675,6 +675,24 @@ var router = function ($urlRouterProvider, $stateProvider) {
 			}
 		})
 
+
+		.state('app.productInfo', {
+			url: '/productInfo/:id',
+			controller: 'productInfo',
+			template: require('./views/productInfo.html'),
+			resolve: {
+				date2str: function (utilservice) {
+					return utilservice.getDate;
+				},
+				str2date: function (utilservice) {
+					return utilservice.str2date;
+				},
+				$uibModalInstance: function () {
+					return undefined;
+				}
+			}
+		})
+
 		//供应商产品列表
 		.state('app.supplierProductList', {
 			url: '/product/splist.html',

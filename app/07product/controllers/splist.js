@@ -4,6 +4,8 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 ) {
 
 	$scope.searchform = {};
+	$scope.searchform.sale_category = '';
+	$scope.dictbytypelist = [];
 
 	$scope.create = function () {
 		$state.go('app.newproduct');
@@ -15,6 +17,19 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 	$scope.bigCurrentPage = 1;      //当前页码
 	$scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
 
+
+	$resource('/api/as/sc/dict/dictbytypelist', {}, {})
+		.save({type:'sale_category'}, function (res) {
+
+			console.log(res);
+			if (res.errcode !== 0) {
+				toaster.error({ title: "提示", body: res.errmsg });
+				return;
+			}
+
+			$scope.dictbytypelist = res.data;
+
+		});
 	$scope.load = function () {
 
 		var para = {
@@ -23,6 +38,7 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 		};
 
 		para = angular.extend($scope.searchform, para);
+
 
 		$resource('/api/ac/tc/ticketSaleService/getSaleList', {}, {})
 			.save(para, function (res) {
@@ -123,15 +139,15 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 		});
 
 		modalInstance.opened.then(function () {// 模态窗口打开之后执行的函数  
-            // $scope.load();
-        });
-        modalInstance.result.then(function (showResult) {
-            $scope.load();
-        }, function (reason) {
+			// $scope.load();
+		});
+		modalInstance.result.then(function (showResult) {
 			$scope.load();
-            // // click，点击取消，则会暑促cancel  
-            // $log.info('Modal dismissed at: ' + new Date());
-        });
+		}, function (reason) {
+			$scope.load();
+			// // click，点击取消，则会暑促cancel  
+			// $log.info('Modal dismissed at: ' + new Date());
+		});
 	};
 
 
@@ -257,15 +273,15 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 
 
 		modalInstance.opened.then(function () {// 模态窗口打开之后执行的函数  
-            // $scope.load();
-        });
-        modalInstance.result.then(function (showResult) {
-            $scope.load();
-        }, function (reason) {
+			// $scope.load();
+		});
+		modalInstance.result.then(function (showResult) {
 			$scope.load();
-            // // click，点击取消，则会暑促cancel  
-            // $log.info('Modal dismissed at: ' + new Date());
-        });
+		}, function (reason) {
+			$scope.load();
+			// // click，点击取消，则会暑促cancel  
+			// $log.info('Modal dismissed at: ' + new Date());
+		});
 
 	};
 
