@@ -42,7 +42,7 @@ module.exports = function ($resource, $state, $http, $q) {
 
             scope.govcreate = function () {
                 var para = {
-                    'govsubsidy_sale_code': scope.codee,
+                    'govsubsidy_sale_code': scope.code,
                     'govsubsidy_price': scope.govobj.govsubsidy_price
                 };
                 $resource('/api/as/tc/salegovsubsidy/create', {}, {}).save(para, function (res) {
