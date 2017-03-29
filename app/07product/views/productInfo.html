@@ -1,0 +1,42 @@
+<style type="text/css">
+	form.tab-form-demo .tab-pane {
+		margin: 20px 20px;
+	}
+</style>
+
+<div class="col-sm-12" style="background: #fff; padding-top: 15px;">
+
+		<div index="0" heading="基本信息">
+			<productinfobaseinfo saleobj="saleobj" baseinfo="baseinfo" util="util" funobj="funobj"></productinfobaseinfo>
+		</div>
+
+		<div index="1" heading="限制信息" ng-if="saleobj.id !== '' && saleobj.code !== ''">
+			<productinforestrictrule saleobj="saleobj" baseinfo="baseinfo" util="util" funobj="funobj"></productinforestrictrule>
+		</div>
+
+		<div index="2" heading="图文信息" ng-if="saleobj.id !== '' && saleobj.code !== ''">
+			<productinfoimgtextinfo saleobj="saleobj" baseinfo="baseinfo" util="util" funobj="funobj"></productinfoimgtextinfo>
+		</div>
+
+		<div index="3" heading="票种信息" ng-if="saleobj.id !== '' && saleobj.code !== ''">
+			<productinfotickettype saleobj="saleobj" util="util"></productinfotickettype>
+		</div>
+
+		<div index="4" heading="系统确认项" ng-if="saleobj.code !== '' && saleobj.sys_affirm_type == 0">
+			<productinfoaffirm saleobj="saleobj" util="util"></productinfoaffirm>
+		</div>
+
+		<div index="5" heading="限时购" ng-if="saleobj.code !== '' && funobj.hasOwnProperty('flashsale')">
+			<productinfoflashsale saleobj="saleobj" util="util"></productinfoflashsale>
+		</div>
+
+		<div index="6" heading="配置积分" ng-if="saleobj.code !== '' && funobj.hasOwnProperty('integral')">
+			<productinfointegral saleobj="saleobj" util="util"></productinfointegral>
+		</div>
+
+		<div index="7" heading="销售品分润设置" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('skprice')">
+			<productinfoshareprofit saleobj="saleobj" util="util"></productinfoshareprofit>
+		</div>
+
+
+</div>
