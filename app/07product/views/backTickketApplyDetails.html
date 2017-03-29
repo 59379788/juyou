@@ -40,6 +40,9 @@
                 </div>
             </div>
 
+        </div>
+        <div class="col-xs-6">
+
             <div class="form-group">
                 <label class="col-xs-6 control-label">游客姓名</label>
                 <div class="col-xs-6">
@@ -76,8 +79,13 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="col-xs-6 control-label">审核意见</label>
+
+        <div class="col-xs-12">
+            <label class="col-xs-3 control-label" style="padding-right: 20px">
+                <p >
+                    审核意见
+                </p>
+            </label>
             <div class="col-xs-6">
                 <div class="form-group">
                     <div class="">
@@ -86,21 +94,15 @@
                 </div>
             </div>
         </div>
-
     </div>
 
+    <div class="col-xs-12 text-center">
+        <br/>
+        <button class="btn btn-success" ng-click="pass()">审&nbsp;核&nbsp;通&nbsp;过</button>
+        <button class="btn btn-danger" ng-click="nopass()">审核不通过</button>
+    </div>
 </div>
-<div class="col-xs-12 text-center" ng-if="auditing">
-		<br/>
-		<br/>
-		<button class="btn btn-success" ng-click="pass()">审核&nbsp;通过</button>
-		<button class="btn btn-danger" ng-click="nopass()">审核不通过</button>
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-	</div>
 <div class="modal-footer">
     <!--<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>-->
-    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">关闭</button>
 </div>

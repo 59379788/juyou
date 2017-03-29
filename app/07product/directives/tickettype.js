@@ -1,4 +1,4 @@
-module.exports = function($resource, $state, $http, $q){
+module.exports = function($resource, $state, $http, $q, toaster){
 
 	return {
 
@@ -114,7 +114,7 @@ module.exports = function($resource, $state, $http, $q){
 		console.log(scope.saleobj)
 
 		var para = {
-			id : scope.saleobj.id,
+			id : item.id,
 			periodend : scope.util.date2str(item.section.periodend.date),
 			periodstart : scope.util.date2str(item.section.periodstart.date)
 		}
@@ -129,6 +129,7 @@ module.exports = function($resource, $state, $http, $q){
 				alert(res.errmsg);
 				return;
 			}
+			toaster.success({ title: "提示", body: '修改成功' });
 			gettickettypedetail();
         });
 	};
@@ -146,6 +147,7 @@ module.exports = function($resource, $state, $http, $q){
 				alert(res.errmsg);
 				return;
 			}
+			toaster.success({ title: "提示", body: '删除成功' });
 			gettickettypedetail();
         });
 	}

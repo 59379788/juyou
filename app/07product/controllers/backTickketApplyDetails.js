@@ -5,8 +5,7 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $stateParam
 
     $scope.obj = item;
 
-    scope.pass = function () {
-        console.log(scope.saleobj.id);
+    $scope.pass = function () {
         if (!$scope.saleobj.apply_note) {
             alert('审核意见必填');
             return false;
@@ -28,12 +27,11 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $stateParam
             });
     };
 
-    scope.nopass = function () {
+    $scope.nopass = function () {
         if (!$scope.saleobj.apply_note) {
             alert('审核意见必填');
             return false;
         }
-        console.log(scope.saleobj.id);
         $resource('/api/ac/tc/ticketOrderBackService/updateApplyNoPass', {}, {})
             .save({
                 'id': $scope.saleobj.id,
@@ -50,5 +48,9 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $stateParam
                 scope.util.$uibModalInstance.close();
             });
     };
+
+    $scope.cancel = function(){
+        $uibModalInstance.dismiss('cancel');
+    }
 
 };

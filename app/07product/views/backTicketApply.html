@@ -51,33 +51,37 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th class="col-md-3 text-center">订单编号</th>
+                <th class="col-md-1 text-center">订单编号</th>
                 <th class="col-md-2 text-center">订单名称</th>
-                <th class="col-md-2 text-center">订单信息</th>
-                <th class="col-md-1 text-center">游客信息</th>
+                <th class="col-md-1 text-center">订单信息</th>
+                <th class="col-md-2 text-center">游客信息</th>
                 <th class="col-md-1 text-center">申请退票数量</th>
-                <th class="col-md-1 text-center">申请时间</th>
+                <th class="col-md-2 text-center">申请时间</th>
+                <th class="col-md-1 text-center">审核状态</th>
                 <th class="col-md-1 text-center">操作</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="obj in objs">
-                <td class="text-center">{{obj.order_code}}</td>
-                <td class="text-center">{{obj.title}}</td>
+                <td class="text-center"><br/>{{obj.order_code}}</td>
+                <td class="text-center"><br/>{{obj.title}}</td>
                 <td class="text-center">
-                    购买数量：{{obj.num}}<br/> 使用数量：{{obj.used}}
+                    购买数量：{{obj.num}}<br/>&nbsp;使用数量：{{obj.used}}
                     <br/> 退票数量：{{obj.back}}
                 </td>
                 <td class="text-center">
-                    姓名：{{obj.name}}<br/> 手机号码：{{obj.mobile}}
+                    姓名：{{obj.name}}
                     <br/> 身份证：{{obj.cardno}}
+                    <br/> 手机号码：{{obj.mobile}}
                 </td>
-                <td class="text-center">{{obj.back_count}}</td>
-                <td class="text-center">{{obj.create_time}}</td>
+                <td class="text-center"><br/>{{obj.back_count}}</td>
+                <td class="text-center"><br/>{{obj.create_time}}</td>
+                <td class="text-center"><br/>{{obj.ticket_state_name}}</td>
                 <td class="text-center">
                     <!--<a ng-click="pass(obj)" class="btn btn-success btn-xs">审核通过</a>
                     <a ng-click="nopass(obj)" class="btn btn-danger btn-xs">审核不通过</a>-->
-                    <a ng-click="info(obj)" class="btn btn-warning btn-xs">详情</a>
+                    <br/>
+                    <a ng-show="obj.ticket_state == 5" ng-click="info(obj)" class="btn btn-warning btn-xs">审核</a>
                 </td>
             </tr>
         </tbody>
