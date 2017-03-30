@@ -56,5 +56,7 @@ App.directive('productinfoflashsale',require('./directives/productinfoflashsale'
 App.directive('productinfoshareprofit',require('./directives/productinfoshareprofit'));
 App.directive('productinforestrictrule',require('./directives/productinforestrictrule'));
 App.directive('productinfoimgtextinfo',require('./directives/productinfoimgtextinfo'));
+App.directive('productinfogovsubsidy',require('./directives/productinfogovsubsidy'));
+App.directive('productinfojuyousubsidy',require('./directives/productinfojuyousubsidy'));
 
 module.exports = App;

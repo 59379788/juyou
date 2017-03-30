@@ -19,23 +19,38 @@
 		</div>
 
 		<div index="3" heading="票种信息" ng-if="saleobj.id !== '' && saleobj.code !== ''">
+		<!--<div index="3" heading="票种信息">-->
 			<productinfotickettype saleobj="saleobj" util="util"></productinfotickettype>
 		</div>
 
 		<div index="4" heading="系统确认项" ng-if="saleobj.code !== '' && saleobj.sys_affirm_type == 0">
+		<!--<div index="4" heading="系统确认项" >-->
 			<productinfoaffirm saleobj="saleobj" util="util"></productinfoaffirm>
 		</div>
 
 		<div index="5" heading="限时购" ng-if="saleobj.code !== '' && funobj.hasOwnProperty('flashsale')">
+		<!--<div index="5" heading="限时购" >-->
 			<productinfoflashsale saleobj="saleobj" util="util"></productinfoflashsale>
 		</div>
 
 		<div index="6" heading="配置积分" ng-if="saleobj.code !== '' && funobj.hasOwnProperty('integral')">
+		<!--<div index="6" heading="配置积分" >-->
 			<productinfointegral saleobj="saleobj" util="util"></productinfointegral>
 		</div>
 
 		<div index="7" heading="销售品分润设置" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('skprice')">
+		<!--<div index="7" heading="销售品分润设置" >-->
 			<productinfoshareprofit saleobj="saleobj" util="util"></productinfoshareprofit>
+		</div>
+
+		<div index="8" heading="政府补贴" ng-if="saleobj.code !== '' && funobj.hasOwnProperty('govsubsidy')">
+		<!--<div index="8" heading="政府补贴" >-->
+			<productinfogovsubsidy saleobj="saleobj" util="util"></productinfogovsubsidy>
+		</div>
+
+		<div index="9" heading="居游补贴" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('juyousubsidy')">
+		<!--<div index="9" heading="居游补贴" >-->
+			<productinfojuyousubsidy saleobj="saleobj" util="util"></productinfojuyousubsidy>
 		</div>
 
 

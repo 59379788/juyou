@@ -15,14 +15,14 @@ module.exports = function($resource, $state, $http, $q){
 				'what' : 'create',
 			};
 		    scope.flashsale.start = {};
-		    scope.flashsale.start.date = new Date();
-		    scope.flashsale.start.h = '00';
-		    scope.flashsale.start.m = '00';
+		    scope.flashsale.start.date = '';
+		    scope.flashsale.start.h = '';
+		    scope.flashsale.start.m = '';
 
 		    scope.flashsale.end = {};
-		    scope.flashsale.end.date = new Date();
-		    scope.flashsale.end.h = '23';
-		    scope.flashsale.end.m = '59';
+		    scope.flashsale.end.date = '';
+		    scope.flashsale.end.h = '';
+		    scope.flashsale.end.m = '';
 
 		    scope.flashsale.open = function(obj) {
 		        obj.opened = true;
@@ -32,8 +32,8 @@ module.exports = function($resource, $state, $http, $q){
 		    .get({'sale_code' : scope.saleobj.code}, function(res){
 		    	if(res.errcode === 0 ){
 			        scope.flashsale.what = 'update';
-			        scope.flashsale.start.date = scope.util.str2date(res.data.start_time);
-					scope.flashsale.end.date = scope.util.str2date(res.data.end_time);
+			        scope.flashsale.start.date = res.data.start_time;
+					scope.flashsale.end.date = res.data.end_time;
 					scope.flashsale.start.h = res.data.start_h;
 					scope.flashsale.start.m = res.data.start_m;
 					scope.flashsale.end.h = res.data.end_h;

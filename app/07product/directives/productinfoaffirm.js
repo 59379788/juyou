@@ -63,6 +63,13 @@ module.exports = function($resource, $state, $http, $q){
 			    scope.page = {
 			    	'affirmlist' : res.affirmlist.data.data,
 			    }
+				scope.sysaffirm_target_code_info = '';
+				for (var index = 0; index < scope.page.affirmlist.length; index++) {
+					var element = scope.page.affirmlist[index];
+					if (element.value == scope.affirm.sysaffirm_target_code) {
+						scope.sysaffirm_target_code_info = element.label;
+					}
+				}
 			});
 
 

@@ -1,10 +1,22 @@
 <div class="container-fluid form-horizontal">
 
-<div class="col-xs-10 mt10" >
-	<div class="form-group">
-		<label class="col-xs-2 control-label">开始时间</label>
-		<div class="col-xs-4">
-			<div class="input-group">
+	<div class="col-xs-12 col-md-12 mt10">
+
+		<div class="col-xs-12">
+			<div class="col-xs-2 text-right">
+				<br/>
+				<br/>
+				<font face="Courier" size="5">限时购</font>
+				<br/>
+				<br/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">开始时间</label>
+			<div class="col-xs-2">
+				<p class="form-control-static" ng-if="flashsale.start.date != ''">{{flashsale.start.date}}</p>
+				<!--<div class="input-group">
               <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" 
               ng-model="flashsale.start.date" is-open="flashsale.start.opened" 
               ng-required="true" close-text="Close" readonly/>
@@ -13,11 +25,12 @@
                     ng-click="flashsale.open(flashsale.start)">
                     <i class="glyphicon glyphicon-calendar"></i></button>
                   </span>
-              </div>
-		</div>
+              </div>-->
+			</div>
 
-		<div class="col-xs-2">
-			<select class="form-control" 
+			<div class="col-xs-1">
+				<p class="form-control-static" ng-if="flashsale.start.h != ''">{{flashsale.start.h}}时</p>
+				<!--<select class="form-control" 
 			ng-model="flashsale.start.h" 
             >
             	<option value='00'>00时</option>
@@ -44,11 +57,12 @@
             	<option value='21'>21时</option>
             	<option value='22'>22时</option>
             	<option value='23'>23时</option>
-            </select>
-		</div>
+            </select>-->
+			</div>
 
-		<div class="col-xs-2">
-			<select class="form-control" 
+			<div class="col-xs-1">
+				<p class="form-control-static" ng-if="flashsale.start.m != ''">{{flashsale.start.m}}分</p>
+				<!--<select class="form-control" 
 			ng-model="flashsale.start.m" 
             >
             	<option value='00'>00分</option>
@@ -64,17 +78,18 @@
             	<option value='50'>50分</option>
             	<option value='55'>55分</option>
             	<option value='59'>59分</option>
-            </select>
+            </select>-->
+			</div>
+
 		</div>
-
 	</div>
-</div>
 
-<div class="col-xs-10" >
-	<div class="form-group">
-		<label class="col-xs-2 control-label">结束时间</label>
-		<div class="col-xs-4">
-			<div class="input-group">
+	<div class="col-xs-12 col-md-12">
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">结束时间</label>
+			<div class="col-xs-2">
+				<p class="form-control-static" ng-if="flashsale.end.date != ''">{{flashsale.end.date}}</p>
+				<!--<div class="input-group">
               <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" 
               ng-model="flashsale.end.date" is-open="flashsale.end.opened" 
               ng-required="true" close-text="Close" readonly/>
@@ -83,11 +98,12 @@
                     ng-click="flashsale.open(flashsale.end)">
                     <i class="glyphicon glyphicon-calendar"></i></button>
                   </span>
-             </div>
-		</div>
+             </div>-->
+			</div>
 
-		<div class="col-xs-2">
-			<select class="form-control" 
+			<div class="col-xs-1">
+				<p class="form-control-static" ng-if="flashsale.end.h != ''">{{flashsale.end.h}}时</p>
+				<!--<select class="form-control" 
 			ng-model="flashsale.end.h" 
             >
             	<option value='00'>00时</option>
@@ -114,11 +130,12 @@
             	<option value='21'>21时</option>
             	<option value='22'>22时</option>
             	<option value='23'>23时</option>
-            </select>
-		</div>
+            </select>-->
+			</div>
 
-		<div class="col-xs-2">
-			<select class="form-control" 
+			<div class="col-xs-1">
+				<p class="form-control-static" ng-if="flashsale.end.m != ''">{{flashsale.end.m}}分</p>
+				<!--<select class="form-control" 
 			ng-model="flashsale.end.m" 
             >
             	<option value='00'>00分</option>
@@ -134,11 +151,11 @@
             	<option value='50'>50分</option>
             	<option value='55'>55分</option>
             	<option value='59'>59分</option>
-            </select>
+            </select>-->
+			</div>
 		</div>
 	</div>
-</div>
-
+	<!--
 <div class="col-xs-10" >
 	<div class="form-group">
 		<label class="col-sm-2 col-xs-12 control-label"></label>
@@ -148,7 +165,7 @@
 			>保存</button>
 		</div>
 	</div>
-</div>
+</div>-->
 
 
 </div>

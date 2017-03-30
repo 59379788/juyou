@@ -1,7 +1,17 @@
 <div class="container-fluid form-horizontal">
 	<div class="col-xs-12">
+		
+		<div class="col-xs-12">
+			<div class="col-xs-2 text-right">
+				<br/>
+				<br/>
+				<font face="Courier" size="5">票种</font>
+				<br/>
+				<br/>
+			</div>
+		</div>
 
-		<div class="form-group mt10" ng-if="(saleobj.state == '0') && (util.what != 'info')">
+		<!--<div class="form-group mt10" ng-if="(saleobj.state == '0') && (util.what != 'info')">
 			<label class="col-xs-1 control-label">添加票种</label>
 			<div class="col-xs-3">
 				<ui-select ng-model="tickettypeobj.place_code" theme="bootstrap" ng-change="changeview()">
@@ -34,7 +44,7 @@
 			<div class="col-xs-1">
 				<a ng-click="add()" class="btn btn-success btn-sm" ng-if="saleobj.state == '0'">添加</a>
 			</div>
-		</div>
+		</div>-->
 
 		<table class="table table-bordered mt10">
 			<thead>
@@ -54,20 +64,22 @@
 					<td class="text-center">{{obj.name}}</td>
 					<td class="text-center">{{obj.ticket_type_attr_name}}</td>
 					<td class="text-center">
-						<div class="input-group">
+						{{obj.periodstart}}
+						<!--<div class="input-group">
 							<input type="text" class="form-control" ng-model="obj.section.periodstart.date" uib-datepicker-popup="yyyy-MM-dd" is-open="obj.section.periodstart.opened" ng-disabled="true"
 							 ng-required="true" close-text="Close" readonly/>
 							<span class="input-group-btn">
-							<button type="button" 
-								class="btn btn-default"
-								ng-click="obj.section.open(obj.section.periodstart)">
-							<i class="glyphicon glyphicon-calendar"></i>
-						</button>
-					</span>
-						</div>
+								<button type="button" 
+									class="btn btn-default"
+									ng-click="obj.section.open(obj.section.periodstart)">
+									<i class="glyphicon glyphicon-calendar"></i>
+								</button>
+							</span>
+						</div>-->
 					</td>
 					<td class="text-center">
-						<div class="input-group">
+						{{obj.periodend}}
+						<!--<div class="input-group">
 							<input type="text" class="form-control" ng-model="obj.section.periodend.date" uib-datepicker-popup="yyyy-MM-dd" is-open="obj.section.periodend.opened" ng-disabled="true"
 							 ng-required="true" close-text="Close" readonly/>
 							<span class="input-group-btn">
@@ -75,14 +87,14 @@
 								class="btn btn-default"
 								ng-click="obj.section.open(obj.section.periodend)">
 							<i class="glyphicon glyphicon-calendar"></i>
-						</button>
+						</button>-->
 					</span>
 						</div>
 					</td>
-					<td class="text-center" ng-if="saleobj.state == '0'">
+					<!--<td class="text-center" ng-if="saleobj.state == '0'">
 						<a ng-click="save(obj)" class="btn btn-warning btn-xs" ng-if="saleobj.state == '0'">保存</a><br>
 						<a ng-click="del1(obj.id)" class="btn btn-warning btn-xs" ng-if="saleobj.state == '0'">删除</a>
-					</td>
+					</td>-->
 				</tr>
 			</tbody>
 		</table>

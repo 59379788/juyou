@@ -12,9 +12,9 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			'util': '=',
 		},
 		link: function (scope, elements, attrs) {
-			scope.auditing = scope.util.auditing;
-			console.log('scope.util.auditing');
-			console.log(scope.util.auditing);
+			// scope.auditing = scope.util.auditing;
+			// console.log('scope.util.auditing');
+			// console.log(scope.util.auditing);
 			// var obj = {
 			// 	'id': scope.saleobj.id,
 			// 	'name': '',
@@ -202,6 +202,21 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 					// 	{ 'name': '12小时之后', 'value': 12 }
 					// ],
 				};
+				scope.sale_category_info = '';
+				for (var index = 0; index < scope.page.categorylist.length; index++) {
+					var element = scope.page.categorylist[index];
+					if (element.value == scope.saleobj.sale_category) {
+						scope.sale_category_info = element.label;
+					}
+				}
+
+				scope.sale_belong_info = '';
+				for (var index = 0; index < scope.page.salebelonglist.length; index++) {
+					var element = scope.page.salebelonglist[index];
+					if (element.value == scope.saleobj.sale_belong) {
+						scope.sale_belong_info = element.label;
+					}
+				}
 
 
 				//获取功能列表
