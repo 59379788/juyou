@@ -124,6 +124,7 @@ module.exports = function($scope, $state, ITEMS_PERPAGE, getDate, $uibModal, vie
                         'value' : value
                     });
                 });
+                calcTotal();
                 //console.log($scope.attrarr);
                 //--- 从结果里搜索出结果里有的景区 -- end
 
