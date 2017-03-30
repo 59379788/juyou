@@ -94,13 +94,16 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams,
 			return;
 		}
 		tktcreate.save(para, function(res){
+			console.log('入参');
+			console.log(para);
 
 			console.log(res);
 
 			if(res.errcode === 0)
 			{
-				//alert('保存成功');
-				$state.go('app.edittkttype', {'id' : res.data.uuid});
+				alert('保存成功');
+				$state.go('app.tkttype');
+				// $state.go('app.edittkttype', {'id' : res.data.uuid});
 			}
 			else
 			{

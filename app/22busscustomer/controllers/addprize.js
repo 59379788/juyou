@@ -40,9 +40,9 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
                     }           
                     //$scope.searchform.selected.name = res.data.saleId;
                     $scope.info = res.data;
-                    $scope.info.oldPrice = (res.data.oldPrice);
-                    $scope.info.targetPrice = (res.data.targetPrice);
-                    console.log('--------');
+                    $scope.info.oldPrice = res.data.oldPrice/100;
+                    $scope.info.targetPrice = res.data.targetPrice/100;
+                    console.log($scope.info);
                     //console.log(array);
                     for (var i = 0; i < array.length ; i++) {
                         var codeStr = array[i].code;
@@ -116,6 +116,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
             if ($scope.info.oldPrice!=''&&$scope.info.targetPrice!=''&&$scope.info.allowableNumber!=''&&$scope.info.description!=''
                 &&$scope.info.img!=''&&$scope.info.activeId!=''&&$scope.info.totalnum!=''&&$scope.info.buy_tips!=''&&$scope.info.fictitious_participate_num!='') {
                 // 添加奖品
+                $scope.info.oldPrice = $scope.info.oldPrice * 100;
+                $scope.info.targetPrice = $scope.info.targetPrice * 100;
                 savePrize.save($scope.info,function (res) {
                     console.log($scope.info);
                     if (res.errcode!=0) {

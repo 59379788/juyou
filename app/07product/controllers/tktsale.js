@@ -229,14 +229,17 @@ module.exports = function ($scope, $state, salelist, ITEMS_PERPAGE, saleup, $win
 	});
 
 	$scope.start = function (id) {
-		saleup.get({ 'id': id }, function (res) {
-			console.log(res);
-			if (res.errcode === 0) {
-				$scope.load();
-			} else {
-				alert(res.errmsg);
-			}
-		});
+		if(confirm('是否确定上架?')){
+			saleup.get({ 'id': id }, function (res) {
+				console.log(res);
+				if (res.errcode === 0) {
+					$scope.load();
+				} else {
+					alert(res.errmsg);
+				}
+			});
+		}
+		
 	}
 
 	$scope.stop = function (id) {

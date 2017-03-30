@@ -54,7 +54,7 @@ module.exports = function($scope, typeauthinfo, $stateParams, typeauthupdate,
 
 	//票种规则信息
 	typeauthinfo.get({'ticket_type' : ticket_type}, function(res){
-
+		console.log('票种规则信息');
 		console.log(res);
 
 		if(res.errcode === 0)

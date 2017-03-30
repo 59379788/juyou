@@ -78,6 +78,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             updateplacemerchant : function(viewservice){
                 return viewservice.updateplacemerchant();
+            },
+            merchantinfo : function(viewservice){
+                return viewservice.merchantinfo();
             }
         }
       })
