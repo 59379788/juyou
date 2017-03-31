@@ -42,6 +42,9 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
                     $scope.info = res.data;
                     $scope.info.oldPrice = res.data.oldPrice/100;
                     $scope.info.targetPrice = res.data.targetPrice/100;
+                    console.log('详情');
+                    console.log(res.data.saleId);
+                    //$scope.info.saleId = res.data.saleId;
                     console.log($scope.info);
                     //console.log(array);
                     for (var i = 0; i < array.length ; i++) {
