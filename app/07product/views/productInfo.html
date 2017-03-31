@@ -2,56 +2,147 @@
 	form.tab-form-demo .tab-pane {
 		margin: 20px 20px;
 	}
+	.custom-panel {
+		margin-bottom: 0px;
+	}
 </style>
 
-<div class="col-sm-12" style="background: #fff; padding-top: 15px;">
+<!--<div class="col-sm-12" style="background: #fff; padding-top: 15px;">
+	<div>-->
+<div class="panel panel-primary custom-panel">
+	<div class="panel-heading text-center">
+		<font face="Courier" class="" size="5">产品详情</font>
+	</div>
+	<div class="panel-body">
 
 		<div index="0" heading="基本信息">
-			<productinfobaseinfo saleobj="saleobj" baseinfo="baseinfo" util="util" funobj="funobj"></productinfobaseinfo>
+			<div class="panel panel-default">
+				<div class="panel-heading">基本信息</div>
+				<div class="panel-body">
+					<productinfobaseinfo saleobj="saleobj" baseinfo="baseinfo" util="util" funobj="funobj"></productinfobaseinfo>
+				</div>
+			</div>
 		</div>
 
 		<div index="1" heading="限制信息" ng-if="saleobj.id !== '' && saleobj.code !== ''">
-			<productinforestrictrule saleobj="saleobj" baseinfo="baseinfo" util="util" funobj="funobj"></productinforestrictrule>
+			<div class="panel panel-default">
+				<div class="panel-heading">限制信息</div>
+				<div class="panel-body">
+					<productinforestrictrule saleobj="saleobj" baseinfo="baseinfo" util="util" funobj="funobj"></productinforestrictrule>
+				</div>
+			</div>
 		</div>
 
 		<div index="2" heading="图文信息" ng-if="saleobj.id !== '' && saleobj.code !== ''">
-			<productinfoimgtextinfo saleobj="saleobj" baseinfo="baseinfo" util="util" funobj="funobj"></productinfoimgtextinfo>
+			<div class="panel panel-default">
+				<div class="panel-heading">图文信息</div>
+				<div class="panel-body">
+					<productinfoimgtextinfo saleobj="saleobj" baseinfo="baseinfo" util="util" funobj="funobj"></productinfoimgtextinfo>
+				</div>
+			</div>
 		</div>
 
 		<div index="3" heading="票种信息" ng-if="saleobj.id !== '' && saleobj.code !== ''">
-		<!--<div index="3" heading="票种信息">-->
-			<productinfotickettype saleobj="saleobj" util="util"></productinfotickettype>
+			<div class="panel panel-default">
+				<div class="panel-heading">票种信息</div>
+				<div class="panel-body">
+					<productinfotickettype saleobj="saleobj" util="util"></productinfotickettype>
+				</div>
+			</div>
 		</div>
 
 		<div index="4" heading="系统确认项" ng-if="saleobj.code !== '' && saleobj.sys_affirm_type == 0">
-		<!--<div index="4" heading="系统确认项" >-->
-			<productinfoaffirm saleobj="saleobj" util="util"></productinfoaffirm>
+			<div class="panel panel-default">
+				<div class="panel-heading">系统确认项</div>
+				<div class="panel-body">
+					<productinfoaffirm saleobj="saleobj" util="util"></productinfoaffirm>
+				</div>
+			</div>
 		</div>
 
 		<div index="5" heading="限时购" ng-if="saleobj.code !== '' && funobj.hasOwnProperty('flashsale')">
-		<!--<div index="5" heading="限时购" >-->
-			<productinfoflashsale saleobj="saleobj" util="util"></productinfoflashsale>
+			<div class="panel panel-default">
+				<div class="panel-heading">限时购</div>
+				<div class="panel-body">
+					<productinfoflashsale saleobj="saleobj" util="util"></productinfoflashsale>
+				</div>
+			</div>
 		</div>
 
 		<div index="6" heading="配置积分" ng-if="saleobj.code !== '' && funobj.hasOwnProperty('integral')">
-		<!--<div index="6" heading="配置积分" >-->
-			<productinfointegral saleobj="saleobj" util="util"></productinfointegral>
+			<div class="panel panel-default">
+				<div class="panel-heading">配置积分</div>
+				<div class="panel-body">
+					<productinfointegral saleobj="saleobj" util="util"></productinfointegral>
+				</div>
+			</div>
 		</div>
 
 		<div index="7" heading="销售品分润设置" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('skprice')">
-		<!--<div index="7" heading="销售品分润设置" >-->
-			<productinfoshareprofit saleobj="saleobj" util="util"></productinfoshareprofit>
+			<div class="panel panel-default">
+				<div class="panel-heading">销售品分润设置</div>
+				<div class="panel-body">
+					<productinfoshareprofit saleobj="saleobj" util="util"></productinfoshareprofit>
+				</div>
+			</div>
 		</div>
 
 		<div index="8" heading="政府补贴" ng-if="saleobj.code !== '' && funobj.hasOwnProperty('govsubsidy')">
-		<!--<div index="8" heading="政府补贴" >-->
-			<productinfogovsubsidy saleobj="saleobj" util="util"></productinfogovsubsidy>
+			<div class="panel panel-default">
+				<div class="panel-heading">政府补贴</div>
+				<div class="panel-body">
+					<productinfogovsubsidy saleobj="saleobj" util="util"></productinfogovsubsidy>
+				</div>
+			</div>
 		</div>
 
 		<div index="9" heading="居游补贴" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('juyousubsidy')">
-		<!--<div index="9" heading="居游补贴" >-->
-			<productinfojuyousubsidy saleobj="saleobj" util="util"></productinfojuyousubsidy>
+			<div class="panel panel-default">
+				<div class="panel-heading">居游补贴</div>
+				<div class="panel-body">
+					<productinfojuyousubsidy saleobj="saleobj" util="util"></productinfojuyousubsidy>
+				</div>
+			</div>
+		</div>
+
+		<div index="10" heading="审核" ng-if="util.auditing">
+			<div class="panel panel-default">
+				<div class="panel-heading">审核</div>
+				<div class="panel-body">
+					<div class="container-fluid form-horizontal">
+						<div class="col-xs-12 col-md-12 mt10">
+							<div class="form-group">
+								<label class="col-sm-2 col-xs-12 control-label">审核意见</label>
+								<div class="col-xs-8">
+									<textarea class="form-control" rows="3" ng-model="saleobj.apply_note" placeholder="审核意见,必填"></textarea>
+								</div>
+								<div class="col-xs-12 text-center">
+									<br/>
+									<br/>
+									<button class="btn btn-success" ng-click="pass()" ng-show="auditingFlag">审&nbsp;核&nbsp;通&nbsp;过</button>
+									<button class="btn btn-danger" ng-click="nopass()" ng-show="auditingFlag">审核不通过</button>
+
+									<button class="btn btn-success" ng-show="!auditingFlag" disabled="disabled">审&nbsp;核&nbsp;通&nbsp;过</button>
+										<font  ng-show="!auditingFlag" face="Courier" color="red" size="5">{{auditingInfo}}</font>
+									<button class="btn btn-danger" ng-show="!auditingFlag" disabled="disabled">审核不通过</button>
+									<br/>
+									<br/>
+									<br/>
+									<br/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
 
+	</div>
 </div>
+<!--</div>
+
+
+
+
+</div>-->

@@ -322,7 +322,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 						scope.saleobj.id = res.data.uuid;
 					}
 					alert('操作成功');
-						scope.util.$uibModalInstance.close();
+					scope.util.$uibModalInstance.close();
 
 				});
 
@@ -350,15 +350,15 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 
 			scope.pass = function () {
 				console.log(scope.saleobj.id);
-				if(!scope.saleobj.apply_note){
+				if (!scope.saleobj.apply_note) {
 					alert('审核意见必填');
 					return false;
 				}
 				$resource('/api/ac/tc/ticketSaleService/updateSaleApplyPass', {}, {})
-					.save({ 
-							'id': scope.saleobj.id,
-							'apply_note' : scope.saleobj.apply_note
-						 }, function (res) {
+					.save({
+						'id': scope.saleobj.id,
+						'apply_note': scope.saleobj.apply_note
+					}, function (res) {
 						console.log(res);
 						if (res.errcode !== 0) {
 							alert(res.errmsg);
@@ -372,13 +372,16 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			};
 
 			scope.nopass = function () {
-				if(!scope.saleobj.apply_note){
+				if (!scope.saleobj.apply_note) {
 					alert('审核意见必填');
 					return false;
 				}
 				console.log(scope.saleobj.id);
 				$resource('/api/ac/tc/ticketSaleService/updateSaleApplyNoPass', {}, {})
-					.save({ 'id': scope.saleobj.id }, function (res) {
+					.save({
+						'id': scope.saleobj.id,
+						'apply_note': scope.saleobj.apply_note
+					}, function (res) {
 						console.log(res);
 						if (res.errcode !== 0) {
 							alert(res.errmsg);

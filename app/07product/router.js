@@ -689,6 +689,9 @@ var router = function ($urlRouterProvider, $stateProvider) {
 				},
 				$uibModalInstance: function () {
 					return undefined;
+				},
+				auditing: function () {
+					return false;
 				}
 			}
 		})

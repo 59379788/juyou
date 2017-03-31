@@ -1,8 +1,8 @@
-module.exports = function ($scope, $stateParams, $http, $q, FileUploader, str2date, date2str, $resource, toaster) {
+module.exports = function ($scope, $stateParams, $http, $q, FileUploader, str2date, date2str, $resource, toaster, productid, $uibModalInstance, auditing) {
 
 	var id = $stateParams.id || productid;
 
-	
+
 	//产品对象，保存着产品的基本信息
 	$scope.saleobj = {
 		'id': id || '',
@@ -10,7 +10,9 @@ module.exports = function ($scope, $stateParams, $http, $q, FileUploader, str2da
 
 	$scope.util = {
 		'str2date': str2date,
-		'date2str': date2str
+		'date2str': date2str,
+		'auditing': auditing,
+		'$uibModalInstance': $uibModalInstance
 	}
 	//销售品功能列表
 	$scope.funobj = {};
@@ -67,5 +69,63 @@ module.exports = function ($scope, $stateParams, $http, $q, FileUploader, str2da
 
 
 
+	$scope.pass = function () {
+		if (!$scope.saleobj.apply_note) {
+			alert('审核意见必填');
+			return false;
+		}
+		$resource('/api/ac/tc/ticketSaleService/updateSaleApplyPass', {}, {})
+			.save({
+				'id': $scope.saleobj.id,
+				'apply_note': $scope.saleobj.apply_note
+			}, function (res) {
+				console.log(res);
+				if (res.errcode !== 0) {
+					alert(res.errmsg);
+					// toaster.error({ title: "提示", body: res.errmsg });
+					return;
+				}
+				// toaster.success({ title: "提示", body: "操作成功!" });
+				alert("操作成功!");
+				$scope.util.$uibModalInstance.close();
+			});
+	};
 
+	$scope.nopass = function () {
+		if (!$scope.saleobj.apply_note) {
+			alert('审核意见必填');
+			return false;
+		}
+		$resource('/api/ac/tc/ticketSaleService/updateSaleApplyNoPass', {}, {})
+			.save({
+				'id': $scope.saleobj.id,
+				'apply_note': $scope.saleobj.apply_note
+			}, function (res) {
+				console.log(res);
+				if (res.errcode !== 0) {
+					alert(res.errmsg);
+					// toaster.error({ title: "提示", body: res.errmsg });
+					return;
+				}
+				// toaster.success({ title: "提示", body: "操作成功!" });
+				alert("操作成功!");
+				$scope.util.$uibModalInstance.close();
+			});
+	};
+
+
+	$scope.auditingFlag = false;
+	$scope.auditingInfo = 15;
+
+	function timing() {
+		if ($scope.auditingInfo > 0) {
+			$scope.auditingInfo--;
+			$scope.$apply();
+		}else if($scope.auditingInfo == 0){
+			clearInterval(intervalProcess);
+			$scope.auditingFlag = true;
+			$scope.$apply();
+		}
+	}
+	var intervalProcess = setInterval(function () { timing() }, 1000);
 };
