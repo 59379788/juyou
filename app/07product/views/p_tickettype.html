@@ -45,7 +45,7 @@
 					<th class="col-md-1 text-center">票种属性</th>
 					<th class="col-md-2 text-center">有效期开始</th>
 					<th class="col-md-2 text-center">有效期结束</th>
-					<th class="col-md-1 text-center" ng-if="saleobj.state == '0'">操作</th>
+					<th class="col-md-1 text-center" ng-if="saleobj.state == '0' || saleobj.state == '2'">操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -79,9 +79,9 @@
 					</span>
 						</div>
 					</td>
-					<td class="text-center" ng-if="saleobj.state == '0'">
-						<a ng-click="save(obj)" class="btn btn-warning btn-xs" ng-if="saleobj.state == '0'">保存</a><br>
-						<a ng-click="del1(obj.id)" class="btn btn-warning btn-xs" ng-if="saleobj.state == '0'">删除</a>
+					<td class="text-center" ng-if="saleobj.state == '0' || saleobj.state == '2'">
+						<a ng-click="save(obj)" class="btn btn-warning btn-xs" ng-if="saleobj.state == '0' || saleobj.state == '2'">保存</a><br>
+						<a ng-click="del1(obj.id)" class="btn btn-warning btn-xs" ng-if="saleobj.state == '0' || saleobj.state == '2'">删除</a>
 					</td>
 				</tr>
 			</tbody>

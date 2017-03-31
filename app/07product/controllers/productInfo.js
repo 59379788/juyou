@@ -114,6 +114,18 @@ module.exports = function ($scope, $stateParams, $http, $q, FileUploader, str2da
 	};
 
 
+	$scope.auditingFlag = false;
+	$scope.auditingInfo = 15;
 
-
+	function timing() {
+		if ($scope.auditingInfo > 0) {
+			$scope.auditingInfo--;
+			$scope.$apply();
+		}else if($scope.auditingInfo == 0){
+			clearInterval(intervalProcess);
+			$scope.auditingFlag = true;
+			$scope.$apply();
+		}
+	}
+	var intervalProcess = setInterval(function () { timing() }, 1000);
 };
