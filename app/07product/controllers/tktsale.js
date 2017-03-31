@@ -568,16 +568,13 @@ module.exports = function ($scope, $state, salelist, ITEMS_PERPAGE, saleup, $win
 		//$state.go('app.editsale', {'id' : id, 'type' : 'info'});
 
 		var modalInstance = $uibModal.open({
-			template: require('../views/product.html'),
-			controller: 'newproduct',
-			url: '/product/edit/:id',
+			template: require('../views/productInfo.html'),
+			controller: 'productInfo',
+			url: '/productInfo/:id',
 			size: 'lg',
 			resolve: {
 				'productid': function () {
 					return id;
-				},
-				what: function () {
-					return 'info';
 				},
 				str2date: function () {
 					return str2date;

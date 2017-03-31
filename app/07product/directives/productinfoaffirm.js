@@ -1,68 +1,68 @@
-module.exports = function($resource, $state, $http, $q){
+module.exports = function ($resource, $state, $http, $q) {
 
 	return {
 
-		restrict : 'AE',
-		template : require('../views/productinfoaffirm.html'),
-		replace:true,
-		scope:{
-			'saleobj' : '=',
-			'util' : '=',
+		restrict: 'AE',
+		template: require('../views/productinfoaffirm.html'),
+		replace: true,
+		scope: {
+			'saleobj': '=',
+			'util': '=',
 		},
-		link : function(scope, elements, attrs){
+		link: function (scope, elements, attrs) {
 
 			scope.page = {};
 			scope.affirm = {
-				'what' : 'create',		//create/update,
-				'sysaffirm_sale_code' : scope.saleobj.code,
-				'sysaffirm_target_code' : '',	//确认项
-				'sysaffirm_target_goods_code' : '',	//商品id
-				'sysaffirm_target_goods_back_type' : '0',	//退票类别
-				'sysaffirm_target_goods_child_flag' : '0',	//成人/儿童
+				'what': 'create',		//create/update,
+				'sysaffirm_sale_code': scope.saleobj.code,
+				'sysaffirm_target_code': '',	//确认项
+				'sysaffirm_target_goods_code': '',	//商品id
+				'sysaffirm_target_goods_back_type': '0',	//退票类别
+				'sysaffirm_target_goods_child_flag': '0',	//成人/儿童
 			};
 
 			var beforedata = {
-			    //确认列表
-			    'affirmlist' :
-			    $http({
-			        'method' : 'GET', 
-			        'url': '/api/as/sc/dict/dictbytypelist',
-			        'params' : {'type' : 'ticket_sys_affirm'},
+				//确认列表
+				'affirmlist':
+				$http({
+					'method': 'GET',
+					'url': '/api/as/sc/dict/dictbytypelist',
+					'params': { 'type': 'ticket_sys_affirm' },
 
-			    }),
-			    //系统确认项的信息
-			    'sysaffirm' :
-			    $http({
-			        'method' : 'GET', 
-			        'url': '/api/as/tc/salesysaffirm/info',
-			        'params' : {'sysaffirm_sale_code' : scope.saleobj.code},
-			    }),
+				}),
+				//系统确认项的信息
+				'sysaffirm':
+				$http({
+					'method': 'GET',
+					'url': '/api/as/tc/salesysaffirm/info',
+					'params': { 'sysaffirm_sale_code': scope.saleobj.code },
+				}),
 			};
 
-			$q.all(beforedata).then(function(res){
+			$q.all(beforedata).then(function (res) {
 				console.log(res);
-			    if(res.affirmlist.data.errcode === 0){
-			        //console.log(res.affirmlist.data);
-			    }else{
-			        alert('/api/as/sc/dict/dictbytypelist' + res.affirmlist.data.errmsg);
-			        return ;
-			    }
+				if (res.affirmlist.data.errcode === 0) {
+					//console.log(res.affirmlist.data);
+				} else {
+					alert('/api/as/sc/dict/dictbytypelist' + res.affirmlist.data.errmsg);
+					return;
+				}
 
-			    if(res.sysaffirm.data.errcode === 0 ){
-			        //console.log(res.sysaffirm.data);
-			        scope.affirm.what = 'update';
-			        angular.extend(scope.affirm, res.sysaffirm.data.data);
-			    }else if(res.sysaffirm.data.errcode === 10003){
-			    	//console.log(res.sysaffirm.data);
-			    	scope.affirm.what = 'create';
-			    }else{
-			        alert('/api/as/tc/salesysaffirm/info' + res.sysaffirm.data.errmsg);
-			        return ;
-			    }
+				if (res.sysaffirm.data.errcode === 0) {
+					//console.log(res.sysaffirm.data);
+					scope.affirm.what = 'update';
+					angular.extend(scope.affirm, res.sysaffirm.data.data);
+				} else if (res.sysaffirm.data.errcode === 10003) {
+					//console.log(res.sysaffirm.data);
+					scope.affirm.what = 'create';
+				} else {
+					alert('/api/as/tc/salesysaffirm/info' + res.sysaffirm.data.errmsg);
+					return;
+				}
 
-			    scope.page = {
-			    	'affirmlist' : res.affirmlist.data.data,
-			    }
+				scope.page = {
+					'affirmlist': res.affirmlist.data.data,
+				}
 				scope.sysaffirm_target_code_info = '';
 				for (var index = 0; index < scope.page.affirmlist.length; index++) {
 					var element = scope.page.affirmlist[index];
@@ -72,23 +72,21 @@ module.exports = function($resource, $state, $http, $q){
 				}
 			});
 
-
-			scope.save = function(){
-				if(scope.affirm.sysaffirm_target_code == '')
-				{
+			scope.save = function () {
+				if (scope.affirm.sysaffirm_target_code == '') {
 					alert('请选择对象');
 					return;
 				}
 				var url = '';
-				if(scope.affirm.what === 'create'){
+				if (scope.affirm.what === 'create') {
 					url = '/api/as/tc/salesysaffirm/create';
-				}else if(scope.affirm.what === 'update'){
+				} else if (scope.affirm.what === 'update') {
 					url = '/api/as/tc/salesysaffirm/update';
 				}
 				//console.log(scope.affirm);
-				$resource(url, {}, {}).save(scope.affirm, function(res){
+				$resource(url, {}, {}).save(scope.affirm, function (res) {
 					console.log(res);
-					if(res.errcode != 0){
+					if (res.errcode != 0) {
 						alert(res.errmsg);
 						return;
 					}
@@ -96,17 +94,10 @@ module.exports = function($resource, $state, $http, $q){
 				});
 			};
 
-			
+
 		}
-
-		
-
-
-
 
 	};
 
-	
-		   
 };
 
