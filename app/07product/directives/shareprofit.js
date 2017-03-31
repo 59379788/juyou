@@ -63,7 +63,8 @@ module.exports = function($resource, $state, $http, $q,toaster){
 
 					scope.salefrobj.profit = (scope.saleobj.guide_price - scope.saleobj.cost_price * (scope.salefrobj.profit_ratio * 0.01+1)).toFixed(2);
 					if(scope.salefrobj.rebate_unlimited == 0){
-						scope.salefrobj.rebate_unlimited = parseInt(scope.salefrobj.profit);
+						(scope.salefrobj.rebate_unlimited) = parseInt(scope.salefrobj.profit);
+						
 					}	
 					
 				}else if(res.errcode === 10003){
