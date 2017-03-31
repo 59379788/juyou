@@ -158,11 +158,9 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				}
 
 				if (angular.isDefined(res.saleinfo)) {
-					console.log('取基本信息');
-					console.log(res.saleinfo);
 					//销售品信息
 					if (res.saleinfo.data.errcode === 0) {
-						//console.log(res.saleinfo.data);
+						console.log(res.saleinfo.data);
 						//赋值给销售品对象。
 						angular.extend(scope.saleobj, res.saleinfo.data.data);
 						if (scope.saleobj.periodstart != '') {
