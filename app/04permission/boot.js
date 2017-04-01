@@ -22,12 +22,14 @@ module.exports = function($){
         for(var i = 0; i < res.data.list.length; i++)
         {
           var tmp = res.data.list[i];
-          for(var j = 0; j < tmp.list.length; j++)
-          {
-            var tmp1 = tmp.list[j];
-            if(tmp1.hasOwnProperty('permission'))
+          if(tmp && tmp.length){
+            for(var j = 0; j < tmp.list.length; j++)
             {
-              permissions.push(tmp1.permission)
+              var tmp1 = tmp.list[j];
+              if(tmp1.hasOwnProperty('permission'))
+              {
+                permissions.push(tmp1.permission)
+              }
             }
           }
         }
