@@ -73,7 +73,7 @@ module.exports = function($scope, $uibModal, ticketinfo, cardinfo, cardproductor
         var modalInstance = $uibModal.open({
           template: require('../views/ticketinfo.html'),
           controller: 'ticketinfo',
-          size: 'xs',
+          size: 'lg',
           resolve: {
             code : function(){
                 return code;
