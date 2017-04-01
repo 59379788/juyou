@@ -12,7 +12,8 @@ module.exports = function ($scope, $stateParams, $http, $q, FileUploader, str2da
 		'str2date': str2date,
 		'date2str': date2str,
 		'auditing': auditing,
-		'$uibModalInstance': $uibModalInstance
+		'$uibModalInstance': $uibModalInstance,
+		'apply_note_temp':''
 	}
 	//销售品功能列表
 	$scope.funobj = {};
@@ -68,6 +69,7 @@ module.exports = function ($scope, $stateParams, $http, $q, FileUploader, str2da
 	};
 
 
+	// $scope.apply_note_temp = $scope.saleobj.apply_note ? $scope.saleobj.apply_note : '审核意见必填';
 
 	$scope.pass = function () {
 		if (!$scope.saleobj.apply_note) {
@@ -121,7 +123,7 @@ module.exports = function ($scope, $stateParams, $http, $q, FileUploader, str2da
 		if ($scope.auditingInfo > 0) {
 			$scope.auditingInfo--;
 			$scope.$apply();
-		}else if($scope.auditingInfo == 0){
+		} else if ($scope.auditingInfo == 0) {
 			clearInterval(intervalProcess);
 			$scope.auditingFlag = true;
 			$scope.$apply();
