@@ -1,4 +1,4 @@
-module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, getDate, obj, what, vouchersalecreate, businesslist, typelist,toaster){
+module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, getDate, obj, what, vouchersalecreate, businesslist, typelist,typelists,toaster){
 
 	
 	$scope.obj = obj;
@@ -32,17 +32,26 @@ module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, ge
         }
     });
 
-    typelist({'type' : 'sale_voucher_type'}).then(function(res) {
-        if(res.errcode === 0)
-        {
-        	$scope.typearr = res.data;
-        	//$scope.obj.type=$scope.typearr[0].value;
-        }
-        else
-        {
-            toaster.success({title:"",body:res.errmsg});
-        }
-    });
+    $scope.gettypelist = function(){
+        console.log('fhaufka');
+        typelists.save({'type' : 'cheap_menu'},function(res){
+            if(res.errcode === 0)
+            {
+                $scope.typearr = res.data;
+                console.log('类型信息');
+                console.log($scope.typearr);
+                //$scope.obj.type=$scope.typearr[0].value;
+            }
+            else
+            {
+                toaster.success({title:"",body:res.errmsg});
+            }
+        })
+
+
+    };
+    $scope.gettypelist();
+    
 
     var uploader1 = $scope.uploader1 = new FileUploader({
         url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
@@ -110,7 +119,7 @@ module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, ge
 		}
 		$scope.obj.period = getDate(new Date($scope.section.start.date));
 		vouchersalecreate.save($scope.obj, function(res){
-
+            console.log($scope.obj);
 			console.log(res);
 
 			if(res.errcode === 0)

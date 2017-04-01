@@ -133,6 +133,9 @@ var router = function($urlRouterProvider, $stateProvider){
 	          typelist : function(busscustomerservice){
 	                 return busscustomerservice.typelist;
 	          },
+              typelists : function(busscustomerservice){
+	                 return busscustomerservice.typelists();
+	          },
 	          getDate : function(utilservice){
                 	 return utilservice.getDate;
               }
