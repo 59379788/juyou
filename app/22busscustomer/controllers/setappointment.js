@@ -145,4 +145,8 @@ salelist,ticketlist,toaster,insertMakeAppointment,getMakeAppointmentById,updateM
         
     };
 
+    $scope.cancel = function(){
+        $uibModalInstance.close();
+    }
+
 };
