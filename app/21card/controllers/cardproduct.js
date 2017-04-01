@@ -60,7 +60,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
         }
     });
 
-    dictbytypelist({'type' : 'bookline_type'}).then(function(res) {
+    dictbytypelist({'type' : 'card_sale_type'}).then(function(res) {
     	//console.log(res);
         if(res.errcode === 0)
         {

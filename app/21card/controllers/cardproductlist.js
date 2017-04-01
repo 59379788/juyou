@@ -1,6 +1,6 @@
 module.exports = function($scope, $state, cardproductlist, onsale, $uibModal, goodoffsale,ITEMS_PERPAGE, dictbytypelist){
 
-	dictbytypelist({'type' : 'bookline_type'}).then(function(res) {
+	dictbytypelist({'type' : 'card_sale_type'}).then(function(res) {
         if(res.errcode === 0)
         {
             $scope.typearr = res.data;

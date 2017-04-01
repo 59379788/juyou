@@ -286,6 +286,9 @@ var router = function($urlRouterProvider, $stateProvider){
             ticketinfo : function(cardservice){
                  return cardservice.ticketinfo();
             },
+            cardinfo : function(cardservice){
+                 return cardservice.cardinfo();
+            },
             getDate : function(utilservice){
                 return utilservice.getDate;
             }

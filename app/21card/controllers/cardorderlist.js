@@ -1,9 +1,5 @@
-/**
-*卡订单列表
-*ml
-*/
-
-module.exports = function($scope, $uibModal, ticketinfo, cardproductorderlist, ITEMS_PERPAGE, getDate, $state, $stateParams){
+module.exports = function($scope, $uibModal, ticketinfo, cardinfo, cardproductorderlist, 
+	ITEMS_PERPAGE, getDate, $state, $stateParams){
 
     $scope.searchform = {};
    // $scope.searchform.usetype = "1";
@@ -84,6 +80,30 @@ module.exports = function($scope, $uibModal, ticketinfo, cardproductorderlist, I
             },
             ticketinfo : function(){
                 return ticketinfo;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          //load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+
+    };
+
+    $scope.cardinfo = function(code){
+
+        var modalInstance = $uibModal.open({
+          template: require('../views/cardinfo.html'),
+          controller: 'cardinfo',
+          size: 'lg',
+          resolve: {
+            code : function(){
+                return code;
+            },
+            cardinfo : function(){
+                return cardinfo;
             }
           }
         });

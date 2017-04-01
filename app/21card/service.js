@@ -4,7 +4,7 @@ var service = function($resource, BASEURL38985){
     //添加卡段
     var insertCard = BASEURL38985 + '/api/ac/cdc/cardBaseService/insertCard';
     //卡基本信息列表
-    var cardbaselist = BASEURL38985 + 'api/uc/cdc/cardBaseService/getAllCardInfo';
+    var cardbaselist = BASEURL38985 + '/api/uc/cdc/cardBaseService/getAllCardInfo';
     // 设置批次号
     var batchnumber = BASEURL38985 + '/api/ac/cdc/cardBaseService/updateNewCardBatch';
     // 修改制卡状态完成
@@ -56,7 +56,6 @@ var service = function($resource, BASEURL38985){
     
     // 获取卡段
     var getcardlist = BASEURL38985 + '/api/as/cdc/cardpoolinfodao/findcardcodebypoolcodelist';
- 
     // 记录拿卡人信息
     var issuecard = BASEURL38985 + '/api/ac/cdc/cardreleaseservice/save';
     // 获取拿卡人姓名
@@ -65,7 +64,7 @@ var service = function($resource, BASEURL38985){
 
     //----- 卡产品 -----------------------//
     //查询票种信息
-    var saleticketinfo = BASEURL38985 + '/api/as/cdc/salettype/list';
+    var saleticketinfo = BASEURL38985 + '/api/as/tc/salettype/list';
     //列表
     var cardproductlist = BASEURL38985 + '/api/as/cdc/cardproduct/productList';
     //创建，修改卡产品
@@ -106,6 +105,8 @@ var service = function($resource, BASEURL38985){
     var cardproductorderinfo = BASEURL38985 + '/api/us/cdc/cardproductorder/cardProductOrderInfo';
 	//票信息
     var ticketinfo = BASEURL38985 + '/api/as/cdc/cardproductorder/ticketinfolist';
+    //卡信息
+    var cardinfo = BASEURL38985 + '/api/as/cdc/cardproductorder/cardinfolist';
     //----- 卡订单管理 -----------------------//
 
     
@@ -245,6 +246,9 @@ var service = function($resource, BASEURL38985){
         },
         ticketinfo : function(){
              return $resource(ticketinfo, {}, {});
+        },
+        cardinfo : function(){
+             return $resource(cardinfo, {}, {});
         },
        
         statename:{ 
