@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModal, getDate, vouchersalelist, vouchersalecreate, businesslist, typelist,toaster){
+module.exports = function($scope, $uibModal, getDate, vouchersalelist, vouchersalecreate, businesslist, typelist,typelists,toaster){
 
 	$scope.searchform = {};
 
@@ -113,6 +113,9 @@ module.exports = function($scope, $uibModal, getDate, vouchersalelist, vouchersa
             typelist : function(){
                 return typelist;
             },
+            typelists : function(){
+                return typelists;
+            },
             getDate : function(){
                 return getDate;
             }
@@ -149,6 +152,9 @@ module.exports = function($scope, $uibModal, getDate, vouchersalelist, vouchersa
             typelist : function(){
                 return typelist;
             },
+            typelists : function(){
+                return typelists;
+            },
             getDate : function(){
                 return getDate;
             }
@@ -184,6 +190,9 @@ module.exports = function($scope, $uibModal, getDate, vouchersalelist, vouchersa
             },
             typelist : function(){
                 return typelist;
+            },
+            typelists : function(){
+                return typelists;
             },
             getDate : function(){
                 return getDate;

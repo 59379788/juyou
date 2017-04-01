@@ -33,6 +33,8 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
    var businesslist = BASEURL38985 + '/api/as/tc/vouchersale/businesslist';
    //类别列表
    var typelist = BASEURL38985 + '/api/as/sc/dict/dictbytypelist';
+   // 获取类型
+   var typelists = BASEURL38985 + '/api/us/mc/mertradetypedao/findByTypeList';
    //一元券订单列表
    var orderlist = BASEURL38985 + '/api/as/tc/voucherorder/orderlist';
    //一元券码信息
@@ -353,6 +355,9 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
             //     deferred.reject(data);   // 声明执行失败，即服务器返回错误  
             // });  
             return deferred.promise;   // 返回承诺，这里并不是最终数据，而是访问最终数据的API 
+        },
+        typelists : function(){
+             return $resource(typelists, {}, {});
         },
         orderlist : function(){
              return $resource(orderlist, {}, {});

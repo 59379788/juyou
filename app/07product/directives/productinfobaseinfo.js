@@ -169,6 +169,9 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 						if (scope.saleobj.periodend != '') {
 							scope.baseinfo.dateshow.periodend.date = scope.util.str2date(scope.saleobj.periodend);
 						}
+						//审核提示赋值
+						scope.util.apply_note_temp = scope.saleobj.apply_note ? scope.saleobj.apply_note : '审核意见必填';
+						scope.saleobj.apply_note = '';
 						console.log('销售品详情赋值');
 						console.log(scope.saleobj);
 					} else {
