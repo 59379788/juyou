@@ -22,7 +22,7 @@ module.exports = function($){
         for(var i = 0; i < res.data.list.length; i++)
         {
           var tmp = res.data.list[i];
-          if(tmp && tmp.length){
+          if(angular.isArray(tmp.list)){
             for(var j = 0; j < tmp.list.length; j++)
             {
               var tmp1 = tmp.list[j];
