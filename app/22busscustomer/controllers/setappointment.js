@@ -36,7 +36,7 @@ salelist,ticketlist,toaster,insertMakeAppointment,getMakeAppointmentById,updateM
     
     // 获取销售品列表
     $scope.getsalelist = function(){
-        salelist.save({},function(res){
+        salelist.save({'sale_category' : 'S10'},function(res){
             if(res.errcode!=0){
                 toaster.success({title:"",body:res.errmsg});
                 return;
