@@ -160,20 +160,21 @@
   	<div class="form-group form-inline">
 	    <label class="col-xs-3 control-label">红包</label>
 	    <div class="col-xs-9 form-inline">
-	    <label class="radio-inline">
-		 <input type="radio" name="rebate_type" value="0"
-			 disabled ng-model="obj.rebate_type"
-			  >否</label>
+		    <label class="radio-inline">
+			 <input type="radio" name="rebate_type" value="0"
+				 disabled ng-model="obj.rebate_type"
+				  >否</label>
 
-	    <label class="radio-inline">
-		<input type="radio" name="rebate_type" value="1"
-			 disabled ng-model="obj.rebate_type"
-			  >是</label>
-	   
-	    <input type="text" class="form-control" placeholder = "最小金额" disabled ng-model="obj.rebate_start" style="width:90px;">--	
-	    <input type="text" class="form-control" placeholder = "最大金额" disabled ng-model="obj.rebate_end" style="width:90px;">
-
-        
+		    <label class="radio-inline">
+			<input type="radio" name="rebate_type" value="1"
+				 disabled ng-model="obj.rebate_type"
+				  >是</label>
+        	 &nbsp;&nbsp;&nbsp;&nbsp;
+			<select class="form-control" ng-model="obj.rebate_code" ng-show="obj.rebate_type=='1'"
+              ng-options="cardtype.value as cardtype.label for cardtype in cardtypearr"
+            >
+            <option value="">请选择</option>
+            </select>
 	    </div>   
   	</div>
 
