@@ -3,11 +3,6 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
-                  
-                  <input type="text" class="form-control" ng-model="info.userName" placeholder="用户名称">
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <input type="text" class="form-control" ng-model="info.mobile" placeholder="联系电话">
-                  &nbsp;&nbsp;
                   <div class="form-group pull-right">
                       <button type="button" class="btn btn-primary" ng-click="seelist()">预约人列表</button>
                       &nbsp;&nbsp;&nbsp;&nbsp;
@@ -35,8 +30,8 @@
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
-        <td class="text-center">{{obj.userNick}}</td>
-        <td class="text-center">{{obj.userName}}</td>
+        <td class="text-center">{{obj.sale_name}}</td>
+        <td class="text-center">{{obj.ticket_name}}</td>
         <td class="text-center">{{obj.startTime}}-{{obj.endTime}}</td>
         <td class="text-center">{{obj.title}}</td>
         <td class="text-center">{{obj.stock_num}}</td>

@@ -37,6 +37,8 @@ App.controller('cardorderlist',require('./controllers/cardorderlist'));
 App.controller('cardorderinfo',require('./controllers/cardorderinfo'));
 //票信息
 App.controller('ticketinfo',require('./controllers/ticketinfo'));
+//卡信息
+App.controller('cardinfo',require('./controllers/cardinfo'));
 //激活卡
 App.controller('activationcard',require('./controllers/activationcard'));
 //卡基本信息列表

@@ -1,5 +1,5 @@
 <div class="col-xs-12 mt10">
-	<div class="panel panel-default form-horizontal">
+	<!--<div class="panel panel-default form-horizontal">
 		<div class="panel-heading">
 			销售品分润设置<button type="button" 
 				class="btn btn-xs btn-info pull-right"
@@ -8,16 +8,19 @@
 				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 			</button>
 		</div>
-		<div class="panel-body">
+		<div class="panel-body">-->
 			<div class="container-fluid form-group">
 				<div class="col-xs-12 form-group" >
 					<!--<div class="col-xs-1"></div>-->
 					<div class="col-xs-2">
 						<label for="fxbt" class="pull-right text-right mt10">分享标题&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
-					<div class="col-xs-8">
+					<div class="col-xs-5">
 						<input type="text" name="fxbt" class="form-control form-inline" placeholder="分享标题" ng-model="salefrobj.share_title" />
 					</div>
+					<div class="col-sm-3 mt10">
+						<font face="Courier" class="text-danger"></font>
+					</div>	
 				</div>
 					<br/>
 					<br/>
@@ -25,10 +28,13 @@
 					<div class="col-xs-2">
 						<label for="lrl" class="pull-right text-right mt10">标签&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
-					<div class="col-xs-8">					
+					<div class="col-xs-5">					
 						<input type="text" class="form-control" placeholder="标签之间请以逗号分隔开"
 							ng-model="salefrobj.label">
 					</div>
+					<div class="col-sm-3 mt10">
+						<font face="Courier" class="text-danger">各标签之间必须以逗号分隔开</font>
+					</div>	
 				</div>
 			
 					<br/>
@@ -37,44 +43,81 @@
 					<div class="col-xs-2">
 						<label for="lrl" class="pull-right text-right mt10">利润率&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
-					<div class="col-xs-8">
+					<div class="col-xs-5">
 						<div class="input-group">							
 							<input type="number" class="form-control" placeholder="利润率" min='0'
-							ng-model="salefrobj.profit_ratio">
+							ng-model="salefrobj.profit_ratio" value="0" ng-change="change()">
 							<span class="input-group-addon">%</span>
 						</div>
 					</div>
+					<div class="col-sm-3 mt10">
+						<font face="Courier" class="text-danger">一级利润率</font>
+					</div>	
+				</div>
+
+					<br/>
+					<br/>
+				<div class="col-xs-12 form-group" >
+					<div class="col-xs-2">
+						<label for="lrl" class="pull-right text-right mt10">利润&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+					<div class="col-xs-5">
+						<div class="input-group col-xs-12">
+							<!--<p class="form-control" placeholder="利润" ng-model="salefrobj.profit" ng-disabled="true" style="border-radius: 3px">
+								{{(infodata.guide_price-infodata.cost_price*(salefrobj.profit_ratio*0.01+1)).toFixed(2)}}
+							</p>-->
+							<input type="text" class="form-control" placeholder="利润" ng-model="salefrobj.profit" readonly>
+						</div>
+					</div>
+					<div class="col-sm-4 mt10">
+						<font face="Courier" class="text-danger">二级利润=(居游价-成本价)*(1-利润率)</font>
+					</div>	
 				</div>
 			
 					<br/>
 					<br/>
-				<div class="col-xs-12 form-group">
+				<div class="col-xs-12 form-group form-inline">
 					<div class="col-xs-2">
-						<label for="lrl" class="pull-right text-right mt10">红包上限&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<label for="lrl" class="pull-right text-right mt10">红包金额&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
-					<div class="col-xs-8">
+					<div class="col-xs-2">
 						<div class="input-group">
 							<span class="input-group-addon">¥</span>
-							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0'
+							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0' step=""
+							ng-model="salefrobj.rebate_lower">
+						</div>
+					</div>
+					<div class="col-xs-1">
+						<label for="lrl" class="pull-right text-right mt10">-----&nbsp;&nbsp;</label>
+					</div>
+					<div class="col-xs-2">
+						<div class="input-group">
+							<span class="input-group-addon">¥</span>
+							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0' max="" 
 							ng-model="salefrobj.rebate_unlimited">
 						</div>
-					</div>					
+					</div>	
+					<div class="col-sm-3 mt10">
+						<font face="Courier" class="text-danger">红包金额  下限-----上限</font>
+					</div>						
 				</div>
-				<br/>
+				<!--<br/>
 					<br/>
 				<div class="col-xs-12 form-group">
 					<div class="col-xs-2">
 						<label for="lrl" class="pull-right text-right mt10">红包下限&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
-					<div class="col-xs-8">
+					<div class="col-xs-5">
 						<div class="input-group">
 							<span class="input-group-addon">¥</span>
-							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0'
+							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0' max="" 
 							ng-model="salefrobj.rebate_lower">
 						</div>
-					</div>					
-				</div>
-
+					</div>	
+					<div class="col-sm-3 mt10">
+						<font face="Courier" class="text-danger">红包下限金额最高不能超过利润</font>
+					</div>				
+				</div>-->
 					<br/>
 					<br/>
 				<div class="col-xs-12 form-group">
@@ -99,9 +142,9 @@
 					</div>					
 				</div>
 
-				<br/>
-					<br/>
-				<div class="col-xs-12 form-group">
+				<!--<br/>
+					<br/>-->
+				<!--<div class="col-xs-12 form-group">
 					<div class="col-xs-2">
 						<label for="lrl" class="pull-right text-right mt10">参与评价景区领红包&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
@@ -116,9 +159,15 @@
 							> 
 						</div>
 					</div>					
+				</div>-->
+
+				<div class="form-group">
+					<div class="col-sm-2 col-xs-12 col-md-offset-5 text-center">
+						<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="saleFrSetSave()">保存</button>
+					</div>
 				</div>
 
 			</div>
-		</div>
-	</div>
+		<!--</div>
+	</div>-->
 </div>

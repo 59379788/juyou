@@ -17,7 +17,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="col-xs-3 control-label">卡产品类型</label>
+		<label class="col-xs-3 control-label">卡产品分类</label>
 		<div class="col-xs-9">
 			<select class="form-control" ng-model="obj.card_type" 
               ng-options="cardtype.value as cardtype.label for cardtype in cardtypearr"
@@ -50,6 +50,22 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="form-group">
+	    <label class="col-xs-3 control-label">是否绑定用户信息</label>
+	    <div class="col-xs-9">
+	    	<label class="radio-inline">
+			  <input type="radio" name="operation" value="1"
+			  ng-model="obj.operation"
+			  > 不绑定
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="operation" value="2"
+			  ng-model="obj.operation"
+			  > 绑定
+			</label>
+	    </div>
+  	</div>
 
 	<div class="form-group">
 	    <label class="col-xs-3 control-label">支付类型</label>
@@ -144,21 +160,22 @@
   	<div class="form-group form-inline">
 	    <label class="col-xs-3 control-label">红包</label>
 	    <div class="col-xs-9 form-inline">
-	    <label class="radio-inline">
-		 <input type="radio" name="rebate_type" value="0"
-			  ng-model="obj.rebate_type"
-			  >否</label>
+		    <label class="radio-inline">
+			 <input type="radio" name="rebate_type" value="0"
+				  ng-model="obj.rebate_type"
+				  >否</label>
 
-	    <label class="radio-inline">
-		<input type="radio" name="rebate_type" value="1"
-			  ng-model="obj.rebate_type"
-			  >是</label>
-	   
-	    <input type="text" class="form-control" placeholder = "最小金额" ng-model="obj.rebate_start" style="width:90px;">--	
-	    <input type="text" class="form-control" placeholder = "最大金额" ng-model="obj.rebate_end" style="width:90px;">
-
-        
-	    </div>   
+		    <label class="radio-inline">
+			<input type="radio" name="rebate_type" value="1"
+				  ng-model="obj.rebate_type"
+				  >是</label>
+		    &nbsp;&nbsp;&nbsp;&nbsp;
+			<select class="form-control" ng-model="obj.rebate_code" ng-show="obj.rebate_type=='1'"
+              ng-options="cardtype.value as cardtype.label for cardtype in cardtypearr"
+            >
+            <option value="">请选择</option>
+            </select>
+	    </div>
   	</div>
 
 	<div class="form-group">

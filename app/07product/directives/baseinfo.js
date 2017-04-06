@@ -15,6 +15,40 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			scope.auditing = scope.util.auditing;
 			console.log('scope.util.auditing');
 			console.log(scope.util.auditing);
+			// var obj = {
+			// 	'id': scope.saleobj.id,
+			// 	'name': '',
+			// 	'code': '',
+			// 	'market_price': 0,
+			// 	'guide_price': 0,
+			// 	'cost_price': 0,
+			// 	'asort': '0',
+			// 	'sale_category': 'F10',
+			// 	'sms_template_id': '',
+			// 	'sms_diy': '',
+			// 	'sms_type': '1',
+			// 	// 'top_pic' : '',
+			// 	// 'logo' : '',
+			// 	'periodstart': '',
+			// 	'periodend': '',
+			// 	'sale_belong': 'juyou',	//产品所属
+			// 	'sys_affirm_type': '1',	//系统确认
+			// 	// 'pay_type' : '0', 	//支付类型
+			// 	// 'stock_type' : '0',	//库存类型
+			// 	// 'current_stock_num' : 0,
+			// 	// 'sale_target_type' : '0',	//销售目标
+			// 	// 'take_effect_type' : 0,	//生效时间
+			// 	// 'max_limit' : 0,	//最大购买数量
+			// 	// 'order_num_limit' : 0,	//每单最大购买数量限制
+			// 	// 'tour_date_type' : '0',	//是否启用出游时间
+			// 	// 'back_type' : '0',	//是否允许退票
+			// 	// 'apply_state' : '0',	//退票是否需要审核
+			// 	// 'ticket_type' : '0',	//是否出票
+			// 	// 'user_status' : '0',	//是否实名制
+			// 	// 'sms_ticketcode_type' : '0',	//短信票码类型
+			// 	// 'bookingnotes' : '',	//团产品预订须知
+			// 	// 'detail' : '',	//销售品简介
+			// };
 			var obj = {
 				'id': scope.saleobj.id,
 				'name': '',
@@ -117,10 +151,16 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 					return;
 				}
 
+				//发短信时，默认短息模板里第一个短信模板。
+				if (scope.saleobj.sms_type == '1') {
+					scope.saleobj.sms_template_id = res.smslist.data.data[0].sms_template_id;
+					scope.saleobj.sms_diy = res.smslist.data.data[0].sms_diy;
+				}
+
 				if (angular.isDefined(res.saleinfo)) {
 					//销售品信息
 					if (res.saleinfo.data.errcode === 0) {
-						//console.log(res.saleinfo.data);
+						console.log(res.saleinfo.data);
 						//赋值给销售品对象。
 						angular.extend(scope.saleobj, res.saleinfo.data.data);
 						if (scope.saleobj.periodstart != '') {
@@ -144,30 +184,24 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 					'salebelonglist': res.salebelonglist.data.data,
 					//短信列表
 					'smslist': res.smslist.data.data,
-					//生效时间
-					'take_effect_typearr': [
-						{ 'name': '次日', 'value': -1 },
-						{ 'name': '即时', 'value': 0 },
-						{ 'name': '1小时之后', 'value': 1 },
-						{ 'name': '2小时之后', 'value': 2 },
-						{ 'name': '3小时之后', 'value': 3 },
-						{ 'name': '4小时之后', 'value': 4 },
-						{ 'name': '5小时之后', 'value': 5 },
-						{ 'name': '6小时之后', 'value': 6 },
-						{ 'name': '7小时之后', 'value': 7 },
-						{ 'name': '8小时之后', 'value': 8 },
-						{ 'name': '9小时之后', 'value': 9 },
-						{ 'name': '10小时之后', 'value': 10 },
-						{ 'name': '11小时之后', 'value': 11 },
-						{ 'name': '12小时之后', 'value': 12 }
-					],
+					// //生效时间
+					// 'take_effect_typearr': [
+					// 	{ 'name': '次日', 'value': -1 },
+					// 	{ 'name': '即时', 'value': 0 },
+					// 	{ 'name': '1小时之后', 'value': 1 },
+					// 	{ 'name': '2小时之后', 'value': 2 },
+					// 	{ 'name': '3小时之后', 'value': 3 },
+					// 	{ 'name': '4小时之后', 'value': 4 },
+					// 	{ 'name': '5小时之后', 'value': 5 },
+					// 	{ 'name': '6小时之后', 'value': 6 },
+					// 	{ 'name': '7小时之后', 'value': 7 },
+					// 	{ 'name': '8小时之后', 'value': 8 },
+					// 	{ 'name': '9小时之后', 'value': 9 },
+					// 	{ 'name': '10小时之后', 'value': 10 },
+					// 	{ 'name': '11小时之后', 'value': 11 },
+					// 	{ 'name': '12小时之后', 'value': 12 }
+					// ],
 				};
-
-				//发短信时，默认短息模板里第一个短信模板。
-				if (scope.saleobj.sms_type == '1') {
-					scope.saleobj.sms_template_id = res.smslist.data.data[0].sms_template_id;
-					scope.saleobj.sms_diy = res.smslist.data.data[0].sms_diy;
-				}
 
 
 				//获取功能列表
@@ -286,7 +320,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 						scope.saleobj.id = res.data.uuid;
 					}
 					alert('操作成功');
-						scope.util.$uibModalInstance.close();
+					scope.util.$uibModalInstance.close();
 
 				});
 
@@ -314,15 +348,15 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 
 			scope.pass = function () {
 				console.log(scope.saleobj.id);
-				if(!scope.saleobj.apply_note){
+				if (!scope.saleobj.apply_note) {
 					alert('审核意见必填');
 					return false;
 				}
 				$resource('/api/ac/tc/ticketSaleService/updateSaleApplyPass', {}, {})
-					.save({ 
-							'id': scope.saleobj.id,
-							'apply_note' : scope.saleobj.apply_note
-						 }, function (res) {
+					.save({
+						'id': scope.saleobj.id,
+						'apply_note': scope.saleobj.apply_note
+					}, function (res) {
 						console.log(res);
 						if (res.errcode !== 0) {
 							alert(res.errmsg);
@@ -336,13 +370,16 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			};
 
 			scope.nopass = function () {
-				if(!scope.saleobj.apply_note){
+				if (!scope.saleobj.apply_note) {
 					alert('审核意见必填');
 					return false;
 				}
 				console.log(scope.saleobj.id);
 				$resource('/api/ac/tc/ticketSaleService/updateSaleApplyNoPass', {}, {})
-					.save({ 'id': scope.saleobj.id }, function (res) {
+					.save({
+						'id': scope.saleobj.id,
+						'apply_note': scope.saleobj.apply_note
+					}, function (res) {
 						console.log(res);
 						if (res.errcode !== 0) {
 							alert(res.errmsg);

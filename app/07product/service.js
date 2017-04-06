@@ -208,7 +208,7 @@ var service = function($resource, BASEURL38985, $q, $http){
     
     
     // 销售品积分列表
-    var findsaleintegrallist = BASEURL38985 + '/api/us/tc/saleintegral/findsaleintegrallist';
+    var findsaleintegrallist = BASEURL38985 + '/api/as/tc/saleintegral/findsaleintegrallist';
     
     // 积分配置
     var saveSaleInteral = BASEURL38985 + '/api/uc/tc/ticketSaleIntegralService/saveSaleInteral';

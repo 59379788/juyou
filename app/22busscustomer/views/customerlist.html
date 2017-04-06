@@ -4,9 +4,11 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                   
-                  <input type="text" class="form-control" ng-model="info.userName" placeholder="用户名称">
+                  <input type="text" class="form-control" ng-model="info.name" placeholder="用户名称">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <input type="text" class="form-control" ng-model="info.mobile" placeholder="联系电话">
+                  &nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="info.title" placeholder="产品标题">
                   &nbsp;&nbsp;
                   <div class="form-group pull-right">
                       <button type="button" class="btn btn-primary" ng-click="search()">搜索预约人</button>
@@ -23,18 +25,21 @@
     <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-3 text-center">姓名</th>
-        <th class="col-md-3 text-center">电话</th>
-        <th class="col-md-3 text-center">时间</th>
-        <th class="col-md-3 text-center">预约产品</th>
+        <th class="col-md-1 text-center">姓名</th>
+        <th class="col-md-2 text-center">电话</th>
+        <th class="col-md-2 text-center">时间</th>
+        <th class="col-md-3 text-center">产品名称</th>
+        <th class="col-md-2 text-center">票种名称</th>
+        <th class="col-md-2 text-center">预约产品</th>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
-        <td class="text-center">{{obj.userNick}}</td>
-        <td class="text-center">{{obj.userName}}</td>
-        <td class="text-center">{{obj.mobile}}-{{obj.mobile}}</td>
-        <td class="text-center">{{obj.otime}}</td>
-        
+        <td class="text-center">{{obj.name}}</td>
+        <td class="text-center">{{obj.mobile}}</td>
+        <td class="text-center">{{obj.time}}</td>
+        <td class="text-center">{{obj.sale_name}}</td>
+        <td class="text-center">{{obj.ticket_name}}</td>
+        <td class="text-center">{{obj.title}}</td>
       </tr>
     </tbody>
     </table>

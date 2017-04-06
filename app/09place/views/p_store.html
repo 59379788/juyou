@@ -11,9 +11,9 @@
 	<div class="col-xs-12 col-md-12 mt10" >
 
 		<div class="form-group" >
-			<label class="col-sm-3 col-xs-12 control-label">商户类型</label>
+			<label class="col-sm-3 col-xs-12 control-label">标签</label>
 			<div class="col-sm-9 col-xs-12">
-				<input type="text" class="form-control" placeholder="请输入商户类型" 
+				<input type="text" class="form-control" placeholder="标签之间以逗号分隔开" 
 				ng-model="storeobj.merchant_label"
 				>
 			</div>
@@ -86,7 +86,7 @@
 				</label>-->
 				<input type="text" class="form-control" 
 				ng-model="storeobj.merchant_pay_method"
-				>
+				placeholder="付款方式之间以逗号分隔开">
 			</div>
 		</div>
 
@@ -94,9 +94,12 @@
 		<div class="form-group" >
 			<label class="col-sm-3 col-xs-12 control-label">人均消费</label>
 			<div class="col-sm-9 col-xs-12">
-				<input type="text" class="form-control" 
-				ng-model="storeobj.merchant_per_average_consume"
-				>
+				<div class="input-group">
+					<span class="input-group-addon">¥</span>
+					<input type="number" class="form-control" 
+					ng-model="storeobj.merchant_per_average_consume"
+					min="0">
+				</div>
 			</div>
 		</div>
 
@@ -126,9 +129,9 @@
 		<div class="form-group" >
 			<label class="col-sm-3 col-xs-12 control-label">排序</label>
 			<div class="col-sm-9 col-xs-12">
-				<input type="text" class="form-control" 
+				<input type="number" class="form-control" 
 				ng-model="storeobj.merchant_asort"
-				>
+				placeholder="填写数字,数字越大排序越靠前">
 			</div>
 		</div>
 

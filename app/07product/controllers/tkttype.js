@@ -17,6 +17,7 @@ module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktup
         if(res.errcode === 0)
         {
         	$scope.viewarr = res.data;
+			$scope.viewarr.unshift({name:'----全部----',code:''});
         }
         else
         {
@@ -25,7 +26,9 @@ module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktup
     });
 
     $scope.load = function () {
+		// alert('sousuo');
         tktlist.save($scope.searchform, function(res){
+			console.log($scope.searchform);
 
             /* 门票存储结构
              * ========================================= */
@@ -138,7 +141,7 @@ module.exports = function($scope, $state, $stateParams, viewlist, tktlist, tktup
 	}
 
     $scope.auth = function(code) {
-
+		// alert('销票权限');
         $state.go('app.configurationticket', {'tktcode' : code});
     }
 	

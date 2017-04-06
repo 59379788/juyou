@@ -138,6 +138,12 @@ module.exports = function($resource, $state, $http, $q){
 				}else{
 					url = '/api/as/tc/place/update';
 				}
+				if(!scope.placeobj.longitude){
+					scope.placeobj.longitude = 0;
+				}
+				if(!scope.placeobj.latitude){
+					scope.placeobj.latitude = 0;
+				}
 
 				$resource(url, {}, {}).save(scope.placeobj, function(res){
 					console.log(res);

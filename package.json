@@ -23,6 +23,7 @@
     "angular-file-upload": "^2.2.0",
     "angular-resource": "^1.5.0",
     "angular-sanitize": "^1.6.2",
+    "angular-ueditor": "0.0.1",
     "angular-ui-bootstrap": "^1.2.1",
     "angular-ui-router": "^0.2.18",
     "angular-ui-tree": "^2.14.0",

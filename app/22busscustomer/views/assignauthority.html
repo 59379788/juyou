@@ -1,6 +1,6 @@
-<div class="col-xs-4 col-xs-offset-4" >
+<div class="col-xs-6 col-xs-offset-3" >
 <div class="panel panel-default">
-<div class="panel-heading text-center">一级商客权限申请</div>
+<div class="panel-heading text-center">一级商客权限管理</div>
 <div class="panel-body">
 <div class="container-fluid form-horizontal ">
     <div class="panel panel-default">
@@ -18,15 +18,19 @@
     <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-6">账号</th>
-        
-        
+        <th class="col-md-6">账号</th>  
+        <th class="col-md-6">操作</th> 
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
         <td class="text-center">{{obj}}</td>
+        <td class="text-center">
+          <a ng-click="delete(obj)" class="btn btn-danger">删除</a>
+          <!--<span class="glyphicon glyphicon-remove" aria-hidden=""></span>-->
+        </td>
       </tr>
+
     </tbody>
     </table>
     </div>

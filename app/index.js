@@ -13,6 +13,14 @@ require('angular-file-upload');
 require('angular-ui-tree');
 
 
+// ------------ 百度富文本编辑器 ----------------------//
+window.UEDITOR_HOME_URL = 'ueditor/';
+require('../ueditor/ueditor.config.js');
+require('../ueditor/ueditor.all.js');
+require('../node_modules/angular-ueditor/dist/angular-ueditor');
+// ------------ 百度富文本编辑器 ----------------------//
+
+
 // ------------ 富文本编辑器 ----------------------//
 //require('../node_modules/textangular/dist/textAngular-rangy.min');
 require('../node_modules/textangular/dist/textAngular-sanitize.min');
@@ -114,6 +122,7 @@ angular.module('constant', [])
 //=================[ 主模块 ]==============================//
 
 var App = angular.module('juyouApp', [
+    
     'dashboard',
     'ticket',
     'device',
@@ -154,6 +163,7 @@ var App = angular.module('juyouApp', [
     'ngSanitize',
     'frapontillo.bootstrap-switch',
     'toaster', 
+    'ng.ueditor',
     // 'ngAnimate',
 ]);
 

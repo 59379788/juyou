@@ -33,6 +33,8 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
    var businesslist = BASEURL38985 + '/api/as/tc/vouchersale/businesslist';
    //类别列表
    var typelist = BASEURL38985 + '/api/as/sc/dict/dictbytypelist';
+   // 获取类型
+   var typelists = BASEURL38985 + '/api/us/mc/mertradetypedao/findByTypeList';
    //一元券订单列表
    var orderlist = BASEURL38985 + '/api/as/tc/voucherorder/orderlist';
    //一元券码信息
@@ -139,7 +141,7 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var updateNews = BASEURL38985 + '/api/as/gc/news/updateNews';
   
   // 轮播图列表
-  var findNewsRollinginfolist = BASEURL38985 + '/api/us/gc/rollingpicture/findNewsRollinginfolist';
+  var findNewsRollinginfolist = BASEURL38985 + '/api/as/gc/rollingpicture/findNewsRollinginfolist';
   // 添加轮播图
   var saveNewsPhoto = BASEURL38985 + '/api/as/gc/rollingpicture/saveNewsPhoto';
   // 删除轮播图
@@ -234,7 +236,12 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
 
   /****** 预约 *******/ 
 
+  /****** 添加商客账户管理 *******/ 
+  var mechanism = SYS + '/a/sys/office/treeData';
 
+  var list = SYS + '/a/sys/user/ajaxlist';
+
+  var createmechanism = SYS + '/a/sys/office/ajaxsave';
   
 
 
@@ -348,6 +355,9 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
             //     deferred.reject(data);   // 声明执行失败，即服务器返回错误  
             // });  
             return deferred.promise;   // 返回承诺，这里并不是最终数据，而是访问最终数据的API 
+        },
+        typelists : function(){
+             return $resource(typelists, {}, {});
         },
         orderlist : function(){
              return $resource(orderlist, {}, {});
@@ -597,6 +607,15 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         ticketlist : function(){
           return $resource(ticketlist,{},{});
+        },
+        mechanism : function(){
+          return $resource(mechanism,{},{});
+        },
+        list : function(){
+          return $resource(list,{},{});
+        },
+        createmechanism : function(){
+          return $resource(createmechanism,{},{});
         }
 
 

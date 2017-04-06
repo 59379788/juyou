@@ -133,6 +133,9 @@ var router = function($urlRouterProvider, $stateProvider){
 	          typelist : function(busscustomerservice){
 	                 return busscustomerservice.typelist;
 	          },
+              typelists : function(busscustomerservice){
+	                 return busscustomerservice.typelists();
+	          },
 	          getDate : function(utilservice){
                 	 return utilservice.getDate;
               }
@@ -887,6 +890,36 @@ var router = function($urlRouterProvider, $stateProvider){
             resolve:{
                 findUserInfoList : function(busscustomerservice){
                     return busscustomerservice.findUserInfoList();
+                }
+            }
+        })
+
+        //添加商客账户管理
+        .state('app.addskaccount',{
+            url: '/addskaccount',
+            controller : 'addskaccount',
+            template: require('./views/addskaccount.html'),
+            resolve:{
+                mechanism : function(accountservice){
+                return accountservice.mechanism();
+                },
+                create : function(accountservice){
+                    return accountservice.create();
+                },
+                list : function(accountservice){
+                    return accountservice.list();
+                },
+                role : function(accountservice){
+                    return accountservice.role();
+                },
+                info : function(accountservice){
+                    return accountservice.info();
+                },
+                createmechanism : function(accountservice){
+                    return accountservice.createmechanism();
+                },
+                createdeposit : function(depositservice){
+                    return depositservice.create();
                 }
             }
         })

@@ -675,6 +675,27 @@ var router = function ($urlRouterProvider, $stateProvider) {
 			}
 		})
 
+
+		.state('app.productInfo', {
+			url: '/productInfo/:id',
+			controller: 'productInfo',
+			template: require('./views/productInfo.html'),
+			resolve: {
+				date2str: function (utilservice) {
+					return utilservice.getDate;
+				},
+				str2date: function (utilservice) {
+					return utilservice.str2date;
+				},
+				$uibModalInstance: function () {
+					return undefined;
+				},
+				auditing: function () {
+					return false;
+				}
+			}
+		})
+
 		//供应商产品列表
 		.state('app.supplierProductList', {
 			url: '/product/splist.html',
@@ -769,6 +790,51 @@ var router = function ($urlRouterProvider, $stateProvider) {
 				},
 				tststopno: function (productservice) {
 					return productservice.tststopno();
+				},
+
+
+			}
+		})
+
+
+		//待审核产品列表
+		.state('app.backTicketApply', {
+			url: '/product/backTicketApply.html',
+			controller: 'backTicketApply',
+			template: require('./views/backTicketApply.html'),
+			resolve: {
+				date2str: function (utilservice) {
+					return utilservice.getDate;
+				},
+				str2date: function (utilservice) {
+					return utilservice.str2date;
+				},
+				saleupdate: function (productservice) {
+					return productservice.saleupdate();
+				},
+				saleup: function (productservice) {
+					return productservice.saleup();
+				},
+				saledown: function (productservice) {
+					return productservice.saledown();
+				},
+				talist: function (depositservice) {
+					return depositservice.talist;
+				},
+				sellerListno: function (productservice) {
+					return productservice.sellerListno();
+				},
+				tstcreateno: function (productservice) {
+					return productservice.tstcreateno();
+				},
+				tststartno: function (productservice) {
+					return productservice.tststartno();
+				},
+				tststopno: function (productservice) {
+					return productservice.tststopno();
+				},
+				getDate: function (utilservice) {
+					return utilservice.getDate;
 				},
 
 

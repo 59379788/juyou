@@ -1,5 +1,3 @@
-
-
 <!-- <div class=" col-md-4 ">
 <div class="panel panel-default">
 	<div class="panel-heading text-center "><h4>测试数据</h4></div>
@@ -25,47 +23,50 @@
 
 
 <div class=" col-md-8 col-md-offset-2">
-<div class="panel panel-default">
-	<div class="panel-heading text-center "><h4>智慧景区验票系统</h4></div>
+	<div class="panel panel-default">
+		<div class="panel-heading text-center ">
+			<h4>智慧景区验票系统</h4>
+		</div>
 
-	<div class="panel-body">
-		<form class="form-horizontal">
-		<div class="form-group mt10">
-		    
-		    <!-- <div class="col-sm-9">
+		<div class="panel-body">
+			<form class="form-horizontal">
+				<div class="form-group mt10">
+
+					<!-- <div class="col-sm-9">
 		      <input type="text" class="form-control" ng-model="device" placeholder="输入设备码" ng-readonly="true">
 		    </div> -->
 
-		    <div class="col-sm-6">
-			    <select class="form-control" ng-model="obj" 
-	              		ng-options="obj.code as obj.name for obj in objs"
-	              		ng-change="tktmachine(obj)"
-	            >
+					<div class="col-sm-6">
+						<!--<select class="form-control" ng-model="obj" ng-options="obj.code as obj.name for obj in objs" ng-change="tktmachine(obj)">
+	            </select>-->
+						<ui-select ng-model="obj" theme="bootstrap" ng-change="tktmachine(obj)">
+							<ui-select-match placeholder="请选择一个票种">
+								{{$select.selected.name}}
+							</ui-select-match>
+							<ui-select-choices repeat="item.code as item in objs | filter: $select.search">
+								<span ng-bind-html="item.name | highlight: $select.search"></span>
+							</ui-select-choices>
+						</ui-select>
+					</div>
+					<div class="col-sm-6">
+						<select class="form-control" ng-model="device" ng-options="device.code as device.remarks for device in devicearr">
 	            </select>
-            </div>
-		    <div class="col-sm-6">
-			    <select class="form-control" ng-model="device" 
-	              ng-options="device.code as device.remarks for device in devicearr"
-	            >
-	            </select>
-            </div>
+					</div>
 
-		  </div>
+				</div>
 
-		  <div class="form-group">
-		    
-		    <div class="col-sm-9">
-		      <input type="text" class="form-control" ng-model="code" placeholder="输入票码">
-		    </div>
+				<div class="form-group">
 
-		    <div class="col-sm-3">
-		    	<button type="button" 
-		    	class="btn btn-default btn-block"
-		    	ng-click="check()">确定</button>
-		    </div>
-		  </div>
-		  
-		</form>
+					<div class="col-sm-9">
+						<input type="text" class="form-control" ng-model="code" placeholder="输入票码">
+					</div>
+
+					<div class="col-sm-3">
+						<button type="button" class="btn btn-default btn-block" ng-click="check()">确定</button>
+					</div>
+				</div>
+
+			</form>
+		</div>
 	</div>
-</div>
 </div>

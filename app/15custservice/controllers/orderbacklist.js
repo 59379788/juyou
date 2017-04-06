@@ -1,7 +1,9 @@
 module.exports = function($scope, $state, orderbacklist, orderback, ITEMS_PERPAGE, 
     $uibModal, dictbytypelist){
 
-	$scope.searchform = {};
+	$scope.searchform = {
+        // 'from_app_id' : ''
+    };
     $scope.payment_typearr = [];
     $scope.back_statearr = [];
     $scope.ticket_statearr = [];
@@ -22,7 +24,7 @@ module.exports = function($scope, $state, orderbacklist, orderback, ITEMS_PERPAG
         };
 
         para = angular.extend(para, $scope.searchform);
-
+        console.log('入参');
         console.log(para);
         
         orderbacklist.save(para, function(res){

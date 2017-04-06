@@ -12,7 +12,7 @@ module.exports = function($resource, $state, $http, $q){
 
 			scope.viewobj = {
 				'tel' : '',
-				'view_type' : 0,
+				'view_type' : '',
 				'promise' : '',
 				'ev_good' : 0,
 				'ev_general' : 0,
@@ -21,6 +21,10 @@ module.exports = function($resource, $state, $http, $q){
 				'ebook_url' : '',
 				'fav_policy' : '',
 				'bef_hour' : 0,
+			}
+
+			scope.hb = {
+				'isSelected' : false
 			}
 
 			console.log(scope.placeobj.id);
@@ -37,7 +41,42 @@ module.exports = function($resource, $state, $http, $q){
 				}else{
 					alert(res.errmsg);
 				}
+
+				if(scope.viewobj.rebate_type == 0){
+					scope.hb.isSelected = true;
+				} else if(scope.viewobj.rebate_type == 1){
+					scope.hb.isSelected = false;
+				}
+                console.log(res);
+
 			});
+
+			scope.onHbChange = function(isSelected){
+				console.log(isSelected);
+				if(isSelected == true) {
+					scope.viewobj.rebate_type = '0'; 
+				} else {
+					scope.viewobj.rebate_type = '1';
+				}
+			}
+
+			// 获取类型列表
+			// 获取类型列表
+			$resource('/api/us/mc/mertradetypedao/findByTypeList', {}, {})
+			.get({'type':'cheap_menu'},function(res){				
+				if(res.errcode === 0){
+					console.log(res);
+					scope.typedatas = res.data;
+					//ScopedCredential.storeobj.view_type = res.data
+				}else if(res.errcode === 10003){
+
+				}else{
+					alert(res.errmsg);
+				}
+			});
+
+			
+
 
 			scope.save = function(){
 
@@ -59,7 +98,7 @@ module.exports = function($resource, $state, $http, $q){
 						return;
 					}
 					
-					alert('修改成功');
+					alert('操作成功');
 				});
 			};
 		   

@@ -286,6 +286,9 @@ var router = function($urlRouterProvider, $stateProvider){
             ticketinfo : function(cardservice){
                  return cardservice.ticketinfo();
             },
+            cardinfo : function(cardservice){
+                 return cardservice.cardinfo();
+            },
             getDate : function(utilservice){
                 return utilservice.getDate;
             }
@@ -331,6 +334,9 @@ var router = function($urlRouterProvider, $stateProvider){
          resolve:{
          	insertCard : function(cardservice){
                  return cardservice.insertCard();
+            },
+            exExcel : function(cardservice){
+                 return cardservice.exExcel();
             },
             cardbaselist : function(cardservice){
                  return cardservice.cardbaselist();
@@ -468,7 +474,10 @@ var router = function($urlRouterProvider, $stateProvider){
 	           },
 		       saleticketinfo : function(cardservice){
 		           return cardservice.saleticketinfo();
-		       }
+		       },
+		       dictbytypelist : function(productservice){
+	                return productservice.dictbytypelist;
+	            }
 
 	         }
        })

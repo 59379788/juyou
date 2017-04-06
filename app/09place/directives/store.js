@@ -18,7 +18,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
 				'merchant_activity_profile' : '',
 				'merchant_label_marking' : '',
 				'merchant_pay_method' : '',
-				'merchant_per_average_consume' : '',
+				'merchant_per_average_consume' : 0,
 				'merchant_remarks': '',
 				'merchant_asort' : '',
 				'view_type' : ''

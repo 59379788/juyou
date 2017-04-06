@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, cardbaselist, cardproductlist,searchcard,ITEMS_PERPAGE, insertCard, $uibModal){
+module.exports = function($scope, $state, cardbaselist, cardproductlist,searchcard,ITEMS_PERPAGE, insertCard, $uibModal, exExcel){
     /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -32,6 +32,18 @@ module.exports = function($scope, $state, cardbaselist, cardproductlist,searchca
     	       'cardbatch' : '',
     	       'cardgivetatus' : ''
             };
+
+    $scope.exExcel = function(obj){
+    	exExcel.save(obj, function(res){
+			if(res.errcode !== 0)
+			{
+				alert(res.errmsg);
+				return;
+			}else{
+				alert("导出成功,请查看：" + res.data);
+			}
+        })
+    }
 	
     
 	$scope.search = function(){

@@ -2,119 +2,122 @@
 var service = function($resource, BASEURL38985){
     //------------------ 卡基本信息 -----------------------//
     //添加卡段
-    var insertCard = BASEURL38985 + '/api/ac/uc/cardBaseService/insertCard';
+    var insertCard = BASEURL38985 + '/api/ac/cdc/cardBaseService/insertCard';
     //卡基本信息列表
-    var cardbaselist = BASEURL38985 + 'api/uc/uc/cardBaseService/getAllCardInfo';
+    var cardbaselist = BASEURL38985 + '/api/uc/cdc/cardBaseService/getAllCardInfo';
     // 设置批次号
-    var batchnumber = BASEURL38985 + '/api/ac/uc/cardBaseService/updateNewCardBatch';
+    var batchnumber = BASEURL38985 + '/api/ac/cdc/cardBaseService/updateNewCardBatch';
     // 修改制卡状态完成
-    var changestatus = BASEURL38985 + '/api/ac/uc/cardBaseService/updateNewCardFinStatu';
+    var changestatus = BASEURL38985 + '/api/ac/cdc/cardBaseService/updateNewCardFinStatu';
     // 根据条件查询基本卡
-    var searchcard = BASEURL38985 + '/api/ac/uc/cardBaseService/getCardBaseList';
+    var searchcard = BASEURL38985 + '/api/ac/cdc/cardBaseService/getCardBaseList';
+    // 导出excel
+    var exExcel = BASEURL38985 + '/api/ac/cdc/cardBaseService/exExcel';
     //------------------ 卡基本信息 -----------------------//
 
     
     //------------------ 卡池管理 -----------------------//
     // 卡池列表
-    var cardpoollist = BASEURL38985 + '/api/as/uc/cardpooldao/findpoollist';
+    var cardpoollist = BASEURL38985 + '/api/as/cdc/cardpooldao/findpoollist';
     // 删除卡
     //var deletecard = BASEURL38985 + '/api/as/gc/shakedevice/findlist';
     // 释放卡池
     //var releasecard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/releasecardpool';
     // 添加卡
-    var addcard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/save';
+    var addcard = BASEURL38985 + '/api/ac/cdc/cardpoolserviceimpl/save';
     // 添加卡池
-    var addcardpool = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/savepool';
+    var addcardpool = BASEURL38985 + '/api/ac/cdc/cardpoolserviceimpl/savepool';
     // 释放卡池里面的卡
-    var releasecard = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/releasecardpoolupdate';
+    var releasecard = BASEURL38985 + '/api/ac/cdc/cardpoolserviceimpl/releasecardpoolupdate';
     // 卡池中卡的数量
-    var cardinpool = BASEURL38985 + '/api/as/uc/cardpoolinfodao/getallhavegavebypool';
+    var cardinpool = BASEURL38985 + '/api/as/cdc/cardpoolinfodao/getallhavegavebypool';
     // 卡池中卡列表
-    var listinpool = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/getcardlist';
+    var listinpool = BASEURL38985 + '/api/ac/cdc/cardpoolserviceimpl/getcardlist';
     // 可添加到卡池的卡
-    var unusedcard = BASEURL38985 + '/api/ac/uc/cardBaseService/getbacecardcanuse';
+    var unusedcard = BASEURL38985 + '/api/ac/cdc/cardBaseService/getbacecardcanuse';
     // 能释放的卡
-    var canrelease = BASEURL38985 + '/api/as/uc/cardpooldao/getcardcanreleaselist';
+    var canrelease = BASEURL38985 + '/api/as/cdc/cardpooldao/getcardcanreleaselist';
     // 卡池详情获取发卡目标
-    var targetcard = BASEURL38985 + '/api/as/uc/cardpooldao/findgivetargtlist';
+    var targetcard = BASEURL38985 + '/api/as/cdc/cardpooldao/findgivetargtlist';
     //卡池详情 查询操作记录
-    var operationrecordlist = BASEURL38985 + '/api/as/uc/cardpoolinfodao/operationrecordlist';
+    var operationrecordlist = BASEURL38985 + '/api/as/cdc/cardpoolinfodao/operationrecordlist';
     //------------------ 卡池管理 -----------------------//
 
 
     //------------------ 修改卡状态 -----------------------//
     // 置为已用接口
-    var used = BASEURL38985 + '/api/as/uc/cardpoolinfodao/upcardstatusztotwo';
+    var used = BASEURL38985 + '/api/as/cdc/cardpoolinfodao/upcardstatusztotwo';
     // 挂失接口
-    var lost = BASEURL38985 + '/api/ac/uc/cardpoolserviceimpl/reportcardupdate';
+    var lost = BASEURL38985 + '/api/ac/cdc/cardpoolserviceimpl/reportcardupdate';
     // 用卡号查询用户信息
-    var cardnumuser = BASEURL38985 + '/api/as/uc/cardproductorder/getUserInfoByCardNo';
+    var cardnumuser = BASEURL38985 + '/api/as/cdc/cardproductorder/getUserInfoByCardNo';
     //------------------ 修改卡状态 -----------------------//
 
     
     // 获取卡段
-    var getcardlist = BASEURL38985 + '/api/as/uc/cardpoolinfodao/findcardcodebypoolcodelist';
- 
+    var getcardlist = BASEURL38985 + '/api/as/cdc/cardpoolinfodao/findcardcodebypoolcodelist';
     // 记录拿卡人信息
-    var issuecard = BASEURL38985 + '/api/ac/uc/cardreleaseservice/save';
+    var issuecard = BASEURL38985 + '/api/ac/cdc/cardreleaseservice/save';
     // 获取拿卡人姓名
-    var takecardlists = BASEURL38985 + '/api/as/uc/cardgiveouttargetdao/finduserslist';
+    var takecardlists = BASEURL38985 + '/api/as/cdc/cardgiveouttargetdao/finduserslist';
     
 
     //----- 卡产品 -----------------------//
     //查询票种信息
     var saleticketinfo = BASEURL38985 + '/api/as/tc/salettype/list';
     //列表
-    var cardproductlist = BASEURL38985 + '/api/as/uc/cardproduct/productList';
+    var cardproductlist = BASEURL38985 + '/api/as/cdc/cardproduct/productList';
     //创建，修改卡产品
-    var cardproduct = BASEURL38985 + '/api/ac/uc/cardproductservice/save';
+    var cardproduct = BASEURL38985 + '/api/ac/cdc/cardproductservice/save';
     //卡产品信息
-    var cardproductinfo = BASEURL38985 + '/api/as/uc/cardproduct/getbyid';
+    var cardproductinfo = BASEURL38985 + '/api/as/cdc/cardproduct/getbyid';
     //卡资源列表
-    var cardresources = BASEURL38985 + '/api/as/uc/cardproductsubtable/tableInfoList';
+    var cardresources = BASEURL38985 + '/api/as/cdc/cardproductsubtable/tableInfoList';
     //添加资源
-    var cardresourcesinsert = BASEURL38985 + '/api/as/uc/cardproductsubtable/insert';
+    var cardresourcesinsert = BASEURL38985 + '/api/as/cdc/cardproductsubtable/insert';
     //删除资源
-    var cardresourcesdel = BASEURL38985 + '/api/as/uc/cardproductsubtable/delete';
+    var cardresourcesdel = BASEURL38985 + '/api/as/cdc/cardproductsubtable/delete';
     //卡产品绑定的卡池列表
-    var cardproduct_cardpoollist = BASEURL38985 + '/api/as/uc/cardproductsubpool/poolInfoList';
+    var cardproduct_cardpoollist = BASEURL38985 + '/api/as/cdc/cardproductsubpool/poolInfoList';
     // 卡池列表
-    var cardpoollists = BASEURL38985 + '/api/as/uc/cardpooldao/findpoolslist';
+    var cardpoollists = BASEURL38985 + '/api/as/cdc/cardpooldao/findpoolslist';
     //添加卡池
-    var cardproductpoolinsert = BASEURL38985 + '/api/as/uc/cardproductsubpool/insert';
+    var cardproductpoolinsert = BASEURL38985 + '/api/as/cdc/cardproductsubpool/insert';
     //删除卡池
-    var cardproductpooldel = BASEURL38985 + '/api/as/uc/cardproductsubpool/delete';
+    var cardproductpooldel = BASEURL38985 + '/api/as/cdc/cardproductsubpool/delete';
     //卡产品绑定的票列表
-    var cardproduct_ticketlist = BASEURL38985 + '/api/as/uc/cardproductsubticket/ticketInfoList';
+    var cardproduct_ticketlist = BASEURL38985 + '/api/as/cdc/cardproductsubticket/ticketInfoList';
     //添加票
-    var cardproductticketinsert = BASEURL38985 + '/api/as/uc/cardproductsubticket/save';
+    var cardproductticketinsert = BASEURL38985 + '/api/as/cdc/cardproductsubticket/save';
     //删除票
-    var cardproductticketdel = BASEURL38985 + '/api/as/uc/cardproductsubticket/delete';
+    var cardproductticketdel = BASEURL38985 + '/api/as/cdc/cardproductsubticket/delete';
     // 上架
-    var onsale = BASEURL38985 + '/api/ac/uc/userProductService/shelves';
+    var onsale = BASEURL38985 + '/api/ac/cdc/userProductService/shelves';
     // 下架
-    var goodoffsale = BASEURL38985 + '/api/ac/uc/userProductService/setdown';
+    var goodoffsale = BASEURL38985 + '/api/ac/cdc/userProductService/setdown';
     //----- 卡产品 -----------------------//
 
 
     //----- 卡订单管理 -----------------------//
     //卡订单列表
-    var cardproductorderlist = BASEURL38985 + '/api/as/uc/cardproductorder/cardProductOrderList';
+    var cardproductorderlist = BASEURL38985 + '/api/as/cdc/cardproductorder/cardProductOrderList';
     //卡订单详情
-    var cardproductorderinfo = BASEURL38985 + '/api/us/uc/cardproductorder/cardProductOrderInfo';
+    var cardproductorderinfo = BASEURL38985 + '/api/us/cdc/cardproductorder/cardProductOrderInfo';
 	//票信息
-    var ticketinfo = BASEURL38985 + '/api/as/uc/cardproductorder/ticketinfolist';
+    var ticketinfo = BASEURL38985 + '/api/as/cdc/cardproductorder/ticketinfolist';
+    //卡信息
+    var cardinfo = BASEURL38985 + '/api/as/cdc/cardproductorder/cardinfolist';
     //----- 卡订单管理 -----------------------//
 
     
 
     //----- 激活卡 -----------------------//
     //根据电话查看用户信息
-    var getUserInfoByMobile = BASEURL38985 + '/api/ac/uc/userService/getUserInfoByMobile';
+    var getUserInfoByMobile = BASEURL38985 + '/api/ac/cdc/userService/getUserInfoByMobile';
     //根据卡号查看可以激活的产品
-    var getProductByCardNoList = BASEURL38985 + '/api/as/uc/cardproductorder/getProductByCardNoList';
+    var getProductByCardNoList = BASEURL38985 + '/api/as/cdc/cardproductorder/getProductByCardNoList';
     //激活卡
-    var createProductOrderByCardNo = BASEURL38985 + '/api/uc/uc/userCardProductOrderService/createProductOrderByCardNo';
+    var createProductOrderByCardNo = BASEURL38985 + '/api/uc/cdc/userCardProductOrderService/createProductOrderByCardNo';
     //----- 激活卡 -----------------------//
     
     
@@ -123,19 +126,22 @@ var service = function($resource, BASEURL38985){
 
     //----- 拿卡人管理 -----------------------//
     // 拿卡人列表
-    var takecardlist = BASEURL38985 + '/api/as/uc/cardgiveouttargetdao/finduserlist';
+    var takecardlist = BASEURL38985 + '/api/as/cdc/cardgiveouttargetdao/finduserlist';
     // 保存拿卡人信息
-    var savetakecarduser = BASEURL38985 + '/api/as/uc/cardgiveouttargetdao/save';
+    var savetakecarduser = BASEURL38985 + '/api/as/cdc/cardgiveouttargetdao/save';
     // 删除拿卡人信息
-    var deletetakecarduser = BASEURL38985 + '/api/ac/uc/cardreleaseservice/deluser';
+    var deletetakecarduser = BASEURL38985 + '/api/ac/cdc/cardreleaseservice/deluser';
     //----- 拿卡人管理 -----------------------//
 
     // 发卡统计
-    var cardreleaselist = BASEURL38985 + '/api/as/uc/cardreleasedao/cardreleaselist';
+    var cardreleaselist = BASEURL38985 + '/api/as/cdc/cardreleasedao/cardreleaselist';
 
     return {
     	insertCard : function(){
              return $resource(insertCard, {}, {});
+        },
+        exExcel : function(){
+             return $resource(exExcel, {}, {});
         },
         cardpoollist : function(){
              return $resource(cardpoollist, {}, {});
@@ -240,6 +246,9 @@ var service = function($resource, BASEURL38985){
         },
         ticketinfo : function(){
              return $resource(ticketinfo, {}, {});
+        },
+        cardinfo : function(){
+             return $resource(cardinfo, {}, {});
         },
        
         statename:{ 

@@ -6,6 +6,16 @@
                 <label>订单编号</label>&nbsp;&nbsp;
                 <input type="text" class="form-control" ng-model="searchform.order_code" placeholder="请输入订单编号">
                 &nbsp;&nbsp;&nbsp;&nbsp;
+                
+                <label>订单来源</label>&nbsp;&nbsp;
+                <select class="form-control" ng-model="searchform.from_app_id" 
+                >
+                  <!--ng-options="payment_type.value as payment_type.label for payment_type in payment_typearr"-->
+                
+                  <option value="">  -- 不限 --  </option>
+                  <option value="shangke">shangke</option>
+                </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
 
                 <label>支付类型</label>&nbsp;&nbsp;
                 <select class="form-control" ng-model="searchform.payment_type" 
@@ -41,12 +51,13 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="text-center col-md-2">订单编号</th>
+        <th class="text-center col-md-1">订单编号</th>
         <th class="text-center col-md-1">订单序号</th>
         <th class="text-center col-md-1">支付金额</th>
         <th class="text-center col-md-1">支付类型</th>
         <th class="text-center col-md-1">创建时间</th>
         <th class="text-center col-md-1">所属机构</th>
+        <th class="text-center col-md-1">订单来源</th>
         <th class="text-center col-md-1">退票状态</th>
         <th class="text-center col-md-1">退款状态</th>
         <th class="text-center col-md-1">实际退款金额</th>
@@ -66,6 +77,7 @@
         <td class="text-center" ng-show="obj.payment_type==undefined"></td>
         <td class="text-center">{{obj.create_time}}</td>
         <td class="text-center">{{obj.ta_code}}</td>
+        <td class="text-center" >{{obj.from_app_id}}</td>
         <td class="text-center">{{obj.ticket_statename}}</td>
         <td class="text-center">{{obj.back_statename}}</td>
         <td class="text-center">{{obj.actual_back_price | currency : '￥'}}</td>

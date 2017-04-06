@@ -17,6 +17,10 @@ var service = function($resource, BASEURL38985, $q, $http){
     var city = BASEURL38985 + "/api/us/sc/city/citylist";
 
     var updateplacemerchant = BASEURL38985 + "/api/as/tc/placemerchant/update";
+    // 商户信息详情
+    var merchantinfo = BASEURL38985 + '/api/as/tc/placemerchant/info';
+    // 更新商户表首页排序
+    var gogosort = BASEURL38985 + '/api/as/tc/place/update';
 
     
     return {
@@ -35,6 +39,12 @@ var service = function($resource, BASEURL38985, $q, $http){
         },
         updateplacemerchant : function(){
             return $resource(updateplacemerchant, {}, {});
+        },
+        merchantinfo : function(){
+            return $resource(merchantinfo, {}, {});
+        },
+        gogosort : function(){
+            return $resource(gogosort, {}, {});
         },
         slist : function(obj){
             var deferred = $q.defer(); // 声明延后执行，表示要去监控后面的执行  
