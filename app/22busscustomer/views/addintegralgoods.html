@@ -67,25 +67,27 @@
  <div class="form-group">
  <label for="inputDate" class="col-sm-4 control-label">图文详情：</label>
  <div class="col-md-6">
- <input type="text" class="form-control" id="inputpoolname" placeholder=""
+ <!--<input type="text" class="form-control" id="inputpoolname" placeholder=""
       ng-model="info.content"
-      >
+      >-->
+      <div text-angular ng-model="info.content"></div>
  </div>    
  </div>
 
  <div class="form-group">
- <label for="inputDate" class="col-sm-4 control-label">门市价：</label>
- <div class="col-md-6">
- <input type="text" class="form-control" id="inputpoolname" placeholder=""
-      ng-model="info.market_price">
- </div>
+    <label for="inputDate" class="col-sm-4 control-label">门市价：</label>
+    <div class="col-md-6">
+    <input type="text" class="form-control" id="inputpoolname" placeholder=""
+          ng-model="info.market_price">
+    </div>
  </div>
 
  <div class="form-group">
  <label for="inputDate" class="col-sm-4 control-label">简介：</label>
  <div class="col-md-6">
- <input type="text" class="form-control" id="inputpoolname" placeholder=""
-      ng-model="info.introduction">
+ <!--<input type="text" class="form-control" id="inputpoolname" placeholder=""
+      ng-model="info.introduction">-->
+      <textarea class="form-control" rows="6" ng-model="info.introduction"></textarea>
  </div>
  </div>
 
