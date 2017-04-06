@@ -81,6 +81,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             merchantinfo : function(viewservice){
                 return viewservice.merchantinfo();
+            },
+            gogosort : function(viewservice){
+                return viewservice.gogosort();
             }
         }
       })

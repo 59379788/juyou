@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE,updateplacemerchant,merchantinfo,toaster){
+module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE,updateplacemerchant,merchantinfo,gogosort, toaster){
 
 	$scope.searchform = {};
 
@@ -61,8 +61,8 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE,update
             } else {
                 console.log('商户信息');
                 console.log(res);
-                console.log({'merchant_id' : id, 'merchant_asort' : asort});
-                updateplacemerchant.save({'merchant_id' : id, 'merchant_asort' : asort}, function(res){
+                console.log({'id' : id, 'asort' : asort});
+                gogosort.save({'id' : id, 'asort' : asort}, function(res){
 
                     console.log(res);
 
