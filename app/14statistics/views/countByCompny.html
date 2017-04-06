@@ -1,0 +1,113 @@
+<!-- Nested node template -->
+<script type="text/ng-template" id="nodes_renderer.html">
+	<div ui-tree-handle class="tree-node tree-node-content" ng-click="getit(this)">
+		<a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)">
+			<span class="glyphicon" ng-class="{
+          'glyphicon-chevron-right': collapsed,
+          'glyphicon-chevron-down': !collapsed
+        }"></span></a>
+		{{node.name}} （{{node.code}}）
+		<!-- <a class="pull-right btn btn-danger btn-xs" data-nodrag ng-click="remove(this)"><span
+        class="glyphicon glyphicon-remove"></span></a> -->
+		<!-- <a class="pull-right btn btn-primary btn-xs" data-nodrag 
+    ng-click="newSubItem(this,$event)" style="margin-right: 8px;">
+    	<span class="glyphicon glyphicon-plus"></span>
+    </a> -->
+	</div>
+	<ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+		<li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+		</li>
+	</ol>
+</script>
+
+<div class="row">
+	<div class="col-sm-4">
+		<div class="col-sm-12">
+			<label class="control-label" ng-click="createstb()">
+				已选菜单：&nbsp;&nbsp;&nbsp;&nbsp;
+			</label>
+			<button type="button" class="btn btn-info" ng-if="selectedCompany">
+				{{selectedCompany}}
+			</button>
+		</div>
+		<div class="col-sm-12">
+			<div ui-tree id="tree-root" data-nodrop-enabled="true" data-drag-enabled="false">
+				<ol ui-tree-nodes ng-model="data">
+					<li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+				</ol>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-8">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="form-group form-inline">
+					<div class="col-sm-12">
+						<div class="row mt10">
+							<label>时间</label>&nbsp;&nbsp;
+							<div class="input-group">
+								<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened"
+								 ng-required="true" close-text="Close" readonly/>
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+									<button type="button" class="btn btn-default" ng-click="clearDate(section.start)"><i class="glyphicon glyphicon-remove"></i></button>
+								</span>
+							</div>
+							&nbsp;&nbsp;到&nbsp;&nbsp;
+							<div class="input-group">
+								<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened"
+								 ng-required="true" close-text="Close" readonly/>
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
+									<button type="button" class="btn btn-default" ng-click="clearDate(section.end)"><i class="glyphicon glyphicon-remove"></i></button>
+								</span>
+							</div>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+						</div>
+						<div class="row mt10">
+							<label class="control-label">是否包含子节点：</label>
+							<select class="form-control" ng-model="searchform.company_type" placeholder="统计类型">
+								<option label="本级" value="1"></option>
+								<option label="下级" value="2"></option>
+								<option label="本级+下级" value="3"></option>
+							</select> &nbsp;&nbsp;&nbsp;&nbsp;
+							<label class="control-label">是否包含子节点：</label>
+							<select class="form-control" ng-model="searchform.ticket_type" placeholder="票类型">
+								<option label="电子票" value="1"></option>
+								<option label="团票" value="2"></option>
+							</select> &nbsp;&nbsp;&nbsp;&nbsp;
+							<button type="button btn" class="btn btn-default search pull-right" ng-click="orderSearch()">立即搜索</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th class="col-md-3 text-center">机构编码</th>
+					<th class="col-md-3 text-center">产品编码</th>
+					<th class="col-md-2 text-center">购买数量</th>
+					<th class="col-md-2 text-center">使用数量</th>
+					<th class="col-md-2 text-center">退票数量</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="obj in objs">
+					<td class="text-center">{{obj.company_code}}</td>
+					<td class="text-center">{{obj.sale_code}}</td>
+					<td class="text-center">{{obj.buy}}</td>
+					<td class="text-center">{{obj.used}}</td>
+					<td class="text-center">{{obj.back}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="text-right">
+			<uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"
+			 ng-change="load()" items-per-page="itemsPerPage" previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页" rotate="false">
+			</uib-pagination>
+		</div>
+	</div>
+</div>
