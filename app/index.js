@@ -14,9 +14,16 @@ require('angular-ui-tree');
 
 
 // ------------ 百度富文本编辑器 ----------------------//
-window.UEDITOR_HOME_URL = 'ueditor/';
-require('../ueditor/ueditor.config.js');
-require('../ueditor/ueditor.all.js');
+//window.UEDITOR_HOME_URL = 'ueditor/';
+
+window.UEDITOR_HOME_URL = 'http://cl.juyouhx.com/Public/ueditor/';
+
+// require('../ueditor/ueditor.config.js');
+// require('../ueditor/ueditor.all.js');
+
+
+
+
 require('../node_modules/angular-ueditor/dist/angular-ueditor');
 // ------------ 百度富文本编辑器 ----------------------//
 
