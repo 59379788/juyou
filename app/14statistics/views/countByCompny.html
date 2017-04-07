@@ -84,30 +84,33 @@
 			</div>
 		</div>
 
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th class="col-md-3 text-center">机构编码</th>
-					<th class="col-md-3 text-center">产品编码</th>
-					<th class="col-md-2 text-center">购买数量</th>
-					<th class="col-md-2 text-center">使用数量</th>
-					<th class="col-md-2 text-center">退票数量</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="obj in objs">
-					<td class="text-center">{{obj.company_code}}</td>
-					<td class="text-center">{{obj.sale_code}}</td>
-					<td class="text-center">{{obj.buy}}</td>
-					<td class="text-center">{{obj.used}}</td>
-					<td class="text-center">{{obj.back}}</td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="text-right">
+		<div class="col-xs-12" ng-if="item.list.length" ng-repeat="item in objs">
+			{{item.code}}
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th class="col-md-3 text-center">机构编码</th>
+						<th class="col-md-3 text-center">产品编码</th>
+						<th class="col-md-2 text-center">购买数量</th>
+						<th class="col-md-2 text-center">使用数量</th>
+						<th class="col-md-2 text-center">退票数量</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="obj in item.list">
+						<td class="text-center">{{obj.company_code}}</td>
+						<td class="text-center">{{obj.sale_code}}</td>
+						<td class="text-center">{{obj.buy}}</td>
+						<td class="text-center">{{obj.used}}</td>
+						<td class="text-center">{{obj.back}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!--<div class="text-right">
 			<uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"
 			 ng-change="load()" items-per-page="itemsPerPage" previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页" rotate="false">
 			</uib-pagination>
-		</div>
+		</div>-->
 	</div>
 </div>
