@@ -86,21 +86,25 @@
 		</div>
 
 		<div class="col-xs-12" ng-if="item.list.length" ng-repeat="item in objs">
-			{{item.code}}
+			{{item.name}}({{item.code}})
 			<table id="table1" class="table table-bordered" ng-if="ticket_type_flag == 1">
 				<thead>
 					<tr>
-						<th class="col-md-3 text-center">机构编码</th>
-						<th class="col-md-3 text-center">产品编码</th>
-						<th class="col-md-2 text-center">购买数量</th>
-						<th class="col-md-2 text-center">使用数量</th>
-						<th class="col-md-2 text-center">退票数量</th>
+						<th class="col-md-2 text-center">机构编码</th>
+						<th class="col-md-2 text-center">机构名称</th>
+						<th class="col-md-2 text-center">产品编码</th>
+						<th class="col-md-3 text-center">产品名称</th>
+						<th class="col-md-1 text-center">购买数量</th>
+						<th class="col-md-1 text-center">使用数量</th>
+						<th class="col-md-1 text-center">退票数量</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="obj in item.list">
 						<td class="text-center">{{obj.company_code}}</td>
+						<td class="text-center">{{obj.company_name}}</td>
 						<td class="text-center">{{obj.sale_code}}</td>
+						<td class="text-center">{{obj.sale_name}}</td>
 						<td class="text-center">{{obj.buy}}</td>
 						<td class="text-center">{{obj.used}}</td>
 						<td class="text-center">{{obj.back}}</td>
@@ -110,17 +114,21 @@
 			<table id="table1" class="table table-bordered" ng-if="ticket_type_flag == 2">
 				<thead>
 					<tr>
-						<th class="col-md-3 text-center">机构编码</th>
-						<th class="col-md-3 text-center">产品编码</th>
-						<th class="col-md-2 text-center">计划人数</th>
-						<th class="col-md-2 text-center">预订人数</th>
-						<th class="col-md-2 text-center">实际人数</th>
+						<th class="col-md-2 text-center">机构编码</th>
+						<th class="col-md-2 text-center">机构名称</th>
+						<th class="col-md-2 text-center">产品编码</th>
+						<th class="col-md-3 text-center">产品名称</th>
+						<th class="col-md-1 text-center">计划人数</th>
+						<th class="col-md-1 text-center">预订人数</th>
+						<th class="col-md-1 text-center">实际人数</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="obj in item.list">
 						<td class="text-center">{{obj.company_code}}</td>
+						<td class="text-center">{{obj.company_name}}</td>
 						<td class="text-center">{{obj.sale_code}}</td>
+						<td class="text-center">{{obj.sale_name}}</td>
 						<td class="text-center">{{obj.plan_count}}</td>
 						<td class="text-center">{{obj.book_count}}</td>
 						<td class="text-center">{{obj.actual_count}}</td>
