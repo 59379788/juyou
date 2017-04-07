@@ -14,10 +14,15 @@ module.exports = function($resource, $state, $http, $q,toaster){
 				'rebate_lower' : 0,
 				'profit_ratio' : 0,
 				'profit' : '',
-				'rebate_unlimited' : 0
+				'rebate_unlimited' : 0,
+				'merchant_make_appointment' : ''
 			}
 			
 			scope.obj = {
+				'isSelected' : false
+			}
+
+			scope.yyobj = {
 				'isSelected' : false
 			}
 
@@ -54,12 +59,17 @@ module.exports = function($resource, $state, $http, $q,toaster){
 					} else if(scope.salefrobj.search_type == 1){
 						scope.obj.isSelected = false;
 					}
-
-					if(scope.salefrobj.rebate_type == 0){
-						scope.hb.isSelected = true;
-					} else if(scope.salefrobj.rebate_type == 1){
-						scope.hb.isSelected = false;
+					if(scope.salefrobj.merchant_make_appointment == 1){
+						scope.yyobj.isSelected = true;
+					} else if(scope.salefrobj.merchant_make_appointment == 0){
+						scope.yyobj.isSelected = false;
 					}
+
+					// if(scope.salefrobj.rebate_type == 0){
+					// 	scope.hb.isSelected = true;
+					// } else if(scope.salefrobj.rebate_type == 1){
+					// 	scope.hb.isSelected = false;
+					// }
 
 					scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio * 0.01)).toFixed(2);
 					if(scope.salefrobj.rebate_unlimited == 0){
@@ -95,14 +105,15 @@ module.exports = function($resource, $state, $http, $q,toaster){
 					scope.salefrobj.search_type = '1';
 				}
 			}
-			// scope.onHbChange = function(isSelected){
-			// 	console.log(isSelected);
-			// 	if(isSelected == true) {
-			// 		scope.salefrobj.rebate_type = '0'; 
-			// 	} else {
-			// 		scope.salefrobj.rebate_type = '1';
-			// 	}
-			// }
+
+			scope.onYYChange = function(isSelected){
+				console.log(isSelected);
+				if(isSelected == true) {
+					scope.salefrobj.merchant_make_appointment = '1'; 
+				} else {
+					scope.salefrobj.merchant_make_appointment = '0';
+				}
+			}
 
             scope.saleFrSetSave = function(){
                 scope.salefrobj.sale_code = scope.saleobj.code;
