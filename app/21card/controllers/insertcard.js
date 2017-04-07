@@ -22,11 +22,11 @@ module.exports = function($scope, $uibModalInstance, insertCard){
 			return;
 		}
 
-		if($scope.obj.startcard.length != 12 || $scope.obj.endcard.length != 12)
+		/*if($scope.obj.startcard.length != 12 || $scope.obj.endcard.length != 12)
 		{
 			alert('位数错误！');
 			return;
-		}
+		}*/
 
 		insertCard.save($scope.obj, function(res){
 
