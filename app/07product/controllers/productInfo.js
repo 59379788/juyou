@@ -117,7 +117,7 @@ module.exports = function ($scope, $stateParams, $http, $q, FileUploader, str2da
 
 
 	$scope.auditingFlag = false;
-	$scope.auditingInfo = 15;
+	$scope.auditingInfo = 5;
 
 	function timing() {
 		if ($scope.auditingInfo > 0) {
