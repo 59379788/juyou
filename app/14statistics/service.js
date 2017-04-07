@@ -39,7 +39,7 @@ var service = function($resource, BASEURL38985){
     var staticonline = BASEURL38985 + '/api/as/uc/cardorder/getList';
 
     //各级分销统计
-    var countByCompnycode = BASEURL38985 + '/api/uc/tc/ticketCountService/countByCompnycode';
+    var countByCompnycode = BASEURL38985 + '/api/ac/tc/ticketCountService/countByCompnycode';
 
     return {
         uselist : function(){
