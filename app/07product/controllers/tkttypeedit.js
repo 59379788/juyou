@@ -2,6 +2,7 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 	tktupdate, placeinfo, makeArr, makeStr, getDate, str2date){
 
 	$scope.placeid = '';
+	$scope.id = $stateParams.id;
 	//有效区间
 	// $scope.section = {};
 	// $scope.section.start = {};

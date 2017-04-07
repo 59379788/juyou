@@ -2,6 +2,7 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams,
 	placeinfo, $state, makeArr, makeStr){
 
 	$scope.placeid = $stateParams.placeid;
+	$scope.id = '';
 
 	$scope.objt = {
 		'name' : '',

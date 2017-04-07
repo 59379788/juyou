@@ -1,4 +1,4 @@
-module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnycode, toaster, getDate,
+module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnycode, toaster, getDate, Excel, $timeout,
 	ITEMS_PERPAGE) {
 
 	$scope.objs = [];
@@ -94,11 +94,11 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 	$scope.load = function () {
 
 		console.log($scope.section);
-		if( !($scope.section.start.date && $scope.section.end.date)){
-			alert('请选择统计时间');
-			return false;
-		}
-		if( !$scope.selectedCompany){
+		// if (!($scope.section.start.date && $scope.section.end.date)) {
+		// 	alert('请选择统计时间');
+		// 	return false;
+		// }
+		if (!$scope.selectedCompany) {
 			alert('请选择机构');
 			return false;
 		}
@@ -164,6 +164,18 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 		}
 
 		$scope.load();
+	}
+
+	$scope.infringementNotices = [
+		{
+			IsPay: '扣款',
+			Operate: '通知'
+		}
+	];
+
+	$scope.exportToExcel = function (tableId) {
+		$scope.exportHref = Excel.tableToExcel(tableId, 'sheet name');
+		$timeout(function () { location.href = $scope.exportHref; }, 100); // trigger download
 	}
 
 };
