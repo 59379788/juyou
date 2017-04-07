@@ -2,7 +2,7 @@ module.exports = function($scope, $state, orderbacklist, orderback, ITEMS_PERPAG
     $uibModal, dictbytypelist){
 
 	$scope.searchform = {
-        // 'from_app_id' : ''
+         'from_app_id' : 'juyou'
     };
     $scope.payment_typearr = [];
     $scope.back_statearr = [];
@@ -15,7 +15,12 @@ module.exports = function($scope, $state, orderbacklist, orderback, ITEMS_PERPAG
     $scope.maxSize = 10;            //最多显示多少个按钮
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
-    
+
+    $scope.change = function(){
+        console.log('11111');
+        $scope.bigCurrentPage = 1; 
+    }
+
     $scope.load = function () {
 
     	var para = {
