@@ -9,18 +9,18 @@
                 
                 <label>订单来源</label>&nbsp;&nbsp;
                 <select class="form-control" ng-model="searchform.from_app_id" 
-                >
+                ng-change="change()">
                   <!--ng-options="payment_type.value as payment_type.label for payment_type in payment_typearr"-->
-                
+                  <option value="juyou">居游</option>
+                  <option value="shangke">商客</option>
                   <option value="">  -- 不限 --  </option>
-                  <option value="shangke">shangke</option>
                 </select>
                 &nbsp;&nbsp;&nbsp;&nbsp;
 
                 <label>支付类型</label>&nbsp;&nbsp;
                 <select class="form-control" ng-model="searchform.payment_type" 
                   ng-options="payment_type.value as payment_type.label for payment_type in payment_typearr"
-                >
+                ng-change="change()">
                   <option value="">  -- 不限 --  </option>
                 </select>
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -28,7 +28,7 @@
                 <label>退款类型</label>&nbsp;&nbsp;
                 <select class="form-control" ng-model="searchform.back_state" 
                   ng-options="back_state.value as back_state.label for back_state in back_statearr"
-                >
+                ng-change="change()">
                   <option value="">  -- 不限 --  </option>
                 </select>
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -36,7 +36,7 @@
                 <label>退票状态</label>&nbsp;&nbsp;
                 <select class="form-control" ng-model="searchform.ticket_state" 
                   ng-options="ticket_state.value as ticket_state.label for ticket_state in ticket_statearr"
-                >
+                ng-change="change()">
                   <option value="">  -- 不限 --  </option>
                 </select>
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -80,7 +80,7 @@
         <td class="text-center" >{{obj.from_app_id}}</td>
         <td class="text-center">{{obj.ticket_statename}}</td>
         <td class="text-center">{{obj.back_statename}}</td>
-        <td class="text-center">{{obj.actual_back_price | currency : '￥'}}</td>
+        <td class="text-center">{{obj.actual_back_price/100 | currency : '￥'}}</td>
         <td class="text-center">{{obj.update_time}}</td>
         <td class="text-center">
         	<a ng-show="obj.back_state=='0' && obj.ticket_state == 1" ng-click="back(obj)" class="btn btn-success btn-xs">退款</a>
