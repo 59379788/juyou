@@ -1,7 +1,7 @@
 module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnycode, toaster, getDate,
 	ITEMS_PERPAGE) {
 
-	$scope.objs = {};
+	$scope.objs = [];
 
 	$scope.searchform = {};
 	$scope.searchform.company_type = '1';
@@ -105,7 +105,7 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 				toaster.error({ body: res.errmsg })
 			}
 			if (res.data[0]) {
-				$scope.objs = res.data[0].list;
+				$scope.objs = res.data;
 			} else {
 				$scope.objs = [];
 			}
