@@ -10,6 +10,8 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 	$scope.tempSearchData = {};
 	$scope.selectedCompany = '';
 
+	$scope.ticket_type_flag = $scope.searchform.ticket_type;
+
 	//有效区间
 	$scope.section = {};
 	$scope.section.start = {};
@@ -45,11 +47,11 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 			console.log($scope.tempData);
 			var dlq = transData(res, 'id', 'pId', 'nodes');
 			$scope.data = dlq;
-			console.log($scope.data);
-			$scope.currentid = $scope.data[0].id;
-			$scope.currentcode = $scope.data[0].code;
-			$scope.currentname = $scope.data[0].name;
-			$scope.load($scope.data[0].id, $scope.data[0].name);
+			// console.log($scope.data);
+			// $scope.currentid = $scope.data[0].id;
+			// $scope.currentcode = $scope.data[0].code;
+			// $scope.currentname = $scope.data[0].name;
+			// $scope.load($scope.data[0].id, $scope.data[0].name);
 		});
 	}
 	mechanismtree();
@@ -91,6 +93,16 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 
 	$scope.load = function () {
 
+		console.log($scope.section);
+		if( !($scope.section.start.date && $scope.section.end.date)){
+			alert('请选择统计时间');
+			return false;
+		}
+		if( !$scope.selectedCompany){
+			alert('请选择机构');
+			return false;
+		}
+
 		var para = {
 			pageNo: $scope.bigCurrentPage,
 			pageSize: $scope.itemsPerPage,
@@ -104,6 +116,7 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 			if (res.errcode != 0) {
 				toaster.error({ body: res.errmsg })
 			}
+			$scope.ticket_type_flag = $scope.searchform.ticket_type;
 			if (res.data[0]) {
 				$scope.objs = res.data;
 			} else {
@@ -113,7 +126,7 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 		});
 
 	};
-	$scope.load();
+	// $scope.load();
 
 	$scope.getit = function (obj) {
 		$scope.tempSearchData = obj.$modelValue.id;

@@ -66,13 +66,13 @@
 							&nbsp;&nbsp;&nbsp;&nbsp;
 						</div>
 						<div class="row mt10">
-							<label class="control-label">是否包含子节点：</label>
+							<label class="control-label">统计类型：</label>
 							<select class="form-control" ng-model="searchform.company_type" placeholder="统计类型">
 								<option label="本级" value="1"></option>
 								<option label="下级" value="2"></option>
 								<option label="本级+下级" value="3"></option>
 							</select> &nbsp;&nbsp;&nbsp;&nbsp;
-							<label class="control-label">是否包含子节点：</label>
+							<label class="control-label">票类型：</label>
 							<select class="form-control" ng-model="searchform.ticket_type" placeholder="票类型">
 								<option label="电子票" value="1"></option>
 								<option label="团票" value="2"></option>
@@ -86,7 +86,7 @@
 
 		<div class="col-xs-12" ng-if="item.list.length" ng-repeat="item in objs">
 			{{item.code}}
-			<table class="table table-bordered">
+			<table class="table table-bordered" ng-if="ticket_type_flag == 1">
 				<thead>
 					<tr>
 						<th class="col-md-3 text-center">机构编码</th>
@@ -103,6 +103,26 @@
 						<td class="text-center">{{obj.buy}}</td>
 						<td class="text-center">{{obj.used}}</td>
 						<td class="text-center">{{obj.back}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<table class="table table-bordered" ng-if="ticket_type_flag == 2">
+				<thead>
+					<tr>
+						<th class="col-md-3 text-center">机构编码</th>
+						<th class="col-md-3 text-center">产品编码</th>
+						<th class="col-md-2 text-center">计划人数</th>
+						<th class="col-md-2 text-center">预订人数</th>
+						<th class="col-md-2 text-center">实际人数</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="obj in item.list">
+						<td class="text-center">{{obj.company_code}}</td>
+						<td class="text-center">{{obj.sale_code}}</td>
+						<td class="text-center">{{obj.plan_count}}</td>
+						<td class="text-center">{{obj.book_count}}</td>
+						<td class="text-center">{{obj.actual_count}}</td>
 					</tr>
 				</tbody>
 			</table>
