@@ -174,7 +174,7 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 	];
 
 	$scope.exportToExcel = function (tableId) {
-		$scope.exportHref = Excel.tableToExcel(tableId, 'sheet name');
+		$scope.exportHref = Excel.tableToExcel(tableId, '哈哈哈哈哈sheet1');
 		$timeout(function () { location.href = $scope.exportHref; }, 100); // trigger download
 	}
 
