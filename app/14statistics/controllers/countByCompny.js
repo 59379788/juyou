@@ -94,10 +94,10 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 	$scope.load = function () {
 
 		console.log($scope.section);
-		// if (!($scope.section.start.date && $scope.section.end.date)) {
-		// 	alert('请选择统计时间');
-		// 	return false;
-		// }
+		if (!($scope.section.start.date && $scope.section.end.date)) {
+			alert('请选择统计时间');
+			return false;
+		}
 		if (!$scope.selectedCompany) {
 			alert('请选择机构');
 			return false;
