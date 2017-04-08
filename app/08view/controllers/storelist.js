@@ -1,5 +1,5 @@
 module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE,updateplacemerchant,merchantinfo,gogosort, toaster){
-
+  
 	$scope.searchform = {};
 
 

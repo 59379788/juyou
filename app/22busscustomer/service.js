@@ -242,6 +242,10 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var list = SYS + '/a/sys/user/ajaxlist';
 
   var createmechanism = SYS + '/a/sys/office/ajaxsave';
+
+  // 退款模块
+  var orderbacklist = BASEURL38985 + "/api/as/tc/ticketorderback/orderbacklist";
+  var orderback = BASEURL38985 + "/api/ac/tc/ticketOrderService/updatebackmoneybycode";
   
 
 
@@ -616,6 +620,12 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         createmechanism : function(){
           return $resource(createmechanism,{},{});
+        },
+        orderbacklist : function(){
+            return $resource(orderbacklist, {}, {});
+        },
+        orderback : function(){
+            return $resource(orderback, {}, {});
         }
 
 

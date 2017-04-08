@@ -923,6 +923,25 @@ var router = function($urlRouterProvider, $stateProvider){
                 }
             }
         })
+
+        .state('app.skorderbacklist', {
+        url: '/skorderbacklist',
+        controller : 'skorderbacklist',
+        template: require('./views/skorderbacklist.html'),
+        resolve:{
+            orderbacklist : function(custservice){
+                return custservice.orderbacklist();
+            },
+            orderback : function(custservice){
+                return custservice.orderback();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
+            }
+        }
+      })
+
+        
  
 }
 module.exports = router;

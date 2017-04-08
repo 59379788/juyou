@@ -101,5 +101,10 @@ App.controller('setappointment',require('./controllers/setappointment'));
 App.controller('customerlist',require('./controllers/customerlist'));
 /*** 预约模块 ***/
 
+// 退款
+App.controller('skorderbacklist',require('./controllers/skorderbacklist'));
+App.controller('skorderback',require('./controllers/skorderback'));
+
+
 
 module.exports = App;
