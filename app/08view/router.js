@@ -66,9 +66,9 @@ var router = function($urlRouterProvider, $stateProvider){
 
       //商户列表
       .state('app.storelist', {
-        url: '/store/list.html',
+        url: '/storelist.html',
         controller : 'storelist',
-        template: require('./views/viewlist.html'),
+        template: require('./views/storelist.html'),
         resolve:{
             viewupdate : function(viewservice){
                 return viewservice.update();

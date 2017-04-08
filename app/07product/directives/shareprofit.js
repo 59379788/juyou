@@ -12,7 +12,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
 		link : function(scope, elements, attrs){
 			scope.salefrobj = {
 				'rebate_lower' : 0,
-				'profit_ratio' : 0,
+				'profit_ratio' : 10,
 				'profit' : '',
 				'rebate_unlimited' : 0,
 				'merchant_make_appointment' : ''
