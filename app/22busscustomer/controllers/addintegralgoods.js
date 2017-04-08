@@ -111,7 +111,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
             });
 
         } else {   
-            $scope.info.sale_code = $scope.searchform.selected.code;        
+            $scope.info.sale_code = $scope.searchform.selected.code;
+            $scope.info.market_price = $scope.info.market_price*100;        
             saveIntegralGood.save($scope.info, function(res){
                 console.log($scope.info);
                 if (res.errcode !== 0) {
