@@ -15,7 +15,7 @@
     </a> -->
 	</div>
 	<ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
-		<li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+		<li ng-repeat="node in node.nodes" data-collapsed="true" ui-tree-node ng-include="'nodes_renderer.html'">
 		</li>
 	</ol>
 </script>
@@ -31,7 +31,7 @@
 			</button>
 		</div>
 		<div class="col-sm-12">
-			<div ui-tree id="tree-root" data-nodrop-enabled="true" data-drag-enabled="false">
+			<div ui-tree id="tree-root" data-nodrop-enabled="true" data-drag-enabled="false" data-nodrag="false">
 				<ol ui-tree-nodes ng-model="data">
 					<li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
 				</ol>
@@ -138,7 +138,7 @@
 		</div>
 
 		<!--导出Excel用的表格-->
-		<table ng-show="false" id="Excel_table">
+		<table ng-show="false" id="Excel_table" content="text/html; charset=utf-8">
 			<thead>
 				<tr>
 					<th class="col-md-2 text-center">机构编码</th>
@@ -154,7 +154,7 @@
 				<tr ng-repeat="obj in item.list">
 					<td class="text-center">{{obj.company_code}}</td>
 					<td class="text-center">{{obj.company_name}}</td>
-					<td class="text-center">{{obj.sale_code}}</td>
+					<td class="text-center">&nbsp;{{obj.sale_code}}</td>
 					<td class="text-center">{{obj.sale_name}}</td>
 					<td class="text-center">{{obj.buy}}</td>
 					<td class="text-center">{{obj.used}}</td>
