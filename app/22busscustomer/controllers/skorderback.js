@@ -1,5 +1,5 @@
 module.exports = function($scope, $state, $uibModalInstance, id, back_price, orderback){
-
+	console.log(back_price);
 	$scope.obj = {
 		'remark' : '  '
 	};

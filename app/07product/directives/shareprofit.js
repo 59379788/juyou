@@ -131,7 +131,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
 				} else {
 					$resource('/api/as/tc/saleshangkeprice/save', {}, {})
                     .save(scope.salefrobj,function(res){
-                        // console.log(scope.salefrobj);
+                         console.log(scope.salefrobj);
                         if(res.errcode !== 0)
                         {
                             toaster.success({title:"",body:res.errmsg});
