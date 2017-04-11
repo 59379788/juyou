@@ -1,38 +1,53 @@
 <div class="col-sm-12">
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<div class="form-group form-inline">
-				<div class="col-sm-10">
-					<label>产品名称</label>&nbsp;&nbsp;
-					<input type="text" class="form-control" ng-model="searchform.name"> &nbsp;&nbsp;&nbsp;&nbsp;
-					<label>产品编号</label>&nbsp;&nbsp;
-					<input type="text" class="form-control" ng-model="searchform.code"> &nbsp;&nbsp;&nbsp;&nbsp;
-					<label>景区编号</label>&nbsp;&nbsp;
-					<input type="text" class="form-control" ng-model="searchform.place_code">
-					<button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+			<div class="form-group ">
+				<div class="col-sm-12">
+						<label class="control-label pull-left">产品名称</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="searchform.name" ng-keyup="myKeyup($event)">
+					</div>
+						<label class="control-label pull-left">产品编号</label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" ng-model="searchform.code" ng-keyup="myKeyup($event)">
+					</div>
+						<label class="control-label pull-left">产品编号</label>
+					<div class="col-sm-3">
+						<ui-select ng-model="searchform.place_code" theme="bootstrap" ng-keyup="myKeyup($event)">
+							<ui-select-match placeholder="请选择一个景区">
+								{{$select.selected.name}}
+							</ui-select-match>
+							<ui-select-choices repeat="item.code as item in viewarr | filter: $select.search">
+								<span ng-bind-html="item.name | highlight: $select.search"></span>
+							</ui-select-choices>
+						</ui-select>
+					</div>
+					<!--<input type="text" class="form-control" ng-model="searchform.place_code">-->
+					<a class="btn btn-info pull-right new" ng-click="create()">创建产品</a>
 				</div>
-				<div class="col-sm-2 text-right">
-					<button type="button" class="btn btn-info new" ng-click="create()">创建产品</button>
-				</div>
+				<!--<div class="col-sm-2 text-right">-->
+				<!--</div>-->
 				<br/>
 				<br/>
 			</div>
 			<div class="form-group">
 				<div class="col-sm-12">
-					<label class="control-label pull-left">销售品分类</label>
+					<label class="control-label pull-left">产品分类</label>
 					<div class="col-sm-2 ">
-						<select class="form-control" ng-model="searchform.sale_category" ng-options="item.value as item.label for item in dictbytypelist" >
+						<select class="form-control" ng-model="searchform.sale_category" ng-keyup="myKeyup($event)" ng-options="item.value as item.label for item in dictbytypelist">
 							<option value="">----全部----</option>
 	            		</select>
-						<!--<ui-select ng-model="searchform.sale_category" theme="bootstrap">
-							<ui-select-match placeholder="请选择一个分类">
-								{{$select.selected.label}}
-							</ui-select-match>
-							<ui-select-choices repeat="item.value as item in dictbytypelist | filter: $select.search">
-								<span ng-bind-html="item.label | highlight: $select.search"></span>
-							</ui-select-choices>
-						</ui-select>-->
 					</div>
+					<label class="control-label pull-left">产品状态</label>
+					<div class="col-sm-2 ">
+						<select class="form-control" ng-model="searchform.state" ng-keyup="myKeyup($event)">
+							<option value="">----全部----</option>
+							<option value="0">草稿</option>
+							<option value="1">上架</option>
+							<option value="2">下架</option>
+	            		</select>
+					</div>
+					<button type="submit" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
 				</div>
 			</div>
 		</div>

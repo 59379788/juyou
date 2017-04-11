@@ -19,7 +19,7 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 
 
 	$resource('/api/as/sc/dict/dictbytypelist', {}, {})
-		.save({type:'sale_category'}, function (res) {
+		.save({ type: 'sale_category' }, function (res) {
 
 			console.log(res);
 			if (res.errcode !== 0) {
@@ -30,6 +30,31 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 			$scope.dictbytypelist = res.data;
 
 		});
+
+
+	$resource('/api/as/tc/placeview/jlist', {}, {})
+		.save({ type: 'sale_category' }, function (res) {
+
+			if (res.errcode === 0) {
+				$scope.viewarr = res.data;
+				$scope.viewarr.unshift({ name: '----全部----', code: '' });
+			}
+			else {
+				alert(res.data.errmsg);
+			}
+
+		});
+
+	$scope.myKeyup = function (e) {
+
+		//IE 编码包含在window.event.keyCode中，Firefox或Safari 包含在event.which中
+		var keycode = window.event ? e.keyCode : e.which;
+		if (keycode == 13) {
+			$scope.load();
+		}
+	};
+
+
 	$scope.load = function () {
 
 		var para = {
