@@ -25,6 +25,16 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
     
+
+	$scope.myKeyup = function (e) {
+
+		//IE 编码包含在window.event.keyCode中，Firefox或Safari 包含在event.which中
+		var keycode = window.event ? e.keyCode : e.which;
+		if (keycode == 13) {
+			$scope.load();
+		}
+	};
+    
     $scope.load = function () {
 
         console.log(getDate($scope.section.start.date));

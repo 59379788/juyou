@@ -17,6 +17,16 @@ module.exports = function($scope, grouplist, ITEMS_PERPAGE, $uibModal, getDate, 
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
     
+
+	$scope.myKeyup = function (e) {
+
+		//IE 编码包含在window.event.keyCode中，Firefox或Safari 包含在event.which中
+		var keycode = window.event ? e.keyCode : e.which;
+		if (keycode == 13) {
+			$scope.load();
+		}
+	};
+    
     $scope.load = function () {
 
     	var para = {

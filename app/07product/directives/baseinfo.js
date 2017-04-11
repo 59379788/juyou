@@ -394,6 +394,11 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			};
 
 
+			scope.synize = function(){
+				scope.saleobj.name_inside = scope.saleobj.name;
+			}
+
+
 
 
 		}

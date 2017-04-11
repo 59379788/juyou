@@ -5,7 +5,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 col-xs-12 control-label">产品名称</label>
 			<div class="col-sm-4 col-xs-12">
-				<input type="text" class="form-control" placeholder="产品名称" ng-disabled="saleobj.id || util.what == 'info'"
+				<input type="text" class="form-control" placeholder="产品名称" ng-blur="synize()" ng-disabled="saleobj.id || util.what == 'info'"
 				 ng-model="saleobj.name">
 			</div>
 			<div class="col-sm-6 mt10">

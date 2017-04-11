@@ -6,17 +6,17 @@
 
                 <div class="row ">
 
-                  <input type="text" class="form-control" ng-model="searchform.code" placeholder="订单编号">
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.code" placeholder="订单编号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <input type="text" class="form-control" ng-model="searchform.keyword" placeholder="订单标题" 
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.keyword" placeholder="订单标题" 
                   >
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <input type="text" class="form-control" ng-model="searchform.cardno"  placeholder="身份证号">
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.cardno"  placeholder="身份证号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <input type="text" class="form-control" ng-model="searchform.name"
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.name"
                    placeholder="姓名"
                    >
                   &nbsp;&nbsp;&nbsp;&nbsp;
@@ -41,16 +41,16 @@
 
                   
 
-                  <input type="text" class="form-control" ng-model="searchform.company_code" placeholder="机构编号">
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.company_code" placeholder="机构编号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <input type="text" class="form-control" ng-model="searchform.login_name" placeholder="登录帐号">
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.login_name" placeholder="登录帐号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <input type="text" class="form-control" ng-model="searchform.note" placeholder="备注">
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.note" placeholder="备注">
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <input type="text" class="form-control" ng-model="searchform.mobile" placeholder="电话">
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.mobile" placeholder="电话">
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
                 </div>
@@ -59,14 +59,14 @@
 
                   <label>下单时间</label>&nbsp;&nbsp;
                   <div class="input-group">
-                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
                       </span>
                   </div>
                         &nbsp;&nbsp;到&nbsp;&nbsp;            
                   <div class="input-group">
-                  <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-required="true" close-text="Close" readonly/>
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
                       </span>
@@ -74,7 +74,7 @@
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
                   <label class="control-label">票状态：</label>
-                  <select class="form-control" ng-model="searchform.ticket_state" 
+                  <select class="form-control" ng-model="searchform.ticket_state"  ng-keyup="myKeyup($event)"
                    placeholder="票状态" >
                     <option label="未出票" value="0"></option>
                     <option label="等待出票" value="1"></option>

@@ -4,11 +4,11 @@
 			<div class="form-group form-inline">
 				<div class="col-sm-10">
 					<label>产品名称</label>&nbsp;&nbsp;
-					<input type="text" class="form-control" ng-model="searchform.name"> &nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.name"> &nbsp;&nbsp;&nbsp;&nbsp;
 					<label>产品编号</label>&nbsp;&nbsp;
-					<input type="text" class="form-control" ng-model="searchform.code"> &nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.code"> &nbsp;&nbsp;&nbsp;&nbsp;
 					<label>景区编号</label>&nbsp;&nbsp;
-					<input type="text" class="form-control" ng-model="searchform.place_code">
+					<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.place_code">
 					<button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
 				</div>
 				<div class="col-sm-2 text-right">
@@ -35,7 +35,7 @@
 		<tbody>
 			<tr ng-repeat="obj in objs">
 				<td class="">
-					产品名称：{{obj.name}}<br> 产品编号：{{obj.code}}
+					产品名称：{{obj.name_inside}}<br> 产品编号：{{obj.code}}
 					<br>
 				</td>
 				<td class="text-center">{{obj.create_company_code}}</td>
