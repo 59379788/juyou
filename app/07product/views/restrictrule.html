@@ -245,28 +245,28 @@
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-2 col-xs-12 control-label">过期自动退票</label>
+			<label class="col-sm-2 col-xs-12 control-label">自动下架</label>
 			<div class="col-sm-4 col-xs-12">
-				<label class="radio-inline">
-				  <input type="radio" name="over_period_off" value="0"
-				  ng-model="saleobj.over_period_off" ng-disabled="util.what == 'info'"
-				  > 不启用自动下架
-				</label>
 				<label class="radio-inline">
 				  <input type="radio" name="over_period_off" value="1"
 				  ng-model="saleobj.over_period_off" ng-disabled="util.what == 'info'"
 				  > 全部票种到期自动下架
 				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="over_period_off" value="0"
+				  ng-model="saleobj.over_period_off" ng-disabled="util.what == 'info'"
+				  > 不启用自动下架
+				</label>
 			</div>
 			<div class="col-sm-6 col-xs-12">
 				<p class="form-control-static text-danger">
-					是否过期自动退票
+					是否过期自动下架
 				</p>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-2 col-xs-12 control-label">过期自动下架通知手机号</label>
+			<label class="col-sm-2 col-xs-12 control-label">下架通知</label>
 			<div class="col-sm-4 col-xs-12">
 				<input type="text" class="form-control" ng-model="saleobj.over_period_off_mobile" ng-disabled="util.what == 'info'">
 			</div>
