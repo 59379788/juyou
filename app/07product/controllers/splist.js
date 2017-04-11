@@ -33,7 +33,7 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 
 
 	$resource('/api/as/tc/placeview/jlist', {}, {})
-		.save({ type: 'sale_category' }, function (res) {
+		.save({}, function (res) {
 
 			if (res.errcode === 0) {
 				$scope.viewarr = res.data;
