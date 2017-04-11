@@ -5,11 +5,22 @@
 		<div class="form-group">
 			<label class="col-sm-2 col-xs-12 control-label">产品名称</label>
 			<div class="col-sm-4 col-xs-12">
-				<input type="text" class="form-control" placeholder="请输入销售品名称" ng-disabled="model.id != undefined || util.what == 'info'"
+				<input type="text" class="form-control" placeholder="产品名称" ng-disabled="saleobj.id || util.what == 'info'"
 				 ng-model="saleobj.name">
 			</div>
 			<div class="col-sm-6 mt10">
 				<font face="Courier" class="text-danger">此名称用于产品列表及订单名称</font>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">产品名称</label>
+			<div class="col-sm-4 col-xs-12">
+				<input type="text" class="form-control" placeholder="产品名称" ng-disabled="util.what == 'info'"
+				 ng-model="saleobj.name_inside">
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">此名称用于内部使用</font>
 			</div>
 		</div>
 

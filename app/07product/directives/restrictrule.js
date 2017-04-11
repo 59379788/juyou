@@ -43,6 +43,8 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				'ticket_type': '0',	//是否出票
 				'user_status': '0',	//是否实名制
 				'sms_ticketcode_type': '0',	//短信票码类型
+				'over_period_off': '0',	//过期自动退票
+				'over_period_off_mobile': '0',	//过期自动下架通知手机号
 				// 'bookingnotes' : '',	//团产品预订须知
 				// 'detail' : '',	//销售品简介
 			};

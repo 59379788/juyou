@@ -98,8 +98,7 @@
 				</div>
 				<div class="col-sm-6 col-xs-12">
 					<p class="form-control-static text-danger">
-						用户累积购买数量限制，0:不限，其他数字:限制购买数量<br/>
-						产品分类为团产品时，此处填写预定最多预定人数限制，0：不限制
+						用户累积购买数量限制，0:不限，其他数字:限制购买数量<br/> 产品分类为团产品时，此处填写预定最多预定人数限制，0：不限制
 					</p>
 				</div>
 			</div>
@@ -112,8 +111,7 @@
 				</div>
 				<div class="col-sm-6 col-xs-12">
 					<p class="form-control-static text-danger">
-						用户每次下单购买数量限制，0:不限，其他数字:限制购买数量<br/>
-						产品分类为团产品时，此处填写预定最少预定人数限制，0：不限制
+						用户每次下单购买数量限制，0:不限，其他数字:限制购买数量<br/> 产品分类为团产品时，此处填写预定最少预定人数限制，0：不限制
 					</p>
 				</div>
 			</div>
@@ -246,12 +244,44 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">过期自动退票</label>
+			<div class="col-sm-4 col-xs-12">
+				<label class="radio-inline">
+				  <input type="radio" name="over_period_off" value="0"
+				  ng-model="saleobj.over_period_off" ng-disabled="util.what == 'info'"
+				  > 不启用自动下架
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="over_period_off" value="1"
+				  ng-model="saleobj.over_period_off" ng-disabled="util.what == 'info'"
+				  > 全部票种到期自动下架
+				</label>
+			</div>
+			<div class="col-sm-6 col-xs-12">
+				<p class="form-control-static text-danger">
+					是否过期自动退票
+				</p>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">过期自动下架通知手机号</label>
+			<div class="col-sm-4 col-xs-12">
+				<input type="text" class="form-control" ng-model="saleobj.over_period_off_mobile" ng-disabled="util.what == 'info'">
+			</div>
+			<div class="col-sm-6 col-xs-12">
+				<p class="form-control-static text-danger">
+					过期自动下架通知手机号
+				</p>
+			</div>
+		</div>
+
 		<div class="form-group" ng-if="util.what == 'edit'">
 			<label class="col-sm-2 col-xs-12 control-label"></label>
 			<div class="col-sm-4 col-xs-12">
 				<button type="button" class="btn btn-primary btn-lg" ng-click="save()">保存</button>
-				<button type="button" class="btn btn-primary btn-lg" ng-click="saveAndBack()" 
-						ng-if="(saleobj.id != '') && (util.$uibModalInstance != undefined)">保存并返回</button>
+				<button type="button" class="btn btn-primary btn-lg" ng-click="saveAndBack()" ng-if="(saleobj.id != '') && (util.$uibModalInstance != undefined)">保存并返回</button>
 			</div>
 			<div class="col-sm-6 col-xs-12">
 				<p class="form-control-static text-danger">

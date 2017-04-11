@@ -52,6 +52,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			var obj = {
 				'id': scope.saleobj.id,
 				'name': '',
+				'name_inside': '',
 				'code': '',
 				'market_price': 0,
 				'guide_price': 0,
