@@ -37,7 +37,7 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 
 			if (res.errcode === 0) {
 				$scope.viewarr = res.data;
-				$scope.viewarr.unshift({ name: '----全部----', code: '' });
+				$scope.viewarr.unshift({ name: '--全部景区--', code: '' });
 			}
 			else {
 				alert(res.data.errmsg);
