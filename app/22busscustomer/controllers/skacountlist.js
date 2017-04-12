@@ -120,18 +120,16 @@ module.exports = function($scope, $stateParams, $state, customerlist,review, $ui
     // 发送短信
     $scope.sendmessage = function(id){ 
     	console.log(id);
-    	message.save({'id':id}, function(res){ 
-             //  console.log({'id':id});
-             //  console.log(res);
+        if(confirm('确定发信息吗?')){
+            message.save({'id':id}, function(res){ 
                if (res.errcode !== 0) { 
                     toaster.success({title:"",body:res.errmsg});
                     return;
                } 
                toaster.success({title:"",body:"发送短信验证码成功!"});
-
-               
-
             });
+        }
+    	
     };
 
 
