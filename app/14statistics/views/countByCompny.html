@@ -44,26 +44,30 @@
 			<div class="panel-body">
 				<div class="form-group form-inline">
 					<div class="col-sm-12">
-						<div class="row mt10">
+						<div class="row mt10 ">
 							<label>时间</label>&nbsp;&nbsp;
 							<div class="input-group">
-								<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened"
+								<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-click="open(section.start)"
 								 ng-required="true" close-text="Close" readonly/>
-								<span class="input-group-btn">
+								<!--<span class="input-group-btn">
 									<button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
 									<button type="button" class="btn btn-default" ng-click="clearDate(section.start)"><i class="glyphicon glyphicon-remove"></i></button>
-								</span>
+								</span>-->
 							</div>
 							&nbsp;&nbsp;到&nbsp;&nbsp;
 							<div class="input-group">
-								<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened"
+								<input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" ng-click="open(section.end)"
 								 ng-required="true" close-text="Close" readonly/>
-								<span class="input-group-btn">
+								<!--<span class="input-group-btn">
 									<button type="button" class="btn btn-default" ng-click="open(section.end)"><i class="glyphicon glyphicon-calendar"></i></button>
 									<button type="button" class="btn btn-default" ng-click="clearDate(section.end)"><i class="glyphicon glyphicon-remove"></i></button>
-								</span>
+								</span>-->
 							</div>
 							&nbsp;&nbsp;&nbsp;&nbsp;
+							<div class="input-group">
+								<!--<label class="control-label">产品名称：</label>-->
+								<input type="text" class="form-control" ng-model="searchform.product_name" placeholder="产品名称">
+							</div>
 						</div>
 						<div class="row mt10">
 							<label class="control-label">统计类型：</label>
