@@ -29,6 +29,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             viewlist : function(juyouglservice){
                return juyouglservice.viewlist();
+            },
+            usebtn : function(juyouglservice){
+               return juyouglservice.usebtn();
             }
          }
       })      

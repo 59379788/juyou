@@ -941,6 +941,23 @@ var router = function($urlRouterProvider, $stateProvider){
         }
       })
 
+      .state('app.withdrawalslist', {
+        url: '/withdrawalslist',
+        controller : 'withdrawalslist',
+        template: require('./views/withdrawalslist.html'),
+        resolve:{
+            findOrdertTXList : function(busscustomerservice){
+                return busscustomerservice.findOrdertTXList();
+            },
+            updateTiXian : function(busscustomerservice){
+                return busscustomerservice.updateTiXian();
+            }
+            // dictbytypelist : function(productservice){
+            //     return productservice.dictbytypelist;
+            // }
+        }
+      })
+
         
  
 }

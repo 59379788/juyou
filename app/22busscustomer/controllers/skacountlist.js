@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams,customerlist,review, $uibModal,role,create,message,userinfo,insertnops,failed,confirmauthority,toaster){
+module.exports = function($scope, $stateParams, $state, customerlist,review, $uibModal,role,create,message,userinfo,insertnops,failed,confirmauthority,toaster){
     // 获取用户信息
     userinfo.save({}, function(res){ 
     	console.log(res);
@@ -150,5 +150,30 @@ module.exports = function($scope, $stateParams,customerlist,review, $uibModal,ro
     	
 	 });
     };
+
+    $scope.seepicture = function(pimg){
+        // $state.go('app.skacountpicture',{'pimg' : pimg});
+        var modalInstance = $uibModal.open({
+          template: require('../views/skacountpicture.html'),
+          controller: 'skacountpicture',
+          //size: 'lg',
+          resolve: {
+            pimg : function(){
+                return pimg;
+            }          
+          }
+        });
+
+        modalInstance.result.then(function () {
+          toaster.success({title:"",body:"账号创建成功!"});
+          //init();
+         $scope.getlist();
+        }, function () {
+         //  $scope.getlist();
+          //$log.info('Modal dismissed at: ' + new Date());
+        });
+     //  $scope.getlist();
+	
+    }
 
 };

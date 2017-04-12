@@ -1,4 +1,5 @@
-module.exports = function($scope, $stateParams, $uibModal,findPlaceHotList,toaster,ITEMS_PERPAGE,savePlaceHot,getPlaceHot,updatePlaceHot,delPlaceHot,viewlist,toaster){
+module.exports = function($scope, $stateParams, $uibModal,findPlaceHotList,toaster,ITEMS_PERPAGE,savePlaceHot,getPlaceHot,
+updatePlaceHot,delPlaceHot,viewlist,toaster,usebtn){
     $scope.obj = {};
     /* 分页
      * ========================================= */
@@ -46,6 +47,9 @@ module.exports = function($scope, $stateParams, $uibModal,findPlaceHotList,toast
             },
             getPlaceHot :function(){
                 return getPlaceHot;
+            },
+            usebtn :function(){
+                return usebtn;
             }
 
 
@@ -81,6 +85,9 @@ module.exports = function($scope, $stateParams, $uibModal,findPlaceHotList,toast
             },
             getPlaceHot :function(){
                 return getPlaceHot;
+            },
+            usebtn :function(){
+                return usebtn;
             }
 
 
@@ -108,6 +115,30 @@ module.exports = function($scope, $stateParams, $uibModal,findPlaceHotList,toast
             })
        }
         
+    }
+
+    $scope.use = function(id){
+        console.log(id);
+        usebtn.save({'id' : id},function(res){
+            if(res.errcode != 0){
+                toaster.success({title:"",body:res.errmsg});
+                return;
+            }
+            toaster.success({title:"",body:"启用成功"});
+            $scope.getlist();
+            
+        })
+    }
+    $scope.unuse = function(id){
+        console.log(id);
+        delPlaceHot.save({'id' : id},function(res){
+            if(res.errcode != 0){
+                toaster.success({title:"",body:res.errmsg});
+                return;
+            }
+            toaster.success({title:"",body:"不启用"});
+            $scope.getlist();
+        })
     }
 	
 

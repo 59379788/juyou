@@ -247,6 +247,10 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var orderbacklist = BASEURL38985 + "/api/as/tc/ticketorderback/orderbacklist";
   var orderback = BASEURL38985 + "/api/ac/tc/ticketOrderService/updatebackmoneybycode";
   
+  // 积分提现申请列表
+  var findOrdertTXList = BASEURL38985 + '/api/as/tc/ordertixian/findOrdertTXList';
+  // 修改提现状态
+  var updateTiXian = BASEURL38985 + '/api/as/tc/ordertixian/updateTiXian';
 
 
     return {
@@ -626,6 +630,12 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         orderback : function(){
             return $resource(orderback, {}, {});
+        },
+        findOrdertTXList : function(){
+            return $resource(findOrdertTXList, {}, {});
+        },
+        updateTiXian : function(){
+            return $resource(updateTiXian, {}, {});
         }
 
 

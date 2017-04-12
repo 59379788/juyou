@@ -28,7 +28,8 @@
         <td class="text-center">{{obj.asort}}</td>
         <td class="text-center">         
           <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑</a>
-          <a ng-click="delete(obj.id)" class="btn btn-danger btn-xs">删除</a>
+          <a ng-show="obj.del_flg == 0" ng-click="use(obj.id)" class="btn btn-success btn-xs">启用</a>
+          <a ng-show="obj.del_flg == 1" ng-click="unuse(obj.id)" class="btn btn-warning btn-xs">不启用</a>         
         </td>
       </tr>
     </tbody>

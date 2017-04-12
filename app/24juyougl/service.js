@@ -21,6 +21,8 @@ var service = function($resource, BASEURL38985){
 
     // 景区列表
     var viewlist = BASEURL38985 + '/api/as/tc/placeview/jlist';
+    // 启用
+    var usebtn = BASEURL38985 + '/api/as/tc/placehot/updateNoDel';
     
     return {
         findPlaceHotList : function(){
@@ -40,6 +42,9 @@ var service = function($resource, BASEURL38985){
         },
         viewlist : function(){
             return $resource(viewlist, {}, {});
+        },
+        usebtn : function(){
+            return $resource(usebtn, {}, {});
         }
     }
 };

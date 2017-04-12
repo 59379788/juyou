@@ -5,6 +5,7 @@ App.factory('busscustomerservice', require('./service'));
 
 //申请列表
 App.controller('skacountlist',require('./controllers/skacountlist'));
+App.controller('skacountpicture',require('./controllers/skacountpicture'));
 App.controller('creataccount',require('./controllers/creataccount'));
 App.controller('get2',require('./controllers/get2'));
 App.controller('supplierlist',require('./controllers/supplierlist'));
@@ -104,6 +105,10 @@ App.controller('customerlist',require('./controllers/customerlist'));
 // 退款
 App.controller('skorderbacklist',require('./controllers/skorderbacklist'));
 App.controller('skorderback',require('./controllers/skorderback'));
+
+//积分提现
+App.controller('withdrawalslist',require('./controllers/withdrawalslist'));
+
 
 
 
