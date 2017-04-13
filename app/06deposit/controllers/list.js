@@ -121,7 +121,7 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, mechanism,
 
       var obj = {};
 
-      obj.seller_code = 'L0002';
+      obj.seller_code = 'tuihui';
 
       var modalInstance = $uibModal.open({
           template: require('../views/recharge.html'),
