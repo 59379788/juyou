@@ -252,6 +252,22 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   // 修改提现状态
   var updateTiXian = BASEURL38985 + '/api/as/tc/ordertixian/updateTiXian';
 
+  // 资讯列表
+  var findInformationList = BASEURL38985 + '/api/as/mc/merinformation/findInformationList';
+  // 添加资讯
+  var saveInformation = BASEURL38985 + '/api/as/mc/merinformation/saveInformation';
+  // 详情
+  var getInformation = BASEURL38985 + '/api/as/mc/merinformation/getInformation';
+  // 编辑
+  var updateinformation = BASEURL38985 + '/api/as/mc/merinformation/updateinformation';
+  // 删除
+  var delinformation = BASEURL38985 + '/api/as/mc/merinformation/updateDel';
+
+  // 积分充值
+  var getUserInfoList = BASEURL38985 + '/api/ac/tc/ticketOrderService/getUserInfoList';
+  var saveRechargeIntegral = BASEURL38985 + '/api/ac/cc/coinintegral/saveRechargeIntegral';
+  
+
 
     return {
         //模型
@@ -636,6 +652,27 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         updateTiXian : function(){
             return $resource(updateTiXian, {}, {});
+        },
+        findInformationList : function(){
+            return $resource(findInformationList, {}, {});
+        },
+        saveInformation : function(){
+            return $resource(saveInformation, {}, {});
+        },
+        getInformation : function(){
+            return $resource(getInformation, {}, {});
+        },
+        updateinformation : function(){
+            return $resource(updateinformation, {}, {});
+        },
+        delinformation : function(){
+            return $resource(delinformation, {}, {});
+        },
+        getUserInfoList : function(){
+            return $resource(getUserInfoList, {}, {});
+        },
+        saveRechargeIntegral : function(){
+            return $resource(saveRechargeIntegral, {}, {});
         }
 
 

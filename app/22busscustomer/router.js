@@ -957,6 +957,77 @@ var router = function($urlRouterProvider, $stateProvider){
             // }
         }
       })
+      // 资讯管理
+      .state('app.informationlist', {
+        url: '/informationlist',
+        controller : 'informationlist',
+        template: require('./views/informationlist.html'),
+        resolve:{
+            findInformationList : function(busscustomerservice){
+                return busscustomerservice.findInformationList();
+            },          
+            delinformation : function(busscustomerservice){
+                return busscustomerservice.delinformation();
+            }
+            
+        }
+      })
+
+      .state('app.addinformation', {
+        url: '/addinformation/:id',
+        controller : 'addinformation',
+        template: require('./views/addinformation.html'),
+        resolve:{
+            saveInformation : function(busscustomerservice){
+                return busscustomerservice.saveInformation();
+            },
+            getInformation : function(busscustomerservice){
+                return busscustomerservice.getInformation();
+            },
+            updateinformation : function(busscustomerservice){
+                return busscustomerservice.updateinformation();
+            },
+            getDate : function(utilservice){
+                	 return utilservice.getDate;
+            },
+            str2date : function(utilservice){
+            return utilservice.str2date;
+            },
+            date2str : function(utilservice) {
+                return utilservice.date2str;
+            }
+
+        }
+      })
+
+      .state('app.integralrecharge', {
+        url: '/integralrecharge',
+        controller : 'integralrecharge',
+        template: require('./views/integralrecharge.html'),
+        resolve:{
+            getUserInfoList : function(busscustomerservice){
+                return busscustomerservice.getUserInfoList();
+            },
+            saveRechargeIntegral : function(busscustomerservice){
+                return busscustomerservice.saveRechargeIntegral();
+            }
+            
+        }
+      })
+
+
+    //   // 积分充值
+    //   .state('app.integralrecharge', {
+    //     url: '/integralrecharge/:id',
+    //     controller : 'integralrecharge',
+    //     template: require('./views/integralrecharge.html'),
+    //     resolve:{
+    //         getUserInfoList : function(busscustomerservice){
+    //             return busscustomerservice.getUserInfoList();
+    //         }
+    //     }
+    //   })
+
 
         
  

@@ -109,6 +109,14 @@ App.controller('skorderback',require('./controllers/skorderback'));
 //积分提现
 App.controller('withdrawalslist',require('./controllers/withdrawalslist'));
 
+//资讯管理
+App.controller('informationlist',require('./controllers/informationlist'));
+App.controller('addinformation',require('./controllers/addinformation'));
+
+// 积分充值
+App.controller('integralrecharge',require('./controllers/integralrecharge'));
+App.controller('recharge',require('./controllers/recharge'));
+
 
 
 

@@ -37,7 +37,7 @@ var router = function ($urlRouterProvider, $stateProvider) {
 		.state('app.tkttypecreate', {
 			url: '/tkttypecreate/:placeid',
 			controller: 'tkttypecreate',
-			template: require('./views/tkttypemodel.html'),
+			template: require('./views/tkttypecreate.html'),
 			resolve: {
 				viewlist: function (viewservice) {
 					return viewservice.slist;
@@ -64,7 +64,7 @@ var router = function ($urlRouterProvider, $stateProvider) {
 		})
 
 		.state('app.edittkttype', {
-			url: '/tkttypeedit/:id',
+			url: '/tkttypeedit/:id/:placeid',
 			controller: 'tkttypeedit',
 			template: require('./views/tkttypemodel.html'),
 			resolve: {

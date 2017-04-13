@@ -1,0 +1,103 @@
+<div class="modal-header">
+    <h4 class="modal-title">资讯信息</h4>
+</div>
+<div class="modal-body">
+    <div class="container-fluid form-horizontal ">
+
+<!--<div class="col-xs-12 " >-->
+	<div class="panel panel-info form-horizontal">
+		<div class="panel-heading ">
+			基本信息
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				
+				<div class="col-xs-12 col-md-12" >
+
+					<div class="form-group">
+						<label class="col-xs-3 control-label">资讯标题</label>
+   						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入标题"
+							ng-model="info.title"
+							>
+						</div>
+ 					</div>
+
+                     <div class="form-group">
+					 <label for="inputDate" class="col-sm-3 control-label">图片</label>
+					 <div class="col-md-6">
+					      <img ng-src="{{info.img}}" width="100%" height="200" ng-model="info.img">
+					        <input type="file" nv-file-select uploader="uploader" / ng-hide="hide===true" ><br/>
+					        <ul class="list-group">
+					          <li class="list-group-item" ng-repeat="item in uploader.queue">
+					            文件名: <span ng-bind="item.file.name"></span>
+					            <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+					            <div class="progress mt10">
+					              <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+					            </div>
+					          </li>
+					        </ul>
+					 </div>
+					 </div>	
+
+
+
+                     <div class="form-group">
+                        <label for="inputDate" class="col-sm-3 control-label">发布时间</label>
+                        <div class="col-md-6">
+                            <div class="input-group col-sm-12">
+                            <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.startTime" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                        </div>
+                    </div>
+      		
+					<div class="form-group">
+						<label class="col-xs-3 control-label">发布人</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入标题"
+							ng-model="info.create_by"
+							>
+						</div>
+					</div>
+
+                    <div class="form-group">
+						<label class="col-xs-3 control-label">阅读次数</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入阅读次数"
+							ng-model="info.num"
+							>
+						</div>
+					</div>
+                    <div class="form-group">
+						<label class="col-xs-3 control-label">正文</label>
+						<div class="col-xs-6">
+							<div class="ueditor" ng-model="info.content"></div>      
+						</div>
+					</div>
+                    <div class="form-group">
+						<label class="col-xs-3 control-label">排序</label>
+						<div class="col-xs-6">
+							<input type="text" class="form-control" placeholder="请输入阅读次数"
+							ng-model="info.asort"
+							>
+						</div>
+					</div>
+
+					
+
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+</div>
+
+

@@ -1,17 +1,24 @@
 module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams, 
 	placeinfo, $state, makeArr, makeStr){
 
+   var placeid = $stateParams.placeid;
+//    alert(placeid);
 	$scope.placeid = $stateParams.placeid;
 	$scope.id = '';
-
+	$scope.searchform = {
+		'selected' : {
+			'name' : ''
+		}
+	}
 	$scope.objt = {
 		'name' : '',
-	//	'code' : '',
+		'placename' : '',
 		'place_code' : '',
 		'used_state' : '0',
 		'state' : '1',
 		'book_info' : ''
 	};
+	
 	$scope.midstart = new Date();
 	$scope.midend = new Date();
 
@@ -33,52 +40,83 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams,
 
 	$scope.objs = [];
 	
+	viewlist().then(function(res) {	        
+		if(res.errcode === 0)
+		{
+			$scope.viewarr = res.data;
+			var array = res.data;
+			//$scope.objt.place_code = res.data[0].code;
+			// console.log(666666666666);
+			console.log($scope.viewarr);
+			console.log($scope.objt);
+			console.log(6666666666);
+			console.log($scope.viewarr);
+			for(var i = 0; i < array.length; i++){
+				if(placeid == array[i].code){
+					console.log(array[i].code);
+					$scope.objt.placename = array[i].name;
+				}
+			}
+		}
+		else
+		{
+			alert(res.errmsg);
+		}
+	});
 
-	if($scope.placeid === '')
-	{
-		//景区下拉
-		viewlist().then(function(res) {
+	$scope.change = function(code){
+		console.log(code);
+		$scope.objt.place_code = code;
+		console.log($scope.objt.place_code);
+	}
+
+	// if($scope.placeid === '')
+	// {
+	// 	alert('创建');
+	// 	//景区下拉
+	// 	viewlist().then(function(res) {
 	        
-	        if(res.errcode === 0)
-	        {
-	        	$scope.viewarr = res.data;
-	        	$scope.objt.place_code = res.data[0].code;
-	        	// console.log(666666666666);
-		        console.log($scope.viewarr);
-		        console.log($scope.objt);
-		        // console.log(6666666666);
-	        }
-	        else
-	        {
-	            alert(res.errmsg);
-	        }
-	    });
-	}
-	else
-	{
-		placeinfo.get({'id' : $scope.placeid}, function(res){
+	//         if(res.errcode === 0)
+	//         {
+	//         	$scope.viewarr = res.data;
+	//         	//$scope.objt.place_code = res.data[0].code;
+	//         	// console.log(666666666666);
+	// 	        console.log($scope.viewarr);
+	// 	        console.log($scope.objt);
+	// 	         console.log(6666666666);
+	// 			 console.log($scope.viewarr);
+	//         }
+	//         else
+	//         {
+	//             alert(res.errmsg);
+	//         }
+	//     });
+	// }
+	// else
+	// {
+	// 	placeinfo.get({'id' : $scope.placeid}, function(res){
 
-	    	console.log(res);
+	//     	console.log(res);
 
-	    	if(res.errcode === 0)
-	        {
-	        	$scope.objt.placename = res.data.name;
-	        	$scope.objt.placecode = res.data.code;
-	        }
-	        else
-	        {
-	            alert(res.errmsg);
-	        }
+	//     	if(res.errcode === 0)
+	//         {
+	//         	$scope.objt.placename = res.data.name;
+	//         	$scope.objt.placecode = res.data.code;
+	//         }
+	//         else
+	//         {
+	//             alert(res.errmsg);
+	//         }
 
-	    });
-	}
+	//     });
+	// }
     
 
 	//保存按钮
 	$scope.gogo = function(){
 
-		if(!check()) return;
-
+		if(!check()) return;	
+		$scope.objt.place_code = placeid;					
 		var para = {
 			// 'start_date' : getDate($scope.section.start.date),
 			// 'end_date' : getDate($scope.section.end.date),
@@ -103,7 +141,7 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams,
 			if(res.errcode === 0)
 			{
 				alert('保存成功');
-				$state.go('app.tkttype');
+				$state.go('app.tkttype',{'placeid' : placeid});
 				// $state.go('app.edittkttype', {'id' : res.data.uuid});
 			}
 			else
