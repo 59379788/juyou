@@ -1,4 +1,10 @@
 <!-- Nested node template -->
+<style>
+	.pre-scrollable {
+		max-height: 700px;
+		overflow-y: scroll;
+	}
+</style>
 <script type="text/ng-template" id="nodes_renderer.html">
 	<div ui-tree-handle class="tree-node tree-node-content" ng-click="getit(this)">
 		<a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" data-nodrag ng-click="toggle(this)">
@@ -30,7 +36,7 @@
 				{{selectedCompany}}
 			</button>
 		</div>
-		<div class="col-sm-12">
+		<div class="col-sm-12 pre-scrollable">
 			<div ui-tree id="tree-root" data-nodrop-enabled="true" data-drag-enabled="false" data-nodrag="false">
 				<ol ui-tree-nodes ng-model="data">
 					<li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
