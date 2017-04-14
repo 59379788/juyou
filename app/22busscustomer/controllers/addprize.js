@@ -22,7 +22,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
     };
 
     $scope.getsalelist = function() {
-        salelist.save({'sale_category' : 'S10'},function(res) {
+        salelist.save({'sale_category' : 'S14'},function(res) {
             if (res.errcode!=0) {
                 toaster.success({title: "", body:res.errmsg});
                 return;
