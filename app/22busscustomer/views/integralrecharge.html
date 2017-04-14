@@ -1,0 +1,60 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                  <!--<button type="button" class="btn btn-primary search pull-right" ng-click="addinstruction()">添加说明</button>-->
+                  <input type="text" class="form-control" ng-model="info.order_code" placeholder="订单编号">&nbsp;&nbsp;
+                  <input type="text" class="form-control" ng-model="info.mobile" placeholder="手机号">&nbsp;&nbsp;
+                  <button type="button" class="btn btn-primary" ng-click="search()">搜索</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 panel panel-default table-responsive">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-3 text-center">昵称</th>
+        <th class="col-md-2 text-center">手机号</th>
+        <th class="col-md-2 text-center">订单编号</th>
+        <th class="col-md-2 text-center">头像</th>        
+        <th class="col-md-3 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">
+          <a ng-click="seepicture(obj.userid)" class="">{{obj.nickname}}</a>                       
+        </td>
+        <td class="text-center">{{obj.mobile}}</td>
+        <td class="text-center">{{obj.order_code}}</td>
+        <td class="col-md-3 text-center">
+          <a ng-click="seepicture(obj.headimgurl)" class="btn btn-info btn-xs">查看头像</a>           
+        </td> 
+        <td class="text-center">
+          <a ng-click="recharge(obj.user_base)" class="btn btn-info btn-xs">充值</a>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+</div>
+
+<div class="text-right">
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="getlist()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+</div>
+</div>

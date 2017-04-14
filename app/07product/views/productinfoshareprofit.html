@@ -98,7 +98,7 @@
 						<p class="form-control-static">{{salefrobj.rebate_unlimited}}</p>
 					</div>	-->
 					<div class="col-sm-6 mt10">
-						<font face="Courier" class="text-danger">红包金额  下限-----上限</font>
+						<font face="Courier" class="text-danger">红包金额  下限(元)-----上限(元)</font>
 					</div>						
 				</div>
 				<!--<br/>
@@ -139,30 +139,39 @@
 					</div>					
 				</div>
 
-				<!--<br/>
-					<br/>-->
-				<!--<div class="col-xs-12 form-group">
+				<br/>
+				<br/>
+				<div class="col-xs-12 form-group">
 					<div class="col-xs-2">
-						<label for="lrl" class="pull-right text-right mt10">参与评价景区领红包&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<label for="lrl" class="pull-right text-right mt10">可否预约套票&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
 					<div class="col-xs-8">
+						<p class="form-control-static" ng-if="yyobj.isSelected">可预约</p>
+						<p class="form-control-static" ng-if="!yyobj.isSelected">不可预约</p>
 						<div class="input-group">
-							<input class=""
+							<!--<input class=""
 							bs-switch
 							type="checkbox" 
 							ng-model="hb.isSelected"
 							switch-size=""
 							ng-change = "onHbChange(hb.isSelected)"
-							> 
+							> -->
 						</div>
 					</div>					
-				</div>-->
+				</div>
 
-				<!--<div class="form-group">
-					<div class="col-sm-2 col-xs-12 col-md-offset-5 text-center">
-						<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="saleFrSetSave()">保存</button>
+				<br/>
+				<br/>
+				<div class="col-xs-12 form-group">
+					<div class="col-xs-2">
+						<label for="lrl" class="pull-right text-right mt10">商品图片&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
-				</div>-->
+					<div class="col-xs-8">
+						<div class="ueditor" ng-model="salefrobj.sk_imginfo"></div>      
+					</div>					
+				</div>
+
+				
 
 			</div>
 		<!--</div>
