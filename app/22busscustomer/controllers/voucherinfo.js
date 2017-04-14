@@ -8,6 +8,7 @@ module.exports = function($scope, $state, $uibModalInstance, code, voucherinfo,t
         if(res.errcode === 0)
         {
             $scope.objs = res.data;
+            console.log(res.data);
         }
         else
         {

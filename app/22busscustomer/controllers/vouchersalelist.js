@@ -131,7 +131,7 @@ module.exports = function($scope, $uibModal, getDate, vouchersalelist, vouchersa
 	};
 
 	$scope.info = function(obj){
-
+        //alert('编辑');
         var modalInstance = $uibModal.open({
           template: require('../views/vouchersalecreate.html'),
           controller: 'vouchersalecreate',

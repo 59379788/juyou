@@ -2,6 +2,8 @@ module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, ge
 
 	
 	$scope.obj = obj;
+    console.log('亿元全信息');
+    console.log($scope.obj);
 	if($scope.obj == '') {
 		$scope.obj = {};
 	}
@@ -20,11 +22,26 @@ module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, ge
         obj.opened = true;
     };
 
+    $scope.searchform = {
+        'selected' : {
+            'name' : ''
+        }
+    }
+   
+
 	businesslist().then(function(res) {
         if(res.errcode === 0)
         {
+            console.log(res.data);
         	$scope.businessarr = res.data;
-        	//$scope.obj.business_code=$scope.businessarr[0].code;
+            var array = res.data;
+            if($scope.obj.business_code){
+                for(var i = 0; i < array.length; i++){
+                    if($scope.obj.business_code == array[i].code){
+                        $scope.searchform.selected.name = array[i].name;
+                    }
+                }
+            }
         }
         else
         {
@@ -117,6 +134,8 @@ module.exports = function($scope, FileUploader, $uibModal, $uibModalInstance, ge
 			toaster.success({title:"",body:"销售品名称不能为空!"});
 			return;
 		}
+        $scope.obj.business_code = $scope.searchform.selected.code;
+        console.log($scope.obj.business_code);
 		$scope.obj.period = getDate(new Date($scope.section.start.date));
 		vouchersalecreate.save($scope.obj, function(res){
             console.log($scope.obj);
