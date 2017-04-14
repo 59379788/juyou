@@ -65,22 +65,20 @@ module.exports = function($resource, $state, $http, $q,toaster){
 						scope.yyobj.isSelected = false;
 					}
 
-					// if(scope.salefrobj.rebate_type == 0){
-					// 	scope.hb.isSelected = true;
-					// } else if(scope.salefrobj.rebate_type == 1){
-					// 	scope.hb.isSelected = false;
-					// }
+					
 
 					scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio * 0.01)).toFixed(2);
+					console.log(scope.salefrobj.profit);
+					scope.salefrobj.rebate_unlimited = parseFloat(scope.salefrobj.profit);					
 					if(scope.salefrobj.rebate_unlimited == 0){
-						(scope.salefrobj.rebate_unlimited) = parseInt(scope.salefrobj.profit);
+						(scope.salefrobj.rebate_unlimited) = parseFloat(scope.salefrobj.profit);
 						
 					}	
 					
 				}else if(res.errcode === 10003){
 					scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio * 0.01)).toFixed(2);
 					if(scope.salefrobj.rebate_unlimited == 0){
-						scope.salefrobj.rebate_unlimited = parseInt(scope.salefrobj.profit);
+						scope.salefrobj.rebate_unlimited = parseFloat(scope.salefrobj.profit);
 					} 
 				}else{
 					toaster.success({title:"",body:res.errmsg});
@@ -141,28 +139,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
 
                     })
 				}
-				// if(scope.salefrobj.rebate_lower > scope.salefrobj.rebate_unlimited){
-				// 	toaster.success({title:"",body:"红包下限不能大于红包上限"});
-				// } else 
-                // if(parseInt(scope.salefrobj.profit_ratio) >= 0 && parseInt(scope.salefrobj.profit_ratio) <= 100 && parseInt(scope.salefrobj.rebate_unlimited) >= 0 && scope.salefrobj.rebate_lower <= scope.salefrobj.rebate_unlimited &&(scope.salefrobj.rebate_lower<=scope.profit)){
-                //     $resource('/api/as/tc/saleshangkeprice/save', {}, {})
-                //     .save(scope.salefrobj,function(res){
-                //         console.log(scope.salefrobj);
-                //         if(res.errcode !== 0)
-                //         {
-                //             toaster.success({title:"",body:res.errmsg});
-                //             return;
-                //         }
-				// 		toaster.success({title:"",body:"添加成功"});
-
-                //         })
-                // } else if(scope.salefrobj.rebate_lower > scope.salefrobj.rebate_unlimited){
-				// 	toaster.success({title:"",body:"红包下限金额不能大于红包上限金额"});
-				// } else if(scope.salefrobj.rebate_lower>scope.profit){
-				// 	toaster.success({title:"",body:"红包下限金额不能大于利润"});
-				// } else {
-				// 	toaster.success({title:"",body:"设置正确的利润率(0-100),红包上限不能为负数"});
-				// }
+				
 				
 			};
 

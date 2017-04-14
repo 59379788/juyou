@@ -16,15 +16,22 @@ module.exports = function($resource, $state, $http, $q,toaster){
 
 			console.log('积分code');
 			console.log(scope.saleobj.code);
+
 			$resource('/api/as/tc/saleintegral/findsaleintegrallist', {}, {})
 			.save({'integral_sale_code' : scope.saleobj.code}, function(res){
-
+				if(res.errcode !== 0){
+					alert(res.errmsg);
+					return;
+				}	
 				console.log('积分信息');
 				console.log(res);
+				if(res.data.length == 0){
+					return;
+				} 
 				scope.obj = res.data[0];
 
 
-			});
+			 });
 
 		 	
 
