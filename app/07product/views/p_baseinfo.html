@@ -82,6 +82,7 @@
 					<ui-select-match placeholder="请选择一个销售品分类">{{$select.selected.label}}</ui-select-match>
 					<ui-select-choices repeat="item.value as item in page.categorylist | filter: $select.search">
 						<span ng-bind-html="item.label | highlight: $select.search"></span>
+						<span ng-bind-html="item.value | highlight: $select.search"></span>						
 					</ui-select-choices>
 				</ui-select>
 			</div>

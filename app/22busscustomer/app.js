@@ -115,7 +115,7 @@ App.controller('addinformation',require('./controllers/addinformation'));
 
 // 积分充值
 App.controller('integralrecharge',require('./controllers/integralrecharge'));
-App.controller('recharge_dlq',require('./controllers/recharge'));
+App.controller('skrecharge',require('./controllers/skrecharge'));
 
 
 

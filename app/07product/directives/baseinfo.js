@@ -132,7 +132,8 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				console.log(res);
 				//分类信息
 				if (res.categorylist.data.errcode === 0) {
-					//console.log(res.categorylist.data);
+					// console.log('分类信息');
+					// console.log(res.categorylist.data);
 				} else {
 					alert('/api/as/sc/dict/dictbytypelist?type=sale_category' + res.categorylist.data.errmsg);
 					return;

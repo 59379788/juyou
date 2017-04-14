@@ -16,8 +16,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,
 
     $scope.recharge = function(userid){
         var modalInstance = $uibModal.open({
-          template: require('../views/recharge.html'),
-          controller: 'recharge',
+          template: require('../views/skrecharge.html'),
+          controller: 'skrecharge',
           size: 'lg',
           resolve: {
             saveRechargeIntegral : function(){
