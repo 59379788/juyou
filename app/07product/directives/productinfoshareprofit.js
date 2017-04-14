@@ -20,31 +20,18 @@ module.exports = function($resource, $state, $http, $q,toaster){
 			scope.obj = {
 				'isSelected' : false
 			}
-
-			// scope.hb = {
-			// 	'isSelected' : false
-			// }
+			scope.yyobj = {
+				'isSelected' : false
+			}
 
 
 			console.log('打出基本信息');
 			console.log(scope.saleobj.guide_price);
 			console.log(scope.saleobj.cost_price);
-			// scope.salefrobj.profit = (scope.saleobj.guide_price - scope.saleobj.cost_price * (scope.salefrobj.profit_ratio * 0.01+1)).toFixed(2);
-			// alert(scope.salefrobj.profit);			
-			// if(scope.salefrobj.rebate_unlimited == 0){
-			// 	scope.salefrobj.rebate_unlimited = parseInt(scope.salefrobj.profit);
-			// }		
+			
 			scope.change = function(){
-				scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio * 0.01)).toFixed(2);
-				// if(scope.salefrobj.rebate_unlimited == 0){
-				// 	scope.salefrobj.rebate_unlimited = parseInt(scope.salefrobj.profit);
-				// }				
+				scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio * 0.01)).toFixed(2);			
 			}
-
-
-
-
-
 			
 			$resource('/api/as/tc/saleshangkeprice/getinfo', {}, {})
 			.save({'sale_code' : scope.saleobj.code}, function(res){
@@ -99,15 +86,15 @@ module.exports = function($resource, $state, $http, $q,toaster){
 					scope.salefrobj.search_type = '1';
 				}
 			}
-			// scope.onHbChange = function(isSelected){
-			// 	console.log(isSelected);
-			// 	if(isSelected == true) {
-			// 		scope.salefrobj.rebate_type = '0'; 
-			// 	} else {
-			// 		scope.salefrobj.rebate_type = '1';
-			// 	}
-			// }
-
+			scope.onYYChange = function(isSelected){
+				console.log(isSelected);
+				if(isSelected == true) {
+					scope.salefrobj.merchant_make_appointment = '1'; 
+				} else {
+					scope.salefrobj.merchant_make_appointment = '0';
+				}
+			}
+		
             scope.saleFrSetSave = function(){
                 scope.salefrobj.sale_code = scope.saleobj.code;
 				// console.log((scope.salefrobj.rebate_lower,scope.salefrobj.profit));
@@ -134,28 +121,6 @@ module.exports = function($resource, $state, $http, $q,toaster){
 
                     })
 				}
-				// if(scope.salefrobj.rebate_lower > scope.salefrobj.rebate_unlimited){
-				// 	toaster.success({title:"",body:"红包下限不能大于红包上限"});
-				// } else 
-                // if(parseInt(scope.salefrobj.profit_ratio) >= 0 && parseInt(scope.salefrobj.profit_ratio) <= 100 && parseInt(scope.salefrobj.rebate_unlimited) >= 0 && scope.salefrobj.rebate_lower <= scope.salefrobj.rebate_unlimited &&(scope.salefrobj.rebate_lower<=scope.profit)){
-                //     $resource('/api/as/tc/saleshangkeprice/save', {}, {})
-                //     .save(scope.salefrobj,function(res){
-                //         console.log(scope.salefrobj);
-                //         if(res.errcode !== 0)
-                //         {
-                //             toaster.success({title:"",body:res.errmsg});
-                //             return;
-                //         }
-				// 		toaster.success({title:"",body:"添加成功"});
-
-                //         })
-                // } else if(scope.salefrobj.rebate_lower > scope.salefrobj.rebate_unlimited){
-				// 	toaster.success({title:"",body:"红包下限金额不能大于红包上限金额"});
-				// } else if(scope.salefrobj.rebate_lower>scope.profit){
-				// 	toaster.success({title:"",body:"红包下限金额不能大于利润"});
-				// } else {
-				// 	toaster.success({title:"",body:"设置正确的利润率(0-100),红包上限不能为负数"});
-				// }
 				
 			};
 
