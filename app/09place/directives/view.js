@@ -12,7 +12,7 @@ module.exports = function($resource, $state, $http, $q){
 
 			scope.viewobj = {
 				'tel' : '',
-				'view_type' : '',
+				//'view_type' : '',
 				'promise' : '',
 				'ev_good' : 0,
 				'ev_general' : 0,
@@ -62,18 +62,18 @@ module.exports = function($resource, $state, $http, $q){
 
 			// 获取类型列表
 			// 获取类型列表
-			$resource('/api/us/mc/mertradetypedao/findByTypeList', {}, {})
-			.get({'type':'cheap_menu'},function(res){				
-				if(res.errcode === 0){
-					console.log(res);
-					scope.typedatas = res.data;
-					//ScopedCredential.storeobj.view_type = res.data
-				}else if(res.errcode === 10003){
+			// $resource('/api/us/mc/mertradetypedao/findByTypeList', {}, {})
+			// .get({'type':'cheap_menu'},function(res){				
+			// 	if(res.errcode === 0){
+			// 		console.log(res);
+			// 		scope.typedatas = res.data;
+			// 		//ScopedCredential.storeobj.view_type = res.data
+			// 	}else if(res.errcode === 10003){
 
-				}else{
-					alert(res.errmsg);
-				}
-			});
+			// 	}else{
+			// 		alert(res.errmsg);
+			// 	}
+			// });
 
 			
 

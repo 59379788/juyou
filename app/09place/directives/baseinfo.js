@@ -30,6 +30,7 @@ module.exports = function($resource, $state, $http, $q){
 				'star' : '5',
 				'img' : '',		//顶图
 				'logo' : '',
+				'view_type' : '',	//分类
 			}
 
 			angular.extend(scope.placeobj, obj);
@@ -58,6 +59,13 @@ module.exports = function($resource, $state, $http, $q){
 			        'method' : 'GET', 
 			        'url': '/api/us/sc/city/arealist',
 			        'params' : {'code' : '210100'},
+			    }),
+			    //类型
+			    'typelist' :
+			    $http({
+			        'method' : 'GET', 
+			        'url': '/api/us/mc/mertradetypedao/findByTypeList',
+			        'params' : {'type' : 'cheap_menu'},
 			    }),
 			};
 
@@ -112,10 +120,20 @@ module.exports = function($resource, $state, $http, $q){
 		            }
 		        }
 
+		        if(res.typelist.data.errcode === 0){
+			        //console.log(res.categorylist.data);
+
+			    }else{
+			        alert(res.districtlist.data.errmsg);
+			        return ;
+			    }
+
+
 		        scope.page = {
 		        	'provincelist' : res.provincelist.data.data,
 		        	'citylist' : res.citylist.data.data,
 		        	'districtlist' : res.districtlist.data.data,
+		        	'typelist' : res.typelist.data.data,
 		        	'business_districtlist' : [],
 		        }
 
