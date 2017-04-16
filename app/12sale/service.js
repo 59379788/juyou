@@ -48,13 +48,13 @@ var service = function($resource, BASEURL38985, $q, $http){
 
     //2016秋冬套票
     //通过身份证查询用户信息
-    var search  = BASEURL38985  + '/api/uc/uc/userActiveService/getUserInfoByPapersno';
+    var search  = BASEURL38985  + '/api/uc/uc/userService/getUserInfoByPapersno';
 
     //实名用户购票
-    var sale_01  = BASEURL38985 + "/api/ac/uc/userActiveService/insertWinterTicket";
+    var sale_01  = BASEURL38985 + "/api/ac/cdc/userActiveService/insertWinterTicket";
 
     //非实名用户购
-    var insertWinterTicketOrder  = BASEURL38985 + "/api/ac/uc/userActiveService/insertWinterTicketOrder";
+    var insertWinterTicketOrder  = BASEURL38985 + "/api/ac/cdc/userActiveService/insertWinterTicketOrder";
 
 
     

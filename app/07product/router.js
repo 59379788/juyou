@@ -37,7 +37,7 @@ var router = function ($urlRouterProvider, $stateProvider) {
 		.state('app.tkttypecreate', {
 			url: '/tkttypecreate/:placeid',
 			controller: 'tkttypecreate',
-			template: require('./views/tkttypecreate.html'),
+			template: require('./views/tkttypemodel.html'),
 			resolve: {
 				viewlist: function (viewservice) {
 					return viewservice.slist;

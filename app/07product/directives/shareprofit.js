@@ -126,6 +126,8 @@ module.exports = function($resource, $state, $http, $q,toaster){
 					toaster.success({title:"",body:"红包下限不能大于红包上限"});
 				} else if(scope.salefrobj.rebate_lower>scope.salefrobj.profit){
 					toaster.success({title:"",body:"红包下限不能大于利润"});
+				} else if(scope.salefrobj.rebate_unlimited>scope.salefrobj.profit){
+					toaster.success({title:"",body:"红包上限不能大于利润"});			
 				} else {
 					$resource('/api/as/tc/saleshangkeprice/save', {}, {})
                     .save(scope.salefrobj,function(res){
