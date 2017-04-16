@@ -41,7 +41,10 @@ module.exports = function($scope, $stateParams, viewlist, $state,tktinfo,
 
 		if(res.errcode === 0)
 		{
+			console.log('票种居奇偶怕你干新');
+			console.log(res);
 			$scope.objt = res.data;
+			$scope.objt.place_code = res.data.place_code;
 			//$scope.midstart = str2date( $scope.objt.start_date);
 			//$scope.midend = str2date($scope.objt.end_date);
 			$scope.objs = makeArr(res.data.print_setup);
