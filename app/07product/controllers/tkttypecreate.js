@@ -2,15 +2,9 @@ module.exports = function($scope, viewlist, tktcreate, getDate, $stateParams,
 	placeinfo, $state, makeArr, makeStr){
 
    var placeid = $stateParams.placeid;
-<<<<<<< HEAD
-	alert(placeid);
-	$scope.placeid = $stateParams.placeid;
-	//$scope.id = '';
-=======
     //  alert(placeid);
 	$scope.placeid = $stateParams.placeid;
 	$scope.id = $stateParams.placeid;
->>>>>>> 102ae9a820ec7899ed6111e4072450be8a70d446
 	$scope.searchform = {
 		'selected' : {
 			'name' : ''
