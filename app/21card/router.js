@@ -267,6 +267,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             saleticketinfo : function(cardservice){
                 return cardservice.saleticketinfo();
+            },
+            getRedPacketProductlist : function(cardservice){
+                return cardservice.getRedPacketProductlist();
             }
          }
        })
@@ -477,6 +480,9 @@ var router = function($urlRouterProvider, $stateProvider){
 		       },
 		       dictbytypelist : function(productservice){
 	                return productservice.dictbytypelist;
+	            },
+	            getRedPacketProductlist : function(cardservice){
+	                return cardservice.getRedPacketProductlist();
 	            }
 
 	         }

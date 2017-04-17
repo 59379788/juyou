@@ -171,7 +171,7 @@
 				  >是</label>
         	 &nbsp;&nbsp;&nbsp;&nbsp;
 			<select class="form-control" ng-model="obj.rebate_code" ng-show="obj.rebate_type=='1'"
-              ng-options="cardtype.value as cardtype.label for cardtype in cardtypearr"
+              ng-options="redtype.code as redtype.name for redtype in redtypearr"
             >
             <option value="">请选择</option>
             </select>

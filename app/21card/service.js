@@ -95,6 +95,8 @@ var service = function($resource, BASEURL38985){
     var onsale = BASEURL38985 + '/api/ac/cdc/userProductService/shelves';
     // 下架
     var goodoffsale = BASEURL38985 + '/api/ac/cdc/userProductService/setdown';
+    // 红包列表
+    var getRedPacketProductlist = BASEURL38985 + '/api/as/puc/redpacketproduct/getRedPacketProductYuanList';
     //----- 卡产品 -----------------------//
 
 
@@ -213,7 +215,9 @@ var service = function($resource, BASEURL38985){
         goodoffsale : function(){
              return $resource(goodoffsale, {}, {});
         },
-        
+        getRedPacketProductlist : function(){
+             return $resource(getRedPacketProductlist, {}, {});
+        },
         cardnumuser : function(){
              return $resource(cardnumuser, {}, {});
         },
