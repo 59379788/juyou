@@ -54,10 +54,10 @@
               <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader1.progress + '%' }"></div>
             </div>
           </li>
+   	      <font face="Courier" class="text-danger">注:上传图片尺寸为750 * 1334</font>         
         </ul>
  </div>
  </div>
-
  <div class="form-group">
    <label for="inputDate" class="col-md-4 control-label">广告类型：</label>
    <div class="col-md-6">
@@ -115,12 +115,19 @@
         </ul>
  </div>
  </div>
+
+<div class="form-group" ng-show="info.ad_type==1">
+  <label for="inputDate" class="col-sm-4 control-label"></label>
+  <div class="col-md-6">
+   	  <font face="Courier" class="text-danger">注:上传图片尺寸为710 * 320</font>                   
+  </div>    
+ </div>
  
 
  <div class="form-group" ng-show="info.ad_type==3">
   <label for="inputDate" class="col-sm-4 control-label">广告内容：</label>
   <div class="col-md-6">
-  <div text-angular ng-model="info.content"></div>
+    <div text-angular ng-model="info.content"></div>
   </div>    
  </div>
 
