@@ -3,8 +3,8 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
-                  <label for="inputLottry" class="control-label">景区列表</label>
-                  <button type="button" class="btn btn-primary search pull-right" ng-click="add()">添加景区详情</button>
+                  <label for="inputLottry" class="control-label">美食列表</label>
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="add()">添加美食详情</button>
                   <!-- <button type="button" class="btn btn-primary search pull-right" ng-click="edit()">编辑头条文章</button> -->
 
             </div>
@@ -15,12 +15,10 @@
     <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-2 text-center">景区名称</th>
-        <th class="col-md-1 text-center">上级id</th>
-        <th class="col-md-2 text-center">排序</th>
-        <th class="col-md-1 text-center">状态</th>  
-        <th class="col-md-2 text-center">创建时间</th>
-        <th class="col-md-2 text-center">修改时间</th>              
+        <th class="col-md-2 text-center">美食名称</th>
+        <!--<th class="col-md-3 text-center">精度</th>
+        <th class="col-md-3 text-center">纬度</th>-->
+        <th class="col-md-2 text-center">状态</th>             
         <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
@@ -32,9 +30,7 @@
         <td class="text-center">
           <p class="" ng-show="obj.state == 1">已启动</p>
           <p class="" ng-show="obj.state == 2">已禁用</p>          
-        </td>
-        <td class="text-center">{{obj.createtime}}</td>
-        <td class="text-center">{{obj.updatetime}}</td>                
+        </td>              
         <td class="text-center">         
           <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑</a>
           <a ng-show="obj.state == 2" ng-click="start(obj.id)" class="btn btn-success btn-xs">启用</a>

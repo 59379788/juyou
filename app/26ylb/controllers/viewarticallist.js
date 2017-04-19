@@ -5,12 +5,15 @@ module.exports = function($scope, $state, $resource,findArticleList,StartArticle
     $scope.maxSize = 5;            //最多显示多少个按钮
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
-	
+	$scope.info = {
+		'type' : '1'
+	}
 	 $scope.getlist = function(){
         var para = {
             pageNo:$scope.bigCurrentPage, 
             pageSize:$scope.itemsPerPage,
-        };
+        }; 
+		para = angular.extend(para,$scope.info);
         findArticleList.save(para,function(res){
             console.log(para);
             if(res.errcode != 0){

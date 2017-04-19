@@ -14,6 +14,7 @@ module.exports = function($scope, $state, $stateParams, $resource,saveCategory,f
         })
     }
     $scope.obj = {
+        'pid' : '',
         'data' : ''
     };
     $scope.infoobj = {};
@@ -37,6 +38,7 @@ module.exports = function($scope, $state, $stateParams, $resource,saveCategory,f
 
 	$scope.save = function(){
         $scope.obj.data = JSON.stringify($scope.infoobj);
+        console.log($scope.obj);
 		saveCategory.save($scope.obj, function(res){
             if(res.errcode != 0){
                 alert(res.errmsg);
@@ -53,12 +55,31 @@ module.exports = function($scope, $state, $stateParams, $resource,saveCategory,f
             if(res.errcode === 0){
                 console.log(res);
                 $scope.pid_list = res.data;
+                var pidarray = $scope.pid_list;
+                for(var i = 0; i < pidarray.length; i++){
+                    console.log(pidarray[i]);
+                        pidarray[i].title = $scope.getgang(pidarray[i].pathNum)+pidarray[i].title;
+                        // console.log(pidarray[i].title);
+                        console.log($scope.getgang(pidarray[i].pathNum)+pidarray[i].title);
+                    
+                }
             } else {
                 alert(res.errmsg);
             }
         })
 	}
 	$scope.pidlist();
+
+    $scope.getgang = function(num){
+        console.log(num);
+        var gang = '';
+        for(var i =0; i < num; i++){
+            gang = gang+'-';
+            
+        }
+        return gang;
+    }
+
 
 	// 分类字典列表
 	$scope.typelist = function(){

@@ -1,0 +1,68 @@
+<form class="form-horizontal" role="form">
+ 
+ <div class="col-md-10 col-md-offset-1">
+ <div class="panel panel-info">
+ <div class="panel-heading text-center">添交通详情</div>
+ <div class="panel-body">
+      <div class="form-group">
+        <label class="col-lg-3 control-label">上级分类:</label>
+        <div class="col-lg-6">
+          <ui-select ng-model="obj.category_id" theme="bootstrap" ng-change="change(obj.category_id)">
+            <ui-select-match placeholder="选择上级分类..">{{$select.selected.title}}</ui-select-match>
+            <ui-select-choices repeat="item.id as item in pid_list | filter: $select.search">
+              <span ng-bind-html="item.title | highlight: $select.search"></span>
+            </ui-select-choices>
+          </ui-select>                
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-3 control-label">景区名称:</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" placeholder="必填" ng-model="obj.title">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="col-lg-3 control-label">排序:</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" placeholder="必填" ng-model="obj.sort">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-3 control-label">附加信息:</label>
+      </div>
+      
+
+      <div class="form-group">
+        <label class="col-lg-3 control-label">精度:</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" placeholder="必填" ng-model="infoobj.longitude">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="col-lg-3 control-label">纬度:</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" placeholder="必填" ng-model="infoobj.latitude">
+        </div>
+      </div> 
+      <div class="form-group">
+        <label class="col-lg-3 control-label">详细地理位置:</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" placeholder="必填" ng-model="infoobj.address">
+        </div>
+      </div> 
+      <div class="form-group">
+        <label class="col-lg-5 control-label"></label>        
+        <div class="col-lg-3">
+          <button class="btn btn-primary btn-rounded" ng-click="save()">添加</button>
+          <button class="btn btn-default btn-rounded" ng-click="cancel()">取消</button>
+        </div>     
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
+</form>
+    

@@ -5,7 +5,7 @@
 var service = function($resource, BASEURL38985){
     
     // 分类列表
-    var findCategoryList = '/api/as/ic/category/findCategoryList';
+    var findCategoryList = '/api/ac/ic/categoryService/obtainCategory';
     // // 添加分类
      var saveCategory = '/api/ac/ic/categoryService/save';
     // 分类详情
@@ -15,7 +15,7 @@ var service = function($resource, BASEURL38985){
     // 禁用
     var updateDiasbleState = '/api/as/ic/category/updateDisableState';
     // 查询所有上级id
-    var findPidList = '/api/as/ic/category/findPidList';
+    var findPidList = '/api/ac/ic/categoryService/obtainCategory';
 
     // 文章列表
     var findArticleList = '/api/as/ic/article/findArticleList';
