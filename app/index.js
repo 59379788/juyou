@@ -104,6 +104,7 @@ require('./22busscustomer/app');
 require('./21card/app');
 require('./23syssetting/app');
 require('./24juyougl/app');
+require('./26ylb/app');
 require('./96util/app');
 require('./97intercept/app');   //拦截器
 require('./98test/app');
@@ -155,6 +156,7 @@ var App = angular.module('juyouApp', [
     'busscustomer',
     'syssetting',
     'juyougl',
+    'ylb',
     'util',
     'test',
     'common',

@@ -25,6 +25,39 @@ var service = function($resource, BASEURL38985){
     var usebtn = BASEURL38985 + '/api/as/tc/placehot/updateNoDel';
     
     return {
+         model : function(){
+            return { 
+                trip_info : ""
+            };
+        },
+
+        triparray : [],
+
+         //初始化信息 
+         init : function(){
+           var trip = this.triparray[i];
+                    trip.uploader = new FileUploader({
+                        url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=line&selfdir=trip'
+                    });
+                    trip.uploader.dlq = trip;
+                    trip.uploader.onSuccessItem = function(fileItem, response, status, headers) {
+                        this.dlq.img = response.savename;
+                    };
+                    trip.uploader.filters.push({
+                        name: 'imageFilter',
+                        fn: function(item /*{File|FileLikeObject}*/, options) {
+                            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+                        }
+                    });
+                    return $resource(init, {}, {});
+                  },
+
+        //绑定图片控件。
+        bindimgcom : function(){
+                
+        },    
+
         findPlaceHotList : function(){
             return $resource(findPlaceHotList, {}, {});
         },
