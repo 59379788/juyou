@@ -12,7 +12,10 @@ module.exports = function($scope, $state, $stateParams, $resource,saveCategory,f
 			}
         })
     }
-    $scope.obj = {};
+    $scope.obj = {
+        'data' : ''
+    };
+    $scope.infoobj = {};
 
 	$scope.save = function(){
 		saveCategory.save($scope.obj, function(res){

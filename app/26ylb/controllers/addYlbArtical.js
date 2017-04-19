@@ -22,8 +22,26 @@ module.exports = function($scope, $http, $q, $state,$stateParams, $resource,save
     
     
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
+        $scope.infoobj.logo = response.savename;
+    };
+
+    var uploader1 = $scope.uploader1 = new FileUploader({
+        url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
+    });
+
+    uploader1.filters.push({
+        name: 'imageFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    });
+    
+    
+    uploader1.onSuccessItem = function(fileItem, response, status, headers) {
         $scope.infoobj.picture1 = response.savename;
     };
+
     
     var uploader2 = $scope.uploader2 = new FileUploader({
         url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
@@ -77,7 +95,7 @@ module.exports = function($scope, $http, $q, $state,$stateParams, $resource,save
     };
 
     $q.all(beforedata).then(function(res){
-        // alert('alllll');
+        //  alert('alllll');
         console.log(res);
         if(res.articalinfo.data.errcode === 0){
             console.log('xiangqing');
@@ -85,44 +103,19 @@ module.exports = function($scope, $http, $q, $state,$stateParams, $resource,save
             $scope.obj = res.articalinfo.data.data;
             $scope.infoobj = JSON.parse($scope.obj.data);
         } else {
-            return;
+            
         }
 
         if(res.pidList.data.errcode === 0){
+            console.log('shangjiiod');
             console.log(res.pidList.data.data);
             $scope.pid_list = res.pidList.data.data;
         } else {
             return;
         }
-    })
-     // 上级分类列表
-	// $scope.pidlist = function(){
-    //     findPidList.save({},function(res){
-    //         if(res.errcode === 0){
-    //             console.log(res);
-    //             $scope.pid_list = res.data;
+    });
+     
 
-
-    //         } else {
-    //             alert(res.errmsg);
-    //         }
-    //     })
-	// }
-	// $scope.pidlist();
-    // if(id){
-    //     getArticle.save({'id' : id},function(res){
-    //         if(res.errcode === 0){
-	// 			console.log(res);  
-    //             console.log(res.data.category_id);
-    //             $scope.obj = res.data;
-    //             $scope.infoobj = JSON.parse(res.data.data);
-	// 		}else{
-	// 			alert(res.errmsg);
-	// 		}
-    //     })
-    // }
-
-    
 	$scope.save = function(){
         $scope.obj.data = JSON.stringify($scope.infoobj);  
         console.log($scope.obj);     

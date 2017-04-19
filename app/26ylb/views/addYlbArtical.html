@@ -51,9 +51,9 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="col-lg-4 control-label">景区图片:</label>
+        <label class="col-lg-4 control-label">景区logo:</label>
           <div class="col-md-5">
-            <img ng-src="{{infoobj.picture1}}" width="100%" height="200" ng-model="infoobj.picture1">
+            <img ng-src="{{infoobj.logo}}" width="100%" height="200" ng-model="infoobj.logo">
               <input type="file" nv-file-select uploader="uploader" / ng-hide="hide===true" ><br/>
               <ul class="list-group">
                 <li class="list-group-item" ng-repeat="item in uploader.queue">
@@ -61,6 +61,22 @@
                   <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
                   <div class="progress mt10">
                     <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                  </div>
+                </li>
+              </ul>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-4 control-label">景区图片:</label>
+          <div class="col-md-5">
+            <img ng-src="{{infoobj.picture1}}" width="100%" height="200" ng-model="infoobj.picture1">
+              <input type="file" nv-file-select uploader="uploader1" / ng-hide="hide===true" ><br/>
+              <ul class="list-group">
+                <li class="list-group-item" ng-repeat="item in uploader1.queue">
+                  文件名: <span ng-bind="item.file.name"></span>
+                  <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                  <div class="progress mt10">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader1.progress + '%' }"></div>
                   </div>
                 </li>
               </ul>
