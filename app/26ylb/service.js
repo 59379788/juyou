@@ -7,7 +7,7 @@ var service = function($resource, BASEURL38985){
     // 分类列表
     var findCategoryList = '/api/as/ic/category/findCategoryList';
     // // 添加分类
-     var saveCategory = '/api/as/ic/category/save';
+     var saveCategory = '/api/ac/ic/categoryService/save';
     // 分类详情
     var getCategory = '/api/as/ic/category/getCategory';
     // 启动

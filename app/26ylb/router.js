@@ -77,10 +77,10 @@ var router = function($urlRouterProvider, $stateProvider){
       })      
 
       //文章列表
-      .state('app.articallist', {
-         url: '/articallist',
-         controller : 'articallist',
-         template: require('./views/articallist.html'),
+      .state('app.viewarticallist', {
+         url: '/viewarticallist',
+         controller : 'viewarticallist',
+         template: require('./views/viewarticallist.html'),
          resolve:{
             findArticleList : function(ylbservice){
                return ylbservice.findArticleList();
@@ -95,10 +95,10 @@ var router = function($urlRouterProvider, $stateProvider){
       })   
 
       //添加文章
-      .state('app.addYlbArtical', {
-         url: '/addYlbArtical/:id',
-         controller : 'addYlbArtical',
-         template: require('./views/addYlbArtical.html'),
+      .state('app.addViewArtical', {
+         url: '/addViewArtical/:id',
+         controller : 'addViewArtical',
+         template: require('./views/addViewArtical.html'),
          resolve:{
             saveArticle : function(ylbservice){
                return ylbservice.saveArticle();
@@ -106,9 +106,27 @@ var router = function($urlRouterProvider, $stateProvider){
             getArticle : function(ylbservice){
                  return ylbservice.getArticle();
             },
-            findPidList : function(ylbservice){
-                 return ylbservice.findPidList();
+            findDictionaryList : function(ylbservice){
+                 return ylbservice.findDictionaryList();
             }
+         }
+      })      
+
+      //添加文章
+      .state('app.categoryTree', {
+         url: '/categoryTree/:id',
+         controller : 'categoryTree',
+         template: require('./views/categoryTree.html'),
+         resolve:{
+            // saveArticle : function(ylbservice){
+            //    return ylbservice.saveArticle();
+            // },
+            // getArticle : function(ylbservice){
+            //      return ylbservice.getArticle();
+            // },
+            // findPidList : function(ylbservice){
+            //      return ylbservice.findPidList();
+            // }
          }
       })      
 

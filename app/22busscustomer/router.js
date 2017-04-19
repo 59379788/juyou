@@ -1016,17 +1016,20 @@ var router = function($urlRouterProvider, $stateProvider){
       })
 
 
-    //   // 积分充值
-    //   .state('app.integralrecharge', {
-    //     url: '/integralrecharge/:id',
-    //     controller : 'integralrecharge',
-    //     template: require('./views/integralrecharge.html'),
-    //     resolve:{
-    //         getUserInfoList : function(busscustomerservice){
-    //             return busscustomerservice.getUserInfoList();
-    //         }
-    //     }
-    //   })
+      //平台分配一级下发展的二级最大人数
+      .state('app.maxpeople', {
+        url: '/maxpeople/:id',
+        controller : 'maxpeople',
+        template: require('./views/maxpeople.html'),
+        resolve:{
+            classAList : function(busscustomerservice){
+                return busscustomerservice.classAList();
+            },
+            saveLimit : function(busscustomerservice){
+                return busscustomerservice.saveLimit();
+            }
+        }
+      })
 
 
         

@@ -28,11 +28,11 @@ module.exports = function($scope, $state, $resource,findArticleList,StartArticle
     $scope.getlist();
 
 	$scope.add = function(){
-		$state.go('app.addYlbArtical');
+		$state.go('app.addViewArtical');
 	}
 
 	$scope.edit = function(id){
-		$state.go('app.addYlbArtical',{'id' : id});		
+		$state.go('app.addViewArtical',{'id' : id});		
 	}
 
 	$scope.start = function(id){

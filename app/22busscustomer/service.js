@@ -266,7 +266,11 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   // 积分充值
   var getUserInfoList = BASEURL38985 + '/api/ac/tc/ticketOrderService/getUserInfoList';
   var saveRechargeIntegral = BASEURL38985 + '/api/ac/cc/coinintegral/saveRechargeIntegral';
-  
+
+  // 平台下一级商户列表
+  var classAList = BASEURL38985 + '/a/sys/office/treeData';
+  // 设置限定人数
+  var saveLimit = BASEURL38985 + '/api/ac/tc/tktdealerapplyservice/saveLimit';
 
 
     return {
@@ -673,6 +677,12 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         saveRechargeIntegral : function(){
             return $resource(saveRechargeIntegral, {}, {});
+        },
+        classAList : function(){
+            return $resource(classAList, {}, {});
+        },
+        saveLimit : function(){
+            return $resource(saveLimit, {}, {});
         }
 
 

@@ -117,6 +117,9 @@ App.controller('addinformation',require('./controllers/addinformation'));
 App.controller('integralrecharge',require('./controllers/integralrecharge'));
 App.controller('skrecharge',require('./controllers/skrecharge'));
 
+// 平台分配一级下发展的二级最大人数
+App.controller('maxpeople',require('./controllers/maxpeople'));
+App.controller('addlimit',require('./controllers/addlimit'));
 
 
 

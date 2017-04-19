@@ -1,0 +1,70 @@
+<div class="col-xs-8 col-xs-offset-2" >
+<div class="panel panel-info">
+<div class="panel-heading text-center">平台分配一级下二级最大人数</div>
+<div class="panel-body">
+<div class="container-fluid form-horizontal ">
+    <div class="panel panel-default">
+    <div class="panel-body">
+    <div class="col-sm-12" style="height: 40px">
+        <div class="form-group form-inline ">
+            <input type="text" class="form-control" ng-model="searchinfo.bind_company_code" placeholder="一级商客账号" style="border-color:coral">
+            <button type="button" class="btn btn-primary pull-right" ng-click="saveauthority()" style="background-color:coral;border-color:coral">搜索</button>
+        </div>
+    </div>
+    </div>
+    </div><!-- searchArea -->
+
+    <div class="col-md-12 panel panel-default table-responsive">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-4 text-center">账号</th>  
+        <th class="col-md-4 text-center">二级允许最大人数</th> 
+        <th class="col-md-4 text-center">操作</th>         
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.code}}</td>
+        <th class="col-md-4 text-center">{{10}}</th>         
+        <td class="text-center">
+          <a ng-click="limit(obj.id)" class="btn btn-danger">限制人数</a>
+          <!--<span class="glyphicon glyphicon-remove" aria-hidden=""></span>-->
+        </td>
+      </tr>
+
+    </tbody>
+    </table>
+    </div>
+
+    <!-- <div class="text-right">
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="search()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+    </div> 
+ -->
+
+        
+  
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
