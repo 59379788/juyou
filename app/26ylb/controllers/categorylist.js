@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $resource,findCategoryList,updateStartState,updateDiasbleState,ITEMS_PERPAGE,toaster){
+module.exports = function($scope, $state, $resource,findCategoryList,updateStartState,updateDiasbleState,ITEMS_PERPAGE,deleteCategory,toaster){
 	$scope.obj = {};
     /* 分页
      * ========================================= */
@@ -39,7 +39,7 @@ module.exports = function($scope, $state, $resource,findCategoryList,updateStart
 	$scope.start = function(id){
 		updateStartState.save({'id' : id}, function(res){
 			if(res.errcode === 0){
-				tableconfig.search();
+				    $scope.getlist();
 			}else{
 				alert(res.errmsg);
 			}
@@ -49,11 +49,23 @@ module.exports = function($scope, $state, $resource,findCategoryList,updateStart
 	$scope.disable = function(id){
 		updateDiasbleState.save({'id' : id}, function(res){
 			if(res.errcode === 0){
-				tableconfig.search();
+				    $scope.getlist();
 			}else{
 				alert(res.errmsg);
 			}
 		});
+	};
+	$scope.delete = function(id){
+		if(confirm('确定要删除吗?')){
+			deleteCategory.save({'id' : id},function(res){
+				if(res.errcode === 0){
+					$scope.getlist();
+				}else{
+					alert(res.errmsg);
+				}
+			})
+		}
+		
 	}
 
 };

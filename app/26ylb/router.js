@@ -21,6 +21,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             updateDiasbleState : function(ylbservice){
                return ylbservice.updateDiasbleState();
+            },
+            deleteCategory : function(ylbservice){
+               return ylbservice.deleteCategory();
             }
          }
       }) 

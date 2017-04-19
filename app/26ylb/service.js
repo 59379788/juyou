@@ -16,6 +16,8 @@ var service = function($resource, BASEURL38985){
     var updateDiasbleState = '/api/as/ic/category/updateDisableState';
     // 查询所有上级id
     var findPidList = '/api/ac/ic/categoryService/obtainCategory';
+    // 删除分类
+    var deleteCategory = '/api/as/ic/category/updateDel';
 
     // 文章列表
     var findArticleList = '/api/as/ic/article/findArticleList';
@@ -117,6 +119,9 @@ var service = function($resource, BASEURL38985){
         },
         delDictionary : function(){
             return $resource(delDictionary, {}, {});
+        },
+        deleteCategory : function(){
+            return $resource(deleteCategory, {}, {});
         }
 
         
