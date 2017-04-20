@@ -17,7 +17,8 @@
       <tr>
         <th class="col-md-2 text-center">景区名称</th>
         <th class="col-md-1 text-center">上级id</th>
-        <th class="col-md-2 text-center">排序</th>
+        <th class="col-md-1 text-center">排序</th>
+        <th class="col-md-1 text-center">类型</th>        
         <th class="col-md-1 text-center">状态</th>  
         <th class="col-md-2 text-center">创建时间</th>
         <th class="col-md-2 text-center">修改时间</th>              
@@ -29,6 +30,9 @@
         <td class="text-center">{{obj.title}}</td>
         <td class="text-center">{{obj.category_id}}</td>
         <td class="text-center">{{obj.sort}}</td>
+        <td class="text-center">
+          <p ng-show="obj.state == 1">景区</p>
+        </td>        
         <td class="text-center">
           <p class="" ng-show="obj.state == 1">已启动</p>
           <p class="" ng-show="obj.state == 2">已禁用</p>          

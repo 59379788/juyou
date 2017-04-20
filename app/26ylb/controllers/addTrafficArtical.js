@@ -1,9 +1,9 @@
-module.exports = function($scope, $http, $q, $state,$stateParams, $resource,FileUploader,saveArticle){
+module.exports = function($scope, $http, $q, $state,$stateParams, $resource,FileUploader,saveArticle,getArticle){
 
     var id = $stateParams.id;
     console.log(id);
     $scope.obj = {
-        'tyep' : '2',
+        'type' : '2',
         'data' : ""
     };
     $scope.infoobj = {};
