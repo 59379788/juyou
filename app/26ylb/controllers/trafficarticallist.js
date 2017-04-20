@@ -8,6 +8,9 @@ module.exports = function($scope, $state, $resource,findArticleList,StartArticle
 	$scope.info = {
 		'type' : '2'
 	}
+	$scope.objs = [
+
+	];
 	$scope.obj = {
 		'data' : ''
 	}
@@ -26,20 +29,17 @@ module.exports = function($scope, $state, $resource,findArticleList,StartArticle
             }
 			console.log('leibiao');
 			console.log(res);
-			$scope.objs = res.data.results;
-			// var array = res.data.results;
-			// var arr = [];
-			// for(var i= 0;i<array.length;i++){
-			// 	$scope.obj = array[i];
-			// 	$scope.infoobj = JSON.parse(array[i].data);
-			// 	$scope.obj.data = $scope.infoobj;
-			// 	 console.log($scope.obj);
-			// 	// arr.push($scope.obj);
-			// 	// console.log(arr);
-			// 	// $scope.objs = arr;
-			// }
-			// console.log($scope.objs);
-			
+			// $scope.objs = res.data.results;
+			var array = res.data.results;
+			var arr = [];
+			for(var i = 0; i < array.length; i++){
+				$scope.obj = array[i];
+				$scope.obj.data = JSON.parse(array[i].data);
+				console.log($scope.obj.data);
+				arr.push($scope.obj);
+				$scope.objs = arr;
+				console.log($scope.objs);
+			}
             $scope.bigTotalItems = res.data.totalRecord;
 
         })
