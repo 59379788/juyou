@@ -136,7 +136,7 @@ module.exports = function($scope, $http, $q, $state,$stateParams, $resource,File
             }
             console.log(res);
             alert('操作成功');
-            $state.go('app.foodllist');
+            $state.go('app.foodlist');
 		});
 	};
 
@@ -147,7 +147,7 @@ module.exports = function($scope, $http, $q, $state,$stateParams, $resource,File
     }
 	//取消
 	$scope.cancel = function () {
-		$state.go('app.foodllist');
+		$state.go('app.foodlist');
 	};
 
 

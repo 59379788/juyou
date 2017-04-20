@@ -16,8 +16,9 @@
     <thead>
       <tr>
         <th class="col-md-2 text-center">美食名称</th>
-        <!--<th class="col-md-3 text-center">精度</th>
-        <th class="col-md-3 text-center">纬度</th>-->
+        <th class="col-md-2 text-center">分类id</th>
+        <th class="col-md-2 text-center">排序</th>        
+        <th class="col-md-2 text-center">类型</th>
         <th class="col-md-2 text-center">状态</th>             
         <th class="col-md-2 text-center">操作</th>
       </tr>
@@ -27,6 +28,9 @@
         <td class="text-center">{{obj.title}}</td>
         <td class="text-center">{{obj.category_id}}</td>
         <td class="text-center">{{obj.sort}}</td>
+         <td class="text-center">
+            <p ng-show="obj.type == 4">美食</p>
+        </td>      
         <td class="text-center">
           <p class="" ng-show="obj.state == 1">已启动</p>
           <p class="" ng-show="obj.state == 2">已禁用</p>          

@@ -6,7 +6,7 @@ module.exports = function($scope, $state, $resource,findArticleList,StartArticle
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
 	$scope.info = {
-		'type' : '3'
+		'type' : '4'
 	}
 	 $scope.getlist = function(){
         var para = {

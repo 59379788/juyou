@@ -31,11 +31,11 @@ module.exports = function($scope, $state, $resource,findArticleList,StartArticle
     $scope.getlist();
 
 	$scope.add = function(){
-		$state.go('app.addTrafficArtical');
+		$state.go('app.addShopArtical');
 	}
 
 	$scope.edit = function(id){
-		$state.go('app.addTrafficArtical',{'id' : id});		
+		$state.go('app.addShopArtical',{'id' : id});		
 	}
 
 	$scope.start = function(id){

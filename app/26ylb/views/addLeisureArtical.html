@@ -1,0 +1,134 @@
+<form class="form-horizontal" role="form">
+ 
+ <div class="col-md-10 col-md-offset-1">
+ <div class="panel panel-info">
+ <div class="panel-heading text-center">添休闲详情</div>
+ <div class="panel-body">
+      <div class="form-group">
+        <label class="col-lg-3 control-label">分类id:</label>
+        <div class="col-lg-6">
+          <ui-select ng-model="obj.category_id" theme="bootstrap" ng-change="change(obj.category_id)">
+            <ui-select-match placeholder="选择分类..">{{$select.selected.title}}</ui-select-match>
+            <ui-select-choices repeat="item.id as item in pid_list | filter: $select.search">
+              <span ng-bind-html="item.title | highlight: $select.search"></span>
+            </ui-select-choices>
+          </ui-select>                
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-3 control-label">休闲名称:</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" placeholder="必填" ng-model="obj.title">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label class="col-lg-3 control-label">排序:</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" placeholder="必填" ng-model="obj.sort">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-3 control-label">附加信息:</label>
+      </div>
+      
+      <div class="form-group">
+        <label class="col-lg-3 control-label">店铺图片:</label>
+          <div class="col-md-6">
+            <img ng-src="{{infoobj.picture1}}" width="100%" height="200" ng-model="infoobj.picture1">
+              <input type="file" nv-file-select uploader="uploader1" / ng-hide="hide===true" ><br/>
+              <ul class="list-group">
+                <li class="list-group-item" ng-repeat="item in uploader1.queue">
+                  文件名: <span ng-bind="item.file.name"></span>
+                  <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                  <div class="progress mt10">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader1.progress + '%' }"></div>
+                  </div>
+                </li>
+                <font face="Courier" class="text-danger">注:上传图片尺寸为710 * 320</font>         
+
+              </ul>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-3 control-label">详情图片:</label>
+          <div class="col-md-3">
+            <img ng-src="{{infoobj.picture2}}" width="100%" height="200" ng-model="infoobj.picture2">
+              <input type="file" nv-file-select uploader="uploader2" / ng-hide="hide===true" ><br/>
+              <ul class="list-group">
+                <li class="list-group-item" ng-repeat="item in uploader2.queue">
+                  文件名: <span ng-bind="item.file.name"></span>
+                  <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                  <div class="progress mt10">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader2.progress + '%' }"></div>
+                  </div>
+                </li>
+                <font face="Courier" class="text-danger">注:上传图片尺寸为710 * 320</font>         
+
+              </ul>
+        </div>
+        <div class="col-md-3">
+            <img ng-src="{{infoobj.picture3}}" width="100%" height="200" ng-model="infoobj.picture3">
+              <input type="file" nv-file-select uploader="uploader3" / ng-hide="hide===true" ><br/>
+              <ul class="list-group">
+                <li class="list-group-item" ng-repeat="item in uploader3.queue">
+                  文件名: <span ng-bind="item.file.name"></span>
+                  <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                  <div class="progress mt10">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader3.progress + '%' }"></div>
+                  </div>
+                </li>
+                <font face="Courier" class="text-danger">注:上传图片尺寸为710 * 320</font>         
+
+              </ul>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-3 control-label">地处位置:</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" placeholder="必填" ng-model="infoobj.address">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-3 control-label">资讯电话:</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" placeholder="必填" ng-model="infoobj.tel">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-3 control-label">夜店活动:</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" placeholder="必填" ng-model="infoobj.activity">
+        </div>
+      </div> 
+      <div class="form-group">
+        <label class="col-lg-3 control-label">提供服务:</label>
+        <div class="col-lg-6">
+          <input type="text" class="form-control" placeholder="必填" ng-model="infoobj.fuwu">
+        </div>
+      </div> 
+      <div class="form-group">
+        <label class="col-lg-5 control-label"></label>        
+        <div class="col-lg-3">
+          <button class="btn btn-primary btn-rounded" ng-click="save()">添加</button>
+          <button class="btn btn-default btn-rounded" ng-click="cancel()">取消</button>
+        </div>     
+      </div>
+      <!--<div class="form-group">
+        <div id="allmap"></div>
+        <div id="r-result">请输入:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></div>
+        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+      </div>
+
+      <div class="BMap_mask" style="position: absolute; left: 0px; top: 0px; z-index: 9; overflow: hidden; user-select: none; width: 1376px; height: 300px;"></div>
+-->
+
+    </div>
+    </div>
+    </div>
+    </div>
+</form>
+
+
+    
