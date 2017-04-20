@@ -1,7 +1,8 @@
-module.exports = function($scope, $stateParams, viewlist, tktinfo, 
+module.exports = function($scope, $stateParams, viewlist, $state,tktinfo, 
 	tktupdate, placeinfo, makeArr, makeStr, getDate, str2date){
-
+    var placeid = $stateParams.placeid;
 	$scope.placeid = '';
+	$scope.id = $stateParams.id;
 	//有效区间
 	// $scope.section = {};
 	// $scope.section.start = {};
@@ -40,7 +41,10 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 
 		if(res.errcode === 0)
 		{
+			console.log('票种居奇偶怕你干新');
+			console.log(res);
 			$scope.objt = res.data;
+			$scope.objt.place_code = res.data.place_code;
 			//$scope.midstart = str2date( $scope.objt.start_date);
 			//$scope.midend = str2date($scope.objt.end_date);
 			$scope.objs = makeArr(res.data.print_setup);
@@ -82,25 +86,15 @@ module.exports = function($scope, $stateParams, viewlist, tktinfo,
 	// }
 
 	$scope.gogo = function(){
-
 		console.log($scope.objt);
 		$scope.objt['print_setup'] = makeStr($scope.objs);
-		// $scope.objt.start_date =  getDate($scope.midstart);
-		// $scope.objt.end_date =  getDate($scope.midend);
-		// if ( parseInt($scope.objt.start_date.substring(0,4)+$scope.objt.start_date.substring(5,7)+$scope.objt.start_date.substring(8,10)) > parseInt($scope.objt.end_date.substring(0,4)+$scope.objt.end_date.substring(5,7)+$scope.objt.end_date.substring(8,10)) ) {
-		// 	alert('有效时间的初始日期应早于末尾日期');
-		// 	return;
-		// }
-		// console.log(parseInt($scope.objt.start_date.substring(0,4)+$scope.objt.start_date.substring(5,7)+$scope.objt.start_date.substring(8,10)));
-		// console.log('hhhhhhhhhh');
-		// console.log(parseInt($scope.objt.end_date.substring(0,4)+$scope.objt.end_date.substring(5,7)+$scope.objt.end_date.substring(8,10)));
-		tktupdate.save($scope.objt, function(res){
-
-			console.log(res);
-
+		tktupdate.save($scope.objt, function(res){			
 			if(res.errcode === 0)
 			{
 				alert('修改成功');
+								// $state.go('app.tkttype',{'placeid' : placeid});
+				$state.go('app.tkttype',{'placeid' : placeid});
+
 			}
 			else
 			{

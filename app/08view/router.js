@@ -66,7 +66,7 @@ var router = function($urlRouterProvider, $stateProvider){
 
       //商户列表
       .state('app.storelist', {
-        url: '/store/list.html',
+        url: '/storelist.html',
         controller : 'storelist',
         template: require('./views/storelist.html'),
         resolve:{
@@ -78,6 +78,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             updateplacemerchant : function(viewservice){
                 return viewservice.updateplacemerchant();
+            },
+            merchantinfo : function(viewservice){
+                return viewservice.merchantinfo();
+            },
+            gogosort : function(viewservice){
+                return viewservice.gogosort();
             }
         }
       })

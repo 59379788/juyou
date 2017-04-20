@@ -1,6 +1,8 @@
 module.exports = function($scope, $state, $uibModalInstance, id, back_price, orderback){
 
-	$scope.obj = {};
+	$scope.obj = {
+		'remark' : '  '
+	};
 	$scope.obj.id = id;
 	$scope.obj.back_price = back_price * 0.01;
 
@@ -16,6 +18,9 @@ module.exports = function($scope, $state, $uibModalInstance, id, back_price, ord
 		if($scope.obj.back_price === undefined || $scope.obj.back_price == '')
 		{
 			alert('退款金额不能为空');
+			return;
+		} else if($scope.obj.remark == ''){
+			alert('退款说明不能为空');
 			return;
 		}
 		$scope.obj.back_price = $scope.obj.back_price*100;

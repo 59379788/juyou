@@ -1,5 +1,5 @@
-module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE,updateplacemerchant){
-
+module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE,updateplacemerchant,merchantinfo,gogosort, toaster){
+  
 	$scope.searchform = {};
 
 
@@ -14,8 +14,7 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE,update
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
     
-    $scope.load = function () {
-        
+    $scope.load = function () {     
         var para = {
             pageNo:$scope.bigCurrentPage,
             pageSize:$scope.itemsPerPage,
@@ -39,6 +38,8 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE,update
 
         });
 
+        
+
     };
     $scope.load();
 
@@ -51,23 +52,51 @@ module.exports = function($scope, $state, list, viewupdate, ITEMS_PERPAGE,update
 
 
     $scope.asort = function(id, asort){
+
+        merchantinfo.save({'merchant_id' : id},function(res){
+            if(res.errcode == 10003){
+                // console.log(res);
+                toaster.success({title:"",body:"未设置商户信息,不可进行排序操作"});
+                
+            } else {
+                console.log('商户信息');
+                console.log(res);
+                console.log({'id' : id, 'asort' : asort});
+                gogosort.save({'id' : id, 'asort' : asort}, function(res){
+
+                    console.log(res);
+
+                    if(res.errcode === 0)
+                    {
+                        $scope.load();
+                    }
+                    else
+                    {
+                        alert(res.errmsg);
+                    }
+
+                });
+            }
         
 
-    	console.log({'merchant_id' : id, 'merchant_asort' : asort});
-    	updateplacemerchant.save({'merchant_id' : id, 'merchant_asort' : asort}, function(res){
+        });
+        
 
-			console.log(res);
+    	// console.log({'merchant_id' : id, 'merchant_asort' : asort});
+    	// updateplacemerchant.save({'merchant_id' : id, 'merchant_asort' : asort}, function(res){
 
-			if(res.errcode === 0)
-			{
-				$scope.load();
-			}
-			else
-			{
-				alert(res.errmsg);
-			}
+		// 	console.log(res);
 
-		});
+		// 	if(res.errcode === 0)
+		// 	{
+		// 		$scope.load();
+		// 	}
+		// 	else
+		// 	{
+		// 		alert(res.errmsg);
+		// 	}
+
+		// });
 
     };
 

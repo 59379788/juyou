@@ -1,0 +1,34 @@
+<form class="form-horizontal" role="form">
+ 
+ <div class="col-md-8 col-md-offset-2">
+ <div class="panel panel-info">
+ <div class="panel-heading text-center">添加字典</div>
+ <div class="panel-body">
+              <div class="form-group">
+                <label class="col-lg-3 control-label">字典标题:</label>
+                <div class="col-lg-5">
+                  <input type="text" class="form-control" placeholder="必填" ng-model="obj.title">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="col-lg-3 control-label">key值:</label>
+                <div class="col-lg-5">
+                  <input type="text" class="form-control" placeholder="必填" ng-model="obj.key">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-3 control-label">type:</label>
+                <div class="col-lg-5">
+                  <input type="text" class="form-control" placeholder="必填" ng-model="obj.type">
+                </div>
+              </div>
+
+            <div class="form-group">
+                <label class="col-lg-4 control-label"></label>              
+                <button class="btn btn-primary btn-rounded" ng-click="save()">添加</button>
+                <button class="btn btn-default btn-rounded" ng-click="cancel()">取消</button>
+            </div>
+          </div>
+          </div>
+</form>

@@ -36,7 +36,10 @@ var service = function($resource, BASEURL38985){
     var orderstatisticsusedinfolist = BASEURL38985 + '/api/as/tc/ticketorder/orderstatisticsusedinfolist';
 
     //在线套票统计
-    var staticonline = BASEURL38985 + '/api/as/uc/cardorder/getList';
+    var staticonline = BASEURL38985 + '/api/as/cdc/cardorder/getList';
+
+    //各级分销统计
+    var countByCompnycode = BASEURL38985 + '/api/ac/tc/ticketCountService/countByCompnycode';
 
     return {
         uselist : function(){
@@ -83,6 +86,9 @@ var service = function($resource, BASEURL38985){
         },
         staticonline : function(){
             return $resource(staticonline, {}, {});
+        },
+        countByCompnycode : function(){
+            return $resource(countByCompnycode, {}, {});
         }
     };
 

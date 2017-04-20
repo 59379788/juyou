@@ -2,7 +2,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 	dictbytypelist, cardresources, cardresourcesinsert, cardresourcesdel, cardpoollists,
 	cardproductpoolinsert, cardproductpooldel, cardproduct_cardpoollist,
 	cardproduct_ticketlist, cardproductticketinsert, cardproductticketdel,cardpoollist,
-	$uibModal, saleticketinfo
+	$uibModal, saleticketinfo, getRedPacketProductlist
 	){
 
 	$scope.selection = function (obj) {
@@ -60,7 +60,7 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
         }
     });
 
-    dictbytypelist({'type' : 'bookline_type'}).then(function(res) {
+    dictbytypelist({'type' : 'card_sale_type'}).then(function(res) {
     	//console.log(res);
         if(res.errcode === 0)
         {
@@ -72,6 +72,29 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
             alert(res.errmsg);
         }
     });
+
+    /*getRedPacketProductlist({}).then(function(res) {
+    	//console.log(res);
+        if(res.errcode === 0)
+        {
+        	$scope.redtypearr = res.data;
+        //	console.log($scope.cardtypearr);
+        }
+        else
+        {
+            alert(res.errmsg);
+        }
+    });*/
+
+    getRedPacketProductlist.get({}, function(res){
+    	console.log(res);
+		if (res.errcode !== 0) {
+			alert(res.errmsg);
+			return;
+		}
+		$scope.redtypearr = res.data;
+
+	});
 
 	if(id === '')   //新建卡产品
     {
@@ -111,13 +134,16 @@ module.exports = function($scope, $state, $stateParams, cardproduct, cardproduct
 
     	// _getcardproduct_ticket();
     }
+    $scope.change = function(){
+		$scope.obj.rebate_code = '';
+    }
 
 	
     var productcode = '';
     //卡产品信息提交
 
 	$scope.gogo = function(){
-            if ($scope.obj.name === '' || $scope.obj.card_type === '' || $scope.obj.remarks ==='' ||$scope.obj.market_price===null ||$scope.obj.guide_price===null || $scope.obj.name===null) { 
+            if ($scope.obj.name === '' || $scope.obj.card_type === '' ||$scope.obj.market_price===null ||$scope.obj.guide_price===null || $scope.obj.name===null) { 
             	alert('信息填写不完全');
             	return;
             } 

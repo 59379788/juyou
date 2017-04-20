@@ -86,7 +86,7 @@ module.exports = function ($scope, $uibModal,
 		if (len === 8 || len === 9 || len === 10) {
 			para = { "code": $scope.code, "device": $scope.device };
 			func = useticketbycode;
-			checkcode.get(para, oper);
+			checkcode.save(para, oper);
 		}
 		//身份证
 		else if (len === 18) {
@@ -113,6 +113,9 @@ module.exports = function ($scope, $uibModal,
 
 	//打开模态框
 	function openticketinfo(info) {
+
+		console.log('info');
+		console.log(info);
 
 		var modalInstance = $uibModal.open({
 			template: require('../views/ticketinfo.html'),

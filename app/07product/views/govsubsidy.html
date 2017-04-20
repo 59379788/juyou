@@ -1,0 +1,28 @@
+<div class="container-fluid form-horizontal">
+	<div class="col-xs-12 ">
+		<div class="panel panel-default form-horizontal">
+			<div class="panel-heading">
+				旅游局补贴
+				<button type="button" class="btn btn-xs btn-info pull-right" ng-if="util.what != 'info'" ng-show="!isExistFlag" ng-click="govcreate()">
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+				</button>
+				<button type="button" class="btn btn-xs btn-info pull-right" ng-if="util.what != 'info'" ng-show="isExistFlag" ng-click="govupdate()">
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+				</button>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="col-xs-10">
+						<div class="form-group">
+							<label class="col-xs-2 control-label">补贴金额</label>
+							<div class="col-xs-10">
+								<input type="text" class="form-control" ng-model="govobj.govsubsidy_price" ng-disabled="util.what == 'info'">
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

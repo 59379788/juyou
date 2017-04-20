@@ -46,12 +46,12 @@
 					<div class="col-xs-5">
 						<div class="input-group">							
 							<input type="number" class="form-control" placeholder="利润率" min='0'
-							ng-model="salefrobj.profit_ratio">
+							ng-model="salefrobj.profit_ratio" value="0" ng-change="change()">
 							<span class="input-group-addon">%</span>
 						</div>
 					</div>
 					<div class="col-sm-3 mt10">
-						<font face="Courier" class="text-danger"></font>
+						<font face="Courier" class="text-danger">一级利润率</font>
 					</div>	
 				</div>
 
@@ -59,37 +59,50 @@
 					<br/>
 				<div class="col-xs-12 form-group" >
 					<div class="col-xs-2">
-						<label for="lrl" class="pull-right text-right mt10">利润&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<label type="number" for="lrl" class="pull-right text-right mt10">利润&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						
 					</div>
 					<div class="col-xs-5">
 						<div class="input-group col-xs-12">
-							<p class="form-control" placeholder="利润" ng-model="salefrobj.profit" ng-disabled="true" style="border-radius: 3px">{{(infodata.guide_price-infodata.cost_price)*salefrobj.profit_ratio*0.01}}</p>							
-							<!--<p type="type" class="form-control" placeholder="利润" ng-model="salefrobj.profit" ng-disabled="true">-->
+							<!--<p class="form-control" placeholder="利润" ng-model="salefrobj.profit" ng-disabled="true" style="border-radius: 3px">
+								{{(infodata.guide_price-infodata.cost_price*(salefrobj.profit_ratio*0.01+1)).toFixed(2)}}
+							</p>-->
+							<input type="text" class="form-control" placeholder="利润" ng-model="salefrobj.profit" readonly>
 						</div>
 					</div>
-					<div class="col-sm-3 mt10">
-						<font face="Courier" class="text-danger">利润率等于(居游价-成本价)*利润率</font>
+					<div class="col-sm-4 mt10">
+						<font face="Courier" class="text-danger">二级利润=(居游价-成本价)*(1-利润率)</font>
 					</div>	
 				</div>
 			
 					<br/>
 					<br/>
-				<div class="col-xs-12 form-group">
+				<div class="col-xs-12 form-group form-inline">
 					<div class="col-xs-2">
-						<label for="lrl" class="pull-right text-right mt10">红包上限&nbsp;&nbsp;&nbsp;&nbsp;</label>
+						<label for="lrl" class="pull-right text-right mt10">红包金额&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
-					<div class="col-xs-5">
+					<div class="col-xs-2">
 						<div class="input-group">
-							<span class="input-group-addon">¥</span>
 							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0' step=""
-							ng-model="salefrobj.rebate_unlimited">
+							ng-model="salefrobj.rebate_lower">
+							<span class="input-group-addon">元</span>							
 						</div>
 					</div>
+					<div class="col-xs-1">
+						<label for="lrl" class="pull-right text-right mt10">-----&nbsp;&nbsp;</label>
+					</div>
+					<div class="col-xs-2">
+						<div class="input-group">
+							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0' max="" 
+							ng-model="salefrobj.rebate_unlimited">
+							<span class="input-group-addon">元</span>							
+						</div>
+					</div>	
 					<div class="col-sm-3 mt10">
-						<font face="Courier" class="text-danger"></font>
+						<font face="Courier" class="text-danger">红包金额  下限-----上限</font>
 					</div>						
 				</div>
-				<br/>
+				<!--<br/>
 					<br/>
 				<div class="col-xs-12 form-group">
 					<div class="col-xs-2">
@@ -105,14 +118,14 @@
 					<div class="col-sm-3 mt10">
 						<font face="Courier" class="text-danger">红包下限金额最高不能超过利润</font>
 					</div>				
-				</div>
+				</div>-->
 					<br/>
 					<br/>
 				<div class="col-xs-12 form-group">
 					<div class="col-xs-2">
 						<label for="lrl" class="pull-right text-right mt10">推荐到搜索列表&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
-					<div class="col-xs-8">
+					<div class="col-xs-2">
 						<div class="input-group">
 							<input class=""
 							bs-switch
@@ -121,12 +134,36 @@
 							switch-size=""
 							ng-change = "onChange(obj.isSelected)"
 							> 
-						<!--<div class="input-group">
-							<span class="input-group-addon">¥</span>
-							<input type="number" class="form-control" placeholder="红包金额不能为负数" min='0'
-							ng-model="salefrobj.rebate_unlimited">
-						</div>-->
 						</div>
+					</div>					
+				</div>
+					<br/>
+					<br/>
+				<div class="col-xs-12 form-group">
+					<div class="col-xs-2">
+						<label for="lrl" class="pull-right text-right mt10">可否预约套票&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+					<div class="col-xs-2">
+						<div class="input-group">
+							<input class=""
+							bs-switch
+							type="checkbox" 
+							ng-model="yyobj.isSelected"
+							switch-size=""
+							ng-change = "onYYChange(yyobj.isSelected)"
+							> 
+						</div>
+					</div>					
+				</div>
+
+				<br/>
+					<br/>
+				<div class="col-xs-12 form-group">
+					<div class="col-xs-2">
+						<label for="lrl" class="pull-right text-right mt10">商客商品详情&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					</div>
+					<div class="col-xs-7">
+					 	<div class="ueditor" ng-model="salefrobj.sk_imginfo"></div>      
 					</div>					
 				</div>
 

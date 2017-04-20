@@ -1,0 +1,48 @@
+<div class="col-sm-12">
+
+<div class="col-md-12 panel panel-default table-responsive">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-2 text-center">登录名</th>
+        <th class="col-md-2 text-center">提现金额(元)</th>
+        <th class="col-md-2 text-center">提现时间</th>
+        <th class="col-md-2 text-center">发送时间</th>
+        <th class="col-md-2 text-center">备注</th>      
+        <th class="col-md-1 text-center">体现状态</th>
+        <th class="col-md-1 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.login_name}}</td>
+        <td class="text-center">{{obj.profit}}</td>        
+        <td class="text-center">{{obj.date}}</td>
+        <td class="text-center">{{obj.sendtime}}</td>
+        <td class="text-center">{{obj.remark}}</td>
+        <td class="text-center">{{obj.status_name}}</td>
+        <td class="text-center">
+            <a ng-show="obj.status == 0" ng-click="change(obj.id)" class="btn btn-primary btn-xs">更改状态</a>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+</div>
+</div> 
+
+    <div class="text-right">
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="search()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+    </div> 

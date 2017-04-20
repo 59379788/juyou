@@ -33,6 +33,8 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
    var businesslist = BASEURL38985 + '/api/as/tc/vouchersale/businesslist';
    //类别列表
    var typelist = BASEURL38985 + '/api/as/sc/dict/dictbytypelist';
+   // 获取类型
+   var typelists = BASEURL38985 + '/api/us/mc/mertradetypedao/findByTypeList';
    //一元券订单列表
    var orderlist = BASEURL38985 + '/api/as/tc/voucherorder/orderlist';
    //一元券码信息
@@ -240,7 +242,35 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var list = SYS + '/a/sys/user/ajaxlist';
 
   var createmechanism = SYS + '/a/sys/office/ajaxsave';
+
+  // 退款模块
+  var orderbacklist = BASEURL38985 + "/api/as/tc/ticketorderback/orderbacklist";
+  var orderback = BASEURL38985 + "/api/ac/tc/ticketOrderService/updatebackmoneybycode";
   
+  // 积分提现申请列表
+  var findOrdertTXList = BASEURL38985 + '/api/as/tc/ordertixian/findOrdertTXList';
+  // 修改提现状态
+  var updateTiXian = BASEURL38985 + '/api/as/tc/ordertixian/updateTiXian';
+
+  // 资讯列表
+  var findInformationList = BASEURL38985 + '/api/as/mc/merinformation/findInformationList';
+  // 添加资讯
+  var saveInformation = BASEURL38985 + '/api/as/mc/merinformation/saveInformation';
+  // 详情
+  var getInformation = BASEURL38985 + '/api/as/mc/merinformation/getInformation';
+  // 编辑
+  var updateinformation = BASEURL38985 + '/api/as/mc/merinformation/updateinformation';
+  // 删除
+  var delinformation = BASEURL38985 + '/api/as/mc/merinformation/updateDel';
+
+  // 积分充值
+  var getUserInfoList = BASEURL38985 + '/api/ac/tc/ticketOrderService/getUserInfoList';
+  var saveRechargeIntegral = BASEURL38985 + '/api/ac/cc/coinintegral/saveRechargeIntegral';
+
+  // 平台下一级商户列表
+  var classAList = BASEURL38985 + '/a/sys/office/treeData';
+  // 设置限定人数
+  var saveLimit = BASEURL38985 + '/api/ac/tc/tktdealerapplyservice/saveLimit';
 
 
     return {
@@ -353,6 +383,9 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
             //     deferred.reject(data);   // 声明执行失败，即服务器返回错误  
             // });  
             return deferred.promise;   // 返回承诺，这里并不是最终数据，而是访问最终数据的API 
+        },
+        typelists : function(){
+             return $resource(typelists, {}, {});
         },
         orderlist : function(){
              return $resource(orderlist, {}, {});
@@ -611,6 +644,45 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         createmechanism : function(){
           return $resource(createmechanism,{},{});
+        },
+        orderbacklist : function(){
+            return $resource(orderbacklist, {}, {});
+        },
+        orderback : function(){
+            return $resource(orderback, {}, {});
+        },
+        findOrdertTXList : function(){
+            return $resource(findOrdertTXList, {}, {});
+        },
+        updateTiXian : function(){
+            return $resource(updateTiXian, {}, {});
+        },
+        findInformationList : function(){
+            return $resource(findInformationList, {}, {});
+        },
+        saveInformation : function(){
+            return $resource(saveInformation, {}, {});
+        },
+        getInformation : function(){
+            return $resource(getInformation, {}, {});
+        },
+        updateinformation : function(){
+            return $resource(updateinformation, {}, {});
+        },
+        delinformation : function(){
+            return $resource(delinformation, {}, {});
+        },
+        getUserInfoList : function(){
+            return $resource(getUserInfoList, {}, {});
+        },
+        saveRechargeIntegral : function(){
+            return $resource(saveRechargeIntegral, {}, {});
+        },
+        classAList : function(){
+            return $resource(classAList, {}, {});
+        },
+        saveLimit : function(){
+            return $resource(saveLimit, {}, {});
         }
 
 

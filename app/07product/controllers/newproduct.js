@@ -1,3 +1,4 @@
+
 module.exports = function ($scope, $stateParams, $http, $q, productid, what, FileUploader, str2date, date2str, $resource, toaster, $uibModalInstance, auditing) {
 
 	var id = $stateParams.id || productid;

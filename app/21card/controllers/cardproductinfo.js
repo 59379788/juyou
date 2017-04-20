@@ -1,6 +1,6 @@
 module.exports = function($scope, $state, $stateParams, cardproductinfo,
 	cardresources,cardproduct_cardpoollist,cardproduct_ticketlist,
-	$uibModal, saleticketinfo, dictbytypelist
+	$uibModal, saleticketinfo, dictbytypelist,getRedPacketProductlist
 	){
 	var id = $stateParams.id;
 	
@@ -21,7 +21,7 @@ module.exports = function($scope, $state, $stateParams, cardproductinfo,
 
     });
 
-    dictbytypelist({'type' : 'bookline_type'}).then(function(res) {
+    dictbytypelist({'type' : 'card_sale_type'}).then(function(res) {
     	//console.log(res);
         if(res.errcode === 0)
         {
@@ -33,6 +33,16 @@ module.exports = function($scope, $state, $stateParams, cardproductinfo,
             alert(res.errmsg);
         }
     });
+
+    getRedPacketProductlist.get({}, function(res){
+    	console.log(res);
+		if (res.errcode !== 0) {
+			alert(res.errmsg);
+			return;
+		}
+		$scope.redtypearr = res.data;
+
+	});
     
     $scope.resourcesflag = {};
 

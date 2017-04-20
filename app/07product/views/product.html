@@ -35,10 +35,19 @@
 			<productintegral saleobj="saleobj" util="util"></productintegral>
 		</uib-tab>
 
-		<uib-tab index="7" heading="销售品分润设置" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('skprice')">
+		<uib-tab index="7" heading="商客专用设置" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('skprice')">
 			<productshareprofit saleobj="saleobj" util="util"></productshareprofit>
 		</uib-tab>
 
+		<uib-tab index="8" heading="政府补贴" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('govsubsidy')">
+			<govsubsidy saleobj="saleobj" util="util"></govsubsidy>
+		</uib-tab>
+
+		<uib-tab index="7" heading="居游补贴" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('juyousubsidy')">
+			<juyousubsidy saleobj="saleobj" util="util"></juyousubsidy>
+		</uib-tab>
+
 	</uib-tabset>
+
 
 </div>

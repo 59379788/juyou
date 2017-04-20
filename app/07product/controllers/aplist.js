@@ -14,6 +14,16 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
     $scope.maxSize = 5;            //最多显示多少个按钮
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+    
+
+	$scope.myKeyup = function (e) {
+
+		//IE 编码包含在window.event.keyCode中，Firefox或Safari 包含在event.which中
+		var keycode = window.event ? e.keyCode : e.which;
+		if (keycode == 13) {
+			$scope.load();
+		}
+	};
 
     $scope.load = function () {
 
@@ -49,16 +59,13 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
         //$state.go('app.editsale', {'id' : id, 'type' : 'info'});
 
         var modalInstance = $uibModal.open({
-            template: require('../views/product.html'),
-            controller: 'newproduct',
-            url: '/product/edit/:id',
+            template: require('../views/productInfo.html'),
+            controller: 'productInfo',
+            url: '/productInfo/:id',
             size: 'lg',
             resolve: {
                 'productid': function () {
                     return id;
-                },
-                what: function () {
-                    return 'info';
                 },
                 str2date: function () {
                     return str2date;

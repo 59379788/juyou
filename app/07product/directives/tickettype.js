@@ -1,4 +1,4 @@
-module.exports = function($resource, $state, $http, $q){
+module.exports = function($resource, $state, $http, $q, toaster){
 
 	return {
 
@@ -111,16 +111,17 @@ module.exports = function($resource, $state, $http, $q){
 	scope.save = function(item){
 
 		console.log(item);
+		console.log(scope.saleobj)
 
-		return ;
+		var para = {
+			id : item.id,
+			periodend : scope.util.date2str(item.section.periodend.date),
+			periodstart : scope.util.date2str(item.section.periodstart.date)
+		}
 
-		scope.tickettypeobj.sale_code = scope.saleobj.code;
-		scope.tickettypeobj.periodstart = scope.saleobj.periodstart;
-		scope.tickettypeobj.periodend = scope.saleobj.periodend;
-
-		console.log(scope.tickettypeobj);
+		console.log(para);
 		$resource('/api/as/tc/salettype/save', {}, {})
-		.save(scope.tickettypeobj, function(res){
+		.save(para, function(res){
 			console.log('保存票种信息');
 			console.log(res);
         	if(res.errcode !== 0)
@@ -128,6 +129,7 @@ module.exports = function($resource, $state, $http, $q){
 				alert(res.errmsg);
 				return;
 			}
+			toaster.success({ title: "提示", body: '修改成功' });
 			gettickettypedetail();
         });
 	};
@@ -145,6 +147,7 @@ module.exports = function($resource, $state, $http, $q){
 				alert(res.errmsg);
 				return;
 			}
+			toaster.success({ title: "提示", body: '删除成功' });
 			gettickettypedetail();
         });
 	}

@@ -1,0 +1,320 @@
+<div class="container-fluid form-horizontal">
+
+	<div class="col-xs-12 col-md-12 mt10">
+
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">产品名称</label>
+			<div class="col-sm-4 col-xs-12">
+				<p class="form-control-static">{{saleobj.name}}</p>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">此名称用于产品列表及订单名称</font>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">产品名称</label>
+			<div class="col-sm-4 col-xs-12">
+				<p class="form-control-static">{{saleobj.name_inside}}</p>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">此名称用于内部使用</font>
+			</div>
+		</div>
+
+		<div class="form-group" ng-if="saleobj.code != ''">
+			<label class="col-sm-2 col-xs-12 control-label">产品编码</label>
+			<div class="col-sm-4 col-xs-12">
+				<p class="form-control-static">{{saleobj.code}}</p>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">产品编码</font>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">市场价格</label>
+			<div class="col-sm-4 col-xs-12">
+				<div class="input-group">
+					<p class="form-control-static">¥{{saleobj.market_price}}</p>
+					<!--<input type="number" class="form-control" placeholder="请输入市场价格" min='0' ng-model="saleobj.market_price" ng-disabled="true">-->
+				</div>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger"></font>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">居游价格</label>
+			<div class="col-sm-4 col-xs-12">
+				<div class="input-group">
+					<p class="form-control-static">¥{{saleobj.guide_price}}</p>
+					<!--<span class="input-group-addon">¥</span>
+					<input type="number" class="form-control" placeholder="请输入居游价格" min='0' ng-model="saleobj.guide_price" ng-disabled="true">-->
+				</div>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">下单支付价格</font>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<!--<label class="col-sm-3 col-xs-12 control-label">分销商成本价格</label>-->
+			<label class="col-sm-2 col-xs-12 control-label">成本价格</label>
+			<div class="col-sm-4 col-xs-12">
+				<div class="input-group">
+					<p class="form-control-static">¥{{saleobj.cost_price}}</p>
+					<!--<span class="input-group-addon">¥</span>
+					<input type="number" class="form-control" placeholder="请输入分销商成本价格" min='0' ng-model="saleobj.cost_price" ng-disabled="true">-->
+				</div>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger"></font>
+			</div>
+		</div>
+
+		<!-- ng-disabled="saleobj.id != ''" ng-change="changeCategory()" -->
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">产品分类</label>
+			<div class="col-sm-4  col-xs-12">
+				<p class="form-control-static">{{sale_category_info}}</p>
+				<!--<ui-select ng-model="saleobj.sale_category" theme="bootstrap" ng-disabled="saleobj.id != '' || true">
+					<ui-select-match placeholder="请选择一个销售品分类">{{$select.selected.label}}</ui-select-match>
+					<ui-select-choices repeat="item.value as item in page.categorylist | filter: $select.search">
+						<span ng-bind-html="item.label | highlight: $select.search"></span>
+					</ui-select-choices>
+				</ui-select>-->
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">产品类别</font>
+			</div>
+		</div>
+
+		<div class="form-group" ng-show="true">
+			<label class="col-sm-2 col-xs-12 control-label">显示顺序</label>
+			<div class="col-sm-4 col-xs-12">
+				<p class="form-control-static">{{saleobj.asort}}</p>
+				<!--<input type="text" class="form-control" placeholder="请输入显示顺序" ng-disabled="model.id != undefined || true"
+				 ng-model="saleobj.asort">-->
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">在产品列表中显示顺序</font>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">短信配置</label>
+			<div class="col-sm-4 col-xs-12">
+			</div>
+			<div class="col-sm-6 mt10">
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="form-group">
+				<!--<label class="col-sm-3 col-xs-12 control-label">短信发送类型</label>-->
+				<label class="col-sm-2 col-xs-12 control-label">发送类型</label>
+				<div class="col-sm-4 col-xs-12">
+					<p ng-if="saleobj.sms_type == '1'" class="form-control-static">发送短信</p>
+					<p ng-if="saleobj.sms_type == '0'" class="form-control-static">不发短信</p>
+					<!--<label class="radio-inline">
+						<input type="radio" name="sms_type" value="1"
+						ng-model="saleobj.sms_type" ng-disabled="true"
+						> 发送短信
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="sms_type" value="0"
+						ng-model="saleobj.sms_type" ng-disabled="true"
+						> 不发短信
+					</label>-->
+				</div>
+				<div class="col-sm-6 mt10">
+					<font face="Courier" class="text-danger">下单出票之后是否发送短信</font>
+				</div>
+			</div>
+
+			<div class="form-group" ng-show="saleobj.sms_type == 1">
+				<!--<label class="col-sm-3 col-xs-12 control-label">短信模板编号</label>-->
+				<label class="col-sm-2 col-xs-12 control-label">模板编号</label>
+				<div class="col-sm-4 col-xs-12">
+					<p class="form-control-static">{{saleobj.sms_template_id}}</p>
+					<!--<select class="form-control" ng-model="saleobj.sms_template_id" ng-change="changeSms(saleobj)" ng-disabled="true" ng-options="sms.sms_template_id as sms.sms_template_id for sms in page.smslist">
+	            	<option value="">  -- 空 --  </option>-->
+	            </select>
+				</div>
+				<div class="col-sm-6 mt10">
+					<font face="Courier" class="text-danger">发送短信内容模板</font>
+				</div>
+			</div>
+
+			<div class="form-group" ng-show="saleobj.sms_type == 1">
+				<!--<label class="col-sm-3 col-xs-12 control-label">短信追加内容</label>-->
+				<label class="col-sm-2 col-xs-12 control-label">补充内容</label>
+				<div class="col-sm-4 col-xs-12">
+					<p class="form-control-static" ng-bind-html="saleobj.sms_diy"></p>
+					<!--<textarea class="form-control" rows="3" ng-model="saleobj.sms_diy" ng-disabled="true"></textarea>-->
+				</div>
+				<div class="col-sm-6 mt10">
+					<font face="Courier" class="text-danger">短信补充自定义内容</font>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- ng-disabled="saleobj.state != 0 && saleobj.id != ''" -->
+		<div class="form-group mt10">
+			<label class="col-sm-2 col-xs-12 control-label">产品所属</label>
+			<div class="col-sm-4 col-xs-12">
+				<p class="form-control-static">{{sale_belong_info}}</p>
+				<!--<ui-select ng-model="saleobj.sale_belong" theme="bootstrap" ng-disabled="true">
+					<ui-select-match placeholder="请选择一个产品所属">{{$select.selected.label}}</ui-select-match>
+					<ui-select-choices repeat="item.value as item in page.salebelonglist | filter: $select.search">
+						<span ng-bind-html="item.label | highlight: $select.search"></span>
+					</ui-select-choices>
+				</ui-select>-->
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">非自营为接口对接产品</font>
+			</div>
+		</div>
+
+
+		<div class="form-group" ng-show="true">
+			<label class="col-sm-2 col-xs-12 control-label">有效期始</label>
+			<div class="col-sm-4 col-xs-12">
+				<p class="form-control-static">{{saleobj.periodstart}}</p>
+				<!--<input type="text" class="form-control" placeholder="请输入显示顺序" ng-disabled="model.id != undefined || true"
+				 ng-model="saleobj.asort">-->
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">产品可用时间开始时间</font>
+			</div>
+		</div>
+
+
+		<div class="form-group" ng-show="true">
+			<label class="col-sm-2 col-xs-12 control-label">有效期止</label>
+			<div class="col-sm-4 col-xs-12">
+				<p class="form-control-static">{{saleobj.periodend}}</p>
+				<!--<input type="text" class="form-control" placeholder="请输入显示顺序" ng-disabled="model.id != undefined || true"
+				 ng-model="saleobj.asort">-->
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">产品可用时间结束时间</font>
+			</div>
+		</div>
+
+
+		<!--<div class="form-group">
+			<form class="form-inline">
+				<label class="col-sm-2 col-xs-12 control-label">有效期始</label>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="text" class="form-control" ng-model="baseinfo.dateshow.periodstart.date" uib-datepicker-popup="yyyy-MM-dd" is-open="baseinfo.dateshow.periodstart.opened"
+						 ng-required="true" close-text="Close" readonly/>
+						<span class="input-group-btn">
+								<button type="button" 
+									class="btn btn-default"
+									ng-click="baseinfo.dateshow.open(baseinfo.dateshow.periodstart)">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</div>
+
+			</form>
+			</div>
+			<div class="col-sm-6">
+				<p class="form-control-static text-danger">产品可用时间开始时间</p>
+			</div>
+		</div>-->
+
+
+		<!--<div class="form-group">
+			<form class="form-inline">
+				<label class="col-sm-2 col-xs-12 control-label">有效期止</label>
+				<div class="col-sm-4">
+
+					<div class="input-group">
+						<input type="text" class="form-control" ng-model="baseinfo.dateshow.periodend.date" uib-datepicker-popup="yyyy-MM-dd" is-open="baseinfo.dateshow.periodend.opened"
+						 ng-required="true" close-text="Close" readonly/>
+						<span class="input-group-btn">
+							<button type="button" 
+									class="btn btn-default" 
+									ng-click="baseinfo.dateshow.open(baseinfo.dateshow.periodend)">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+					</span>
+					</div>
+				</div>
+			</form>
+			</div>
+			<div class="col-sm-6">
+				<p class="form-control-static text-danger">产品可用时间结束时间</p>
+			</div>
+		</div>-->
+
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">系统确认</label>
+			<div class="col-sm-4 col-xs-12">
+				<p ng-if="saleobj.sys_affirm_type == '1'" class="form-control-static">无需确认</p>
+				<p ng-if="saleobj.sys_affirm_type == '0'" class="form-control-static">需要确认</p>
+				<!--<label class="radio-inline">
+				  <input type="radio" name="sys_affirm_type" value="0"
+				  ng-model="saleobj.sys_affirm_type" ng-disabled="true" 
+				  > 需要确认
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="sys_affirm_type" value="1"
+				  ng-model="saleobj.sys_affirm_type" ng-disabled="true" 
+				  > 无需确认
+				</label>-->
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">对接产品需要到第三方系统下单，请选择需要确认</font>
+			</div>
+		</div>
+
+
+		<!--<div class="form-group" ng-if="util.what == 'edit'">
+			<label class="col-sm-2 col-xs-12 control-label"></label>
+			<div class="col-sm-4 col-xs-12 text-center">
+				<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="save()" ng-if="saleobj.id == '' || util.$uibModalInstance == undefined">保存</button>
+				<button type="button" class="btn btn-primary btn-lg" ng-click="save()" ng-if="(saleobj.id != '') && (util.$uibModalInstance != undefined)">保&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存</button>
+				<button type="button" class="btn btn-primary btn-lg" ng-click="saveAndBack()" ng-if="(saleobj.id != '') && (util.$uibModalInstance != undefined)">保存并返回</button>
+			</div>
+			<div class="col-sm-4">
+
+			</div>
+		</div>-->
+
+	</div>
+
+
+
+	<!--<div class="col-xs-12 text-center" ng-if="auditing || true">
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">审核意见</label>
+			<div class="col-sm-8 col-xs-12">
+				<textarea class="form-control" rows="3" ng-model="saleobj.apply_note" placeholder="审核意见,必填" ng-disabled="!auditing"></textarea>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="col-xs-12 text-center" ng-if="auditing">
+		<br/>
+		<br/>
+		<button class="btn btn-success" ng-click="pass()">审核&nbsp;通过</button>
+		<button class="btn btn-danger" ng-click="nopass()">审核不通过</button>
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+	</div>-->
+
+
+</div>

@@ -18,10 +18,10 @@ module.exports = function($resource, $state, $http, $q,toaster){
 				'merchant_activity_profile' : '',
 				'merchant_label_marking' : '',
 				'merchant_pay_method' : '',
-				'merchant_per_average_consume' : '',
+				'merchant_per_average_consume' : 0,
 				'merchant_remarks': '',
 				'merchant_asort' : '',
-				'view_type' : ''
+				//'view_type' : ''
 			}
 			scope.strobj = {
 				'checkstr1' : '',
@@ -29,19 +29,19 @@ module.exports = function($resource, $state, $http, $q,toaster){
 			}
 
 
-			// 获取类型列表
-			$resource('/api/us/mc/mertradetypedao/findByTypeList', {}, {})
-			.get({'type':'cheap_menu'},function(res){				
-				if(res.errcode === 0){
-					console.log(res);
-					scope.typedatas = res.data;
-					//ScopedCredential.storeobj.view_type = res.data
-				}else if(res.errcode === 10003){
+			// // 获取类型列表
+			// $resource('/api/us/mc/mertradetypedao/findByTypeList', {}, {})
+			// .get({'type':'cheap_menu'},function(res){				
+			// 	if(res.errcode === 0){
+			// 		console.log(res);
+			// 		scope.typedatas = res.data;
+			// 		//ScopedCredential.storeobj.view_type = res.data
+			// 	}else if(res.errcode === 10003){
 
-				}else{
-					alert(res.errmsg);
-				}
-			});
+			// 	}else{
+			// 		alert(res.errmsg);
+			// 	}
+			// });
 
 
 			

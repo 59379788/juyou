@@ -5,6 +5,7 @@ App.factory('busscustomerservice', require('./service'));
 
 //申请列表
 App.controller('skacountlist',require('./controllers/skacountlist'));
+App.controller('skacountpicture',require('./controllers/skacountpicture'));
 App.controller('creataccount',require('./controllers/creataccount'));
 App.controller('get2',require('./controllers/get2'));
 App.controller('supplierlist',require('./controllers/supplierlist'));
@@ -100,6 +101,26 @@ App.controller('appointmentlist',require('./controllers/appointmentlist'));
 App.controller('setappointment',require('./controllers/setappointment'));
 App.controller('customerlist',require('./controllers/customerlist'));
 /*** 预约模块 ***/
+
+// 退款
+App.controller('skorderbacklist',require('./controllers/skorderbacklist'));
+App.controller('skorderback',require('./controllers/skorderback'));
+
+//积分提现
+App.controller('withdrawalslist',require('./controllers/withdrawalslist'));
+
+//资讯管理
+App.controller('informationlist',require('./controllers/informationlist'));
+App.controller('addinformation',require('./controllers/addinformation'));
+
+// 积分充值
+App.controller('integralrecharge',require('./controllers/integralrecharge'));
+App.controller('skrecharge',require('./controllers/skrecharge'));
+
+// 平台分配一级下发展的二级最大人数
+App.controller('maxpeople',require('./controllers/maxpeople'));
+App.controller('addlimit',require('./controllers/addlimit'));
+
 
 
 module.exports = App;

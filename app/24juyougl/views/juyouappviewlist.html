@@ -1,0 +1,55 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                  <label for="inputLottry" class="control-label">居游app热门景区</label>
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="addplacehot()">添加热门景区</button>
+                  <!-- <button type="button" class="btn btn-primary search pull-right" ng-click="edit()">编辑头条文章</button> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 panel panel-default table-responsive">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-3 text-center">景区简称</th>
+        <th class="col-md-3 text-center">景区编号</th>
+        <th class="col-md-3 text-center">排序</th>
+        <th class="col-md-3 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.name}}</td>
+        <td class="text-center">{{obj.code}}</td>
+        <td class="text-center">{{obj.asort}}</td>
+        <td class="text-center">         
+          <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑</a>
+          <a ng-show="obj.del_flg == 0" ng-click="use(obj.id)" class="btn btn-success btn-xs">启用</a>
+          <a ng-show="obj.del_flg == 1" ng-click="unuse(obj.id)" class="btn btn-warning btn-xs">不启用</a>         
+        </td>
+      </tr>
+    </tbody>
+    </table>
+</div>
+
+<div class="text-right">
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="getlist()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+</div>
+</div>

@@ -40,30 +40,29 @@ module.exports = function($scope, $stateParams, $uibModal,confirmauthority,hostl
       }); 
   };
 
-  $scope.delete = function(obj){
-      var j = '';
-      for(var i = 0; i < array.length; i++){
-         if(obj == array[i]){
-            j = i;
-            array.splice(j,1);
-            console.log(array);
-            var str = array.join(",");
-            console.log(str);
-            if(confirm('确定要删除吗?')){
-                confirmauthority.save({'appid' : 'shangke','bind_company_code':str},function(res){
-                  console.log({'appid' : 'shangke','bind_company_code':str});
-                    if (res.errcode !== 0) { 
-                      toaster.success({title: "", body:res.errmsg});
-                      return;
-                    } 
-                    toaster.success({title: "", body:"删除成功!"});
-                    $scope.geylists();
+  $scope.delete = function(obj){    
+        if(confirm('确定要删除吗?')){
+            var j = '';
+            for(var i = 0; i < array.length; i++){
+                if(obj == array[i]){
+                    j = i;
+                    array.splice(j,1);
+                    console.log(array);
+                    var str = array.join(",");
+                    console.log(str);
+                }
+            }   
+            confirmauthority.save({'appid' : 'shangke','bind_company_code':str},function(res){
+                console.log({'appid' : 'shangke','bind_company_code':str});
+                if (res.errcode !== 0) { 
+                    toaster.success({title: "", body:res.errmsg});
+                    return;
+                } 
+                toaster.success({title: "", body:"删除成功!"});
+                $scope.geylists();
 
-                }); 
-            }
-            
-         }
-      }   
+            }); 
+        } 
   };
 
 

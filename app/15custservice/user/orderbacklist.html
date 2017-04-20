@@ -6,11 +6,21 @@
                 <label>订单编号</label>&nbsp;&nbsp;
                 <input type="text" class="form-control" ng-model="searchform.order_code" placeholder="请输入订单编号">
                 &nbsp;&nbsp;&nbsp;&nbsp;
+                
+                <label>订单来源</label>&nbsp;&nbsp;
+                <select class="form-control" ng-model="searchform.from_app_id" 
+                ng-change="change()">
+                  <!--ng-options="payment_type.value as payment_type.label for payment_type in payment_typearr"-->
+                  <option value="juyou">居游</option>
+                  <option value="shangke">商客</option>
+                  <option value="">  -- 不限 --  </option>
+                </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
 
                 <label>支付类型</label>&nbsp;&nbsp;
                 <select class="form-control" ng-model="searchform.payment_type" 
                   ng-options="payment_type.value as payment_type.label for payment_type in payment_typearr"
-                >
+                ng-change="change()">
                   <option value="">  -- 不限 --  </option>
                 </select>
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -18,7 +28,7 @@
                 <label>退款类型</label>&nbsp;&nbsp;
                 <select class="form-control" ng-model="searchform.back_state" 
                   ng-options="back_state.value as back_state.label for back_state in back_statearr"
-                >
+                ng-change="change()">
                   <option value="">  -- 不限 --  </option>
                 </select>
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -26,7 +36,7 @@
                 <label>退票状态</label>&nbsp;&nbsp;
                 <select class="form-control" ng-model="searchform.ticket_state" 
                   ng-options="ticket_state.value as ticket_state.label for ticket_state in ticket_statearr"
-                >
+                ng-change="change()">
                   <option value="">  -- 不限 --  </option>
                 </select>
                 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -41,12 +51,13 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="text-center col-md-2">订单编号</th>
+        <th class="text-center col-md-1">订单编号</th>
         <th class="text-center col-md-1">订单序号</th>
         <th class="text-center col-md-1">支付金额</th>
         <th class="text-center col-md-1">支付类型</th>
         <th class="text-center col-md-1">创建时间</th>
         <th class="text-center col-md-1">所属机构</th>
+        <th class="text-center col-md-1">订单来源</th>
         <th class="text-center col-md-1">退票状态</th>
         <th class="text-center col-md-1">退款状态</th>
         <th class="text-center col-md-1">实际退款金额</th>
@@ -66,9 +77,10 @@
         <td class="text-center" ng-show="obj.payment_type==undefined"></td>
         <td class="text-center">{{obj.create_time}}</td>
         <td class="text-center">{{obj.ta_code}}</td>
+        <td class="text-center">{{obj.from_app_id}}</td>
         <td class="text-center">{{obj.ticket_statename}}</td>
         <td class="text-center">{{obj.back_statename}}</td>
-        <td class="text-center">{{obj.actual_back_price | currency : '￥'}}</td>
+        <td class="text-center">{{obj.actual_back_price/100 | currency : '￥'}}</td>
         <td class="text-center">{{obj.update_time}}</td>
         <td class="text-center">
         	<a ng-show="obj.back_state=='0' && obj.ticket_state == 1" ng-click="back(obj)" class="btn btn-success btn-xs">退款</a>

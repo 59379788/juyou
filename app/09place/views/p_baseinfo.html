@@ -29,6 +29,15 @@
 		</div>
 
 		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">电话</label>
+			<div class="col-sm-9 col-xs-12">
+				<input type="text" class="form-control"
+				ng-model="placeobj.mobile"
+				>
+			</div>
+		</div>
+
+		<div class="form-group" >
 			<label class="col-sm-3 col-xs-12 control-label">地址</label>
 			<div class="col-sm-9 col-xs-12">
 				<input type="text" class="form-control"
@@ -39,12 +48,11 @@
 
 		<div class="form-group" >
 			<label class="col-sm-3 col-xs-12 control-label">简介</label>
-			<div class="col-sm-9 col-xs-12">
-				<textarea class="form-control" rows="4"
-				ng-model="placeobj.content"
-				></textarea>
+			<div class="col-sm-9">
+				<div class="ueditor" ng-model="placeobj.content"></div>
 			</div>
 		</div>
+		
 
 		<div class="form-group" >
 			<label class="col-sm-3 col-xs-12 control-label">地点</label>
@@ -150,6 +158,15 @@
 				<input type="text" class="form-control"
 				ng-model="placeobj.theme"
 				>
+			</div>
+		</div>
+
+		<div class="form-group" >
+			<label class="col-sm-3 col-xs-12 control-label">产品分类</label>
+			<div class="col-sm-9 col-xs-12">
+				<select class="form-control" ng-model="placeobj.view_type" ng-options="data.code as data.label for data in page.typelist">
+					<option value="">请选择</option>
+				</select>
 			</div>
 		</div>
 

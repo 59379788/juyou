@@ -1,28 +1,32 @@
 <div class="col-sm-12">
 <div class="panel panel-default">
     <div class="panel-body">
-        <div class="form-group form-inline">
-            <div class="col-sm-10">
-                <label>景区</label>&nbsp;&nbsp;
-                <select class="form-control" ng-model="searchform.place_code" 
+        <div class="form-group">
+            <div class="col-xs-6">
+				<div class="col-sm-6">
+						<!--<select class="form-control" ng-model="obj" ng-options="obj.code as obj.name for obj in objs" ng-change="tktmachine(obj)">
+	            </select>-->
+						<ui-select ng-model="searchform.place_code" theme="bootstrap">
+							<ui-select-match placeholder="请选择一个景区">
+								{{$select.selected.name}}
+                  <!--<option value=""> --全部-- </option>	-->
+							</ui-select-match>
+							<ui-select-choices repeat="item.code as item in viewarr | filter: $select.search">
+								<span ng-bind-html="item.name | highlight: $select.search"></span>
+							</ui-select-choices>
+						</ui-select>
+					</div>
+                <!--<label>景区</label>&nbsp;&nbsp;-->
+                <!--<select class="form-control" ng-model="searchform.place_code" 
                   ng-options="view.code as view.name for view in viewarr"
                 >
-                  <option value=""> --全部-- </option>
-                </select>
-                <!-- &nbsp;&nbsp;&nbsp;&nbsp;
-                <label>关键字</label>&nbsp;&nbsp;
-                <input type="text" class="form-control" ng-model="searchform.keyword" >
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <label>状态</label>&nbsp;&nbsp;
-                <select class="form-control" ng-model="searchform.state" >
-                  <option value=""> --全部-- </option>
-                  <option value="1"> 启用 </option>
-                  <option value="0"> 停用 </option>
-                </select> -->
-                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+                </select>-->
             </div>
-            <div class="col-sm-2 text-right">
+			<div class="col-xs-3 text-right">
+                <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
+
+			</div>
+            <div class="col-xs-2 text-right">
                 <button type="button" class="btn btn-info new" ng-click="create()">发布新票种</button>
             </div>
         </div>
@@ -54,10 +58,10 @@
         <td class="text-center">
 		      <a ng-show="obj.state=='1'" ng-click="start(obj.id)" class="btn btn-primary btn-xs">下架</a>
           <a ng-show="obj.state=='0'" ng-click="stop(obj.id)" class="btn btn-primary btn-xs">上架</a>
-          <a ng-click="edit(obj.id)" class="btn btn-success btn-xs">编辑</a>
+          <a ng-click="edit(obj.id, obj.place_code)" class="btn btn-success btn-xs">编辑</a>
           <a ng-show="obj.used_state=='1'" ng-click="usedstart(obj.id)" class="btn btn-primary btn-xs">允许消票</a>
           <a ng-show="obj.used_state=='0'" ng-click="usedstop(obj.id)" class="btn btn-danger btn-xs">禁止消票</a>
-          <a ng-click="auth(obj.code)" class="btn btn-warning btn-xs">消票权限</a>
+          <!--<a ng-click="auth(obj.code)" class="btn btn-warning btn-xs">消票权限</a>-->
           <!-- <a ng-click="updateTicket(obj.code)" class="btn btn-warning btn-xs">更新票有效期</a> -->
         </td>
       </tr>

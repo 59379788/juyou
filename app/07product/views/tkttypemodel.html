@@ -21,8 +21,7 @@
 		<div class="col-xs-6">
 			<!--<select class="form-control" ng-model="objt.place_code" ng-options="view.code as view.name for view in viewarr" ng-disabled="flag">
             </select>-->
-
-			<ui-select ng-model="objt.place_code" theme="bootstrap">
+			<ui-select ng-model="objt.place_code" ng-change="change(objt.place_code)" theme="bootstrap" ng-disabled="id">
 				<ui-select-match placeholder="请选择一个景区">{{$select.selected.name}}</ui-select-match>
 				<ui-select-choices repeat="item.code as item in viewarr | filter: $select.search">
 					<span ng-bind-html="item.name | highlight: $select.search"></span>
@@ -34,10 +33,13 @@
 	<div class="form-group" ng-show="placeid !== ''">
 		<label class="col-xs-2 control-label">所属景区</label>
 		<div class="col-xs-6">
-			<p class="form-control-static">{{objt.placename}}
-				<!-- <span ng-show="objt.placecode != null">[</span> -->
-				[{{objt.placecode}}]
-				<!-- <span ng-show="objt.placecode != null">]</span> -->
+			<!--<p class="form-control-static">{{objt.placename}}-->
+			<ui-select ng-model="objt.place_code" ng-change="change(obj.place_code)" theme="bootstrap" ng-disabled="id">
+				<ui-select-match placeholder="请选择一个景区">{{$select.selected.name}}</ui-select-match>
+				<ui-select-choices repeat="item.code as item in viewarr | filter: $select.search">
+					<span ng-bind-html="item.name | highlight: $select.search"></span>
+				</ui-select-choices>
+			</ui-select>
 			</p>
 		</div>
 	</div>

@@ -4,7 +4,7 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                 <div class="row">
-                  <input type="text" class="form-control" ng-model="searchform.code" placeholder="订单编号">
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.code" placeholder="订单编号">
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
                   
@@ -18,19 +18,19 @@
                   </div>
                 </div>
                 <div class="row mt10">
-                  <input type="text" class="form-control" ng-model="searchform.order_name" placeholder="订单标题" 
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.order_name" placeholder="订单标题" 
                   >
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <input type="text" class="form-control" ng-model="searchform.ticket_code"  placeholder="团票码">
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.ticket_code"  placeholder="团票码">
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <input type="text" class="form-control" ng-model="searchform.guide_name"
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.guide_name"
                    placeholder="导游姓名"
                    >
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
-                  <input type="text" class="form-control" ng-model="searchform.guide_mobile" placeholder="导游电话">
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.guide_mobile" placeholder="导游电话">
                   &nbsp;&nbsp;&nbsp;&nbsp;
 
                   

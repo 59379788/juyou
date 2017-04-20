@@ -13,6 +13,21 @@ require('angular-file-upload');
 require('angular-ui-tree');
 
 
+// ------------ 百度富文本编辑器 ----------------------//
+window.UEDITOR_HOME_URL = 'ueditor/';
+
+//window.UEDITOR_HOME_URL = 'http://cl.juyouhx.com/Public/ueditor/';
+
+// require('../ueditor/ueditor.config.js');
+// require('../ueditor/ueditor.all.js');
+
+
+
+
+require('../node_modules/angular-ueditor/dist/angular-ueditor');
+// ------------ 百度富文本编辑器 ----------------------//
+
+
 // ------------ 富文本编辑器 ----------------------//
 //require('../node_modules/textangular/dist/textAngular-rangy.min');
 require('../node_modules/textangular/dist/textAngular-sanitize.min');
@@ -88,6 +103,8 @@ require('./20line/app');
 require('./22busscustomer/app');
 require('./21card/app');
 require('./23syssetting/app');
+require('./24juyougl/app');
+require('./26ylb/app');
 require('./96util/app');
 require('./97intercept/app');   //拦截器
 require('./98test/app');
@@ -114,6 +131,7 @@ angular.module('constant', [])
 //=================[ 主模块 ]==============================//
 
 var App = angular.module('juyouApp', [
+    
     'dashboard',
     'ticket',
     'device',
@@ -137,6 +155,8 @@ var App = angular.module('juyouApp', [
     'card',
     'busscustomer',
     'syssetting',
+    'juyougl',
+    'ylb',
     'util',
     'test',
     'common',
@@ -154,6 +174,7 @@ var App = angular.module('juyouApp', [
     'ngSanitize',
     'frapontillo.bootstrap-switch',
     'toaster', 
+    'ng.ueditor',
     // 'ngAnimate',
 ]);
 

@@ -133,6 +133,9 @@ var router = function($urlRouterProvider, $stateProvider){
 	          typelist : function(busscustomerservice){
 	                 return busscustomerservice.typelist;
 	          },
+              typelists : function(busscustomerservice){
+	                 return busscustomerservice.typelists();
+	          },
 	          getDate : function(utilservice){
                 	 return utilservice.getDate;
               }
@@ -920,6 +923,116 @@ var router = function($urlRouterProvider, $stateProvider){
                 }
             }
         })
+
+        .state('app.skorderbacklist', {
+        url: '/skorderbacklist',
+        controller : 'skorderbacklist',
+        template: require('./views/skorderbacklist.html'),
+        resolve:{
+            orderbacklist : function(custservice){
+                return custservice.orderbacklist();
+            },
+            orderback : function(custservice){
+                return custservice.orderback();
+            },
+            dictbytypelist : function(productservice){
+                return productservice.dictbytypelist;
+            }
+        }
+      })
+
+      .state('app.withdrawalslist', {
+        url: '/withdrawalslist',
+        controller : 'withdrawalslist',
+        template: require('./views/withdrawalslist.html'),
+        resolve:{
+            findOrdertTXList : function(busscustomerservice){
+                return busscustomerservice.findOrdertTXList();
+            },
+            updateTiXian : function(busscustomerservice){
+                return busscustomerservice.updateTiXian();
+            }
+            // dictbytypelist : function(productservice){
+            //     return productservice.dictbytypelist;
+            // }
+        }
+      })
+      // 资讯管理
+      .state('app.informationlist', {
+        url: '/informationlist',
+        controller : 'informationlist',
+        template: require('./views/informationlist.html'),
+        resolve:{
+            findInformationList : function(busscustomerservice){
+                return busscustomerservice.findInformationList();
+            },          
+            delinformation : function(busscustomerservice){
+                return busscustomerservice.delinformation();
+            }
+            
+        }
+      })
+
+      .state('app.addinformation', {
+        url: '/addinformation/:id',
+        controller : 'addinformation',
+        template: require('./views/addinformation.html'),
+        resolve:{
+            saveInformation : function(busscustomerservice){
+                return busscustomerservice.saveInformation();
+            },
+            getInformation : function(busscustomerservice){
+                return busscustomerservice.getInformation();
+            },
+            updateinformation : function(busscustomerservice){
+                return busscustomerservice.updateinformation();
+            },
+            getDate : function(utilservice){
+                	 return utilservice.getDate;
+            },
+            str2date : function(utilservice){
+            return utilservice.str2date;
+            },
+            date2str : function(utilservice) {
+                return utilservice.date2str;
+            }
+
+        }
+      })
+
+      .state('app.integralrecharge', {
+        url: '/integralrecharge',
+        controller : 'integralrecharge',
+        template: require('./views/integralrecharge.html'),
+        resolve:{
+            getUserInfoList : function(busscustomerservice){
+                return busscustomerservice.getUserInfoList();
+            },
+            saveRechargeIntegral : function(busscustomerservice){
+                return busscustomerservice.saveRechargeIntegral();
+            }
+            
+        }
+      })
+
+
+      //平台分配一级下发展的二级最大人数
+      .state('app.maxpeople', {
+        url: '/maxpeople/:id',
+        controller : 'maxpeople',
+        template: require('./views/maxpeople.html'),
+        resolve:{
+            classAList : function(busscustomerservice){
+                return busscustomerservice.classAList();
+            },
+            saveLimit : function(busscustomerservice){
+                return busscustomerservice.saveLimit();
+            }
+        }
+      })
+
+
+        
  
 }
 module.exports = router;

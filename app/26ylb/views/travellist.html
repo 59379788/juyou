@@ -1,0 +1,60 @@
+<div class="col-sm-12">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-group form-inline">
+            <div class="col-sm-12">
+                  <label for="inputLottry" class="control-label">旅游列表</label>
+                  <button type="button" class="btn btn-primary search pull-right" ng-click="add()">添加旅游详情</button>
+                  <!-- <button type="button" class="btn btn-primary search pull-right" ng-click="edit()">编辑头条文章</button> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 panel panel-default table-responsive">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="col-md-2 text-center">旅游名称</th>
+        <!--<th class="col-md-3 text-center">精度</th>
+        <th class="col-md-3 text-center">纬度</th>-->
+        <th class="col-md-2 text-center">状态</th>             
+        <th class="col-md-2 text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="obj in objs">
+        <td class="text-center">{{obj.title}}</td>
+        <td class="text-center">{{obj.category_id}}</td>
+        <td class="text-center">{{obj.sort}}</td>
+        <td class="text-center">
+          <p class="" ng-show="obj.state == 1">已启动</p>
+          <p class="" ng-show="obj.state == 2">已禁用</p>          
+        </td>              
+        <td class="text-center">         
+          <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑</a>
+          <a ng-show="obj.state == 2" ng-click="start(obj.id)" class="btn btn-success btn-xs">启用</a>
+          <a ng-show="obj.state == 1" ng-click="disable(obj.id)" class="btn btn-warning btn-xs">禁用</a>         
+        </td>
+      </tr>
+    </tbody>
+    </table>
+</div>
+
+<div class="text-right">
+    <uib-pagination 
+      total-items="bigTotalItems" 
+      ng-model="bigCurrentPage" 
+      max-size="maxSize" 
+      class="pagination-sm" 
+      boundary-links="true" 
+      ng-change="getlist()"
+      items-per-page="itemsPerPage"
+      previous-text="上一页"
+      next-text="下一页"
+      first-text="首页"
+      last-text="末页"
+      rotate="false">
+    </uib-pagination>
+</div>
+</div>
