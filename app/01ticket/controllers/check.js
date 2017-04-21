@@ -15,7 +15,7 @@ module.exports = function ($scope, $uibModal,
 
 		var para = {
 			pageNo: $scope.bigCurrentPage,
-			pageSize: 200
+			pageSize: 2000
 		};
 
 		// para = angular.extend($scope.searchform, para);
