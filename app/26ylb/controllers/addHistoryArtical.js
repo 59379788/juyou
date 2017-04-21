@@ -1,9 +1,9 @@
-module.exports = function($scope, $http, $q, $state,$stateParams, $resource,FileUploader,saveArticle,getArticle){
+module.exports = function($scope, $http, $q, $state,$stateParams, $resource,FileUploader,saveArticle,getArticle,FileUploader){
 
     var id = $stateParams.id;
     console.log(id);
     $scope.obj = {
-        'type' : '2',
+        'type' : '3',
         'data' : ""
     };
     $scope.infoobj = {};
@@ -18,20 +18,6 @@ module.exports = function($scope, $http, $q, $state,$stateParams, $resource,File
             $scope.infoobj = JSON.parse($scope.obj.data);
 		});
     }
-    // $scope.getdiclist = function(){
-    //     findDictionaryList.save({'pageSize' : '100', 'pageNo' : '1'}, function(res){
-    //         if(res.errcode != 0){
-    //             alert(res.errmsg);
-    //             return;
-    //         }
-    //         console.log(res);
-    //         $scope.pid_list = res.data.results;
-	// 	});
-    // }
-    // $scope.getdiclist();
-    
-
-    
 
     var beforedata = {
         // 一级分类列表
@@ -88,8 +74,6 @@ module.exports = function($scope, $http, $q, $state,$stateParams, $resource,File
         return gang;
     }
 
-     
-
 	$scope.save = function(){
         $scope.obj.data = JSON.stringify($scope.infoobj);  
         console.log($scope.obj);     
@@ -100,7 +84,7 @@ module.exports = function($scope, $http, $q, $state,$stateParams, $resource,File
             }
             console.log(res);
             alert('操作成功');
-            $state.go('app.trafficarticallist');
+            $state.go('app.historylist');
 		});
 	};
 
@@ -111,7 +95,7 @@ module.exports = function($scope, $http, $q, $state,$stateParams, $resource,File
     }
 	//取消
 	$scope.cancel = function () {
-		$state.go('app.trafficarticallist');
+		$state.go('app.historylist');
 	};
 
 

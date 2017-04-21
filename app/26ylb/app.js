@@ -28,6 +28,8 @@ App.controller('addAccommodationArtical', require('./controllers/addAccommodatio
 App.controller('addLeisureArtical', require('./controllers/addLeisureArtical'));
 App.controller('addShopArtical', require('./controllers/addShopArtical'));
 App.controller('addTravelArtical', require('./controllers/addTravelArtical'));
+App.controller('historylist', require('./controllers/historylist'));
+App.controller('addHistoryArtical', require('./controllers/addHistoryArtical'));
 
 
 

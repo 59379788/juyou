@@ -356,7 +356,42 @@ var router = function($urlRouterProvider, $stateProvider){
                  return ylbservice.findPidList();
             }
          }
-      })                      
+      }) 
+      //历史风貌
+      .state('app.historylist', {
+         url: '/historylist/:id',
+         controller : 'historylist',
+         template: require('./views/historylist.html'),
+         resolve:{
+            findArticleList : function(ylbservice){
+               return ylbservice.findArticleList();
+            },
+            StartArticleState : function(ylbservice){
+                 return ylbservice.StartArticleState();
+            },
+            DisableArticleState : function(ylbservice){
+                 return ylbservice.DisableArticleState();
+            }
+         }
+      })    
+      //添加历史
+      .state('app.addHistoryArtical', {
+         url: '/addHistoryArtical/:id',
+         controller : 'addHistoryArtical',
+         template: require('./views/addHistoryArtical.html'),
+         resolve:{
+            saveArticle : function(ylbservice){
+               return ylbservice.saveArticle();
+            },
+            getArticle : function(ylbservice){
+                 return ylbservice.getArticle();
+            },
+            findPidList : function(ylbservice){
+                 return ylbservice.findPidList();
+            }
+         }
+      })                                        
+                       
   
   
   
