@@ -2,7 +2,11 @@ module.exports = function($scope, $state, $stateParams, $resource,saveCategory,f
 
     var id = $stateParams.id;
     console.log(id);
+    $scope.editinfo = {
+        'flag' : ''
+    }
     if(id){
+        $scope.editinfo.flag = 0;
         getCategory.save({'id' : id},function(res){
             if(res.errcode === 0){
 				console.log(res);                
@@ -18,6 +22,9 @@ module.exports = function($scope, $state, $stateParams, $resource,saveCategory,f
         'data' : ''
     };
     $scope.infoobj = {};
+    $scope.change = function(type){
+        console.log(type);
+    }
 
     var uploader = $scope.uploader = new FileUploader({
         url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'

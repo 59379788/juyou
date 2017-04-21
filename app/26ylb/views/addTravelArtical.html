@@ -33,6 +33,24 @@
         <label class="col-lg-3 control-label">附加信息:</label>
       </div>
       <div class="form-group">
+        <label class="col-lg-3 control-label">旅游主图:</label>
+          <div class="col-md-6">
+            <img ng-src="{{infoobj.picture1}}" width="100%" height="200" ng-model="infoobj.picture1">
+              <input type="file" nv-file-select uploader="uploader1" / ng-hide="hide===true" ><br/>
+              <ul class="list-group">
+                <li class="list-group-item" ng-repeat="item in uploader1.queue">
+                  文件名: <span ng-bind="item.file.name"></span>
+                  <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+                  <div class="progress mt10">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader1.progress + '%' }"></div>
+                  </div>
+                </li>
+                <font face="Courier" class="text-danger">注:上传图片尺寸为710 * 320</font>         
+
+              </ul>
+        </div>
+      </div>
+      <div class="form-group">
         <label class="col-lg-3 control-label">商品详情:</label>
         <div class="col-lg-6">
           <div class="ueditor" ng-model="infoobj.detail"></div>      

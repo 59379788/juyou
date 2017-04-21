@@ -25,9 +25,9 @@
               <div class="form-group">
                 <label class="col-lg-3 control-label">类型:</label>
                 <div class="col-lg-5">
-                  <ui-select ng-model="obj.type" theme="bootstrap">
+                  <ui-select ng-model="obj.type" theme="bootstrap" ng-change="change(obj.type)">
                     <ui-select-match placeholder="选择类型..">{{$select.selected.title}}</ui-select-match>
-                    <ui-select-choices repeat="item.id as item in dicc_list | filter: $select.search">
+                    <ui-select-choices repeat="item.key as item in dicc_list | filter: $select.search">
                       <span ng-bind-html="item.title | highlight: $select.search"></span>
                     </ui-select-choices>
                   </ui-select>

@@ -11,7 +11,7 @@ module.exports = function($scope, $state, $resource,findCategoryList,updateStart
             pageNo:$scope.bigCurrentPage, 
             pageSize:$scope.itemsPerPage,
         };
-        findCategoryList.save(para,function(res){
+        findCategoryList.save({},function(res){
             console.log(para);
             if(res.errcode != 0){
                 toaster.success({title:"",body:res.errmsg});

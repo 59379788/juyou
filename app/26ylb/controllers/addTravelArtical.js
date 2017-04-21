@@ -89,43 +89,7 @@ module.exports = function($scope, $http, $q, $state,$stateParams, $resource,File
     uploader1.onSuccessItem = function(fileItem, response, status, headers) {
         $scope.infoobj.picture1 = response.savename;
     };
-    var uploader2 = $scope.uploader2 = new FileUploader({
-        url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
-    });
-
-    uploader2.filters.push({
-        name: 'imageFilter',
-        fn: function(item /*{File|FileLikeObject}*/, options) {
-            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-        }
-    });
     
-    
-    uploader2.onSuccessItem = function(fileItem, response, status, headers) {
-        $scope.infoobj.picture2 = response.savename;
-    };
-    var uploader3 = $scope.uploader3 = new FileUploader({
-        url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
-    });
-
-    uploader3.filters.push({
-        name: 'imageFilter',
-        fn: function(item /*{File|FileLikeObject}*/, options) {
-            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-        }
-    });
-    
-    
-    uploader3.onSuccessItem = function(fileItem, response, status, headers) {
-        $scope.infoobj.picture3 = response.savename;
-    };
-
-
-
-     
-
 	$scope.save = function(){
         $scope.obj.data = JSON.stringify($scope.infoobj);  
         console.log($scope.obj);     
