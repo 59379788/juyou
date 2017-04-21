@@ -21,8 +21,8 @@ module.exports = function($scope, $state, $resource,findArticleList,StartArticle
                 return;
             }
             console.log(res);
-            $scope.objs = res.data.results;
-            $scope.bigTotalItems = res.data.totalRecord;
+            $scope.objs = res.data;
+            // $scope.bigTotalItems = res.data.totalRecord;
 
         })
 
