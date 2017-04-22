@@ -5,7 +5,6 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
 
     // $scope.newdate;
     //console.log(obj);
-    
     var code = obj.code;
 
     $scope.authority = true;

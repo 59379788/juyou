@@ -59,6 +59,9 @@ var router = function ($urlRouterProvider, $stateProvider) {
                 },
                 str2date: function (utilservice) {
                     return utilservice.str2date;
+                },
+                categorylist: function (orderservice) {
+                    return orderservice.categorylist();
                 }
 
             }

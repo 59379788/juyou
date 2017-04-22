@@ -30,6 +30,7 @@ salelist,ticketlist,toaster,insertMakeAppointment,getMakeAppointmentById,updateM
          'stock_num' : '',
          'sale_name' :'',
          'ticket_name' : '',
+         'book_info' : '',
          'startTime' : getDate($scope.section.startTime) + " 00:00:00",
          'endTime': getDate($scope.section.endTime) + " 23:59:59"
     }
