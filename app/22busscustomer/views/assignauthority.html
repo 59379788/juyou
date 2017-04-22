@@ -23,7 +23,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="obj in objs">
+      <tr ng-repeat="obj in objs track by $index">
         <td class="text-center">{{obj}}</td>
         <td class="text-center">
           <a ng-click="delete(obj)" class="btn btn-danger">删除</a>
