@@ -2,11 +2,9 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
     $uibModal, ticketlist, createBackOrder, resend, getRedCorridorOrderList,
     getRedCorridorResentMsg, getRedCorridorTrSendSms, orderbacklist, relay,
     getOrderSimInfo, agencyOrderRepeatECode, updateTicketEffectTime, str2date,
-    getroyalocOrdersState, testCreateBackOrder
+    getroyalocOrdersState, testCreateBackOrder,categorylist
     ){
-    
     $scope.searchform = {};
-
     //有效区间
     $scope.section = {};
     $scope.section.start = {};
@@ -24,8 +22,28 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
     $scope.maxSize = 5;            //最多显示多少个按钮
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
-    
-
+    console.log('fjakfjaslfka');
+    $scope.search = {
+        'isselect' : {
+            'sale_category_name' : ''
+        }
+    }
+    $scope.getcategorylist = function(){
+        categorylist.save({},function(res){
+            if(res.errcode != 0){
+                alert(res.errmsg);
+                return;
+            }
+            console.log('分类列表');
+            console.log(res);
+            $scope.category_type = res.data;
+        })
+    }
+    $scope.getcategorylist();
+    $scope.change = function(code){
+        console.log(code);
+        $scope.searchform.sale_category = code;
+    }
 	$scope.myKeyup = function (e) {
 
 		//IE 编码包含在window.event.keyCode中，Firefox或Safari 包含在event.which中

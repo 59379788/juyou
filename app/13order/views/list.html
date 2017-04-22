@@ -72,7 +72,6 @@
                       </span>
                   </div>
                   &nbsp;&nbsp;&nbsp;&nbsp;
-
                   <label class="control-label">票状态：</label>
                   <select class="form-control" ng-model="searchform.ticket_state"  ng-keyup="myKeyup($event)"
                    placeholder="票状态" >
@@ -84,7 +83,16 @@
                     <option label="查询全部" value=""></option>
                   </select>
                   &nbsp;&nbsp;&nbsp;&nbsp;
-
+                  <label class="control-label">销售品分类：</label>
+                 
+                 <!-- <input type="text" class="form-control" ng-model="searchform.ticket_state" placeholder="票状态"> -->
+                   <select class="form-control" ng-model="searchform.sale_category" 
+                  ng-options="category.sale_category_code as category.sale_category_name for category in category_type"
+                  >
+                  <option label="查询全部" value=""></option>
+                  </select> 
+                   
+                  
                   <button type="button btn" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
 
                 </div>
