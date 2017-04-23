@@ -13,25 +13,17 @@ module.exports = function ($scope, $uibModal,
 	//景区列表
 	$scope.load = function () {
 
-		var para = {
-			pageNo: $scope.bigCurrentPage,
-			pageSize: 200
-		};
-
-		// para = angular.extend($scope.searchform, para);
-
-		list.save(para, function (res) {
-
-			if (res.errcode !== 0) {
-				alert("数据获取失败");
-				return;
-			}
-
-			$scope.objs = res.data.results;
-			$scope.obj = res.data.results[0].code;
-			// $scope.bigTotalItems = res.data.totalRecord;
-			$scope.tktmachine($scope.obj);
-		});
+		list().then(function(res) {
+	        if(res.errcode === 0)
+	        {
+	        	$scope.objs = res.data;
+	        	$scope.obj = res.data[0].code;
+	        }
+	        else
+	        {
+	            alert(res.errmsg);
+	        }
+	    });
 
 	};
 	$scope.load();

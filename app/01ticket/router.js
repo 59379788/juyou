@@ -59,7 +59,7 @@ var router = function($urlRouterProvider, $stateProvider){
 	        	return deviceservice.devicenamelist();
 	        },
             list : function(viewservice){
-                return viewservice.list();
+                return viewservice.slist;
             },
             devicelist : function(deviceservice){
             return deviceservice.devicelist();
