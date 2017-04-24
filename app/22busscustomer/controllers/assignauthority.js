@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $uibModal,confirmauthority,hostlists,ITEMS_PERPAGE,toaster){
+module.exports = function($scope, $stateParams, $uibModal,confirmauthority,hostlists,deleteauthority,ITEMS_PERPAGE,toaster){
   
   $scope.info = {
        'appid':'shangke' 
@@ -20,24 +20,34 @@ module.exports = function($scope, $stateParams, $uibModal,confirmauthority,hostl
   $scope.geylists();
   
   $scope.searchinfo = { 
-      'bind_company_code' : ''
+      'company_code' : ''
   };
   // 分配权限
   $scope.saveauthority = function(){
-    if ($scope.searchinfo.bind_company_code === '') {
+    if ($scope.searchinfo.company_code === '') {
         toaster.success({title: "", body:"请输入一级商客账号"});
         return; 
     }
-      array.push($scope.searchinfo.bind_company_code);
-      var str = array.join(",");
-      confirmauthority.save({'appid' : 'shangke','bind_company_code':str},function(res){
-        console.log({'appid' : 'shangke','bind_company_code':str});
-          if (res.errcode !== 0) { 
+    //   array.push($scope.searchinfo.bind_company_code);
+    //   var str = array.join(",");
+    //   confirmauthority.save({'appid' : 'shangke','company_code':str},function(res){
+    //     console.log({'appid' : 'shangke','company_code':str});
+    //       if (res.errcode !== 0) { 
+    //         toaster.success({title: "", body:res.errmsg});
+    //         return;
+    //       } 
+    //       toaster.success({title: "", body:"恭喜你成为一级商客!"});
+    //   }); 
+    confirmauthority.save({'appid' : 'shangke','company_code':$scope.searchinfo.company_code},function(res){
+        console.log({'appid' : 'shangke','company_code':$scope.searchinfo.company_code});
+        if (res.errcode !== 0) { 
             toaster.success({title: "", body:res.errmsg});
             return;
-          } 
-          toaster.success({title: "", body:"恭喜你成为一级商客!"});
-      }); 
+        } 
+        toaster.success({title: "", body:"恭喜你成为一级商客!"});
+        $scope.geylists();
+    })
+
   };
 
   $scope.delete = function(obj){    
@@ -47,12 +57,12 @@ module.exports = function($scope, $stateParams, $uibModal,confirmauthority,hostl
                 if(obj == array[i]){
                     j = i;
                     array.splice(j,1);
-                    console.log(array);
+                    // console.log(array);
                     var str = array.join(",");
                     console.log(str);
                 }
             }   
-            confirmauthority.save({'appid' : 'shangke','bind_company_code':str},function(res){
+            deleteauthority.save({'appid' : 'shangke','bind_company_code':str},function(res){
                 console.log({'appid' : 'shangke','bind_company_code':str});
                 if (res.errcode !== 0) { 
                     toaster.success({title: "", body:res.errmsg});
