@@ -2,7 +2,6 @@
 module.exports = function ($scope, $stateParams, $http, $q, FileUploader,what,productid,str2date, date2str, $resource, toaster, $uibModalInstance, auditing) {
 
 	var id = $stateParams.id || productid;
-
 	console.log('传的id');
 	console.log(id);
 

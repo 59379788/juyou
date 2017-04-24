@@ -42,7 +42,7 @@ getDate,str2date,date2str,offstate,onstate,toaster){
         if(confirm('确定要删除吗?')){
             delMakeAppointment.save({'id' : id},function(res){
                 if(res.errcode!=0){
-                    toaster.success({title:"",body:res.errmsg});
+                    toaster.error({title:"",body:res.errmsg});
                     return;
                 }
                 console.log(res.data);

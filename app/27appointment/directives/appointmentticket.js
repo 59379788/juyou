@@ -71,7 +71,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
                     //console.log(res);
                     if(res.errcode !== 0)
                     {
-                        alert(res.errmsg);
+                        toaster.error({title:"",body:res.errmsg});
                         return;
                     }
                     console.log('产品信息列表');
@@ -136,14 +136,12 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
                     //console.log(res);
                     if(res.errcode !== 0)
                     {
-                        alert(res.errmsg);
+                        toaster.error({title:"",body:res.errmsg});
                         return;
                     }
                     console.log('票种信息');
                     console.log(res);
                     scope.page.tickettypelist = res.data;
-                    if(res.data.length > 0) 
-                        scope.tickettypeobj.ticket_type_code = res.data[0].code;
                 });
             };
 
@@ -163,10 +161,10 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
                     //console.log(res);
                     if(res.errcode !== 0)
                     {
-                        alert(res.errmsg);
+                        toaster.error({title:"",body:res.errmsg});                        
                         return;
                     }
-                    alert('添加成功');
+                    toaster.success({title:"",body:"操作成功"});                    
                     scope.ticketlist();
                     
                     // gettickettypedetail();
@@ -181,8 +179,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 							toaster.error({ title: "提示", body: res.errmsg });
 							return;
 						}
-
-						alert('删除成功');
+                        toaster.success({title:"",body:"删除成功"});                        
 						console.log(res);
 						scope.ticketlist();
 						

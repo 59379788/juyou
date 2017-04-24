@@ -77,10 +77,10 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				console.log(scope.info);
 				$resource(url, {}, {}).save(scope.info, function(res){
 					if(res.errcode != 0){
-						alert(res.errmsg);
+						toaster.error({title:"",body:res.errmsg});
 						return;
 					}
-					alert('保存成功');
+					toaster.success({title:"",body:"操作成功!"});
 					console.log(res);
 					scope.saleobj.id = res.data.uuid;
 					console.log('id=' + scope.saleobj.id);

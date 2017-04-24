@@ -114,7 +114,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
             scope.findTimeInfoList();
             // 添加
 			scope.add = function () {
-                alert('添加');
 				scope.info.startTime = scope.util.date2str(scope.baseinfo.dateshow.periodstart.date);
 				scope.info.endTime = scope.util.date2str(scope.baseinfo.dateshow.periodend.date);
 
@@ -131,8 +130,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 						toaster.error({ title: "提示", body: res.errmsg });
 						return;
 					}
-
-					alert('操作成功');
+					toaster.success({title:"",body:"操作成功!"});
                     console.log(res);
                     scope.findTimeInfoList();
                     
@@ -151,8 +149,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 							toaster.error({ title: "提示", body: res.errmsg });
 							return;
 						}
-
-						alert('删除成功');
+						toaster.success({title:"",body:"删除成功!"});						
 						console.log(res);
 						scope.findTimeInfoList();
 						
