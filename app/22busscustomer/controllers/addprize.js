@@ -20,7 +20,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
             'name' : ''
         }
     };
-
+    var imgarray = [];
+    var imgstr = '';
     $scope.getsalelist = function() {
         salelist.save({'sale_category' : 'S14'},function(res) {
             if (res.errcode!=0) {
@@ -40,6 +41,10 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
                     }           
                     //$scope.searchform.selected.name = res.data.saleId;
                     $scope.info = res.data;
+                    // imgarray = res.data.img.split(',');
+                    // console.log(imgarray);
+                    // $scope.info.img1 = imgarray[0];
+                    // $scope.info.img2 = imgarray[1];
                     $scope.info.oldPrice = res.data.oldPrice/100;
                     $scope.info.targetPrice = res.data.targetPrice/100;
                     console.log('详情');
@@ -64,8 +69,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
     };
 
     $scope.getsalelist();
-
-    // 主图
+    
+    // 图片1
     var uploader = $scope.uploader = new FileUploader({
         url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
     });
@@ -79,10 +84,46 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
     });
     
     
-    uploader.onSuccessItem = function(fileItem, response, status, headers) {
+    uploader.onSuccessItem = function(fileItem, response, status, headers) {   
+        // imgarray.splice(0,1,response.savename);
+        // console.log(imgarray);
+        // $scope.info.img1 = response.savename;
+        // imgstr = imgarray.join(","); 
+        // console.log(imgstr);
+        // $scope.info.img = imgstr; 
         $scope.info.img = response.savename;
+
+
+        // $scope.info.img1 = response.savename;
+        // imgarray.push($scope.info.img1);
+        // console.log(imgarray);
+        // imgstr = imgarray.split(',');
+        // console.log(imgstr);
     };
 
+    // 图片2
+    // var uploader1 = $scope.uploader1 = new FileUploader({
+    //     url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
+    // });
+
+    // uploader1.filters.push({
+    //     name: 'imageFilter',
+    //     fn: function(item /*{File|FileLikeObject}*/, options) {
+    //         var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+    //         return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+    //     }
+    // });
+    
+    
+    // uploader1.onSuccessItem = function(fileItem, response, status, headers) {
+    //     imgarray.splice(1,1,response.savename);
+    //     console.log(imgarray);
+    //     $scope.info.img2 = response.savename;
+    //     imgstr = imgarray.join(","); 
+    //     console.log(imgstr);
+    //     $scope.info.img = imgstr; 
+
+    // };
     
     
     

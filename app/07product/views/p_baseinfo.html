@@ -73,7 +73,16 @@
 				<font face="Courier" class="text-danger"></font>
 			</div>
 		</div>
-
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">产品排序</label>
+			<div class="col-sm-4 col-xs-12">
+				<input type="text" class="form-control" placeholder="产品排序" ng-blur="synize()"
+				 ng-model="saleobj.asort">
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">此名称用于产品列表及订单名称</font>
+			</div>
+		</div>
 		<!-- ng-disabled="saleobj.id != ''" ng-change="changeCategory()" -->
 		<div class="form-group">
 			<label class="col-sm-2 col-xs-12 control-label">产品分类</label>
@@ -239,8 +248,8 @@
 			</div>
 			<div class="col-sm-6 mt10">
 				<font face="Courier" class="text-danger">对接产品需要到第三方系统下单，请选择需要确认
-					<br>
-					需发送卡号,卡密并激活的产品,请选择需要确认
+					<!--<br>
+					需发送卡号,卡密并激活的产品,请选择需要确认-->
 				</font>
 			</div>
 		</div>
