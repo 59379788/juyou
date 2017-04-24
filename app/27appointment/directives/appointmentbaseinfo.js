@@ -69,7 +69,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				if(scope.saleobj.id) {
 					// 编辑
 					url = '/api/as/mc/mermakeappointmentdao/updateMakeAppointment';
-					scope.info = angular.extend(scope.info,para);
+					scope.info = angular.extend(scope.info,scope.para);
 				} else {
 					url = '/api/as/mc/mermakeappointmentdao/insertMakeAppointment';
 					

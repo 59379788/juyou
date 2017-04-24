@@ -13,26 +13,17 @@ var router = function($urlRouterProvider, $stateProvider){
             controller : 'appointmentlist',
             template: require('./views/appointmentlist.html'),
             resolve:{
-                findMakeAppointmentList : function(busscustomerservice){
-                    return busscustomerservice.findMakeAppointmentList();
+                findMakeAppointmentList : function(appointmentservice){
+                    return appointmentservice.findMakeAppointmentList();
                 },
-                insertMakeAppointment : function(busscustomerservice){
-                    return busscustomerservice.insertMakeAppointment();
+                delMakeAppointment : function(appointmentservice){
+                    return appointmentservice.delMakeAppointment();
                 },
-                updateMakeAppointment : function(busscustomerservice){
-                    return busscustomerservice.updateMakeAppointment();
+                ticketlist : function(appointmentservice){
+                    return appointmentservice.ticketlist();
                 },
-                getMakeAppointmentById : function(busscustomerservice){
-                    return busscustomerservice.getMakeAppointmentById();
-                },
-                delMakeAppointment : function(busscustomerservice){
-                    return busscustomerservice.delMakeAppointment();
-                },
-                ticketlist : function(busscustomerservice){
-                    return busscustomerservice.ticketlist();
-                },
-                salelist : function(busscustomerservice){
-                    return busscustomerservice.salelist();
+                salelist : function(appointmentservice){
+                    return appointmentservice.salelist();
                 },
                 getDate : function(utilservice){
                 	 return utilservice.getDate;
@@ -42,6 +33,12 @@ var router = function($urlRouterProvider, $stateProvider){
                 },
                 date2str : function(utilservice) {
                     return utilservice.date2str;
+                },
+                offstate : function(appointmentservice){
+                    return appointmentservice.offstate();
+                },
+                onstate : function(appointmentservice){
+                    return appointmentservice.onstate();
                 }
                 
             }
@@ -71,6 +68,19 @@ var router = function($urlRouterProvider, $stateProvider){
 				auditing: function () {
 					return false;
 				}
+                
+            }
+        })
+
+         //预约人列表
+        .state('app.customerlist',{
+            url: '/customerlist/:id',
+            controller : 'customerlist',
+            template: require('./views/customerlist.html'),
+            resolve:{
+                findUserInfoList : function(appointmentservice){
+                    return appointmentservice.findUserInfoList();
+                }
                 
             }
         })

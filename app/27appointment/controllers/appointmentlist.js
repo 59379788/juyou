@@ -1,5 +1,5 @@
-module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findMakeAppointmentList, insertMakeAppointment, 
-updateMakeAppointment,getMakeAppointmentById,delMakeAppointment,ticketlist,salelist, getDate,str2date,date2str,toaster){   
+module.exports = function($scope, $stateParams, $state, $uibModal,ITEMS_PERPAGE,findMakeAppointmentList,delMakeAppointment,ticketlist,salelist, 
+getDate,str2date,date2str,offstate,onstate,toaster){   
    /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -55,6 +55,30 @@ updateMakeAppointment,getMakeAppointmentById,delMakeAppointment,ticketlist,salel
     $scope.seelist = function(){
         $state.go('app.customerlist');
     };
+    $scope.off = function(id){
+        offstate.save({'id' : id},function(res){
+            if(res.errcode != 0){
+                toaster.error({title:"",body:res.errmsg});
+                return;
+            }
+            toaster.success({title:"",body:"下架成功!"});
+            $scope.getlist();
+            
+            
+        })
+    }
+    $scope.on = function(id){
+        onstate.save({'id' : id},function(res){
+            if(res.errcode != 0){
+                toaster.error({title:"",body:res.errmsg});
+                return;
+            }
+            toaster.success({title:"",body:"上架成功!"});
+            $scope.getlist();
+            
+            
+        })
+    }
 
 
     

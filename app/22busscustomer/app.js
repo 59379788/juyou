@@ -99,7 +99,7 @@ App.controller('dictionaryinfo',require('./controllers/dictionaryinfo'));
 /*** 预约模块 ***/
 // App.controller('appointmentlist',require('./controllers/appointmentlist'));
 // App.controller('setappointment',require('./controllers/setappointment'));
-App.controller('customerlist',require('./controllers/customerlist'));
+// App.controller('customerlist',require('./controllers/customerlist'));
 /*** 预约模块 ***/
 
 // 退款

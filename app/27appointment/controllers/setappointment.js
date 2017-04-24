@@ -72,7 +72,7 @@ module.exports = function ($scope, $stateParams, $http, $q, FileUploader,what,pr
 	$scope.baseinfo.dateshow.open = function (obj) {
 		obj.opened = true;
 	};
-
+	
 
 
 

@@ -9,6 +9,7 @@ App.controller('setappointment',require('./controllers/setappointment'));
 App.directive('appointmentbaseinfo',require('./directives/appointmentbaseinfo'));
 App.directive('appointmentscreening',require('./directives/appointmentscreening'));
 App.directive('appointmentticket',require('./directives/appointmentticket'));
+App.controller('customerlist',require('./controllers/customerlist'));
 
 
 

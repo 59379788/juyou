@@ -16,6 +16,12 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var ticketlist = BASEURL38985 + '/api/as/tc/salettype/list';
   //查询销售品（全部）
   var salelist = BASEURL38985 + '/api/as/tc/sale/alllist';
+  // 下架
+  var offstate = BASEURL38985 + '/api/as/mc/mermakeappointmentdao/updateState';
+  // 上架
+  var onstate = BASEURL38985 + '/api/as/mc/mermakeappointmentdao/updateStartState';
+  // 预约人列表
+  var findUserInfoList = BASEURL38985 + '/api/as/mc/mermakeappointmentdao/findUserInfoList';
 
     return {
         findMakeAppointmentList : function(){
@@ -41,6 +47,15 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         salelist : function(){
           return $resource(salelist,{},{});
+        },
+        offstate : function(){
+          return $resource(offstate,{},{});
+        },
+        onstate : function(){
+          return $resource(onstate,{},{});
+        },
+        findUserInfoList : function(){
+          return $resource(findUserInfoList,{},{});
         }
     }
 };

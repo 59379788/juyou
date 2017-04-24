@@ -886,16 +886,16 @@ var router = function($urlRouterProvider, $stateProvider){
         // })
 
         //预约人列表
-        .state('app.customerlist',{
-            url: '/customerlist/:id',
-            controller : 'customerlist',
-            template: require('./views/customerlist.html'),
-            resolve:{
-                findUserInfoList : function(busscustomerservice){
-                    return busscustomerservice.findUserInfoList();
-                }
-            }
-        })
+        // .state('app.customerlist',{
+        //     url: '/customerlist/:id',
+        //     controller : 'customerlist',
+        //     template: require('./views/customerlist.html'),
+        //     resolve:{
+        //         findUserInfoList : function(busscustomerservice){
+        //             return busscustomerservice.findUserInfoList();
+        //         }
+        //     }
+        // })
 
         //添加商客账户管理
         .state('app.addskaccount',{
