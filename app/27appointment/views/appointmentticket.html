@@ -3,7 +3,7 @@
 
 		<div class="form-group mt10">
 			<label class="col-xs-1 control-label">添加产品</label>
-			<div class="col-xs-3">
+			<div class="col-xs-4">
 				<ui-select ng-model="searchform.selected" theme="bootstrap" ng-change="changeview(searchform)">
 					<ui-select-match placeholder="请选择一个产品">{{$select.selected.name}}</ui-select-match>
 					<ui-select-choices group-by="'place_name'" repeat="item in page.productlist | filter: $select.search">
@@ -13,7 +13,7 @@
 				</ui-select>
 			</div>
 			<label class="col-xs-1 control-label">添加票种</label>
-			<div class="col-xs-3">
+			<div class="col-xs-4">
 				<ui-select ng-model="ticketsearchform.selected" theme="bootstrap">
 					<ui-select-match placeholder="请选择一个票种">{{$select.selected.name}}</ui-select-match>
 					<ui-select-choices group-by="'place_name'" repeat="item in page.tickettypelist | filter: $select.search">

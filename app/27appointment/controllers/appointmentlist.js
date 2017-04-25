@@ -7,12 +7,11 @@ getDate,str2date,date2str,offstate,onstate,toaster){
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
 
     $scope.searchForm = {
-        'name' : '',
-        'mobile' : '',
-        'title' : ''
+        'sale_name' : '',
+        'ticket_name' : ''
     }
 
-    $scope.getlist = function(){
+    $scope.search = function(){
         var para = {
             pageNo:$scope.bigCurrentPage, 
             pageSize:$scope.itemsPerPage
@@ -30,7 +29,7 @@ getDate,str2date,date2str,offstate,onstate,toaster){
         });
 
     };
-    $scope.getlist();
+    $scope.search();
 
     $scope.add = function(id){
         $state.go('app.setappointment');     
@@ -46,7 +45,7 @@ getDate,str2date,date2str,offstate,onstate,toaster){
                     return;
                 }
                 console.log(res.data);
-                $scope.getlist();
+                $scope.search();
                 toaster.success({title:"",body:"删除成功!"});
             })
         }
@@ -62,7 +61,7 @@ getDate,str2date,date2str,offstate,onstate,toaster){
                 return;
             }
             toaster.success({title:"",body:"下架成功!"});
-            $scope.getlist();
+            $scope.search();
             
             
         })
@@ -74,7 +73,7 @@ getDate,str2date,date2str,offstate,onstate,toaster){
                 return;
             }
             toaster.success({title:"",body:"上架成功!"});
-            $scope.getlist();
+            $scope.search();
             
             
         })

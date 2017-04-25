@@ -3,14 +3,18 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
-                  <div class="form-group pull-right">
-                      <button type="button" class="btn btn-primary" ng-click="seelist()">预约人列表</button>
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                      <button type="button" class="btn btn-primary" ng-click="add()">设置预约</button>
-                      &nbsp;&nbsp;&nbsp;&nbsp;
-                  </div>
-
-
+                <input type="text" class="form-control" ng-model="searchForm.sale_name" placeholder="产品名称">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="searchForm.ticket_name" placeholder="票种名称">
+                &nbsp;&nbsp;
+                <button type="button" class="btn btn-success" ng-click="search()">搜索</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="form-group pull-right">
+                    <button type="button" class="btn btn-primary" ng-click="seelist()">预约人列表</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-primary" ng-click="add()">设置预约</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
             </div>
         </div>
     </div>
@@ -21,14 +25,20 @@
     <thead>
       <tr>
         <th class="col-md-2 text-center">预约名称</th>
-        <th class="col-md-8 text-center">预约须知</th>      
+        <th class="col-md-3 text-center">预约须知</th> 
+        <th class="col-md-2 text-center">产品名称</th>
+        <th class="col-md-2 text-center">票种名称</th> 
+        <th class="col-md-1 text-center">排序</th>                   
         <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
         <td class="text-center">{{obj.title}}</td>
-        <td class="text-center">{{obj.book_info}}</td>      
+        <td class="text-center">{{obj.book_info}}</td>
+        <td class="text-center">{{obj.sale_name}}</td>
+        <td class="text-center">{{obj.ticket_name}}</td>    
+        <td class="text-center">{{obj.asort}}</td>          
         <td class="text-center">
             <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑</a>
             <a ng-click="delete(obj.id)" class="btn btn-danger btn-xs">删除</a>
@@ -47,7 +57,7 @@
       max-size="maxSize" 
       class="pagination-sm" 
       boundary-links="true" 
-      ng-change="getlist()"
+      ng-change="search()"
       items-per-page="itemsPerPage"
       previous-text="上一页"
       next-text="下一页"
