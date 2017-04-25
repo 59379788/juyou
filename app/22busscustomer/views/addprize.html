@@ -67,7 +67,7 @@
 					</div>
 
 					<div class="form-group">
-					 <label for="inputDate" class="col-sm-3 control-label">奖品图片</label>
+					 <label for="inputDate" class="col-sm-3 control-label">奖品图片1</label>
 					 <div class="col-md-6">
 					      <img ng-src="{{info.img}}" width="100%" height="200" ng-model="info.img">
 					        <input type="file" nv-file-select uploader="uploader" / ng-hide="hide===true" ><br/>
@@ -82,6 +82,22 @@
 					        </ul>
 					 </div>
 					 </div>	
+					 <!--<div class="form-group">
+					 <label for="inputDate" class="col-sm-3 control-label">奖品图片2</label>
+					 <div class="col-md-6">
+					      <img ng-src="{{info.img2}}" width="100%" height="200" ng-model="info.img2">
+					        <input type="file" nv-file-select uploader="uploader1" / ng-hide="hide===true" ><br/>
+					        <ul class="list-group">
+					          <li class="list-group-item" ng-repeat="item in uploader1.queue">
+					            文件名: <span ng-bind="item.file.name"></span>
+					            <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+					            <div class="progress mt10">
+					              <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader1.progress + '%' }"></div>
+					            </div>
+					          </li>
+					        </ul>
+					 </div>
+					 </div>	-->
 
 					<div class="form-group">
 						<label class="col-xs-3 control-label">奖品标题</label>

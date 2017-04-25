@@ -14,32 +14,26 @@
             </div>
         </div>
     </div>
-</div><!-- searchArea -->
+</div>
 
 <div class="col-md-12 panel panel-default table-responsive">
     <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-2 text-center">产品名称</th>
-        <th class="col-md-1 text-center">票种名称</th>
-        <th class="col-md-4 text-center">时间</th>
-        <th class="col-md-2 text-center">标题</th>
-        <th class="col-md-1 text-center">库存</th>
-        <th class="col-md-1 text-center">排序</th>        
-        <th class="col-md-1 text-center">操作</th>
+        <th class="col-md-2 text-center">预约名称</th>
+        <th class="col-md-8 text-center">预约须知</th>      
+        <th class="col-md-2 text-center">操作</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
-        <td class="text-center">{{obj.sale_name}}</td>
-        <td class="text-center">{{obj.ticket_name}}</td>
-        <td class="text-center">{{obj.startTime}}-{{obj.endTime}}</td>
         <td class="text-center">{{obj.title}}</td>
-        <td class="text-center">{{obj.stock_num}}</td>
-        <td class="text-center">{{obj.asort}}</td>        
+        <td class="text-center">{{obj.book_info}}</td>      
         <td class="text-center">
-            <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">修改</a>
+            <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑</a>
             <a ng-click="delete(obj.id)" class="btn btn-danger btn-xs">删除</a>
+            <a ng-show="obj.state == 1" ng-click="off(obj.id)" class="btn btn-warning btn-xs">下架</a>
+            <a ng-show="obj.state == 2" ng-click="on(obj.id)" class="btn btn-success btn-xs">上架</a>                                    
         </td>
       </tr>
     </tbody>
@@ -53,7 +47,7 @@
       max-size="maxSize" 
       class="pagination-sm" 
       boundary-links="true" 
-      ng-change="search()"
+      ng-change="getlist()"
       items-per-page="itemsPerPage"
       previous-text="上一页"
       next-text="下一页"
@@ -61,4 +55,4 @@
       last-text="末页"
       rotate="false">
     </uib-pagination>
-    </div> 
+    </div>

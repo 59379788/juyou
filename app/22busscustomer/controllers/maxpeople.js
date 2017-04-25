@@ -18,6 +18,7 @@ module.exports = function($scope, $stateParams, $state, classAList, saveLimit,$u
             var array = res;
             array.splice(0,1);
             $scope.objs = array;
+            console.log($scope.objs);
             // for(var i = 0; i < array.length; i++){
             //     if(array[i].)
             // }
@@ -27,15 +28,15 @@ module.exports = function($scope, $stateParams, $state, classAList, saveLimit,$u
      
     $scope.getlist();
 
-    $scope.limit = function(id){
+    $scope.limit = function(code){
         alert('11');
         var modalInstance = $uibModal.open({
           template: require('../views/addlimit.html'),
           controller: 'addlimit',
           size: '',
           resolve: {
-            id : function(){
-                return id;
+            code : function(){
+                return code;
             },
             saveLimit : function(){
                 return saveLimit;
