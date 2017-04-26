@@ -273,7 +273,8 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
   var classAList = BASEURL38985 + '/a/sys/office/treeData';
   // 设置限定人数
   var saveLimit = BASEURL38985 + '/api/ac/tc/tktdealerapplyservice/saveLimit';
-
+  // 查看人数
+  var getlimit =  BASEURL38985 + '/api/as/tc/tktdealerapplydao/getLimit';
 
     return {
         //模型
@@ -688,6 +689,9 @@ var service = function($resource, BASEURL38985, SYS, $q, $http){
         },
         deleteauthority : function(){
             return $resource(deleteauthority, {}, {});
+        },
+        getlimit : function(){
+            return $resource(getlimit, {}, {});
         }
 
 

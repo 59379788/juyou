@@ -102,28 +102,23 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
     };
 
     // 图片2
-    // var uploader1 = $scope.uploader1 = new FileUploader({
-    //     url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
-    // });
+    var uploader1 = $scope.uploader1 = new FileUploader({
+        url: 'http://cl.juyouhx.com/oss.php/oss/webuploader1?topdir=aa&selfdir=bb'
+    });
 
-    // uploader1.filters.push({
-    //     name: 'imageFilter',
-    //     fn: function(item /*{File|FileLikeObject}*/, options) {
-    //         var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-    //         return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-    //     }
-    // });
+    uploader1.filters.push({
+        name: 'imageFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+        }
+    });
     
     
-    // uploader1.onSuccessItem = function(fileItem, response, status, headers) {
-    //     imgarray.splice(1,1,response.savename);
-    //     console.log(imgarray);
-    //     $scope.info.img2 = response.savename;
-    //     imgstr = imgarray.join(","); 
-    //     console.log(imgstr);
-    //     $scope.info.img = imgstr; 
+    uploader1.onSuccessItem = function(fileItem, response, status, headers) {
+        $scope.info.logo = response.savename; 
 
-    // };
+    };
     
     
     

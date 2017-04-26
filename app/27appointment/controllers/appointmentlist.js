@@ -23,7 +23,15 @@ getDate,str2date,date2str,offstate,onstate,toaster){
                 return;
             }
             console.log(res.data);
-            $scope.objs = res.data.results;
+            // $scope.objs = res.data.results;
+            var array = res.data.results;
+            for(var i = 0;i < array.length;i++){
+                array[i].startTime = array[i].startTime.replace(/,/g,'\r\n');
+                // timearr = array[i].startTime.split(",");
+                console.log(array[i].startTime);
+            }
+            $scope.objs = array;
+            console.log(array);
             $scope.bigTotalItems = res.data.totalRecord;
 
         });

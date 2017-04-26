@@ -25,9 +25,9 @@
     <thead>
       <tr>
         <th class="col-md-2 text-center">预约名称</th>
-        <th class="col-md-3 text-center">预约须知</th> 
-        <th class="col-md-2 text-center">产品名称</th>
-        <th class="col-md-2 text-center">票种名称</th> 
+        <th class="col-md-1 text-center">预约时间</th> 
+        <th class="col-md-3 text-center">产品名称</th>
+        <th class="col-md-3 text-center">票种名称</th> 
         <th class="col-md-1 text-center">排序</th>                   
         <th class="col-md-2 text-center">操作</th>
       </tr>
@@ -35,7 +35,7 @@
     <tbody>
       <tr ng-repeat="obj in objs">
         <td class="text-center">{{obj.title}}</td>
-        <td class="text-center">{{obj.book_info}}</td>
+        <td class="text-center">{{obj.startTime}}</td>
         <td class="text-center">{{obj.sale_name}}</td>
         <td class="text-center">{{obj.ticket_name}}</td>    
         <td class="text-center">{{obj.asort}}</td>          

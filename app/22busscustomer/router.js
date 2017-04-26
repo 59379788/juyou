@@ -1030,6 +1030,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             saveLimit : function(busscustomerservice){
                 return busscustomerservice.saveLimit();
+            },
+            getlimit : function(busscustomerservice){
+                return busscustomerservice.getlimit();
             }
         }
       })

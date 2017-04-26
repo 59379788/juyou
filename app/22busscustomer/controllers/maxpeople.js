@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, classAList, saveLimit,$uibModal,ITEMS_PERPAGE,toaster){   
+module.exports = function($scope, $stateParams, $state, classAList, saveLimit,$uibModal,ITEMS_PERPAGE,getlimit,toaster){   
 	/* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -19,17 +19,12 @@ module.exports = function($scope, $stateParams, $state, classAList, saveLimit,$u
             array.splice(0,1);
             $scope.objs = array;
             console.log($scope.objs);
-            // for(var i = 0; i < array.length; i++){
-            //     if(array[i].)
-            // }
-        
         })
     };
      
     $scope.getlist();
 
     $scope.limit = function(code){
-        alert('11');
         var modalInstance = $uibModal.open({
           template: require('../views/addlimit.html'),
           controller: 'addlimit',
@@ -50,6 +45,19 @@ module.exports = function($scope, $stateParams, $state, classAList, saveLimit,$u
         }, function () {
           //$scope.load();
         });
+    }
+
+    $scope.seepeople = function(code){
+        getlimit.save({'company_code' : code},function(res){
+            if(res.errcode != 0){
+                toaster.error({title : "", body:res.errmsg});
+                return;
+            }
+            console.log(res);
+            alert(res.data.limits);
+            // toaster.error({title : "", body:res.errmsg});
+            
+        })
     }
 
    
