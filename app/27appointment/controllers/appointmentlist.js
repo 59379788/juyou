@@ -31,6 +31,7 @@ getDate,str2date,date2str,offstate,onstate,toaster){
                 console.log(array[i].startTime);
             }
             $scope.objs = array;
+            console.log('数组');
             console.log(array);
             $scope.bigTotalItems = res.data.totalRecord;
 

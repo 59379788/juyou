@@ -12,7 +12,8 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
         'activeId' : id,
         'totalnum' : '',
         'buy_tips' : '',
-        'fictitious_participate_num' : ''
+        'fictitious_participate_num' : '',
+        'logo' : ''
     }
 
     $scope.searchform = {
@@ -127,7 +128,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
         // 编辑奖品
         if (prizeId) {
             if ($scope.info.oldPrice!=''&&$scope.info.targetPrice!=''&&$scope.info.allowableNumber!=''&&$scope.info.description!=''
-                &&$scope.info.img!=''&&$scope.info.activeId!=''&&$scope.info.totalnum!=''&&$scope.info.buy_tips!=''&&$scope.info.fictitious_participate_num!='') {
+                &&$scope.info.img!=''&&$scope.info.activeId!=''&&$scope.info.totalnum!=''&&$scope.info.buy_tips!=''&&$scope.info.fictitious_participate_num!=''&&$scope.info.logo!='') {
                 var para = {
                     'id' : prizeId
                 }
