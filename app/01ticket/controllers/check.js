@@ -18,6 +18,7 @@ module.exports = function ($scope, $uibModal,
 	        {
 	        	$scope.objs = res.data;
 	        	$scope.obj = res.data[0].code;
+	        	$scope.tktmachine($scope.obj);
 	        }
 	        else
 	        {
