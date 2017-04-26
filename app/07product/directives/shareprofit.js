@@ -15,45 +15,31 @@ module.exports = function($resource, $state, $http, $q,toaster){
 				'profit_ratio' : 10,
 				'profit' : '',
 				'rebate_unlimited' : 0,
-				'merchant_make_appointment' : ''
+				'merchant_make_appointment' : '0',
+				'search_type' : '1'
 			}
 			
 			scope.obj = {
-				'isSelected' : false
+				'isSelected' : false // 搜索
 			}
 
 			scope.yyobj = {
-				'isSelected' : false
+				'isSelected' : false // 预约
 			}
-
-			// scope.hb = {
-			// 	'isSelected' : false
-			// }
-
 
 			console.log('打出基本信息');
 			console.log(scope.saleobj.guide_price);
 			console.log(scope.saleobj.cost_price);
 			scope.change = function(){
-				scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio *0.01)).toFixed(2);
-				// if(scope.salefrobj.rebate_unlimited == 0){
-				// 	scope.salefrobj.rebate_unlimited = parseInt(scope.salefrobj.profit);
-				// }				
+				scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio *0.01)).toFixed(2);				
 			}
 
-
-
-
-
-			
 			$resource('/api/as/tc/saleshangkeprice/getinfo', {}, {})
 			.save({'sale_code' : scope.saleobj.code}, function(res){
 				console.log('分润信息');
-
+                console.log(res);
 				if(res.errcode === 0){
 					angular.extend(scope.salefrobj, res.data);
-					//scope.salefrobj.rebate_unlimited == scope.salefrobj.profit;
-					// console.log(scope.salefrobj);
 					if(scope.salefrobj.search_type == 0){
 						scope.obj.isSelected = true;
 					} else if(scope.salefrobj.search_type == 1){
@@ -69,7 +55,8 @@ module.exports = function($resource, $state, $http, $q,toaster){
 
 					scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio * 0.01)).toFixed(2);
 					console.log(scope.salefrobj.profit);
-					scope.salefrobj.rebate_unlimited = parseFloat(scope.salefrobj.profit);					
+					scope.salefrobj.rebate_unlimited = parseFloat(scope.salefrobj.rebate_unlimited);
+
 					if(scope.salefrobj.rebate_unlimited == 0){
 						(scope.salefrobj.rebate_unlimited) = parseFloat(scope.salefrobj.profit);
 						
@@ -87,14 +74,13 @@ module.exports = function($resource, $state, $http, $q,toaster){
 				//scope.salefrobj = res.data;
 
 				
-                console.log(res);
 
 
 			});
 
 
 			
-			scope.salefrobj.search_type = scope.obj.isSelected;
+			// scope.salefrobj.search_type = scope.obj.isSelected;
 			scope.onChange = function(isSelected){
 				console.log(isSelected);
 				if(isSelected == true) {

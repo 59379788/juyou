@@ -1,5 +1,5 @@
 module.exports = function($resource, $state, $http, $q,toaster){
-
+	console.log('详情');
 	return {
 
 		restrict : 'AE',
@@ -51,6 +51,12 @@ module.exports = function($resource, $state, $http, $q,toaster){
 						scope.hb.isSelected = true;
 					} else if(scope.salefrobj.rebate_type == 1){
 						scope.hb.isSelected = false;
+					}
+
+					if(scope.salefrobj.merchant_make_appointment == 1){
+						scope.yyobj.isSelected = true;
+					} else if(scope.salefrobj.merchant_make_appointment == 0){
+						scope.yyobj.isSelected = false;
 					}
 
 					scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio * 0.01)).toFixed(2);
