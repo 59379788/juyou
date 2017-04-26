@@ -154,7 +154,7 @@ module.exports = function($scope, $stateParams, $state, $uibModal, $uibModalInst
             // 赋值saleID
             $scope.info.saleId = $scope.searchform.selected.code;
             if ($scope.info.oldPrice!=''&&$scope.info.targetPrice!=''&&$scope.info.allowableNumber!=''&&$scope.info.description!=''
-                &&$scope.info.img!=''&&$scope.info.activeId!=''&&$scope.info.totalnum!=''&&$scope.info.buy_tips!=''&&$scope.info.fictitious_participate_num!='') {
+                &&$scope.info.img!=''&&$scope.info.activeId!=''&&$scope.info.totalnum!=''&&$scope.info.buy_tips!=''&&$scope.info.fictitious_participate_num!=''&&$scope.info.logo!='') {
                 // 添加奖品
                 $scope.info.oldPrice = $scope.info.oldPrice * 100;
                 $scope.info.targetPrice = $scope.info.targetPrice * 100;
