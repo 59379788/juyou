@@ -4,7 +4,7 @@
         <div class="row mtq0">
             <div class="form-group">
                 <form class="form-inline">
-                    <label class="col-sm-1 col-xs-12 control-label">有效期始</label>
+                    <label class="col-sm-1 col-xs-12 control-label">预约时间</label>
                     <div class="col-sm-3">
                         <div class="input-group">
                             <input type="text" class="form-control" ng-model="baseinfo.dateshow.periodstart.date" uib-datepicker-popup="yyyy-MM-dd" is-open="baseinfo.dateshow.periodstart.opened"
@@ -20,7 +20,7 @@
 
                 </form>
 		    </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <form class="form-inline">
                     <label class="col-sm-1 col-xs-12 control-label">有效期始</label>
                     <div class="col-sm-2">
@@ -37,7 +37,7 @@
                         </div>
 
                 </form>
-            </div>
+            </div>-->
 
             <div class="form-group">
 			<label class="col-sm-1 col-xs-12 control-label">库存</label>
@@ -52,21 +52,23 @@
     <table class="table table-bordered mt10">
 			<thead>
 				<tr>
-					<th class="col-md-3 text-center">起始时间</th>
-					<th class="col-md-3 text-center">结束时间</th>
-					<th class="col-md-3 text-center">库存</th>
-					<th class="col-md-3 text-center">操作</th>
+					<th class="col-md-4 text-center">预约时间</th>
+					<!--<th class="col-md-3 text-center">结束时间</th>-->
+					<th class="col-md-4 text-center">库存</th>
+					<th class="col-md-4 text-center">操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="obj in time_list">
 					<td class="text-center">{{obj.startTime}}</td>
-					<td class="text-center">{{obj.endTime}}</td>
-					<td class="text-center">{{obj.stock_num}}</td>
+					<td class="text-center form-inline"> 
+                        <input type="number" class="form-control text-center" placeholder="库存" min='0'
+							ng-model="obj.stock_num" value="0">
+						<a ng-click="save(obj)" class="btn btn-warning btn-xs">保存</a>                        
+                    </td>
                     
 					<td class="text-center">
-						<!--<a ng-click="save(obj)" class="btn btn-warning btn-xs">保存</a><br>-->
-						<a ng-click="delete(obj.id)" class="btn btn-warning btn-xs">删除</a>
+						<a ng-click="delete(obj.id)" class="btn btn-danger btn-xs">删除</a>
 					</td>
 				</tr>
 			</tbody>

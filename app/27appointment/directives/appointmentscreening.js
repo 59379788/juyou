@@ -160,6 +160,24 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				
 			}
 
+			scope.save = function(obj){
+				var url = '/api/as/mc/mermakeappointmentdao/updateTime';
+				$resource(url, {}, {}).save(obj, function (res) {
+					console.log(obj);
+					if (res.errcode != 0) {
+						toaster.error({ title: "提示", body: res.errmsg });
+						return;
+					}
+					toaster.success({title:"",body:"修改成功!"});						
+					console.log(res);
+					scope.findTimeInfoList();
+					
+					// toaster.success({ title: "提示", body: '操作成功' });
+
+				});
+				
+			}
+
 
 		}
 

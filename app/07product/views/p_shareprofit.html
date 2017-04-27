@@ -43,16 +43,23 @@
 					<div class="col-xs-2">
 						<label for="lrl" class="pull-right text-right mt10">利润率&nbsp;&nbsp;&nbsp;&nbsp;</label>
 					</div>
-					<div class="col-xs-5">
+					<div class="col-xs-2">
 						<div class="input-group">							
 							<input type="number" class="form-control" placeholder="利润率" min='0'
 							ng-model="salefrobj.profit_ratio" value="0" ng-change="change()">
 							<span class="input-group-addon">%</span>
 						</div>
 					</div>
-					<div class="col-sm-3 mt10">
-						<font face="Courier" class="text-danger">一级利润率</font>
-					</div>	
+					<div class="col-xs-1">
+						<label for="lrl" class="text-right mt10">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+</label>
+					</div>
+					<div class="col-xs-2">
+						<div class="input-group">							
+							<input type="number" class="form-control" placeholder="金额" min='0'
+							ng-model="salefrobj.profit_ratio" value="0" ng-change="changeJe()">
+							<span class="input-group-addon">¥</span>
+						</div>
+					</div>
 				</div>
 
 					<br/>

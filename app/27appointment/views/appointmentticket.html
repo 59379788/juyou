@@ -51,8 +51,8 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="obj in ticket_list">
-					<td class="text-center">{{obj.sale_name}}</td>
-					<td class="text-center">{{obj.ticket_name}}</td>
+					<td class="text-center">{{obj.sale_name}}{{obj.sale_code}}</td>
+					<td class="text-center">{{obj.ticket_name}}{{obj.ticket_code}}</td>
 					<!--<td class="text-center">
 						<div class="input-group">
 							<input type="text" class="form-control" ng-model="obj.section.periodstart.date" uib-datepicker-popup="yyyy-MM-dd" is-open="obj.section.periodstart.opened" ng-disabled="util.what == 'info'"
