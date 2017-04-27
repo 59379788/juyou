@@ -14,7 +14,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
     var fun;
     var viewname = '';
 
-    if(obj.sale_belong === 'juyou')
+    if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong')
     {
         fun = ticketlist;
     }
@@ -63,7 +63,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
                 }
 
                 var arr = [];
-                if(obj.sale_belong === 'juyou')
+                if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong')
                 {
                     arr = res.data;
                 }
