@@ -143,7 +143,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
 
         console.log(obj1);
 
-        if(obj.sale_belong === 'juyou')
+        if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong')
         {
             juyouback(obj1);
         }
