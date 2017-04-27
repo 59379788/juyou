@@ -1,4 +1,4 @@
-module.exports = function($scope, $state, $uibModal, userinfo, deleteuserinfo, 
+module.exports = function($scope, $state, $uibModal, userinfo, deleteuserinfo, updatemobile,
 	updateUserAuthInfo, edituserinfo, updateidcard, syncUserAuthInfo){
 
 	$scope.searchform = {};
@@ -51,6 +51,9 @@ module.exports = function($scope, $state, $uibModal, userinfo, deleteuserinfo,
             },
             updateidcard : function(){
                 return updateidcard;
+            },
+            updatemobile : function(){
+                return updatemobile;
             }
 
             

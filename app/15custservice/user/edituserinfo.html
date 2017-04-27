@@ -15,52 +15,64 @@
 			>
 		</div>
 	</div>
-	
-	<div class="form-group">
-		<label class="col-xs-1 control-label"></label>
-		<label class="col-xs-2 control-label">姓名</label>
-		<div class="col-xs-6">
-			<input type="text" class="form-control" placeholder="请输入姓名"
-			ng-model="objt.username"
-			>
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-xs-1 control-label"></label>
-		<label class="col-xs-2 control-label">地址</label>
-		<div class="col-xs-6">
-			<input type="text" class="form-control" placeholder="请输入地址"
-			ng-model="objt.postaddress"
-			>
-		</div>
-	</div>
 
 	<button 
     type="button" 
     class="btn btn-primary btn-lg btn-block" 
-    ng-click="gogo()"
+    ng-click="koko()"
     >
     提交
     </button><br>
-
-    <div class="form-group">
-		<label class="col-xs-1 control-label"></label>
-		<label class="col-xs-2 control-label">身份证号</label>
-		<div class="col-xs-6">
-			<input type="text" class="form-control" placeholder="请输入身份证号"
-			ng-model="objt.papersno"
-			>
+	
+	<div ng-show = "objt.status == 1">
+		<div class="form-group">
+			<label class="col-xs-1 control-label"></label>
+			<label class="col-xs-2 control-label">姓名</label>
+			<div class="col-xs-6">
+				<input type="text" class="form-control" placeholder="请输入姓名"
+				ng-model="objt.username"
+				>
+			</div>
 		</div>
-	</div>
 
-	<button 
-    type="button" 
-    class="btn btn-primary btn-lg btn-block" 
-    ng-click="xoxo()"
-    >
-    提交
-    </button>
+		<div class="form-group">
+			<label class="col-xs-1 control-label"></label>
+			<label class="col-xs-2 control-label">地址</label>
+			<div class="col-xs-6">
+				<input type="text" class="form-control" placeholder="请输入地址"
+				ng-model="objt.postaddress"
+				>
+			</div>
+		</div>
+		<button 
+	    type="button" 
+	    class="btn btn-primary btn-lg btn-block" 
+	    ng-click="gogo()"
+	    >
+	    提交
+	    </button><br>
+
+	    <div class="form-group">
+			<label class="col-xs-1 control-label"></label>
+			<label class="col-xs-2 control-label">身份证号</label>
+			<div class="col-xs-6">
+				<input type="text" class="form-control" placeholder="请输入身份证号"
+				ng-model="objt.papersno"
+				>
+			</div>
+		</div>
+
+		<button 
+	    type="button" 
+	    class="btn btn-primary btn-lg btn-block" 
+	    ng-click="xoxo()"
+	    >
+	    提交
+	    </button>
+	</div>
+	
+
+    
 
     </div>
 </div>

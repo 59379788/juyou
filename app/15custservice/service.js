@@ -10,6 +10,8 @@ var service = function($resource, BASEURL38985){
 
     var updateidcard = BASEURL38985 + "/api/ac/uc/customService/updateUserAuthInfo";
 
+    var updatemobile = BASEURL38985 + "/api/ac/uc/userService/updatemobile";
+
     var syncUserAuthInfo = BASEURL38985 + "/api/ac/uc/customService/syncUserAuthInfo";
 
     var oneuserinfo = BASEURL38985 + "/api/as/uc/jyu/getjyuserinfo";
@@ -67,6 +69,9 @@ var service = function($resource, BASEURL38985){
 
         userinfo : function(){
             return $resource(userinfo, {}, {});
+        },
+        updatemobile : function(){
+            return $resource(updatemobile, {}, {});
         },
         deleteuserinfo : function(){
             return $resource(deleteuserinfo, {}, {});

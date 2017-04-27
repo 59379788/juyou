@@ -29,6 +29,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             syncUserAuthInfo : function(custservice){
                 return custservice.syncUserAuthInfo();
+            },
+            updatemobile : function(custservice){
+                return custservice.updatemobile();
             }
         }
       })
