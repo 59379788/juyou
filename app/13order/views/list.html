@@ -87,7 +87,7 @@
                  
                  <!-- <input type="text" class="form-control" ng-model="searchform.ticket_state" placeholder="票状态"> -->
                    <select class="form-control" ng-model="searchform.sale_category" 
-                  ng-options="category.sale_category_code as category.sale_category_name for category in category_type"
+                  ng-options="category.value as category.label for category in category_type"
                   >
                   <option label="查询全部" value=""></option>
                   </select> 

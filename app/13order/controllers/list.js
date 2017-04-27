@@ -29,7 +29,7 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
         }
     }
     $scope.getcategorylist = function(){
-        categorylist.save({},function(res){
+        categorylist.save({'type':'sale_category'},function(res){
             if(res.errcode != 0){
                 alert(res.errmsg);
                 return;

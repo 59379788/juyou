@@ -62,7 +62,7 @@ var service = function ($resource, BASEURL38985) {
     //测试退票
     var testCreateBackOrder = BASEURL38985 + '/api/ac/tc/ticketOrderBackService/createBackOrder';
     // 销售品分类
-    var categorylist = BASEURL38985 + '/api/as/tc/salecategory/list';
+    var categorylist = BASEURL38985 + '/api/as/sc/dict/dictbytypelist';
 
 
 
