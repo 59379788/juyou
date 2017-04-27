@@ -1,7 +1,7 @@
 module.exports = function($scope, $uibModalInstance, cardnum, updateCardPass){
 
 	$scope.obj = {};
-	$scope.obj.cardnum = cardnum;
+	$scope.obj.card_num = cardnum;
 
 
 	$scope.cancel = function(){
@@ -14,7 +14,7 @@ module.exports = function($scope, $uibModalInstance, cardnum, updateCardPass){
 
 		updateCardPass.save($scope.obj, function(res){
 
-			if($scope.obj.cardpass === undefined || $scope.obj.cardpass == '')
+			if($scope.obj.card_password === undefined || $scope.obj.card_password == '')
 			{
 				alert('新卡密不能为空');
 				return;

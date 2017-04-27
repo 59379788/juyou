@@ -4,7 +4,7 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                 <label>物理卡号</label>&nbsp;&nbsp;
-                <input type="text" class="form-control" ng-model="searchform.cardnum" placeholder="请输入物理卡号">
+                <input type="text" class="form-control" ng-model="searchform.card_num" placeholder="请输入物理卡号">
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
             </div>
@@ -25,12 +25,12 @@
     </thead>
     <tbody>
       <tr ng-repeat="obj in objs">
-        <td class="text-center">{{obj.cardnum}}</td>
-        <td class="text-center">{{obj.cardpass}}</td>
-        <td class="text-center">{{obj.phycardinside}}</td>
-        <td class="text-center">{{obj.state}}</td>
+        <td class="text-center">{{obj.card_num}}</td>
+        <td class="text-center">{{obj.card_password}}</td>
+        <td class="text-center">{{obj.phy_card_inside}}</td>
+        <td class="text-center">{{obj.card_statusname}}</td>
         <td class="text-center">
-        	<a ng-click="edit(obj.cardnum)" class="btn btn-success btn-xs">修改卡密</a>
+        	<a ng-click="edit(obj.card_num)" class="btn btn-success btn-xs">修改卡密</a>
         </td>
       </tr>
     </tbody>

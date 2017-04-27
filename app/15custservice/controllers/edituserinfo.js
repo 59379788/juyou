@@ -1,19 +1,9 @@
-module.exports = function($scope, edituserinfo, oneuserinfo, updateUserSubsidy, mobile, $uibModalInstance){
+module.exports = function($scope, edituserinfo, updateidcard, obj, $uibModalInstance){
 
-	$scope.objt = {};
-
-	oneuserinfo.get({'mobile' : mobile}, function(res){
-		console.log(res);
-
-		if(res.errcode === 0)
-		{
-			$scope.objt = res.data;
-		}
-
-	});
+	$scope.objt = obj;
 
 	$scope.gogo = function(){
-		$scope.objt.mobile = mobile;
+		$scope.objt.userid = obj.userid;
 		edituserinfo.save($scope.objt, function(res){
 
 			console.log(res);
@@ -31,10 +21,12 @@ module.exports = function($scope, edituserinfo, oneuserinfo, updateUserSubsidy, 
 	}
 
 	$scope.xoxo = function(){
-		$scope.objt.mobile = mobile;
-		updateUserSubsidy.save($scope.objt, function(res){
-
-			console.log($scope.objt);
+		var para = {
+			userid : obj.userid,
+			mobile : obj.mobile,
+			idcard : $scope.objt.papersno
+		}
+		updateidcard.save(para, function(res){
 
 			if(res.errcode === 0)
 			{

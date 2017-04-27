@@ -4,9 +4,13 @@
  */
 var service = function($resource, BASEURL38985){
 
-    var userinfo = BASEURL38985 + "/api/ac/uc/userService/getUserInfoByMobile";
+    var userinfo = BASEURL38985 + "/api/ac/uc/userService/getUserInfoByMobileForKf";
 
-    var userinfobypapersno = BASEURL38985 + "/api/ac/uc/userService/getUserInfoByPapersno";
+    var deleteuserinfo = BASEURL38985 + "/api/ac/uc/userService/deleteuserinfo";
+
+    var updateidcard = BASEURL38985 + "/api/ac/uc/customService/updateUserAuthInfo";
+
+    var syncUserAuthInfo = BASEURL38985 + "/api/ac/uc/customService/syncUserAuthInfo";
 
     var oneuserinfo = BASEURL38985 + "/api/as/uc/jyu/getjyuserinfo";
 
@@ -14,7 +18,7 @@ var service = function($resource, BASEURL38985){
 
     var createuserinfo = BASEURL38985 + "/api/uc/uc/userService/insertUserAuthKF";
 
-    var cardA = BASEURL38985 + "/api/as/uc/jyu/getphycardlist";
+    var cardA = BASEURL38985 + "/api/as/cdc/useractiveservice/getphycardlist";
 
     var cardB = BASEURL38985 + "/api/as/uc/jyu/getdigcardlist";
 
@@ -36,7 +40,7 @@ var service = function($resource, BASEURL38985){
 
     var orderback = BASEURL38985 + "/api/ac/tc/ticketOrderService/updatebackmoneybycode";
 
-    var updateCardPass = BASEURL38985 + "/api/as/uc/jyu/updateCardPass";
+    var updateCardPass = BASEURL38985 + "/api/ac/cdc/userActiveService/updatecardpasswd";
 
     var carduserinfo = BASEURL38985 + "/api/ac/uc/userService/getUserInfoUseCardP";
 
@@ -64,8 +68,14 @@ var service = function($resource, BASEURL38985){
         userinfo : function(){
             return $resource(userinfo, {}, {});
         },
-        userinfobypapersno : function(){
-            return $resource(userinfobypapersno, {}, {});
+        deleteuserinfo : function(){
+            return $resource(deleteuserinfo, {}, {});
+        },
+        updateidcard : function(){
+            return $resource(updateidcard, {}, {});
+        },
+        syncUserAuthInfo : function(){
+            return $resource(syncUserAuthInfo, {}, {});
         },
         oneuserinfo : function(){
             return $resource(oneuserinfo, {}, {});

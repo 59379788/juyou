@@ -8,48 +8,87 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
             </div>
-            <div class="col-sm-2 text-right">
+            <!--<div class="col-sm-2 text-right">
                 <button type="button" class="btn btn-info new" ng-click="create()">实名认证</button>
-            </div>
+            </div>-->
         </div>
     </div>
 </div><!-- searchArea -->
 
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>	
-        <th class="col-md-1 text-center">用户名</th>
-        <th class="col-md-1 text-center">手机号</th>
-        <th class="col-md-1 text-center">身份证号</th>
-        <th class="col-md-2 text-center">地址</th>
-        <th class="col-md-2 text-center">实名制</th>
-        <!--<th class="col-md-1 text-center">政府补贴</th>-->
-        <th class="col-md-1 text-center">慧鼎补贴</th>
-        <th class="col-md-1 text-center">物理卡号</th>
-        <th class="col-md-1 text-center">电子卡号</th>
-        <th class="col-md-1 text-center">操作</th>
-      </tr>
-    </thead>
-    <div ng-show="userstate === 0">
-	    <tbody>
-	      <tr>
-	        <td class="text-center">{{obj.username}}</td>
-	        <td class="text-center">{{obj.mobile}}</td>
-	        <td class="text-center">{{obj.papersno}}</td>
-	        <td class="">{{obj.postaddress}}</td>
-	        <td class="text-center">{{obj.state}}&nbsp;&nbsp;&nbsp;<a ng-click="clear(obj.mobile)" class="btn btn-info btn-xs">清空</a></td>
-	        <!--<td class="text-center">{{obj.generalsubsidy | currency : '￥'}}</td>-->
-	        <td class="text-center">{{obj.hdticketsubsidy | currency : '￥'}}</td>
-	        <td class="text-center">{{obj.phycardno}}</td>
-	        <td class="text-center">{{obj.digitalcardno}}</td>
-	        <td class="text-center">
-	        	<a ng-click="edit(obj.mobile)" class="btn btn-success btn-xs">编辑</a>
-	        </td>
+<div class="panel panel-danger"  ng-show="userstate === 0">
+	  <div class="panel-heading">用户基本信息</div>
+	  <table class="table table-bordered">
+	    <thead>
+	      <tr>	
+	        <th class="col-md-1 text-center">姓名</th>
+	        <th class="col-md-1 text-center">手机号</th>
+	        <th class="col-md-1 text-center">身份证号</th>
+	        <th class="col-md-2 text-center">地址</th>
+	        <th class="col-md-1 text-center">实名制</th>
+	        <!--<th class="col-md-1 text-center">政府补贴</th>-->
+	        <th class="col-md-1 text-center">慧鼎补贴</th>
+	        <th class="col-md-1 text-center">电子卡号</th>
+	        <th class="col-md-2 text-center">物理卡号</th>
+	        <th class="col-md-2 text-center">操作</th>
 	      </tr>
-	    </tbody>
-    </div>
-  </table>
-  
+	    </thead>
+	    <div>
+		    <tbody>
+		      <tr>
+		        <td class="text-center">{{obj.username}}</td>
+		        <td class="text-center">{{obj.mobile}}</td>
+		        <td class="text-center">{{obj.papersno}}</td>
+		        <td class="">{{obj.postaddress}}</td>
+		        <td class="text-center">
+		        	{{obj.status}}
+	        	</td>
+		        <!--<td class="text-center">{{obj.generalsubsidy | currency : '￥'}}</td>-->
+		        <td class="text-center">{{obj.hdticketsubsidy | currency : '￥'}}</td>
+		        <td class="text-center">{{obj.digitalcardno}}</td>
+		        <td class="text-center">{{obj.pcard}}</td>
+		        <td class="text-center">
+		        	<a ng-click="edit(obj)" class="btn btn-success btn-xs">编辑</a>
+		        	<a ng-click="clear(obj)" class="btn btn-info btn-xs" ng-show="obj.status == 1">清除实名制</a>
+		        	<a ng-click="synccard(obj)" class="btn btn-success btn-xs">同步卡信息</a><br>
+		        	<a ng-click="del(obj)" class="btn btn-warning btn-xs">删除</a>
+		        	<a ng-click="forcedel(obj)" class="btn btn-danger btn-xs">强制删除</a>
+		        </td>
+		      </tr>
+		    </tbody>
+	    </div>
+	  </table>
+	  </div>
+
+	  <div class="panel-danger"  ng-show="userstate === 0">
+		  <div class="panel-heading">同步卡信息</div>
+		  <table class="table table-bordered">
+		    <thead>
+		      <tr>	
+		        <th class="col-md-2 text-center">卡号</th>
+		        <th class="col-md-2 text-center">卡内号</th>
+		        <th class="col-md-1 text-center">姓名</th>
+		        <th class="col-md-2 text-center">身份证</th>
+		        <th class="col-md-3 text-center">地址</th>
+		      </tr>
+		    </thead>
+		    <div ng-show="userstate === 0">
+			    <tbody>
+			      <tr ng-repeat="smartobj in obj.smartpcardlist">
+			        <td class="text-center">{{smartobj.smart_card_no}}</td>
+			        <td class="text-center">{{smartobj.smart_card}}</td>
+			        <td class="text-center">{{smartobj.smart_name}}</td>
+			        <td class="text-center">{{smartobj.smart_id_card}}</td>
+			        <td class="text-center">{{smartobj.smart_address}}</td>
+			      </tr>
+			    </tbody>
+		    </div>
+		  </table>
+		  </div>
+	 </div>
+</div>
+
+	
+
+
 
 </div>

@@ -5,12 +5,22 @@
 
 <div class="modal-body">
 	<div class="container-fluid form-horizontal">
+
+	<div class="form-group">
+		<label class="col-xs-1 control-label"></label>
+		<label class="col-xs-2 control-label">手机号</label>
+		<div class="col-xs-6">
+			<input type="text" class="form-control" placeholder="请输入手机号"
+			ng-model="objt.mobile"
+			>
+		</div>
+	</div>
 	
 	<div class="form-group">
 		<label class="col-xs-1 control-label"></label>
-		<label class="col-xs-2 control-label">用户名</label>
+		<label class="col-xs-2 control-label">姓名</label>
 		<div class="col-xs-6">
-			<input type="text" class="form-control" placeholder="请输入用户名"
+			<input type="text" class="form-control" placeholder="请输入姓名"
 			ng-model="objt.username"
 			>
 		</div>
@@ -34,33 +44,15 @@
     提交
     </button><br>
 
-	<div class="form-group">
+    <div class="form-group">
 		<label class="col-xs-1 control-label"></label>
-		<label class="col-xs-2 control-label">政府补贴</label>
+		<label class="col-xs-2 control-label">身份证号</label>
 		<div class="col-xs-6">
-			<div class="input-group">
-				<span class="input-group-addon">¥</span>
-				<input type="number" class="form-control" min='0'
-				ng-model="objt.generalsubsidy"
-				>
-			</div>
+			<input type="text" class="form-control" placeholder="请输入身份证号"
+			ng-model="objt.papersno"
+			>
 		</div>
 	</div>
-
-	<div class="form-group">
-		<label class="col-xs-1 control-label"></label>
-		<label class="col-xs-2 control-label">慧鼎补贴</label>
-		<div class="col-xs-6">
-			<div class="input-group">
-				<span class="input-group-addon">¥</span>
-				<input type="number" class="form-control" min='0'
-				ng-model="objt.hdticketsubsidy"
-				>
-			</div>
-		</div>
-	</div>
-
-	
 
 	<button 
     type="button" 

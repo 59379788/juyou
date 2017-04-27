@@ -15,8 +15,8 @@ var router = function($urlRouterProvider, $stateProvider){
             userinfo : function(custservice){
                 return custservice.userinfo();
             },
-            userinfobypapersno : function(custservice){
-                return custservice.userinfobypapersno();
+            deleteuserinfo : function(custservice){
+                return custservice.deleteuserinfo();
             },
             updateUserAuthInfo : function(custservice){
                 return custservice.updateUserAuthInfo();
@@ -24,11 +24,11 @@ var router = function($urlRouterProvider, $stateProvider){
             edituserinfo : function(custservice){
                 return custservice.edituserinfo();
             },
-            oneuserinfo : function(custservice){
-                return custservice.oneuserinfo();
+            updateidcard : function(custservice){
+                return custservice.updateidcard();
             },
-            updateUserSubsidy : function(custservice){
-                return custservice.updateUserSubsidy();
+            syncUserAuthInfo : function(custservice){
+                return custservice.syncUserAuthInfo();
             }
         }
       })
