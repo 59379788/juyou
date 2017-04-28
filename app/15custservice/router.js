@@ -218,6 +218,18 @@ var router = function($urlRouterProvider, $stateProvider){
          }
        })
 
+    //    //根据电话查看激活码
+    //    .state('app.packagepicture', {
+    //      url: '/packagepicture',
+    //      controller : 'packagepicture',
+    //      template: require('./user/packagepicture.html'),
+    //      resolve:{
+    //         // getUserBaseInfomobile : function(custservice){
+    //         //      return custservice.getUserBaseInfomobile();
+    //         // }
+    //      }
+    //    })
+
 };
 
 module.exports = router;

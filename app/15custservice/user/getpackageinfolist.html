@@ -16,32 +16,24 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-      	<th class="col-md-1 text-center">订单编号</th>
-        <th class="col-md-1 text-center">用户名</th>
-        <th class="col-md-1 text-center">地址</th>
-        <th class="col-md-1 text-center">电话</th>
-        <th class="col-md-1 text-center">证件号</th>
-        <th class="col-md-1 text-center">申请时间</th>
-        <th class="col-md-1 text-center">支付状态</th>
-        <th class="col-md-2 text-center">支付宝订单号</th>
-        <th class="col-md-1 text-center">支付金额</th>
-        <th class="col-md-1 text-center">支付时间</th>
-        <th class="col-md-1 text-center">儿童套票</th>
+      	<th class="col-md-1 text-center">昵称</th>
+        <th class="col-md-1 text-center">头像</th>
+        <th class="col-md-1 text-center">卡号</th>
+        <th class="col-md-1 text-center">产品编号</th>
+        <th class="col-md-1 text-center">订单编号</th>
+        <th class="col-md-1 text-center">所属区域</th>
       </tr>
     </thead>
-    <tbody>
-      <tr ng-repeat="obj in objs">
-        <td class="text-center">{{obj.systradeno}}</td>
-        <td class="text-center">{{obj.username}}</td>
-        <td class="text-center">{{obj.address}}</td>
-        <td class="text-center">{{obj.mobile}}</td>
-        <td class="text-center">{{obj.papersno}}</td>
-        <td class="text-center">{{obj.appdatec}}</td>
-        <td class="text-center">{{obj.paystatusname}}</td>
-        <td class="text-center">{{obj.alitradeno}}</td>
-        <td class="text-center">{{obj.fee | currency : '￥'}}</td>
-        <td class="text-center">{{obj.paytimec}}</td>
-        <td class="text-center">{{obj.ischildname}}</td>
+    <tbody ng-show="obj">
+      <tr>
+        <td class="text-center">{{obj.nickname}}</td>
+        <td class="text-center">
+            <a ng-click="seepicture(obj.headimgurl)" ng-show="obj.headimgurl" class="btn btn-success btn-xs">查看图片</a>                        
+        </td>
+        <td class="text-center">{{obj.cardno}}</td>
+        <td class="text-center">{{obj.product_code}}</td>
+        <td class="text-center">{{obj.code}}</td>
+        <td class="text-center">{{obj.sys_area}}</td>
       </tr>
     </tbody>
   </table>

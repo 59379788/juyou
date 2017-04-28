@@ -33,6 +33,7 @@ App.controller('ticketInfo',require('./controllers/ticketInfo'));
 
 // 获取亲子套票激活用户信息
 App.controller('getpackageinfolist',require('./controllers/getpackageinfolist'));
+App.controller('userinfopicture',require('./controllers/userinfopicture'));
 
 
 

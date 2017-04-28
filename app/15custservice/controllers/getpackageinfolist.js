@@ -1,4 +1,4 @@
-module.exports = function($scope,getUserBaseInfomobile,toaster){
+module.exports = function($scope,getUserBaseInfomobile,$uibModal,toaster){
 
 	$scope.searchform = {};
     
@@ -14,11 +14,29 @@ module.exports = function($scope,getUserBaseInfomobile,toaster){
          		return;
          	}
 
-         	$scope.objs = res.data;
+         	$scope.obj = res.data;
 
         });
 
     };
-    // $scope.load();
+    $scope.seepicture = function(pimg){
+         var modalInstance = $uibModal.open({
+          template: require('../user/userinfopicture.html'),
+          controller: 'userinfopicture',
+        //   size: 'lg',
+          resolve: {
+            pimg : function(){
+                return pimg;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+        //   $scope.getlist();
+          
+        }, function () {
+          //$scope.load();
+        });
+    }
 
 };
