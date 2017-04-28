@@ -66,7 +66,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
 						scope.yyobj.isSelected = false;
 					}
 
-					
+					scope.salefrobj.profit_ratio = scope.salefrobj.profit_ratio.toFixed(2);
 					scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio * 0.01)).toFixed(2);
 					console.log(scope.salefrobj.profit);
 					scope.salefrobj.erjiprofit = ((scope.saleobj.guide_price - scope.saleobj.cost_price)*scope.salefrobj.profit_ratio*0.01).toFixed(2);
