@@ -67,7 +67,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
 					}
 
 					
-
+					scope.salefrobj.profit_ratio = scope.salefrobj.profit_ratio / 100;
 					scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio * 0.01)).toFixed(2);
 					console.log(scope.salefrobj.profit);
 					scope.salefrobj.erjiprofit = ((scope.saleobj.guide_price - scope.saleobj.cost_price)*scope.salefrobj.profit_ratio*0.01).toFixed(2);
@@ -134,6 +134,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
 				} else if(scope.salefrobj.rebate_unlimited>scope.salefrobj.profit){
 					toaster.success({title:"",body:"红包上限不能大于利润"});			
 				} else {
+					scope.salefrobj.profit_ratio = scope.salefrobj.profit_ratio * 100;					
 					$resource('/api/as/tc/saleshangkeprice/save', {}, {})
                     .save(scope.salefrobj,function(res){
                          console.log(scope.salefrobj);
