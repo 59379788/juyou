@@ -12,7 +12,7 @@
                   &nbsp;&nbsp;
                   <label>预约场次</label>&nbsp;&nbsp;
                   <div class="input-group">
-                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" ng-change="change()" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
                       </span>
@@ -34,8 +34,9 @@
       <tr>
         <th class="col-md-1 text-center">姓名</th>
         <th class="col-md-2 text-center">电话</th>
-        <th class="col-md-2 text-center">时间</th>
-        <th class="col-md-3 text-center">产品名称</th>
+        <th class="col-md-2 text-center">预约时间</th>
+        <th class="col-md-1 text-center">预约场次</th>
+        <th class="col-md-2 text-center">产品名称</th>
         <th class="col-md-2 text-center">票种名称</th>
         <th class="col-md-2 text-center">预约产品</th>
     </thead>
@@ -44,6 +45,7 @@
         <td class="text-center">{{obj.name}}</td>
         <td class="text-center">{{obj.mobile}}</td>
         <td class="text-center">{{obj.time}}</td>
+        <td class="text-center">{{obj.startTime}}</td>        
         <td class="text-center">{{obj.sale_name}}</td>
         <td class="text-center">{{obj.ticket_name}}</td>
         <td class="text-center">{{obj.title}}</td>

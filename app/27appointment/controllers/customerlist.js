@@ -21,12 +21,13 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,F
         'title' : '',
         'startTime' : ''
     }
-
+    $scope.change = function(){
+        $scope.info.startTime = getDate($scope.section.start.date);
+    }
     $scope.search = function(){
         var para = {
             pageNo:$scope.bigCurrentPage, 
-            pageSize:$scope.itemsPerPage,  
-            startTime : getDate($scope.section.start.date)        
+            pageSize:$scope.itemsPerPage 
         };
         para = angular.extend($scope.info,para);
         findUserInfoList.save(para,function(res){

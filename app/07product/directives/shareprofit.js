@@ -30,8 +30,23 @@ module.exports = function($resource, $state, $http, $q,toaster){
 			console.log('打出基本信息');
 			console.log(scope.saleobj.guide_price);
 			console.log(scope.saleobj.cost_price);
+			scope.profit = {
+				'flag' : ''
+			}
 			scope.change = function(){
+				console.log('设置利润率');				
 				scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio *0.01)).toFixed(2);				
+				scope.salefrobj.erjiprofit = ((scope.saleobj.guide_price - scope.saleobj.cost_price)*scope.salefrobj.profit_ratio*0.01).toFixed(2);
+				console.log(scope.salefrobj.erjiprofit);
+				scope.profit.flag = '0';
+			}
+			scope.changeJe = function(){
+				console.log('设置二级利润');
+				scope.salefrobj.profit_ratio = parseInt(scope.salefrobj.erjiprofit / (scope.saleobj.guide_price - scope.saleobj.cost_price) * 100);
+				console.log(scope.salefrobj.profit_ratio);
+				scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio *0.01)).toFixed(2);								
+				console.log(scope.salefrobj.profit);
+				scope.profit.flag = '1';				
 			}
 
 			$resource('/api/as/tc/saleshangkeprice/getinfo', {}, {})
@@ -55,6 +70,8 @@ module.exports = function($resource, $state, $http, $q,toaster){
 
 					scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio * 0.01)).toFixed(2);
 					console.log(scope.salefrobj.profit);
+					scope.salefrobj.erjiprofit = ((scope.saleobj.guide_price - scope.saleobj.cost_price)*scope.salefrobj.profit_ratio*0.01).toFixed(2);
+					console.log(scope.salefrobj.erjiprofit);
 					scope.salefrobj.rebate_unlimited = parseFloat(scope.salefrobj.rebate_unlimited);
 
 					if(scope.salefrobj.rebate_unlimited == 0){
@@ -64,6 +81,8 @@ module.exports = function($resource, $state, $http, $q,toaster){
 					
 				}else if(res.errcode === 10003){
 					scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio * 0.01)).toFixed(2);
+					scope.salefrobj.erjiprofit = ((scope.saleobj.guide_price - scope.saleobj.cost_price)*scope.salefrobj.profit_ratio*0.01).toFixed(2);
+					console.log(scope.salefrobj.erjiprofit);
 					if(scope.salefrobj.rebate_unlimited == 0){
 						scope.salefrobj.rebate_unlimited = parseFloat(scope.salefrobj.profit);
 					} 
