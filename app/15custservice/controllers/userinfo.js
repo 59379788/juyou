@@ -12,6 +12,8 @@ module.exports = function($scope, $state, $uibModal, userinfo, deleteuserinfo, u
         	ppp.mobile = $scope.searchform.para;
         }else if($scope.searchform.para.length == '18'){
 			ppp.papersno = $scope.searchform.para;
+        }else if($scope.searchform.para.length == '12'){
+			ppp.cardno = $scope.searchform.para;
         }else{
     		alert("位数错误");
     		return;
