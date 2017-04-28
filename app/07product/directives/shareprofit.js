@@ -12,7 +12,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
 		link : function(scope, elements, attrs){
 			scope.salefrobj = {
 				'rebate_lower' : 0,
-				'profit_ratio' : 10,
+				'profit_ratio' : 10.00,
 				'profit' : '',
 				'rebate_unlimited' : 0,
 				'merchant_make_appointment' : '0',
@@ -42,7 +42,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
 			}
 			scope.changeJe = function(){
 				console.log('设置二级利润');
-				scope.salefrobj.profit_ratio = parseInt(scope.salefrobj.erjiprofit / (scope.saleobj.guide_price - scope.saleobj.cost_price) * 100);
+				scope.salefrobj.profit_ratio = ((scope.salefrobj.erjiprofit / (scope.saleobj.guide_price - scope.saleobj.cost_price) * 100)).toFixed(2);
 				console.log(scope.salefrobj.profit_ratio);
 				scope.salefrobj.profit = ((scope.saleobj.guide_price - scope.saleobj.cost_price) * (1-scope.salefrobj.profit_ratio *0.01)).toFixed(2);								
 				console.log(scope.salefrobj.profit);

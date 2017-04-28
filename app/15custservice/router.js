@@ -203,6 +203,18 @@ var router = function($urlRouterProvider, $stateProvider){
          }
        })
 
+       //根据电话查看激活码
+       .state('app.getpackageinfolist', {
+         url: '/getpackageinfolist',
+         controller : 'getpackageinfolist',
+         template: require('./user/getpackageinfolist.html'),
+         resolve:{
+            getUserBaseInfomobile : function(custservice){
+                 return custservice.getUserBaseInfomobile();
+            }
+         }
+       })
+
 };
 
 module.exports = router;

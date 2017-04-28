@@ -64,6 +64,9 @@ var service = function($resource, BASEURL38985){
 
     //查看票信息
     var getinfobyid = BASEURL38985 + '/api/as/tc/ticket2/getinfobyid';
+
+    // 获取亲子套票激活用户信息
+    var getUserBaseInfomobile = BASEURL38985 + '/api/ac/uc/customService/getUserBaseInfo';
     
     return {
 
@@ -152,6 +155,9 @@ var service = function($resource, BASEURL38985){
         },
         getinfobyid : function(){
              return $resource(getinfobyid, {}, {});
+        },
+        getUserBaseInfomobile : function(){
+             return $resource(getUserBaseInfomobile, {}, {});
         }
 
        

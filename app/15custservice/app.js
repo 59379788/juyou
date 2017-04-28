@@ -31,6 +31,10 @@ App.controller('activecode',require('./controllers/activecode'));
 //查看票信息
 App.controller('ticketInfo',require('./controllers/ticketInfo'));
 
+// 获取亲子套票激活用户信息
+App.controller('getpackageinfolist',require('./controllers/getpackageinfolist'));
+
+
 
 
 module.exports = App;

@@ -64,9 +64,9 @@
            <a ng-click="seepicture(obj.pimg)" class="btn btn-info btn-xs">查看图片</a>            
         </td>      -->
         <td class="text-center">
-           <a ng-click="seepicture(obj.pimg)" class="btn btn-info btn-xs">查看图片</a>            
+           <a ng-click="seepicture(obj.pimg)" class="btn btn-success btn-xs">查看图片</a>            
           
-           <a ng-show="obj.state_name=='未处理'&&obj.sms_state == '未发送'" ng-click="pass(obj.id,obj.ticket_id)" class="btn btn-danger btn-xs">通过</a>
+           <a ng-show="obj.state_name=='未处理'&&obj.sms_state == '未发送'" ng-click="pass(obj.id,obj.ticket_id)" class="btn btn-success btn-xs">通过</a>
            <a ng-show="obj.state_name=='未处理'&&obj.sms_state == '未发送'" ng-click="refuse(obj.id)" class="btn btn-danger btn-xs">拒绝</a>
            <a ng-show="obj.state_name=='已通过' && obj.sms_state =='未发送'&& obj.ticket_id==undefined" ng-click="creataccount(obj.id,loginuser.company_id,loginuser.company_code,loginuser.office_id)" class="btn btn-success btn-xs">创建账号</a>
 
