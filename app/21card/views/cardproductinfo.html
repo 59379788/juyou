@@ -157,6 +157,22 @@
 	    </div>
   	</div>
 
+  	<div class="form-group">
+	    <label class="col-xs-3 control-label">是否出票</label>
+	    <div class="col-xs-9">
+	    	<label class="radio-inline">
+			  <input type="radio" name="outticket" value="0"
+			  ng-model="obj.outticket"
+			  > 出票
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="outticket" value="1"
+			  ng-model="obj.outticket"
+			  > 不出票
+			</label>
+	    </div>
+  	</div>
+
   	<div class="form-group form-inline">
 	    <label class="col-xs-3 control-label">红包</label>
 	    <div class="col-xs-9 form-inline">
@@ -176,6 +192,26 @@
             <option value="">请选择</option>
             </select>
 	    </div>   
+  	</div>
+
+  	<div class="form-group">
+	    <label class="col-xs-3 control-label">是否分润</label>
+	    <div class="col-xs-2">
+	    	<label class="radio-inline">
+			  <input type="radio" name="isshareprofit" value="0"
+			  ng-model="obj.isshareprofit"
+			  > 不分润
+			</label>
+			<label class="radio-inline">
+			  <input type="radio" name="isshareprofit" value="1"
+			  ng-model="obj.isshareprofit"
+			  > 分润
+			</label>
+	    </div>
+	    <div class="col-xs-2" ng-show="obj.isshareprofit == 1">
+	    	<input type="number" class="form-control" placeholder="分润比例" min='0' ng-model="obj.proportion"
+			>
+	    </div>
   	</div>
 
 	<div class="form-group">
