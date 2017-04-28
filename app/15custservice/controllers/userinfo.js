@@ -8,7 +8,7 @@ module.exports = function($scope, $state, $uibModal, userinfo, deleteuserinfo, u
 
     $scope.load = function () {
         userinfo.save($scope.searchform, function(res){
-
+        	var pcard = '';
          	console.log(res.data);
 
          	if(res.errcode !== 0)
