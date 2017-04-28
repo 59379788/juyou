@@ -1,19 +1,32 @@
-module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,FileUploader,findUserInfoList,toaster){
+module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,FileUploader,findUserInfoList,getDate,toaster){
     /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
+    //有效区间
+    $scope.section = {};
+    $scope.section.start = {};
+    $scope.section.start.date = new Date();
+ 
+    $scope.section.end = {};
+    $scope.section.end.date = new Date();
+
+    $scope.open = function(obj) {
+        obj.opened = true;
+    };
     $scope.info = {
         'name' : '',
         'mobile' : '',
-        'title' : ''
+        'title' : '',
+        'startTime' : ''
     }
 
     $scope.search = function(){
         var para = {
             pageNo:$scope.bigCurrentPage, 
-            pageSize:$scope.itemsPerPage,          
+            pageSize:$scope.itemsPerPage,  
+            startTime : getDate($scope.section.start.date)        
         };
         para = angular.extend($scope.info,para);
         findUserInfoList.save(para,function(res){

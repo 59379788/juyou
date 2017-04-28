@@ -10,6 +10,13 @@
                   &nbsp;&nbsp;
                   <input type="text" class="form-control" ng-model="info.title" placeholder="产品标题">
                   &nbsp;&nbsp;
+                  <label>预约场次</label>&nbsp;&nbsp;
+                  <div class="input-group">
+                  <input type="text" class="form-control" ng-keyup="myKeyup($event)" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" ng-required="true" close-text="Close" readonly/>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="open(section.start)"><i class="glyphicon glyphicon-calendar"></i></button>
+                      </span>
+                  </div>
                   <div class="form-group pull-right">
                       <button type="button" class="btn btn-primary" ng-click="search()">搜索预约人</button>
                       &nbsp;&nbsp;&nbsp;&nbsp;

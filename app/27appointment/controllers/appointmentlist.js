@@ -6,6 +6,8 @@ getDate,str2date,date2str,offstate,onstate,toaster){
     $scope.bigCurrentPage = 1;      //当前页码
     $scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
 
+    
+     
     $scope.searchForm = {
         'sale_name' : '',
         'ticket_name' : ''
@@ -14,9 +16,10 @@ getDate,str2date,date2str,offstate,onstate,toaster){
     $scope.search = function(){
         var para = {
             pageNo:$scope.bigCurrentPage, 
-            pageSize:$scope.itemsPerPage
+            pageSize:$scope.itemsPerPage      
         };
         para = angular.extend($scope.searchForm,para);
+        console.log(para);
         findMakeAppointmentList.save(para,function(res){
             if(res.errcode!=0){
                 toaster.success({title:"",body:res.errmsg});

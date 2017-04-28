@@ -80,6 +80,9 @@ var router = function($urlRouterProvider, $stateProvider){
             resolve:{
                 findUserInfoList : function(appointmentservice){
                     return appointmentservice.findUserInfoList();
+                },
+                getDate : function(utilservice){
+                	 return utilservice.getDate;
                 }
                 
             }
