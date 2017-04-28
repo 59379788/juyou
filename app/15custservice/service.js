@@ -6,6 +6,8 @@ var service = function($resource, BASEURL38985){
 
     var userinfo = BASEURL38985 + "/api/ac/uc/userService/getUserInfoByMobileForKf";
 
+    var cleanRedis = BASEURL38985 + "/api/ac/uc/userService/cleanRedis";
+
     var deleteuserinfo = BASEURL38985 + "/api/ac/uc/userService/deleteuserinfo";
 
     var updateidcard = BASEURL38985 + "/api/ac/uc/customService/updateUserAuthInfo";
@@ -69,6 +71,9 @@ var service = function($resource, BASEURL38985){
 
         userinfo : function(){
             return $resource(userinfo, {}, {});
+        },
+        cleanRedis : function(){
+            return $resource(cleanRedis, {}, {});
         },
         updatemobile : function(){
             return $resource(updatemobile, {}, {});

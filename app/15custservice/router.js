@@ -30,6 +30,9 @@ var router = function($urlRouterProvider, $stateProvider){
             syncUserAuthInfo : function(custservice){
                 return custservice.syncUserAuthInfo();
             },
+            cleanRedis : function(custservice){
+                return custservice.cleanRedis();
+            },
             updatemobile : function(custservice){
                 return custservice.updatemobile();
             }

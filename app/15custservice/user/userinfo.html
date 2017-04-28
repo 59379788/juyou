@@ -4,7 +4,13 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-10">
-                <input type="text" class="form-control" ng-model="searchform.para" placeholder="请输入手机号或身份证号或卡号" style="width:250px;">
+            	<select class="form-control" ng-model="searchform.type" placeholder="票状态">
+					<option label="手机号" value="1"></option>
+					<option label="身份证" value="2"></option>
+					<option label="卡号" value="3"></option>
+				</select> 
+				&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="searchform.param" style="width:200px;">
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
             </div>
@@ -50,6 +56,7 @@
 		        	<a ng-click="edit(obj)" class="btn btn-success btn-xs">编辑</a>
 		        	<a ng-click="clear(obj)" class="btn btn-info btn-xs" ng-show="obj.status == 1">清除实名制</a>
 		        	<a ng-click="synccard(obj)" class="btn btn-success btn-xs">同步卡信息</a><br>
+		        	<a ng-click="cleanredis(obj)" class="btn btn-success btn-xs">清除缓存</a>
 		        	<a ng-click="del(obj)" class="btn btn-warning btn-xs">删除</a>
 		        	<a ng-click="forcedel(obj)" class="btn btn-danger btn-xs">强制删除</a>
 		        </td>
