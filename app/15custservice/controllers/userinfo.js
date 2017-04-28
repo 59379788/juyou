@@ -1,25 +1,14 @@
 module.exports = function($scope, $state, $uibModal, userinfo, deleteuserinfo, updatemobile,
-	updateUserAuthInfo, edituserinfo, updateidcard, syncUserAuthInfo){
+	updateUserAuthInfo, edituserinfo, updateidcard, syncUserAuthInfo, cleanRedis){
 
 	$scope.searchform = {};
+	$scope.searchform.type = '1';
 	$scope.obj = {};
 	$scope.userstate = 1;
 
     $scope.load = function () {
-    	var ppp = {};
-    	var pcard = '';
-        if($scope.searchform.para.length == '11'){
-        	ppp.mobile = $scope.searchform.para;
-        }else if($scope.searchform.para.length == '18'){
-			ppp.papersno = $scope.searchform.para;
-        }else if($scope.searchform.para.length == '12'){
-			ppp.cardno = $scope.searchform.para;
-        }else{
-    		alert("位数错误");
-    		return;
-    	}
-        userinfo.save(ppp, function(res){
-
+        userinfo.save($scope.searchform, function(res){
+        	var pcard = '';
          	console.log(res.data);
 
          	if(res.errcode !== 0)
@@ -35,8 +24,8 @@ module.exports = function($scope, $state, $uibModal, userinfo, deleteuserinfo, u
          	$scope.obj.pcard = pcard.substring(0,pcard.length-1);
          	$scope.obj.digitalcardno = res.data.digitalcardno;
          	
-         	$scope.userstate = 0;
         });
+        $scope.userstate = 0;
     };
 
     $scope.edit = function (obj) {
@@ -154,6 +143,25 @@ module.exports = function($scope, $state, $uibModal, userinfo, deleteuserinfo, u
 				{
 					alert("同步成功");
 					$scope.load();
+				}
+				else
+				{
+					alert(res.errmsg);
+				}
+
+			});
+		}
+	}
+
+	$scope.cleanredis = function(obj){
+		if (confirm("您确认要清除缓存吗？")) {
+			cleanRedis.save({'mobile' : obj.mobile}, function(res){
+
+				console.log(res);
+
+				if(res.errcode === 0)
+				{
+					alert("清除成功");
 				}
 				else
 				{
