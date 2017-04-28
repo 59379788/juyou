@@ -10,7 +10,7 @@ module.exports = function($scope,getUserBaseInfomobile,$uibModal,toaster){
 
          	if(res.errcode !== 0)
          	{
-         		alert("数据获取失败");
+         		alert(res.errmsg);
          		return;
          	}
 

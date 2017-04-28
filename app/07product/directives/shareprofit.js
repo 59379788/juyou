@@ -134,6 +134,7 @@ module.exports = function($resource, $state, $http, $q,toaster){
 				} else if(scope.salefrobj.rebate_unlimited>scope.salefrobj.profit){
 					toaster.success({title:"",body:"红包上限不能大于利润"});			
 				} else {
+					// var profitradio = scope.salefrobj.profit_ratio * 100;
 					scope.salefrobj.profit_ratio = scope.salefrobj.profit_ratio * 100;					
 					$resource('/api/as/tc/saleshangkeprice/save', {}, {})
                     .save(scope.salefrobj,function(res){
