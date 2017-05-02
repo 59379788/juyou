@@ -81,6 +81,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             saveconfirm : function(busscustomerservice){
                  return busscustomerservice.saveconfirm();
+            },
+            typelists : function(busscustomerservice){
+                 return busscustomerservice.typelists();
             }   
           
        

@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $uibModal,supplierlist,saveconfirm,toaster){
+module.exports = function($scope, $stateParams, $uibModal,supplierlist,saveconfirm,typelists,toaster){
     // 获取申请人列表信息
     $scope.getlist = function(){
         supplierlist.save({}, function(res){
@@ -6,11 +6,34 @@ module.exports = function($scope, $stateParams, $uibModal,supplierlist,saveconfi
                 toaster.success({title:"",body:res.errmsg});
                 return; 
             }
-            $scope.objs = res.data;
-            console.log($scope.objs);
+            var listarr = res.data;
+            typelists.save({'type' : "cheap_menu"}, function(res){
+                if (res.errcode !== 0) {
+                    toaster.success({title:"",body:res.errmsg});
+                    return; 
+                }
+                var typearr = res.data;
+                var objsarr = [];              
+                console.log('字典类型');
+                console.log(res);
+                for(var i = 0; i < listarr.length; i++){
+                    for(var j = 0; j < typearr.length; j++){
+                        if(listarr[i].sale_category == typearr[j].id){
+                            listarr[i].sale_category =typearr[j].label;
+                            objsarr.push(listarr[i]);
+                        }
+                        
+                    }
+                    
+                }
+                console.log(objsarr);
+                $scope.objs = objsarr;
+                
+            })
 
 
         });
+        console.log($scope.objs);
     };
     $scope.getlist();
     // 申请人确认
