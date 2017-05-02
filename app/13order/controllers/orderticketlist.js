@@ -14,7 +14,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
     var fun;
     var viewname = '';
 
-    if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong')
+    if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong === 'supply_tstc')
     {
         fun = ticketlist;
     }
@@ -63,7 +63,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
                 }
 
                 var arr = [];
-                if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong')
+                if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong === 'supply_tstc')
                 {
                     arr = res.data;
                 }
@@ -143,7 +143,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
 
         console.log(obj1);
 
-        if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong')
+        if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong === 'supply_tstc')
         {
             juyouback(obj1);
         }

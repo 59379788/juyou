@@ -183,7 +183,7 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
         var fun;
 
         var para = {};
-        if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong')
+        if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong === 'supply_tstc')
         {
             fun = resend;
             para['code'] = obj.code;
