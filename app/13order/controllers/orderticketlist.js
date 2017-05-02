@@ -329,7 +329,12 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
 
             if(res.errcode === 0)
             {
-                alert('退票成功');
+                if(res.data.result == '1'){
+					alert('退票成功');
+				} else if(res.data.result == '2') {
+					alert('退票申请已提交，待审核');
+				}
+                // alert('退票成功');
                 $scope.load();
             }
             else
