@@ -112,6 +112,14 @@ module.exports = function($resource, BASEURL38985, $q, $http){
             {
                 'name' : '办卡机',
                 'code' : 4
+            },
+            {
+                'name' : '自助售票机',
+                'code' : 5
+            },
+            {
+                'name' : '双屏pos机',
+                'code' : 6
             }
         ],
         tktlist : function(){

@@ -51,8 +51,19 @@ module.exports = function($scope, $stateParams, slist, devicetype, create, $stat
 	// });
 
 
+	function trim(str) {
+		return str.replace(/(^\s+)|(\s+$)/g, "");
+	}
+
 	//gogo
 	$scope.gogo = function(){
+
+		if ($scope.obj.type == 5 || $scope.obj.type == 6) {
+			if ($scope.obj.seller_login_code == undefined || trim($scope.obj.seller_login_code) == '' ) {
+				alert('请填写登录用户')
+				return;
+			}
+		}
 
 		create.save($scope.obj, function(res){
 
