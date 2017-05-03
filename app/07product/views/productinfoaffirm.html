@@ -87,11 +87,6 @@
 			<label class="col-sm-2 col-xs-12 control-label">商品id</label>
 			<div class="col-xs-10">
 				<p class="form-control-static" ng-bind-html="affirm.sysaffirm_target_goods_code"></p>
-				<!--<select class="form-control" 
-				ng-model="affirm.sysaffirm_target_code" ng-disabled="true"
-				ng-options="ticket_sys_affirm.value as ticket_sys_affirm.label for ticket_sys_affirm in page.affirmlist"
-	            >
-	            </select>-->
 			</div>
 		</div>
 	</div>
@@ -100,11 +95,6 @@
 			<label class="col-sm-2 col-xs-12 control-label">商品景区id</label>
 			<div class="col-xs-10">
 				<p class="form-control-static" ng-bind-html="affirm.sysaffirm_target_goods_view"></p>
-				<!--<select class="form-control" 
-				ng-model="affirm.sysaffirm_target_code" ng-disabled="true"
-				ng-options="ticket_sys_affirm.value as ticket_sys_affirm.label for ticket_sys_affirm in page.affirmlist"
-	            >
-	            </select>-->
 			</div>
 		</div>
 	</div>
@@ -113,25 +103,28 @@
 			<label class="col-sm-2 col-xs-12 control-label">商品供应商id</label>
 			<div class="col-xs-10">
 				<p class="form-control-static" ng-bind-html="affirm.sysaffirm_target_goods_supply"></p>
-				<!--<select class="form-control" 
-				ng-model="affirm.sysaffirm_target_code" ng-disabled="true"
-				ng-options="ticket_sys_affirm.value as ticket_sys_affirm.label for ticket_sys_affirm in page.affirmlist"
-	            >
-	            </select>-->
 			</div>
 		</div>
 	</div>
-<!--
-	<div class="col-xs-10"  ng-if="(saleobj.state == '0') && (util.what != 'info')">
+	
+	
+	<!-- 同程旅游 -->
+	<div class="col-xs-12 col-md-12 mt10" ng-show="affirm.sysaffirm_target_code == 'supply_tongchenglvyou'">
 		<div class="form-group">
-			<label class="col-sm-2 col-xs-12 control-label"></label>
-			<div class="col-sm-10 col-xs-12">
-				<button type="button" class="btn btn-primary btn-lg btn-block"
-				ng-click="save()"
-				>保存</button>
+			<label class="col-sm-2 col-xs-12 control-label">商品id</label>
+			<div class="col-xs-10">
+				<p class="form-control-static" ng-bind-html="affirm.sysaffirm_target_goods_code"></p>
 			</div>
 		</div>
-	</div>-->
+	</div>
+	<div class="col-xs-12 col-md-12 mt10" ng-show="affirm.sysaffirm_target_code == 'supply_tongchenglvyou'">
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">商品景区id</label>
+			<div class="col-xs-10">
+				<p class="form-control-static" ng-bind-html="affirm.sysaffirm_target_goods_view"></p>
+			</div>
+		</div>
+	</div>
 
 		
 </div>
