@@ -1,4 +1,4 @@
-module.exports = function($scope, $uibModal, cardA, updateCardPass){
+module.exports = function($scope, $uibModal, cardA, updateCardPass, saleticketinfo){
 
 	$scope.searchform = {};
     
@@ -40,6 +40,30 @@ module.exports = function($scope, $uibModal, cardA, updateCardPass){
             $scope.load();
         }, function () {
             
+        });
+
+    };
+
+    $scope.ticketinfo = function(code){
+
+        var modalInstance = $uibModal.open({
+          template: require('../user/saleticketinfo.html'),
+          controller: 'saleticketinfo',
+          size: 'lg',
+          resolve: {
+            code : function(){
+                return code;
+            },
+            saleticketinfo : function(){
+                return saleticketinfo;
+            }
+          }
+        });
+
+        modalInstance.result.then(function () {
+          //load();
+        }, function () {
+          //$log.info('Modal dismissed at: ' + new Date());
         });
 
     };

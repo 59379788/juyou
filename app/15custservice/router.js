@@ -60,6 +60,9 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             updateCardPass : function(custservice){
                 return custservice.updateCardPass();
+            },
+            saleticketinfo : function(cardservice){
+                return cardservice.saleticketinfo();
             }
         }
       })

@@ -40,9 +40,7 @@
         	{{obj.product_name}}<br>
         	{{obj.product_code}}
         </td>
-        <td class="text-center">
-        	{{obj.sale_code}}
-        </td>
+        <td class="text-center"><a ng-click="ticketinfo(obj.sale_code)" style="cursor:pointer">{{obj.sale_code}}</a></td>
         <td class="text-center">
         	<a ng-click="edit(obj.card_num)" class="btn btn-success btn-xs">修改卡密</a>
         </td>
