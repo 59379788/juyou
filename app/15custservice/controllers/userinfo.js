@@ -172,4 +172,8 @@ module.exports = function($scope, $state, $uibModal, userinfo, deleteuserinfo, u
 		}
 	}
 
+	$scope.create = function () {
+        $state.go('app.createuserinfo');
+    };
+
 };

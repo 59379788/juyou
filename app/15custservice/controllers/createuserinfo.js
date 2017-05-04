@@ -1,16 +1,16 @@
-module.exports = function($scope, createuserinfo){
+module.exports = function($scope, $state, createuserinfo){
 
 	$scope.objt = {};
 
 	$scope.gogo = function(){
-		$scope.objt.headphoto = '1';
 		createuserinfo.save($scope.objt, function(res){
 
 			console.log(res);
 
-			if(res.errcode === 1000)
+			if(res.errcode === 0)
 			{
-				alert("实名认证成功");
+				alert("注册实名成功");
+				$state.go('app.userinfo');
 			}
 			else
 			{

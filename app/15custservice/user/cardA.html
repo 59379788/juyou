@@ -3,8 +3,8 @@
     <div class="panel-body">
         <div class="form-group form-inline">
             <div class="col-sm-12">
-                <label>物理卡号</label>&nbsp;&nbsp;
-                <input type="text" class="form-control" ng-model="searchform.card_num" placeholder="请输入物理卡号">
+                <label>卡号</label>&nbsp;&nbsp;
+                <input type="text" class="form-control" ng-model="searchform.card_num" placeholder="请输入卡号">
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <button type="button" class="btn btn-default search" ng-click="load()">立即搜索</button>
             </div>
@@ -16,10 +16,13 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="text-center">物理卡号</th>
-        <th class="text-center">物理卡密</th>
-        <th class="text-center">物理卡内号</th>
+        <th class="text-center">卡号</th>
+        <th class="text-center">卡密</th>
+        <th class="text-center">卡内号</th>
         <th class="text-center">使用状态</th>
+        <th class="text-center">配置卡池</th>
+        <th class="text-center">配置卡产品</th>
+        <th class="text-center">配置票销售品</th>
         <th class="text-center">操作</th>
       </tr>
     </thead>
@@ -29,6 +32,17 @@
         <td class="text-center">{{obj.card_password}}</td>
         <td class="text-center">{{obj.phy_card_inside}}</td>
         <td class="text-center">{{obj.card_statusname}}</td>
+        <td class="text-center">
+        	{{obj.pool_name}}<br>
+        	{{obj.pool_code}}
+        </td>
+        <td class="text-center">
+        	{{obj.product_name}}<br>
+        	{{obj.product_code}}
+        </td>
+        <td class="text-center">
+        	{{obj.sale_code}}
+        </td>
         <td class="text-center">
         	<a ng-click="edit(obj.card_num)" class="btn btn-success btn-xs">修改卡密</a>
         </td>
