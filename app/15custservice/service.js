@@ -50,7 +50,7 @@ var service = function($resource, BASEURL38985){
 
     var destoryticketrecord = BASEURL38985 + "/api/as/tc/ticketorder/destoryticketrecord";
 
-    var registercount = BASEURL38985 + "/api/ac/uc/userActiveService/countCard";
+    var registercount = BASEURL38985 + "/api/ac/uc/userService/countCard";
 
 
     //七星彩查uid
