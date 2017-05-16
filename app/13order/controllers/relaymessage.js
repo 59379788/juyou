@@ -28,7 +28,7 @@ module.exports = function($scope, $uibModalInstance, code, relay, sale_belong,
 
 		var fun;
 		var para = {};
-        if(sale_belong === 'juyou' || sale_belong === 'supply_piaofutong' ||  sale_belong === 'supply_tstc' ||  sale_belong === 'supply_tongchenglvyou')
+        if(sale_belong === 'juyou' || sale_belong === 'supply_piaofutong' ||  sale_belong === 'supply_tstc' ||  sale_belong === 'supply_tongchenglvyou' || sale_belong === 'supply_zhiyoubao')
         {
             fun = relay;
             para['code'] = $scope.obj.code;
