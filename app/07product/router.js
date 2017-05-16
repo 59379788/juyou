@@ -840,6 +840,21 @@ var router = function ($urlRouterProvider, $stateProvider) {
 
 			}
 		})
+		//商客专属设置
+		.state('app.skprofit', {
+			url: '/product/skprofit.html/:code/:name/:guide_price/:cost_price',
+			controller: 'skprofit',
+			template: require('./views/skprofit.html'),
+			resolve: {
+				
+				getDate: function (utilservice) {
+					return utilservice.getDate;
+				}
+
+
+			}
+		})
+
 
 
 };

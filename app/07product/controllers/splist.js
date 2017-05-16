@@ -328,4 +328,36 @@ module.exports = function ($scope, $state, $resource, ITEMS_PERPAGE, $uibModal, 
 		}
 	};
 
+	$scope.skset = function(code,name,guide_price,cost_price){
+		console.log(code,name,guide_price,cost_price);
+		$state.go('app.skprofit',{'code' : code, 'name' : name, 'guide_price' : guide_price, 'cost_price' : cost_price});
+		// var modalInstance = $uibModal.open({
+		// 	template: require('../views/skprofit.html'),
+		// 	controller: 'skprofit',
+		// 	url: '/skprofit/:id',
+		// 	size: 'lg',
+		// 	resolve: {
+		// 		// 'productid': function () {
+		// 		// 	return id;
+		// 		// },
+		// 		// str2date: function () {
+		// 		// 	return str2date;
+		// 		// },
+		// 		// date2str: function () {
+		// 		// 	return date2str;
+		// 		// },
+		// 		// auditing: function () {
+		// 		// 	return false;
+		// 		// }
+
+		// 	}
+		// });
+
+		// modalInstance.result.then(function () {
+		// 	//load();
+		// }, function () {
+		// 	//$log.info('Modal dismissed at: ' + new Date());
+		// });
+	}
+
 };

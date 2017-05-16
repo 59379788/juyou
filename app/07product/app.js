@@ -59,4 +59,7 @@ App.directive('productinfoimgtextinfo',require('./directives/productinfoimgtexti
 App.directive('productinfogovsubsidy',require('./directives/productinfogovsubsidy'));
 App.directive('productinfojuyousubsidy',require('./directives/productinfojuyousubsidy'));
 
+
+App.controller('skprofit',require('./controllers/skprofit'));
+
 module.exports = App;
