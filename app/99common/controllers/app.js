@@ -1,8 +1,12 @@
-module.exports = function($scope, $rootScope){
+module.exports = function($scope, $rootScope, toaster){
 
 	$scope.menuobj = $rootScope.menudata;
 
 	$scope.isCollapsed = true;
+
+	$scope.noRule = function(){
+		toaster.error({ title: "提示", body: "请配置链接地址！" });
+	}
 
 
 	// $scope.logo = require('../../img/logo.png');
