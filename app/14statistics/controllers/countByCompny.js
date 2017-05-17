@@ -90,7 +90,7 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 	$scope.maxSize = 5;            //最多显示多少个按钮
 	$scope.bigCurrentPage = 1;      //当前页码
 	$scope.itemsPerPage = ITEMS_PERPAGE;         //每页显示几条
-    
+
 
 	$scope.myKeyup = function (e) {
 
@@ -184,8 +184,15 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 	];
 
 	$scope.exportToExcel = function (tableId) {
-		$scope.exportHref = Excel.tableToExcel(tableId, '哈哈哈哈哈sheet1');
-		$timeout(function () { location.href = $scope.exportHref; }, 100); // trigger download
+		$timeout(function () {
+			document.getElementById("dlink").href = Excel.tableToExcel(tableId, 'sheet1');
+			//document.getElementById("dlink").download = "1122b.xls";//这里是关键所在,当点击之后,设置a标签的属性,这样就可以更改标签的标题了
+			document.getElementById("dlink").click();
+		}, 100); // trigger download
+
+		
+		// $scope.exportHref = Excel.tableToExcel(tableId, '哈哈哈哈哈sheet1');
+		// $timeout(function () { location.href = $scope.exportHref; }, 100); // trigger download
 	}
 
 };

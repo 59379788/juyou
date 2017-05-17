@@ -79,6 +79,7 @@
 								</select>
 						</div>
 						<button type="button btn" class="btn btn-default search pull-right btn-info" ng-click="exportToExcel('#Excel_table')">导出Excel</button>
+						<a id="dlink" download="分销统计.xls" ng-show="false"></a>
 						<button type="button btn" class="btn btn-default search pull-right" ng-click="orderSearch()">立即搜索</button>
 					</div>
 				</div>
@@ -155,8 +156,8 @@
 					<th class="col-md-1 text-center" ng-if="ticket_type_flag == 2">计划人数</th>
 					<th class="col-md-1 text-center" ng-if="ticket_type_flag == 2">预订人数</th>
 					<th class="col-md-1 text-center" ng-if="ticket_type_flag == 2">实际人数</th>
-					<th class="col-md-1 text-center" style="padding-left:0px;padding-right: 0px;">名单人数</th>
-					<th class="col-md-1 text-center" style="padding-left:0px;padding-right: 0px;">支付金额</th>
+					<th class="col-md-1 text-center" ng-if="ticket_type_flag == 2">名单人数</th>
+					<th class="col-md-1 text-center" ng-if="ticket_type_flag == 2">支付金额</th>
 				</tr>
 			</thead>
 			<tbody ng-repeat="item in objs">
