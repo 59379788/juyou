@@ -114,13 +114,15 @@
 			<table class="table table-bordered" ng-if="ticket_type_flag == 2" content="text/html; charset=utf-8">
 				<thead>
 					<tr>
-						<th class="col-md-2 text-center">机构编码</th>
+						<th class="col-md-1 text-center">机构编码</th>
 						<th class="col-md-2 text-center">机构名称</th>
 						<th class="col-md-2 text-center">产品编码</th>
-						<th class="col-md-3 text-center">产品名称</th>
+						<th class="col-md-2 text-center">产品名称</th>
 						<th class="col-md-1 text-center" style="padding-left:0px;padding-right: 0px;">计划人数</th>
 						<th class="col-md-1 text-center" style="padding-left:0px;padding-right: 0px;">预订人数</th>
 						<th class="col-md-1 text-center" style="padding-left:0px;padding-right: 0px;">实际人数</th>
+						<th class="col-md-1 text-center" style="padding-left:0px;padding-right: 0px;">名单人数</th>
+						<th class="col-md-1 text-center" style="padding-left:0px;padding-right: 0px;">支付金额</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -132,6 +134,8 @@
 						<td class="text-center">{{obj.plan_count}}</td>
 						<td class="text-center">{{obj.book_count}}</td>
 						<td class="text-center">{{obj.actual_count}}</td>
+						<td class="text-center">{{obj.count}}</td>
+						<td class="text-center">{{obj.pay_price}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -151,6 +155,8 @@
 					<th class="col-md-1 text-center" ng-if="ticket_type_flag == 2">计划人数</th>
 					<th class="col-md-1 text-center" ng-if="ticket_type_flag == 2">预订人数</th>
 					<th class="col-md-1 text-center" ng-if="ticket_type_flag == 2">实际人数</th>
+					<th class="col-md-1 text-center" style="padding-left:0px;padding-right: 0px;">名单人数</th>
+					<th class="col-md-1 text-center" style="padding-left:0px;padding-right: 0px;">支付金额</th>
 				</tr>
 			</thead>
 			<tbody ng-repeat="item in objs">
@@ -165,6 +171,8 @@
 					<td class="text-center" ng-if="ticket_type_flag == 2">{{obj.plan_count}}</td>
 					<td class="text-center" ng-if="ticket_type_flag == 2">{{obj.book_count}}</td>
 					<td class="text-center" ng-if="ticket_type_flag == 2">{{obj.actual_count}}</td>
+					<td class="text-center" ng-if="ticket_type_flag == 2">{{obj.count}}</td>
+					<td class="text-center" ng-if="ticket_type_flag == 2">{{obj.pay_price}}</td>
 				</tr>
 			</tbody>
 		</table>
