@@ -2,6 +2,7 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 	ITEMS_PERPAGE) {
 
 	$scope.objs = [];
+	$scope.ExcelName = '';
 
 	$scope.searchform = {};
 	$scope.searchform.company_type = '1';
@@ -112,6 +113,7 @@ module.exports = function ($scope, $state, mechanism, $uibModal, countByCompnyco
 			alert('请选择机构');
 			return false;
 		}
+		$scope.ExcelName = getDate($scope.section.start.date) + '至' + getDate($scope.section.end.date);
 
 		var para = {
 			pageNo: $scope.bigCurrentPage,

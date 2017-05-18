@@ -79,7 +79,7 @@
 								</select>
 						</div>
 						<button type="button btn" class="btn btn-default search pull-right btn-info" ng-click="exportToExcel('#Excel_table')">导出Excel</button>
-						<a id="dlink" download="分销统计.xls" ng-show="false"></a>
+						<a id="dlink" download="{{selectedCompany}}{{ExcelName}}.xls" ng-show="false"></a>
 						<button type="button btn" class="btn btn-default search pull-right" ng-click="orderSearch()">立即搜索</button>
 					</div>
 				</div>
