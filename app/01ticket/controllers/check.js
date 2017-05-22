@@ -125,7 +125,7 @@ module.exports = function ($scope, $uibModal,
 
 					console.log(para);
 
-					func.get(para, function (res) {
+					func.save(para, function (res) {
 
 						console.log(res);
 
