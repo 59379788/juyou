@@ -111,10 +111,12 @@ module.exports = function($resource, $state, $http, $q, toaster){
 	scope.save = function(item){
 
 		console.log(item);
-		console.log(scope.saleobj)
+		console.log("000000000000");
+		console.log(scope.saleobj);
 
 		var para = {
 			id : item.id,
+			appoint:item.appoint,
 			periodend : scope.util.date2str(item.section.periodend.date),
 			periodstart : scope.util.date2str(item.section.periodstart.date)
 		}
