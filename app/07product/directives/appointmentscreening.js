@@ -22,82 +22,11 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			//页面需要的信息。
 			scope.page = {};
 
-			var beforedata = {
-				//类型列表
-				'categorylist':
-				$http({
-					'method': 'GET',
-					'url': '/api/as/sc/dict/dictbytypelist',
-					'params': { 'type': 'sale_category' },
-				}),
-				//产品所属
-				'salebelonglist':
-				$http({
-					'method': 'GET',
-					'url': '/api/as/sc/dict/dictbytypelist',
-					'params': { 'type': 'ticket_sale_belong' },
-				}),
-				//短信信息
-				'smslist':
-				$http({
-					'method': 'GET',
-					'url': '/api/as/tc/salesmstemplate/list',
-				}),
-			};
-
-
-			if (scope.saleobj.id != '') {
-				beforedata['saleinfo'] = $http({
-					'method': 'GET',
-					'url': '/api/as/tc/sale/info',
-					'params': {
-						'id': scope.saleobj.id
-					}
-				});
-			}
-
-
-			$q.all(beforedata).then(function (res) {
-
-				// console.log(res);
-				// if (angular.isDefined(res.saleinfo)) {
-				// 	//销售品信息
-				// 	if (res.saleinfo.data.errcode === 0) {
-				// 		console.log(res.saleinfo.data);
-				// 		//赋值给销售品对象。
-				// 		angular.extend(scope.saleobj, res.saleinfo.data.data);
-				// 		if (scope.saleobj.periodstart != '') {
-				// 			scope.baseinfo.dateshow.periodstart.date = scope.util.str2date(scope.saleobj.periodstart);
-				// 		}
-				// 		if (scope.saleobj.periodend != '') {
-				// 			scope.baseinfo.dateshow.periodend.date = scope.util.str2date(scope.saleobj.periodend);
-				// 		}
-				// 		console.log('销售品详情赋值');
-				// 		console.log(scope.saleobj);
-				// 	} else {
-				// 		alert('/api/as/tc/sale/info' + res.saleinfo.data.errmsg);
-				// 		return;
-				// 	}
-				// }
-
-				// scope.page = {
-				// 	//分类列表
-				// 	'categorylist': res.categorylist.data.data,
-				// 	//产品所属
-				// 	'salebelonglist': res.salebelonglist.data.data,
-				// 	//短信列表
-				// 	'smslist': res.smslist.data.data,
-				// };
-
-
-			});
-
             // 场次列表
             scope.findTimeInfoList = function(){
                 var url = '';
-                url = '/api/as/mc/mermakeappointmentdao/findTimeInfoList';
+                url = '/api/as/tc/appoint/findAppointTimeList';
                 $resource(url, {}, {}).save({'appoint_id' : scope.saleobj.id}, function (res) {
-                    console.log({'appoint_id' : scope.saleobj.id});
 					if (res.errcode != 0) {
 						toaster.error({ title: "提示", body: res.errmsg });
 						return;
@@ -114,14 +43,11 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
             scope.findTimeInfoList();
             // 添加
 			scope.add = function () {
-				scope.info.startTime = scope.util.date2str(scope.baseinfo.dateshow.periodstart.date);
-				scope.info.endTime = scope.util.date2str(scope.baseinfo.dateshow.periodend.date);
-
-				//console.log(scope.saleobj);
-
+				scope.info.start_time = scope.util.date2str(scope.baseinfo.dateshow.periodstart.date);
+				scope.info.end_time = scope.util.date2str(scope.baseinfo.dateshow.periodend.date);
 				var url = '';
 				var para = {};
-                url = '/api/as/mc/mermakeappointmentdao/saveTime';
+                url = '/api/as/tc/appoint/saveAppointTime';
                 para = scope.info;
 
 				$resource(url, {}, {}).save(para, function (res) {
@@ -141,7 +67,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			};
 			scope.delete = function(id){
 				console.log('shanchu ');
-				var url = '/api/as/mc/mermakeappointmentdao/updateTimeDel';
+				var url = '/api/as/tc/appoint/setAppointTimeDel';
 				if(confirm('确定要删除吗~~~~亲~')){
 					$resource(url, {}, {}).save({'id' : id}, function (res) {
 						console.log({'id' : id});
@@ -161,7 +87,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			}
 
 			scope.save = function(obj){
-				var url = '/api/as/mc/mermakeappointmentdao/updateTime';
+				var url = '/api/as/tc/appoint/setAppointTime';
 				$resource(url, {}, {}).save(obj, function (res) {
 					console.log(obj);
 					if (res.errcode != 0) {

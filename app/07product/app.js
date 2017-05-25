@@ -62,4 +62,13 @@ App.directive('productinfojuyousubsidy',require('./directives/productinfojuyousu
 
 App.controller('skprofit',require('./controllers/skprofit'));
 
+
+//预约列表
+App.controller('appoint',require('./controllers/appointmentlist'));
+App.controller('setAppoint',require('./controllers/setappointment'));
+App.directive('appointBaseinfo',require('./directives/appointmentbaseinfo'));
+App.directive('appointScreening',require('./directives/appointmentscreening'));
+App.directive('appointTicket',require('./directives/appointmentticket'));
+App.controller('customerList',require('./controllers/customerlist'));
+
 module.exports = App;
