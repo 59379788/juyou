@@ -28,12 +28,12 @@ module.exports = {
     hot: true,
     inline: true,
     progress: true
-   ,
-    proxy: {
-      '/api': 'http://dlqt.juyouhx.com',
-      '/manager': 'http://dlqt.juyouhx.com',
-      '/a/': 'http://dlqt.juyouhx.com'
-    }
+//    ,
+//     proxy: {
+//       '/api': 'http://dlqt.juyouhx.com',
+//       '/manager': 'http://dlqt.juyouhx.com',
+//       '/a/': 'http://dlqt.juyouhx.com'
+//     }
   },
   plugins: [
         new webpack.ProvidePlugin({
