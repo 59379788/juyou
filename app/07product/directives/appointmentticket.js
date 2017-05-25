@@ -65,7 +65,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
             };
             // 票种列表
             scope.ticketlist = function(){
-                $resource('/api/as/mc/mermakeappointmentdao/findSaleInfoList', {}, {})
+                $resource('/api/as/tc/appoint/findAppointSaleList', {}, {})
                 .save({'appoint_id' : scope.saleobj.id}, function(res){
                     //console.log('查询景区下的票种信息');
                     //console.log(res);
@@ -155,7 +155,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
                 
                 
 
-                $resource('/api/as/mc/mermakeappointmentdao/saveSaleInfo', {}, {})
+                $resource('/api/as/tc/appoint/saveAppointSale', {}, {})
                 .save(scope.tickettypeobj, function(res){
                     console.log(scope.tickettypeobj);
                     //console.log(res);
@@ -171,7 +171,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
                 });
             };
             scope.delete = function(id){
-                var url = '/api/as/mc/mermakeappointmentdao/updateSaleDel';
+                var url = '/api/as/tc/appoint/setAppointSaleDel';
 				if(confirm('确定要删除吗~~~~亲~')){
 					$resource(url, {}, {}).save({'id' : id}, function (res) {
 						console.log({'id' : id});
