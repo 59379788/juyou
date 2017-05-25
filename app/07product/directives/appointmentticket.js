@@ -46,7 +46,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				'productlist':
 				$http({
 					'method': 'GET',
-					'url': '/api/as/tc/sale/alllist',
+					'url': '/api/as/tc/appoint/findSaleList',
 				}),
 				//景区列表
 				'viewlist':
