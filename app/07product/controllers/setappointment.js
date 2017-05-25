@@ -1,12 +1,7 @@
 
-module.exports = function ($scope, $stateParams, $http, $q, FileUploader,what,productid,str2date, date2str, $resource, toaster, $uibModalInstance, auditing) {
+module.exports = function ($scope, $stateParams, $http, $q, FileUploader, what, productid, str2date, date2str, $resource, toaster, $uibModalInstance, auditing) {
 
 	var id = $stateParams.id || productid;
-	console.log('传的id');
-	console.log(id);
-
-	console.log('what');
-	console.log(what);
 	//产品对象，保存着产品的基本信息
 	$scope.saleobj = {
 		'id': id || '',
@@ -71,7 +66,7 @@ module.exports = function ($scope, $stateParams, $http, $q, FileUploader,what,pr
 	$scope.baseinfo.dateshow.open = function (obj) {
 		obj.opened = true;
 	};
-	
+
 
 
 
