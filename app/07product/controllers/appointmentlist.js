@@ -28,7 +28,22 @@ module.exports = function ($scope, $stateParams, $state, $uibModal, ITEMS_PERPAG
             var array = res.data.results;
             for (var i = 0; i < array.length; i++) {
                 if (array[i].start_time) {
-                    array[i].start_time = array[i].start_time.replace(/,/g, '\r\n');
+                    array[i].start_time = array[i].start_time.replace(/,/g, '<br/>');
+                }
+                if (array[i].sale_name) {
+                    array[i].sale_name = array[i].sale_name.replace(/,/g, '<br/>');
+                }
+                if (array[i].sale_code) {
+                    array[i].sale_code = array[i].sale_code.replace(/,/g, '<br/>');
+                }
+                if (array[i].ticket_code) {
+                    array[i].ticket_code = array[i].ticket_code.replace(/,/g, '<br/>');
+                }
+                if (array[i].ticket_name) {
+                    array[i].ticket_name = array[i].ticket_name.replace(/,/g, '<br/>');
+                }
+                if (array[i].stock_num) {
+                    array[i].stock_num = array[i].stock_num.replace(/,/g, '<br/>');
                 }
             }
             $scope.objs = array;
