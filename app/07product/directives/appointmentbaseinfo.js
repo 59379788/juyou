@@ -17,6 +17,15 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			}
 			angular.extend(scope.saleobj, obj);
 
+			scope.hourArr = [];
+			for (var index = 0; index < 24; index++) {
+				scope.hourArr[index] = index;
+			}
+			scope.minuteArr = [];
+			for (var index = 0; index < 60; index++) {
+				scope.minuteArr[index] = index;
+			}
+
 			// 获得信息
 			if (scope.saleobj.id != '') {
 				var url = '/api/as/tc/appoint/getAppointInfo';
@@ -26,6 +35,10 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 						return;
 					}
 					scope.info = res.data;
+					scope.info.admission_start_time_hour = res.data.admission_start_time.split(':')[0];
+					scope.info.admission_start_time_minute = res.data.admission_start_time.split(':')[1];
+					scope.info.admission_end_time_hour = res.data.admission_end_time.split(':')[0];
+					scope.info.admission_end_time_minute = res.data.admission_end_time.split(':')[1];
 					// scope.saleobj.id = res.data.uuid;
 
 				});
@@ -45,6 +58,8 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 					url = '/api/as/tc/appoint/saveAppoint';
 
 				}
+				scope.info.admission_start_time = scope.info.admission_start_time_hour + ':' + scope.info.admission_start_time_minute;
+				scope.info.admission_end_time = scope.info.admission_end_time_hour + ':' + scope.info.admission_end_time_minute;
 				$resource(url, {}, {}).save(scope.info, function (res) {
 					if (res.errcode != 0) {
 						toaster.error({ title: "", body: res.errmsg });

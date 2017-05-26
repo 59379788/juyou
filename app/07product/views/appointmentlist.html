@@ -26,8 +26,9 @@
       <tr>
         <th class="col-md-2 text-center">预约名称</th>
         <th class="col-md-1 text-center">预约时间</th> 
-        <th class="col-md-3 text-center">产品名称</th>
-        <th class="col-md-3 text-center">票种名称</th> 
+        <th class="col-md-2 text-center">产品名称</th>
+        <th class="col-md-2 text-center">票种名称</th> 
+        <th class="col-md-2 text-center">入场时间</th> 
         <th class="col-md-1 text-center">排序</th>                   
         <th class="col-md-2 text-center">操作</th>
       </tr>
@@ -38,6 +39,7 @@
         <td class="text-center">{{obj.start_time}}</td>
         <td class="text-center">{{obj.sale_name}}</td>
         <td class="text-center">{{obj.ticket_name}}</td>    
+        <td class="text-center">{{obj.admission_start_time}}--{{obj.admission_end_time}}</td>    
         <td class="text-center">{{obj.asort}}</td>          
         <td class="text-center">
             <a ng-click="edit(obj.id)" class="btn btn-info btn-xs">编辑</a>
