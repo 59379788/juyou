@@ -19,13 +19,11 @@ module.exports = function ($scope, $stateParams, $state, $uibModal, ITEMS_PERPAG
             pageSize: $scope.itemsPerPage
         };
         para = angular.extend($scope.searchForm, para);
-        console.log(para);
         $resource('/api/as/tc/appoint/findAppointList', {}, {}).save(para, function (res) {
             if (res.errcode != 0) {
                 toaster.success({ title: "", body: res.errmsg });
                 return;
             }
-            console.log(res.data);
             // $scope.objs = res.data.results;
             var array = res.data.results;
             for (var i = 0; i < array.length; i++) {
@@ -34,8 +32,6 @@ module.exports = function ($scope, $stateParams, $state, $uibModal, ITEMS_PERPAG
                 }
             }
             $scope.objs = array;
-            console.log('数组');
-            console.log(array);
             $scope.bigTotalItems = res.data.totalRecord;
 
         });

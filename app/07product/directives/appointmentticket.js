@@ -11,185 +11,153 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			'baseinfo': '=',
 			'util': '=',
 		},
-		link : function(scope, elements, attrs){
-            console.log('piao界面的id');
-            console.log(scope.saleobj.id);
-            // 获取产品,票种信息
-            scope.productinfo = {
-                'sale_code' : '',
-                'ticket_code' : ''
-            }
-            // 添加产品票种
-            scope.tickettypeobj = {
-                'appoint_id' : scope.saleobj.id,
-                'sale_code' : '',
-                'sale_name' : '',
-                'ticket_code' : '',
-                'ticket_name' : ''
-            };
-            scope.searchform = {
-                'selected' : {
-                    'name' : ''
-                }
-            }
-             scope.ticketsearchform = {
-                'selected' : {
-                    'name' : ''
-                }
-            }
+		link: function (scope, elements, attrs) {
+			// 获取产品,票种信息
+			scope.productinfo = {
+				'sale_code': '',
+				'ticket_code': ''
+			}
+			// 添加产品票种
+			scope.tickettypeobj = {
+				'appoint_id': scope.saleobj.id,
+				'sale_code': '',
+				'sale_name': '',
+				'ticket_code': '',
+				'ticket_name': ''
+			};
+			scope.searchform = {
+				'selected': {
+					'name': ''
+				}
+			}
+			scope.ticketsearchform = {
+				'selected': {
+					'name': ''
+				}
+			}
 
-            scope.tickettypelist = [];
+			scope.tickettypelist = [];
 
-            //页面需要的数据
-            scope.page = {};
+			//页面需要的数据
+			scope.page = {};
 
-            var beforedata = {
-                // 销售品列表
-                'productlist' : 
-                $http({
-                    'method' : 'GET', 
-                    'url': '/api/as/tc/sale/alllist',
-                }),
-                //景区列表
-                'viewlist' :
-                $http({
-                    'method' : 'GET', 
-                    'url': '/api/as/tc/placeview/jlist',
-                }),
-                //票种属性
-                'attrlist' :
-                $http({
-                    'method' : 'GET', 
-                    'url': '/api/as/tc/attr/list',
-                }),
-            };
-            // 票种列表
-            scope.ticketlist = function(){
-                $resource('/api/as/tc/appoint/findAppointSaleList', {}, {})
-                .save({'appoint_id' : scope.saleobj.id}, function(res){
-                    //console.log('查询景区下的票种信息');
-                    //console.log(res);
-                    if(res.errcode !== 0)
-                    {
-                        toaster.error({title:"",body:res.errmsg});
-                        return;
-                    }
-                    console.log('产品信息列表');
-                    console.log(res);
-                    scope.ticket_list = res.data;
-                    
-                });
-            }
-            scope.ticketlist();
+			var beforedata = {
+				// 销售品列表
+				'productlist':
+				$http({
+					'method': 'GET',
+					'url': '/api/as/tc/appoint/findSaleList',
+				}),
+				//景区列表
+				'viewlist':
+				$http({
+					'method': 'GET',
+					'url': '/api/as/tc/placeview/jlist',
+				}),
+				//票种属性
+				'attrlist':
+				$http({
+					'method': 'GET',
+					'url': '/api/as/tc/attr/list',
+				}),
+			};
+			// 票种列表
+			scope.ticketlist = function () {
+				$resource('/api/as/tc/appoint/findAppointSaleList', {}, {})
+					.save({ 'appoint_id': scope.saleobj.id }, function (res) {
+						if (res.errcode !== 0) {
+							toaster.error({ title: "", body: res.errmsg });
+							return;
+						}
+						scope.ticket_list = res.data;
 
-            $q.all(beforedata).then(function(res){
-                console.log(res);
+					});
+			}
+			scope.ticketlist();
 
-                if(res.productlist.data.errcode === 0){
-                    console.log('销售盘列表');
-                    console.log(res.productlist.data.data);
-                }else{
-                    alert('/api/as/tc/sale/alllist' + res.viewlist.data.errmsg);
-                    return ;
-                }
+			$q.all(beforedata).then(function (res) {
+				if (res.productlist.data.errcode === 0) {
+				} else {
+					alert('/api/as/tc/sale/alllist' + res.viewlist.data.errmsg);
+					return;
+				}
 
-                if(res.viewlist.data.errcode === 0){
-                    console.log(res.viewlist.data);
-                }else{
-                    alert('/api/as/tc/placeview/jlist' + res.viewlist.data.errmsg);
-                    return ;
-                }
+				if (res.viewlist.data.errcode === 0) {
+				} else {
+					alert('/api/as/tc/placeview/jlist' + res.viewlist.data.errmsg);
+					return;
+				}
 
-                if(res.attrlist.data.errcode === 0){
-                    console.log(res.attrlist.data);
-                    scope.tickettypeobj.ticket_type_attr = res.attrlist.data.data[0].ticket_attr_id;
-                }else{
-                    alert('/api/as/tc/attr/list' + res.attrlist.data.errmsg);
-                    return ;
-                }
+				if (res.attrlist.data.errcode === 0) {
+					scope.tickettypeobj.ticket_type_attr = res.attrlist.data.data[0].ticket_attr_id;
+				} else {
+					alert('/api/as/tc/attr/list' + res.attrlist.data.errmsg);
+					return;
+				}
 
-                // gettickettypedetail();
+				// gettickettypedetail();
 
-                scope.page = {
-                    'productlist' : res.productlist.data.data,
-                    'viewlist' : res.viewlist.data.data,
-                    'attrlist' : res.attrlist.data.data,
-                    'tickettypelist' : [],
-                    //'saletickettypelist' : res.saletickettypelist.data.data,
-                }
+				scope.page = {
+					'productlist': res.productlist.data.data,
+					'viewlist': res.viewlist.data.data,
+					'attrlist': res.attrlist.data.data,
+					'tickettypelist': [],
+					//'saletickettypelist' : res.saletickettypelist.data.data,
+				}
 
-            });
-                
-            //票种
-            scope.changeview = function(searchform){
-                console.log(searchform);
-                var sale_code = searchform.selected.code; 
-                scope.tickettypeobj.sale_name = scope.searchform.selected.name;
-                scope.tickettypeobj.sale_code = scope.searchform.selected.code;  
-                scope.tickettypeobj.ticket_code = scope.ticketsearchform.selected.ticket_type_code;
-                scope.tickettypeobj.ticket_name = scope.ticketsearchform.selected.name;
-                              
-                // console.log(scope.tickettypeobj.sale_name);
-                $resource('/api/as/tc/salettype/list', {}, {})
-                .save({'sale_code' : sale_code}, function(res){
-                    //console.log('查询景区下的票种信息');
-                    //console.log(res);
-                    if(res.errcode !== 0)
-                    {
-                        toaster.error({title:"",body:res.errmsg});
-                        return;
-                    }
-                    console.log('票种信息');
-                    console.log(res);
-                    scope.page.tickettypelist = res.data;
-                });
-            };
+			});
 
-            //添加票种
-            scope.add = function(){
+			//票种
+			scope.changeview = function (searchform) {
+				var sale_code = searchform.selected.code;
+				scope.tickettypeobj.sale_name = scope.searchform.selected.name;
+				scope.tickettypeobj.sale_code = scope.searchform.selected.code;
+				scope.tickettypeobj.ticket_code = scope.ticketsearchform.selected.ticket_type_code;
+				scope.tickettypeobj.ticket_name = scope.ticketsearchform.selected.name;
 
-                scope.tickettypeobj.sale_name = scope.searchform.selected.name;
-                scope.tickettypeobj.sale_code = scope.searchform.selected.code;  
-                scope.tickettypeobj.ticket_code = scope.ticketsearchform.selected.ticket_type_code;
-                scope.tickettypeobj.ticket_name = scope.ticketsearchform.selected.name;
-                
-                
+				$resource('/api/as/tc/salettype/list', {}, {})
+					.save({ 'sale_code': sale_code }, function (res) {
+						if (res.errcode !== 0) {
+							toaster.error({ title: "", body: res.errmsg });
+							return;
+						}
+						scope.page.tickettypelist = res.data;
+					});
+			};
 
-                $resource('/api/as/tc/appoint/saveAppointSale', {}, {})
-                .save(scope.tickettypeobj, function(res){
-                    console.log(scope.tickettypeobj);
-                    //console.log(res);
-                    if(res.errcode !== 0)
-                    {
-                        toaster.error({title:"",body:res.errmsg});                        
-                        return;
-                    }
-                    toaster.success({title:"",body:"操作成功"});                    
-                    scope.ticketlist();
-                    
-                    // gettickettypedetail();
-                });
-            };
-            scope.delete = function(id){
-                var url = '/api/as/tc/appoint/setAppointSaleDel';
-				if(confirm('确定要删除吗~~~~亲~')){
-					$resource(url, {}, {}).save({'id' : id}, function (res) {
-						console.log({'id' : id});
+			//添加票种
+			scope.add = function () {
+
+				scope.tickettypeobj.sale_name = scope.searchform.selected.name;
+				scope.tickettypeobj.sale_code = scope.searchform.selected.code;
+				scope.tickettypeobj.ticket_code = scope.ticketsearchform.selected.ticket_type_code;
+				scope.tickettypeobj.ticket_name = scope.ticketsearchform.selected.name;
+
+				$resource('/api/as/tc/appoint/saveAppointSale', {}, {})
+					.save(scope.tickettypeobj, function (res) {
+						if (res.errcode !== 0) {
+							toaster.error({ title: "", body: res.errmsg });
+							return;
+						}
+						toaster.success({ title: "", body: "操作成功" });
+						scope.ticketlist();
+
+						// gettickettypedetail();
+					});
+			};
+			scope.delete = function (id) {
+				var url = '/api/as/tc/appoint/setAppointSaleDel';
+				if (confirm('确定要删除吗~~~~亲~')) {
+					$resource(url, {}, {}).save({ 'id': id }, function (res) {
 						if (res.errcode != 0) {
 							toaster.error({ title: "提示", body: res.errmsg });
 							return;
 						}
-                        toaster.success({title:"",body:"删除成功"});                        
-						console.log(res);
+						toaster.success({ title: "", body: "删除成功" });
 						scope.ticketlist();
-						
-						// toaster.success({ title: "提示", body: '操作成功' });
-
 					});
 				}
-            }
-
-
+			}
 		}
-    };
+	};
 };
