@@ -182,7 +182,8 @@ module.exports = function($resource, $state, $http, $q, toaster){
 		$resource('/api/as/tc/salettype/list', {}, {})
 		.save({'sale_code' : scope.saleobj.code}, function(res){
 			//console.log('获取票种详情');
-			//console.log(res);
+		
+
         	if(res.errcode !== 0)
 			{
 				alert(res.errmsg);
@@ -191,6 +192,15 @@ module.exports = function($resource, $state, $http, $q, toaster){
 
 			for(var i = 0; i < res.data.length; i++){
 				var tmp = res.data[i];
+				if(res.data[i].appoint === '1'){
+                   res.data[i].appoint="需要预约";
+                  
+				}
+				if(res.data[i].appoint === '0'){
+                   res.data[i].appoint="无需预约";
+                  
+				}
+
 				tmp.section = {
 					'periodstart' : {
 						'date' : scope.util.str2date(tmp.periodstart)

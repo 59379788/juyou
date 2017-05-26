@@ -42,10 +42,11 @@
 				<tr>
 
 					<th class="col-md-3 text-center">景区名称</th>
-					<th class="col-md-3 text-center">票种名称</th>
+					<th class="col-md-2 text-center">票种名称</th>
 					<th class="col-md-1 text-center">票种属性</th>
 					<th class="col-md-2 text-center">有效期开始</th>
 					<th class="col-md-2 text-center">有效期结束</th>
+					<th class="col-md-2 text-center">是否需要预约</th>
 					<!--<th class="col-md-1 text-center" ng-if="saleobj.state == '0'">操作</th>-->
 				</tr>
 			</thead>
@@ -81,6 +82,9 @@
 						</button>-->
 					</span>
 						</div>
+					</td>
+					<td  class="text-center">
+					 {{obj.appoint}}
 					</td>
 					<!--<td class="text-center" ng-if="saleobj.state == '0'">
 						<a ng-click="save(obj)" class="btn btn-warning btn-xs" ng-if="saleobj.state == '0'">保存</a><br>
