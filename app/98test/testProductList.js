@@ -66,7 +66,7 @@ module.exports = function ($scope, $state, getDate, toaster, $uibModal, str2date
 		for (var index = 0; index < $scope.objs.length; index++) {
 			var element = $scope.objs[index];
 			if (element.isBuy && element.buyNum) {
-				order.sale_list.push({ sale_code: element.sale_code, num: element.buyNum, pay_fee: parseInt(element.cost_price?element.cost_price:0) * parseInt(element.buyNum?element.buyNum:0) });
+				order.sale_list.push({ sale_code: element.code, num: element.buyNum, pay_fee: parseInt(element.cost_price?element.cost_price:0) * parseInt(element.buyNum?element.buyNum:0) });
 				order.num += parseInt(element.buyNum?element.buyNum:0);
 				order.pay_fee +=  parseInt(element.buyNum?element.buyNum:0) * parseInt(element.cost_price?element.cost_price:0);
 			}
