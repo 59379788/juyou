@@ -1,5 +1,6 @@
 module.exports = function ($scope, $state, getDate, toaster, $uibModal, str2date, $resource) {
 	$scope.searchform = {};
+	$scope.searchform.pay_type = '1';
 
 	//有效区间
 	$scope.section = {};
@@ -59,7 +60,8 @@ module.exports = function ($scope, $state, getDate, toaster, $uibModal, str2date
 			num: 0,
 			pay_fee: 0,
 			device_code: $scope.device_code,
-			sale_list: []
+			sale_list: [],
+			pay_type:$scope.searchform.pay_type
 		};
 		for (var index = 0; index < $scope.objs.length; index++) {
 			var element = $scope.objs[index];
