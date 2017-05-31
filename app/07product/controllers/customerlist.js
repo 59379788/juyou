@@ -7,10 +7,10 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,F
     //有效区间
     $scope.section = {};
     $scope.section.start = {};
-    $scope.section.start.date = new Date();
+    $scope.section.start.date = '';
  
     $scope.section.end = {};
-    $scope.section.end.date = new Date();
+    $scope.section.end.date = '';
 
     $scope.open = function(obj) {
         obj.opened = true;
@@ -19,10 +19,10 @@ module.exports = function($scope, $stateParams, $state,$uibModal,ITEMS_PERPAGE,F
         'name' : '',
         'mobile' : '',
         'title' : '',
-        'startTime' : ''
+        'start_time' : ''
     }
     $scope.change = function(){
-        $scope.info.startTime = getDate($scope.section.start.date);
+        $scope.info.start_time = getDate($scope.section.start.date);
     }
     $scope.search = function(){
         var para = {

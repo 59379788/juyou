@@ -30,7 +30,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 						return;
 					}
 					scope.time_list = res.data;
-					// scope.obj.section.periodstart.date = scope.util.str2date(scope.res.date.startTime);
+					// scope.obj.section.periodstart.date = scope.util.str2date(scope.res.date.start_time);
 					// scope.obj.section.periodend.date = scope.util.str2date(scope.res.date.endTime);                    
 					// toaster.success({ title: "提示", body: '操作成功' });
 
