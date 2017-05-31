@@ -40,17 +40,14 @@ module.exports = function($resource, $state, $http, $q, toaster){
 
 
 	$q.all(beforedata).then(function(res){
-		console.log(res);
 
 		if(res.viewlist.data.errcode === 0){
-	        console.log(res.viewlist.data);
 	    }else{
 	        alert('/api/as/tc/placeview/jlist' + res.viewlist.data.errmsg);
 	        return ;
 	    }
 
 	    if(res.attrlist.data.errcode === 0){
-	        console.log(res.attrlist.data);
 	        scope.tickettypeobj.ticket_type_attr = res.attrlist.data.data[0].ticket_attr_id;
 	    }else{
 	        alert('/api/as/tc/attr/list' + res.attrlist.data.errmsg);
@@ -72,8 +69,6 @@ module.exports = function($resource, $state, $http, $q, toaster){
 	scope.changeview = function(){
 		$resource('/api/as/tc/goods/typelist', {}, {})
 		.save({'view' : scope.tickettypeobj.place_code}, function(res){
-			//console.log('查询景区下的票种信息');
-			//console.log(res);
         	if(res.errcode !== 0)
 			{
 				alert(res.errmsg);
@@ -93,11 +88,10 @@ module.exports = function($resource, $state, $http, $q, toaster){
 		scope.tickettypeobj.sale_code = scope.saleobj.code;
 		scope.tickettypeobj.periodstart = scope.saleobj.periodstart;
 		scope.tickettypeobj.periodend = scope.saleobj.periodend;
+		scope.tickettypeobj.appoint = '0';
 
 		$resource('/api/as/tc/salettype/save', {}, {})
 		.save(scope.tickettypeobj, function(res){
-			//console.log('保存票种信息');
-			//console.log(res);
         	if(res.errcode !== 0)
 			{
 				alert(res.errmsg);
@@ -110,10 +104,6 @@ module.exports = function($resource, $state, $http, $q, toaster){
 
 	scope.save = function(item){
 
-		console.log(item);
-		console.log("000000000000");
-		console.log(scope.saleobj);
-
 		var para = {
 			id : item.id,
 			appoint:item.appoint,
@@ -121,11 +111,8 @@ module.exports = function($resource, $state, $http, $q, toaster){
 			periodstart : scope.util.date2str(item.section.periodstart.date)
 		}
 
-		console.log(para);
 		$resource('/api/as/tc/salettype/save', {}, {})
 		.save(para, function(res){
-			console.log('保存票种信息');
-			console.log(res);
         	if(res.errcode !== 0)
 			{
 				alert(res.errmsg);
@@ -157,7 +144,6 @@ module.exports = function($resource, $state, $http, $q, toaster){
 
 	function checkAdd(){
 
-		console.log(scope.tickettypeobj.ticket_type_code);
 		if(scope.tickettypeobj.ticket_type_code == ''){
 			alert('请选择一个票种');
 			return;
@@ -183,8 +169,6 @@ module.exports = function($resource, $state, $http, $q, toaster){
 
 		$resource('/api/as/tc/salettype/list', {}, {})
 		.save({'sale_code' : scope.saleobj.code}, function(res){
-			//console.log('获取票种详情');
-			//console.log(res);
         	if(res.errcode !== 0)
 			{
 				alert(res.errmsg);
