@@ -39,6 +39,12 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			scope.findTimeInfoList();
 			// 添加
 			scope.add = function () {
+
+				if(!scope.info.stock_num || !parseInt(scope.info.stock_num)){
+					toaster.warning({title:'',body:'请输入正确的库存数量'});
+					return false;
+				}
+
 				scope.info.start_time = scope.util.date2str(scope.baseinfo.dateshow.periodstart.date);
 				scope.info.end_time = scope.util.date2str(scope.baseinfo.dateshow.periodend.date);
 				var url = '';
