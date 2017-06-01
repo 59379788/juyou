@@ -115,7 +115,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				scope.tickettypeobj.ticket_code = scope.ticketsearchform.selected.ticket_type_code;
 				scope.tickettypeobj.ticket_name = scope.ticketsearchform.selected.name;
 
-				$resource('/api/as/tc/salettype/list', {}, {})
+				$resource('/api/us/tc/appoint/findAppointTicketTypeList', {}, {})
 					.save({ 'sale_code': sale_code }, function (res) {
 						if (res.errcode !== 0) {
 							toaster.error({ title: "", body: res.errmsg });
