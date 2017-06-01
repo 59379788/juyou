@@ -133,6 +133,14 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				scope.tickettypeobj.ticket_code = scope.ticketsearchform.selected.ticket_type_code;
 				scope.tickettypeobj.ticket_name = scope.ticketsearchform.selected.name;
 
+				for (var index = 0; index < scope.ticket_list.length; index++) {
+					var element = scope.ticket_list[index];
+					if(scope.tickettypeobj.sale_code == element.sale_code && scope.tickettypeobj.ticket_code == element.ticket_code){
+						toaster.warning({ title: "", body: "票种已添加，请勿重复添加" });
+						return false;
+					}
+				}
+
 				$resource('/api/as/tc/appoint/saveAppointSale', {}, {})
 					.save(scope.tickettypeobj, function (res) {
 						if (res.errcode !== 0) {
