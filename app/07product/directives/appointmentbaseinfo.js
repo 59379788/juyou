@@ -19,11 +19,19 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 
 			scope.hourArr = [];
 			for (var index = 0; index < 24; index++) {
-				scope.hourArr[index] = index;
+				if(index<10){
+					scope.hourArr[index] = '0' + index;
+				}else{
+					scope.hourArr[index] = '' + index;
+				}
 			}
 			scope.minuteArr = [];
 			for (var index = 0; index < 60; index++) {
-				scope.minuteArr[index] = index;
+				if(index<10){
+					scope.minuteArr[index] = '0' + index;
+				}else{
+					scope.minuteArr[index] = '' + index;
+				}
 			}
 
 			// 获得信息
