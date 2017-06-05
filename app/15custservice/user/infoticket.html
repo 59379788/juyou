@@ -16,9 +16,10 @@
     <thead>
       <tr>
         <th class="col-md-2 text-center">订单编号</th>
-        <th class="col-md-2 text-center">票码</th>
+        <th class="col-md-1 text-center">票码</th>
         <th class="col-md-2 text-center">票种名称</th>
-        <th class="col-md-2 text-center">使用状态</th>
+        <th class="col-md-1 text-center">使用状态</th>
+        <th class="col-md-1 text-center">出游日期</th>
         <th class="col-md-2 text-center">出票时间</th>
         <th class="col-md-1 text-center">操作</th>
       </tr>
@@ -29,6 +30,7 @@
         <td class="text-center">{{obj.code}}</td>
         <td class="">{{obj.type_name}}</td>
         <td class="text-center">{{obj.usedname}}</td>
+        <td class="text-center">{{obj.tour_date}}</td>
         <td class="text-center">{{obj.ticket_out_time}}</td>
         <td class="text-center">
         	<a ng-show="obj.used == '0'" ng-click="destory(obj.code)" class="btn btn-success btn-xs">销票</a>
