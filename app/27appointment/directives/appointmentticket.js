@@ -21,7 +21,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
             }
             // 添加产品票种
             scope.tickettypeobj = {
-                'appoint_id' : scope.saleobj.id,
+                'makeAppointmentId' : scope.saleobj.id,
                 'sale_code' : '',
                 'sale_name' : '',
                 'ticket_code' : '',
@@ -66,7 +66,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
             // 票种列表
             scope.ticketlist = function(){
                 $resource('/api/as/mc/mermakeappointmentdao/findSaleInfoList', {}, {})
-                .save({'appoint_id' : scope.saleobj.id}, function(res){
+                .save({'makeAppointmentId' : scope.saleobj.id}, function(res){
                     //console.log('查询景区下的票种信息');
                     //console.log(res);
                     if(res.errcode !== 0)

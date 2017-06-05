@@ -15,7 +15,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 			console.log('场次界面的id');
             console.log(scope.saleobj.id);
             scope.info = {
-                'appoint_id' : scope.saleobj.id
+                'makeAppointmentId' : scope.saleobj.id
             }
 			scope.auditing = scope.util.auditing;
 
@@ -96,8 +96,8 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
             scope.findTimeInfoList = function(){
                 var url = '';
                 url = '/api/as/mc/mermakeappointmentdao/findTimeInfoList';
-                $resource(url, {}, {}).save({'appoint_id' : scope.saleobj.id}, function (res) {
-                    console.log({'appoint_id' : scope.saleobj.id});
+                $resource(url, {}, {}).save({'makeAppointmentId' : scope.saleobj.id}, function (res) {
+                    console.log({'makeAppointmentId' : scope.saleobj.id});
 					if (res.errcode != 0) {
 						toaster.error({ title: "提示", body: res.errmsg });
 						return;
