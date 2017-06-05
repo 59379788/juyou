@@ -4,7 +4,7 @@
         <div class="form-group form-inline">
             <div class="col-sm-12">
                   
-                  <input type="text" class="form-control" ng-model="searchform.userName" placeholder="用户名称">
+                  <input type="text" class="form-control" ng-model="searchform.userName" placeholder="用户姓名">
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <input type="text" class="form-control" ng-model="searchform.mobile" placeholder="联系电话">
                   &nbsp;&nbsp;
@@ -23,11 +23,10 @@
     <table class="table table-bordered">
     <thead>
       <tr>
-        <th class="col-md-2 text-center">用户昵称</th>
+        <th class="col-md-3 text-center">用户昵称</th>
         <th class="col-md-2 text-center">姓名</th>
         <th class="col-md-2 text-center">联系电话</th>
-        <th class="col-md-2 text-center">中奖时间</th>
-        <th class="col-md-2 text-center">中奖奖品</th>
+        <th class="col-md-3 text-center">中奖奖品</th>
         <th class="col-md-2 text-center">成交价格</th>
       </tr>
     </thead>
@@ -36,7 +35,6 @@
         <td class="text-center">{{obj.userNick}}</td>
         <td class="text-center">{{obj.userName}}</td>
         <td class="text-center">{{obj.mobile}}</td>
-        <td class="text-center">{{obj.prizeDate}}</td>
         <td class="text-center">{{obj.title}}</td>
         <td class="text-center">{{obj.price}}</td>
       </tr>
