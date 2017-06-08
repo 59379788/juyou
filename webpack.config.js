@@ -30,9 +30,9 @@ module.exports = {
     progress: true
    ,
     proxy: {
-      '/api': 'http://dlqt.juyouhx.com',
-      '/manager': 'http://dlqt.juyouhx.com',
-      '/a/': 'http://dlqt.juyouhx.com'
+      // '/api': 'http://dlqt.juyouhx.com',
+      // '/manager': 'http://dlqt.juyouhx.com',
+      // '/a/': 'http://dlqt.juyouhx.com'
     }
   },
   plugins: [
