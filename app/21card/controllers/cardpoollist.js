@@ -1,5 +1,5 @@
 module.exports = function($scope, $state, cardpoollist, $uibModal,addcard,unusedcard,addcard,
-	releasecard,canrelease,ITEMS_PERPAGE,addcardpool,dictbytypelist,insertActiveCard){
+	releasecard,canrelease,ITEMS_PERPAGE,addcardpool,dictbytypelist,insertActiveCard,getcardno){
 
 	dictbytypelist({'type' : 'user_pool_type'}).then(function(res) {
         if(res.errcode === 0)
@@ -150,16 +150,24 @@ module.exports = function($scope, $state, cardpoollist, $uibModal,addcard,unused
 
 
     //自助激活
-    $scope.active = function(){
+    $scope.active = function(poolcode){
 
-    	for(var i=888888000015; i<=888888000500; i++){
-    		insertActiveCard.save({'startcardno':i,'endcardno':i}, function(res){
-	            if (res.errcode !== 0) {
-	                alert(res.errmsg);
-		        }
-	        });
-    	}
-    	alert("激活成功");
+    	getcardno.save({'pool_code':poolcode}, function(cardres){
+            if (cardres.errcode !== 0) {
+                alert(cardres.errmsg);
+                return;
+	        }
+	        for(var i=cardres.data.min; i<=cardres.data.max; i++){
+	    		insertActiveCard.save({'startcardno':i,'endcardno':i}, function(res){
+		            if (res.errcode !== 0) {
+		                alert(res.errmsg);
+			        }
+		        });
+	    	}
+	    	alert("激活成功");
+        });
+
+    	
 
     }
 };
