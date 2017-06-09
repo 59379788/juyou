@@ -29,6 +29,8 @@ module.exports = function ($scope, $uibModalInstance, code, num, createBackOrder
 					alert('退票成功');
 				} else if(res.data.result == '2') {
 					alert('退票申请已提交，待审核');
+				} else if(res.data.result == '3') {
+					alert(res.data.remark_err);
 				}
 				$uibModalInstance.close();
 			}

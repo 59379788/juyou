@@ -63,7 +63,11 @@
         </thead>
         <tbody>
             <tr ng-repeat="obj in objs">
-                <td class="text-center"><br/>{{obj.order_code}}</td>
+                <td class="text-center">
+                    <br>{{obj.order_code}}<br>
+                    <span ng-show="obj.seq_id">分销商：{{obj.seq_id}}</span>
+                    <br> <span ng-show="obj.supply_seq_id">供应商：{{obj.supply_seq_id}}</span>
+                </td>
                 <td class="text-center"><br/>{{obj.title}}</td>
                 <td class="text-center">
                     购买数量：{{obj.num}}<br/>&nbsp;使用数量：{{obj.used}}

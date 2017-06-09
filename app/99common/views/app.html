@@ -1,42 +1,38 @@
-
 <header class="navbar navbar-custom ">
 	<nav class=" ">
-	  <div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"
-	      ng-click="isCollapsed = !isCollapsed"
-	      >
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				 aria-expanded="false" ng-click="isCollapsed = !isCollapsed">
 	        <span class="sr-only">Toggle navigation</span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#/">
+				<a class="navbar-brand" href="#/">
 	      	{{menuobj.name}}
 	      </a>
-	    </div>
+			</div>
 
-	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse " 
-	    uib-collapse="isCollapsed" id="bs-example-navbar-collapse-1">
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse " uib-collapse="isCollapsed" id="bs-example-navbar-collapse-1">
 
-	      <ul class="nav navbar-nav"  >
-	      	<li class="dropdown"
-	      		ng-repeat="menu in menuobj.list"
-	      	 	uib-dropdown  >
-		      <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> {{menu.name}} <span class="caret"></span></a>
-		      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-		      	<li ng-repeat="smenu in menu.list">
-		      		<a ui-sref="{{smenu.href}}">{{smenu.name}}</a>
-		      	</li>
-		      </ul>
-		    </li>
-	      </ul>
+				<ul class="nav navbar-nav">
+					<li class="dropdown" ng-repeat="menu in menuobj.list" uib-dropdown>
+						<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> {{menu.name}} <span class="caret"></span></a>
+						<ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+							<li ng-repeat="smenu in menu.list">
+								<a ng-if="smenu.href" ui-sref="{{smenu.href}}">{{smenu.name}}</a>
+								<a ng-if="!smenu.href" ng-click="noRule()">{{smenu.name}}</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
 
 
-	      <ul class="nav navbar-nav navbar-right">
-	      	<!-- <li class="dropdown" uib-dropdown>
+				<ul class="nav navbar-nav navbar-right">
+					<!-- <li class="dropdown" uib-dropdown>
 	          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" uib-dropdown-toggle> 系统切换 <span class="caret"></span></a>
 	          <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
 	            <li><a href="#">Action</a></li>
@@ -46,22 +42,24 @@
 	            <li><a href="#">Separated link</a></li>
 	          </ul>
 	        </li> -->
-	        <li>
-		        <a href="manager/logout" class="btn " style="color: red;">
+					<li>
+						<a href="manager/logout" class="btn " style="color: red;">
 		        	<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
 		      	</a>
-	        </li>
-	      </ul>
+					</li>
+				</ul>
 
-	      
 
-	    </div><!-- /.navbar-collapse -->
 
-	  </div><!-- /.container-fluid -->
+			</div>
+			<!-- /.navbar-collapse -->
+
+		</div>
+		<!-- /.container-fluid -->
 	</nav>
 </header>
 <section>
-    <div ui-view="" class="content-wrapper"></div>
+	<div ui-view="" class="content-wrapper"></div>
 </section>
 
 <!-- Page footer-->

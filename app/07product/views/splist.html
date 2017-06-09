@@ -114,6 +114,8 @@
 					<a ng-click="info(obj.id)" ng-show="obj.state == '1' || obj.sale_apply_state == 'apply_sale'" class="btn btn-warning btn-xs">详情</a>
 					<a ng-click="distribution(obj.code, obj.sale_target_type)" class="btn btn-default btn-xs" ng-show="obj.sale_target_type == 1">分配经销商</a>
 					<a ng-click="distribution(obj.code, obj.sale_target_type)" class="btn btn-default btn-xs" ng-show="obj.sale_target_type == 0">分配不允许销售经销商</a>
+					<a ng-click="skset(obj.code,obj.name,obj.guide_price, obj.cost_price)" class="btn btn-default btn-xs" ng-show="obj.sale_category_name == '正价票-商客' && obj.state == 1">商客专用设置</a>
+					
 				</td>
 			</tr>
 		</tbody>

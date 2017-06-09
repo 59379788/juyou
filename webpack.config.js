@@ -28,10 +28,12 @@ module.exports = {
     hot: true,
     inline: true,
     progress: true
-    // ,
-    // proxy: {
-    //   "*": "http://localhost:9000"
-    // }
+   ,
+    proxy: {
+      // '/api': 'http://dlqt.juyouhx.com',
+      // '/manager': 'http://dlqt.juyouhx.com',
+      // '/a/': 'http://dlqt.juyouhx.com'
+    }
   },
   plugins: [
         new webpack.ProvidePlugin({

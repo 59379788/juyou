@@ -1,6 +1,10 @@
 module.exports = function ($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticeinfo,
     userinfo, getSellerInfoByCode, $state) {
 
+        
+	console.log("%c 居游 %c 做地球上最具互联网性、创新性、专业有爱的团队。 \xa9 2015-%d", 'font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-size:64px;color:#00bbee;-webkit-text-fill-color:#00bbee;-webkit-text-stroke: 1px #00bbee;', "font-size:12px;color:#999999;", (new Date).getFullYear());
+
+
     /* 分页
      * ========================================= */
     $scope.maxSize = 5;            //最多显示多少个按钮
@@ -15,8 +19,6 @@ module.exports = function ($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticei
         };
 
         noticelist.get(para, function (res) {
-
-            console.log(res);
 
             if (res.errcode === 0) {
                 $scope.objs = res.data.results;
@@ -58,12 +60,9 @@ module.exports = function ($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticei
 
     //用户信息
     userinfo().then(function (res) {
-        console.log(res);
-
         $scope.userobj = res;
 
         getSellerInfoByCode.get({ 'company_code': $scope.userobj.company_code }, function (res) {
-            console.log(res);
             if (res.errcode === 0) {
                 $scope.userobj.balance_price = res.data.balance_price;
             }
@@ -76,7 +75,6 @@ module.exports = function ($scope, noticelist, ITEMS_PERPAGE, $uibModal, noticei
 
 
     $scope.detail = function (obj) {
-        console.log(obj);
         $state.go('app.trackinfo');
     }
 

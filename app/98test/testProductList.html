@@ -3,15 +3,23 @@
 		<div class="panel-body">
 			<div class="form-group form-inline">
 				<div class="col-sm-12">
-					<div class="row ">
+					<div class="row mt10">
+						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.code" placeholder="设备码">						&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.sale_category" placeholder="销售品分类码">						&nbsp;&nbsp;&nbsp;&nbsp;
+						<select class="form-control" ng-model="searchform.pay_type" placeholder="支付方式">
+							<option label="扫码支付" value="0"></option>
+							<option label="现金支付" value="1"></option>
+						</select>
+					</div>
+					<!--<div class="row ">
 						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.code" placeholder="订单编号"> &nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.keyword" placeholder="订单标题"> &nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.cardno" placeholder="身份证号"> &nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.keyword" placeholder="订单标题">						&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.cardno" placeholder="身份证号">						&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.name" placeholder="姓名"> &nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 					<div class="row mt10">
-						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.company_code" placeholder="机构编号"> &nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.login_name" placeholder="登录帐号"> &nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.company_code" placeholder="机构编号">						&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.login_name" placeholder="登录帐号">						&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.note" placeholder="备注"> &nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="text" class="form-control" ng-keyup="myKeyup($event)" ng-model="searchform.mobile" placeholder="电话"> &nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
@@ -41,7 +49,8 @@
 							<option label="无需出票" value="8"></option>
 							<option label="出票失败" value="9"></option>
 							<option label="查询全部" value=""></option>
-						</select> &nbsp;&nbsp;&nbsp;&nbsp;
+						</select> &nbsp;&nbsp;&nbsp;&nbsp;-->
+						<button type="button btn" class="btn btn-info pull-right" ng-click="createOrder()">立即下单</button>
 						<button type="button btn" class="btn btn-default search pull-right" ng-click="load()">立即搜索</button>
 					</div>
 				</div>
@@ -53,7 +62,14 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th class="col-md-3 text-center">订单名称</th>
+				<th class="col-md-1 text-center">购买产品</th>
+				<th class="col-md-2 text-center">销售品名称</th>
+				<th class="col-md-1 text-center">销售品编号</th>
+				<th class="col-md-1 text-center">分销商成本价格</th>
+				<th class="col-md-2 text-center">团产品-预定须知</th>
+				<th class="col-md-2 text-center">销售品简介</th>
+				<th class="col-md-1 text-center">购买数量</th>
+				<!--<th class="col-md-3 text-center">订单名称</th>
 				<th class="col-md-2 text-center">订单编号</th>
 				<th class="col-md-2 text-center">游客信息</th>
 				<th class="col-md-1 text-center">数量</th>
@@ -61,12 +77,19 @@
 				<th class="col-md-1 text-center">销售品分类</th>
 				<th class="col-md-1 text-center">出票状态</th>
 				<th class="col-md-1 text-center">分销商</th>
-				<th class="col-md-1 text-center">操作</th>
+				<th class="col-md-1 text-center">操作</th>-->
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="obj in objs">
-				<td class="">{{obj.title}}</td>
+				<td class="text-center"><input type="checkbox" class="chexcbox" ng-model="obj.isBuy" /></td>
+				<td class="">{{obj.name}}</td>
+				<td class="">{{obj.code}}</td>
+				<td class="">{{obj.cost_price}}</td>
+				<td class="">{{obj.bookingnotes}}</td>
+				<td class="">{{obj.detail}}</td>
+				<td class=""><input type="text" class="form-control" ng-model="obj.buyNum" ng-disabled="!obj.isBuy" /></td>
+				<!--<td class="">{{obj.title}}</td>
 				<td class="text-center">
 					<br>{{obj.code}}<br>
 					<span ng-show="obj.out_order_id">外部分销：{{obj.out_order_id}}</span>
@@ -90,24 +113,18 @@
 				<th class="text-center">
 					<a ng-click="ticketlist(obj)" class="btn btn-success btn-xs">票信息</a>
 					<br>
-					<a ng-click="orderinfo(obj)" class="btn btn-info btn-xs" >订单详情</a>
+					<a ng-click="orderinfo(obj)" class="btn btn-info btn-xs" has-permission='orderinfo'>订单详情</a>
 					<br>
 					<a ng-click="resend(obj)" class="btn btn-danger btn-xs" ng-show="obj.sale_belong != 'juyou' || (obj.ticket_state == '2' && obj.sms_state == '2')">重发短信</a>
 					<a ng-click="relay(obj)" class="btn btn-warning btn-xs" ng-show="obj.sale_belong != 'juyou' || (obj.ticket_state == '2' && obj.sms_state == '2')">转发短信</a>
 					<a ng-click="back(obj)" class="btn btn-primary btn-xs" ng-show="(obj.num > obj.back + obj.used) && ((obj.sale_belong != 'langdao' && obj.ticket_state == '2') || obj.ticket_state == '9') ">退多张票</a>
-				</th>
+				</th>-->
 			</tr>
 		</tbody>
 	</table>
-
-
 	<div class="text-right">
-
 		<uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true"
 		 ng-change="load()" items-per-page="itemsPerPage" previous-text="上一页" next-text="下一页" first-text="首页" last-text="末页" rotate="false">
 		</uib-pagination>
-
 	</div>
-
-
 </div>

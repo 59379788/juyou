@@ -14,7 +14,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
     var fun;
     var viewname = '';
 
-    if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong === 'supply_tstc' ||  obj.sale_belong === 'supply_tongchenglvyou')
+    if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong === 'supply_tstc' ||  obj.sale_belong === 'supply_tongchenglvyou' || obj.sale_belong === 'supply_zhiyoubao')
     {
         fun = ticketlist;
     }
@@ -63,7 +63,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
                 }
 
                 var arr = [];
-                if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong === 'supply_tstc' ||  obj.sale_belong === 'supply_tongchenglvyou')
+                if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong === 'supply_tstc' ||  obj.sale_belong === 'supply_tongchenglvyou' || obj.sale_belong === 'supply_zhiyoubao')
                 {
                     arr = res.data;
                 }
@@ -143,7 +143,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
 
         console.log(obj1);
 
-        if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong === 'supply_tstc' ||  obj.sale_belong === 'supply_tongchenglvyou')
+        if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong === 'supply_tstc' ||  obj.sale_belong === 'supply_tongchenglvyou' || obj.sale_belong === 'supply_zhiyoubao')
         {
             juyouback(obj1);
         }
@@ -333,6 +333,8 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
 					alert('退票成功');
 				} else if(res.data.result == '2') {
 					alert('退票申请已提交，待审核');
+				} else if(res.data.result == '3') {
+					alert(res.data.remark_err);
 				}
                 // alert('退票成功');
                 $scope.load();

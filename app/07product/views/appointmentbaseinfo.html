@@ -1,0 +1,101 @@
+<div class="container-fluid form-horizontal">
+
+	<div class="col-xs-12 col-md-12 mt10">
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">预约名称</label>
+			<div class="col-sm-4 col-xs-12">
+				<input type="text" class="form-control" placeholder="预约名称" ng-model="info.title">
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">此名称用于设置改产品的预约名称</font>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">预约须知</label>
+			<div class="col-sm-4 col-xs-12">
+				<textarea rows="6" class="form-control" ng-model="info.book_info"></textarea>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">此名称用于设置改产品的预约须知</font>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">排序</label>
+			<div class="col-sm-4 col-xs-12">
+				<input type="text" class="form-control" placeholder="排序数字" ng-model="info.asort">
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">此名称用于设置改产品的排列先后顺序</font>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">入场开始时间</label>
+			<div class="col-sm-2 col-xs-12">
+				<ui-select ng-model="info.admission_start_time_hour" theme="bootstrap" ng-change="changeview(searchform)">
+					<ui-select-match placeholder="时">{{$select.selected}}</ui-select-match>
+					<ui-select-choices  repeat="item in hourArr | filter: $select.search">
+						<span ng-bind-html="item | highlight: $select.search"></span>
+						<!--<span ng-bind-html="item.code | highlight: $select.search"></span>-->
+					</ui-select-choices>
+				</ui-select>
+			</div>
+			<div class="col-sm-2 col-xs-12">
+				<ui-select ng-model="info.admission_start_time_minute" theme="bootstrap" ng-change="changeview(searchform)">
+					<ui-select-match placeholder="分">{{$select.selected}}</ui-select-match>
+					<ui-select-choices  repeat="item in minuteArr | filter: $select.search">
+						<span ng-bind-html="item | highlight: $select.search"></span>
+						<!--<span ng-bind-html="item.code | highlight: $select.search"></span>-->
+					</ui-select-choices>
+				</ui-select>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">此名称用于设置验票进场开始时间</font>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">入场结束时间</label>
+			<div class="col-sm-2 col-xs-12">
+				<ui-select ng-model="info.admission_end_time_hour" theme="bootstrap" ng-change="changeview(searchform)">
+					<ui-select-match placeholder="时">{{$select.selected}}</ui-select-match>
+					<ui-select-choices  repeat="item in hourArr | filter: $select.search">
+						<span ng-bind-html="item | highlight: $select.search"></span>
+						<!--<span ng-bind-html="item.code | highlight: $select.search"></span>-->
+					</ui-select-choices>
+				</ui-select>
+			</div>
+			<div class="col-sm-2 col-xs-12">
+				<ui-select ng-model="info.admission_end_time_minute" theme="bootstrap" ng-change="changeview(searchform)">
+					<ui-select-match placeholder="分">{{$select.selected}}</ui-select-match>
+					<ui-select-choices  repeat="item in minuteArr | filter: $select.search">
+						<span ng-bind-html="item | highlight: $select.search"></span>
+						<!--<span ng-bind-html="item.code | highlight: $select.search"></span>-->
+					</ui-select-choices>
+				</ui-select>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">此名称用于设置验票进场结束时间</font>
+			</div>
+		</div>
+
+		<div class="col-xs-12 text-center">
+			<br/>
+			<br/>
+			<button class="btn btn-success" ng-click="save()">保存</button>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+		</div>
+
+	</div>
+
+
+
+
+
+</div>

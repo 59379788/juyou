@@ -39,12 +39,12 @@
 		<table class="table table-bordered mt10">
 			<thead>
 				<tr>
-
-					<th class="col-md-3 text-center">景区名称</th>
-					<th class="col-md-3 text-center">票种名称</th>
+					<th class="col-md-2 text-center">景区名称</th>
+					<th class="col-md-2 text-center">票种名称</th>
 					<th class="col-md-1 text-center">票种属性</th>
 					<th class="col-md-2 text-center">有效期开始</th>
 					<th class="col-md-2 text-center">有效期结束</th>
+					<th class="col-md-2 text-center">是否需要预约</th>
 					<th class="col-md-1 text-center" ng-if="saleobj.state == '0' || saleobj.state == '2'">操作</th>
 				</tr>
 			</thead>
@@ -78,6 +78,15 @@
 						</button>
 					</span>
 						</div>
+					</td>
+					<td class="text-center">
+
+		                <select class="form-control" ng-model="obj.appoint">
+			                <!--<option value="">请选择</option>-->
+			                <option value="0">无需预约</option>
+			                <option value="1">需要预约</option>
+		                </select>
+
 					</td>
 					<td class="text-center" ng-if="saleobj.state == '0' || saleobj.state == '2'">
 						<a ng-click="save(obj)" class="btn btn-warning btn-xs" ng-if="saleobj.state == '0' || saleobj.state == '2'">保存</a><br>
