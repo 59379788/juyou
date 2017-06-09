@@ -17,6 +17,8 @@ var service = function($resource, BASEURL38985){
 
     
     //------------------ 卡池管理 -----------------------//
+    // 自动激活
+    var insertActiveCard = BASEURL38985 + '/api/uc/cdc/userActiveService/insertActiveCard';
     // 卡池列表
     var cardpoollist = BASEURL38985 + '/api/as/cdc/cardpooldao/findpoollist';
     // 删除卡
@@ -147,6 +149,9 @@ var service = function($resource, BASEURL38985){
         },
         cardpoollist : function(){
              return $resource(cardpoollist, {}, {});
+        },
+        insertActiveCard : function(){
+             return $resource(insertActiveCard, {}, {});
         },
        // deletecard : function(){
         //     return $resource(deletecard, {}, {});

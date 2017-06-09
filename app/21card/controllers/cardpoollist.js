@@ -1,5 +1,5 @@
 module.exports = function($scope, $state, cardpoollist, $uibModal,addcard,unusedcard,addcard,
-	releasecard,canrelease,ITEMS_PERPAGE,addcardpool,dictbytypelist){
+	releasecard,canrelease,ITEMS_PERPAGE,addcardpool,dictbytypelist,insertActiveCard){
 
 	dictbytypelist({'type' : 'user_pool_type'}).then(function(res) {
         if(res.errcode === 0)
@@ -147,4 +147,19 @@ module.exports = function($scope, $state, cardpoollist, $uibModal,addcard,unused
         });
     };	
     $scope.search();  
+
+
+    //自助激活
+    $scope.active = function(){
+
+    	for(var i=888888000015; i<=888888000500; i++){
+    		insertActiveCard.save({'startcardno':i,'endcardno':i}, function(res){
+	            if (res.errcode !== 0) {
+	                alert(res.errmsg);
+		        }
+	        });
+    	}
+    	alert("激活成功");
+
+    }
 };

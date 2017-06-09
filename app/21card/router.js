@@ -12,6 +12,9 @@ var router = function($urlRouterProvider, $stateProvider){
             cardpoollist : function(cardservice){
                  return cardservice.cardpoollist();
             },
+            insertActiveCard : function(cardservice){
+                 return cardservice.insertActiveCard();
+            },
             addcard : function(cardservice){
                  return cardservice.addcard();
             },
