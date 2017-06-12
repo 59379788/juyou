@@ -57,6 +57,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				'market_price': 0,
 				'guide_price': 0,
 				'cost_price': 0,
+				'purchase_price': 0,
 				'asort': '0',
 				'sale_category': 'F10',
 				'sms_template_id': '',

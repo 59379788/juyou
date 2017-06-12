@@ -76,6 +76,21 @@
 		</div>
 
 		<div class="form-group">
+			<!--<label class="col-sm-3 col-xs-12 control-label">分销商成本价格</label>-->
+			<label class="col-sm-2 col-xs-12 control-label">采购价格</label>
+			<div class="col-sm-4 col-xs-12">
+				<div class="input-group">
+					<p class="form-control-static">¥{{saleobj.purchase_price}}</p>
+					<!--<span class="input-group-addon">¥</span>
+					<input type="number" class="form-control" placeholder="请输入分销商成本价格" min='0' ng-model="saleobj.cost_price" ng-disabled="true">-->
+				</div>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger"></font>
+			</div>
+		</div>
+
+		<div class="form-group">
 			<label class="col-sm-2 col-xs-12 control-label">产品排序</label>
 			<div class="col-sm-4 col-xs-12">
 				<p class="form-control-static">{{saleobj.asort}}</p>
