@@ -1,5 +1,5 @@
 module.exports = function($scope, $state, cardpoollist, $uibModal,addcard,unusedcard,addcard,
-	releasecard,canrelease,ITEMS_PERPAGE,addcardpool,dictbytypelist,insertActiveCard,getcardno){
+	releasecard,canrelease,ITEMS_PERPAGE,addcardpool,dictbytypelist,insertActiveCard,getcardno,$interval){
 
 	dictbytypelist({'type' : 'user_pool_type'}).then(function(res) {
         if(res.errcode === 0)
@@ -150,6 +150,41 @@ module.exports = function($scope, $state, cardpoollist, $uibModal,addcard,unused
 
 
     //自助激活
+    /*$scope.active = function(poolcode){
+
+    	getcardno.save({'pool_code':poolcode}, function(cardres){
+            if (cardres.errcode !== 0) {
+                alert(cardres.errmsg);
+                return;
+	        }
+
+        	var start = parseInt(cardres.data.min);
+        	var end = parseInt(cardres.data.min)+100;
+        	var num = parseInt(cardres.data.max)-parseInt(cardres.data.min)+1;
+        	var second = Math.floor(num/100);
+        	if(num%100 != 0) second+=1;
+        	$interval(function(){
+        		if(end>parseInt(cardres.data.max)) {
+        			end=parseInt(cardres.data.max);
+        		}
+        		
+	    		insertActiveCard.save({'startcardno':start,'endcardno':end}, function(res){
+		            if (res.errcode !== 0) {
+		                alert(res.errmsg);
+			        }
+			        //alert("起始卡号："+start+",结束卡号："+end+" 自动激活成功");
+		        });
+        		start+=100;
+        		end+=100;
+        		
+	        },1000,second);
+
+        });
+
+    }*/
+
+
+    //自助激活
     $scope.active = function(poolcode){
 
     	getcardno.save({'pool_code':poolcode}, function(cardres){
@@ -157,17 +192,13 @@ module.exports = function($scope, $state, cardpoollist, $uibModal,addcard,unused
                 alert(cardres.errmsg);
                 return;
 	        }
-	        for(var i=cardres.data.min; i<=cardres.data.max; i++){
-	    		insertActiveCard.save({'startcardno':i,'endcardno':i}, function(res){
-		            if (res.errcode !== 0) {
-		                alert(res.errmsg);
-			        }
-		        });
-	    	}
+    		insertActiveCard.save({'startcardno':cardres.data.min,'endcardno':cardres.data.max}, function(res){
+	            if (res.errcode !== 0) {
+	                alert(res.errmsg);
+		        }
+	        });
 	    	alert("激活成功");
         });
-
-    	
 
     }
 };
