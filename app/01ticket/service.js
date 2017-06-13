@@ -29,6 +29,8 @@ var service = function($resource, BASEURL,BASEURL38985){
     //获取对应景区设备列表
     var devicelist = BASEURL38985 + '/api/as/tc/device/watchdevicelist';
 
+    var createImportExcel = BASEURL38985 + "/api/uc/cdc/excelUtilService/createImportExcel";
+
 
     
 
@@ -68,6 +70,9 @@ var service = function($resource, BASEURL,BASEURL38985){
         },
         devicelist : function(deviceservice){
             return deviceservice.devicelist();
+        },
+        createImportExcel : function(){
+        	return $resource(createImportExcel, {}, {});
         }
       
     };

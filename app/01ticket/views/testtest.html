@@ -32,8 +32,25 @@
 
 <div class="panel panel-default">
 	<div class="panel-heading text-center "><h4>测试excel导入</h4></div>
-	<input type="file" ng-model="a"/>
-	<button class="btn btn-primary" type="button" ng-click="import()">导入</button>
+	<div class="form-group">
+		<div class="col-xs-3">
+			<input type="text" ng-model="obj.xx">
+			<input type="file" nv-file-select uploader="uploader1" />
+			<br>
+			<ul class="list-group">
+			    <li class="list-group-item" ng-repeat="item in uploader1.queue">
+			        文件名: <span ng-bind="item.file.name"></span>
+			        <button type="button" class="btn btn-default btn-xs"  ng-click="item.upload()"><span class="glyphicon glyphicon-upload"></span> 上传</button>
+			        <div class="progress mt10">
+			            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader1.progress + '%' }"></div>
+			        </div>
+			        <button type="button" 
+			    	class="btn btn-default btn-block"
+			    	ng-click="import(obj.xx)">导入</button>
+			    </li>
+			</ul>
+		</div>
+	</div>
 	
 </div>
 </div>

@@ -78,6 +78,9 @@ var router = function($urlRouterProvider, $stateProvider){
        //  	login:  function(ticketservice){
 	     	// 	return ticketservice.login();
 	     	// }
+	     	createImportExcel : function(ticketservice){
+                return ticketservice.createImportExcel();
+            }
         }
       })
 
