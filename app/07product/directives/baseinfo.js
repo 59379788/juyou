@@ -13,8 +13,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 		},
 		link: function (scope, elements, attrs) {
 			scope.auditing = scope.util.auditing;
-			console.log('scope.util.auditing');
-			console.log(scope.util.auditing);
 			// var obj = {
 			// 	'id': scope.saleobj.id,
 			// 	'name': '',
@@ -54,6 +52,7 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				'name': '',
 				'name_inside': '',
 				'code': '',
+				'price_type': '0',
 				'market_price': 0,
 				'guide_price': 0,
 				'cost_price': 0,
@@ -88,7 +87,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 
 			angular.extend(scope.saleobj, obj);
 
-			console.log(scope.saleobj);
 
 			//页面需要的信息。
 			scope.page = {};
@@ -130,25 +128,20 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 
 			$q.all(beforedata).then(function (res) {
 
-				console.log(res);
 				//分类信息
 				if (res.categorylist.data.errcode === 0) {
-					// console.log('分类信息');
-					// console.log(res.categorylist.data);
 				} else {
 					alert('/api/as/sc/dict/dictbytypelist?type=sale_category' + res.categorylist.data.errmsg);
 					return;
 				}
 				//销售品所属列表
 				if (res.salebelonglist.data.errcode === 0) {
-					//console.log(res.salebelonglist.data);
 				} else {
 					alert('/api/as/sc/dict/dictbytypelist?type=ticket_sale_belong' + res.salebelonglist.data.errmsg);
 					return;
 				}
 				//短信列表
 				if (res.smslist.data.errcode === 0) {
-					//console.log(res.smslist.data);
 				} else {
 					alert('/api/as/tc/salesmstemplate/list' + res.smslist.data.errmsg);
 					return;
@@ -163,7 +156,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				if (angular.isDefined(res.saleinfo)) {
 					//销售品信息
 					if (res.saleinfo.data.errcode === 0) {
-						console.log(res.saleinfo.data);
 						//赋值给销售品对象。
 						angular.extend(scope.saleobj, res.saleinfo.data.data);
 						if (scope.saleobj.periodstart != '') {
@@ -172,8 +164,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 						if (scope.saleobj.periodend != '') {
 							scope.baseinfo.dateshow.periodend.date = scope.util.str2date(scope.saleobj.periodend);
 						}
-						console.log('销售品详情赋值');
-						console.log(scope.saleobj);
 					} else {
 						alert('/api/as/tc/sale/info' + res.saleinfo.data.errmsg);
 						return;
@@ -210,8 +200,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				//获取功能列表
 				$resource('/api/as/tc/salecategory/list', {}, {})
 					.get({ 'sale_category_code': scope.saleobj.sale_category }, function (res) {
-						//console.log('功能列表');
-						//console.log(res);
 						if (res.errcode !== 0) {
 							alert(res.errmsg);
 							return;
@@ -242,7 +230,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				scope.saleobj.periodstart = scope.util.date2str(scope.baseinfo.dateshow.periodstart.date);
 				scope.saleobj.periodend = scope.util.date2str(scope.baseinfo.dateshow.periodend.date);
 
-				//console.log(scope.saleobj);
 
 				var url = '';
 				var para = {};
@@ -260,7 +247,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 
 
 				$resource(url, {}, {}).save(para, function (res) {
-					//console.log(res);
 					if (res.errcode != 0) {
 						toaster.error({ title: "提示", body: res.errmsg });
 						return;
@@ -295,7 +281,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				scope.saleobj.periodstart = scope.util.date2str(scope.baseinfo.dateshow.periodstart.date);
 				scope.saleobj.periodend = scope.util.date2str(scope.baseinfo.dateshow.periodend.date);
 
-				//console.log(scope.saleobj);
 
 				var url = '';
 				var para = {};
@@ -313,7 +298,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 
 
 				$resource(url, {}, {}).save(para, function (res) {
-					//console.log(res);
 					if (res.errcode != 0) {
 						toaster.error({ title: "提示", body: res.errmsg });
 						return;
@@ -350,7 +334,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 
 
 			scope.pass = function () {
-				console.log(scope.saleobj.id);
 				if (!scope.saleobj.apply_note) {
 					alert('审核意见必填');
 					return false;
@@ -360,7 +343,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 						'id': scope.saleobj.id,
 						'apply_note': scope.saleobj.apply_note
 					}, function (res) {
-						console.log(res);
 						if (res.errcode !== 0) {
 							alert(res.errmsg);
 							// toaster.error({ title: "提示", body: res.errmsg });
@@ -377,13 +359,11 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 					alert('审核意见必填');
 					return false;
 				}
-				console.log(scope.saleobj.id);
 				$resource('/api/ac/tc/ticketSaleService/updateSaleApplyNoPass', {}, {})
 					.save({
 						'id': scope.saleobj.id,
 						'apply_note': scope.saleobj.apply_note
 					}, function (res) {
-						console.log(res);
 						if (res.errcode !== 0) {
 							alert(res.errmsg);
 							// toaster.error({ title: "提示", body: res.errmsg });

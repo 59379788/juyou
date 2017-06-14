@@ -51,7 +51,6 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 
 			// angular.extend(scope.saleobj, obj);
 
-			console.log(scope.saleobj);
 
 			//页面需要的信息。
 			// scope.page = {};

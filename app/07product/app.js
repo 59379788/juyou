@@ -47,6 +47,7 @@ App.directive('restrictrule',require('./directives/restrictrule'));
 App.directive('imgtextinfo',require('./directives/imgtextinfo'));
 App.directive('govsubsidy',require('./directives/govsubsidy'));
 App.directive('juyousubsidy',require('./directives/juyousubsidy'));
+App.directive('priceCalendar',require('./directives/priceCalendar'));
 
 App.directive('productinfobaseinfo',require('./directives/productinfobaseinfo'));
 App.directive('productinfotickettype',require('./directives/productinfotickettype'));
@@ -58,9 +59,12 @@ App.directive('productinforestrictrule',require('./directives/productinforestric
 App.directive('productinfoimgtextinfo',require('./directives/productinfoimgtextinfo'));
 App.directive('productinfogovsubsidy',require('./directives/productinfogovsubsidy'));
 App.directive('productinfojuyousubsidy',require('./directives/productinfojuyousubsidy'));
+App.directive('productinfoPriceCalendar',require('./directives/productinfoPriceCalendar'));
 
 
 App.controller('skprofit',require('./controllers/skprofit'));
+App.controller('updatePriceCalendar',require('./controllers/updatePriceCalendar'));
+App.controller('customPriceCalendar',require('./controllers/customPriceCalendar'));
 
 
 //预约列表

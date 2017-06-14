@@ -16,8 +16,7 @@
 		<div class="form-group">
 			<label class="col-sm-2 col-xs-12 control-label">产品名称</label>
 			<div class="col-sm-4 col-xs-12">
-				<input type="text" class="form-control" placeholder="产品名称" ng-disabled="util.what == 'info'"
-				 ng-model="saleobj.name_inside">
+				<input type="text" class="form-control" placeholder="产品名称" ng-disabled="util.what == 'info'" ng-model="saleobj.name_inside">
 			</div>
 			<div class="col-sm-6 mt10">
 				<font face="Courier" class="text-danger">此名称用于内部使用</font>
@@ -35,6 +34,27 @@
 		</div>
 
 		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">价格类型</label>
+			<div class="col-sm-4 col-xs-12">
+				<label class="radio-inline">
+				  <input type="radio" name="price_type" ng-value="'0'"
+				  ng-model="saleobj.price_type" ng-disabled="saleobj.id != ''"
+				  > 有效期模式
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="price_type" ng-value="'1'"
+				  ng-model="saleobj.price_type" ng-disabled="saleobj.id != ''"
+				  > 价格日历模式
+				</label>
+			</div>
+			<div class="col-sm-6 col-xs-12">
+				<p class="form-control-static text-danger">
+					
+				</p>
+			</div>
+		</div>
+<!--
+		<div class="form-group" ng-show="saleobj.price_type == 0 || saleobj.price_type == '0'">
 			<label class="col-sm-2 col-xs-12 control-label">市场价格</label>
 			<div class="col-sm-4 col-xs-12">
 				<div class="input-group">
@@ -47,7 +67,7 @@
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group" ng-show="saleobj.price_type == 0 || saleobj.price_type == '0'">
 			<label class="col-sm-2 col-xs-12 control-label">居游价格</label>
 			<div class="col-sm-4 col-xs-12">
 				<div class="input-group">
@@ -60,8 +80,7 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<!--<label class="col-sm-3 col-xs-12 control-label">分销商成本价格</label>-->
+		<div class="form-group" ng-show="saleobj.price_type == 0 || saleobj.price_type == '0'">
 			<label class="col-sm-2 col-xs-12 control-label">成本价格</label>
 			<div class="col-sm-4 col-xs-12">
 				<div class="input-group">
@@ -74,8 +93,7 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<!--<label class="col-sm-3 col-xs-12 control-label">分销商成本价格</label>-->
+		<div class="form-group" ng-show="saleobj.price_type == 0 || saleobj.price_type == '0'">
 			<label class="col-sm-2 col-xs-12 control-label">采购价格</label>
 			<div class="col-sm-4 col-xs-12">
 				<div class="input-group">
@@ -86,12 +104,11 @@
 			<div class="col-sm-6 mt10">
 				<font face="Courier" class="text-danger">与供应商结算价</font>
 			</div>
-		</div>
+		</div>-->
 		<div class="form-group">
 			<label class="col-sm-2 col-xs-12 control-label">产品排序</label>
 			<div class="col-sm-4 col-xs-12">
-				<input type="text" class="form-control" placeholder="产品排序" ng-blur="synize()"
-				 ng-model="saleobj.asort">
+				<input type="text" class="form-control" placeholder="产品排序" ng-blur="synize()" ng-model="saleobj.asort">
 			</div>
 			<div class="col-sm-6 mt10">
 				<font face="Courier" class="text-danger">此名称用于产品列表及订单名称</font>
@@ -105,7 +122,7 @@
 					<ui-select-match placeholder="请选择一个销售品分类">{{$select.selected.label}}</ui-select-match>
 					<ui-select-choices repeat="item.value as item in page.categorylist | filter: $select.search">
 						<span ng-bind-html="item.label | highlight: $select.search"></span>
-						<span ng-bind-html="item.value | highlight: $select.search"></span>						
+						<span ng-bind-html="item.value | highlight: $select.search"></span>
 					</ui-select-choices>
 				</ui-select>
 			</div>

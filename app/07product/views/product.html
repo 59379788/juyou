@@ -7,6 +7,11 @@
 <div class="col-sm-12" style="background: #fff; padding-top: 15px;">
 	<uib-tabset active="activeForm" class="nav nav-tabs nav-justified">
 
+		<!--<uib-tab index="10" heading="价格日历" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('juyousubsidy')">-->
+		<uib-tab index="10" heading="价格日历" ng-if="saleobj.id !== '' && saleobj.code !== ''">
+			<price-calendar saleobj="saleobj" util="util"></price-calendar>
+		</uib-tab>
+
 		<uib-tab index="0" heading="基本信息">
 			<productbaseinfo saleobj="saleobj" baseinfo="baseinfo" util="util" funobj="funobj"></productbaseinfo>
 		</uib-tab>
@@ -43,7 +48,7 @@
 			<govsubsidy saleobj="saleobj" util="util"></govsubsidy>
 		</uib-tab>
 
-		<uib-tab index="7" heading="居游补贴" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('juyousubsidy')">
+		<uib-tab index="9" heading="居游补贴" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('juyousubsidy')">
 			<juyousubsidy saleobj="saleobj" util="util"></juyousubsidy>
 		</uib-tab>
 
