@@ -45,9 +45,12 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				'sms_ticketcode_type': '0',	//短信票码类型
 				'over_period_off': '0',	//过期自动退票
 				'over_period_off_mobile': '0',	//过期自动下架通知手机号
+				'cardno_state':'0',//身份证默认不必填
+				'cardno_limit':'',//身份证必填信息
 				// 'bookingnotes' : '',	//团产品预订须知
 				// 'detail' : '',	//销售品简介
 			};
+
 
 			// angular.extend(scope.saleobj, obj);
 
@@ -215,6 +218,10 @@ module.exports = function ($resource, $state, $http, $q, FileUploader, toaster) 
 				for (var key in obj) {
 					para[key] = scope.saleobj[key];
 				}
+				// }
+				// if(scope.saleobj.cardno_limit==''){
+                //    alert("请输入身份证号首");
+				//    return;
 				// }
 
 				$resource(url, {}, {}).save(para, function (res) {

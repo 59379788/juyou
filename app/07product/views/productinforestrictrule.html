@@ -246,6 +246,20 @@
 			</div>
 		</div>
 
+   
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label" style="margin-top:20px">身份证限制</label>
+			<div class="col-sm-4 col-xs-12" style="margin-top:20px">
+				<p ng-if="saleobj.cardno_state == '0'" class="form-control-static">不必填</p>
+				<p ng-if="saleobj.cardno_state == '1'" class="form-control-static">必填&nbsp;&nbsp;&nbsp;{{saleobj.cardno_limit}}</p>
+			</div>
+			<div class="col-sm-6 col-xs-12">
+				<p class="form-control-static text-danger">
+				 下单时是否必填身份证号码。配置必填时，可以同时配置身份证号首，如：配置210106，只有210106开头的身份证号可以下单，如果不配置身份证号首，下单时则不对身份证号首进行校验
+				</p>
+			</div>
+		</div>
+
 		<div class="form-group">
 			<label class="col-sm-2 col-xs-12 control-label">票码类型</label>
 			<div class="col-sm-4 col-xs-12">
