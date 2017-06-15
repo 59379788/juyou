@@ -157,6 +157,19 @@
 						出游时间必填，该票种只能在出游日期使用！！！！
 					</p>
 				</div>
+				<!--<div class="input-group mt20" ng-if="price_type == '1' && section.start.date != undefind">-->
+				<div class="input-group col-xs-6 mt20" ng-if="price_type == '1' && section.start.date != undefind" >
+					<span class="input-group-addon">市场价格</span>
+					<input type="text" class="form-control" ng-model="product.market_price" readonly/>
+				</div>
+				<div class="input-group col-xs-6 mt20" ng-if="price_type == '1' && section.start.date != undefind" >
+					<span class="input-group-addon">居游价格</span>
+					<input type="text" class="form-control" ng-model="product.guide_price" readonly/>
+				</div>
+				<div class="input-group col-xs-6 mt20" ng-if="price_type == '1' && section.start.date != undefind" >
+					<span class="input-group-addon">成本价格</span>
+					<input type="text" class="form-control" ng-model="product.cost_price" readonly/>
+				</div>
 				<button type="button" class="btn btn-info btn-block mt20" ng-click="gogo()" ng-disabled="!btnstate">确认购票</button>
 			</div>
 		</div>

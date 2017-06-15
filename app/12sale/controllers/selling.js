@@ -7,6 +7,7 @@ module.exports = function ($scope, $state, $stateParams, namelist, info,
 
 	$scope.price_type = '0';
 	$scope.saleobj = {};
+	$scope.product = {};
 
 	//显示购票界面
 	$scope.show = false;
@@ -388,6 +389,7 @@ module.exports = function ($scope, $state, $stateParams, namelist, info,
 		});
 		modalInstance.result.then(function (result) {
 			$scope.section.start.date = new Date(result.date);
+			$scope.product = result;
 		}, function (reason) {
 		});
 	}

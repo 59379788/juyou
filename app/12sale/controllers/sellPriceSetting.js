@@ -193,8 +193,8 @@ module.exports = function ($scope, $state, $stateParams, toaster, items, $resour
 			toaster.warning({ title: item.d, body: '未设置价格日期无法选择' });
 			return false;
 		}
-
-		$uibModalInstance.close({date:item.d});
+		item.data.date = item.data.d;
+		$uibModalInstance.close(item.data);
 
 	};
 
