@@ -8,6 +8,8 @@ var App = angular.module('product', []);
 App.config(require('./router'));
 App.factory('productservice', require('./service'));
 
+App.controller('detailinfo',require('./controllers/detailinfo'));
+App.controller('dockingproduct',require('./controllers/dockingproduct'));
 App.controller('tkttype',require('./controllers/tkttype'));
 App.controller('tkttypecreate',require('./controllers/tkttypecreate'));
 App.controller('tkttypeedit',require('./controllers/tkttypeedit'));

@@ -7,6 +7,19 @@ var router = function ($urlRouterProvider, $stateProvider) {
 
 	$stateProvider
 
+        .state('app.dockingproduct', {
+			url: '/dockingproduct',
+			controller: 'dockingproduct',
+			template: require('./views/dockingproduct.html'),
+			resolve: {
+				dockingproduct: function (productservice) {
+					return productservice.dockingproduct();
+				},
+				getDate: function (utilservice) {
+					return utilservice.getDate;
+				}
+			}
+		})
 		.state('app.tkttype', {
 			url: '/tkttype/:placeid',
 			controller: 'tkttype',
