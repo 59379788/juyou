@@ -178,10 +178,10 @@
             <!-- 年月，左右箭头 -->
             <div class="fc-toolbar">
                 <div class="fc-left">
-                    <button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left fc-corner-right" ng-click="pre()">
+                    <a type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left fc-corner-right" ng-click="pre()">
                         <span class="fc-icon fc-icon-left-single-arrow"></span>
                         {{obj.m == 0 ? 12 : obj.m}}月
-                    </button>
+                    </a>
                 </div>
                 <div class="col-xs-2 mt10 fc-left">
                     <button class="btn btn-info btn-block" ng-click="update()">批量设置</button>
@@ -192,10 +192,10 @@
                     </h2>
                 </div>
                 <div class="fc-right">
-                    <button type="button" class="fc-next-button fc-button fc-state-default fc-corner-left fc-corner-right" ng-click="back()">
+                    <a type="button" class="fc-next-button fc-button fc-state-default fc-corner-left fc-corner-right" ng-click="back()">
                         {{obj.m + 2 == 13 ? 1 : obj.m + 2}}月
                         <span class="fc-icon fc-icon-right-single-arrow"></span>
-                    </button>
+                    </a>
                 </div>
                 <div class="col-xs-2 mt10 fc-right" >
                     <button class="btn btn-info btn-block" ng-click="">批量下架</button>
