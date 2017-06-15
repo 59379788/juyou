@@ -48,6 +48,7 @@ App.directive('imgtextinfo',require('./directives/imgtextinfo'));
 App.directive('govsubsidy',require('./directives/govsubsidy'));
 App.directive('juyousubsidy',require('./directives/juyousubsidy'));
 App.directive('priceCalendar',require('./directives/priceCalendar'));
+App.directive('priceSetting',require('./directives/priceSetting'));
 
 App.directive('productinfobaseinfo',require('./directives/productinfobaseinfo'));
 App.directive('productinfotickettype',require('./directives/productinfotickettype'));

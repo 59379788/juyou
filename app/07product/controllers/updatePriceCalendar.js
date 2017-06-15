@@ -3,7 +3,6 @@
  */
 module.exports = function ($scope, $state, $resource, $stateParams, $uibModalInstance, $http, items, toaster) {
 
-    console.log(items)
     $scope.saleobj = {};
     $scope.tour = {};
     $scope.tour.start = {};
