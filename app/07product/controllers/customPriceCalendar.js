@@ -38,7 +38,7 @@ module.exports = function ($scope, $state, $resource, $stateParams, $uibModalIns
 	}
 
 	$scope.cancel = function () {
-		$uibModalInstance.dismiss('cancel');
+		$uibModalInstance.close({date:$scope.selectedDate[0].date});
 	};
 
 	function date2str(d) {
