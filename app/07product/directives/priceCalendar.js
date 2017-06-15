@@ -202,9 +202,13 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
                 // if (item.label == '') {
                 //     return;
                 // }
+                if(item.d == '0' || item.d == 0){
+                    toaster.info({ title: '', body: '请选择当月日期' });
+                    return false;
+                }
                 var today = date2str(new Date());
                 if (item.d < today) {
-                    toaster.info({title:item.d,body:'团期日期不能不能小于当天日期'});
+                    toaster.info({title:item.d,body:'出游日期不能小于当天日期'});
                     return false;
                 }
 

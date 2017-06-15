@@ -172,12 +172,7 @@ module.exports = function ($scope, $state, $stateParams, toaster, items, $resour
 			key: 'cost_price_display',
 			position: 'left',
 			before: '<font color=red >成本价格: ¥</font>'
-		},
-		{
-			key: 'purchase_price_display',
-			position: 'left',
-			before: '<font color=green >采购价格: ¥</font>'
-		},
+		}
 	];
 
 	//每一天的点击事件
@@ -191,7 +186,7 @@ module.exports = function ($scope, $state, $stateParams, toaster, items, $resour
 		}
 		var today = date2str(new Date());
 		if (item.d < today) {
-			toaster.warning({ title: item.d, body: '团期日期不能不能小于当天日期' });
+			toaster.warning({ title: item.d, body: '出游日期不能小于当天日期' });
 			return false;
 		}
 		if (item.labelarr.length < 1) {
@@ -220,7 +215,7 @@ module.exports = function ($scope, $state, $stateParams, toaster, items, $resour
 		var para = {
 			sale_code: items.saleobj.code
 		}
-		$resource('/api/ac/tc/ticketSaleDayPriceService/getDayPriceBySaleCode', {}, {}).save(para, function (res) {
+		$resource('/api/ac/tc/ticketSaleDayPriceService/getDayPriceBySaleCodeForSale', {}, {}).save(para, function (res) {
 			if (res.errcode === 0) {
 				$scope.dateArray
 				for (var index = 0; index < res.data.daylist.length; index++) {
@@ -232,11 +227,9 @@ module.exports = function ($scope, $state, $stateParams, toaster, items, $resour
 					element.market_price_display = '<font color=red >' + res.data.daylist[index].market_price + '</font>';
 					element.guide_price_display = '<font color=green >' + res.data.daylist[index].guide_price + '</font>';
 					element.cost_price_display = '<font color=red >' + res.data.daylist[index].cost_price + '</font>';
-					element.purchase_price_display = '<font color=green >' + res.data.daylist[index].purchase_price + '</font>';
 					element.market_price = res.data.daylist[index].market_price;
 					element.guide_price = res.data.daylist[index].guide_price;
 					element.cost_price = res.data.daylist[index].cost_price;
-					element.purchase_price = res.data.daylist[index].purchase_price;
 					$scope.data[index] = element;
 				}
 				$scope.loadupdate();

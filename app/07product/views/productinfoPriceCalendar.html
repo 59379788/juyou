@@ -194,7 +194,7 @@
                     </thead>
                     <tbody class="rq">
                         <tr ng-repeat="d1 in obj.data">
-                            <td ng-repeat="d2 in d1" ng-click="clickday(d2)">
+                            <td ng-repeat="d2 in d1" ng-click="clickday(d2)" style="height:100px;">
                                 <div class="text-right" ng-class="{true:'red'}[$index == 0 || $index == d1.length - 1]">
                                     {{d2.label}}
                                 </div>
