@@ -1,12 +1,17 @@
 module.exports = function ($scope, $state, $stateParams, namelist, info,
-	createorder, IdentityCodeValid, getuserinfobymobile, createSubsidyOrder,
+	createorder, IdentityCodeValid, getuserinfobymobile, createSubsidyOrder, $uibModal, 
 	getDate) {
 
 	//类别
 	$scope.sale_category = $stateParams.type;
 
+	$scope.price_type = '0';
+	$scope.saleobj = {};
+
 	//显示购票界面
 	$scope.show = false;
+
+	$scope.price_type_arr = {};
 
 	$scope.obj = {
 		'name': '',
@@ -51,8 +56,6 @@ module.exports = function ($scope, $state, $stateParams, namelist, info,
 			return;
 		}
 
-		console.log(res);
-
 		var len = res.data.length,
 			r = {},
 			i = 0;
@@ -63,6 +66,7 @@ module.exports = function ($scope, $state, $stateParams, namelist, info,
 
 			var o = {};
 			o.id = tmp.id;
+			o.price_type = tmp.price_type;
 			o.code = tmp.sale_code;
 			o.name = tmp.sale_name;
 			o.guide_price = tmp.guide_price;
@@ -83,13 +87,13 @@ module.exports = function ($scope, $state, $stateParams, namelist, info,
 			}
 
 			r[tmp.place_code].nodes.push(o);
+			$scope.price_type_arr[tmp.sale_code] = tmp.price_type;
+			// $scope.price_type_arr[i][tmp.sale_code] = tmp.price_type;
 		}
 
-		console.log(r);
 		$scope.data = r;
 		// $scope.data = [];
 		// angular.forEach(r, function (value, key) {
-		//     console.log(key + ':' + value);
 		//     $scope.data.push(r[key]);
 		// });
 
@@ -105,14 +109,18 @@ module.exports = function ($scope, $state, $stateParams, namelist, info,
 
 
 	$scope.getit = function (obj) {
+		console.log($scope.price_type_arr)
+		console.log(obj)
+		console.log(obj.$modelValue)
 
 		if (obj.$modelValue === undefined) return;
 
 		if (obj.$modelValue.unavailable) return;
 
-		console.log(obj.$modelValue);
-
 		$scope.show = true;
+
+		$scope.saleobj = obj.$modelValue;
+		$scope.price_type = $scope.price_type_arr[obj.$modelValue.code]
 
 		//销售品编号，用于下单
 		$scope.order.sale_code = obj.$modelValue.code;
@@ -131,7 +139,6 @@ module.exports = function ($scope, $state, $stateParams, namelist, info,
 		if (obj.$modelValue.hasOwnProperty('id')) {
 			info.get({ 'id': obj.$modelValue.id }, function (res) {
 
-				console.log(res);
 				if (res.errcode === 0) {
 					$scope.obj.detail = res.data.detail;
 				}
@@ -167,10 +174,7 @@ module.exports = function ($scope, $state, $stateParams, namelist, info,
 			fun = createSubsidyOrder;
 		}
 
-		console.log($scope.order);
 		fun.save($scope.order, function (res) {
-
-			console.log(res);
 
 			if (res.errcode === 0) {
 				alert('下单成功，请注意查收短信');
@@ -293,8 +297,6 @@ module.exports = function ($scope, $state, $stateParams, namelist, info,
 
 		getuserinfobymobile.get($scope.searchform, function (res) {
 
-			console.log(res);
-
 			if (res.errcode === 0) {
 				$scope.userinfo = '游客 : ' + res.data.username +
 					' , 身份证 : ' + res.data.papersno +
@@ -338,8 +340,6 @@ module.exports = function ($scope, $state, $stateParams, namelist, info,
 			var arr = $scope.data[key].nodes;
 			for (var i = 0, j = arr.length; i < j; i++) {
 				var tmp = arr[i];
-				console.log(tmp.govsubsidy_price);//222
-				//console.log(gov);   //0
 
 				if (tmp.govsubsidy_price === -1) {
 					tmp.unavailable = true;
@@ -367,6 +367,28 @@ module.exports = function ($scope, $state, $stateParams, namelist, info,
 			for (var i = 0, j = arr.length; i < j; i++) {
 				arr[i].unavailable = false;
 			}
+		});
+	}
+
+	$scope.selectDate = function(){
+		console.log($scope.saleobj)
+		var modalInstance = $uibModal.open({
+		    template: require('../views/sellPriceSetting.html'),
+		    controller: 'sellPriceSetting',
+		    size: 'lg',
+		    resolve: {
+		        items: function () {
+		            return {
+		                saleobj: $scope.saleobj
+		            };
+		        }
+		    }
+		});
+		modalInstance.opened.then(function () {// 模态窗口打开之后执行的函数  
+		});
+		modalInstance.result.then(function (result) {
+			$scope.section.start.date = new Date(result.date);
+		}, function (reason) {
 		});
 	}
 
