@@ -57,7 +57,7 @@ module.exports = function ($scope, $state, $resource, $stateParams, $uibModalIns
                 $scope.lastResult = [];
             }
         });
-        $uibModalInstance.close({});
+        // $uibModalInstance.close({});
     }
 
     $scope.cancel = function () {
