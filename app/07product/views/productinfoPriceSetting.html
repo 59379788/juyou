@@ -1,0 +1,63 @@
+<div class="container-fluid form-horizontal">
+
+	<div class="col-xs-12 col-md-12 mt10">
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">市场价格</label>
+			<div class="col-sm-4 col-xs-12">
+				<div class="input-group">
+					<p class="form-control-static">¥{{saleobj.market_price}}</p>
+					<!--<input type="number" class="form-control" placeholder="请输入市场价格" min='0' ng-model="saleobj.market_price" ng-disabled="true">-->
+				</div>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger"></font>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">居游价格</label>
+			<div class="col-sm-4 col-xs-12">
+				<div class="input-group">
+					<p class="form-control-static">¥{{saleobj.guide_price}}</p>
+					<!--<span class="input-group-addon">¥</span>
+					<input type="number" class="form-control" placeholder="请输入居游价格" min='0' ng-model="saleobj.guide_price" ng-disabled="true">-->
+				</div>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger"></font>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<!--<label class="col-sm-3 col-xs-12 control-label">分销商成本价格</label>-->
+			<label class="col-sm-2 col-xs-12 control-label">成本价格</label>
+			<div class="col-sm-4 col-xs-12">
+				<div class="input-group">
+					<p class="form-control-static">¥{{saleobj.cost_price}}</p>
+					<!--<span class="input-group-addon">¥</span>
+					<input type="number" class="form-control" placeholder="请输入分销商成本价格" min='0' ng-model="saleobj.cost_price" ng-disabled="true">-->
+				</div>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">与分销商结算价，APP(微信)为游客支付价格</font>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<!--<label class="col-sm-3 col-xs-12 control-label">分销商成本价格</label>-->
+			<label class="col-sm-2 col-xs-12 control-label">采购价格</label>
+			<div class="col-sm-4 col-xs-12">
+				<div class="input-group">
+					<p class="form-control-static">¥{{saleobj.purchase_price}}</p>
+					<!--<span class="input-group-addon">¥</span>
+					<input type="number" class="form-control" placeholder="请输入分销商成本价格" min='0' ng-model="saleobj.cost_price" ng-disabled="true">-->
+				</div>
+			</div>
+			<div class="col-sm-6 mt10">
+				<font face="Courier" class="text-danger">与供应商结算价</font>
+			</div>
+		</div>
+
+	</div>
+</div>

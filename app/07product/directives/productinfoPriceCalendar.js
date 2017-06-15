@@ -3,23 +3,24 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
     return {
 
         restrict: 'E',
-        template: require('../views/priceCalendar.html'),
+        template: require('../views/productinfoPriceCalendar.html'),
         replace: true,
         scope: {
-            'model': '=',
-            'util': '=',
+            'saleobj': '=',
+            'funobj': '=',
+            'baseinfo': '=',
+            'util': '='
         },
-        link: function (scope, elements, attrs) {
+         link: function (scope, elements, attrs) {
 
 
-            
+
 
 			/**
 			 * 下方是初始化方法
 			 */
 
             scope.loadupdate = function () {
-
                 var dataobj = {};
                 if (angular.isDefined(scope.data) && angular.isArray(scope.data)) {
                     for (var i = 0; i < scope.data.length; i++) {
@@ -33,7 +34,7 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
                     showattrarr = scope.showattrarr;
                 }
 
-                scope.weekarr = ["日", "一", "二", "三", "四", "五", "六"];
+                scope.weekarr = ["<font color=red>日</font>", "一", "二", "三", "四", "五", "<font color=red>六</font>"];
 
                 var obj = {};
                 var date = new Date();
@@ -87,14 +88,14 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
                     for (var j = 0; j < montharray[obj.m]; j++) {
                         var dayobj = {
                             'label': j + 1,
-                            'd': obj.y + '',
+                            'd': obj.y + '-',
                             'labelarr': [],	//具体显示的信息
                         };
 
                         if (obj.m < 9) {
-                            dayobj.d += '0' + (obj.m + 1);
+                            dayobj.d += '0' + (obj.m + 1) + '-';
                         } else {
-                            dayobj.d += obj.m + 1;
+                            dayobj.d += obj.m + 1 + '-';
                         }
 
                         if (j < 9) {
@@ -159,7 +160,6 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
                         'm': mm,
                     }
                 }
-
             }
 
             //日历要显示的数据
@@ -167,7 +167,7 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
 
             scope.result = [];
 
-            scope.dateArray = [];
+            scope.dateArray = {};
 
             scope.day = '';
 
@@ -176,140 +176,26 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
             //日历显示信息的顺序和样式
             scope.showattrarr = [
                 {
-                    key: 'adult_ban',
+                    key: 'market_price_display',
                     position: 'left',
-                    before: '成人是否禁售: '
+                    before: '<font color=red >市场价格: ¥</font>'
                 },
                 {
-                    key: 'adult_call_price',
+                    key: 'guide_price_display',
                     position: 'left',
-                    before: '成人结算价: ¥'
+                    before: '<font color=green >居游价格: ¥</font>'
                 },
                 {
-                    key: 'adult_sale_price',
+                    key: 'cost_price_display',
                     position: 'left',
-                    before: '成人销售价: ¥'
+                    before: '<font color=red >成本价格: ¥</font>'
                 },
                 {
-                    key: 'children_ban',
+                    key: 'purchase_price_display',
                     position: 'left',
-                    before: '儿童是否禁售: '
+                    before: '<font color=green >采购价格: ¥</font>'
                 },
-                {
-                    key: 'children_call_price',
-                    position: 'left',
-                    before: '儿童结算价: ¥'
-                },
-                {
-                    key: 'children_sale_price',
-                    position: 'left',
-                    before: '儿童销售价: ¥'
-                },
-                {
-                    key: 'single_room_ban',
-                    position: 'left',
-                    before: '单房差是否禁售 :'
-                },
-                {
-                    key: 'single_room_call_price',
-                    position: 'left',
-                    before: '单房差结算价: ¥'
-                },
-                {
-                    key: 'single_room_sale_price',
-                    position: 'left',
-                    before: '单房差销售价: ¥'
-                },
-                {
-                    key: 'stock_type',
-                    position: 'left',
-                    before: '库存类型: '
-                },
-                {
-                    key: 'stock_totals',
-                    position: 'left',
-                    before: '库存总量: '
-                },
-                {
-                    key: 'stock',
-                    position: 'left',
-                    before: '剩余库存: '
-                },
-                {
-                    key: 'materials_advance_reserve',
-                    position: 'left',
-                    before: '提前预定: '
-                },
-                // {
-                // 	key: 'materials_advance_reserve_hour',
-                // 	position: 'left',
-                // 	before: '时: '
-                // },
-                // {
-                // 	key: 'materials_advance_reserve_minute',
-                // 	position: 'left',
-                // 	before: '分: '
-                // },
-                {
-                    key: 'back_rule_type',
-                    position: 'left',
-                    before: '退改类型: '
-                },
-                {
-                    key: 'close_group',
-                    position: 'left',
-                    before: '是否销售: '
-                }
             ];
-
-            //每一天的点击事件
-            scope.clickday = function (item) {
-                // if (item.label == '') {
-                //     return;
-                // }
-                // var today = date2str(new Date());
-                // if (item.d < today) {
-                //     alert('团期日期不能不能小于当天日期');
-                //     return;
-                // }
-
-                // if (scope.product_state_name != '草稿' && !item.data) {
-                //     alert('已上架产品不可以添加');
-                //     return;
-                // }
-
-
-                var passMessage = {};
-
-                var modalInstance = $uibModal.open({
-                    template: require('../views/customPriceCalendar.html'),
-                    controller: 'customPriceCalendar',
-                    size: 'lg',
-                    resolve: {
-                        items: function () {
-                            return {
-                                state: 2,
-                                data: item.data,
-                                date: item.d,
-                                product_state_name: scope.product_state_name,
-                                dateArray: scope.dateArray,
-                                returnday: scope.day
-                            };
-                        }
-                    }
-                });
-                modalInstance.opened.then(function () {// 模态窗口打开之后执行的函数  
-                    scope.findinfoList();
-                });
-                modalInstance.result.then(function (showResult) {
-                    scope.findinfoList();
-                    scope.util.bonusInit();
-                }, function (reason) {
-                    // click，点击取消，则会暑促cancel  
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
-
-            };
 
             //日期转换
             function date2str(d) {
@@ -320,123 +206,40 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
                 var day = d.getDate().toString();
                 if (month.length == 1) month = '0' + month;
                 if (day.length == 1) day = '0' + day;
-                return d.getFullYear() + month + day;
-            }
-
-            //点击修改按钮
-            scope.update = function () {
-                var modalInstance = $uibModal.open({
-                    template: require('../views/updatePriceCalendar.html'),
-                    controller: 'updatePriceCalendar',
-                    size: 'lg',
-                    resolve: {
-                        items: function () {
-                            return {
-                                dateArray: scope.dateArray,
-                                product_state_name: scope.product_state_name,
-                                data: scope.data,
-                                returnday: scope.day
-
-                            };
-                        }
-                    }
-                });
-                modalInstance.opened.then(function () {// 模态窗口打开之后执行的函数  
-                });
-                modalInstance.result.then(function (showResult) {
-                    scope.findinfoList();
-                }, function (reason) {
-                    // click，点击取消，则会暑促cancel  
-                    $log.info('Modal dismissed at: ' + new Date());
-                });
+                return d.getFullYear() + '-' + month + '-' + day;
             }
 
             //查询数据
             scope.findinfoList = function () {
-
-                // $resource('/api/ac/lc/groupDatesService/findinfoList', {}, {}).save({ product_id: scope.util.product_id }, function (res) {
-
-                //     if (res.errcode === 0 || res.errcode === 10003) {
-
-                //         // console.log(res);
-                //         scope.data = [];
-                //         scope.dateArray = [];
-                //         scope.day = res.data.day
-                //         if (angular.isDefined(res.data)) {
-                //             scope.product_state_name = res.data.product_state_name;
-                //             for (var dateNumber = 0; dateNumber < res.data.list.length; dateNumber++) {
-                //                 var element = angular.copy(res.data.list[dateNumber]);
-                //                 if (element.children_ban != null && element.children_ban != undefined && element.children_ban != "" && element.children_ban != "0") {
-                //                     element.children_ban = '<font color="red">禁售</font>';
-                //                 } else {
-                //                     element.children_ban = '否';
-                //                 }
-                //                 if (element.adult_ban != null && element.adult_ban != undefined && element.adult_ban != "" && element.adult_ban != "0") {
-                //                     element.adult_ban = '<font color="red">禁售</font>';
-                //                 } else {
-                //                     element.adult_ban = '否';
-                //                 }
-                //                 if (element.single_room_ban != null && element.single_room_ban != undefined && element.single_room_ban != "" && element.single_room_ban != "0") {
-                //                     element.single_room_ban = '<font color="red">禁售</font>';
-                //                 } else {
-                //                     element.single_room_ban = '否';
-                //                 }
-                //                 if (element.back_rule_type != null && element.back_rule_type != undefined && element.back_rule_type != "" && element.back_rule_type != "0") {
-                //                     element.back_rule_type = '人工退改';
-                //                 } else {
-                //                     element.back_rule_type = '不退不改';
-                //                 }
-                //                 if (element.stock_type != null && element.stock_type != undefined && element.stock_type != "" && element.stock_type != "0") {
-                //                     element.stock_type = '共有';
-                //                 } else {
-                //                     element.stock_type = '未知';
-                //                 }
-                //                 if (element.close_group != null && element.close_group != undefined && element.close_group != "" && element.close_group != "0") {
-                //                     element.close_group = '停售';
-                //                 } else {
-                //                     element.close_group = '正在销售';
-                //                 }
-
-                //                 if (element.stock_totals == null || element.stock_totals == undefined || element.stock_totals == "" || element.stock_totals == 0) {
-                //                     element.stock_totals = '不限';
-                //                 }
-                //                 // if (element.stock == null || element.stock == undefined || element.stock == "" || element.stock == 0) {
-                //                 // 	element.stock = '0';
-                //                 // }
-                //                 element.d = element.tour_date.replace('-', '').replace('-', '');
-                //                 scope.dateArray.push(element.d);
-                //                 delete element.tour_date;
-                //                 delete element.id;
-                //                 delete element.product_id;
-                //                 delete element.trip_id;
-                //                 element.materials_advance_reserve = element.materials_advance_reserve_day + '天' +
-                //                     (element.materials_advance_reserve_hour ? element.materials_advance_reserve_hour : 0) + '时' + (element.materials_advance_reserve_minute ? element.materials_advance_reserve_minute : 0) + '分';
-                //                 // delete element.element.materials_advance_reserve_day;
-                //                 // delete element.element.materials_advance_reserve_hour;
-                //                 // delete element.element.materials_advance_reserve_minute;
-                //                 scope.data[dateNumber] = element;
-
-
-                //             }
-                //         }
-
-                //     } else {
-                //         alert(res.errmsg);
-                //     }
-                //     scope.loadupdate();
-                // });
-                scope.loadupdate();
+                var para = {
+                    sale_code:scope.saleobj.code
+                }
+                $resource('/api/ac/tc/ticketSaleDayPriceService/getDayPriceBySaleCode', {}, {}).save(para, function (res) {
+                    if (res.errcode === 0) {
+                        scope.dateArray
+                        for (var index = 0; index < res.data.daylist.length; index++) {
+                            var date = res.data.daylist[index].date;
+                            var id = res.data.daylist[index].id;
+                            scope.dateArray[date] = id;
+                            var element = {};
+                            element.d = res.data.daylist[index].date;
+                            element.market_price_display = '<font color=red >' + res.data.daylist[index].market_price + '</font>';
+                            element.guide_price_display = '<font color=green >' + res.data.daylist[index].guide_price + '</font>';
+                            element.cost_price_display = '<font color=red >' + res.data.daylist[index].cost_price + '</font>';
+                            element.purchase_price_display = '<font color=green >' + res.data.daylist[index].purchase_price + '</font>';
+                            element.market_price = res.data.daylist[index].market_price;
+                            element.guide_price =  res.data.daylist[index].guide_price;
+                            element.cost_price = res.data.daylist[index].cost_price;
+                            element.purchase_price = res.data.daylist[index].purchase_price;
+                            scope.data[index] = element;
+                        }
+                        scope.loadupdate();
+                    } else {
+                        toaster.warning({ title: '', body: res.errmsg });
+                    }
+                });
             }
             scope.findinfoList();
-
-
-
-
-
-
-
-
-
         }
 
     };
