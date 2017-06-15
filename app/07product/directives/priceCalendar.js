@@ -20,7 +20,7 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
 			 * 下方是初始化方法
 			 */
 
-            scope.loadupdate = function () {
+            scope.loadupdate = function (str) {
                 var dataobj = {};
                 if (angular.isDefined(scope.data) && angular.isArray(scope.data)) {
                     for (var i = 0; i < scope.data.length; i++) {
@@ -37,9 +37,12 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
                 scope.weekarr = ["<font color=red>日</font>", "一", "二", "三", "四", "五", "<font color=red>六</font>"];
 
                 var obj = {};
-                var date = new Date();
+                var date = str ? new Date(str) : new Date();
                 var year = date.getFullYear();
                 var month = date.getMonth();
+                console.log('date')
+                console.log(str)
+                console.log(date)
 
 
                 scope.obj = makedata(year, month, dataobj, showattrarr);
@@ -237,8 +240,8 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
                 });
                 modalInstance.opened.then(function () {// 模态窗口打开之后执行的函数  
                 });
-                modalInstance.result.then(function (showResult) {
-                    scope.findinfoList();
+                modalInstance.result.then(function (result) {
+                    scope.findinfoList(result.date);
                 }, function (reason) {
                     scope.findinfoList();
                     // click，点击取消，则会暑促cancel  
@@ -286,7 +289,7 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
             }
 
             //查询数据
-            scope.findinfoList = function () {
+            scope.findinfoList = function (str) {
                 var para = {
                     sale_code:scope.saleobj.code
                 }
@@ -309,7 +312,7 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
                             element.purchase_price = res.data.daylist[index].purchase_price;
                             scope.data[index] = element;
                         }
-                        scope.loadupdate();
+                        scope.loadupdate(str);
                     } else {
                         toaster.warning({ title: '', body: res.errmsg });
                     }

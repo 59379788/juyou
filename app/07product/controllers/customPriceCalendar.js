@@ -1,7 +1,7 @@
 /**
  * 模态框
  */
-module.exports = function ($scope, $state, $resource, $stateParams, $uibModalInstance, $http, items) {
+module.exports = function ($scope, $state, $resource, $stateParams, $uibModalInstance, $http, items, toaster) {
 
 	console.log(items)
 
@@ -28,13 +28,13 @@ module.exports = function ($scope, $state, $resource, $stateParams, $uibModalIns
 		$resource('/api/ac/tc/ticketSaleDayPriceService/createDayPrice', {}, {}).save(para, function (res) {
 			if (res.errcode === 0) {
 				toaster.success({ title: '', body: '保存成功' });
-				$uibModalInstance.close({});
+				$uibModalInstance.close({date:$scope.selectedDate[0].date});
 			} else {
 				toaster.warning({ title: '', body: res.errmsg });
 				$scope.lastResult = [];
 			}
 		});
-		$uibModalInstance.close({});
+		// $uibModalInstance.close({});
 	}
 
 	$scope.cancel = function () {
