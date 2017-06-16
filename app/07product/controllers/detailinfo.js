@@ -1,5 +1,5 @@
 module.exports = function($scope, obj,$uibModalInstance){
-
+//周期价格 有无
 
 function ChangeDateFormat(jsondate) {
     jsondate = jsondate.replace("/Date(", "").replace(")/", "");
