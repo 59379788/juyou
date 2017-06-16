@@ -2,11 +2,23 @@ module.exports = function($scope, dockingproduct,getDate,$uibModal,$state){
 
 	
     dockingproduct.	save({}, function(res){
-        	if(res.errcode === 0)
-		{
+        if(res.errcode === 0)
+		{  
+			for(var i=0;i<res.data.length;i++){
+	
+			
+                      if(res.data[i].DataJson === undefined || res.data[i].DataJson.length === 0){
+						   res.data[i].flag="无";
+						
+						}
+						else{
+						   res.data[i].flag="有";
+							
+						}
+			}
+			
 			$scope.objs = res.data;
-			console.log(res);
-            console.log("=======+++++");
+
 		}
 		else
 		{
