@@ -1,4 +1,4 @@
-module.exports = function($scope, dockingproduct,getDate,$uibModal){
+module.exports = function($scope, dockingproduct,getDate,$uibModal,$state){
 
 	
     dockingproduct.	save({}, function(res){
@@ -15,10 +15,11 @@ module.exports = function($scope, dockingproduct,getDate,$uibModal){
     });
    
     $scope.info=function(obj){
+	
         var modalInstance = $uibModal.open({
 			template: require('../views/detailinfo.html'),
 			controller: 'detailinfo',
-			url: '/productdetailinfo1',
+			url: '/productdetailinfo331',
 			size: 'lg',
 			resolve: {
 				'obj': function () {
@@ -33,9 +34,8 @@ module.exports = function($scope, dockingproduct,getDate,$uibModal){
 		modalInstance.result.then(function (showResult) {
 			
 		}, function (reason) {
-			
-			// // click，点击取消，则会暑促cancel  
-			// $log.info('Modal dismissed at: ' + new Date());
+		 $state.go("app.dockingproduct",{},{reload:true}); 
+		
 		});
     }
 

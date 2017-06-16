@@ -277,19 +277,20 @@
                                 <table class="table table-bordered mt10">
                                     <thead>
                                         <tr>
-                                            <th class="col-md-3 text-center">true 调用成功 false 调用失败</th>
-                                            <th class="col-md-3 text-center">结果代码</th>
-                                            <th class="col-md-3 text-center">结果代码详情</th>
-                                            <th class="col-md-3 text-center">门票信息json字符串</th>
-   
+                                            <th class="col-md-2 text-center">门票单价（结算价）</th>
+                                            <th class="col-md-2 text-center">售卖价</th>
+                                            <th class="col-md-2 text-center">市场价</th>
+                                            <th class="col-md-3 text-center">门票售卖开始时间</th>
+                                             <th class="col-md-3 text-center">门票售卖结束时间</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="obj1 in obj.DataJson">
-                                            <td class="text-center">{{obj1.IsTrue}}</td>
-                                            <td class="text-center">{{obj1.ResultCode}}</td>
-                                              <td class="text-center">{{obj1.ResultMsg}}</td>
-                                            <td class="text-center">{{obj1.ResultJson}}</td>
+                                            <td class="text-center">{{obj1.ProductPrice}}</td>
+                                            <td class="text-center">{{obj1.ProductSellPrice}}</td>
+                                            <td class="text-center">{{obj1.ProductMarketPrice}}</td>
+                                            <td class="text-center">{{obj1.StartTime}}</td>
+                                            <td class="text-center">{{obj1.EndTime}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
