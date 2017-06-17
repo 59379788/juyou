@@ -1,0 +1,181 @@
+<style type="text/css">
+    .padLefRig0 {
+        padding-left: 0px;
+        padding-right: 0px
+    }
+    /*.marLef030{
+        margin-left: -30px;
+    }*/
+</style>
+<div class="container-fluid form-horizontal ">
+    <form name="updatePriceCalendar" class="form-horizontal form-validation">
+        <div class="modal-header">
+            <h4 class="modal-title">设置时间价格</h4>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <!--<div class="col-xs-12 row">
+                    <div class="col-xs-2">
+                        添加开团日期 :
+                    </div>
+                    <div class="col-xs-10 row">
+                        <div class="col-xs-12 row">
+                            <div class="col-xs-6">
+                                <div class="col-xs-12">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="date.label" is-open="date.opened" close-text="Close"
+                                            readonly />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default"
+                                                    ng-click="dateOpen($event, date)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                            <a class="btn btn-success " ng-click="addSelectDate()">添加</a>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 row">
+                                <div class="col-xs-5" ng-repeat="date in result.selectedDate" ng-dblclick="removeSelectDate($index)">
+                                    <a class="btn btn-info btn-sm">
+                                        {{date.date}} &nbsp;&nbsp;<i class="glyphicon glyphicon-remove" ng-click="removeSelectDate($index)"></i>
+                                    </a>
+                                    <br/>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </div>
+                </div>-->
+                <div class="col-xs-12 row">
+
+                    <div class="form-group">
+                        <div>
+                            <label class="col-sm-2 col-xs-12 control-label">开始日期</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" ng-model="tour.start.date" uib-datepicker-popup="yyyy-MM-dd" is-open="tour.start.opened"
+                                        ng-required="true" close-text="Close" readonly/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open(tour.start)">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                        <!--<a class="btn btn-success " ng-click="addSelectDate()">添加</a>-->
+						            </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <!--<div class="col-xs-3" ng-repeat="date in selectedDate" ng-dblclick="removeSelectDate($index)">
+                                <a class="btn btn-info btn-sm">
+                                    {{date.date}} &nbsp;&nbsp;<i class="glyphicon glyphicon-remove" ng-click="removeSelectDate($index)"></i>
+                                </a>
+                                <br/>
+                                <br/>
+                            </div>-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <label class="col-sm-2 col-xs-12 control-label">结束日期</label>
+                            <div class="col-sm-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" ng-model="tour.end.date" uib-datepicker-popup="yyyy-MM-dd" is-open="tour.end.opened"
+                                        ng-required="true" close-text="Close" readonly/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open(tour.end)">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                        <!--<a class="btn btn-success " ng-click="addSelectDate()">添加</a>-->
+						            </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <!--<div class="col-xs-3" ng-repeat="date in selectedDate" ng-dblclick="removeSelectDate($index)">
+                                <a class="btn btn-info btn-sm">
+                                    {{date.date}} &nbsp;&nbsp;<i class="glyphicon glyphicon-remove" ng-click="removeSelectDate($index)"></i>
+                                </a>
+                                <br/>
+                                <br/>
+                            </div>-->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-12 control-label">市场价格</label>
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">¥</span>
+                                <input type="number" class="form-control" placeholder="请输入市场价格" min='0' ng-model="saleobj.market_price">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mt10">
+                            <font face="Courier" class="text-danger"></font>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-12 control-label">居游价格</label>
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">¥</span>
+                                <input type="number" class="form-control" placeholder="请输入居游价格" min='0' ng-model="saleobj.guide_price">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mt10">
+                            <font face="Courier" class="text-danger"></font>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-12 control-label">成本价格</label>
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">¥</span>
+                                <input type="number" class="form-control" placeholder="请输入分销商成本价格" min='0' ng-model="saleobj.cost_price">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mt10">
+                            <font face="Courier" class="text-danger">与分销商结算价，APP(微信)为游客支付价格</font>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-12 control-label">采购价格</label>
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">¥</span>
+                                <input type="number" class="form-control" placeholder="请输入供应商成本价格" min='0' ng-model="saleobj.purchase_price">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mt10">
+                            <font face="Courier" class="text-danger">与供应商结算价</font>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group" >
+                        <label class="col-sm-2 col-xs-12 control-label">库存</label>
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">¥</span>
+                                <input type="number" class="form-control" placeholder="请输入供应商成本价格" min='0' ng-model="saleobj.current_stock_num" >
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mt10">
+                            <font face="Courier" class="text-danger">当前库存</font>
+                        </div>
+                    </div>-->
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="save()">保存</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">返回</button>
+        </div>
+    </form>
+</div>

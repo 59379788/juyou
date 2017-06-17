@@ -4,6 +4,9 @@
  */
 var service = function($resource, BASEURL38985, $q, $http){
 
+     //对接产品信息
+    var dockingproduct = BASEURL38985 + "/api/uc/dc/supplyXiaojingService/createGetProductList";
+
     //查询景区下拉列表
     var viewlist = BASEURL38985 + "/api/as/tc/placeview/jlist";
 
@@ -224,6 +227,9 @@ var service = function($resource, BASEURL38985, $q, $http){
 
 
     return {
+         dockingproduct : function(){
+            return $resource(dockingproduct, {}, {});
+        },
         middlebusiness : function(){
             return $resource(middlebusiness, {}, {});
         },

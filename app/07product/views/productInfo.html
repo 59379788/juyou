@@ -24,6 +24,24 @@
 			</div>
 		</div>
 
+		<!--<div index="10" heading="价格设置" ng-if="saleobj.id !== '' && funobj.hasOwnProperty('juyousubsidy')">-->
+		<div index="10" heading="价格设置" ng-if="saleobj.price_type == '1'">
+			<div class="panel panel-default">
+				<div class="panel-heading">价格设置</div>
+				<div class="panel-body">
+					<productinfo-price-calendar saleobj="saleobj" util="util"></productinfo-price-calendar>
+				</div>
+			</div>
+		</div>
+		<div index="10" heading="价格设置" ng-if="saleobj.price_type == '0'">
+			<div class="panel panel-default">
+				<div class="panel-heading">价格设置</div>
+				<div class="panel-body">
+					<productinfo-price-setting saleobj="saleobj" util="util"></productinfo-price-setting>
+				</div>
+			</div>
+		</div>
+
 		<div index="1" heading="限制信息" ng-if="saleobj.id !== '' && saleobj.code !== ''">
 			<div class="panel panel-default">
 				<div class="panel-heading">限制信息</div>

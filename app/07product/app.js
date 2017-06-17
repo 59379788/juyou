@@ -8,6 +8,8 @@ var App = angular.module('product', []);
 App.config(require('./router'));
 App.factory('productservice', require('./service'));
 
+App.controller('detailinfo',require('./controllers/detailinfo'));
+App.controller('dockingproduct',require('./controllers/dockingproduct'));
 App.controller('tkttype',require('./controllers/tkttype'));
 App.controller('tkttypecreate',require('./controllers/tkttypecreate'));
 App.controller('tkttypeedit',require('./controllers/tkttypeedit'));
@@ -47,6 +49,8 @@ App.directive('restrictrule',require('./directives/restrictrule'));
 App.directive('imgtextinfo',require('./directives/imgtextinfo'));
 App.directive('govsubsidy',require('./directives/govsubsidy'));
 App.directive('juyousubsidy',require('./directives/juyousubsidy'));
+App.directive('priceCalendar',require('./directives/priceCalendar'));
+App.directive('priceSetting',require('./directives/priceSetting'));
 
 App.directive('productinfobaseinfo',require('./directives/productinfobaseinfo'));
 App.directive('productinfotickettype',require('./directives/productinfotickettype'));
@@ -58,9 +62,13 @@ App.directive('productinforestrictrule',require('./directives/productinforestric
 App.directive('productinfoimgtextinfo',require('./directives/productinfoimgtextinfo'));
 App.directive('productinfogovsubsidy',require('./directives/productinfogovsubsidy'));
 App.directive('productinfojuyousubsidy',require('./directives/productinfojuyousubsidy'));
+App.directive('productinfoPriceCalendar',require('./directives/productinfoPriceCalendar'));
+App.directive('productinfoPriceSetting',require('./directives/productinfoPriceSetting'));
 
 
 App.controller('skprofit',require('./controllers/skprofit'));
+App.controller('updatePriceCalendar',require('./controllers/updatePriceCalendar'));
+App.controller('customPriceCalendar',require('./controllers/customPriceCalendar'));
 
 
 //预约列表

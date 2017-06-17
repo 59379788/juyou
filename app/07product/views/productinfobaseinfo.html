@@ -34,11 +34,33 @@
 		</div>
 
 		<div class="form-group">
+			<label class="col-sm-2 col-xs-12 control-label">价格类型</label>
+			<div class="col-sm-4 col-xs-12">
+				<p ng-if="saleobj.price_type == '1'" class="form-control-static">价格日历模式</p>
+				<p ng-if="saleobj.price_type == '0'" class="form-control-static">有效期模式</p>
+				<!--<label class="radio-inline">
+				  <input type="radio" name="sale_target_type" value="0"
+				  ng-model="saleobj.sale_target_type" ng-disabled="true"
+				  > 公开销售
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="sale_target_type" value="1"
+				  ng-model="saleobj.sale_target_type" ng-disabled="true"
+				  > 独立授权销售
+				</label>-->
+			</div>
+			<div class="col-sm-6 col-xs-12">
+				<p class="form-control-static text-danger">
+					<!--公开销售：默认所有分销商可见，可设置分销商不可见<br/> 授权销售：默认所有分销商不可见，可设置分销商可见-->
+				</p>
+			</div>
+		</div>
+		<!--
+		<div class="form-group">
 			<label class="col-sm-2 col-xs-12 control-label">市场价格</label>
 			<div class="col-sm-4 col-xs-12">
 				<div class="input-group">
 					<p class="form-control-static">¥{{saleobj.market_price}}</p>
-					<!--<input type="number" class="form-control" placeholder="请输入市场价格" min='0' ng-model="saleobj.market_price" ng-disabled="true">-->
 				</div>
 			</div>
 			<div class="col-sm-6 mt10">
@@ -51,8 +73,6 @@
 			<div class="col-sm-4 col-xs-12">
 				<div class="input-group">
 					<p class="form-control-static">¥{{saleobj.guide_price}}</p>
-					<!--<span class="input-group-addon">¥</span>
-					<input type="number" class="form-control" placeholder="请输入居游价格" min='0' ng-model="saleobj.guide_price" ng-disabled="true">-->
 				</div>
 			</div>
 			<div class="col-sm-6 mt10">
@@ -61,13 +81,10 @@
 		</div>
 
 		<div class="form-group">
-			<!--<label class="col-sm-3 col-xs-12 control-label">分销商成本价格</label>-->
 			<label class="col-sm-2 col-xs-12 control-label">成本价格</label>
 			<div class="col-sm-4 col-xs-12">
 				<div class="input-group">
 					<p class="form-control-static">¥{{saleobj.cost_price}}</p>
-					<!--<span class="input-group-addon">¥</span>
-					<input type="number" class="form-control" placeholder="请输入分销商成本价格" min='0' ng-model="saleobj.cost_price" ng-disabled="true">-->
 				</div>
 			</div>
 			<div class="col-sm-6 mt10">
@@ -76,19 +93,16 @@
 		</div>
 
 		<div class="form-group">
-			<!--<label class="col-sm-3 col-xs-12 control-label">分销商成本价格</label>-->
 			<label class="col-sm-2 col-xs-12 control-label">采购价格</label>
 			<div class="col-sm-4 col-xs-12">
 				<div class="input-group">
 					<p class="form-control-static">¥{{saleobj.purchase_price}}</p>
-					<!--<span class="input-group-addon">¥</span>
-					<input type="number" class="form-control" placeholder="请输入分销商成本价格" min='0' ng-model="saleobj.cost_price" ng-disabled="true">-->
 				</div>
 			</div>
 			<div class="col-sm-6 mt10">
 				<font face="Courier" class="text-danger">与供应商结算价</font>
 			</div>
-		</div>
+		</div>-->
 
 		<div class="form-group">
 			<label class="col-sm-2 col-xs-12 control-label">产品排序</label>
@@ -167,7 +181,7 @@
 					<p class="form-control-static">{{saleobj.sms_template_id}}</p>
 					<!--<select class="form-control" ng-model="saleobj.sms_template_id" ng-change="changeSms(saleobj)" ng-disabled="true" ng-options="sms.sms_template_id as sms.sms_template_id for sms in page.smslist">
 	            	<option value="">  -- 空 --  </option>-->
-	            </select>
+					</select>
 				</div>
 				<div class="col-sm-6 mt10">
 					<font face="Courier" class="text-danger">发送短信内容模板</font>

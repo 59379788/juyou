@@ -599,6 +599,12 @@ var router = function($urlRouterProvider, $stateProvider){
             },
             updateActiveEnd : function(busscustomerservice){
                      return busscustomerservice.updateActiveEnd();
+            },
+            str2date : function(utilservice){
+                return utilservice.str2date;
+            },
+            date2str : function(utilservice) {
+                return utilservice.date2str;
             }
 
          }

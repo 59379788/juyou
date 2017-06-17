@@ -1,0 +1,146 @@
+<div class="col-xs-10 col-xs-offset-1" >
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			基本信息
+			<button type="button" 
+				class="btn btn-xs btn-info pull-right"
+				ng-click="goodsgo()"
+			>
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+			</button>
+
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				<!-- 编辑状态 -->
+				<!-- <div ng-show="goodsobjstate === 1"> -->
+					<div class="col-xs-10" >
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label">商品名称</label>
+							<div class="col-xs-2">
+								<select class="form-control" ng-model="goodsobj.attr" 
+					              ng-options="attr.ticket_attr_id as attr.type_attr_name for attr in tktarr"
+					              ng-disabled="goodsobj.id != ''"
+					            >
+					            </select>
+							</div>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" placeholder="请输入商品名称"
+								ng-model="goodsobj.name"
+								>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label">所属景区</label>
+							<div class="col-xs-10">
+								<select class="form-control" ng-model="goodsobj.place_code" 
+					              ng-options="view.code as view.name for view in viewarr"
+					              ng-disabled="goodsobj.id != ''"
+					            >
+					            </select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-xs-2 control-label">成本价格</label>
+							<div class="col-xs-10">
+								<div class="input-group">
+									<span class="input-group-addon">¥</span>
+									<input type="number" class="form-control" placeholder="请输入成本价格" min='0'
+									ng-model="goodsobj.cost_price"
+									>
+								</div>
+							</div>
+						</div>
+
+						<!-- <div class="form-group">
+							<label class="col-xs-2 control-label">商品分类</label>
+							<div class="col-xs-10">
+								<select class="form-control" ng-model="goodsobj.goods_category	">
+									<option value="1">分类一</option>
+									<option value="2">分类二</option>
+									<option value="3">分类三</option>
+					            </select>
+							</div>
+						</div> -->
+
+						<!-- <div class="form-group">
+							<label class="col-xs-2 control-label">商品属性</label>
+							<div class="col-xs-10">
+								<div class="input-group">
+									<select class="form-control" ng-model="goodsobj.attr" 
+						              ng-options="tktattr.ticket_attr_id as tktattr.type_attr_name for tktattr in tktarr"
+						            >
+						            </select>
+								</div>
+							</div>
+						</div> -->
+
+
+					</div>			
+
+
+
+
+			</div>
+		</div>
+
+
+	</div>
+</div>
+
+<div class="col-xs-10 col-xs-offset-1" ng-show="goodsobj.id !== undefined">
+	<div class="panel panel-default form-horizontal">
+		<div class="panel-heading">
+			商品包含票种信息
+		</div>
+		<div class="panel-body">
+			<div class="container-fluid">
+				<div class="col-xs-10" >
+
+					<div class="form-group">
+						<label class="col-xs-2 control-label">添加票种</label>
+						<div class="col-xs-5">
+
+							<select class="form-control" ng-model="tkttypeobj.ticket_type" 
+				              ng-options="type.code as type.name for type in typearr"
+				            >
+				            </select>
+						</div>
+						<!-- <div class="col-xs-3">
+							<select class="form-control" ng-model="tkttypeobj.ticket_attr" 
+				              ng-options="tktattr.ticket_attr_id as tktattr.type_attr_name for tktattr in tktarr"
+				            >
+				            </select>
+						</div> -->
+						<div class="col-xs-2">
+							<a ng-click="add()" class="btn btn-success btn-sm">添加</a>
+						</div>
+					</div>
+
+					<table class="table table-bordered">
+					    <thead>
+					      <tr>
+					        <th class="col-md-6 text-center">票种类型</th>
+					        <th class="col-md-4 text-center">票种属性</th>
+					        <th class="col-md-2 text-center">操作</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr ng-repeat="obj in objs">
+					        <td class="text-center">{{obj.ticket_type_name}}</td>
+					        <td class="text-center">{{obj.ticket_attr_name}}</td>
+					        <td class="text-center">
+					          <a ng-click="del(obj.id)" class="btn btn-warning btn-xs">删除</a>
+					        </td>
+					      </tr>
+					    </tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

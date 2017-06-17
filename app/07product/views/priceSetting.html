@@ -1,0 +1,100 @@
+<div>
+    <style type="text/css">
+        .padLefRig0 {
+            padding-left: 0px;
+            padding-right: 0px
+        }
+        /*.marLef030{
+        margin-left: -30px;
+    }*/
+    </style>
+    <div class="container-fluid form-horizontal ">
+        <form name="updatePriceCalendar" class="form-horizontal form-validation">
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="col-xs-12 row">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 col-xs-12 control-label">市场价格</label>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon">¥</span>
+                                    <input type="number" class="form-control" placeholder="请输入市场价格" min='0' ng-model="saleobj.market_price">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 mt10">
+                                <font face="Courier" class="text-danger"></font>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 col-xs-12 control-label">居游价格</label>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon">¥</span>
+                                    <input type="number" class="form-control" placeholder="请输入居游价格" min='0' ng-model="saleobj.guide_price">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 mt10">
+                                <font face="Courier" class="text-danger"></font>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 col-xs-12 control-label">成本价格</label>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon">¥</span>
+                                    <input type="number" class="form-control" placeholder="请输入分销商成本价格" min='0' ng-model="saleobj.cost_price">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 mt10">
+                                <font face="Courier" class="text-danger">与分销商结算价，APP(微信)为游客支付价格</font>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 col-xs-12 control-label">采购价格</label>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon">¥</span>
+                                    <input type="number" class="form-control" placeholder="请输入供应商成本价格" min='0' ng-model="saleobj.purchase_price">
+                                </div>
+                            </div>
+                            <div class="col-sm-6 mt10">
+                                <font face="Courier" class="text-danger">与供应商结算价</font>
+                            </div>
+                        </div>
+
+                        <!--<div class="form-group" >
+                        <label class="col-sm-2 col-xs-12 control-label">库存</label>
+                        <div class="col-sm-4 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">¥</span>
+                                <input type="number" class="form-control" placeholder="请输入供应商成本价格" min='0' ng-model="saleobj.current_stock_num" >
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mt10">
+                            <font face="Courier" class="text-danger">当前库存</font>
+                        </div>
+                    </div>-->
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group" ng-if="util.what == 'edit'">
+                    <label class="col-sm-2 col-xs-12 control-label"></label>
+                    <div class="col-sm-4 col-xs-12 text-center">
+                        <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="save()" ng-if="saleobj.id == '' || util.$uibModalInstance == undefined">保存</button>
+                        <button type="button" class="btn btn-primary btn-lg" ng-click="save()" ng-if="(saleobj.id != '') && (util.$uibModalInstance != undefined)">保&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存</button>
+                        <button type="button" class="btn btn-primary btn-lg" ng-click="saveAndBack()" ng-if="(saleobj.id != '') && (util.$uibModalInstance != undefined)">保存并返回</button>
+                    </div>
+                    <div class="col-sm-4">
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

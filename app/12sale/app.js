@@ -20,6 +20,7 @@ App.controller('sellinggroupsignup',require('./controllers/sellinggroupsignup'))
 // App.controller('doc',require('./controllers/doc'));
 // App.controller('info',require('./controllers/info'));
 App.controller('autwintic',require('./controllers/autwintic'));
+App.controller('sellPriceSetting',require('./controllers/sellPriceSetting'));
 
 
 module.exports = App;

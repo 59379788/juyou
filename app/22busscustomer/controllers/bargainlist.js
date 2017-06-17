@@ -1,4 +1,4 @@
-module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE, findManageActiveList, getDate, findCheckActiveList,updateActiveStart,updateActiveEnd,toaster){
+module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE, findManageActiveList, getDate, findCheckActiveList,updateActiveStart,updateActiveEnd,date2str,str2date, toaster){
 
   /* 分页
      * ========================================= */
@@ -9,10 +9,10 @@ module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE
     //有效区间
     $scope.section = {};
     $scope.section.start = {};
-    $scope.section.start.date = new Date();
+    $scope.section.start.date = '';
  
     $scope.section.end = {};
-    $scope.section.end.date = new Date();
+    $scope.section.end.date = '';
 
     $scope.open = function(obj) {
         obj.opened = true;
@@ -28,17 +28,20 @@ module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE
   		  'endTime' : ''
   	}
     $scope.search = function () {
-        var para = {
-            pageNo:$scope.bigCurrentPage, 
-            pageSize:$scope.itemsPerPage,
-            startTime : getDate($scope.section.start.date) + " 00:00:00",
-            endTime : getDate($scope.section.end.date) + " 23:59:59"
-        };
-        para = angular.extend($scope.info,para); 
-        findCheckActiveList.save(para, function (res) {
-          	console.log(para);
+        if($scope.section.start.date == ''){
+            $scope.info.startTime = '';
+        } else {
+            $scope.info.startTime = date2str($scope.section.start.date);
+        }
+        if($scope.section.end.date == ''){
+            $scope.info.endTime = '';
+        } else {
+            $scope.info.endTime = date2str($scope.section.end.date);
+        }
+        
+        findCheckActiveList.save($scope.info, function (res) {
           	if (res.errcode != 0) {
-         			//toaster.success({title: "", body:res.errmsg});
+         			toaster.error({title: "", body:res.errmsg});
          			return;
        			}
        			console.log(res);
@@ -52,14 +55,14 @@ module.exports = function($scope, $stateParams, $state, $uibModal, ITEMS_PERPAGE
 
    	$scope.getlist = function () {
      		var para = {
-            pageNo:$scope.bigCurrentPage, 
-            pageSize:$scope.itemsPerPage
-        };
+                pageNo:$scope.bigCurrentPage, 
+                pageSize:$scope.itemsPerPage
+            };
         para = angular.extend(para); 
      		findManageActiveList.save(para, function (res) {
        			console.log(para);
        			if (res.errcode != 0) {
-         				toaster.success({title: "", body:res.errmsg});
+         				toaster.error({title: "", body:res.errmsg});
          				return;
        			}                
        			$scope.objs = res.data.results;

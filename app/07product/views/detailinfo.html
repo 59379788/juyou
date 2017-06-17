@@ -1,0 +1,307 @@
+<style type="text/css">
+	form.tab-form-demo .tab-pane {
+		margin: 20px 20px;
+	}
+	.custom-panel {
+		margin-bottom: 0px;
+	}
+</style>
+
+
+<div class="panel panel-primary custom-panel">
+	<div class="panel-heading text-center">
+		<font face="Courier" class="" size="5">对接产品详情</font>
+	</div>
+	<div class="panel-body">
+   
+		<div  heading="基本信息">
+			<div class="panel panel-default">
+		
+				<div class="panel-body">
+					   <div class="container-fluid form-horizontal">
+
+                            <div class="col-xs-12 col-md-12 mt10">
+
+                                  <div class="form-group">
+                                    <label class="col-sm-3 col-xs-12 control-label">门票ID</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.ProductID}}</p>
+                                    </div>
+                                    <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">门票ID</font>
+                                    </div>   
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-xs-12 control-label">门票编码</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.ProductCode}}</p>
+                                    </div>
+                                    
+                                    <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">门票编码</font>
+                                    </div>  
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-xs-12 control-label">门票名称</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.ProductName}}</p>
+                                    </div>
+                                      <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">门票名称</font>
+                                    </div>  
+                                 </div>
+ 
+                                <div class="form-group">
+                                
+                                     <label class="col-sm-3 col-xs-12 control-label">可否退票</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.CanReFund}}</p>
+                                    </div>  
+                                     <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">0:不可退；1：可退</font>
+                                    </div>  
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 col-xs-12 control-label">景区编码</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.ParkCode}}</p>
+                                    </div>
+                                      <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">景区编码</font>
+                                    </div>
+                                </div>
+
+                               
+                                 <div class="form-group">
+                                     <label class="col-sm-3 col-xs-12 control-label">售卖价</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.ProductSellPrice}}</p>
+                                   </div>
+                                      <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">售卖价</font>
+                                    </div>                        
+                                 </div>
+
+                                  <div class="form-group">
+                                  
+                                    <label class="col-sm-3 col-xs-12 control-label">门票单价（结算价）</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.ProductPrice}}</p>
+                                    </div>   
+                                        <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">门票单价（结算价）</font>
+                                    </div>                         
+                                 </div>
+                                 
+                                 <div class="form-group">
+                                     <label class="col-sm-3 col-xs-12 control-label">市场价</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.ProductMarketPrice}}</p>
+                                   </div>
+                                    <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">市场价</font>
+                                    </div>                        
+                                 </div>
+
+                                  <div class="form-group">
+                                  
+                                    <label class="col-sm-3 col-xs-12 control-label">门票类型</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.ProductType}}</p>
+                                    </div>  
+                                     <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">门票类型</font>
+                                    </div>   
+                                                             
+                                 </div>
+
+
+                                  <div class="form-group">
+                                    
+                                     <label class="col-sm-3 col-xs-12 control-label">是否指纹入园</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.ISFingerprint}}</p>
+                                   </div>
+                                      <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">是否指纹入园</font>
+                                    </div> 
+                                                            
+                                 </div>
+
+                                  <div class="form-group">
+                                     <label class="col-sm-3 col-xs-12 control-label">退票比例</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.ReFundRatio}}</p>
+                                   </div>
+                                    <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">退票比例</font>
+                                    </div>                           
+                                 </div>
+
+                                   <div class="form-group">
+                                   
+                                    <label class="col-sm-3 col-xs-12 control-label">是否允许卖期票</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.Promissory}}</p>
+                                    </div> 
+                                    <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">是否允许卖期票</font>
+                                    </div>                           
+                                 </div>
+
+                                  <div class="form-group">
+                                     <label class="col-sm-3 col-xs-12 control-label">最大有效期期票天数</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.PromissoryDate}}</p>
+                                   </div>
+                                       <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">最大有效期期票天数</font>
+                                    </div>                           
+                                 </div>
+
+                                    <div class="form-group">
+                                     
+                                    <label class="col-sm-3 col-xs-12 control-label">是否允许跨年</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.ThroughYear}}</p>
+                                    </div>  
+                                      <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">是否允许跨年</font>
+                                    </div>                           
+                                 </div>
+
+                               
+
+                                  <div class="form-group">
+
+                                     <label class="col-sm-3 col-xs-12 control-label">每个订单最多购买数量限制</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.MaxiMum}}</p>
+                                   </div>
+                                     <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">每个订单最多购买数量限制</font>
+                                    </div>   
+                                                             
+                                 </div>
+
+
+                                 <div class="form-group">
+                                    <label class="col-sm-3 col-xs-12 control-label">每个订单最少购买数量限制</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.MiniMum}}</p>
+                                    </div>  
+                                     <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">每个订单最少购买数量限制</font>
+                                    </div> 
+                                                             
+                                 </div>
+
+                                   <div class="form-group">
+                                     <label class="col-sm-3 col-xs-12 control-label">门票售卖开始时间</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                     <p class="form-control-static">{{obj.StartTime}}</p>
+                                    </div>         
+                                       <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">门票售卖开始时间</font>
+                                    </div> 
+                                                     
+                                 </div>
+
+                                <div class="form-group">
+                                            
+                                     <label class="col-sm-3 col-xs-12 control-label">门票售卖结束时间</label>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <p class="form-control-static">{{obj.EndTime}}</p>
+                                   </div>
+                                       <div class="col-sm-1 mt10">  
+                                    </div>  
+                                     <div class="col-sm-5 mt10">
+                                        <font face="Courier" class="text-danger">门票售卖结束时间</font>
+                                    </div> 
+                                                     
+                                 </div>
+
+
+                            </div>
+                     </div>
+				</div>
+			</div>
+		</div>
+
+    
+			<div class="panel panel-default">
+				<!--<div class="panel-heading">票种信息</div>-->
+				<div class="panel-body">
+
+					  <div class="container-fluid form-horizontal">
+                            <div class="col-xs-12">
+                                
+
+                                <table class="table table-bordered mt10">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-3 text-center">门票售卖开始时间</th>
+                                             <th class="col-md-3 text-center">门票售卖结束时间</th>
+                                            <th class="col-md-2 text-center">门票单价（结算价）</th>
+                                            <th class="col-md-2 text-center">售卖价</th>
+                                            <th class="col-md-2 text-center">市场价</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="obj1 in obj.DataJson">
+                                            <td class="text-center">{{obj1.StartTime}}</td>
+                                            <td class="text-center">{{obj1.EndTime}}</td>
+                                            <td class="text-center">{{obj1.ProductPrice}}</td>
+                                            <td class="text-center">{{obj1.ProductSellPrice}}</td>
+                                            <td class="text-center">{{obj1.ProductMarketPrice}}</td>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                        <!--body-->
+				</div>
+			</div>
+		</div>
+
+</div>
