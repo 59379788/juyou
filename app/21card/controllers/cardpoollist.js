@@ -187,18 +187,23 @@ module.exports = function($scope, $state, cardpoollist, $uibModal,addcard,unused
     //自助激活
     $scope.active = function(poolcode){
 
-    	getcardno.save({'pool_code':poolcode}, function(cardres){
-            if (cardres.errcode !== 0) {
-                alert(cardres.errmsg);
-                return;
-	        }
-    		insertActiveCard.save({'startcardno':cardres.data.min,'endcardno':cardres.data.max}, function(res){
-	            if (res.errcode !== 0) {
-	                alert(res.errmsg);
+    	if (confirm("您确认要自动激活吗？")) {
+	    	getcardno.save({'pool_code':poolcode}, function(cardres){
+	            if (cardres.errcode !== 0) {
+	                alert(cardres.errmsg);
+	                return;
 		        }
+		        for(var i=0; i<cardres.data.length; i++) {
+		        	insertActiveCard.save({'startcardno':cardres.data[i].card_num,'endcardno':cardres.data[i].card_num}, function(res){
+			            if (res.errcode !== 0) {
+			                alert(res.errmsg);
+				        }
+			        });
+		        }
+	    		
+		    	alert("激活成功");
 	        });
-	    	alert("激活成功");
-        });
+        }
 
     }
 };

@@ -20,7 +20,7 @@ var service = function($resource, BASEURL38985){
     // 自动激活
     var insertActiveCard = BASEURL38985 + '/api/uc/cdc/userActiveService/insertActiveCard';
     // 获取卡段
-    var getcardno = BASEURL38985 + '/api/us/cdc/cardpooldao/getcardno';
+    var getcardno = BASEURL38985 + '/api/us/cdc/cardpooldao/getcardnolist';
     // 卡池列表
     var cardpoollist = BASEURL38985 + '/api/as/cdc/cardpooldao/findpoollist';
     // 删除卡
