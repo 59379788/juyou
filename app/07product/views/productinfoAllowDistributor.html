@@ -13,8 +13,8 @@
 				<tr ng-repeat="data in dataArray">
 					<td class="text-center">{{data.company_name}}</td>
 					<td class="text-center">{{data.seller_code}}</td>
-					<td class="text-center bg-success" ng-if="data.state == '1'">生效</td>
-					<td class="text-center bg-danger" ng-if="data.state == '0'">失效</td>
+					<td class="text-center bg-success" ng-if="data.state == '1'">失效</td>
+					<td class="text-center bg-danger" ng-if="data.state == '0'">生效</td>
 				</tr>
 			</tbody>
 		</table>
