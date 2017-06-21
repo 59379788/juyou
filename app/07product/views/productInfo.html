@@ -123,6 +123,24 @@
 			</div>
 		</div>
 
+		<div index="10" heading="允许经销商" ng-if="saleobj.id !== '' && saleobj.sale_target_type == '1'">
+			<div class="panel panel-default">
+				<div class="panel-heading">允许经销商</div>
+				<div class="panel-body">
+					<productinfo-allow-distributor saleobj="saleobj" util="util"></productinfo-allow-distributor>
+				</div>
+			</div>
+		</div>
+
+		<div index="11" heading="不允许经销商" ng-if="saleobj.id !== '' && saleobj.sale_target_type == '0'">
+			<div class="panel panel-default">
+				<div class="panel-heading">不允许经销商</div>
+				<div class="panel-body">
+					<productinfo-no-allow-distributor saleobj="saleobj" util="util"></productinfo-no-allow-distributor>
+				</div>
+			</div>
+		</div>
+
 		<div index="10" heading="审核" ng-if="util.auditing">
 			<div class="panel panel-default">
 				<div class="panel-heading">审核</div>

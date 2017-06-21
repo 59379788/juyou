@@ -64,6 +64,8 @@ App.directive('productinfogovsubsidy',require('./directives/productinfogovsubsid
 App.directive('productinfojuyousubsidy',require('./directives/productinfojuyousubsidy'));
 App.directive('productinfoPriceCalendar',require('./directives/productinfoPriceCalendar'));
 App.directive('productinfoPriceSetting',require('./directives/productinfoPriceSetting'));
+App.directive('productinfoAllowDistributor',require('./directives/productinfoAllowDistributor'));
+App.directive('productinfoNoAllowDistributor',require('./directives/productinfoNoAllowDistributor'));
 
 
 App.controller('skprofit',require('./controllers/skprofit'));

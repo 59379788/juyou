@@ -1,0 +1,23 @@
+<div class="container-fluid form-horizontal">
+	<div class="col-xs-12">
+
+		<table class="table table-bordered mt10">
+			<thead>
+				<tr>
+					<th class="col-md-4 text-center">经销商</th>
+					<th class="col-md-4 text-center">经销商编号</th>
+					<th class="col-md-4 text-center">状态</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="data in dataArray">
+					<td class="text-center">{{data.company_name}}</td>
+					<td class="text-center">{{data.seller_code}}</td>
+					<td class="text-center bg-success" ng-if="data.state == '1'">生效</td>
+					<td class="text-center bg-danger" ng-if="data.state == '0'">失效</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</div>
