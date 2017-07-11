@@ -56,6 +56,25 @@ var router = function ($urlRouterProvider, $stateProvider) {
 
 		})
 
+		//使用统计(运营商)
+		.state('app.usedStatistics', {
+			url: '/usedStatistics',
+			controller: 'usedStatistics',
+			template: require('./views/usedStatistics.html'),
+			resolve: {
+				getDate: function (utilservice) {
+					return utilservice.getDate;
+				},
+				DateDiff: function (utilservice) {
+					return utilservice.DateDiff;
+				},
+				str2date: function (utilservice) {
+					return utilservice.str2date;
+				}
+			}
+
+		})
+
 
 
 		.state('app.statisticssale', {

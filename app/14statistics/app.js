@@ -34,6 +34,7 @@ App.controller('statisticsdetail',require('./controllers/statisticsdetail'));
 App.controller('distributor',require('./controllers/distributor'));
 App.controller('staticonline',require('./controllers/staticonline'));
 App.controller('countByCompny',require('./controllers/countByCompny'));
+App.controller('usedStatistics',require('./controllers/usedStatistics'));
 
 
 module.exports = App;
