@@ -14,6 +14,8 @@ module.exports = function ($scope, $state, getDate, $uibModal, DateDiff, $resour
 		'gov': 0
 	};
 
+	$scope.quchongMap = {};
+
 	//有效区间
 	$scope.section = {};
 	$scope.section.start = {};
@@ -69,6 +71,11 @@ module.exports = function ($scope, $state, getDate, $uibModal, DateDiff, $resour
 						continue;
 					}
 					$scope.viewarr.push({ code: element.destory_view, name: element.place_name })
+					$scope.quchongMap[element.destory_view] = element.place_name;
+				}
+				for (var key in $scope.quchongMap) {
+					var element = $scope.quchongMap[key];
+					$scope.attrarr.push({ code: key, name: element})
 				}
 				calcTotal();
 			}
