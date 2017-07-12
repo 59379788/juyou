@@ -117,6 +117,7 @@ module.exports = function ($scope, $state, getDate, $uibModal, DateDiff, $resour
 
 	//计算统计
 	function calcTotal() {
+        $scope.totalUsed = 0;
 		for (var index = 0; index < $scope.objs.length; index++) {
 			var element = $scope.objs[index];
 			if (!$scope.viewcode || element.destory_view === $scope.viewcode) {

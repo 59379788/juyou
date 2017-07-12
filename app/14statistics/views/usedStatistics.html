@@ -4,19 +4,22 @@
 			<div class="form-group ">
 				<div class="row ">
 					<div class="col-sm-2">
-						<select class="form-control" ng-model="viewcode" 
-							ng-options="view.code as view.name for view in attrarr" ng-change="change(viewcode)">
+						<select class="form-control" ng-model="viewcode" ng-options="view.code as view.name for view in attrarr" ng-change="change(viewcode)">
                   			<option value=""> -- 全部景区 -- </option>
               			</select> &nbsp;&nbsp;&nbsp;&nbsp;
 					</div>
 					<div class="col-sm-2">
 						<div class="input-group">
-							<input type="text" placeholder="开始时间" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date" is-open="section.start.opened" datepicker-options="inlineOptions" ng-required="true" close-text="Close" ng-click="open(section.start)" readonly/>
+							<input type="text" placeholder="开始时间" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.start.date"
+							 is-open="section.start.opened" datepicker-options="inlineOptions" ng-required="true" close-text="Close" ng-click="open(section.start)"
+							 readonly/>
 						</div>
 					</div>
 					<div class="col-sm-2">
 						<div class="input-group">
-							<input type="text" placeholder="结束时间" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date" is-open="section.end.opened" datepicker-options="inlineOptions" ng-required="true" close-text="Close" ng-click="open(section.end)" readonly/>
+							<input type="text" placeholder="结束时间" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="section.end.date"
+							 is-open="section.end.opened" datepicker-options="inlineOptions" ng-required="true" close-text="Close" ng-click="open(section.end)"
+							 readonly/>
 						</div>
 					</div>
 					<div class="col-sm-2 pull-right">
@@ -31,28 +34,35 @@
 		</div>
 	</div>
 
-
-	<table class="table table-bordered" id="Excel_table">
-		<thead>
-			<tr>
-				<th class="col-md-2 text-center">时间</th>
-				<th class="col-md-2 text-center">使用景区</th>
-				<th class="col-md-3 text-center">产品名称</th>
-				<th class="col-md-4 text-center">票名称</th>
-				<th class="col-md-1 text-center">使用数量</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="obj in objs | filter:myFilter">
-				<td class="text-center">{{obj.date}}</td>
-				<td class="text-center">{{obj.place_name}}</td>
-				<td class="text-center">{{obj.sale_name}}</td>
-				<td class="text-center">{{obj.ticket_type_name}}</td>
-				<td class="text-center">{{obj.used}}</td>
-			</tr>
-		</tbody>
-	</table>
-	<div class="pull-right">总计: {{totalUsed}}</div>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<table class="table table-bordered" id="Excel_table">
+				<thead>
+					<tr>
+						<th class="col-md-2 text-center">时间</th>
+						<th class="col-md-2 text-center">使用景区</th>
+						<th class="col-md-3 text-center">产品名称</th>
+						<th class="col-md-4 text-center">票名称</th>
+						<th class="col-md-1 text-center">使用数量</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="obj in objs | filter:myFilter">
+						<td class="text-center">{{obj.date}}</td>
+						<td class="text-center">{{obj.place_name}}</td>
+						<td class="text-center">{{obj.sale_name}}</td>
+						<td class="text-center">{{obj.ticket_type_name}}</td>
+						<td class="text-center">{{obj.used}}</td>
+					</tr>
+					<tr>
+						<td colspan="5" align="right">
+							总计: {{totalUsed}}
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 
 
 </div>
