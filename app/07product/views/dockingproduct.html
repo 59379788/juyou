@@ -1,8 +1,41 @@
 <div class="col-sm-12 mt20">
 
+	<div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-sm-12">
+                <div class="row ">
 
+                    <div class="col-sm-2">
+                        <ui-select ng-model="searchform.dockingSystem" theme="bootstrap" ng-change="load()">
+                            <ui-select-match placeholder="请选择对接系统">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="item.code as item in dockingList | filter: $select.search">
+                                <span ng-bind-html="item.name | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+<!-- 
+                    <div class="col-sm-2 pull-rihgt">
+                        <button class="btn btn-block btn-info" ng-click="load()">搜索</button>
+                    </div> -->
 
-	<table class="table table-hover table-bordered">
+                </div>
+            </div>
+        </div>
+	</div>
+	
+	<!--  小径网络  -->
+	<div ng-if="searchform.dockingSystem === 0">
+		<supply-xiaojing change-state="changeState"></supply-xiaojing>
+	</div>
+	
+	<!--  自我游  -->
+	<div ng-if="searchform.dockingSystem === 1">
+		<supply-ziwoyou change-state="changeState"></supply-ziwoyou>
+	</div>
+
+	<!-- <table class="table table-hover table-bordered">
 		<thead>
 			<tr>
 				<th class="col-md-2 text-center">景区编码</th>
@@ -17,36 +50,32 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="obj in objs">
-			    <td class="text-center">
-					 {{obj.ParkCode}}
+				<td class="text-center">
+					{{obj.ParkCode}}
 				</td>
 				<td class="text-center">
 					{{obj.ProductCode}}
 				</td>
 				<td class="text-center">
-				    {{obj.ProductID}}
+					{{obj.ProductID}}
 				</td>
 				<td class="text-center">
-                    {{obj.ProductName}}
+					{{obj.ProductName}}
 				</td>
-                <td class="text-center">
+				<td class="text-center">
 					{{obj.ProductPrice}}
 				</td>
 				<td class="text-center">
-					 {{obj.ProductSellPrice}}
+					{{obj.ProductSellPrice}}
 				</td>
-				<td class="text-center" >
-					 {{obj.flag}}
-				</td>
-			
 				<td class="text-center">
-
+					{{obj.flag}}
+				</td>
+				<td class="text-center">
 					<a ng-click="info(obj)" class="btn btn-info btn-xs">详情</a>
-					
 				</td>
 			</tr>
 		</tbody>
-	</table>
-
+	</table> -->
 
 </div>

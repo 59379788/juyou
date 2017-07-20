@@ -1,44 +1,37 @@
 <div class="container-fluid form-horizontal">
-				
-	<div class="col-xs-10 mt10" >
+
+	<div class="col-xs-10 mt10">
 		<div class="form-group">
 			<label class="col-xs-2 control-label">确认项</label>
 			<div class="col-xs-10">
-				<select class="form-control" 
-				ng-model="affirm.sysaffirm_target_code" ng-disabled="util.what == 'info'"
-				ng-options="ticket_sys_affirm.value as ticket_sys_affirm.label for ticket_sys_affirm in page.affirmlist"
-	            >
+				<select class="form-control" ng-model="affirm.sysaffirm_target_code" ng-disabled="util.what == 'info'" ng-options="ticket_sys_affirm.value as ticket_sys_affirm.label for ticket_sys_affirm in page.affirmlist">
 	            </select>
 			</div>
 		</div>
 	</div>
 
 	<!-- 红海滩廊道需要的内容 -->
-	<div class="col-xs-10" 
-		ng-show="affirm.sysaffirm_target_code == 'langdao' 
+	<div class="col-xs-10" ng-show="affirm.sysaffirm_target_code == 'langdao' 
 		|| affirm.sysaffirm_target_code == 'huaxiapiaolian' 
 		|| affirm.sysaffirm_target_code == 'royaloc' 
 		|| affirm.sysaffirm_target_code.indexOf('supply_tstc') == 0 ">
 		<div class="form-group">
 			<label class="col-xs-2 control-label">商品id</label>
 			<div class="col-xs-10">
-				<input type="text" class="form-control"
-				ng-model="affirm.sysaffirm_target_goods_code"  ng-disabled="util.what == 'info'"
-				>
+				<input type="text" class="form-control" ng-model="affirm.sysaffirm_target_goods_code" ng-disabled="util.what == 'info'">
 			</div>
 		</div>
 	</div>
 
 
 	<!-- 红海滩廊道需要的内容 -->
-	<div class="col-xs-10" 
-		ng-show="affirm.sysaffirm_target_code == 'langdao' 
+	<div class="col-xs-10" ng-show="affirm.sysaffirm_target_code == 'langdao' 
 		|| affirm.sysaffirm_target_code == 'huaxiapiaolian'
 		|| affirm.sysaffirm_target_code == 'royaloc'  ">
 		<div class="form-group">
 			<label class="col-xs-2 control-label">退票类别</label>
 			<div class="col-xs-10">
-		    	<label class="radio-inline">
+				<label class="radio-inline">
 				  <input type="radio" name="sysaffirm_target_goods_back_type" value="0"
 				  ng-model="affirm.sysaffirm_target_goods_back_type" ng-disabled="util.what == 'info'"
 				  > 不限制
@@ -48,17 +41,16 @@
 				  ng-model="affirm.sysaffirm_target_goods_back_type" ng-disabled="util.what == 'info'"
 				  > 只能退最大可用数量
 				</label>
-		    </div>
+			</div>
 		</div>
 	</div>
-	<div class="col-xs-10" 
-		ng-show="affirm.sysaffirm_target_code == 'langdao' 
+	<div class="col-xs-10" ng-show="affirm.sysaffirm_target_code == 'langdao' 
 		|| affirm.sysaffirm_target_code == 'huaxiapiaolian'
 		|| affirm.sysaffirm_target_code == 'royaloc'  ">
 		<div class="form-group">
 			<label class="col-xs-2 control-label">成人/儿童</label>
 			<div class="col-xs-10">
-		    	<label class="radio-inline">
+				<label class="radio-inline">
 				  <input type="radio" name="sysaffirm_target_goods_child_flag" value="0"
 				  ng-model="affirm.sysaffirm_target_goods_child_flag" ng-disabled="util.what == 'info'"
 				  > 成人
@@ -68,56 +60,44 @@
 				  ng-model="affirm.sysaffirm_target_goods_child_flag" ng-disabled="util.what == 'info'"
 				  > 儿童
 				</label>
-		    </div>
+			</div>
 		</div>
 	</div>
-	
+
 	<!-- 票付通 -->
-	<div class="col-xs-10" 
-		ng-show="affirm.sysaffirm_target_code == 'supply_piaofutong'">
+	<div class="col-xs-10" ng-show="affirm.sysaffirm_target_code == 'supply_piaofutong'">
 		<div class="form-group">
 			<label class="col-xs-2 control-label">商品id</label>
 			<div class="col-xs-10">
-				<input type="text" class="form-control"
-				ng-model="affirm.sysaffirm_target_goods_code"  ng-disabled="util.what == 'info'"
-				>
+				<input type="text" class="form-control" ng-model="affirm.sysaffirm_target_goods_code" ng-disabled="util.what == 'info'">
 			</div>
 			<br/>
 			<br/>
 			<label class="col-xs-2 control-label">商品景区id</label>
 			<div class="col-xs-10">
-				<input type="text" class="form-control"
-				ng-model="affirm.sysaffirm_target_goods_view"  ng-disabled="util.what == 'info'"
-				>
+				<input type="text" class="form-control" ng-model="affirm.sysaffirm_target_goods_view" ng-disabled="util.what == 'info'">
 			</div>
 			<br/>
-			<br/>			
+			<br/>
 			<label class="col-xs-2 control-label">商品供应商id</label>
 			<div class="col-xs-10">
-				<input type="text" class="form-control"
-				ng-model="affirm.sysaffirm_target_goods_supply"  ng-disabled="util.what == 'info'"
-				>
+				<input type="text" class="form-control" ng-model="affirm.sysaffirm_target_goods_supply" ng-disabled="util.what == 'info'">
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 同程旅游 -->
-	<div class="col-xs-10" 
-		ng-show="affirm.sysaffirm_target_code == 'supply_tongchenglvyou'">
+	<div class="col-xs-10" ng-show="affirm.sysaffirm_target_code == 'supply_tongchenglvyou'">
 		<div class="form-group">
 			<label class="col-xs-2 control-label">商品id</label>
 			<div class="col-xs-10">
-				<input type="text" class="form-control"
-				ng-model="affirm.sysaffirm_target_goods_code"  ng-disabled="util.what == 'info'"
-				>
+				<input type="text" class="form-control" ng-model="affirm.sysaffirm_target_goods_code" ng-disabled="util.what == 'info'">
 			</div>
 			<br/>
 			<br/>
 			<label class="col-xs-2 control-label">商品景区id</label>
 			<div class="col-xs-10">
-				<input type="text" class="form-control"
-				ng-model="affirm.sysaffirm_target_goods_view"  ng-disabled="util.what == 'info'"
-				>
+				<input type="text" class="form-control" ng-model="affirm.sysaffirm_target_goods_view" ng-disabled="util.what == 'info'">
 			</div>
 			<!--<br/>
 			<br/>			
@@ -129,16 +109,13 @@
 			</div>-->
 		</div>
 	</div>
-	
+
 	<!-- 智游宝 -->
-	<div class="col-xs-10" 
-		ng-show="affirm.sysaffirm_target_code == 'supply_zhiyoubao'">
+	<div class="col-xs-10" ng-show="affirm.sysaffirm_target_code == 'supply_zhiyoubao'">
 		<div class="form-group">
 			<label class="col-xs-2 control-label">商品id</label>
 			<div class="col-xs-10">
-				<input type="text" class="form-control"
-				ng-model="affirm.sysaffirm_target_goods_code"  ng-disabled="util.what == 'info'"
-				>
+				<input type="text" class="form-control" ng-model="affirm.sysaffirm_target_goods_code" ng-disabled="util.what == 'info'">
 			</div>
 			<br/>
 			<br/>
@@ -158,46 +135,62 @@
 			</div>-->
 		</div>
 	</div>
-	
+
 	<!-- 小径网络 -->
-	<div class="col-xs-10" 
-		ng-show="affirm.sysaffirm_target_code == 'supply_xiaojing'">
+	<div class="col-xs-10" ng-show="affirm.sysaffirm_target_code == 'supply_xiaojing'">
 		<div class="form-group">
 			<label class="col-xs-2 control-label">景区编码</label>
 			<div class="col-xs-10">
-				<input type="text" class="form-control"
-				ng-model="affirm.sysaffirm_target_goods_code"  ng-disabled="util.what == 'info'"
-				>
+				<input type="text" class="form-control" ng-model="affirm.sysaffirm_target_goods_code" ng-disabled="util.what == 'info'">
 			</div>
 			<br/>
 			<br/>
 			<label class="col-xs-2 control-label">门票编码</label>
 			<div class="col-xs-10">
-				<input type="text" class="form-control"
-				ng-model="affirm.sysaffirm_target_goods_view"  ng-disabled="util.what == 'info'"
-				>
+				<input type="text" class="form-control" ng-model="affirm.sysaffirm_target_goods_view" ng-disabled="util.what == 'info'">
 			</div>
 			<br/>
-			<br/>			
+			<br/>
 			<label class="col-xs-2 control-label">门票ID</label>
 			<div class="col-xs-10">
-				<input type="text" class="form-control"
-				ng-model="affirm.sysaffirm_target_goods_supply"  ng-disabled="util.what == 'info'"
-				>
+				<input type="text" class="form-control" ng-model="affirm.sysaffirm_target_goods_supply" ng-disabled="util.what == 'info'">
 			</div>
 		</div>
 	</div>
 
-	<div class="col-xs-10"  ng-if="(saleobj.state == '0' || saleobj.state == '2') && (util.what != 'info')">
+	<!-- 自我游 -->
+	<div class="col-xs-10" ng-show="affirm.sysaffirm_target_code == 'supply_ziwoyou'">
+		<div class="form-group">
+			<label class="col-xs-2 control-label">产品ID</label>
+			<div class="col-xs-10">
+				<input type="text" class="form-control" ng-model="affirm.sysaffirm_target_goods_code">
+			</div>
+			<br/>
+			<br/>
+			<label class="col-xs-2 control-label">预订必须信息</label>
+			<div class="col-xs-10">
+				<input type="text" class="form-control" placeholder="例如 link_man,link_phone" ng-model="affirm.sysaffirm_target_goods_view">
+			</div>
+			<br/>
+			<br/>
+			<label class="col-xs-2 control-label">客人资料要求</label>
+			<div class="col-xs-10">
+				<select class="form-control" ng-model="affirm.sysaffirm_target_goods_supply">
+					<option value="0">0</option>
+					<option value="1">1</option>
+	            </select>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-xs-10" ng-if="(saleobj.state == '0' || saleobj.state == '2') && (util.what != 'info')">
 		<div class="form-group">
 			<label class="col-sm-2 col-xs-12 control-label"></label>
 			<div class="col-sm-10 col-xs-12">
-				<button type="button" class="btn btn-primary btn-lg btn-block"
-				ng-click="save()"
-				>保存</button>
+				<button type="button" class="btn btn-primary btn-lg btn-block" ng-click="save()">保存</button>
 			</div>
 		</div>
 	</div>
 
-		
+
 </div>

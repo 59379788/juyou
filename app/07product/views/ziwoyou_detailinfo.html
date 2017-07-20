@@ -1,0 +1,617 @@
+<style type="text/css">
+    form.tab-form-demo .tab-pane {
+        margin: 20px 20px;
+    }
+
+    .custom-panel {
+        margin-bottom: 0px;
+    }
+</style>
+
+<div class="panel panel-primary custom-panel">
+    <div class="panel-heading text-center">
+        <font face="Courier" class="" size="5">对接产品详情</font>
+    </div>
+    <div class="panel-body">
+        <div heading="基本信息">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="container-fluid form-horizontal">
+                        <div class="col-xs-12 col-md-12 mt10">
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">产品ID</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.productNo}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">产品ID</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">产品名称</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.productName}}</p>
+                                </div>
+
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">产品名称</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">票种</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.ticketTypeName}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">票种</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-3 col-xs-12 control-label">产品包含成人数</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.peopleNum}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">产品包含成人数</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">产品包含儿童数</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.childrenNum}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">产品包含儿童数</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">标志图</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <img src="{{obj.img}}" alt="标志图" style="width: 400px; height: 270px;">
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger"></font>
+                                </div>
+                            </div>
+
+                            <!-- <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">相关图片</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <img src="{{obj.imgs}}" alt="imgs">
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">多个图片以逗号分隔开</font>
+                                </div>
+                            </div> -->
+
+                            <div class="form-group">
+
+                                <label class="col-sm-3 col-xs-12 control-label">支付方式</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.isOnlinepay}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">1 在线支付（预付），0 酒店前台现付（返佣）</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">客人资料要求</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.isSingle}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">
+                                        1 要求输入每个客人资料 <br />
+                                        0 只需要输入一个客人资料 <br />
+                                        (本字段为1 则&lt;people&gt;节点必填)
+                                    </font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-3 col-xs-12 control-label">最早游玩日期</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.startDate}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">最早游玩日期</font>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label class="col-sm-3 col-xs-12 control-label">自我游产品类型</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.treeId}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">0 门票，1 套餐</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">景点名称</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.viewName}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">景点名称</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-3 col-xs-12 control-label">景点地址</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.viewAddress}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">景点地址</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">景点所在地</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.cityName}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">景点所在地</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-3 col-xs-12 control-label">景点编号</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.viewId}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">景点编号</font>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <label class="col-sm-3 col-xs-12 control-label">分销价</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.SettlementPrice}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">分销价</font>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">折扣价</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.cutPrice}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">折扣价</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">零售价</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.salePrice}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">零售价</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">市场价</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.marketPrice}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">市场价</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">最低预订产品数量</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.startNum}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">0 表示不限制</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">是否支持快递配送</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.isExpress}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">1 支持，0 不支持</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">快递费用</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.expressPrice}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">快递费用</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">推荐理由</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.topReason}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">推荐理由</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">是否支持免费配送方式</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.isFree}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">1 支持，0 不支持</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">几点之前预定</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.startTime}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">MM:SS</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">预订后多少分钟生效</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.startMinute}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">预订后多少分钟生效</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">多少分钟不支付自动取消</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.payMinute}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">多少分钟不支付自动取消</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">在游玩日期前多少天可以退款</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.cancelDay}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">
+                                        值为 0 表示不能退；<br />
+                                        值为正数，表示游玩日期前多少天可以退；<br />
+                                        值为负数，表示游玩日期后多少天以内可以退<br />
+                                    </font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">有效期限制</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.validityType}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">
+                                        0：游客选定的游玩日期当天有效<br />
+                                        1：游客预订日期延后几天有效<br />
+                                        2：游客预订日期截止到指定日期有效<br />
+                                        3：游客选定日期延后几天有效<br />
+                                        4：游客选定日期截止到指定日期有效<br />
+                                    </font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">有效期限制具体天数或日期</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.validityCon}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">格式为 yyyy-MM-dd 或者数字</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">提前多少天预定</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.startDay}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">提前多少天预定</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">免费配说明</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.distributionDesc}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">
+                                        需要配送并且支持支持免费配送的产<br />
+                                        品，该字段才可能有值<br />
+                                    </font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">预订详细说明</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static" ng-bind-html="obj.orderDesc"></p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger"></font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">营业时间说明</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.businessHours}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">营业时间说明</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">产品人群要求</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static" ng-bind-html="obj.peoples"></p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">产品人群要求</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">价格开始时间</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.priceStartDate}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">格式为 yyyy-MM-dd</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">价格结束时间</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.priceEndDate}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">格式为 yyyy-MM-dd</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">预订说明</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static" ng-bind-html="obj.orderPolicy"></p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">预订说明</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">产品介绍</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static" ng-bind-html="obj.content"></p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">产品介绍</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">客人预订需要填写的信息</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.custField}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">
+                                        link_man: 联系人姓名必填 <br />
+                                        link_phone: 联系人电话必填 <br />
+                                        link_email: 联系人email必填 <br />
+                                        link_address: 快递地址必填 <br />
+                                        linkCode: 邮政编码必填 <br />
+                                        link_credit_type: 联系人证件类型必填 <br />
+                                        link_credit_no: 联系人证件号码必填 <br />
+                                    </font>
+                                </div>
+                            </div>
+<!-- 
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">产品是否有增值项目</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.isConds}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">产品是否有增值项目</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">预订后多少分钟生效</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.startMinute}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">预订后多少分钟生效</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">预订后多少分钟生效</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.startMinute}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">预订后多少分钟生效</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">预订后多少分钟生效</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.startMinute}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">预订后多少分钟生效</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">预订后多少分钟生效</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.startMinute}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">预订后多少分钟生效</font>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 col-xs-12 control-label">预订后多少分钟生效</label>
+                                <div class="col-sm-3 col-xs-12">
+                                    <p class="form-control-static">{{obj.startMinute}}</p>
+                                </div>
+                                <div class="col-sm-1 mt10">
+                                </div>
+                                <div class="col-sm-5 mt10">
+                                    <font face="Courier" class="text-danger">预订后多少分钟生效</font>
+                                </div>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

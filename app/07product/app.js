@@ -8,7 +8,8 @@ var App = angular.module('product', []);
 App.config(require('./router'));
 App.factory('productservice', require('./service'));
 
-App.controller('detailinfo',require('./controllers/detailinfo'));
+App.controller('xiaojing_detailinfo',require('./controllers/xiaojing_detailinfo'));
+App.controller('ziwoyou_detailinfo',require('./controllers/ziwoyou_detailinfo'));
 App.controller('dockingproduct',require('./controllers/dockingproduct'));
 App.controller('tkttype',require('./controllers/tkttype'));
 App.controller('tkttypecreate',require('./controllers/tkttypecreate'));
@@ -80,5 +81,7 @@ App.directive('appointBaseinfo',require('./directives/appointmentbaseinfo'));
 App.directive('appointScreening',require('./directives/appointmentscreening'));
 App.directive('appointTicket',require('./directives/appointmentticket'));
 App.controller('customerList',require('./controllers/customerlist'));
+App.directive('supplyXiaojing',require('./directives/supply_xiaojing'));
+App.directive('supplyZiwoyou',require('./directives/supply_ziwoyou'));
 
 module.exports = App;

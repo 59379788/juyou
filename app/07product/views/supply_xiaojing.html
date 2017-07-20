@@ -1,0 +1,46 @@
+<div class="col-sm-12 mt20">
+
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th class="col-md-2 text-center">景区编码</th>
+				<th class="col-md-2 text-center">门票编码</th>
+				<th class="col-md-2 text-center">门票ID</th>
+				<th class="col-md-2 text-center">门票名称</th>
+				<th class="col-md-1 text-center">门票单价<br>（结算价）</th>
+				<th class="col-md-1 text-center">售卖价</th>
+				<th class="col-md-1 text-center">周期价格</th>
+				<th class="col-md-1 text-center">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="obj in objs">
+				<td class="text-center">
+					{{obj.ParkCode}}
+				</td>
+				<td class="text-center">
+					{{obj.ProductCode}}
+				</td>
+				<td class="text-center">
+					{{obj.ProductID}}
+				</td>
+				<td class="text-center">
+					{{obj.ProductName}}
+				</td>
+				<td class="text-center">
+					{{obj.ProductPrice}}
+				</td>
+				<td class="text-center">
+					{{obj.ProductSellPrice}}
+				</td>
+				<td class="text-center">
+					{{obj.flag}}
+				</td>
+				<td class="text-center">
+					<a ng-click="info(obj)" class="btn btn-info btn-xs">详情</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
