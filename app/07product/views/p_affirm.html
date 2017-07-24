@@ -175,21 +175,23 @@
 			<br/>
 			<label class="col-xs-2 control-label">客人资料要求</label>
 			<div class="col-xs-10">
-				<select class="form-control" ng-model="affirm.sysaffirm_target_goods_supply">
+				<label class="radio-inline">
+				  <input type="radio" name="sysaffirm_target_goods_supply" value="0"
+				  ng-model="affirm.sysaffirm_target_goods_supply" 
+				  > 0
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="sysaffirm_target_goods_supply" value="1"
+				  ng-model="affirm.sysaffirm_target_goods_supply" 
+				  > 1
+				</label>
+				<!-- <select class="form-control" ng-model="affirm.sysaffirm_target_goods_supply">
 					<option value="0">0</option>
 					<option value="1">1</option>
-	            </select>
+	            </select> -->
 			</div>
 			<br/>
 			<br/>
-			<label class="col-xs-2 control-label">退票类型</label>
-			<div class="col-xs-10">
-				<select class="form-control" ng-model="affirm.sysaffirm_target_goods_back_type">
-					<option value="0">部分</option>
-					<option value="1">整单</option>
-					<option value="2">不支持退票</option>
-	            </select>
-			</div>
 		</div>
 	</div>
 
