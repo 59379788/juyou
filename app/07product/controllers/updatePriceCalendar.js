@@ -44,7 +44,8 @@ module.exports = function ($scope, $state, $resource, $stateParams, $uibModalIns
                 market_price: $scope.saleobj.market_price,
                 guide_price: $scope.saleobj.guide_price,
                 cost_price: $scope.saleobj.cost_price,
-                purchase_price: $scope.saleobj.purchase_price
+                purchase_price: $scope.saleobj.purchase_price,
+                current_stock_num: $scope.saleobj.current_stock_num
             });
         }
         para.daylist = result;

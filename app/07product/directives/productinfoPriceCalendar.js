@@ -195,6 +195,11 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
                     position: 'left',
                     before: '<font color=green >采购价格: ¥</font>'
                 },
+                {
+                    key: 'current_stock_num_display',
+                    position: 'left',
+                    before: '<font color=red >库存: ¥</font>'
+                }
             ];
 
             //日期转换
@@ -227,10 +232,12 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
                             element.guide_price_display = '<font color=green >' + res.data.daylist[index].guide_price + '</font>';
                             element.cost_price_display = '<font color=red >' + res.data.daylist[index].cost_price + '</font>';
                             element.purchase_price_display = '<font color=green >' + res.data.daylist[index].purchase_price + '</font>';
+                            element.current_stock_num_display = '<font color=green >' + res.data.daylist[index].current_stock_num + '</font>';
                             element.market_price = res.data.daylist[index].market_price;
                             element.guide_price =  res.data.daylist[index].guide_price;
                             element.cost_price = res.data.daylist[index].cost_price;
                             element.purchase_price = res.data.daylist[index].purchase_price;
+                            element.current_stock_num = res.data.daylist[index].current_stock_num;
                             scope.data[index] = element;
                         }
                         scope.loadupdate();
