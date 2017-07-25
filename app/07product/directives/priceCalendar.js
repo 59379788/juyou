@@ -311,7 +311,7 @@ module.exports = function ($state, $resource, toaster, $uibModal) {
                             element.guide_price_display = '<font color=green >' + res.data.daylist[index].guide_price + '</font>';
                             element.cost_price_display = '<font color=red >' + res.data.daylist[index].cost_price + '</font>';
                             element.purchase_price_display = '<font color=green >' + res.data.daylist[index].purchase_price + '</font>';
-                            element.current_stock_num_display = '<font color=green >' + res.data.daylist[index].current_stock_num + '</font>';
+                            element.current_stock_num_display = '<font color=red >' + res.data.daylist[index].current_stock_num + '</font>';
                             element.market_price = res.data.daylist[index].market_price;
                             element.guide_price =  res.data.daylist[index].guide_price;
                             element.cost_price = res.data.daylist[index].cost_price;
