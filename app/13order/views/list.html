@@ -136,11 +136,13 @@
 				<th class="text-center">
 					<a ng-click="ticketlist(obj)" class="btn btn-success btn-xs">票信息</a>
 					<br>
-					<a ng-click="orderinfo(obj)" class="btn btn-info btn-xs" >订单详情</a>
+					<a ng-click="orderinfo(obj)" class="btn btn-info btn-xs" >订单{{obj.sale_belong}}详情</a>
 					<br>
 					<a ng-click="resend(obj)" class="btn btn-danger btn-xs" ng-show="obj.sale_belong != 'juyou' || (obj.ticket_state == '2' && obj.sms_state == '2')">重发短信</a>
 					<a ng-click="relay(obj)" class="btn btn-warning btn-xs" ng-show="obj.sale_belong != 'juyou' || (obj.ticket_state == '2' && obj.sms_state == '2')">转发短信</a>
-					<a ng-click="back(obj)" class="btn btn-primary btn-xs" ng-show="(obj.num > obj.back + obj.used) && ((obj.sale_belong != 'langdao' && obj.ticket_state == '2') || obj.ticket_state == '9') "
+					<a ng-if="obj.sale_belong == 'juyou'" ng-click="back(obj)" class="btn btn-primary btn-xs" ng-show="(obj.num > obj.back + obj.used) && ((obj.sale_belong != 'langdao' && obj.ticket_state == '2') || obj.ticket_state == '9') "
+						 >退多张票</a>
+					<a ng-if="obj.sale_belong != 'juyou'" ng-click="back(obj)" class="btn btn-primary btn-xs" ng-show="(obj.num > obj.back + obj.used) && ((obj.sale_belong != 'langdao' && obj.ticket_state == '2') || obj.ticket_state == '9') "
 						 has-permission='backTicket'
 						 >退多张票</a>
 					<!--<a ng-click="testBack(obj)" class="btn btn-primary btn-xs"
