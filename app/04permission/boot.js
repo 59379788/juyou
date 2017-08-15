@@ -1,71 +1,73 @@
-module.exports = function($){
+module.exports = function ($) {
 
-	var dlq = angular.element(document).ready(function() {
-    
-    $.ajax({
-      url: '/api/ac/sc/menuService/menulist',
-      type: "GET",
-      dataType: 'json'
-    }).then(function(res){
+	var dlq = angular.element(document).ready(function () {
 
-      //按钮显示权限
-      var permissions = new Array();
-      //菜单
-      var menudata = {};
+		$.ajax({
+			url: '/api/ac/sc/menuService/menulist',
+			type: "GET",
+			dataType: 'json'
+		}).then(function (res) {
 
-      if(res.errcode === 0)
-      {
-        menudata = res.data;
+			//按钮显示权限
+			var permissions = new Array();
+			//菜单
+			var menudata = {};
 
-        for(var i = 0; i < res.data.list.length; i++)
-        {
-          var tmp = res.data.list[i];
-          if(angular.isArray(tmp.list)){
-            for(var j = 0; j < tmp.list.length; j++)
-            {
-              var tmp1 = tmp.list[j];
-              if(tmp1.hasOwnProperty('permission'))
-              {
-                permissions.push(tmp1.permission)
-              }
-            }
-          }
-        }
+			if (res.errcode === 0) {
+				menudata = res.data;
 
-        angular.module('juyouApp').run(['$rootScope','$location','angularPermission', function($rootScope,$location,angularPermission){
+				for (var i = 0; i < res.data.list.length; i++) {
+					var tmp = res.data.list[i];
+					if (angular.isArray(tmp.list)) {
+						for (var j = 0; j < tmp.list.length; j++) {
+							var tmp1 = tmp.list[j];
+							if(tmp1.hasOwnProperty('permission') && tmp1.permission){
+								var permissionArr = [];
+								var permissionArr = tmp1.permission.split(',');
+								for (var index = 0; index < permissionArr.length; index++) {
+									var element = permissionArr[index];
+									permissions.push(element)
+								}
+								// permissions.push(tmp1.permission)
+							}
+						}
+					}
+				}
 
-          $rootScope.menudata = menudata;
+				console.log('permissions')
+				console.log(permissions)
 
-          $rootScope.userPermissionList = permissions;
+				angular.module('juyouApp').run(['$rootScope', '$location', 'angularPermission', function ($rootScope, $location, angularPermission) {
 
-          angularPermission.setPermissions($rootScope.userPermissionList);
+					$rootScope.menudata = menudata;
 
-        }]);
+					$rootScope.userPermissionList = permissions;
 
-        angular.bootstrap(document, ['juyouApp']);
+					angularPermission.setPermissions($rootScope.userPermissionList);
 
-      //  console.log(menudata);
-      }
-      else if(res.errcode === 1001)
-      {
-        console.log(res);
+				}]);
 
-        console.log('12123123213123');
-        window.location = "/manager/login";
-      }
-      else if(res.errcode === 1002)
-      {
-        alert('无菜单权限');
-        window.location = "/manager/login";
-      }
-      else
-      {
-        console.log(res);
-        alert(res.errmsg);
-        //window.location = "/manager/login";
-      }
+				angular.bootstrap(document, ['juyouApp']);
 
-    });
-  });
+				//  console.log(menudata);
+			}
+			else if (res.errcode === 1001) {
+				console.log(res);
+
+				console.log('12123123213123');
+				window.location = "/manager/login";
+			}
+			else if (res.errcode === 1002) {
+				alert('无菜单权限');
+				window.location = "/manager/login";
+			}
+			else {
+				console.log(res);
+				alert(res.errmsg);
+				//window.location = "/manager/login";
+			}
+
+		});
+	});
 
 };
