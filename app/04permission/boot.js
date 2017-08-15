@@ -34,9 +34,6 @@ module.exports = function ($) {
 					}
 				}
 
-				console.log('permissions')
-				console.log(permissions)
-
 				angular.module('juyouApp').run(['$rootScope', '$location', 'angularPermission', function ($rootScope, $location, angularPermission) {
 
 					$rootScope.menudata = menudata;
