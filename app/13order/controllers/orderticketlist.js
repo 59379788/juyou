@@ -14,7 +14,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
     var fun;
     var viewname = '';
 
-    if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong.indexOf('supply_tstc') == 0  ||  obj.sale_belong === 'supply_tongchenglvyou' || obj.sale_belong === 'supply_zhiyoubao' || obj.sale_belong === 'supply_xiaojing' || obj.sale_belong === 'supply_ziwoyou')
+    if(obj.sale_belong === 'juyou' || obj.sale_belong.indexOf('supply_piaofutong') == 0 ||  obj.sale_belong.indexOf('supply_tstc') == 0  ||  obj.sale_belong === 'supply_tongchenglvyou' || obj.sale_belong === 'supply_zhiyoubao' || obj.sale_belong === 'supply_xiaojing' || obj.sale_belong === 'supply_ziwoyou')
     {
         fun = ticketlist;
     }
@@ -63,7 +63,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
                 }
 
                 var arr = [];
-                if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong.indexOf('supply_tstc') == 0  ||  obj.sale_belong === 'supply_tongchenglvyou' || obj.sale_belong === 'supply_zhiyoubao' || obj.sale_belong === 'supply_xiaojing' || obj.sale_belong === 'supply_ziwoyou')
+                if(obj.sale_belong === 'juyou' || obj.sale_belong.indexOf('supply_piaofutong') == 0 ||  obj.sale_belong.indexOf('supply_tstc') == 0  ||  obj.sale_belong === 'supply_tongchenglvyou' || obj.sale_belong === 'supply_zhiyoubao' || obj.sale_belong === 'supply_xiaojing' || obj.sale_belong === 'supply_ziwoyou')
                 {
                     arr = res.data;
                 }
@@ -143,7 +143,7 @@ module.exports = function($scope, $uibModalInstance, ticketlist, createBackOrder
 
         console.log(obj1);
 
-        if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong.indexOf('supply_tstc') == 0  ||  obj.sale_belong === 'supply_tongchenglvyou' || obj.sale_belong === 'supply_zhiyoubao' || obj.sale_belong === 'supply_xiaojing' || obj.sale_belong === 'supply_ziwoyou')
+        if(obj.sale_belong === 'juyou' || obj.sale_belong.indexOf('supply_piaofutong') == 0 ||  obj.sale_belong.indexOf('supply_tstc') == 0  ||  obj.sale_belong === 'supply_tongchenglvyou' || obj.sale_belong === 'supply_zhiyoubao' || obj.sale_belong === 'supply_xiaojing' || obj.sale_belong === 'supply_ziwoyou')
         {
             juyouback(obj1);
         }

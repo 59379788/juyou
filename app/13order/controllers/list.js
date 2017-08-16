@@ -183,7 +183,7 @@ module.exports = function($scope, $state, list, ITEMS_PERPAGE, getDate,
         var fun;
 
         var para = {};
-        if(obj.sale_belong === 'juyou' || obj.sale_belong === 'supply_piaofutong' ||  obj.sale_belong.indexOf('supply_tstc') == 0  ||  obj.sale_belong === 'supply_tongchenglvyou' || obj.sale_belong === 'supply_zhiyoubao' || obj.sale_belong === 'supply_xiaojing' || obj.sale_belong === 'supply_ziwoyou')
+        if(obj.sale_belong === 'juyou' || obj.sale_belong.indexOf('supply_piaofutong') == 0 ||  obj.sale_belong.indexOf('supply_tstc') == 0  ||  obj.sale_belong === 'supply_tongchenglvyou' || obj.sale_belong === 'supply_zhiyoubao' || obj.sale_belong === 'supply_xiaojing' || obj.sale_belong === 'supply_ziwoyou')
         {
             fun = resend;
             para['code'] = obj.code;
