@@ -1,19 +1,48 @@
-module.exports = function($scope,  createmechanism, $uibModalInstance, create, createdeposit){
+module.exports = function($scope,  createmechanism, $uibModalInstance, create, createdeposit, $http){
 	$scope.ok = function () {
-	console.log($scope.name);
-        createmechanism.save({'name' : $scope.name}, {}, function(res){
-            console.log(res);
-            if(res.errcode === 0)
-            {
-                //alert(res.errmsg);
-                //$uibModalInstance.close();
-                _createdeposit(res.errmsg);
-            }
-            else
-            {
-              	alert(res.errmsg);
-            }
-        });
+    console.log($scope.name);
+    
+
+    // $http({
+    //        url:'http://dlqt.juyouhx.com/a/sys/office/ajaxsave',
+    //        method: 'POST',   
+    //        data: {'name' : $scope.name}
+    //       }).success(function(res){
+    //          console.log("11");
+    //       }).error(function(){
+    //        console.log("error");
+    //       });
+
+
+        $http({
+            url: '/a/sys/office/ajaxsave',
+            method: 'POST',
+            data: {'name' : $scope.name}
+            
+        }).then(function (res) {
+                 console.log('链接成功！');
+             });
+
+        // $http.post("http://dlqt.juyouhx.com/a/sys/office/ajaxsave")
+        // .then(function (res) {
+        //     console.log('链接成功！');
+        // })
+        // .catch(err => console.log(err));
+    
+
+        // createmechanism.save({'name' : $scope.name}, {}, function(res){
+        //     console.log(res);
+        //     if(res.errcode === 0)
+        //     {
+        //         //alert(res.errmsg);
+        //         //$uibModalInstance.close();
+        //         _createdeposit(res.errmsg);
+        //     }
+        //     else
+        //     {
+        //       	alert(res.errmsg);
+        //     }
+        // });
     };
 
     $scope.cancel = function () {
