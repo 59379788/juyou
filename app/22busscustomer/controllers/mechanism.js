@@ -36,15 +36,15 @@ module.exports = function ($scope, createmechanism, $uibModalInstance, create, c
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function (res) {
                 console.log(res);
-                if(res.errcode === 0)
+                if(res.data.errcode === 0)
                 {
                     //alert(res.errmsg);
                     //$uibModalInstance.close();
-                    _createdeposit(res.errmsg);
+                    _createdeposit(res.data.errmsg);
                 }
                 else
                 {
-                    alert(res.errmsg);
+                    alert(res.data.errmsg);
                 }
              });
 
