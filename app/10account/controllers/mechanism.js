@@ -1,7 +1,8 @@
 module.exports = function($scope,  createmechanism, $uibModalInstance, create, createdeposit){
 	$scope.ok = function () {
-	console.log($scope.name);
-        createmechanism.save({'name' : $scope.name}, {}, function(res){
+    console.log($scope.name);
+    //'name' : $scope.name
+        createmechanism.save({}, {'name' : $scope.name}, function(res){
             console.log(res);
             if(res.errcode === 0)
             {
