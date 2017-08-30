@@ -30,10 +30,10 @@ module.exports = function ($scope, createmechanism, $uibModalInstance, create, c
 
 
         $http({
-            url: '/api/as/tc/office/ajaxsave',
+            url: '/a/sys/office/ajaxsave',
             method: 'POST',
             data: 'name='+ $scope.name,
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function (res) {
                 console.log(res);
                 if(res.errcode === 0)
