@@ -29,6 +29,7 @@
 			<label class="col-sm-2 col-xs-12 control-label">库存类型</label>
 			<div class="col-sm-4 col-xs-12">
 				<p ng-if="saleobj.stock_type == '0'" class="form-control-static">不启用</p>
+				<p ng-if="saleobj.stock_type == '2'" class="form-control-static">每日库存</p>
 				<p ng-if="saleobj.stock_type == '1'" class="form-control-static">启用: &nbsp;{{saleobj.current_stock_num}}</p>
 				<!--<input type="radio" name="stock_type" value="0"
 				  ng-model="saleobj.stock_type" ng-disabled="true" 

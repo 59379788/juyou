@@ -36,7 +36,12 @@
 				  ng-model="saleobj.stock_type" ng-disabled="util.what == 'info'"
 				  > 启用
 				</label>
-				<div class="col-sm-6 col-xs-12 pull-right" ng-show="saleobj.stock_type == 1">
+				<label class="radio-inline">
+				  <input type="radio" name="stock_type" value="2"
+				  ng-model="saleobj.stock_type" ng-disabled="util.what == 'info'"
+				  > 每日库存
+				</label>
+				<div class="col-sm-3 col-xs-12 pull-right" ng-show="saleobj.stock_type == 1">
 					<input type="number" class="form-control" placeholder="预存数量" ng-disabled="util.what == 'info'" min='0' ng-model="saleobj.current_stock_num">
 				</div>
 			</div>
