@@ -41,6 +41,12 @@ module.exports = function($scope, $uibModalInstance, create,
             return;
         }
 
+        if($scope.obj.mobile === '')
+        {
+            alert('电话必填');
+            return;
+        }
+
         $scope.obj.roleIdList = [];
         angular.forEach(idobj, function (value, key) {
             $scope.obj.roleIdList.push(key)
