@@ -41,7 +41,7 @@ module.exports = function($scope, $uibModalInstance, create,
             return;
         }
 
-        if($scope.obj.mobile === '')
+        if(!$scope.obj.mobile)
         {
             alert('电话必填');
             return;
